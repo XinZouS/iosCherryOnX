@@ -172,7 +172,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     func registerButtonTapped(){
         let verifiCtl = VerificationController()
         verifiCtl.isRegister = 1
-        self.present(verifiCtl, animated: true)
+        navigationController?.pushViewController(verifiCtl, animated: true)
     }
     
     func setupKeyboardObserver(){

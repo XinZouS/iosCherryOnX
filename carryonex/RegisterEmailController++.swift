@@ -12,7 +12,7 @@ import UIKit
 extension RegisterEmailController: UITextFieldDelegate {
      func okButtonTapped(){
         let registerPasswordCtl = RegisterPasswordController()
-        self.present(registerPasswordCtl, animated: true)
+        navigationController?.pushViewController(registerPasswordCtl, animated: true)
     }
     
     func textViewDidBeginEditing(_ textView: UITextField) {

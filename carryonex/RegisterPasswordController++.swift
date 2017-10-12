@@ -11,8 +11,7 @@ import UIKit
 
 extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
-        let homePageCtl = HomePageController()
-        self.present(homePageCtl, animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func textViewDidBeginEditing(_ textView: UITextField) {

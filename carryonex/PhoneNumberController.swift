@@ -20,7 +20,6 @@ var flagsTitle : [String] = ["🇨🇳 +86", "🇺🇸  +1", "🇭🇰 852", "�
 
 
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
     var isPhoneNumValid: Bool = false
     var isUserAgree: Bool = false
     var isRegister = 0
@@ -152,7 +151,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
-        setupWechatButton()
+//        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
@@ -173,7 +172,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
         okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-//        setupDevelopButton()
+        setupDevelopButton()
     }
     private func setupDevelopButton(){
         view.addSubview(devBtn)
