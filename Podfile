@@ -85,7 +85,6 @@ target 'carryonex' do
   pod 'FBSDKLoginKit', '~> 4.22.1'
   pod 'FBSDKShareKit', '~> 4.22.1'
   
-  # WeChat sharing
-  pod 'WechatOpenSDK'
+  #UI design
   pod 'CircleMenu' 
 end
