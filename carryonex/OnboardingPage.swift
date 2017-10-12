@@ -10,7 +10,6 @@ import UIKit
 import paper_onboarding
 
 
-
 // https://github.com/Ramotion/paper-onboarding
 
 class OnboardingController : UIViewController {
