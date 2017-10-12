@@ -15,22 +15,31 @@ extension RegisterEmailController: UITextFieldDelegate {
         navigationController?.pushViewController(registerPasswordCtl, animated: true)
     }
     
-    func textViewDidBeginEditing(_ textView: UITextField) {
-        transparentView.isHidden = false
-        textView.becomeFirstResponder()
-    }
+//    public func textFieldDidEndEditing(_ textField: UITextField) {
+//        (textField as? ErrorTextField)?.isErrorRevealed = false
+//    }
+//    
+//    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        (textField as? ErrorTextField)?.isErrorRevealed = false
+//        return true
+//    }
+//    
+//    
+//    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        (textField as? ErrorTextField)?.isErrorRevealed = false
+//    }
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-        emailTextField.resignFirstResponder()
+        emailField.resignFirstResponder()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        
+
         guard let touch = touches.first else { return }
-        
+
         textFieldsInAllCellResignFirstResponder()
-        
+
     }
 }
