@@ -21,6 +21,5 @@ DerivedData
 
 #CocoaPods
 Pods
-!/Pods/ALCameraViewController
 !Podfile
-!Podfile.lock
+Podfile.lock
