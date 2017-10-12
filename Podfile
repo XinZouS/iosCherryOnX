@@ -87,7 +87,5 @@ target 'carryonex' do
   
   # WeChat sharing
   pod 'WechatOpenSDK'
-  pod 'FoldingCell'
   pod 'CircleMenu' 
-  pod "EasyPeasy"
 end
