@@ -190,15 +190,15 @@ extension HomePageController {
     
     
     func showUserInfoSideMenu(){
-//        
-//        let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
-////        navigationController?.pushViewController(userInfoVC, animated: true)
-//        // replace above by custimize transit animation:
-//        navigationItem.title = "  " //for change "< Back" as "<"
-//        pushViewFromLeftToRight(destVC: userInfoVC)
-//        
-//        // plan A: with slide-out menu
-//        //self.pageContainer?.toggleLeftPanel()
+        
+        let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//        navigationController?.pushViewController(userInfoVC, animated: true)
+        // replace above by custimize transit animation:
+        navigationItem.title = "  " //for change "< Back" as "<"
+        navigationController?.pushViewController(userInfoVC, animated: true)
+        
+        // plan A: with slide-out menu
+        //self.pageContainer?.toggleLeftPanel()
     }
     
     func showGiftController(){
@@ -206,8 +206,9 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-//        let waitingListCtl = WaitingListController()
-//        navigationController?.pushViewController(waitingListCtl, animated: true)
+        let layout = UICollectionViewFlowLayout()
+        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
+        navigationController?.pushViewController(ordersLogCtl, animated: true)
     }
     
 //    internal func switchUserType(){
