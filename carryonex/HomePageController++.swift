@@ -206,8 +206,8 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-        let waitingListCtl = WaitingListController()
-        navigationController?.pushViewController(waitingListCtl, animated: true)
+//        let waitingListCtl = WaitingListController()
+//        navigationController?.pushViewController(waitingListCtl, animated: true)
     }
     
 //    internal func switchUserType(){

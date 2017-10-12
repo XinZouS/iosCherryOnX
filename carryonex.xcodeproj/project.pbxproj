@@ -152,8 +152,6 @@
 		FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
-		FF61C5071F8BED230088365C /* WaitingListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61C5061F8BED230088365C /* WaitingListController.swift */; };
-		FF61C5091F8BF0E10088365C /* WaitingListCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61C5081F8BF0E10088365C /* WaitingListCellController.swift */; };
 		FFC56E8B1F8D53B90079B533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC56E891F8D53B90079B533 /* Main.storyboard */; };
 		FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */; };
 		FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */; };
@@ -1020,7 +1018,6 @@
 				66AC944E1F4E076900967693 /* UIPickerMenuView.swift in Sources */,
 				664C5F2F1F6C34DC00FE55FE /* String++.swift in Sources */,
 				669518201F60D0C100BFC37B /* WalletController++.swift in Sources */,
-				FF61C5071F8BED230088365C /* WaitingListController.swift in Sources */,
 				660F4F771F5718D900F4820D /* AddressController++.swift in Sources */,
 				667266661F6715700010FDEC /* CheckingAccount.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
@@ -1073,7 +1070,6 @@
 				660704E61F3CFB15000C09FD /* UserInfoViewController.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
-				FF61C5091F8BF0E10088365C /* WaitingListCellController.swift in Sources */,
 				66BB08301F487E3E00935950 /* ItemTypeListController.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,

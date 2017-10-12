@@ -39,7 +39,7 @@ extension OnboardingController: PaperOnboardingDelegate, PaperOnboardingDataSour
 //            ("CarryonEx_Wechat_Icon", "", " ", " ", "CarryonEx_Handbags", bgColor, textColor, descriptionColor, textFont, descriptionFont),
 //            ("CarryonEx_Weibo_Icon", "", " ", " ", "CarryonEx_Mail", bgColor, textColor, descriptionColor, textFont, descriptionFont)
 //        ][index]
-        return (bgImgString, "", " ", " ", "", bgColor, textColor, descriptionColor, textFont, descriptionFont)
+        return (bgImgString, "", " ", "", bgColor, textColor, descriptionColor, textFont, descriptionFont)
         
     }
     
