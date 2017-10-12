@@ -108,7 +108,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     lazy var okButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .lightGray // buttonColorBlue
-        b.setTitle("获取验证码", for: .normal)
+        b.setTitle("用户登入", for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         b.layer.cornerRadius = 5
         b.layer.masksToBounds = true
