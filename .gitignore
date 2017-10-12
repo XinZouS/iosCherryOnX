@@ -18,7 +18,10 @@ DerivedData
 *.xccheckout
 *.xcworkspace
 *.xcbkptlist
-*.xcuserstate
+
+UserInterfaceState.xcuserstate
+Breakpoints_v2.xcbkptlist
+
 !default.xcworkspace
 
 #CocoaPods
