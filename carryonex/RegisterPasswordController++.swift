@@ -21,8 +21,8 @@ extension RegisterPasswordController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-        passwordTextField.resignFirstResponder()
-        passwordConfirmTextField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        passwordConfirmField.resignFirstResponder()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
