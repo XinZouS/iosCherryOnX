@@ -309,8 +309,6 @@
 		FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressUS.plist; sourceTree = "<group>"; };
 		FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterEmailController++.swift"; sourceTree = "<group>"; };
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
-		FF61C5061F8BED230088365C /* WaitingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListController.swift; sourceTree = "<group>"; };
-		FF61C5081F8BF0E10088365C /* WaitingListCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListCellController.swift; sourceTree = "<group>"; };
 		FFC56E8A1F8D53B90079B533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/WechatOpenSDK/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 		665DE5021F3A59E4004DDB88 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FF61C5051F8BECFA0088365C /* WaitingList */,
 				66421C6F1F65E3E50034D9DC /* OnboardingPage.swift */,
 				66C975701F3E12F500450F37 /* HomePages */,
 				66C975721F3E133200450F37 /* UserInfoPage */,
@@ -820,15 +817,6 @@
 				F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		FF61C5051F8BECFA0088365C /* WaitingList */ = {
-			isa = PBXGroup;
-			children = (
-				FF61C5061F8BED230088365C /* WaitingListController.swift */,
-				FF61C5081F8BF0E10088365C /* WaitingListCellController.swift */,
-			);
-			name = WaitingList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
