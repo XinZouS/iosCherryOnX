@@ -26,7 +26,7 @@ class InviteFriendController: WaitingController {
     }
     
     override func setupNavigationBar(){
-        self.navigationItem.title = "邀请好友"
+        self.title = "邀请好友"
     }
     
     override func setupImageView(){

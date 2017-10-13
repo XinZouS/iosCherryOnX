@@ -123,7 +123,7 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "支付方式"
+        title = "支付方式"
         
         let rightBtn = UIBarButtonItem(title: "确认付款", style: .plain, target: self, action: #selector(okButtonTapped))
         navigationItem.rightBarButtonItem = rightBtn

@@ -161,7 +161,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
         
-        navigationItem.title = "输入手机"
+        title = "输入手机"
     }
     
     private func setupOkButton(){

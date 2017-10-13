@@ -234,7 +234,7 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "发货请求"
+        title = "发货请求"
         
         let rightItemButton = UIBarButtonItem(title: "支付方式", style: .plain, target: self, action: #selector(paymentButtonTapped))
         navigationItem.rightBarButtonItem = rightItemButton

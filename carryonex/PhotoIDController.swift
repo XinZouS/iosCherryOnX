@@ -245,7 +245,7 @@ class PhotoIDController: UIViewController {
     
     
     private func setupNavigationBar(){
-        navigationItem.title = "验证信息"
+        title = "验证信息"
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]        

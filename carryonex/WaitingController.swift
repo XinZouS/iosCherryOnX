@@ -147,7 +147,7 @@ class WaitingController: UIViewController {
     }
     
     func setupNavigationBar(){
-        navigationItem.title = "安排接单"
+        title = "安排接单"
     }
     
     private func setupTitleAndButton(){

@@ -135,7 +135,7 @@ class ConfirmBaseController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "确认接单"
+        title = "确认接单"
         let rightBtn = UIBarButtonItem(title: "订单记录", style: .plain, target: self, action: #selector(finishButtonTapped))
         navigationItem.rightBarButtonItem = rightBtn
     }
