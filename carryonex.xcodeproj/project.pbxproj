@@ -152,7 +152,6 @@
 		FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
-		FFC56E8B1F8D53B90079B533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC56E891F8D53B90079B533 /* Main.storyboard */; };
 		FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */; };
 		FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */; };
 /* End PBXBuildFile section */
@@ -311,7 +310,6 @@
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
 		FF61C5061F8BED230088365C /* WaitingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListController.swift; sourceTree = "<group>"; };
 		FF61C5081F8BF0E10088365C /* WaitingListCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListCellController.swift; sourceTree = "<group>"; };
-		FFC56E8A1F8D53B90079B533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/WechatOpenSDK/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressDetailCell++.swift"; sourceTree = "<group>"; };
@@ -463,7 +461,6 @@
 				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
 				665DE4FB1F3A0B70004DDB88 /* Info.plist */,
 				665DE4F31F3A0B70004DDB88 /* carryonex.xcdatamodeld */,
-				FFC56E891F8D53B90079B533 /* Main.storyboard */,
 			);
 			path = carryonex;
 			sourceTree = "<group>";
@@ -915,7 +912,6 @@
 				FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */,
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
 				FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */,
-				FFC56E8B1F8D53B90079B533 /* Main.storyboard in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1118,14 +1114,6 @@
 				665DE4F91F3A0B70004DDB88 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		FFC56E891F8D53B90079B533 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FFC56E8A1F8D53B90079B533 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

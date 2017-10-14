@@ -78,12 +78,12 @@ class WaitingController: UIViewController {
         return b
     }()
 
-//    lazy var weiboButton : UIButton = {
-//        let b = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        b.setImage(#imageLiteral(resourceName: "CarryonEx_Weibo_Icon"), for: .normal)
-//        b.addTarget(self, action: #selector(shareToWeibo), for: .touchUpInside)
-//        return b
-//    }()
+    lazy var weiboButton : UIButton = {
+        let b = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        b.setImage(#imageLiteral(resourceName: "CarryonEx_Weibo_Icon"), for: .normal)
+        b.addTarget(self, action: #selector(shareToWeibo), for: .touchUpInside)
+        return b
+    }()
     
     lazy var facebookButton : UIButton = {
         let b = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -196,15 +196,15 @@ class WaitingController: UIViewController {
         
         v1.addSubview(wechatButton)
         v2.addSubview(momentButton)
-//        v3.addSubview(weiboButton)
+        v3.addSubview(weiboButton)
         v4.addSubview(facebookButton)
         wechatButton.addConstraints(left: nil, top: v1.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: h)
         momentButton.addConstraints(left: nil, top: v2.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//        weiboButton.addConstraints(left: nil, top: v3.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: h)
+        weiboButton.addConstraints(left: nil, top: v3.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: h)
         facebookButton.addConstraints(left: nil, top: v4.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: h)
         wechatButton.centerXAnchor.constraint(equalTo: v1.centerXAnchor).isActive = true
         momentButton.centerXAnchor.constraint(equalTo: v2.centerXAnchor).isActive = true
-//        weiboButton.centerXAnchor.constraint(equalTo: v3.centerXAnchor).isActive = true
+        weiboButton.centerXAnchor.constraint(equalTo: v3.centerXAnchor).isActive = true
         facebookButton.centerXAnchor.constraint(equalTo: v4.centerXAnchor).isActive = true
         
         shareStackView = UIStackView(arrangedSubviews: [v1, v2, v3, v4])

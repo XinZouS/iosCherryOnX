@@ -40,8 +40,14 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
         }
     }
     
-    let mapView = MKMapView()
-    
+    let mapView : MKMapView = {
+        let m = MKMapView()
+        m.translatesAutoresizingMaskIntoConstraints = false
+        m.isRotateEnabled = false
+        m.showsCompass = false
+        return m
+    }()
+
     var selectedPin : MKPlacemark? = nil
     
     internal let locationManager = CLLocationManager()

@@ -13,7 +13,7 @@ enum Country: String {
     case China = "中国大陆"
     case UnitedStates = "United States"
 }
- 
+
 class Address : NSObject {
     
     var id : String!
@@ -31,29 +31,42 @@ class Address : NSObject {
     
     var coordinateLongitude: Double = 0.0
     var coordinateLatitude: Double = 0.0
-
+    
+    enum PropInDB : String {
+        case id         = "id"
+        case country    = "country"
+        case state      = "state"
+        case city       = "city"
+        case detailAddr = "street"
+        case zipcode    = "zipcode"
+        case recipientName = "resident"
+        case phoneNumber = "phone"
+        case longtitude = "longtitude"
+        case latitude   = "latitude"
+    }
+    
     
     
     override init() {
         super.init()
         
-        self.id = "id"
+        self.id = ""
         
         self.country = Country.China
-        self.state = "广东省"
-        self.city  = "广州市"
-
-        self.detailAddress = "天河城，3号线客村，3号线客村，3号线客村"
-        self.zipcode = "000000"
+        self.state = ""
+        self.city  = ""
         
-        self.recipientName = "马云"
-        self.phoneNumber = "1376668888"
+        self.detailAddress = ""
+        self.zipcode = ""
+        
+        self.recipientName = ""
+        self.phoneNumber = ""
         
     }
     
     init(country cy: Country, state st: String, city ct: String, detailAddress ds: String, zipCode zc:String, recipient:String, phoneNum pn: String){
         
-        self.id = "id"
+        self.id = ""
         
         self.country = cy
         self.state = st
@@ -75,41 +88,50 @@ class Address : NSObject {
         }
     }
     
-    func packageAllAddressData() -> Data{
-        var jsonData  = Data()
+    func packAllPropertiesAsData() -> Data? {
         var json:[String:Any] =  [:]
-        json["id"] = id
-        json["country"] = country.rawValue
-        json["state"] = state
-        json["city"] = city
-        json["detailAddress"] = detailAddress
-        json["zipcode"] = zipcode
-        json["recipientName"] = recipientName
-        json["phoneNumber"] = phoneNumber
-        json["coordinateLongitude"] = coordinateLongitude
+        // the [key] is NOT allow to change! MUST the same as in DB;
+        json[PropInDB.id.rawValue]       = id
+        json[PropInDB.country.rawValue]  = country.rawValue
+        json[PropInDB.state.rawValue]    = state
+        json[PropInDB.city.rawValue]     = city
+        json[PropInDB.detailAddr.rawValue] = detailAddress
+        json[PropInDB.zipcode.rawValue]  = zipcode
+        json[PropInDB.recipientName.rawValue] = recipientName
+        json[PropInDB.phoneNumber.rawValue] = phoneNumber
+        json[PropInDB.longtitude.rawValue] = coordinateLongitude
+        json[PropInDB.latitude.rawValue] = coordinateLatitude
         
         do {
-            if let dt = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) as Data? {//as Data
-                jsonData = dt
-                print(jsonData.description)
-            // here "jsonData" is the dictionary encoded in JSON data
+            if let dt = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) as Data? {
+                //                let decoded = try JSONSerialization.jsonObject(with: dt as Data, options: [])
+                //                // here "decoded" is of type `Any`, decoded from JSON data
+                //                if let dc = decoded as? [String:Any] {
+                //                    for item in dc {
+                //                        print("key = \(item.key), val = \(item.value)")
+                //                    }
+                //                }
+                return dt
             }
-            let decoded = try JSONSerialization.jsonObject(with: jsonData as Data, options: [])
-            // here "decoded" is of type `Any`, decoded from JSON data
-            if let dc = decoded as? [String:Any] {
-                for item in dc {
-                    print("key = \(item.key), val = \(item.value)")
-                }
-            }
-            // you can now cast it with the right type
-//            if let decoded is [String:String] {
-//                // use dictFromJSON
-//                print(decoded)
-//            }
+            
         } catch let err {
-            print(err)
+            print("get eerorroor when try to JSONSerialization", err)
         }
-        return jsonData
+        return nil
+    }
+    
+    func setupByDictionaryFromDB(_ json: [String:Any]){
+        id          = json[PropInDB.id.rawValue] as? String ?? ""
+        country     = (json[PropInDB.country.rawValue] as? String ?? "") == Country.China.rawValue ? Country.China : Country.UnitedStates
+        state       = json[PropInDB.state.rawValue] as? String ?? ""
+        city        = json[PropInDB.city.rawValue] as? String ?? ""
+        detailAddress = json[PropInDB.detailAddr.rawValue] as? String ?? ""
+        zipcode     = json[PropInDB.zipcode.rawValue] as? String ?? ""
+        recipientName = json[PropInDB.recipientName.rawValue] as? String ?? ""
+        phoneNumber = json[PropInDB.phoneNumber.rawValue] as? String ?? ""
+        coordinateLongitude = json[PropInDB.longtitude.rawValue] as? Double ?? 0.0
+        coordinateLatitude  = json[PropInDB.latitude.rawValue] as? Double ?? 0.0
     }
     
 }
+

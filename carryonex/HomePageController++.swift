@@ -135,6 +135,12 @@ extension HomePageController {
         let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
         navigationController?.pushViewController(itemTypeListCtl, animated: true)
     }
+    func gotoTripPage(){
+        let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(postTripCtl, animated: true)
+        //let navTrip = UINavigationController(rootViewController: postTripCtl)
+        //present(navTrip, animated: true, completion: nil)
+    }
     func gotoIDPage(){
         let p = PhotoIDController()
         p.homePageController = self
@@ -190,15 +196,13 @@ extension HomePageController {
     
     
     func showUserInfoSideMenu(){
-//        
-//        let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
-////        navigationController?.pushViewController(userInfoVC, animated: true)
-//        // replace above by custimize transit animation:
-//        navigationItem.title = "  " //for change "< Back" as "<"
-//        pushViewFromLeftToRight(destVC: userInfoVC)
-//        
-//        // plan A: with slide-out menu
-//        //self.pageContainer?.toggleLeftPanel()
+        
+        let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationItem.title = "  " //for change "< Back" as "<"
+        navigationController?.pushViewController(userInfoVC, animated: true)
+        
+        // plan A: with slide-out menu
+        //self.pageContainer?.toggleLeftPanel()
     }
     
     func showGiftController(){

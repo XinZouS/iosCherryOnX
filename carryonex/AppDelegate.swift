@@ -49,14 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         WXApi.registerApp(WX_APPID, enableMTA: true)
         
         
-        // ------ Server connection ------
-        //ApiServers.shared.fetchAllUsers()
-        //ApiServers.shared.getUserSaltByUsername("user0")
-        //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        //ApiServers.shared.getUserInfoById(userId)
-        //ApiServers.shared.getTripById(id: "1")
-        //ApiServers.shared.getTripByTripCode("63ba7ec0114f90b8")
-        
         return true
     }
     
