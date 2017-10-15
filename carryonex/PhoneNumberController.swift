@@ -33,7 +33,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
         return v
     }()
-    
+
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
         //p.backgroundColor = .yellow
@@ -144,10 +144,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
+        navigationController?.isNavigationBarHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidLoad() {
@@ -156,12 +158,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         view.backgroundColor = .white
         
         setupNavigationBar()
-        
         setupOkButton() // the order of this 3 is NOT allow to change!
         setupPhoneNumTextField()
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
+        setupDevelopButton()
 //        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
@@ -171,7 +173,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
         title = "输入手机"
     }
     
@@ -182,8 +183,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
         okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
         okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        setupDevelopButton()
     }
     private func setupDevelopButton(){
         view.addSubview(devBtn)

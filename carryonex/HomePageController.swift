@@ -248,9 +248,9 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func isItHaveLogIn(){
         if(User.shared.username == ""){
-            let phoneNumberCtl = PhoneNumberController()
-            let navRootCtl = UINavigationController(rootViewController: phoneNumberCtl)
-            self.present(navRootCtl, animated: true, completion: nil)
+            let registerMainCtl = RegisterMainController()
+            let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
+            self.present(registerRootCtl, animated: false, completion: nil)
         }
     }
     private func presentOnboardingPage(){
