@@ -86,5 +86,6 @@ target 'carryonex' do
   pod 'FBSDKShareKit', '~> 4.22.1'
   
   #UI design
-  pod 'CircleMenu' 
+  pod 'CircleMenu'
+  pod ‘Material’, ‘2.10.2’
 end

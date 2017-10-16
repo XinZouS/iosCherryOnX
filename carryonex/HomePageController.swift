@@ -228,7 +228,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         }
         fetchUserFromLocalDiskAndSetup()
         
-//        isItHaveLogIn()
+        isItHaveLogIn()
         
         //setupNavigationBar()
         setupMapView()
@@ -266,7 +266,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     private func isItHaveLogIn(){
         if(User.shared.username == ""){
             let phoneNumberCtl = PhoneNumberController()
-            self.navigationController?.present(phoneNumberCtl, animated: true)
+            let navRootCtl = UINavigationController(rootViewController: phoneNumberCtl)
+            self.present(navRootCtl, animated: true, completion: nil)
         }
     }
     private func presentOnboardingPage(){

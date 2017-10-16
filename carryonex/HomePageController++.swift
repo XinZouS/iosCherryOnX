@@ -252,8 +252,9 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-//        let waitingListCtl = WaitingListController()
-//        navigationController?.pushViewController(waitingListCtl, animated: true)
+        let layout = UICollectionViewFlowLayout()
+        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
+        navigationController?.pushViewController(ordersLogCtl, animated: true)
     }
     
 //    internal func switchUserType(){

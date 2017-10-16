@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
+import Material
 
 class RegisterEmailController: UIViewController {
-    
+    var emailField: ErrorTextField!
+    fileprivate let constant: CGFloat = 32
     var transparentView : UIView = {
         let v = UIView()
         v.isHidden = true
@@ -29,13 +30,8 @@ class RegisterEmailController: UIViewController {
         t.keyboardType = .phonePad
         t.placeholder = " 请输入您的邮箱号"
         t.font = UIFont.systemFont(ofSize: 16)
-//        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        //        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return t
-    }()
-    lazy var emailLabel: UILabel = {
-        let b = UILabel()
-        b.text =  "邮箱:"
-        return b
     }()
     lazy var okButton: UIButton = {
         let b = UIButton()
@@ -55,31 +51,40 @@ class RegisterEmailController: UIViewController {
         
         setupEmailTextField()
         
-        setupEmailLabel()
-        
         setupOkButton()
     }
-    private func setupEmailTextField(){
-        view.addSubview(emailTextField)
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 45).isActive = true
-        emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
-        emailTextField.widthAnchor.constraint(equalToConstant: 178).isActive = true
-        emailTextField.heightAnchor.constraint(equalToConstant: textFieldH).isActive = true
-        let re = CGRect(x: 10, y: 0, width: 7, height: 20)
-        let leftView = UILabel(frame: re)
-        leftView.backgroundColor = .clear
-        emailTextField.leftView = leftView
-        emailTextField.leftViewMode = .always
-        emailTextField.contentVerticalAlignment = .center
+    /// Prepares the resign responder button.
+    fileprivate func prepareResignResponderButton() {
+        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
+        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
+        
+        view.layout(btn).width(100).height(constant).top(40).right(20)
     }
     
-    
-    private func setupEmailLabel(){
-        view.addSubview(emailLabel)
-        emailLabel.addConstraints(left: nil, top: nil, right: emailTextField.leftAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 0, width: 76, height: textFieldH)
-        emailLabel.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor).isActive = true
+    /// Handle the resign responder button.
+    @objc
+    internal func handleResignResponderButton(button: UIButton) {
+        emailField?.resignFirstResponder()
     }
+    fileprivate func setupEmailTextField(){
+        emailField = ErrorTextField()
+        emailField.placeholder = "Email"
+        emailField.detail = "Error, incorrect email"
+        emailField.isClearIconButtonEnabled = true
+        emailField.delegate = self
+        emailField.isPlaceholderUppercasedWhenEditing = true
+//        emailField.translatesAutoresizingMaskIntoConstraints = false
+//        emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 45).isActive = true
+//        emailField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
+//        emailField.widthAnchor.constraint(equalToConstant: 178).isActive = true
+//        emailField.heightAnchor.constraint(equalToConstant: textFieldH).isActive = true
+        let leftView = UIImageView()
+        leftView.image = Icon.email
+        emailField.leftView = leftView
+        
+        view.layout(emailField).center(offsetX: 60).left(60).right(60)
+    }
+    
     
     private func setupOkButton(){
         view.addSubview(okButton)
@@ -90,4 +95,6 @@ class RegisterEmailController: UIViewController {
         okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
+
+
 

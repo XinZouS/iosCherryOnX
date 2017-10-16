@@ -15,8 +15,6 @@ extension OnboardingController: PaperOnboardingDelegate, PaperOnboardingDataSour
     
     
     
-    
-    
     func finishButtonTapped(){
         UserDefaults.standard.set(true, forKey: UserDefaultKey.OnboardingFinished.rawValue)
         UserDefaults.standard.synchronize()
