@@ -37,7 +37,6 @@ class UserGuidePageCell : UICollectionViewCell {
         tableView.register(UserGuidePageTableCell.self, forCellReuseIdentifier: userGuidePageTableCellId)
         addSubview(tableView)
         tableView.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 50, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        self.sizeHeaderToFit()
     }
     
     
@@ -77,9 +76,6 @@ extension UserGuidePageCell : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0
-    }
-    internal func sizeHeaderToFit() {
-        
     }
     
 }

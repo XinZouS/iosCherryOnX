@@ -87,9 +87,20 @@ extension UserSettingController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = titles[indexPath.section][indexPath.item]
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "🔐 "
+        }else if section == 1 {
+            return "✈️ "
+        }
+        return "❓"
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+
 }
