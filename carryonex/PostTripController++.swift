@@ -15,11 +15,6 @@ extension PostTripController {
 
     
     
-    func cancelButtonTapped(){
-        print("cancelButtonTapped!!!!!!")
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
     func okButtonTapped(sender:UIButton){
         let tit = "启禀皇上"
         let msg = "❓"
@@ -145,6 +140,10 @@ extension PostTripController {
         let isOk = isTransportationSetted && isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
         okButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         okButton.isEnabled = isOk
+    }
+    
+    func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

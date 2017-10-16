@@ -15,15 +15,6 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 
-extension UIColor {
-    static func color(_ red: Int, green: Int, blue: Int, alpha: Float) -> UIColor {
-        return UIColor(
-            colorLiteralRed: Float(1.0) / Float(255.0) * Float(red),
-            green: Float(1.0) / Float(255.0) * Float(green),
-            blue: Float(1.0) / Float(255.0) * Float(blue),
-            alpha: alpha)
-    }
-}
 class HomePageController: UIViewController, UISearchResultsUpdating {
 
 //    var delegate = HomePageControllerDelegate.self
@@ -151,16 +142,15 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     
     lazy var userInfoBarButtonView : UIButton = {
         let b = UIButton()
-        b.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Profile"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         b.addTarget(self, action: #selector(showUserInfoSideMenu), for: .touchUpInside)
         return b
     }()
     
     lazy var giftBarButtonView: UIButton = {
         let b = UIButton()
-        b.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         b.setImage(#imageLiteral(resourceName: "CarryonEx_Invite"), for: .normal)
+        b.backgroundColor = barColorGray
         b.addTarget(self, action: #selector(showGiftController), for: .touchUpInside)
         return b
     }()
@@ -215,7 +205,19 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         return b
     }()
     
+    
+    // for User info view
+    internal let backgroundBlackView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        v.isUserInteractionEnabled = true
+        v.isHidden = true
+        return v
+    }()
+    let userInfoMenuView = UserInfoMenuView()
+    var userInfoMenuRightConstraint : NSLayoutConstraint?
 
+    
     
     // MARK: - setup UI
     override func viewDidLoad() {
@@ -228,7 +230,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
 //        isItHaveLogIn()
         
-        setupNavigationBar()
+        //setupNavigationBar()
         setupMapView()
 
         setupSearchContents()
@@ -239,8 +241,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
         setupDevelopButtons() //TODO: remove this when going on line;
         setupTargetCurrentLocationButton()
-        
+        setupTopButtons()
+
+        setupBlackBackgroundView()
+        setupUserInfoMenuView()
+
         testApiServers()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -270,7 +277,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         let h: CGFloat = 56
         
         view.addSubview(searchContainerView)
-        searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
+        searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 70, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
         // replace above line
 //        searchContainerView.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
 //        searchContainerTopConstraint = searchContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: searchContentTopMargin)
@@ -370,14 +377,14 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    private func setupNavigationBar(){
-        UINavigationBar.appearance().tintColor = buttonColorWhite
-        navigationController?.navigationBar.tintColor = buttonColorWhite
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoBarButtonView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: giftBarButtonView)
-    }
+//    private func setupNavigationBar(){
+//        UINavigationBar.appearance().tintColor = buttonColorWhite
+//        navigationController?.navigationBar.tintColor = buttonColorWhite
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
+//
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoBarButtonView)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: giftBarButtonView)
+//    }
 
     private func setupSideButtonView(){
         view.addSubview(sideButtonContainerView)
@@ -400,6 +407,18 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         view.addSubview(targetCurrentLocationButton)
         targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 40, height: 40)
     }
+    
+    private func setupTopButtons(){
+        let sz : CGFloat = 30
+        let topMargin: CGFloat = 36
+        let sideMargin:CGFloat = 20
+        view.addSubview(userInfoBarButtonView)
+        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: sz)
+        
+        view.addSubview(giftBarButtonView)
+        giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
+    }
+
     
 
     
@@ -424,6 +443,21 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
         view.addSubview(showOnboardingPageButton)
         showOnboardingPageButton.addConstraints(left: nil, top: showNewRequestAlertButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 140, height: 30)
+    }
+
+    private func setupBlackBackgroundView(){
+        view.addSubview(backgroundBlackView)
+        backgroundBlackView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userInfoMenuViewAnimateHide))
+        backgroundBlackView.addGestureRecognizer(tapGesture)
+    }
+    private func setupUserInfoMenuView(){
+        userInfoMenuView.homePageCtl = self
+        let w : CGFloat = 270
+        view.addSubview(userInfoMenuView)
+        userInfoMenuView.addConstraints(left: nil, top: view.topAnchor, right: nil, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: 0)
+        userInfoMenuRightConstraint = userInfoMenuView.rightAnchor.constraint(equalTo: view.leftAnchor)
+        userInfoMenuRightConstraint?.isActive = true
     }
 
     
@@ -535,5 +569,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
 
   
+}
+
+/// for UserInfoMenu view at the left side of Home page
+extension HomePageController {
+    
+    
+    
 }
 

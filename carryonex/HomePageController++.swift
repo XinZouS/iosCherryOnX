@@ -9,6 +9,12 @@
 import UIKit
 import MapKit
 
+import Photos
+
+import AWSCognito
+import AWSCore
+import AWSS3
+
 
 
 /**
@@ -116,38 +122,49 @@ extension HomePageController {
             let isShipper = User.shared.isShipper
             if isShipper! {
                 let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
-                navigationController?.pushViewController(postTripCtl, animated: true)
+                //navigationController?.pushViewController(postTripCtl, animated: true)
+                let navigationPostTrip = UINavigationController(rootViewController: postTripCtl)
+                self.present(navigationPostTrip, animated: true, completion: nil)
             }else{
                 let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-                navigationController?.pushViewController(itemTypeListCtl, animated: true)
+                //navigationController?.pushViewController(itemTypeListCtl, animated: true)
+                let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
+                self.present(navigationItemTypeList, animated: true, completion: nil)
             }
         }else{
             let photoIdCtl = PhotoIDController()
 //            let verifyNvg = UINavigationController(rootViewController: verifyView) // for single page
 //            present(verifyNvg, animated: false, completion: nil)
             photoIdCtl.homePageController = self
-            navigationController?.pushViewController(photoIdCtl, animated: true) // for navigation page
+            //navigationController?.pushViewController(photoIdCtl, animated: true) // for navigation page
+            let navigationPhotoId = UINavigationController(rootViewController: photoIdCtl)
+            self.present(navigationPhotoId, animated: true, completion: nil)
         }
     }
     
     /// MARK: - for development use only:
     func gotoItemTypePage(){
         let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-        navigationController?.pushViewController(itemTypeListCtl, animated: true)
+        //navigationController?.pushViewController(itemTypeListCtl, animated: true)
+        let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
+        self.present(navigationItemTypeList, animated: true, completion: nil)
     }
     func gotoTripPage(){
         let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
-        navigationController?.pushViewController(postTripCtl, animated: true)
-        //let navTrip = UINavigationController(rootViewController: postTripCtl)
-        //present(navTrip, animated: true, completion: nil)
+        //navigationController?.pushViewController(postTripCtl, animated: true)
+        let navTrip = UINavigationController(rootViewController: postTripCtl)
+        present(navTrip, animated: true, completion: nil)
     }
     func gotoIDPage(){
         let p = PhotoIDController()
         p.homePageController = self
-        navigationController?.pushViewController(p, animated: true) // for navigation page
+        //navigationController?.pushViewController(p, animated: true) // for navigation page
+        let navigationIdPage = UINavigationController(rootViewController: p)
+        self.present(navigationIdPage, animated: true, completion: nil)
     }
     func gotoConfirmPage(){
-        navigationController?.pushViewController(ConfirmBaseController(), animated: true)
+        //navigationController?.pushViewController(ConfirmBaseController(), animated: true)
+        self.present(ConfirmBaseController(), animated: true, completion: nil)
     }
     func showNewRequestAlert(){
         let request = Request.fakeRequestDemo() // new Request from server,
@@ -180,8 +197,8 @@ extension HomePageController {
             
             let timeAvailableController = TimeAvailableController()
             timeAvailableController.request = request
-            self.navigationController?.pushViewController(timeAvailableController, animated: true)
-
+            //self.navigationController?.pushViewController(timeAvailableController, animated: true)
+            self.present(timeAvailableController, animated: true, completion: nil)
         }
         alertCtl.addAction(actionCancel)
         alertCtl.addAction(actionConfirmTime)
@@ -197,12 +214,37 @@ extension HomePageController {
     
     func showUserInfoSideMenu(){
         
-        let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        navigationItem.title = "  " //for change "< Back" as "<"
-        navigationController?.pushViewController(userInfoVC, animated: true)
+        // plan C: use UIView for the menu, without navigationBar
+        userInfoMenuViewAnimateShow()
+        
+        // plan B: use single page for the menu, with navigationBar
+        //let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        //navigationItem.title = "  " //for change "< Back" as "<"
+        //navigationController?.pushViewController(userInfoVC, animated: true)
         
         // plan A: with slide-out menu
         //self.pageContainer?.toggleLeftPanel()
+    }
+    private func userInfoMenuViewAnimateShow(){
+        let offset = userInfoMenuView.bounds.width
+        self.userInfoMenuRightConstraint?.constant = offset
+        self.backgroundBlackView.isHidden = false
+        self.backgroundBlackView.backgroundColor = UIColor(white: 0, alpha: 0)
+        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.2, options: .curveEaseIn, animations: {
+            self.backgroundBlackView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    func userInfoMenuViewAnimateHide(){
+        self.userInfoMenuRightConstraint?.constant = 0
+        UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.2, options: .curveEaseIn, animations: {
+            self.backgroundBlackView.backgroundColor = UIColor(white: 0, alpha: 0)
+            self.view.layoutIfNeeded()
+        }, completion: { (finished) in
+            if finished {
+                self.backgroundBlackView.isHidden = true
+            }
+        })
     }
     
     func showGiftController(){
@@ -265,27 +307,27 @@ extension HomePageController {
     }
 
     
-    private func pushViewFromLeftToRight(destVC: UIViewController){
-        // push navigationController from left-->right
-        let transition: CATransition = CATransition()
-        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.duration = 0.25
-        transition.timingFunction = timeFunc
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        navigationController?.view.layer.add(transition, forKey: kCATransition)
-        navigationController?.pushViewController(destVC, animated: false)
-    }
-    
+//    private func pushViewFromLeftToRight(destVC: UIViewController){
+//        // push navigationController from left-->right
+//        let transition: CATransition = CATransition()
+//        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//        transition.duration = 0.25
+//        transition.timingFunction = timeFunc
+//        transition.type = kCATransitionPush
+//        transition.subtype = kCATransitionFromLeft
+//        navigationController?.view.layer.add(transition, forKey: kCATransition)
+//        navigationController?.pushViewController(destVC, animated: false)
+//    }
+
     func setupSwipGestureRecognizer(){
         let swipLeft = UISwipeGestureRecognizer(target: sideButtonContainerView, action: #selector(swiped))
-        
+
         let swipRight = UISwipeGestureRecognizer(target: sideButtonContainerView, action: #selector(swiped))
     }
 
     func swiped(_ gesture: UIGestureRecognizer){
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else { return }
-        
+
         switch swipeGesture.direction {
         case UISwipeGestureRecognizerDirection.left:
             pullSideButtonTapped()
@@ -295,6 +337,7 @@ extension HomePageController {
             break
         }
     }
+    
 }
 
 // MARK: - Map setup
@@ -437,6 +480,106 @@ extension HomePageController : MKMapViewDelegate {
 //    
 //}
 
+
+
+/// for user image selection and upload to AWS
+extension HomePageController : UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func profileImageButtonTapped(){
+        let attachmentMenu = UIAlertController(title: "选择图片来源", message: "从相册选择头像或现在拍一张吧", preferredStyle: .actionSheet)
+        let openLibrary = UIAlertAction(title: "相册选择", style: .default) { (action) in
+            self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
+        }
+        let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
+            self.openImagePickerWith(source: .camera, isAllowEditing: true)
+        }
+        let cancelSelect = UIAlertAction(title: "取消", style: .cancel) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        attachmentMenu.addAction(openLibrary)
+        attachmentMenu.addAction(openCamera)
+        attachmentMenu.addAction(cancelSelect)
+        
+        present(attachmentMenu, animated: true, completion: nil)
+    }
+    
+    internal func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = source
+        imagePicker.allowsEditing = isAllowEditing
+        imagePicker.delegate = self
+        imagePicker.navigationBar.isTranslucent = false
+        imagePicker.navigationBar.barTintColor = barColorGray // Background color
+        imagePicker.navigationBar.tintColor = .white // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white] // Title color
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            //activityIndicator.startAnimating()
+            userInfoMenuView.userProfileView.setupProfileImage(editedImage)
+            if let localUrl = info[UIImagePickerControllerReferenceURL] as? URL {
+                uploadProfileImageToAws(assetUrl: localUrl, image: editedImage)
+            }
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - AWS S3 storage for profile image
+    
+    private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
+        let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
+        let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
+        
+        // Configure aws cognito credentials:
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId:"us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7")
+        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        // setup AWS Transfer Manager Request:
+        guard let uploadRequest = AWSS3TransferManagerUploadRequest() else { return }
+        uploadRequest.acl = .private
+        uploadRequest.key = fileName // MUST NOT change this!!
+        uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(User.shared.id!)" // no / at the end of bucket
+        uploadRequest.contentType = "image/jpeg"
+        
+        let transferManager = AWSS3TransferManager.default()
+        transferManager.upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
+            
+            if let err = task.error {
+                print("performFileUpload(): task.error = \(err)")
+                //self.activityIndicator.stopAnimating()
+                //self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
+                return nil
+            }
+            if task.result != nil {
+                let url = AWSS3.default().configuration.endpoint.url
+                if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
+                    User.shared.imageUrl = publicURL.absoluteString
+                }
+            }else{
+                print("errrorrr!!! task.result is nil, !!!! did not upload")
+            }
+            
+            //DispatchQueue.main.async {
+            //self.activityIndicator.stopAnimating()
+            //let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
+            //self.displayAlert(title: "✅上传完成", message: msg, action: "朕知道了")
+            //}
+            return nil
+        }
+        
+        
+    }
+}
 // MARK: - Pop alert view
 extension HomePageController {
     

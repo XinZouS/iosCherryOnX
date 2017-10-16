@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         //window?.rootViewController = PageContainer()
-        window?.rootViewController = UINavigationController(rootViewController: HomePageController())
+        window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
+        
         // setup MOB msm verification
         let smAppkey = "202b81354d75e"
         let app_secrect = "15e6f9dae82927d06568db03f133d75c"

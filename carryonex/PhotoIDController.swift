@@ -223,12 +223,13 @@ class PhotoIDController: UIViewController {
         b.tintColor = buttonColorWhite
         //b.setTitle("完成验证", for: .normal)
         let att = [NSFontAttributeName: UIFont.systemFont(ofSize: 16),
-                   NSForegroundColorAttributeName: UIColor.black]
+                   NSForegroundColorAttributeName: UIColor.white]
         let str = NSAttributedString(string: "完成验证", attributes: att)
         b.setAttributedTitle(str, for: .normal)
         b.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         return b
     }()
+    
     
     
     
@@ -248,7 +249,10 @@ class PhotoIDController: UIViewController {
         navigationItem.title = "验证信息"
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]        
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
+        
+        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     private func setupTitleLabel(){
