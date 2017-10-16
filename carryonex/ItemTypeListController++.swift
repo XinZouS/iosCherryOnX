@@ -13,13 +13,6 @@ import UIKit
 extension ItemTypeListController {
     
     
-    func setupNavigationBar(){
-        title = "货物清单"
-        
-        let barBtn = UIBarButtonItem(title: "确认清单", style: .plain, target: self, action: #selector(submitButtonTapped))
-        navigationItem.rightBarButtonItem = barBtn
-    }
-
     func submitButtonTapped(){
         guard submitButton.isEnabled == true else {
             showAlertFromItemTypeListController()
@@ -46,6 +39,10 @@ extension ItemTypeListController {
             self.request.numberOfItem[nameEn] = item.count
         }
         print("now get items: ", self.request.numberOfItem)
+    }
+    
+    func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 

@@ -15,16 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 
-extension UIColor {
-    static func color(_ red: Int, green: Int, blue: Int, alpha: Float) -> UIColor {
-        return UIColor(
-            colorLiteralRed: Float(1.0) / Float(255.0) * Float(red),
-            green: Float(1.0) / Float(255.0) * Float(green),
-            blue: Float(1.0) / Float(255.0) * Float(blue),
-            alpha: alpha)
-    }
-}
-class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
+class HomePageController: UIViewController, UISearchResultsUpdating {
 
 //    var delegate = HomePageControllerDelegate.self
  
@@ -40,6 +31,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     let mapView : MKMapView = {
         let m = MKMapView()
         m.translatesAutoresizingMaskIntoConstraints = false
+        m.isRotateEnabled = false
+        m.showsCompass = false
         return m
     }()
     
@@ -148,16 +141,15 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     lazy var userInfoBarButtonView : UIButton = {
         let b = UIButton()
-        b.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Profile"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         b.addTarget(self, action: #selector(showUserInfoSideMenu), for: .touchUpInside)
         return b
     }()
     
     lazy var giftBarButtonView: UIButton = {
         let b = UIButton()
-        b.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         b.setImage(#imageLiteral(resourceName: "CarryonEx_Invite"), for: .normal)
+        b.backgroundColor = barColorGray
         b.addTarget(self, action: #selector(showGiftController), for: .touchUpInside)
         return b
     }()
@@ -168,6 +160,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         b.backgroundColor = .cyan
         b.setTitle("gotoItemTypePage", for: .normal)
         b.addTarget(self, action: #selector(gotoItemTypePage), for: .touchUpInside)
+        return b
+    }()
+    lazy var gotoTripPageButton: UIButton = {
+        let b = UIButton()
+        b.backgroundColor = .cyan
+        b.setTitle("goto Trip", for: .normal)
+        b.addTarget(self, action: #selector(gotoTripPage), for: .touchUpInside)
         return b
     }()
     lazy var gotoIDPageButton: UIButton = {
@@ -201,11 +200,23 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     lazy var targetCurrentLocationButton : UIButton = {
         let b = UIButton()
         b.addTarget(self, action: #selector(targetCurrentLocBtnTapped), for: .touchUpInside)
-        b.setImage(#imageLiteral(resourceName: "yadianwenqing"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_locateMe"), for: .normal)
         return b
     }()
     
+    
+    // for User info view
+    internal let backgroundBlackView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        v.isUserInteractionEnabled = true
+        v.isHidden = true
+        return v
+    }()
+    let userInfoMenuView = UserInfoMenuView()
+    var userInfoMenuRightConstraint : NSLayoutConstraint?
 
+    
     
     // MARK: - setup UI
     override func viewDidLoad() {
@@ -218,7 +229,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         isItHaveLogIn()
         
-        setupNavigationBar()
+        //setupNavigationBar()
         setupMapView()
 
         setupSearchContents()
@@ -229,7 +240,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         setupDevelopButtons() //TODO: remove this when going on line;
         setupTargetCurrentLocationButton()
-        
+        setupTopButtons()
+
+        setupBlackBackgroundView()
+        setupUserInfoMenuView()
+
+        testApiServers()
         
     }
     
@@ -261,7 +277,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         let h: CGFloat = 56
         
         view.addSubview(searchContainerView)
-        searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
+        searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 70, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
         // replace above line
 //        searchContainerView.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
 //        searchContainerTopConstraint = searchContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: searchContentTopMargin)
@@ -361,14 +377,14 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    private func setupNavigationBar(){
-        UINavigationBar.appearance().tintColor = buttonColorWhite
-        navigationController?.navigationBar.tintColor = buttonColorWhite
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoBarButtonView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: giftBarButtonView)
-    }
+//    private func setupNavigationBar(){
+//        UINavigationBar.appearance().tintColor = buttonColorWhite
+//        navigationController?.navigationBar.tintColor = buttonColorWhite
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
+//
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoBarButtonView)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: giftBarButtonView)
+//    }
 
     private func setupSideButtonView(){
         view.addSubview(sideButtonContainerView)
@@ -392,6 +408,18 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 40, height: 40)
     }
     
+    private func setupTopButtons(){
+        let sz : CGFloat = 30
+        let topMargin: CGFloat = 36
+        let sideMargin:CGFloat = 20
+        view.addSubview(userInfoBarButtonView)
+        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: sz)
+        
+        view.addSubview(giftBarButtonView)
+        giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
+    }
+
+    
 
     
     /**
@@ -401,8 +429,11 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         view.addSubview(gotoItemTypePageButton)
         gotoItemTypePageButton.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 210, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
         
+        view.addSubview(gotoTripPageButton)
+        gotoTripPageButton.addConstraints(left: nil, top: gotoItemTypePageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
+        
         view.addSubview(gotoIDPageButton)
-        gotoIDPageButton.addConstraints(left: nil, top: gotoItemTypePageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
+        gotoIDPageButton.addConstraints(left: nil, top: gotoTripPageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
         
         view.addSubview(gotoConfirmPageButton)
         gotoConfirmPageButton.addConstraints(left: nil, top: gotoIDPageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 180, height: 30)
@@ -414,7 +445,121 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         showOnboardingPageButton.addConstraints(left: nil, top: showNewRequestAlertButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 140, height: 30)
     }
 
+    private func setupBlackBackgroundView(){
+        view.addSubview(backgroundBlackView)
+        backgroundBlackView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userInfoMenuViewAnimateHide))
+        backgroundBlackView.addGestureRecognizer(tapGesture)
+    }
+    private func setupUserInfoMenuView(){
+        userInfoMenuView.homePageCtl = self
+        let w : CGFloat = 270
+        view.addSubview(userInfoMenuView)
+        userInfoMenuView.addConstraints(left: nil, top: view.topAnchor, right: nil, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: 0)
+        userInfoMenuRightConstraint = userInfoMenuView.rightAnchor.constraint(equalTo: view.leftAnchor)
+        userInfoMenuRightConstraint?.isActive = true
+    }
+
     
+    private func testApiServers(){
+        print("\r\n ------ Server connection (HomePageController) ------\r\n")
+        //ApiServers.shared.fetchAllUsers()
+        //ApiServers.shared.getUserSaltByUsername("user0")
+        
+        //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
+        //ApiServers.shared.registerUser()
+        //User.shared.username = "user0"
+        //User.shared.password = "73dbe388246aa5ee6d71d98371bfb292"
+        //ApiServers.shared.loginUser()
+        //ApiServers.shared.logoutUser()
+        /*
+        ApiServers.shared.getUserInfo(.salt) { (getSalt) in
+            print("get salt: \(getSalt)")
+            if let getSalt = getSalt as? String {
+            }
+        }
+        ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in
+            print("get imageUrl = \(imageUrl)")
+            if let url = imageUrl as? String {
+                User.shared.imageUrl = url
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.passportUrl) { passporturl in
+            print("get passportUrl = \(passporturl)")
+            if let url = passporturl as? String {
+                User.shared.passportUrl = url
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.idAUrl) { idaUrl in
+            print("get idA url = \(idaUrl)")
+            if let url = idaUrl as? String {
+                User.shared.idCardA_Url = url
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.idBUrl) { idbUrl in
+            if let url = idbUrl as? String {
+                print("get idB url = \(idbUrl)")
+                User.shared.idCardB_Url = url
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.email) { email in
+            if let e = email as? String {
+                print("get email = \(email)")
+                User.shared.email = e
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.realName) { realname in
+            if let name = realname as? String {
+                print("get realName = \(realname)")
+                User.shared.nickName = name
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfo(.phone) { phone in
+            if let p = phone as? String {
+                print("get Phone = \(phone)")
+                let arr = p.components(separatedBy: "-")
+                User.shared.phoneCountryCode = arr.first!
+                User.shared.phone = arr.last!
+                User.shared.saveIntoLocalDisk()
+            }
+        }
+        ApiServers.shared.getUserInfoAll { (dictionary) in
+            if let props = dictionary as? [String:AnyObject] {
+                print("OK!!! get user info will setup the model: \(props)")
+                /* props = [
+                 "real_name": <null>, "email": testEmail@carryonex.com, "salt": fa72f1deee7b7c4fe74a6518d5953b71,
+                 "token": 299a79d77aaac250192336d063855a23f30f646b46707f585e8eddadaddea99d, "idb_url": <null>,
+                 "pub_date": 2017-10-12 19:51:52.121448, "username": testUsername, "passport_url": <null>,
+                 "status": {
+                     description = inactive;
+                     id = 1;
+                 }, "id": 3, "stamp": 150000000, "phone": -1234567890, "wallet_id": <null>, "image_url": <null>,
+                 "password_hash": testPassword, "ida_url": <null>
+                 ]
+                 */
+            }
+        }
+        ApiServers.shared.getUserLogsOf(type: .myCarries) { (dictionary) in
+            if let logArr = dictionary as? [String : AnyObject] {
+                print("okkk!! get logArr = \(logArr)")
+            }
+        }
+        ApiServers.shared.getUserLogsOf(type: .myTrips) { (dictionary) in
+            if let logArr = dictionary as? [String : AnyObject] {
+                print("okkk!! get logArr = \(logArr)")
+            }
+        }
+         */
+        
+        
+
+    }
     
     
     
@@ -424,5 +569,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
 
   
+}
+
+/// for UserInfoMenu view at the left side of Home page
+extension HomePageController {
+    
+    
+    
 }
 

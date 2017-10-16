@@ -8,87 +8,222 @@
 
 import Foundation
 
+enum ServerUserPropUrl : String {
+    case salt = "salt"
+    case imageUrl = "imageurl"
+    case passportUrl = "passporturl"
+    case idAUrl = "idaurl"
+    case idBUrl = "idburl"
+    case email = "email"
+    case realName = "realname"
+    case phone = "phone"
+    case wallet = "wallet"
+}
+enum ServerUserLogUrl : String {
+    case myCarries = "carries"
+    case myTrips = "trips"
+}
+
 
 class ApiServers : NSObject {
     
     static let shared = ApiServers()
     
+    enum ServerKey: String {
+        case data = "data"
+        case statusCode = "status_code"
+        case message = "message"
+        case appToken = "app_token"
+        case userToken = "user_token"
+        case username  = "username"
+        case timestamp = "timestamp"
+    }
     
-    private let timeStamp = 150000000 // Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate
-
+    
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
-    private let baseUrl = "http://192.168.0.119:5000/api/1.0" // "http://0.0.0.0:5000/api/1.0"
+    //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
+    private let baseUrl = "http://192.168.0.119:5000/api/1.0"
     
-    
-    
-    // base request func model
-    
-    func fetchRequests(completion: @escaping ([Request]) -> () ) {
-        
-        // real network server fetch: 
-//        fetchRequestsForUrlString(urlSession: "/connect to url!!") { (requests) in
-//            completion(requests)
-//        }
+    private func getTimestampStr() -> String {
+        let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
+        return "\(150000000)" // TODO: this is for test only.
+        return "\(t)"
     }
     
     
+    // MARK: - User APIs
     
-    /// TODO: fix completion func for JSON parsing
-    private func fetchRequestsForUrlString(urlSession: String, completion: @escaping ([Request]) -> () ) {
-        let url = NSURL(string: "\(baseUrl)\(urlSession)")
-        let request = URLRequest(url: url as! URL)
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                print("Error::: get error when fetchRequiresForUrlString:ApiServers !!!")
-                return
+    func registerUser(){
+        let sessionStr = "/users/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        User.shared.username = "testUsername"
+        User.shared.phone = "1234567890"
+        User.shared.password = "testPassword"
+        User.shared.email = "testEmail@carryonex.com"
+        let dictionary = User.shared.packAllPropertiesAsDictionary()
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken
+        ]
+        postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
+            print("get response dictionary: \(responsDictionary)")
+            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                User.shared.token = getToken.first ?? ""
+                User.shared.saveIntoLocalDisk()
             }
-            
-            do{
-                if let unwarppedData = data,
-                    let jsonDictionarys = try JSONSerialization.jsonObject(with: unwarppedData, options: .mutableContainers) as? [[String:AnyObject]] {
-                    
-                    DispatchQueue.main.async(execute: {
-                        print("TODO: convert request into Request object!!!!!!")
-                        //completion(jsonDictionarys.map({ return Request(dictionary: $0) }))
-                    })
-                    
-                }
-            }catch let jsonErr {
-                print("Error::: get error when fetchRequiresForUrlString:ApiServers, jsonErr: \(jsonErr)")
-            }
-            
         }
-        
-        
-        
+    }
+    func loginUser(){
+        let sessionStr = "/users/login/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let dict = User.shared.packAllPropertiesAsDictionary()
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken
+        ]
+        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+            print("get response dictionary: \(responsDictionary)")
+            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                User.shared.token = getToken.first ?? ""
+                User.shared.saveIntoLocalDisk()
+                print("OKKKK get login token = \(getToken.first!)")
+            }
+        }
+    }
+    
+    ///////////////// url demo todo!!!!!!!!!!!!!
+    func getTrip(tripCode: String) {
+        let urlComponents = URLComponents.init()
     }
     
     
-    /// MARK: - test in AppDelegate.swift
     
-    func getUserSaltByUsername(_ userName:String){
-        let sessionStr = "/users/\(userName)/salt/"
-        
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)"
-        getDataWithUrlString(urlStr)
+    
+    func logoutUser(){
+        let sessionStr = "/users/logout/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let dict = User.shared.packAllPropertiesAsDictionary()
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: User.shared.token ?? ""
+        ]
+        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+            print("get response dictionary: \(responsDictionary)")
+            if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
+                print("OK logout success! clear user data!")
+                User.shared.clearCurrentData()
+                User.shared.saveIntoLocalDisk()
+            }
+        }
     }
+    func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
+        let sessionStr = "/users/\(User.shared.username!)/\(propertyUrl.rawValue)/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: User.shared.token ?? "",
+            ServerKey.username.rawValue : User.shared.username ?? ""
+        ]
+        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{nil}], "status_code":Int, "message":String]
+            print("get infoDictionary: \(infoDictionary)")
+            if let infoObj = infoDictionary[ServerKey.data.rawValue] as? [String] {
+                handleInfo(infoObj.first ?? "")
+            }
+        }
+    }
+    func getUserInfoAll(handleInfo: @escaping ([String:AnyObject]) -> Void){
+        let sessionStr = "/users/\(User.shared.username!)/info/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: User.shared.token ?? "",
+            ServerKey.username.rawValue : User.shared.username ?? ""
+        ]
+        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{User}], "status_code":Int, "message":String]
+            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
+            if let dict = arr?.first as? [String:AnyObject] {
+                //print("----------get arr.first, dict = \(dict)")
+                handleInfo(dict)
+            }
+        }
+    }
+    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([String:AnyObject]) -> Void){
+        let sessionStr = "/users/\(User.shared.username!)/\(type.rawValue)/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: User.shared.token ?? "",
+            ServerKey.username.rawValue : User.shared.username ?? ""
+        ]
+        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{json of log array}], "status_code":Int, "message":String]
+            print("getDataWithUrlString infoDictionary = \(infoDictionary)")
+            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
+            print("TODO: after get arr = \(arr)")
+//            for i in 0..<arr?.count {
+//                if let dict = arr?.first as? [String:AnyObject] {
+//                    print("----------get arr.first, dict = \(dict)")
+//                    handleLogArray(dict)
+//                }
+//            }
+        }
+    }
+    func updateUserInfo(_ propUrl: ServerUserPropUrl, newInfo: String, completion: @escaping ([String:AnyObject]?) -> Void){
+        let sessionStr = "/users/\(User.shared.username!)/\(propUrl.rawValue)/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: User.shared.token ?? "",
+            ServerKey.username.rawValue : User.shared.username ?? ""
+        ]
+        //postDataToUrlString(<#T##urlStr: String##String#>, postData: <#T##[String : Any]#>, httpHeaders: <#T##[String : String]?#>, handleResponse: <#T##([String : AnyObject]) -> Void#>)
+    }
+
     
     
-    func getUserInfoById(_ id: String){
+    
+    func getUserRequestsLog(_ id: String) -> [Request] {
         let userName = "user0"
-        let sessionStr = "/users/\(userName)/info/"
-        
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(id)"
-        getDataWithUrlString(urlStr)
+        let sessionStr = "/users/\(userName)/requests/"
+        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(getTimestampStr())&username=\(userName)&user_token=\(id)"
+        var requests = [Request]()
+        //        getDataWithUrlString(urlStr) { (dictionary) in
+        //            print("TODO: get dictionary and make a Request list: \(dictionary)")
+        //        }
+        return requests
+    }
+    func getUserTripsLog(_ id: String) -> [Trip] {
+        let userName = "user0"
+        let sessionStr = "/users/\(userName)/trips/"
+        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(getTimestampStr())&username=\(userName)&user_token=\(id)"
+        var trips = [Trip]()
+        //        getDataWithUrlString(urlStr) { (dictionary) in
+        //            print("TODO: get dictionary and make a Trip list: \(dictionary)")
+        //        }
+        return trips
     }
     
+    
+    func getAllUsers(){
+        let userName = "user0"
+        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
+        let sessionStr = "/api/1.0/users/allusers/"
+        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
+        //getDataWithUrlString(urlStr)
+    }
+    
+    
+    // MARK: - Trip APIs
     
     func postTripInfo(trip: Trip){
         let sessionStr = "/trips/trips/"
         let urlStr = "\(baseUrl)\(sessionStr)"
-        postDataToUrlString(urlStr, object: trip)
+        //        postDataToUrlString(urlStr, postData: trip.)
     }
     
     func getTripById(id: String){
@@ -96,8 +231,8 @@ class ApiServers : NSObject {
         let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         let sessionStr = "/trips/\(id)/info/"
         
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        getDataWithUrlString(urlStr)
+        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
+        //getDataWithUrlString(urlStr)
     }
     
     
@@ -106,62 +241,84 @@ class ApiServers : NSObject {
         let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         let sessionStr = "/trips/\(tripCode)/trips/"
         
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        getDataWithUrlString(urlStr)
+        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
+        //getDataWithUrlString(urlStr)
     }
     
     
     
-    
-    
-    // session: /api/1.0/users/allusers/ GET
-    func fetchAllUsers(){
-        
+    //send order information to Server
+    func sentOrderInformation(address:Address){
         let userName = "user0"
         let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        
-        let sessionStr = "/api/1.0/users/allusers/"
-        
-        
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        getDataWithUrlString(urlStr)
+        let sessionStr = "/api/1.0/addresses/addresses/"
+        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
+        let dataPackage = address.packAllPropertiesAsData()
+        print(dataPackage)
+        //        postDataWithUrlString(urlStr,dataPackage)
+    }
+    
+    func sentRequestImageUrls(){
+        let userName = "user0"
+        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
+        let sessionStr = "/api/1.0/addresses/addresses/"
+        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
+        //curl -F data='{"image_urls":[{"image_url":"http://1"}, {"image_url":"http://2"}, {"image_url":"http://3"}], "request_id":"2"}' -F app_token='0123456789012345678901234567890123456789012345678901234567890123' -F timestamp=`date -u +%s` -F username='user0' -F user_token='ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2' -X POST
+        //let urlStr = "http://0.0.0.0:5000/api/1.0/requests/postimages/"
+        //postDataToUrlString(<#T##urlStr: String##String#>, postData: Data)
     }
     
     
     
+    
+    // MARK: - basic GET and POST by url
     /**
-     * get data with url string, return NULL
+     * get data with url string, return NULL, try with completionHandler
      */
-    private func getDataWithUrlString(_ urlStr:String) {
+    private func getDataWithUrlString(_ urlStr:String, httpHeaders:[String:String]?, getInfoDictionary: @escaping ([String:AnyObject]) -> Void) {
         print("\n\r === URL: \(urlStr) ===")
-        let nsUrl = NSURL(string: urlStr)! as URL
+        var urlStrHeaders: String = ""
+        if let headers = httpHeaders { // this is NOT working !!!!!!
+            for pair in headers {
+                urlStrHeaders.append("\(pair.key)=\(pair.value)&")
+            }
+        }
+        print("get urlStrHeaders = \(urlStrHeaders)")
         
-        let postData = NSData(data: "{}".data(using: String.Encoding.utf8)! )
-        var request = NSMutableURLRequest(url: nsUrl, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
+        urlStrHeaders.remove(at: urlStrHeaders.index(before: urlStrHeaders.endIndex))
+        let url = NSURL(string: "\(urlStr)?\(urlStrHeaders)")! as URL
+        
+        var request = NSMutableURLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
         request.httpMethod = "GET"
-        request.httpBody = postData as Data
         
+        let httpData = NSData(data: "{}".data(using: String.Encoding.utf8)! )
+        request.httpBody = httpData as Data // get func will NOT have request.httpBody
+
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { (data, response, err) in
             if err != nil {
-                print("--- Error :: in ApiServers::fetchAllUsers(), dataTask err = \(err!)")
+                print("Errorrrr :: in ApiServers::fetchAllUsers(), dataTask err = \(err!)")
             }else{
-                //let httpResponse = response as? HTTPURLResponse // ????????????/
-                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("\r\n get response: \(httpResponse)")
+                }
                 guard let content = data else { return }
                 do {
-                    let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:Any]
-                    //print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-                    if let getData = myJson?["data"] as? [Any] {
-                        //print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-                        if let getDictionary = getData.first as? [String:AnyObject] {
-                            print("--- --- --- get getDictionary: \n\r\(getDictionary)")
-                        }
-                    }else{
-                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
+                    if let myJson = try JSONSerialization.jsonObject(with: content, options: .allowFragments) as? [String:AnyObject] {
+                    //print("--- get myJson = \(myJson) \n\r")
+                    getInfoDictionary(myJson)
+//                    if let getData = myJson?["data"] as? [Any] {
+//                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
+//                        if let getDictionary = getData.first as? [String:AnyObject] {
+//                            //print("--- --- --- get getDictionary: \n\r\(getDictionary)")
+//                            //getInfoDictionary(getDictionary)
+//                        }
+//                    }else{
+//                        print("--- ---Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
+//                    }
                     }
                 }catch let jsonErr {
-                    print("--- --- get Error when parsing JSON: err = \(jsonErr) \n\r")
+                    print("--- get Error when parsing JSON: err = \(jsonErr) \n\r")
                 }
             }
         }
@@ -171,160 +328,68 @@ class ApiServers : NSObject {
     
     
     /**
-     * POST data with url string, get the ID pass from server
+     * POST data with url string, get the ID pass from server, using completing handler
      */
-    private func postDataToUrlString(_ urlStr:String, object: AnyObject) -> String {
-        print("\n\r === URL: \(urlStr) ===")
+    private func postDataToUrlString(_ urlStr:String, postData: [String:Any], httpHeaders:[String:String]?, handleResponse: @escaping ([String:AnyObject]) -> Void) {
+        print("\n\r === postDataToUrlString: \(urlStr) ===")
         let nsUrl = NSURL(string: urlStr)! as URL
         
         var request = NSMutableURLRequest(url: nsUrl, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
         request.httpMethod = "POST"
-        //request.httpBody = ObjectToPrint.getJSON(obj: object, options: JSONSerialization.WritingOptions.prettyPrinted)
+        //this will NOT work: request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        var httpData = Data()
+        
+        var httpBody : [String:Any] = [ServerKey.data.rawValue : postData]
+        if let headers = httpHeaders {
+            for pair in headers {
+                httpBody[pair.key] = pair.value
+            }
+        }
+        do {
+            httpData = try JSONSerialization.data(withJSONObject: httpBody, options: []) as Data
+        }catch let err {
+            print("get errrorororor when parsing data: \(err)")
+        }
+        request.httpBody = httpData //postData
         
         var getId : String = ""
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { (data, response, err) in
             if err != nil {
-                print("--- Error :: in ApiServers::fetchAllUsers(), dataTask err = \(err!)")
+                print("--- Error!!! ApiServers::postDataToUrlString(), dataTask err = \(err!)")
             }else{
                 //let httpResponse = response as? HTTPURLResponse // ????????????/
-                
+                print("get data from postDataToUrlString(): \(data)")
                 guard let content = data else { return }
                 do {
-                    let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:Any]
-                    print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-                    if let getData = myJson?["data"] as? [Any] {
-                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-                        if let getDictionary = getData.first as? [String:AnyObject] {
-                            print("--- --- --- get getDictionary: \n\r\(getDictionary)")
-                        }
+                    if let getDictionary = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:AnyObject] {
+                        print("--- --- get myJson = \n\r \(getDictionary) \n\r")
+                        handleResponse(getDictionary)
                     }else{
-                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
+                        print("--- get eirirriir when recall haldler...Quite.")
                     }
+//                    if let getData = myJson?["data"] as? [Any] {
+//                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
+//                        //if let getDictionary = getData.first as? [String:AnyObject] {
+//                        //    print("--- --- --- get getDictionary and return: \n\r\(getDictionary)")
+//                        //}
+//                    }else{
+//                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
+//                    }
                 }catch let jsonErr {
                     print("--- --- get Error when parsing JSON: err = \(jsonErr) \n\r")
                 }
             }
         }
         dataTask.resume()
-        
-        return getId
     }
     
-    /**
-     * post data with url string, return NULL
-     */
-////    private func postDataWithUrlString(_ urlStr:String,_ dataPackage:Data) {
-////        print("\n\r === URL: \(urlStr) ===")
-////        let nsUrl = NSURL(string: urlStr)! as URL
-////
-////        var request = NSMutableURLRequest(url: nsUrl, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
-////        request.httpMethod = "POST"
-////        request.httpBody = dataPackage
-////
-////        let session = URLSession.shared
-////        let dataTask = session.dataTask(with: request) { (data, response, err) in
-////            if err != nil {
-////                print("--- Error :: in ApiServers::fetchAllUsers(), dataTask err = \(err!)")
-////            }else{
-////                //let httpResponse = response as? HTTPURLResponse // ????????????/
-////
-////                guard let content = data else { return }
-////                do {
-////                    let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:Any]
-////                    //                    print("--- --- get json: \n\r \(myJson?["data"]) \n\r")
-////                    if let getData = myJson?["data"] as? [Any] {
-////                        if let getDictionary = getData.first as? [String:AnyObject] {
-////                            print("--- --- --- get jsonData: \n\r\(getDictionary)")
-////                        }
-////                    }else{
-////                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
-////                    }
-////                }catch let jsonErr {
-////                    print("--- --- get Error when parsing JSON: err = \(jsonErr) \n\r")
-////                }
-////            }
-////        }
-////        dataTask.resume()
-////
-//    }
-    
-    //send order information to Python
-    func sentOrderInformation(address:Address){
-        let userName = "user0"
-        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        let sessionStr = "/api/1.0/addresses/addresses/"
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        let dataPackage = address.packageAllAddressData()
-        print(dataPackage)
-//        postDataWithUrlString(urlStr,dataPackage)
-    }
     
 }
 
 
 
-
-/*
-// MARK: -
-/// for parsing class object --> Json
-class ObjectToPrint : NSObject {
-    
-    class func getJSON(obj: AnyObject, options: JSONSerialization.WritingOptions) -> Data {
-        var data = Data()
-        do{
-            data = try JSONSerialization.data(withJSONObject: self.getObjectDictionary(obj: obj), options: options)
-        }
-        catch let err {
-            print("get error when getJSON from obj, err = \(err)")
-        }
-        return data
-    }
-    
-    class func getObjectDictionary(obj: AnyObject) -> NSMutableDictionary {
-        let dic = NSMutableDictionary()
-        var propsCount: UInt32 = 0
-        let props = class_copyPropertyList(obj.classForCoder, &propsCount)
-        
-        for i in 0..<propsCount {
-            let prop = props?[Int(i)]
-            let propName = String.init(utf8String: property_getName(prop))
-            print("get propName = \(propName)") //BUG- get tooooooooo much properties, only few is we need...
-            guard let ppName = propName else { continue }
-            var value = obj.value(forKey: ppName)
-            if let val = value {
-                value = self.getObjectInternal(obj: val as AnyObject)
-            }else{
-                value = NSNull()
-            }
-            dic.setValue(value, forKey: propName!)
-        }
-        return dic
-    }
-    
-    class func getObjectInternal(obj: AnyObject) -> AnyObject {
-        if obj.isKind(of: NSString.self) || obj.isKind(of: NSNumber.self) || obj.isKind(of: NSNull.self) {
-            return obj
-        }
-        if obj.isKind(of: NSArray.self) {
-            let arr = NSArray.init(array: obj as! [Any])
-            let objArr = NSMutableArray.init(capacity: arr.count)
-            for i in 0..<arr.count {
-                objArr[i] = self.getObjectInternal(obj: arr[i] as AnyObject)
-            }
-            return objArr
-        }
-        if obj.isKind(of: NSDictionary.self){
-            let dic = NSMutableDictionary.init(capacity: (obj as! NSDictionary).count)
-            for key in (obj as! NSDictionary).allKeys {
-                let getObj = (obj as! NSDictionary).value(forKey: key as! String) as AnyObject
-                dic.setObject(self.getObjectInternal(obj: getObj), forKey: key as! NSString)
-            }
-            return dic
-        }
-        return self.getObjectDictionary(obj: obj) // ???????????? will infini loop ????????
-    }
-    
-}
-*/
 

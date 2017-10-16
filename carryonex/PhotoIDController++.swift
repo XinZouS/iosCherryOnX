@@ -357,6 +357,9 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     }
     
     
+    func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - AlertViewController pop up
     func displayAlert(title: String, message: String, action: String) {
