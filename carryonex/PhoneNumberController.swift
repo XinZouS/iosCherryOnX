@@ -163,8 +163,8 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
-        setupDevelopButton()
-//        setupWechatButton()
+//        setupDevelopButton()
+        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
