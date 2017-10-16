@@ -14,8 +14,16 @@ extension TabTitleMenuBar {
     
     // scr
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        ordersLogController.scrollToItemAt(num: indexPath.item)
+        ordersLogController?.scrollToItemAt(num: indexPath.item)
+        userGuideController?.scrollToItemAt(num: indexPath.item)
     }
     
+    func changeBarTitleForScrolling(atSender: Bool){
+        let fountBold = UIFont.systemFont(ofSize: 16, weight: 1.6)
+        let fountSmal = UIFont.systemFont(ofSize: 14)
+        senderCell.titleLabel.font = atSender ? fountBold : fountSmal
+        shipperCell.titleLabel.font = atSender ? fountSmal : fountBold
+    }
+
     
 }

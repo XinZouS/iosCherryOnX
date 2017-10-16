@@ -32,6 +32,9 @@ extension UserSettingController {
             switch indexPath.item {
             case 0:
                 print("TODO: open 用户指南 page...")
+                let userGuide = UserGuideController(collectionViewLayout: UICollectionViewFlowLayout())
+                userGuide.title = titles[indexPath.section][indexPath.item]
+                navigationController?.pushViewController(userGuide, animated: true)
                 
             case 1:
                 print("TODO: open 给游箱评价 page...")
@@ -50,6 +53,10 @@ extension UserSettingController {
         }
         
 
+    }
+    
+    func backButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     func logoutButtonTapped(){

@@ -12,9 +12,14 @@ import UIKit
 
 class TabTitleMenuBar : UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    weak var ordersLogController: OrdersLogController!
+    /// Parent controllers:
+    weak var ordersLogController: OrdersLogController?
+    weak var userGuideController: UserGuideController?
     
     let titleList = ["我是发件人", "我是揽件人"]
+    
+    var senderCell: TabTitleMenuCell!
+    var shipperCell:TabTitleMenuCell!
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -89,6 +94,11 @@ class TabTitleMenuBar : UIView, UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TabTitleMenuCell
         cell.titleLabel.text = titleList[indexPath.item]
+        if indexPath.item == 0 {
+            senderCell = cell
+        }else if indexPath.item == 1 {
+            shipperCell = cell
+        }
         return cell
     }
     /// UICollectionViewDelegateFlowLayout delegate:

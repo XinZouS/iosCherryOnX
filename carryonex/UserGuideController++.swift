@@ -1,16 +1,14 @@
 //
-//  OrdersLogController++.swift
+//  UserGuideController++.swift
 //  carryonex
 //
-//  Created by Xin Zou on 9/5/17.
+//  Created by Xin Zou on 10/16/17.
 //  Copyright © 2017 Xin Zou. All rights reserved.
 //
 
 import UIKit
 
-
-
-extension OrdersLogController {
+extension UserGuideController {
     
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -23,19 +21,18 @@ extension OrdersLogController {
         let xItem = Int(targetContentOffset.pointee.x / view.bounds.width)
         let indexPath = IndexPath(item: xItem, section: 0)
         tabTitleMenuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
-        
         changeBarTitleTo(isSender: indexPath.item == 0)
     }
-    
+
     func scrollToItemAt(num: Int){
         let indexPath = IndexPath(item: num, section: 0)
         collectionView?.scrollToItem(at: indexPath, at: [], animated: true)
-        
         changeBarTitleTo(isSender: num == 0)
     }
-
+    
     private func changeBarTitleTo(isSender: Bool){
         tabTitleMenuBar.changeBarTitleForScrolling(atSender: isSender)
     }
-    
+
+
 }

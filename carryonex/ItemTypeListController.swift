@@ -49,7 +49,7 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
     
     
     private func setupNavigationBar(){
-        navigationItem.title = "货物清单"
+        title = "货物清单"
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]

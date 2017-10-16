@@ -42,8 +42,18 @@ class UserSettingController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
         setupTableView()
         setupLogoutButton()
+    }
+    
+    private func setupNavigationBar(){
+        title = "设置"
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.setLeftBarButton(backBtn, animated: false)
     }
     
     private func setupTableView(){
