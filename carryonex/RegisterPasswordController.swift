@@ -70,7 +70,7 @@ class RegisterPasswordController: UIViewController {
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView
-        
+        passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         view.layout(passwordField).top(200).left(60).right(60)
     }
     
@@ -83,6 +83,7 @@ class RegisterPasswordController: UIViewController {
         passwordConfirmField.isVisibilityIconButtonEnabled = true
         // Setting the visibilityIconButton color.
         passwordConfirmField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
+        passwordConfirmField.addTarget(self, action: #selector(checkConfirmPassword), for: .editingChanged)
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordConfirmField.leftView = leftView

@@ -94,9 +94,22 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         updateOkButton()
     }
     
-    func textFieldDidChange(_ textField: UITextField){
-        updatePhoneNum()
-        updateOkButton()
+    func checkPhone(){
+        let phonePattern = "^1[0-9]{10}$"
+        let matcher = MyRegex(phonePattern)
+        let maybephone = phoneNumberTextField.text
+        if matcher.match(input: maybephone!) {
+            print("电话格式正确")
+            phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        }
+        else{
+            phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            print("电话格式有误")
+        }
     }
     
     func agreeCheckboxChanged(){

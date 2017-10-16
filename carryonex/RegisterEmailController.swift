@@ -30,7 +30,6 @@ class RegisterEmailController: UIViewController {
         t.keyboardType = .phonePad
         t.placeholder = " 请输入您的邮箱号"
         t.font = UIFont.systemFont(ofSize: 16)
-        //        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return t
     }()
     lazy var okButton: UIButton = {
@@ -73,11 +72,7 @@ class RegisterEmailController: UIViewController {
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         emailField.isPlaceholderUppercasedWhenEditing = true
-//        emailField.translatesAutoresizingMaskIntoConstraints = false
-//        emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 45).isActive = true
-//        emailField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
-//        emailField.widthAnchor.constraint(equalToConstant: 178).isActive = true
-//        emailField.heightAnchor.constraint(equalToConstant: textFieldH).isActive = true
+        emailField.addTarget(self, action: #selector(checkEmail), for: .editingChanged)
         let leftView = UIImageView()
         leftView.image = Icon.email
         emailField.leftView = leftView
