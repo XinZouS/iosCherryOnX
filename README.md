@@ -233,4 +233,5 @@ enum Country: String {
 - iOS 9.0+
 - Swift 3.0+
 - Xcode 8.0+
-
+## Modify pods
+-add the ModifyPods file's code to replace the pods the same name file

@@ -21,21 +21,21 @@ class SendingTimeController: UIViewController, UITableViewDataSource, UITableVie
      */
     weak var requestController : RequestController? { // for setting request
         didSet{
-            navigationItem.title = "选择发货时间"
+            title = "选择发货时间"
             tableHeadString = "我的发货时间"
         }
     }
     weak var postTripControllerStartTime : PostTripController? { // for setting trip's start time
         didSet{
             guard postTripControllerStartTime != nil else { return }
-            navigationItem.title = "旅行出发时间"
+            title = "旅行出发时间"
             tableHeadString = "我的出发时间"
         }
     }
     weak var postTripControllerPickupTime: PostTripController? { // for setting trip's pickup time
         didSet{
             guard postTripControllerPickupTime != nil else { return }
-            navigationItem.title = "设置取货时间"
+            title = "设置取货时间"
             tableHeadString = "我的取货时间"
         }
     }

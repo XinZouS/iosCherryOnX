@@ -81,7 +81,7 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "搜索地址"
+        title = "搜索地址"
     }
     
     private func setupLocationManager(){

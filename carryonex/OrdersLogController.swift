@@ -31,7 +31,7 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "订单记录"
+        title = "订单记录"
     }
     
     private func setupTabMenuBar(){

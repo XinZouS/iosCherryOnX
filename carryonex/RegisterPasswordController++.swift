@@ -11,6 +11,7 @@ import UIKit
 
 extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
+        let homepageCtl = HomePageController()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -21,8 +22,8 @@ extension RegisterPasswordController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-        passwordTextField.resignFirstResponder()
-        passwordConfirmTextField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        passwordConfirmField.resignFirstResponder()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

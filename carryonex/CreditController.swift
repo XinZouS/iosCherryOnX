@@ -59,7 +59,7 @@ class CreditController : UIViewController {
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "我的余额"
+        title = "我的余额"
         
         let rightBarItem = UIBarButtonItem(title: "提现", style: .plain, target: self, action: #selector(extractButtonTapped))
         navigationItem.rightBarButtonItem = rightBarItem
