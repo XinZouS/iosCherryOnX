@@ -74,7 +74,7 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     
     
     private func setupNavigationBar(){
-        navigationItem.title = "发布行程"
+        title = "发布行程"
         
         let leftItemBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
         let righItemBtn = UIBarButtonItem(title: "确认", style: .plain, target: self, action: #selector(okButtonTapped))

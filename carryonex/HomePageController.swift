@@ -143,7 +143,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
           b.layer.shadowOpacity = 1.0
           b.layer.shadowRadius = 1.0
           b.layer.masksToBounds = false;
-//        b.addTarget(self, action: #selector(callShipperButtonTapped), for: .touchUpInside)
         return b
     }()
     
@@ -235,7 +234,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "游箱" // for returning from UserInfoPage, change title back;
+        title = "游箱" // for returning from UserInfoPage, change title back;
     }
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
@@ -249,9 +248,9 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func isItHaveLogIn(){
         if(User.shared.username == ""){
-            let phoneNumberCtl = PhoneNumberController()
-            let navRootCtl = UINavigationController(rootViewController: phoneNumberCtl)
-            self.present(navRootCtl, animated: true, completion: nil)
+            let registerMainCtl = RegisterMainController()
+            let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
+            self.present(registerRootCtl, animated: false, completion: nil)
         }
     }
     private func presentOnboardingPage(){

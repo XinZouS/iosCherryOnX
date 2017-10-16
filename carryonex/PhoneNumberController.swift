@@ -9,7 +9,7 @@
 
 import UIKit
 import M13Checkbox
-
+import Material
 
 
 // if changes the key in this map, MUST change also in the flagsTitle array
@@ -20,10 +20,20 @@ var flagsTitle : [String] = ["🇨🇳 +86", "🇺🇸  +1", "🇭🇰 852", "�
 
 
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var phoneNumberTextField : TextField!
     var isPhoneNumValid: Bool = false
     var isUserAgree: Bool = false
     var isRegister = 0
     
+    var transparentView : UIView = {
+        let v = UIView()
+        v.isHidden = true
+        v.backgroundColor = .clear
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
+        return v
+    }()
+
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
         //p.backgroundColor = .yellow
@@ -41,24 +51,25 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         b.layer.cornerRadius = 5
         b.setTitle("🇨🇳 +86", for: .normal)
         b.setTitleColor(.black, for: .normal)
+        b.borderColor = .clear
         b.addTarget(self, action: #selector(openFlagPicker), for: .touchUpInside)
         return b
     }()
     
     let textFieldH : CGFloat = 30
     
-    lazy var phoneNumberTextField: UITextField = {
-        let t = UITextField()
-        t.backgroundColor = .white
-        t.layer.cornerRadius = 5
-        t.layer.borderWidth = 1
-        t.layer.borderColor = UIColor.lightGray.cgColor
-        t.keyboardType = .phonePad
-        t.placeholder = " 请输入您的手机号"
-        t.font = UIFont.systemFont(ofSize: 16)
-        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        return t
-    }()
+//    lazy var phoneNumberTextField: UITextField = {
+//        let t = UITextField()
+//        t.backgroundColor = .white
+//        t.layer.cornerRadius = 5
+//        t.layer.borderWidth = 1
+//        t.layer.borderColor = UIColor.lightGray.cgColor
+//        t.keyboardType = .phonePad
+//        t.placeholder = " 请输入您的手机号"
+//        t.font = UIFont.systemFont(ofSize: 16)
+//        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        return t
+//    }()
     
     //let agreeCheckbox1 = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 15.0, height: 15.0))
     lazy var agreeCheckbox : M13Checkbox = {
@@ -133,10 +144,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
+        navigationController?.isNavigationBarHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidLoad() {
@@ -145,12 +158,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         view.backgroundColor = .white
         
         setupNavigationBar()
-        
         setupOkButton() // the order of this 3 is NOT allow to change!
         setupPhoneNumTextField()
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
+        setupDevelopButton()
 //        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
@@ -160,8 +173,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
-        navigationItem.title = "输入手机"
+        title = "输入手机"
     }
     
     private func setupOkButton(){
@@ -171,8 +183,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
         okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
         okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        setupDevelopButton()
     }
     private func setupDevelopButton(){
         view.addSubview(devBtn)
@@ -193,18 +203,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     private func setupPhoneNumTextField(){
-        view.addSubview(phoneNumberTextField)
-        phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
-        phoneNumberTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 45).isActive = true
-        phoneNumberTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
-        phoneNumberTextField.widthAnchor.constraint(equalToConstant: 178).isActive = true
-        phoneNumberTextField.heightAnchor.constraint(equalToConstant: textFieldH).isActive = true
-        let re = CGRect(x: 10, y: 0, width: 7, height: 20)
-        let leftView = UILabel(frame: re)
-        leftView.backgroundColor = .clear
-        phoneNumberTextField.leftView = leftView
-        phoneNumberTextField.leftViewMode = .always
-        phoneNumberTextField.contentVerticalAlignment = .center        
+        phoneNumberTextField = TextField()
+        phoneNumberTextField.placeholder = "请输入手机号"
+        phoneNumberTextField.detail = "手机号码"
+        phoneNumberTextField.clearButtonMode = .whileEditing
+        
+        view.layout(phoneNumberTextField).top(200).left(100).right(20)
     }
     
     

@@ -14,7 +14,7 @@ extension ItemTypeListController {
     
     
     func setupNavigationBar(){
-        navigationItem.title = "货物清单"
+        title = "货物清单"
         
         let barBtn = UIBarButtonItem(title: "确认清单", style: .plain, target: self, action: #selector(submitButtonTapped))
         navigationItem.rightBarButtonItem = barBtn

@@ -40,7 +40,7 @@ class WalletController : UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     private func setupNavitagionBar(){
-        navigationItem.title = "我的钱包"
+        title = "我的钱包"
     }
     
     private func setupTableView(){

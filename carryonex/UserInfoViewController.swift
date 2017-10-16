@@ -58,7 +58,7 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
     
     
     private func setupNavigationBarItems(){
-        navigationItem.title = "我的帐户"
+        title = "我的帐户"
         let leftBackBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(dismissSelfToLeft))
         navigationItem.setLeftBarButton(leftBackBtn, animated: false)
     }

@@ -315,7 +315,7 @@ class AddressController: UIViewController, UITableViewDelegate,UICollectionViewD
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "收货地址"
+        title = "收货地址"
         
         let leftItemButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem = leftItemButton

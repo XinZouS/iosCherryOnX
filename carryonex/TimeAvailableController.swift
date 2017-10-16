@@ -161,7 +161,7 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = "取货时间"
+        title = "取货时间"
         
         let rightBtn = UIBarButtonItem(title: "确定", style: .plain, target: self, action: #selector(finishButtonTapped))
         navigationItem.rightBarButtonItem = rightBtn

@@ -194,7 +194,7 @@ extension HomePageController {
         let userInfoVC = UserInfoViewController(collectionViewLayout: UICollectionViewFlowLayout())
 //        navigationController?.pushViewController(userInfoVC, animated: true)
         // replace above by custimize transit animation:
-        navigationItem.title = "  " //for change "< Back" as "<"
+        title = "  " //for change "< Back" as "<"
         navigationController?.pushViewController(userInfoVC, animated: true)
         
         // plan A: with slide-out menu
@@ -232,7 +232,7 @@ extension HomePageController {
     internal func setupUIContentsForUserIsShipperOrNot(){
         let s = User.shared.isShipper!
         changeTextTo(isShipper: s)
-        changeImageTo(isShipper: s)
+//        changeImageTo(isShipper: s)
     }
     internal func setupSwitchUserTypeBtnTitle(str: String){
         let attriStr = NSMutableAttributedString(string: str, attributes: switchUserTypeAttributes)
@@ -244,12 +244,12 @@ extension HomePageController {
         setupSwitchUserTypeBtnTitle(str: uStr)
         print("now I am a shipper == \(User.shared.isShipper), I can change to \(uStr)")
     }
-    private func changeImageTo(isShipper: Bool){
-        let newImgSideBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_B") : #imageLiteral(resourceName: "CarryonEx_A")
-        let newImgMainBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_Transportation") : #imageLiteral(resourceName: "CarryonEx_Logo")
-        pullSideBtnViewButton.setImage(newImgSideBtn, for: .normal)
-        callShipperButton.setImage(newImgMainBtn, for: .normal)
-    }
+//    private func changeImageTo(isShipper: Bool){
+//        let newImgSideBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_B") : #imageLiteral(resourceName: "CarryonEx_A")
+//        let newImgMainBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_Transportation") : #imageLiteral(resourceName: "CarryonEx_Logo")
+//        pullSideBtnViewButton.setImage(newImgSideBtn, for: .normal)
+//        callShipperButton.setImage(newImgMainBtn, for: .normal)
+//    }
 
     private func flipPageHorizontally(){
         var rotate3D = CATransform3DIdentity

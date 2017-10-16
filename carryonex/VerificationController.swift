@@ -84,6 +84,7 @@ class VerificationController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         verifiTextField.becomeFirstResponder()
+        
     }
     
     override func viewDidLoad() {
@@ -95,7 +96,7 @@ class VerificationController: UIViewController {
         setupResendButton()
         setupVerifiCodeViews()
         setupHintLabels()
-        
+
     }
     
     private func setupResendButton(){

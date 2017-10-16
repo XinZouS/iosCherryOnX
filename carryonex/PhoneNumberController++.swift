@@ -55,7 +55,19 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         self.present(alertCtl, animated: true, completion: nil)
     }
     
-
+    func textFieldsInAllCellResignFirstResponder(){
+        transparentView.isHidden = true
+        phoneNumberTextField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        guard let touch = touches.first else { return }
+        
+        textFieldsInAllCellResignFirstResponder()
+        
+    }
     
     func showUserAgreementPage(){
         let disCtrlView = DisclaimerController()
@@ -185,15 +197,6 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     func keyboardDidHide(){
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        guard let touch = touches.first else { return }
-        let locOnView = touch.location(in: view)
-        if locOnView.y < (view.bounds.height / 2) { // touch outside keyboard
-            phoneNumberTextField.resignFirstResponder()
-        }
-    }
     
     
     
