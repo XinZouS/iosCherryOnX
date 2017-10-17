@@ -26,7 +26,6 @@ class User : NSObject, NSCoding {
     var idCardB_Url: String?
     var passportUrl: String?
     var isVerified : Bool!
-    
     var walletId :  String?
     
     var requestIdList : [String]? // all my requestId
@@ -54,8 +53,8 @@ class User : NSObject, NSCoding {
         token       = 0
         
         nickName    = ""
-        phone       = ""
-        phoneCountryCode = "086"
+        phone       = "13043579747"
+        phoneCountryCode = "86"
         email       = ""
         
         imageUrl    = ""
@@ -90,7 +89,7 @@ class User : NSObject, NSCoding {
         
         nickName    = dictionary["nickName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
-        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? "086"
+        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? "86"
         email       = dictionary["email"] as? String ?? ""
         
         imageUrl    = dictionary["imageUrl"] as? String ?? ""

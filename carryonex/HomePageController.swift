@@ -26,9 +26,6 @@ extension UIColor {
 }
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
 
-//    var delegate = HomePageControllerDelegate.self
- 
-//    var pageContainer: PageContainer?
         
     
     let items: [(icon: String, color: UIColor)] = [
@@ -51,10 +48,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     var searchContainerView : UIView = {
         let v = UIView()
-        //v.backgroundColor = .yellow
-        //v.layer.borderColor = borderColorLightGray.cgColor
-        //v.layer.borderWidth = 1
-        //v.layer.cornerRadius = 5
         return v
     }()
     let searchContentTopMargin: CGFloat = 30
@@ -63,13 +56,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     var searchContainerLeftConstraint: NSLayoutConstraint!
     var searchContainerRightConstraint:NSLayoutConstraint!
     
-//    lazy var searchButton : UIButton = { // replaced by searchController
-//        let b = UIButton()
-//        b.backgroundColor = .white
-//        b.setImage(#imageLiteral(resourceName: "CarryonEx_Search"), for: .normal)
-//        b.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-//        return b
-//    }()
     
     var tableViewHeightConstraint: NSLayoutConstraint?
     internal let tableViewHeigh : CGFloat = UIScreen.main.bounds.height / 2.0
@@ -78,9 +64,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     lazy var searchTextField : UITextField = {
         let t = UITextField()
-//        t.placeholder = " 搜索地址"
-//        t.delegate = self
-//        t.returnKeyType = .go
         return t
     }()
 
@@ -132,9 +115,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             distance: 100)
             b.layer.cornerRadius = 30
             b.layer.masksToBounds = true
-//        //b.setTitle("send", for: .normal)
-//        //b.titleLabel?.font = UIFont(name: buttonFont, size: 20)
-//        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
           b.backgroundColor = buttonColorWhite
           b.layer.borderColor = borderColorLightGray.cgColor
           b.layer.borderWidth = 1
@@ -222,7 +202,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupMapView()
 
         setupSearchContents()
-        //setupTableView()  setup in LocationSearchTableController()
+
         setupCallShipperButton()
         
         setupSideButtonView()
@@ -262,14 +242,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         view.addSubview(searchContainerView)
         searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
-        // replace above line
-//        searchContainerView.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
-//        searchContainerTopConstraint = searchContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: searchContentTopMargin)
-//        searchContainerTopConstraint.isActive = true
-//        searchContainerLeftConstraint = searchContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: searchContentSideMargin)
-//        searchContainerLeftConstraint.isActive = true
-//        searchContainerRightConstraint = searchContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -searchContentSideMargin)
-//        searchContainerRightConstraint.isActive = true
         
         let locationSearchTableViewController = LocationSearchTableController()
         locationSearchTableViewController.homePageController = self
@@ -287,7 +259,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             searchBar.setValue("取消", forKey:"_cancelButtonText")
         }
         searchController?.searchResultsUpdater = locationSearchTableViewController
-        //searchController?.searchBar.delegate = self
         searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
@@ -295,25 +266,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         self.tableViewHeightConstraint = locationSearchTableViewController.tableViewHeightConstraint
         
-//        view.addSubview(searchButton)
-//        searchButton.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: margin+4, topConstent: 94, rightConstent: 0, bottomConstent: 0, width: h-8, height: h-8)
-//        
         if let txfSearchField = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
             self.searchTextField = txfSearchField
         }
-//        view.addSubview(searchTextField)
-//        searchTextField.addConstraints(left: searchButton.rightAnchor, top: searchButton.topAnchor, right: view.rightAnchor, bottom: searchButton.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: margin, bottomConstent: 0, width: 0, height: h)
-        
     }
-    
-//    private func setupTableView(){
-//        view.addSubview(tableView)
-//        tableView.addConstraints(left: searchContainerView.leftAnchor, top: searchContainerView.bottomAnchor, right: searchContainerView.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 6, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-//        tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 300)
-//        tableViewHeightConstraint?.isActive = true
-//     
-//        tableView.keyboardDismissMode = .interactive
-//    }
 
     private func setupMapView(){
         view.addSubview(mapView)

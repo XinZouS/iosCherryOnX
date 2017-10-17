@@ -39,6 +39,7 @@ class RegisterEmailController: UIViewController {
         b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         b.layer.cornerRadius = 5
         b.layer.masksToBounds = true
+        b.isEnabled = false
         b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         return b
     }()
