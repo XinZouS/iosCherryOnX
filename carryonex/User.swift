@@ -27,7 +27,6 @@ class User : BaseUser, NSCoding {
     var idCardB_Url: String?
     var passportUrl: String?
     var isVerified : Bool!
-    
     var walletId :  String?
     
     var requestIdList : [String]? // all my requestId
@@ -55,6 +54,7 @@ class User : BaseUser, NSCoding {
         token       = ""
         
         nickName    = ""
+
         phone       = ""
         phoneCountryCode = ""
         email       = ""
