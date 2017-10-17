@@ -12,14 +12,9 @@ import UIKit
 
 extension UserProfileView {
     
-    
-    internal func changeUserCarrierState(){
-        print("selecting at: \(isCarrierSegmentControl.selectedSegmentIndex)")
-        User.shared.isShipper = isCarrierSegmentControl.selectedSegmentIndex == 1
-    }
-    
+        
     internal func profileButtonTapped(){
-        userInfoViewCtl?.profileImageButtonTapped()
+        homePageCtl?.profileImageButtonTapped()
     }
     
     private func getDocumentUrl() -> URL {
@@ -33,6 +28,13 @@ extension UserProfileView {
             try? imgData.write(to: fileUrl, options: .atomic)
         }
         return fileUrl
+    }
+    
+    internal func loadNameAndPhoneInfo(){
+        nameLabel.text = User.shared.nickName ?? ""
+        let phoneNum = User.shared.phone ?? ""
+        let cc = User.shared.phoneCountryCode ?? ""
+        phoneLabel.text = phoneNum.formatToPhoneNum(countryCode: cc)
     }
     
     internal func loadProfileImageFromLocalFile(){
