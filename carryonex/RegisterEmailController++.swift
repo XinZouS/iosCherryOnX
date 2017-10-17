@@ -15,19 +15,23 @@ extension RegisterEmailController: UITextFieldDelegate {
         navigationController?.pushViewController(registerPasswordCtl, animated: true)
     }
     
-//    public func textFieldDidEndEditing(_ textField: UITextField) {
-//        (textField as? ErrorTextField)?.isErrorRevealed = false
-//    }
-//    
-//    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
-//        (textField as? ErrorTextField)?.isErrorRevealed = false
-//        return true
-//    }
-//    
-//    
-//    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        (textField as? ErrorTextField)?.isErrorRevealed = false
-//    }
+    func checkEmail(){
+        let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+        let matcher = MyRegex(emailPattern)
+        let maybeEmail = emailField.text
+        if matcher.match(input: maybeEmail!) {
+            print("Email正确")
+            emailField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            emailField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            emailField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        }
+        else{
+            emailField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            emailField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            emailField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            print("Email错误")
+        }
+    }
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true

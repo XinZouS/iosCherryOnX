@@ -20,7 +20,6 @@ var flagsTitle : [String] = ["🇨🇳 +86", "🇺🇸  +1", "🇭🇰 852", "�
 
 
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
     var phoneNumberTextField : TextField!
     var isPhoneNumValid: Bool = false
     var isUserAgree: Bool = false
@@ -163,8 +162,8 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
-//        setupDevelopButton()
-        setupWechatButton()
+        setupDevelopButton()
+//        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
@@ -207,7 +206,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         phoneNumberTextField.placeholder = "请输入手机号"
         phoneNumberTextField.detail = "手机号码"
         phoneNumberTextField.clearButtonMode = .whileEditing
-        
+        phoneNumberTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
         view.layout(phoneNumberTextField).top(200).left(100).right(20)
     }
     
