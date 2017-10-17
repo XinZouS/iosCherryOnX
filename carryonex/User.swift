@@ -53,8 +53,8 @@ class User : NSObject, NSCoding {
         token       = 0
         
         nickName    = ""
-        phone       = "13043579747"
-        phoneCountryCode = "86"
+        phone       = ""
+        phoneCountryCode = ""
         email       = ""
         
         imageUrl    = ""
@@ -89,7 +89,7 @@ class User : NSObject, NSCoding {
         
         nickName    = dictionary["nickName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
-        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? "86"
+        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? ""
         email       = dictionary["email"] as? String ?? ""
         
         imageUrl    = dictionary["imageUrl"] as? String ?? ""
