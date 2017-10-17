@@ -1,51 +1,64 @@
 //
-//  OrdersLogController.swift
+//  UserGuideController.swift
 //  carryonex
 //
-//  Created by Xin Zou on 9/4/17.
+//  Created by Xin Zou on 10/16/17.
 //  Copyright © 2017 Xin Zou. All rights reserved.
 //
 
 import UIKit
 
 
+class UserGuideController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let userGuidePageCellSenderId = "userGuidePageCellSenderId"
+    let userGuidePageCellShipperId = "userGuidePageCellShipperId"
 
-class OrdersLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    
-    let cellIdSenderPage = "cellIdSenderPage"
-    let cellIdShipperPage = "cellIdShipperPage"
-    
     let tabTitleMenuBarHeight : CGFloat = 40
     let tabTitleMenuBar = TabTitleMenuBar()
     
+    let faqs = ["如何接单","计费标准","认证与个人资料","如何提交身份认证"]
+    let titlesShipper = ["订单与行程","如何取消订单","运费到账时间","账号与信息","时效","安全与控诉"]
+    let titlesSender  = ["订单与行程","物品类型","如何取消订单","支付与账户","账号与信息","时效","安全与控诉"]
+
+    let urlFaqs = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
+    let urlShipper = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
+    let urlSender = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationBar()
-        
         setupTabMenuBar()
-        
         setupCollectonView()
-    }
-    
-    private func setupNavigationBar(){
-        title = "订单记录"
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-
-        let cancelBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.setLeftBarButton(cancelBtn, animated: true)
     }
     
     private func setupTabMenuBar(){
         view.addSubview(tabTitleMenuBar)
         tabTitleMenuBar.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: tabTitleMenuBarHeight)
         
-        tabTitleMenuBar.ordersLogController = self
+        tabTitleMenuBar.userGuideController = self
     }
-
+    
     private func setupCollectonView(){
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -55,12 +68,11 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         collectionView?.backgroundColor = .white
         collectionView?.contentInset = UIEdgeInsetsMake(tabTitleMenuBarHeight, 0, 0, 0) // top, left, bottom, right
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(tabTitleMenuBarHeight, 0, 0, 0)
-        //constraints will NOT working for this collectionView...why??? setup in childViews.
+        // !!!!!! constraints will NOT working for this collectionView...why??? setup in childViews.
         //collectionView?.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         
-        collectionView?.register(OrdersSenderPageCell.self, forCellWithReuseIdentifier: cellIdSenderPage)
-        collectionView?.register(OrdersShipperPageCell.self, forCellWithReuseIdentifier: cellIdShipperPage)
-        
+        collectionView?.register(UserGuidePageCell.self, forCellWithReuseIdentifier: userGuidePageCellSenderId)
+        collectionView?.register(UserGuidePageCell.self, forCellWithReuseIdentifier: userGuidePageCellShipperId)
         collectionView?.isPagingEnabled = true
     }
     
@@ -71,21 +83,25 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         return tabTitleMenuBar.titleList.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = OrdersSenderPageCell()
+        var cell = UserGuidePageCell()
         if indexPath.item == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdSenderPage, for: indexPath) as! OrdersSenderPageCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellSenderId, for: indexPath) as! UserGuidePageCell
+            cell.titles = [faqs, titlesSender]
         }else{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdShipperPage, for: indexPath) as! OrdersShipperPageCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellShipperId, for: indexPath) as! UserGuidePageCell
+            cell.titles = [faqs, titlesShipper]
         }
+        cell.userGuideCtl = self
         cell.backgroundColor = .white
-
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width, height: self.view.frame.height)
     }
     
-    
+
     
 }
+
 

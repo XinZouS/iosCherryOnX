@@ -30,7 +30,7 @@ extension WaitingController: FBSDKSharingDelegate {
         //prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeWechat)
         
         // wechat offical sdk:
-        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil)
+        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: nil)
     }
     
     func shareToMonent(){
@@ -39,7 +39,7 @@ extension WaitingController: FBSDKSharingDelegate {
         //prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeWechat)
         
         // wechat offical sdk:
-        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: "CarryonEx_OnBoarding-02-1.png")
+        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: "CarryonEx_OnBoarding-02-1.png", webUrl: nil)
     }
     
     func shareToWeibo(){
@@ -89,23 +89,45 @@ extension WaitingController: FBSDKSharingDelegate {
     
     
     
-    private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?){
+    private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?, webUrl: String?){
         let req = SendMessageToWXReq()
         var message = WXMediaMessage()
+        // 1. share Image:
         if let img = image, let fileName = imageFileName {
-            message.setThumbImage(img)
+            //message.setThumbImage(img)  //生成缩略图
+            UIGraphicsBeginImageContext(CGSize(width: 200, height: 200))
+            img.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
+            if let thumbImage = UIGraphicsGetImageFromCurrentImageContext() {
+                UIGraphicsEndImageContext()
+                message.thumbData = UIImagePNGRepresentation(thumbImage)
+            }
             let imgObj = WXImageObject()
             if let d = UIImagePNGRepresentation(img) {
                 imgObj.imageData = d
                 message.mediaObject = imgObj
+                message.title=nil
+                message.description=nil
+                message.mediaTagName = "CarryonEx[游箱]"
             }
             req.bText = false
             req.message = message
-        }else{
+        }else
+        if let url = webUrl { // 2. share offical Website:
+            let web =  WXWebpageObject()
+            web.webpageUrl = "https://www.carryonex.com/"
+            message.mediaObject = web
+            message.title = "CarryonEx [游箱]帮你把思念带回家"
+            message.description = "关注[游箱]网站获取更多活动信息：https://www.carryonex.com/"
+            message.setThumbImage(#imageLiteral(resourceName: "CarryonExIcon-29"))
+            
+            req.bText = false
+            req.message = message
+
+        }else { // 3. share text message:
             req.bText = true
+            req.text = textMsg
         }
-        req.text = textMsg
-        req.scene = Int32(WXSceneSession.rawValue) // Int32(scene.rawValue)
+        req.scene = Int32(scene.rawValue) //Int32(WXSceneSession.rawValue) // 
         WXApi.send(req)
     }
     

@@ -77,7 +77,7 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     
     
     private func setupNavigationBar(){
-        navigationItem.title = "发布行程"
+        title = "发布行程"
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]

@@ -41,12 +41,17 @@ class WalletController : UIViewController, UITableViewDelegate, UITableViewDataS
     
     private func setupNavitagionBar(){
         title = "我的钱包"
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+
+        let cancelBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.setLeftBarButton(cancelBtn, animated: true)
     }
     
     private func setupTableView(){
         let sideMargin: CGFloat = 20
         view.addSubview(tableView)
-        tableView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: sideMargin, topConstent: sideMargin, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
+        tableView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: sideMargin, topConstent: sideMargin, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
         // 账户余额
         tableView.register(WalletBaseCell.self, forCellReuseIdentifier: walletBaseCellId)
         // 银行账号

@@ -16,13 +16,16 @@ extension UserInfoMenuView {
         switch indexPath.item {
         case 0:
             let walletCtl = WalletController()
-            self.homePageCtl?.present(walletCtl, animated: true)
+            let walletNav = UINavigationController(rootViewController: walletCtl)
+            self.homePageCtl?.present(walletNav, animated: true)
+            walletNav.title = titles[indexPath.item]
 
         case 1:
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
             let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
-            self.homePageCtl?.present(ordersLogCtl, animated: true)
+            let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
+            self.homePageCtl?.present(ordersNav, animated: true)
             
         case 2:
             print("TODO: open 客服 page...")
@@ -33,6 +36,7 @@ extension UserInfoMenuView {
             let userSettingCtl = UserSettingController()
             userSettingCtl.userProfileView = self.userProfileView
             let settingNavigationCtl = UINavigationController(rootViewController: userSettingCtl)
+            userSettingCtl.title = self.titles[indexPath.item]
             self.homePageCtl?.present(settingNavigationCtl, animated: true, completion: nil)
             
         case 4:
