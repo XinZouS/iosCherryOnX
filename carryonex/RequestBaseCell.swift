@@ -52,7 +52,7 @@ class RequestBaseCell : UICollectionViewCell {
         
     }
     
-    private func setupTitleLabel(){
+    func setupTitleLabel(){
         addSubview(titleLabel)
         titleLabel.addConstraints(left: leftAnchor, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)

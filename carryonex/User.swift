@@ -7,21 +7,22 @@
 //
 
 import Foundation
- 
-class User : NSObject, NSCoding {
+
+
+class User : BaseUser, NSCoding {
     
-    var id:         String?
-    var username:   String?
-    var password:   String?
-    
-    var token:      Int?
-    
-    var nickName:   String? // username is for login, nickName is for display
-    var phone:      String?
-    var phoneCountryCode: String?
-    var email:      String?
-    
-    var imageUrl   : String?    
+    //    var id:         String?
+    //    var username:   String?
+    //    var password:   String?
+    //
+    //    var token:      Int?
+    //
+    //    var nickName:   String? // username is for login, nickName is for display
+    //    var phone:      String?
+    //    var phoneCountryCode: String?
+    //    var email:      String?
+    //
+    //    var imageUrl   : String?
     var idCardA_Url: String?
     var idCardB_Url: String?
     var passportUrl: String?
@@ -36,7 +37,7 @@ class User : NSObject, NSCoding {
     var isShipper: Bool!
     
     
-    // use: User.sharedInstance.xxx
+    // use: User.shared.xxx
     static var shared = User()  // This is singleton
     
     
@@ -47,14 +48,15 @@ class User : NSObject, NSCoding {
     }
     
     private func resetAllData(){
-        id          = "userIdString123"
+        id          = "demoUser"
         username    = ""
         password    = ""
-        token       = 0
+        token       = ""
         
         nickName    = ""
-        phone       = "13043579747"
-        phoneCountryCode = "86"
+
+        phone       = ""
+        phoneCountryCode = ""
         email       = ""
         
         imageUrl    = ""
@@ -63,7 +65,7 @@ class User : NSObject, NSCoding {
         passportUrl = ""
         isVerified  = false
         
-        walletId    = "123456789"
+        walletId    = ""
         
         requestIdList = []
         tripIdList  = []
@@ -74,22 +76,17 @@ class User : NSObject, NSCoding {
     }
     
     
-    private init(dictionary: [String : Any]) {
-        super.init()
-        setupUserBy(dictionary: dictionary)
-    }
-    
-    func setupUserBy(dictionary: [String : Any]) {
+    override func setupUserByLocal(dictionary: [String : Any]) {
         
-        id          = dictionary["id"] as? String ?? "nilId"
-        username    = dictionary["username"] as? String ?? "nilUsername"
-        password    = dictionary["password"] as? String ?? "nilPassword"
+        id          = dictionary["id"] as? String ?? "demoUser"
+        username    = dictionary["username"] as? String ?? ""
+        password    = dictionary["password"] as? String ?? ""
         
-        token       = dictionary["token"] as? Int ?? 0
+        token       = dictionary["token"] as? String ?? ""
         
         nickName    = dictionary["nickName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
-        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? "86"
+        phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? ""
         email       = dictionary["email"] as? String ?? ""
         
         imageUrl    = dictionary["imageUrl"] as? String ?? ""
@@ -104,7 +101,27 @@ class User : NSObject, NSCoding {
         ordersIdLogAsShipper = dictionary["ordersIdLogAsShipper"] as? [String] // IDs of request I take in
         
         isShipper = dictionary["isShipper"] as! Bool
-
+        
+    }
+    
+    override func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
+        
+        id          = dictionary[PropInDB.id.rawValue] as? String ?? "demoUser"
+        username    = dictionary[PropInDB.username.rawValue] as? String ?? ""
+        password    = dictionary[PropInDB.password.rawValue] as? String ?? "" //TODO: this will be a hash, can we save it and use ?????
+        
+        token       = dictionary[PropInDB.token.rawValue] as? String ?? ""
+        
+        nickName    = dictionary[PropInDB.nickName.rawValue] as? String ?? ""
+        phone       = (dictionary[PropInDB.phone.rawValue] as? String)?.components(separatedBy: "-").last ?? ""
+        phoneCountryCode = (dictionary[PropInDB.phone.rawValue] as? String)?.components(separatedBy: "-").first ?? ""
+        email       = dictionary[PropInDB.email.rawValue] as? String ?? ""
+        
+        imageUrl    = dictionary[PropInDB.imageUrl.rawValue] as? String ?? ""
+        idCardA_Url = dictionary[PropInDB.idCardA_Url.rawValue] as? String ?? ""
+        idCardB_Url = dictionary[PropInDB.idCardB_Url.rawValue] as? String ?? ""
+        passportUrl = dictionary[PropInDB.passportUrl.rawValue] as? String ?? ""
+        isVerified  = dictionary[PropInDB.isVerified.rawValue]  as? Bool ?? false
     }
     
     // for save in local disk:
@@ -114,9 +131,9 @@ class User : NSObject, NSCoding {
         
         dictionary["id"]        = aDecoder.decodeObject(forKey: "id") as? String
         dictionary["username"]  = aDecoder.decodeObject(forKey: "username") as? String
-        dictionary["password"]  = aDecoder.decodeObject(forKey: "") as? String
+        dictionary["password"]  = aDecoder.decodeObject(forKey: "password") as? String
         
-        dictionary["token"]     = aDecoder.decodeObject(forKey: "token") as? Int
+        dictionary["token"]     = aDecoder.decodeObject(forKey: "token") as? String
         
         dictionary["nickName"]  = aDecoder.decodeObject(forKey: "nickName") as? String
         dictionary["phone"]     = aDecoder.decodeObject(forKey: "phone") as? String
@@ -136,7 +153,8 @@ class User : NSObject, NSCoding {
         
         dictionary["isShipper"]  = aDecoder.decodeObject(forKey: "isShipper") as? Bool
         
-        self.init(dictionary: dictionary)
+        self.init()
+        self.setupUserByLocal(dictionary: dictionary)
     }
     
     // should encode use internal?? or public??
@@ -171,7 +189,7 @@ class User : NSObject, NSCoding {
     
     func saveIntoLocalDisk(){
         print("Trying to save into local disk ...")
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self)
             UserDefaults.standard.set(encodedData, forKey: "User")
             UserDefaults.standard.synchronize()
@@ -183,18 +201,82 @@ class User : NSObject, NSCoding {
         print("\n\rtrying to fetchUserFromLocalDiskAndSetup() ...... ")
         guard let savedUser = UserDefaults.standard.object(forKey: "User") as? Data else { return }
         User.shared = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as! User
-        print("OK, fetch User form local disk and setup success! getUser.id = \(User.shared.id)")
-        print("    and user image url = \(User.shared.imageUrl)")
+        print("OK, fetch User form local disk and setup success! getUser = \(User.shared.printAllData())")
     }
     
     func removeFromLocalDisk(){
         UserDefaults.standard.removeObject(forKey: "User")
         print("OK, removed user from local disk.")
     }
-
+    
+    func packAllPropertiesAsDictionary() -> [String:Any] {
+        var json = [String:Any]()
+        json[PropInDB.id.rawValue]          = id!
+        json[PropInDB.username.rawValue]    = username! // value is "phone" to DB
+        json[PropInDB.password.rawValue]    = password!
+        json[PropInDB.token.rawValue]       = token!
+        json[PropInDB.nickName.rawValue]    = nickName!
+        json[PropInDB.phone.rawValue]       = "\(phoneCountryCode!)-\(phone!)"
+        json[PropInDB.email.rawValue]       = email!
+        json[PropInDB.imageUrl.rawValue]    = imageUrl!
+        json[PropInDB.idCardA_Url.rawValue] = idCardA_Url!
+        json[PropInDB.idCardB_Url.rawValue] = idCardB_Url!
+        json[PropInDB.passportUrl.rawValue] = passportUrl!
+        json[PropInDB.isVerified.rawValue]  = isVerified!
+        json[PropInDB.walletId.rawValue]    = walletId!
+        return json
+    }
+    func packAllPropertiesAsData() -> Data? {
+        var json = [String:Any]()
+        json[PropInDB.id.rawValue]          = id!
+        json[PropInDB.username.rawValue]    = username! // value is "phone" to DB
+        json[PropInDB.password.rawValue]    = password!
+        json[PropInDB.token.rawValue]       = token!
+        json[PropInDB.nickName.rawValue]    = nickName!
+        json[PropInDB.phone.rawValue]       = "\(phoneCountryCode!)-\(phone!)"
+        json[PropInDB.email.rawValue]       = email!
+        json[PropInDB.imageUrl.rawValue]    = imageUrl!
+        json[PropInDB.idCardA_Url.rawValue] = idCardA_Url!
+        json[PropInDB.idCardB_Url.rawValue] = idCardB_Url!
+        json[PropInDB.passportUrl.rawValue] = passportUrl!
+        json[PropInDB.isVerified.rawValue]  = isVerified!
+        json[PropInDB.walletId.rawValue]    = walletId!
+        do{
+            if let dt = try JSONSerialization.data(withJSONObject: json, options: []) as Data? {
+                return dt
+            }
+        }catch let err {
+            print("get errorroror when JSONSerialization for User object: \(err)")
+        }
+        return nil
+    }
+    
     func clearCurrentData(){
         resetAllData()
     }
+    
+    
+    open func printAllData(){
+        print("id = \(id!)")
+        print("username = \(username!)")
+        print("password = \(password!)")
+        print("token = \(token!)")
+        print("nickName = \(nickName!)")
+        print("phone = \(phone), countryCode = \(phoneCountryCode!)")
+        print("email = \(email!)")
+        print("imageUrl = \(imageUrl!)")
+        print("idcardA_Url = \(idCardA_Url)")
+        print("idcardB_Url = \(idCardB_Url)")
+        print("passportUrl = \(passportUrl)")
+        print("isVerified = \(isVerified)")
+        print("walletId = \(walletId)")
+        print("requestIdList = \(requestIdList)")
+        print("tripIdList = \(tripIdList)")
+        print("ordersIdLogAsShipper = \(ordersIdLogAsShipper)")
+        print("isShipper = \(isShipper)")
+    }
+    
+    
     
     
 }

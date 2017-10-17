@@ -88,6 +88,7 @@ extension WaitingController: FBSDKSharingDelegate {
     }
     
     
+    
     private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?){
         let req = SendMessageToWXReq()
         var message = WXMediaMessage()

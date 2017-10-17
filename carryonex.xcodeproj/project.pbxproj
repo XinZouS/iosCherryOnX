@@ -74,6 +74,12 @@
 		667266641F66CAC70010FDEC /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266631F66CAC70010FDEC /* UserDefaultKeys.swift */; };
 		667266661F6715700010FDEC /* CheckingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266651F6715700010FDEC /* CheckingAccount.swift */; };
 		667266681F67158F0010FDEC /* CreditAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266671F67158F0010FDEC /* CreditAccount.swift */; };
+		668131091F92C02A0022AEED /* UserInfoMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668131081F92C02A0022AEED /* UserInfoMenuView.swift */; };
+		6681310B1F92F2810022AEED /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681310A1F92F2810022AEED /* UIColor++.swift */; };
+		6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */; };
+		6681310F1F940F250022AEED /* UserSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681310E1F940F250022AEED /* UserSettingController.swift */; };
+		668131131F9413F70022AEED /* UserSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668131121F9413F70022AEED /* UserSettingCell.swift */; };
+		668131171F94163C0022AEED /* UserSettingController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668131161F94163C0022AEED /* UserSettingController++.swift */; };
 		668609691F604FCF00740A92 /* WalletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668609681F604FCF00740A92 /* WalletController.swift */; };
 		6686096B1F6052D400740A92 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6686096A1F6052D400740A92 /* HeaderView.swift */; };
 		6686096D1F6056DA00740A92 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6686096C1F6056DA00740A92 /* Wallet.swift */; };
@@ -233,6 +239,12 @@
 		667266631F66CAC70010FDEC /* UserDefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		667266651F6715700010FDEC /* CheckingAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckingAccount.swift; sourceTree = "<group>"; };
 		667266671F67158F0010FDEC /* CreditAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditAccount.swift; sourceTree = "<group>"; };
+		668131081F92C02A0022AEED /* UserInfoMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoMenuView.swift; sourceTree = "<group>"; };
+		6681310A1F92F2810022AEED /* UIColor++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
+		6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoMenuView++.swift"; sourceTree = "<group>"; };
+		6681310E1F940F250022AEED /* UserSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingController.swift; sourceTree = "<group>"; };
+		668131121F9413F70022AEED /* UserSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingCell.swift; sourceTree = "<group>"; };
+		668131161F94163C0022AEED /* UserSettingController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserSettingController++.swift"; sourceTree = "<group>"; };
 		668609681F604FCF00740A92 /* WalletController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletController.swift; sourceTree = "<group>"; };
 		6686096A1F6052D400740A92 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		6686096C1F6056DA00740A92 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
@@ -469,7 +481,6 @@
 				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
 				665DE4FB1F3A0B70004DDB88 /* Info.plist */,
 				665DE4F31F3A0B70004DDB88 /* carryonex.xcdatamodeld */,
-				FFC56E891F8D53B90079B533 /* Main.storyboard */,
 			);
 			path = carryonex;
 			sourceTree = "<group>";
@@ -549,6 +560,44 @@
 			name = TimeAvailableController;
 			sourceTree = "<group>";
 		};
+		668131101F9413330022AEED /* UserInfoMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				660704E51F3CFB15000C09FD /* UserInfoViewController.swift */,
+				668131081F92C02A0022AEED /* UserInfoMenuView.swift */,
+				660704E71F3D062E000C09FD /* UserInfoViewCell.swift */,
+				66C9756E1F3DF15200450F37 /* UserProfileView.swift */,
+			);
+			name = UserInfoMenuView;
+			sourceTree = "<group>";
+		};
+		668131111F9413690022AEED /* UserSettingController */ = {
+			isa = PBXGroup;
+			children = (
+				6681310E1F940F250022AEED /* UserSettingController.swift */,
+				668131121F9413F70022AEED /* UserSettingCell.swift */,
+			);
+			name = UserSettingController;
+			sourceTree = "<group>";
+		};
+		668131141F9415B60022AEED /* UserMenuInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				66C9756C1F3DEFB000450F37 /* UserInfoViewController++.swift */,
+				6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */,
+				664C648E1F5580A300AA8FFE /* UserProfileView++.swift */,
+			);
+			name = UserMenuInfoView;
+			sourceTree = "<group>";
+		};
+		668131151F94161E0022AEED /* UserSettingController */ = {
+			isa = PBXGroup;
+			children = (
+				668131161F94163C0022AEED /* UserSettingController++.swift */,
+			);
+			name = UserSettingController;
+			sourceTree = "<group>";
+		};
 		668609661F604F8F00740A92 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -597,6 +646,7 @@
 			children = (
 				66E650161F5F129300DA90DE /* ApiServers.swift */,
 				667266631F66CAC70010FDEC /* UserDefaultKeys.swift */,
+				6681310A1F92F2810022AEED /* UIColor++.swift */,
 				66A16AF11F3A5F8100B32AD3 /* UIView++.swift */,
 				66E5204E1F4C76EC008E521D /* UILabel++.swift */,
 				6604605B1F50976F00E5DC4C /* UIButton++.swift */,
@@ -659,9 +709,8 @@
 		66C975721F3E133200450F37 /* UserInfoPage */ = {
 			isa = PBXGroup;
 			children = (
-				660704E51F3CFB15000C09FD /* UserInfoViewController.swift */,
-				66C9756E1F3DF15200450F37 /* UserProfileView.swift */,
-				660704E71F3D062E000C09FD /* UserInfoViewCell.swift */,
+				668131101F9413330022AEED /* UserInfoMenuView */,
+				668131111F9413690022AEED /* UserSettingController */,
 				6633DC921F5DB52F00B2FFAC /* OrdersLogController */,
 				668609671F604FBC00740A92 /* Wallet */,
 			);
@@ -671,8 +720,8 @@
 		66C975731F3E137100450F37 /* UserInfoPage */ = {
 			isa = PBXGroup;
 			children = (
-				66C9756C1F3DEFB000450F37 /* UserInfoViewController++.swift */,
-				664C648E1F5580A300AA8FFE /* UserProfileView++.swift */,
+				668131141F9415B60022AEED /* UserMenuInfoView */,
+				668131151F94161E0022AEED /* UserSettingController */,
 				66DA06CE1F5F0599002C8442 /* OrdersLogController */,
 				668609661F604F8F00740A92 /* Wallet */,
 			);
@@ -915,7 +964,6 @@
 				FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */,
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
 				FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */,
-				FFC56E8B1F8D53B90079B533 /* Main.storyboard in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -978,7 +1026,9 @@
 				66C9757D1F3E165A00450F37 /* DisclaimerController++.swift in Sources */,
 				6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */,
 				66E520451F4B6E04008E521D /* YouxiangCell.swift in Sources */,
+				6681310B1F92F2810022AEED /* UIColor++.swift in Sources */,
 				66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */,
+				668131091F92C02A0022AEED /* UserInfoMenuView.swift in Sources */,
 				6657E94D1F435C1F00755443 /* PhotoIDController++.swift in Sources */,
 				668609771F607ADB00740A92 /* WalletAddingCell.swift in Sources */,
 				664C64981F5602E800AA8FFE /* PostTripController++.swift in Sources */,
@@ -991,6 +1041,7 @@
 				66DA06CB1F5EE910002C8442 /* TabTitleMenuBar.swift in Sources */,
 				663121EB1F53651A000F7ACB /* PaymentCell.swift in Sources */,
 				663F1C961F44DBD000E866C2 /* HomePageTableCell.swift in Sources */,
+				6681310F1F940F250022AEED /* UserSettingController.swift in Sources */,
 				663121E51F5232FD000F7ACB /* ShipperAvailableCell.swift in Sources */,
 				66E5204D1F4B6E4F008E521D /* CostCell.swift in Sources */,
 				66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */,
@@ -1069,6 +1120,7 @@
 				66A16AFE1F3BA82000B32AD3 /* PageContainer.swift in Sources */,
 				FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */,
 				6686097B1F608D6F00740A92 /* WalletCreditCell++.swift in Sources */,
+				668131171F94163C0022AEED /* UserSettingController++.swift in Sources */,
 				663121F11F53C129000F7ACB /* WaitingController++.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				660704E61F3CFB15000C09FD /* UserInfoViewController.swift in Sources */,
@@ -1099,7 +1151,9 @@
 				FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */,
 				664C648F1F5580A300AA8FFE /* UserProfileView++.swift in Sources */,
 				660F4F811F57559400F4820D /* ButtonCell.swift in Sources */,
+				6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */,
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
+				668131131F9413F70022AEED /* UserSettingCell.swift in Sources */,
 				664C5F2D1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift in Sources */,
 				6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */,
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
@@ -1122,14 +1176,6 @@
 				665DE4F91F3A0B70004DDB88 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		FFC56E891F8D53B90079B533 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FFC56E8A1F8D53B90079B533 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

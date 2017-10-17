@@ -61,6 +61,9 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         return b
     }()
     
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +77,10 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     
     
     private func setupNavigationBar(){
-        title = "发布行程"
+        navigationItem.title = "发布行程"
+        UINavigationBar.appearance().tintColor = buttonColorWhite
+        navigationController?.navigationBar.tintColor = buttonColorWhite
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
         
         let leftItemBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
         let righItemBtn = UIBarButtonItem(title: "确认", style: .plain, target: self, action: #selector(okButtonTapped))

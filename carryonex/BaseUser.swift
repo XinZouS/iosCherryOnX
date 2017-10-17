@@ -8,14 +8,15 @@
 
 import Foundation
 
- 
+
+
 class BaseUser : NSObject {
     
     var id:         String?
     var username:   String?
     var password:   String?
     
-    var token:      Int?
+    var token:      String?
     
     var nickName:   String? // username is for login, nickName is for display
     var phone:      String?
@@ -57,7 +58,7 @@ class BaseUser : NSObject {
         username    = ""
         password    = ""
         
-        token       = 0
+        token       = ""
         
         nickName    = ""
         phone       = ""
@@ -79,7 +80,7 @@ class BaseUser : NSObject {
         username    = dictionary["username"] as? String ?? ""
         password    = dictionary["password"] as? String ?? ""
         
-        token       = dictionary["token"] as? Int ?? 0
+        token       = dictionary["token"] as? String ?? ""
         
         nickName    = dictionary["nickName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
@@ -95,7 +96,7 @@ class BaseUser : NSObject {
         username    = dictionary[PropInDB.username.rawValue] as? String ?? ""
         //password    = dictionary[PropInDB.password.rawValue] as? String ?? "" // this will be a hash, can we save it and use ?????
         
-        token       = dictionary[PropInDB.token.rawValue] as? Int ?? 0
+        token       = dictionary[PropInDB.token.rawValue] as? String ?? ""
         
         nickName    = dictionary[PropInDB.nickName.rawValue] as? String ?? ""
         phone       = (dictionary[PropInDB.phone.rawValue] as? String)?.components(separatedBy: "-").last ?? ""

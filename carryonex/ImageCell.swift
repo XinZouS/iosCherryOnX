@@ -64,7 +64,7 @@ class ImageCell: RequestBaseCell, UICollectionViewDelegate, UICollectionViewData
         setupCollectionView()
     }
     
-    func setupTitleLabel(){
+    override func setupTitleLabel(){
         addSubview(titleLabel)
         titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 95, height: 30)
     }
