@@ -151,10 +151,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     
     func onResp(_ resp: BaseResp!) {
         if resp.errCode == 0 && resp.type == 0 {//授权成功
-            let response = resp as! SendAuthResp
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WXLoginSuccessNotification"), object: response.code)
+            if let response = resp as? SendAuthResp {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WXLoginSuccessNotification"), object: response.code)
+            }
         }
-        
     }
 
     

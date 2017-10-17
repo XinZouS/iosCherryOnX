@@ -33,7 +33,9 @@ extension WalletController {
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    
+    internal func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
 }
