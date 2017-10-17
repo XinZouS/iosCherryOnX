@@ -18,8 +18,8 @@ extension UserSettingController {
         if indexPath.section == 0 {
             switch indexPath.item {
             case 0:
-                print("TODO: open 账号与安全 page...")
-                
+                let userChangePhoneCtl = UserChangePhoneController()
+                self.navigationController?.pushViewController(userChangePhoneCtl, animated: true)
             case 1:
                 print("TODO: open 语言 page...")
 

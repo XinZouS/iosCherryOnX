@@ -17,6 +17,7 @@ protocol OrdersSenderPageCellDelegate {
 
 class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    var ordersLogCtl : OrdersLogController!
     let cellIdOrderLogSenderCell = "cellIdOrderLogSenderCell"
     
     var dataList: [Request]?
