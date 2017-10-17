@@ -67,6 +67,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             })
         }else{
             let verifiCtl = VerificationController()
+            User.shared.username = phoneNumberTextField.text
             verifiCtl.isRegister = 1
             navigationController?.pushViewController(verifiCtl, animated: true)
         }

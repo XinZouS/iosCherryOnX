@@ -201,13 +201,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     // MARK: - setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if UserDefaults.standard.bool(forKey: UserDefaultKey.OnboardingFinished.rawValue) == false {
             presentOnboardingPage()
         }
         fetchUserFromLocalDiskAndSetup()
-        
-        isItHaveLogIn()
         
         //setupNavigationBar()
         setupMapView()
@@ -226,7 +223,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         setupUserInfoMenuView()
 
         testApiServers()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -234,6 +230,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
+        isItHaveLogIn()
         setupStatuesBar()
         setupUIContentsForUserIsShipperOrNot()
     }
