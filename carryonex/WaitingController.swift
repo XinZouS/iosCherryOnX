@@ -156,7 +156,7 @@ class WaitingController: UIViewController {
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(closeButton)
-        closeButton.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 38, rightConstent: 14, bottomConstent: 0, width: 15, height: 15)
+        closeButton.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 40, rightConstent: 20, bottomConstent: 0, width: 20, height: 20)
     }
     
     func setupImageView(){

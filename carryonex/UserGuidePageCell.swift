@@ -10,6 +10,8 @@ import UIKit
 
 class UserGuidePageCell : UICollectionViewCell {
     
+    var userGuideCtl : UserGuideController!
+    
     var titles : [[String]]! {
         didSet{
             DispatchQueue.main.async {
@@ -17,6 +19,7 @@ class UserGuidePageCell : UICollectionViewCell {
             }
         }
     }
+    var urls : [[String]]!
     
     let userGuidePageTableCellId = "userGuidePageTableCellId"
     
@@ -61,6 +64,7 @@ extension UserGuidePageCell : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: userGuidePageTableCellId, for: indexPath) as! UserGuidePageTableCell
         cell.titleLabel.text = titles[indexPath.section][indexPath.item]
+        cell.userGuideCtl = self.userGuideCtl
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

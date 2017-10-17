@@ -38,4 +38,7 @@ extension OrdersLogController {
         tabTitleMenuBar.changeBarTitleForScrolling(atSender: isSender)
     }
     
+    internal func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
+    }
 }

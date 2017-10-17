@@ -32,6 +32,11 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     
     private func setupNavigationBar(){
         title = "订单记录"
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+
+        let cancelBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.setLeftBarButton(cancelBtn, animated: true)
     }
     
     private func setupTabMenuBar(){

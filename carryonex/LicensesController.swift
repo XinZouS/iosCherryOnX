@@ -16,7 +16,7 @@ class LicensesController: UITableViewController {
     let urls = ["http://192.168.0.119:5000/license",
                 "http://192.168.0.119:5000/privacy",
                 "http://192.168.0.119:5000/acknowledgements",
-                "https://www.carryonex.com/"]
+                ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -21,7 +21,29 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
     let titlesShipper = ["订单与行程","如何取消订单","运费到账时间","账号与信息","时效","安全与控诉"]
     let titlesSender  = ["订单与行程","物品类型","如何取消订单","支付与账户","账号与信息","时效","安全与控诉"]
 
-
+    let urlFaqs = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
+    let urlShipper = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
+    let urlSender = [
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/",
+        "https://www.carryonex.com/"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +91,7 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellShipperId, for: indexPath) as! UserGuidePageCell
             cell.titles = [faqs, titlesShipper]
         }
+        cell.userGuideCtl = self
         cell.backgroundColor = .white
         
         return cell

@@ -11,6 +11,8 @@ import UIKit
 
 class UserGuidePageTableCell : UITableViewCell {
     
+    weak var userGuideCtl : UserGuideController!
+    
     let titleLabel : UILabel = {
         let b = UILabel()
         b.textColor = .black
