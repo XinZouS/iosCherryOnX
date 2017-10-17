@@ -18,34 +18,62 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     // MARK: logic func
     
-    func okButtonTapped(){
-        okButtonDisable()
-        _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(okButtonEnable), userInfo: nil, repeats: false)
-        
-        let phoneNum = User.shared.phone ?? "0"
-        let zoneCode = User.shared.phoneCountryCode ?? "86"
-        print("get : okButtonTapped, api send text msg and go to next page!!!")
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-            print(err)
-            if err == nil {
-                print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                self.goToVerificationPage()
-            } else {
-                print("PhoneNumberController: 有错误: \(err)")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
-                self .showAlertWith(title: "获取验证码失败", message: msg)
-            }
-        })
+//    func okButtonTapped(){
+//        okButtonDisable()
+//        _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(okButtonEnable), userInfo: nil, repeats: false)
+//
+//        let phoneNum = User.shared.phone ?? "0"
+//        let zoneCode = User.shared.phoneCountryCode ?? "86"
+//        print("get : okButtonTapped, api send text msg and go to next page!!!")
+//        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+//            print(err)
+//            if err == nil {
+//                print("PhoneNumberController: 获取验证码成功, go next page!!!")
+//                self.goToVerificationPage()
+//            } else {
+//                print("PhoneNumberController: 有错误: \(err)")
+//                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+//                self .showAlertWith(title: "获取验证码失败", message: msg)
+//            }
+//        })
+//    }
+//    private func okButtonDisable(){
+//        okButton.setTitle("正在请求验证码...", for: .normal)
+//        okButton.backgroundColor = .lightGray
+//        okButton.isEnabled = false
+//    }
+//    @objc private func okButtonEnable(){
+//        okButton.setTitle("获取验证码", for: .normal)
+//        okButton.backgroundColor = buttonThemeColor
+//        okButton.isEnabled = true
+//    }
+    func nextButtonTapped(){
+         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
+        var alreadyExist = false
+        if alreadyExist == true{
+            let phoneNum = User.shared.phone ?? "0"
+            let zoneCode = User.shared.phoneCountryCode ?? "86"
+            print("get : okButtonTapped, api send text msg and go to next page!!!")
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                print(err)
+                if err == nil {
+                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                    self.goToVerificationPage()
+                } else {
+                    print("PhoneNumberController: 有错误: \(err)")
+                    let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+                    self .showAlertWith(title: "获取验证码失败", message: msg)
+                }
+            })
+        }else{
+            let verifiCtl = VerificationController()
+            verifiCtl.isRegister = 1
+            navigationController?.pushViewController(verifiCtl, animated: true)
+        }
     }
-    private func okButtonDisable(){
-        okButton.setTitle("正在请求验证码...", for: .normal)
-        okButton.backgroundColor = .lightGray
-        okButton.isEnabled = false
-    }
-    @objc private func okButtonEnable(){
-        okButton.setTitle("获取验证码", for: .normal)
-        okButton.backgroundColor = buttonThemeColor
-        okButton.isEnabled = true
+    @objc private func nextButtonEnable(){
+        nextButton.isEnabled = false
+        nextButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
     }
     private func showAlertWith(title:String, message:String){
         let alertCtl = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -90,43 +118,60 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         phoneNumberTextField.resignFirstResponder()
-        updatePhoneNum()
-        updateOkButton()
+//        updatePhoneNum()
+//        updateOkButton()
     }
     
-    func textFieldDidChange(_ textField: UITextField){
-        updatePhoneNum()
-        updateOkButton()
+    func checkPhone(){
+        var phonePattern = ""
+        switch User.shared.phoneCountryCode {
+        case "86"?:
+            phonePattern = "^1[0-9]{10}$"
+        case "1"?:
+            phonePattern = "^[0-9]{10}$"
+        default:
+            break
+        }
+        let matcher = MyRegex(phonePattern)
+        let maybephone = phoneNumberTextField.text
+        User.shared.phone = phoneNumberTextField.text
+        if matcher.match(input: maybephone!) {
+            print("电话格式正确")
+            phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            isPhoneNumValid = true
+        }
+        else{
+            phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            print("电话格式有误")
+            isPhoneNumValid = false
+        }
     }
     
     func agreeCheckboxChanged(){
         print("TODO: agreeCheckboxChanged() !!!!!")
-        updateOkButton()
-        updateRegistButton()
+        updateNextButton()
+//        updateRegistButton()
     }
     
     private func updatePhoneNum(){
         let phoneNumber = phoneNumberTextField.text ?? "0"
         User.shared.phone = phoneNumber
     }
-    
-    private func updateOkButton(){
+//
+    private func updateNextButton(){
         guard let num = phoneNumberTextField.text else { return }
         isPhoneNumValid = (num.characters.count >= 6)
         isUserAgree = agreeCheckbox.checkState == .checked
-        
-        okButton.isEnabled = isUserAgree && isPhoneNumValid
-        okButton.backgroundColor = okButton.isEnabled ? buttonThemeColor : .lightGray
+        if isPhoneNumValid == true{
+            nextButton.isEnabled = isUserAgree && isPhoneNumValid
+            nextButton.backgroundColor = nextButton.isEnabled ? buttonThemeColor : .lightGray
+        }
     }
     
-    private func updateRegistButton(){
-        guard let num = phoneNumberTextField.text else { return }
-        isPhoneNumValid = (num.characters.count >= 6)
-        isUserAgree = agreeCheckbox.checkState == .checked
-        
-        devBtn.isEnabled = isUserAgree && isPhoneNumValid
-        devBtn.backgroundColor = okButton.isEnabled ? buttonThemeColor : .lightGray
-    }
     //WECHAT lOGIN
     func wechatButtonTapped(){
         let urlStr = "weixin://"
@@ -181,11 +226,11 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }
     }
     
-    func registerButtonTapped(){
-        let verifiCtl = VerificationController()
-        verifiCtl.isRegister = 1
-        navigationController?.pushViewController(verifiCtl, animated: true)
-    }
+//    func registerButtonTapped(){
+//        let verifiCtl = VerificationController()
+//        verifiCtl.isRegister = 1
+//        navigationController?.pushViewController(verifiCtl, animated: true)
+//    }
     
     func setupKeyboardObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)

@@ -104,9 +104,10 @@ extension VerificationController: UITextFieldDelegate {
     }
     
     private func verifySuccess(){
+        let inputPasswordCtl = InputPasswordLoginController()
         print("验证成功! Go to Home page!")
         User.shared.saveIntoLocalDisk()
-        dismissAndBackToHomePage()
+        navigationController?.pushViewController(inputPasswordCtl, animated: true)
         
         //self.phonenumberC?.dismissAndBackToHomePage() // replace reference by delegate
 //        showAlertWith(title: "验证成功✅", message: "将返回主页面")

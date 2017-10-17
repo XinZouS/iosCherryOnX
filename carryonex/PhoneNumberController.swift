@@ -20,7 +20,6 @@ var flagsTitle : [String] = ["🇨🇳 +86", "🇺🇸  +1", "🇭🇰 852", "�
 
 
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
     var phoneNumberTextField : TextField!
     var isPhoneNumValid: Bool = false
     var isUserAgree: Bool = false
@@ -58,20 +57,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     let textFieldH : CGFloat = 30
     
-//    lazy var phoneNumberTextField: UITextField = {
-//        let t = UITextField()
-//        t.backgroundColor = .white
-//        t.layer.cornerRadius = 5
-//        t.layer.borderWidth = 1
-//        t.layer.borderColor = UIColor.lightGray.cgColor
-//        t.keyboardType = .phonePad
-//        t.placeholder = " 请输入您的手机号"
-//        t.font = UIFont.systemFont(ofSize: 16)
-//        t.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//        return t
-//    }()
-    
-    //let agreeCheckbox1 = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 15.0, height: 15.0))
     lazy var agreeCheckbox : M13Checkbox = {
         let b = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 15.0, height: 15.0))
         b.addTarget(self, action: #selector(agreeCheckboxChanged), for: .valueChanged)
@@ -87,6 +72,16 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return b
     }()
     
+    lazy var nextButton : UIButton = {
+        let b = UIButton()
+        b.setTitle("→", for: .normal)
+        b.layer.cornerRadius = 30
+        b.backgroundColor = .lightGray
+        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        b.isEnabled = false
+        return b
+    }()
+    
     lazy var agreeButton : UIButton = {
         let attributes : [String: Any] = [
             NSFontAttributeName : UIFont.systemFont(ofSize: 12),
@@ -97,9 +92,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         let b = UIButton()
         b.backgroundColor = .white
-        //b.setTitle("用户协议", for: .normal)
-        //b.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        //b.titleLabel?.tintColor = .blue
         b.setAttributedTitle(attributeString, for: .normal)
         b.addTarget(self, action: #selector(showUserAgreementPage), for: .touchUpInside)
         return b
@@ -116,28 +108,28 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return b
     }()
     
-    lazy var okButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .lightGray // buttonColorBlue
-        b.setTitle("用户登入", for: .normal)
-        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        b.layer.cornerRadius = 5
-        b.layer.masksToBounds = true
-        b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
-        b.isEnabled = false
-        return b
-    }()
-    
-    lazy var devBtn: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .lightGray
-        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        b.setTitle("用户注册", for: .normal)
-        b.layer.cornerRadius = 5
-        b.layer.masksToBounds = true
-        b.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-        return b
-    }()
+//    lazy var okButton: UIButton = {
+//        let b = UIButton()
+//        b.backgroundColor = .lightGray // buttonColorBlue
+//        b.setTitle("用户注册", for: .normal)
+//        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        b.layer.cornerRadius = 5
+//        b.layer.masksToBounds = true
+////        b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
+//        b.isEnabled = false
+//        return b
+//    }()
+//
+//    lazy var devBtn: UIButton = {
+//        let b = UIButton()
+//        b.backgroundColor = .lightGray
+//        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        b.setTitle("用户注册", for: .normal)
+//        b.layer.cornerRadius = 5
+//        b.layer.masksToBounds = true
+//        b.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+//        return b
+//    }()
     
     
     // for keyboard notification:
@@ -158,13 +150,14 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         view.backgroundColor = .white
         
         setupNavigationBar()
-        setupOkButton() // the order of this 3 is NOT allow to change!
+//        setupOkButton() // the order of this 3 is NOT allow to change!
         setupPhoneNumTextField()
         setupFlagButton()
         setupFlagPicker()
         setupAgreeItems()
 //        setupDevelopButton()
-        setupWechatButton()
+        setupnextButton()
+//        setupWechatButton()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
@@ -176,22 +169,30 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         title = "输入手机"
     }
     
-    private func setupOkButton(){
-        view.addSubview(okButton)
-        okButton.translatesAutoresizingMaskIntoConstraints = false
-        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
-        okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
-        okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    private func setupnextButton(){
+        view.addSubview(nextButton)
+        nextButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
+        nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
+        nextButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
     }
-    private func setupDevelopButton(){
-        view.addSubview(devBtn)
-        devBtn.translatesAutoresizingMaskIntoConstraints = false
-        devBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        devBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
-        devBtn.widthAnchor.constraint(equalToConstant: 148).isActive = true
-        devBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    }
+    
+//    private func setupOkButton(){
+//        view.addSubview(okButton)
+//        okButton.translatesAutoresizingMaskIntoConstraints = false
+//        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+//        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
+//        okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
+//        okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//    }
+//
+//    private func setupDevelopButton(){
+//        view.addSubview(devBtn)
+//        devBtn.translatesAutoresizingMaskIntoConstraints = false
+//        devBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+//        devBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
+//        devBtn.widthAnchor.constraint(equalToConstant: 148).isActive = true
+//        devBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//    }
     
     private func setupWechatButton(){
         view.addSubview(wechatlogin)
@@ -207,7 +208,8 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         phoneNumberTextField.placeholder = "请输入手机号"
         phoneNumberTextField.detail = "手机号码"
         phoneNumberTextField.clearButtonMode = .whileEditing
-        
+        phoneNumberTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
+        phoneNumberTextField.keyboardType = .numberPad
         view.layout(phoneNumberTextField).top(200).left(100).right(20)
     }
     
@@ -225,9 +227,9 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     private func setupAgreeItems(){
         view.addSubview(agreeLabel)
-        agreeLabel.addConstraints(left: nil, top: nil, right: nil, bottom: okButton.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 30, width: 90, height: 20)
+        agreeLabel.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 400, width: 90, height: 20)
         agreeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
-        
+        agreeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
         view.addSubview(agreeButton)
         agreeButton.addConstraints(left: agreeLabel.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 1, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 52, height: 30)
         agreeButton.centerYAnchor.constraint(equalTo: agreeLabel.centerYAnchor).isActive = true

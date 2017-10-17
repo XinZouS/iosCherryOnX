@@ -1,17 +1,16 @@
 //
-//  RegisterPasswordController.swift
+//  InputPasswordLoginController.swift
 //  carryonex
 //
-//  Created by zxbMacPro on 2017/10/6.
+//  Created by zxbMacPro on 2017/10/16.
 //  Copyright © 2017年 Xin Zou. All rights reserved.
 //
 
 import UIKit
 import Material
 
-class RegisterPasswordController: UIViewController {
+class InputPasswordLoginController: UIViewController {
     var passwordField: TextField!
-    var passwordConfirmField: TextField!
     fileprivate let constant: CGFloat = 32
     
     var transparentView : UIView = {
@@ -25,7 +24,7 @@ class RegisterPasswordController: UIViewController {
     lazy var okButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .lightGray // buttonColorBlue
-        b.setTitle("确认", for: .normal)
+        b.setTitle("登录", for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         b.layer.cornerRadius = 5
         b.layer.masksToBounds = true
@@ -53,10 +52,6 @@ class RegisterPasswordController: UIViewController {
         
         setupPasswordTextField()
         
-        
-        setupPasswordConfirmTextField()
-        
-        
         setupOkButton()
         
     }
@@ -66,30 +61,13 @@ class RegisterPasswordController: UIViewController {
         passwordField.detail = "At least 8 characters"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
+        passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView
-        passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
-        view.layout(passwordField).top(200).left(60).right(60)
-    }
-    
-    
-    private func setupPasswordConfirmTextField(){
-        passwordConfirmField = TextField()
-        passwordConfirmField.placeholder = "confirm"
-        passwordConfirmField.detail = "Confirm your password"
-        passwordConfirmField.clearButtonMode = .whileEditing
-        passwordConfirmField.isVisibilityIconButtonEnabled = true
-        // Setting the visibilityIconButton color.
-        passwordConfirmField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
-        passwordConfirmField.addTarget(self, action: #selector(checkConfirmPassword), for: .editingChanged)
-        let leftView = UIImageView()
-        leftView.image = Icon.settings
-        passwordConfirmField.leftView = leftView
-        
-        view.layout(passwordConfirmField).center().left(60).right(60)
+        view.layout(passwordField).center().left(60).right(60)
     }
     
     
