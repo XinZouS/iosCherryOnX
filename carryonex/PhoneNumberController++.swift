@@ -49,8 +49,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
 //    }
     func nextButtonTapped(){
          _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
-        var alreadyExist = false
-        if alreadyExist == true{
+        if alreadyExist == true {
             let phoneNum = User.shared.phone ?? "0"
             let zoneCode = User.shared.phoneCountryCode ?? "86"
             print("get : okButtonTapped, api send text msg and go to next page!!!")
@@ -67,7 +66,8 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             })
         }else{
             let verifiCtl = VerificationController()
-            verifiCtl.isRegister = 1
+            User.shared.username = phoneNumberTextField.text
+            isRegister = true
             navigationController?.pushViewController(verifiCtl, animated: true)
         }
     }
@@ -141,6 +141,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
             phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
             isPhoneNumValid = true
+            if isModifyPhoneNumber == true {
+                nextButton.isEnabled =  isPhoneNumValid
+                nextButton.backgroundColor = nextButton.isEnabled ? buttonThemeColor : .lightGray
+            }
         }
         else{
             phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)

@@ -8,12 +8,6 @@
 
 import UIKit
 
-
-enum Payment {
-    case applePay, paypal, creditCard, wechatPay
-}
-
-
 class PaymentController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UITextViewDelegate {
     
     var requestCtl : RequestController?

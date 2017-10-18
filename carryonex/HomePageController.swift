@@ -15,7 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 
-class HomePageController: UIViewController, UISearchResultsUpdating {
+class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
 
         
     
@@ -201,13 +201,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     // MARK: - setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if UserDefaults.standard.bool(forKey: UserDefaultKey.OnboardingFinished.rawValue) == false {
             presentOnboardingPage()
         }
         fetchUserFromLocalDiskAndSetup()
-        
-        isItHaveLogIn()
         
         //setupNavigationBar()
         setupMapView()
@@ -226,7 +223,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         setupUserInfoMenuView()
 
         testApiServers()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -234,6 +230,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
+        isItHaveLogIn()
         setupStatuesBar()
         setupUIContentsForUserIsShipperOrNot()
     }
@@ -245,6 +242,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     private func isItHaveLogIn(){
         if(User.shared.username == ""){
             let registerMainCtl = RegisterMainController()
+            isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         }

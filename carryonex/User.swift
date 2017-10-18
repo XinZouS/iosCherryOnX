@@ -54,7 +54,6 @@ class User : BaseUser, NSCoding {
         token       = ""
         
         nickName    = ""
-
         phone       = ""
         phoneCountryCode = ""
         email       = ""

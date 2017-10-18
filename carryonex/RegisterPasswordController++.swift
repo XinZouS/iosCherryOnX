@@ -11,7 +11,7 @@ import UIKit
 
 extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
-        let homepageCtl = HomePageController()
+        alreadyExist = true
         self.dismiss(animated: true, completion: nil)
     }
     
