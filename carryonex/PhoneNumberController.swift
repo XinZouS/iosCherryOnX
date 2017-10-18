@@ -11,19 +11,9 @@ import UIKit
 import M13Checkbox
 import Material
 
-
-// if changes the key in this map, MUST change also in the flagsTitle array
-// *** the order of flags in flagsTitle should NOT be change!!!
-let codeOfFlag : [String:String] = ["🇨🇳 +86":"86", "🇺🇸  +1":"1", "🇭🇰 852":"852", "🇹🇼 886":"886", "🇦🇺 +61":"61", "🇬🇧 +44":"44", "🇩🇪 +49":"49"]
-var flagsTitle : [String] = ["🇨🇳 +86", "🇺🇸  +1", "🇭🇰 852", "🇹🇼 886", "🇦🇺 +61", "🇬🇧 +44", "🇩🇪 +49"]
-// save key from above
-
-
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var phoneNumberTextField : TextField!
     var isPhoneNumValid: Bool = false
-    var isUserAgree: Bool = false
-    var isRegister = 0
     
     var transparentView : UIView = {
         let v = UIView()
@@ -48,7 +38,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         b.layer.borderColor = UIColor.lightGray.cgColor
         b.layer.borderWidth = 1
         b.layer.cornerRadius = 5
-        b.setTitle("🇨🇳 +86", for: .normal)
+        b.setTitle("🇺🇸  +1", for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.borderColor = .clear
         b.addTarget(self, action: #selector(openFlagPicker), for: .touchUpInside)
@@ -136,7 +126,11 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
-        navigationController?.isNavigationBarHidden = true
+        if (isModifyPhoneNumber == false){
+            navigationController?.isNavigationBarHidden = true
+        }else{
+            navigationController?.isNavigationBarHidden = false
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -154,7 +148,9 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         setupPhoneNumTextField()
         setupFlagButton()
         setupFlagPicker()
-        setupAgreeItems()
+        if isModifyPhoneNumber == false {
+            setupAgreeItems()
+        }
 //        setupDevelopButton()
         setupnextButton()
 //        setupWechatButton()

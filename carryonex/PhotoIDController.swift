@@ -12,14 +12,6 @@ import AWSCognito
 import AWSS3
 
 
-enum ImageTypeOfID : String {
-    case passport = "passport"
-    case idCardA = "idCardA"
-    case idCardB = "idCardB"
-    case profile = "profile"
-}
-
-
 class PhotoIDController: UIViewController {
     
     var homePageController: HomePageController?

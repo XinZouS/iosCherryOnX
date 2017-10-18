@@ -9,12 +9,6 @@
 import UIKit
 
 
-
-protocol OrdersSenderPageCellDelegate {
-    func registerCollectionView()
-    func fetchRequests()
-}
-
 class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var ordersLogCtl : OrdersLogController!

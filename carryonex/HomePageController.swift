@@ -15,7 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 
-class HomePageController: UIViewController, UISearchResultsUpdating {
+class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
 
         
     
@@ -242,6 +242,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     private func isItHaveLogIn(){
         if(User.shared.username == ""){
             let registerMainCtl = RegisterMainController()
+            isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         }
