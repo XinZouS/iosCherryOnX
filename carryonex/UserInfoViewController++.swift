@@ -33,9 +33,9 @@ extension UserInfoViewController {
 
     }
     
-    func logoutButtonTapped(){
-        ProfileManager.shared.resetAllData()
-        ProfileManager.shared.removeFromLocalDisk() // remove local user for new user to login
+    func logoutButtonTapped() {
+        
+        ProfileManager.shared.removeUser()
         userProfileView.removeProfileImageFromLocalFile()
 
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())
@@ -150,7 +150,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
         uploadRequest.acl = .private
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.id!)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()
@@ -165,7 +165,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    ProfileManager.shared.imageUrl = publicURL.absoluteString
+                    ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
