@@ -69,8 +69,8 @@ extension UserSettingController {
     }
     
     func logoutButtonTapped(){
-        User.shared.clearCurrentData()
-        User.shared.removeFromLocalDisk() // remove local user for new user to login
+        ProfileManager.shared.resetAllData()
+        ProfileManager.shared.removeFromLocalDisk() // remove local user for new user to login
         userProfileView?.removeProfileImageFromLocalFile()
         
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())

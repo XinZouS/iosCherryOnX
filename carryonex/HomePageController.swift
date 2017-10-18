@@ -235,7 +235,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
         setupStatuesBar()
-        setupUIContentsForUserIsShipperOrNot()
+        //setupUIContentsForUserIsShipperOrNot() do not need to check this for user, we dont need it;
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -243,7 +243,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
 
     private func isItHaveLogIn(){
-        if(User.shared.username == ""){
+        if(ProfileManager.shared.username == ""){
             let registerMainCtl = RegisterMainController()
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
@@ -298,7 +298,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
 
     private func setupMapView(){
         view.addSubview(mapView)
-        mapView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        mapView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         
         zoomToUserLocation()
     }
@@ -328,11 +328,17 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         print("button did selected: \(atIndex)")
         switch atIndex{
         case 0:
-            callShipperButtonTapped()
+            //callShipperButtonTapped()
+            showUserInfoSideMenu()
+            
         case 1:
-            switchToSender()
+            //switchToSender() no need to switch, just open the page for sender
+            gotoItemTypePage()
+            
         case 2:
-            switchToShiper()
+            //switchToShiper() no need to switch just open the page for shipper
+            gotoTripPage()
+            
         default:
             break;
         }
@@ -363,7 +369,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
         sideButtonContainerView.addSubview(switchUserTypeButton)
         switchUserTypeButton.addConstraints(left: pullSideBtnViewButton.rightAnchor, top: sideButtonContainerView.topAnchor, right: sideButtonContainerView .rightAnchor, bottom: sideButtonContainerView.bottomAnchor, leftConstent: -3, topConstent: 0, rightConstent: sideBtnW / 2 + 10, bottomConstent: 0, width: 0, height: 0)
-        setupSwitchUserTypeBtnTitle(str: btnTitleShipForYou)
+        //setupSwitchUserTypeBtnTitle(str: btnTitleShipForYou)
         
         setupSwipGestureRecognizer()
     }
@@ -442,8 +448,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ApiServers.shared.registerUser()
-        //User.shared.username = "user0"
-        //User.shared.password = "73dbe388246aa5ee6d71d98371bfb292"
+        //ProfileManager.shared.username = "user0"
+        //ProfileManager.shared.password = "73dbe388246aa5ee6d71d98371bfb292"
         //ApiServers.shared.loginUser()
         //ApiServers.shared.logoutUser()
         /*
@@ -455,52 +461,52 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in
             print("get imageUrl = \(imageUrl)")
             if let url = imageUrl as? String {
-                User.shared.imageUrl = url
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.imageUrl = url
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.passportUrl) { passporturl in
             print("get passportUrl = \(passporturl)")
             if let url = passporturl as? String {
-                User.shared.passportUrl = url
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.passportUrl = url
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.idAUrl) { idaUrl in
             print("get idA url = \(idaUrl)")
             if let url = idaUrl as? String {
-                User.shared.idCardA_Url = url
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.idCardA_Url = url
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.idBUrl) { idbUrl in
             if let url = idbUrl as? String {
                 print("get idB url = \(idbUrl)")
-                User.shared.idCardB_Url = url
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.idCardB_Url = url
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.email) { email in
             if let e = email as? String {
                 print("get email = \(email)")
-                User.shared.email = e
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.email = e
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.realName) { realname in
             if let name = realname as? String {
                 print("get realName = \(realname)")
-                User.shared.nickName = name
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.nickName = name
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfo(.phone) { phone in
             if let p = phone as? String {
                 print("get Phone = \(phone)")
                 let arr = p.components(separatedBy: "-")
-                User.shared.phoneCountryCode = arr.first!
-                User.shared.phone = arr.last!
-                User.shared.saveIntoLocalDisk()
+                ProfileManager.shared.phoneCountryCode = arr.first!
+                ProfileManager.shared.phone = arr.last!
+                ProfileManager.shared.saveIntoLocalDisk()
             }
         }
         ApiServers.shared.getUserInfoAll { (dictionary) in

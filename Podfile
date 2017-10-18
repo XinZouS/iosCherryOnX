@@ -15,6 +15,8 @@ target 'carryonex' do
   pod 'FSCalendar'
   pod 'paper-onboarding', '2.0.1'
   pod 'ALCameraViewController', '2.0.3'
+  
+  # AWS S3 for image storage
   pod 'AWSCore'
   pod 'AWSS3'
   pod 'AWSCognito'

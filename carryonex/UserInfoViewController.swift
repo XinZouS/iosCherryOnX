@@ -53,7 +53,7 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        User.shared.saveIntoLocalDisk()
+        ProfileManager.shared.saveIntoLocalDisk()
     }
     
     

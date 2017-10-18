@@ -266,7 +266,7 @@ extension RequestController {
         uploadRequest?.acl = .private
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[fileName]! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(User.shared.id!)" // no / at the end of bucket
+        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(ProfileManager.shared.id!)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)
