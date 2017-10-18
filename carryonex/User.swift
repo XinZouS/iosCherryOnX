@@ -9,24 +9,24 @@
 import Foundation
 
 
-class User : BaseUser, NSCoding {
+class User : NSObject, NSCoding {
     
-    //    var id:         String?
-    //    var username:   String?
-    //    var password:   String?
-    //
-    //    var token:      Int?
-    //
-    //    var nickName:   String? // username is for login, nickName is for display
-    //    var phone:      String?
-    //    var phoneCountryCode: String?
-    //    var email:      String?
-    //
-    //    var imageUrl   : String?
+    var id:         String?
+    var username:   String?
+    var password:   String?
+    
+    var token:      String?
+    
+    var nickName:   String? // username is for login, nickName is for display
+    var phone:      String?
+    var phoneCountryCode: String?
+    var email:      String?
+    
+    var imageUrl   : String?
     var idCardA_Url: String?
     var idCardB_Url: String?
     var passportUrl: String?
-    var isVerified : Bool!
+    var isVerified : Bool
     var walletId :  String?
     
     var requestIdList : [String]? // all my requestId
@@ -34,12 +34,32 @@ class User : BaseUser, NSCoding {
     
     var ordersIdLogAsShipper: [String]? // IDs of request I take in
     
-    var isShipper: Bool!
+    var isShipper: Bool
     
     
     // use: User.shared.xxx
-    static var shared = User()  // This is singleton
+    //static var shared = User()  This is singleton ---> change it to ProfileManager()
     
+    enum PropInDB: String {
+        case appToken  = "app_token"
+        case timestamp = "timestamp"
+        
+        case id       = "id"
+        case username = "username"
+        case password = "password"
+        case token       = "user_token"
+        case nickName    = "real_name"
+        case phone       = "phone"
+        //case phoneCountryCode = ""  put into phonNumber, seprator: -
+        case email       = "email"
+        case imageUrl    = "image_url"
+        case idCardA_Url = "ida_url"
+        case idCardB_Url = "idb_url"
+        case passportUrl = "passport_url"
+        case isVerified  = "status_id"
+        case walletId    = "wallet_id"
+    }
+
     
     private override init() {
         super.init()
@@ -76,7 +96,7 @@ class User : BaseUser, NSCoding {
     }
     
     
-    override func setupUserByLocal(dictionary: [String : Any]) {
+    func setupUserByLocal(dictionary: [String : Any]) {
         
         id          = dictionary["id"] as? String ?? "demoUser"
         username    = dictionary["username"] as? String ?? ""
@@ -104,7 +124,7 @@ class User : BaseUser, NSCoding {
         
     }
     
-    override func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
+    func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
         
         id          = dictionary[PropInDB.id.rawValue] as? String ?? "demoUser"
         username    = dictionary[PropInDB.username.rawValue] as? String ?? ""
@@ -157,7 +177,7 @@ class User : BaseUser, NSCoding {
         self.setupUserByLocal(dictionary: dictionary)
     }
     
-    // should encode use internal?? or public??
+    // should encode use internal
     internal func encode(with aCoder: NSCoder) {
         
         aCoder.encode(id, forKey: "id")

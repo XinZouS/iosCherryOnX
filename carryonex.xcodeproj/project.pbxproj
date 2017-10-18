@@ -21,6 +21,7 @@
 		660704E81F3D062E000C09FD /* UserInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704E71F3D062E000C09FD /* UserInfoViewCell.swift */; };
 		66099F4D1F588FB100B12E21 /* AddressSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66099F4C1F588FB100B12E21 /* AddressSearchController.swift */; };
 		66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66099F4E1F58A5D000B12E21 /* RequestInfoView.swift */; };
+		660BFEE31F979BDF0066F9E9 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */; };
 		660F4F6B1F56FFEC00F4820D /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F4F6A1F56FFEC00F4820D /* AddressController.swift */; };
 		660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F4F6D1F570C0500F4820D /* AddressBaseCell.swift */; };
 		660F4F701F570D9B00F4820D /* AddressDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F4F6F1F570D9B00F4820D /* AddressDetailCell.swift */; };
@@ -109,7 +110,6 @@
 		66A16AFA1F3B704A00B32AD3 /* HomePageController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF91F3B704A00B32AD3 /* HomePageController++.swift */; };
 		66A16AFE1F3BA82000B32AD3 /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AFD1F3BA82000B32AD3 /* PageContainer.swift */; };
 		66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AFF1F3BB3AA00B32AD3 /* SideMenuLeftController.swift */; };
-		66A9FADC1F892A0800BDC36F /* BaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A9FADB1F892A0800BDC36F /* BaseUser.swift */; };
 		66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A9FADD1F89743800BDC36F /* ImageCell.swift */; };
 		66A9FAE01F897D4200BDC36F /* ImageCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A9FADF1F897D4200BDC36F /* ImageCell++.swift */; };
 		66AC944E1F4E076900967693 /* UIPickerMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AC944D1F4E076900967693 /* UIPickerMenuView.swift */; };
@@ -191,6 +191,7 @@
 		660704E71F3D062E000C09FD /* UserInfoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewCell.swift; sourceTree = "<group>"; };
 		66099F4C1F588FB100B12E21 /* AddressSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressSearchController.swift; sourceTree = "<group>"; };
 		66099F4E1F58A5D000B12E21 /* RequestInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestInfoView.swift; sourceTree = "<group>"; };
+		660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		660F4F6A1F56FFEC00F4820D /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		660F4F6D1F570C0500F4820D /* AddressBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBaseCell.swift; sourceTree = "<group>"; };
 		660F4F6F1F570D9B00F4820D /* AddressDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressDetailCell.swift; sourceTree = "<group>"; };
@@ -282,7 +283,6 @@
 		66A16AF91F3B704A00B32AD3 /* HomePageController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomePageController++.swift"; sourceTree = "<group>"; };
 		66A16AFD1F3BA82000B32AD3 /* PageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContainer.swift; sourceTree = "<group>"; };
 		66A16AFF1F3BB3AA00B32AD3 /* SideMenuLeftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuLeftController.swift; sourceTree = "<group>"; };
-		66A9FADB1F892A0800BDC36F /* BaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUser.swift; sourceTree = "<group>"; };
 		66A9FADD1F89743800BDC36F /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		66A9FADF1F897D4200BDC36F /* ImageCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageCell++.swift"; sourceTree = "<group>"; };
 		66AC944D1F4E076900967693 /* UIPickerMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPickerMenuView.swift; sourceTree = "<group>"; };
@@ -506,7 +506,6 @@
 			children = (
 				666545AF1F96A154006F8B26 /* CUser.swift */,
 				66A16AF31F3B56B500B32AD3 /* User.swift */,
-				66A9FADB1F892A0800BDC36F /* BaseUser.swift */,
 				66BB08331F48967600935950 /* ItemCategory.swift */,
 				66A16AF71F3B6B2E00B32AD3 /* Trip.swift */,
 				66E520531F4CAA19008E521D /* Request.swift */,
@@ -692,6 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				66E650161F5F129300DA90DE /* ApiServers.swift */,
+				660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */,
 				667266631F66CAC70010FDEC /* UserDefaultKeys.swift */,
 				6681310A1F92F2810022AEED /* UIColor++.swift */,
 				66A16AF11F3A5F8100B32AD3 /* UIView++.swift */,
@@ -1081,6 +1081,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66C9757D1F3E165A00450F37 /* DisclaimerController++.swift in Sources */,
+				660BFEE31F979BDF0066F9E9 /* ProfileManager.swift in Sources */,
 				6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */,
 				66E520451F4B6E04008E521D /* YouxiangCell.swift in Sources */,
 				6681310B1F92F2810022AEED /* UIColor++.swift in Sources */,
@@ -1196,7 +1197,6 @@
 				668609711F6074E400740A92 /* WalletBaseCell.swift in Sources */,
 				663121F51F546185000F7ACB /* ConfirmBaseController++.swift in Sources */,
 				66E650191F5F231200DA90DE /* OrdersSenderPageCell++.swift in Sources */,
-				66A9FADC1F892A0800BDC36F /* BaseUser.swift in Sources */,
 				66E650211F5F86C000DA90DE /* OrderLogShipperCell++.swift in Sources */,
 				660F4F831F5756DD00F4820D /* OkButton++.swift in Sources */,
 				667266641F66CAC70010FDEC /* UserDefaultKeys.swift in Sources */,
