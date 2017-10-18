@@ -428,7 +428,16 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     
     private func testApiServers(){
         print("\r\n ------ Server connection (HomePageController) ------\r\n")
-        //ApiServers.shared.fetchAllUsers()
+        
+        ApiServers.shared.getAllUsers { (users) in
+            if let users = users {
+                for user in users {
+                    print("User: \(user.username)")
+                }
+            }
+        }
+        
+        
         //ApiServers.shared.getUserSaltByUsername("user0")
         
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"

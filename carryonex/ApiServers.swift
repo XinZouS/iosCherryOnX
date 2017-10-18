@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import Unbox
 
 enum ServerUserPropUrl : String {
     case salt = "salt"
@@ -44,6 +46,7 @@ class ApiServers : NSObject {
     
     //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
     private let baseUrl = "http://192.168.0.119:5000/api/1.0"
+    private let host = "http://54.245.216.35:5000/api/1.0/"
     
     private func getTimestampStr() -> String {
         let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -208,13 +211,31 @@ class ApiServers : NSObject {
         return trips
     }
     
+    func getAllUsers(callback: @escaping(([CUser]?) -> Void)) {
+        
+        let route = "users/allusers/"
+        let timestamp = NSDate.timeIntervalSinceReferenceDate
+        let parameters = ["app_token": appToken, "username": "user0", "user_token": "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2", "timestamp": Int(timestamp)] as [String: Any]
+        
+        serverRequest(route, parameters: parameters) { (responseValue) in
+            if let data = responseValue["data"] as? [String: Any] {
+                do {
+                    let users : [CUser] = try unbox(dictionary: data, atKey:"users")
+                    callback(users)
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     
-    func getAllUsers(){
-        let userName = "user0"
-        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        let sessionStr = "/api/1.0/users/allusers/"
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //getDataWithUrlString(urlStr)
+    func serverRequest(_ route: String, parameters: [String: Any], callback: @escaping(([String : Any]) -> Void)) {
+        let requestUrlStr = host + route
+        Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
+            if let responseValue = response.value as? [String: Any] {
+                callback(responseValue)
+            }
+        }
     }
     
     

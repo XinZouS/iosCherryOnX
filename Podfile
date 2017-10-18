@@ -6,36 +6,18 @@ target 'carryonex' do
   use_frameworks!
 
   # Pods for carryonex
-
+  
+  pod 'Unbox'
+  pod 'Alamofire'
   pod 'M13Checkbox'
   pod 'SMSSDK'
  # pod 'KMNavigationBarTransition'
   pod 'FSCalendar'
-  pod 'paper-onboarding', '~> 2.0.1'
-  pod 'ALCameraViewController'
-  
-  pod 'AWSAutoScaling'
-  pod 'AWSCloudWatch'
-  pod 'AWSCognito'
-  pod 'AWSCognitoIdentityProvider'
+  pod 'paper-onboarding', '2.0.1'
+  pod 'ALCameraViewController', '2.0.3'
   pod 'AWSCore'
-  pod 'AWSDynamoDB'
-  pod 'AWSEC2'
-  pod 'AWSElasticLoadBalancing'
-  pod 'AWSIoT'
-  pod 'AWSKinesis'
-  pod 'AWSLambda'
-  pod 'AWSLex'
-  pod 'AWSMachineLearning'
-  pod 'AWSMobileAnalytics'
-  pod 'AWSPinpoint'
-  pod 'AWSPolly'
-  pod 'AWSRekognition'
   pod 'AWSS3'
-  pod 'AWSSES'
-  pod 'AWSSimpleDB'
-  pod 'AWSSNS'
-  pod 'AWSSQS'
+  pod 'AWSCognito'
 
   # Mob sharing: 主模块(必须)------------------------------------------
   pod 'ShareSDK3'
