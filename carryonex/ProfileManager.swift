@@ -9,11 +9,14 @@
 import UIKit
 import Unbox
 
+
+
 class ProfileManager: User, NSCoding {
     
     // use: ProfileManager.shared.xxx
     static var shared = ProfileManager() // This is singleton
     
+    let user : User?
     
     var idCardA_Url: String?
     var idCardB_Url: String?
