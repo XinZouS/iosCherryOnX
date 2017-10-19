@@ -53,7 +53,8 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        User.shared.saveIntoLocalDisk()
+        super.viewDidDisappear(animated)
+        ProfileManager.shared.saveUser()
     }
     
     
@@ -96,8 +97,6 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
 //        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 //        activityIndicator.stopAnimating()
 //    }
-     
-    
     
     // MARK: CollectionView delegate
     
@@ -117,10 +116,6 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
         let h: CGFloat = 50
         return CGSize(width: w, height: h)
     }
-    
-        
-    
-    
 }
 
 

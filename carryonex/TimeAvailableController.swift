@@ -187,9 +187,9 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
         
         requestInfoView.request = self.request
 
-        let isShipperNow = User.shared.isShipper!
-        let height: CGFloat = isShipperNow ? 300 : 0
-        requestInfoView.isHidden = !isShipperNow
+//        let isShipperNow = ProfileManager.shared.currentUser?.isShipper!
+        let height: CGFloat = 300 //isShipperNow ? 300 : 0
+//        requestInfoView.isHidden = !isShipperNow
         
         scrollView.addSubview(requestInfoView)
         requestInfoView.addConstraints(left: view.leftAnchor, top: scrollView.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
@@ -258,11 +258,12 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
         let h : CGFloat = 280
         scrollView.addSubview(collectionView)
         
-        if User.shared.isShipper {  // finishButton move with scrollview
-            collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 0, width: 0, height: h)
-        }else{
-            collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 50, width: 0, height: 0) // the height MUST be 0, else the calendarView will stick at bottom and title views will be scramble!!!
-        }
+//        if ProfileManager.shared.currentUser?.isShipper {  // finishButton move with scrollview
+//            collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 0, width: 0, height: h)
+//        }else{
+            collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 50, width: 0, height: 0)
+            // the height MUST be 0, else the calendarView will stick at bottom and title views will be scramble!!!
+//        }
         
         collectionView.register(ShipperAvailableCell.self, forCellWithReuseIdentifier: timeCellId)
         //collectionView.isUserInteractionEnabled = false // can NOT use this to lock scroll animation
@@ -272,13 +273,13 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupFinishButton(){
-        if User.shared.isShipper { // finishButton move with scrollview
-            scrollView.addSubview(finishButton)
-            finishButton.addConstraints(left: view.leftAnchor, top: collectionView.bottomAnchor, right: view.rightAnchor, bottom: scrollView.bottomAnchor, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: buttonHeight)
-        }else{
+//        if ProfileManager.shared.currentUser?.isShipper { // finishButton move with scrollview
+//            scrollView.addSubview(finishButton)
+//            finishButton.addConstraints(left: view.leftAnchor, top: collectionView.bottomAnchor, right: view.rightAnchor, bottom: scrollView.bottomAnchor, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: buttonHeight)
+//        }else{
             view.addSubview(finishButton) // finishButton stick at page bottom
             finishButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: buttonHeight)
-        }
+//        }
     }
     
     

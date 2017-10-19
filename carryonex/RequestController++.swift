@@ -176,7 +176,7 @@ extension RequestController: UITextFieldDelegate {
     private func setupRequestInfo(){
         request.youxiangId = cell00Youxiang?.textField.text ?? ""
         //request.destinationAddress = 在AddressController里设置好后回传引用
-        request.weight = Float(cell04Weight?.textField.text ?? "0") ?? 0.0
+        request.weight = Double(cell04Weight?.textField.text ?? "0") ?? 0.0
         
         print(request.printAll())
     }
@@ -266,7 +266,7 @@ extension RequestController {
         uploadRequest?.acl = .private
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[fileName]! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(User.shared.id!)" // no / at the end of bucket
+        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)
@@ -465,10 +465,10 @@ extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
             default:
                 delta = 0
             }
-            request.expectDeliveryTime = Date(timeIntervalSinceNow: delta)
-            let dateString = request.expectDeliveryTime!.description
+            //request.expectDeliveryTime = Date(timeIntervalSinceNow: delta).timeIntervalSince1970
+            //let dateString = request.expectDeliveryTime!.description
             //cell06ExpectDelivery?.textField.text = expDateStr
-            print("set the request.expectDeliveryTime = \(dateString), timeNow=\(Date())")
+            //print("set the request.expectDeliveryTime = \(dateString), timeNow=\(Date())")
         }
     }
     

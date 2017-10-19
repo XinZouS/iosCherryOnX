@@ -84,9 +84,9 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-        let zoneCode = String(describing: User.shared.phoneCountryCode!)
-        let phoneNum = String(describing: User.shared.phone!)
-        
+        let zoneCode = String(describing: ProfileManager.shared.currentUser?.phoneCountryCode)
+        let phoneNum = String(describing: ProfileManager.shared.currentUser?.phone!)
+
         print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
         if (isRegister == true){
             let registEmailCtl = RegisterEmailController()
@@ -107,7 +107,6 @@ extension VerificationController: UITextFieldDelegate {
         let userSettingCtl = UserSettingController()
         if (isModifyPhoneNumber == true){
             print("修改")
-            User.shared.saveIntoLocalDisk()
             navigationController?.pushViewController(userSettingCtl, animated: true)
         }
         else{
@@ -115,9 +114,9 @@ extension VerificationController: UITextFieldDelegate {
             isRegister = false
             alreadyExist = true
             print("验证成功! Go to Home page!")
-            User.shared.saveIntoLocalDisk()
             navigationController?.pushViewController(inputPasswordCtl, animated: true)
         }
+        ProfileManager.shared.saveUser()
         //self.phonenumberC?.dismissAndBackToHomePage() // replace reference by delegate
 //        showAlertWith(title: "验证成功✅", message: "将返回主页面")
 //        _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in

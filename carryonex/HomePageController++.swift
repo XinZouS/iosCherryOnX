@@ -61,38 +61,6 @@ extension HomePageController: UITextFieldDelegate {
     
 }
 
-//extension HomePageController: UITableViewDelegate, UITableViewDataSource {
-//    
-//    // MARK: - Table view data source
-//
-//    func searchButtonTapped(){
-//        print("searchButtonTapped!!!")
-//    }
-//    
-//    
-//    func setupSearchTableView(){
-//        tableView.register(HomePageTableCell.self, forCellReuseIdentifier: searchCellId)
-//    }
-//    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return searchFilteredResult.count != 0 ? searchFilteredResult.count : searchDataPool.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: searchCellId, for: indexPath)
-//        
-//        if searchFilteredResult.count > 0 {
-//            cell.textLabel?.text = searchFilteredResult[indexPath.row]
-//        } else {
-//            cell.textLabel?.text = searchDataPool[indexPath.row]
-//        }
-//        return cell
-//    }
-//}
 
 
 extension HomePageController {
@@ -100,37 +68,36 @@ extension HomePageController {
     // MARK: - Save user into local disk
     
     internal func saveUserIntoLocalDisk(){
-        if User.shared.phone != nil && User.shared.id != nil {
-            User.shared.saveIntoLocalDisk()
+        if ProfileManager.shared.currentUser?.phone != nil && ProfileManager.shared.currentUser?.id != nil {
+            ProfileManager.shared.saveUser()
         }
     }
     
     internal func fetchUserFromLocalDiskAndSetup(){
-        User.shared.loadFromLocalDisk()
+        ProfileManager.shared.loadUser()
     }
     
     internal func removeUserFromLocalDisk(){
-        User.shared.removeFromLocalDisk()
+        ProfileManager.shared.removeUser()
     }
-    
-
     
     /// MUST check if user isVerified
     
     func callShipperButtonTapped(){
-        if User.shared.isVerified {
-            let isShipper = User.shared.isShipper
-            if isShipper! {
+        let verified = ProfileManager.shared.currentUser?.isVerified ?? false
+        if verified {
+//            let isShipper = ProfileManager.shared.currentUser?.isShipper
+//            if isShipper! {
                 let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
                 //navigationController?.pushViewController(postTripCtl, animated: true)
                 let navigationPostTrip = UINavigationController(rootViewController: postTripCtl)
                 self.present(navigationPostTrip, animated: true, completion: nil)
-            }else{
-                let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-                //navigationController?.pushViewController(itemTypeListCtl, animated: true)
-                let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
-                self.present(navigationItemTypeList, animated: true, completion: nil)
-            }
+//            }else{
+//                let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
+//                //navigationController?.pushViewController(itemTypeListCtl, animated: true)
+//                let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
+//                self.present(navigationItemTypeList, animated: true, completion: nil)
+//            }
         }else{
             let photoIdCtl = PhotoIDController()
 //            let verifyNvg = UINavigationController(rootViewController: verifyView) // for single page
@@ -177,14 +144,12 @@ extension HomePageController {
             let num = m.value
             itemString.append("\(name)x\(num), ")
         }
-        request.expectDeliveryTime = Date()
         request.departureAddress = Address()   //TODO: for test only
         request.destinationAddress = Address() //TODO: for test only
         let dpt = "\(request.departureAddress!.country.rawValue), \(request.departureAddress!.state), \(request.departureAddress!.city)"
         let des = "\(request.destinationAddress!.country.rawValue), \(request.destinationAddress!.state), \(request.destinationAddress!.city)"
         let pic = "\(request.departureAddress!.city), \(request.departureAddress!.detailAddress)"
-        let exp = "\(request.expectDeliveryTime!.description)"
-        let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic), 期望到达时间：\(exp)"
+        let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic)" //, 期望到达时间：\(exp)"
         let alertCtl = UIAlertController(title: "订单编号666666", message: msg, preferredStyle: .alert)
         
         let actionCancel = UIAlertAction(title: "取消", style: .cancel) { (action) in
@@ -257,39 +222,40 @@ extension HomePageController {
         self.present(orderNavView, animated: true, completion: nil)
     }
     
+    // do not need to check if user is shipper or sender;
 //    internal func switchUserType(){
-//        let s = User.shared.isShipper!
-//        User.shared.isShipper = !s
+//        let s = ProfileManager.shared.currentUser?.isShipper!
+//        ProfileManager.shared.currentUser?.isShipper = !s
 //
 //        setupUIContentsForUserIsShipperOrNot()
 //        flipPageHorizontally()
 //    }
-    internal func switchToSender(){
-        User.shared.isShipper = false
-        setupUIContentsForUserIsShipperOrNot()
-        flipPageHorizontally()
-    }
-    internal func switchToShiper(){
-        User.shared.isShipper = true
-        setupUIContentsForUserIsShipperOrNot()
-        flipPageHorizontally()
-    }
-    
-    internal func setupUIContentsForUserIsShipperOrNot(){
-        let s = User.shared.isShipper!
-        changeTextTo(isShipper: s)
-//        changeImageTo(isShipper: s)
-    }
-    internal func setupSwitchUserTypeBtnTitle(str: String){
-        let attriStr = NSMutableAttributedString(string: str, attributes: switchUserTypeAttributes)
-        switchUserTypeButton.setAttributedTitle(attriStr, for: .normal)
-    }
+//    internal func switchToSender(){
+//        ProfileManager.shared.currentUser?.isShipper = false
+//        setupUIContentsForUserIsShipperOrNot()
+//        flipPageHorizontally()
+//    }
+//    internal func switchToShiper(){
+//        ProfileManager.shared.currentUser?.isShipper = true
+//        setupUIContentsForUserIsShipperOrNot()
+//        flipPageHorizontally()
+//    }
+//
+//    internal func setupUIContentsForUserIsShipperOrNot(){
+//        let s = ProfileManager.shared.currentUser?.isShipper!
+//        changeTextTo(isShipper: s)
+////        changeImageTo(isShipper: s)
+//    }
+//    internal func setupSwitchUserTypeBtnTitle(str: String){
+//        let attriStr = NSMutableAttributedString(string: str, attributes: switchUserTypeAttributes)
+//        switchUserTypeButton.setAttributedTitle(attriStr, for: .normal)
+//    }
     // for text and button image
-    private func changeTextTo(isShipper: Bool){
-        let uStr = isShipper ? btnTitleShipForMe : btnTitleShipForYou
-        setupSwitchUserTypeBtnTitle(str: uStr)
-        print("now I am a shipper == \(User.shared.isShipper), I can change to \(uStr)")
-    }
+//    private func changeTextTo(isShipper: Bool){
+//        let uStr = isShipper ? btnTitleShipForMe : btnTitleShipForYou
+//        setupSwitchUserTypeBtnTitle(str: uStr)
+//        print("now I am a shipper == \(ProfileManager.shared.currentUser?.isShipper), I can change to \(uStr)")
+//    }
 //    private func changeImageTo(isShipper: Bool){
 //        let newImgSideBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_B") : #imageLiteral(resourceName: "CarryonEx_A")
 //        let newImgMainBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_Transportation") : #imageLiteral(resourceName: "CarryonEx_Logo")
@@ -308,18 +274,6 @@ extension HomePageController {
     }
 
     
-//    private func pushViewFromLeftToRight(destVC: UIViewController){
-//        // push navigationController from left-->right
-//        let transition: CATransition = CATransition()
-//        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//        transition.duration = 0.25
-//        transition.timingFunction = timeFunc
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromLeft
-//        navigationController?.view.layer.add(transition, forKey: kCATransition)
-//        navigationController?.pushViewController(destVC, animated: false)
-//    }
-
     func setupSwipGestureRecognizer(){
         let swipLeft = UISwipeGestureRecognizer(target: sideButtonContainerView, action: #selector(swiped))
 
@@ -549,7 +503,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         uploadRequest.acl = .private
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(User.shared.id!)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()
@@ -564,7 +518,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    User.shared.imageUrl = publicURL.absoluteString
+                    ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")

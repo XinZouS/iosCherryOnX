@@ -22,8 +22,8 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
 //        okButtonDisable()
 //        _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(okButtonEnable), userInfo: nil, repeats: false)
 //
-//        let phoneNum = User.shared.phone ?? "0"
-//        let zoneCode = User.shared.phoneCountryCode ?? "86"
+//        let phoneNum = ProfileManager.shared.currentUser?.phone ?? "0"
+//        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode ?? "86"
 //        print("get : okButtonTapped, api send text msg and go to next page!!!")
 //        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
 //            print(err)
@@ -49,9 +49,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
 //    }
     func nextButtonTapped(){
          _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
-        if alreadyExist == true {
-            let phoneNum = User.shared.phone ?? "0"
-            let zoneCode = User.shared.phoneCountryCode ?? "86"
+        var alreadyExist = false
+        if alreadyExist == true{
+            let phoneNum = ProfileManager.shared.currentUser?.phone ?? "0"
+            let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode ?? "86"
             print("get : okButtonTapped, api send text msg and go to next page!!!")
             SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
                 print(err)
@@ -124,7 +125,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     func checkPhone(){
         var phonePattern = ""
-        switch User.shared.phoneCountryCode {
+        switch ProfileManager.shared.currentUser?.phoneCountryCode {
         case "86"?:
             phonePattern = "^1[0-9]{10}$"
         case "1"?:
@@ -134,7 +135,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }
         let matcher = MyRegex(phonePattern)
         let maybephone = phoneNumberTextField.text
-        User.shared.phone = phoneNumberTextField.text
+        ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
         if matcher.match(input: maybephone!) {
             print("电话格式正确")
             phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
@@ -163,7 +164,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     private func updatePhoneNum(){
         let phoneNumber = phoneNumberTextField.text ?? "0"
-        User.shared.phone = phoneNumber
+        ProfileManager.shared.currentUser?.phone = phoneNumber
     }
 //
     private func updateNextButton(){
@@ -266,9 +267,9 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         return flagsTitle[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        User.shared.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
+        ProfileManager.shared.currentUser?.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
         flagButton.setTitle(flagsTitle[row], for: .normal)
-        print("pick countryCode: " , User.shared.phoneCountryCode)
+        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }
     
     

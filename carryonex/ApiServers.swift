@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import Unbox
 
 enum ServerUserPropUrl : String {
     case salt = "salt"
@@ -44,9 +46,11 @@ class ApiServers : NSObject {
     
     //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
     private let baseUrl = "http://192.168.0.119:5000/api/1.0"
+    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
     
     private func getTimestampStr() -> String {
-        let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
+        //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
+        let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
         return "\(150000000)" // TODO: this is for test only.
         return "\(t)"
     }
@@ -57,37 +61,41 @@ class ApiServers : NSObject {
     func registerUser(){
         let sessionStr = "/users/"
         let urlStr = "\(baseUrl)\(sessionStr)"
-        User.shared.username = "testUsername"
-        User.shared.phone = "1234567890"
-        User.shared.password = "testPassword"
-        User.shared.email = "testEmail@carryonex.com"
-        let dictionary = User.shared.packAllPropertiesAsDictionary()
+        ProfileManager.shared.currentUser?.username = "testUsername"
+        ProfileManager.shared.currentUser?.phone = "1234567890"
+        ProfileManager.shared.currentUser?.password = "testPassword"
+        ProfileManager.shared.currentUser?.email = "testEmail@carryonex.com"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
-        postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                User.shared.token = getToken.first ?? ""
-                User.shared.saveIntoLocalDisk()
+        
+        if let dictionary = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
+                    ProfileManager.shared.saveUser()
+                }
             }
         }
     }
     func loginUser(){
         let sessionStr = "/users/login/"
         let urlStr = "\(baseUrl)\(sessionStr)"
-        let dict = User.shared.packAllPropertiesAsDictionary()
+        let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary()
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
-        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                User.shared.token = getToken.first ?? ""
-                User.shared.saveIntoLocalDisk()
-                print("OKKKK get login token = \(getToken.first!)")
+        if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
+                    ProfileManager.shared.saveUser()
+                    print("OKKKK get login token = \(getToken.first!)")
+                }
             }
         }
     }
@@ -101,121 +109,160 @@ class ApiServers : NSObject {
     
     
     func logoutUser(){
-        let sessionStr = "/users/logout/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
-        let dict = User.shared.packAllPropertiesAsDictionary()
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: User.shared.token ?? ""
-        ]
-        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
-                print("OK logout success! clear user data!")
-                User.shared.clearCurrentData()
-                User.shared.saveIntoLocalDisk()
+        if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            let sessionStr = "/users/logout/"
+            let urlStr = "\(baseUrl)\(sessionStr)"
+            let headers:[String:String] = [
+                ServerKey.timestamp.rawValue: getTimestampStr(),
+                ServerKey.appToken.rawValue : appToken,
+                ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? ""
+            ]
+            postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
+                    print("OK logout success! clear user data!")
+                    ProfileManager.shared.currentUser?.removeFromLocalDisk()
+                    ProfileManager.shared.currentUser = nil
+                }
             }
         }
     }
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
-        let sessionStr = "/users/\(User.shared.username!)/\(propertyUrl.rawValue)/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
+        let sessionStr = "/users/\(propertyUrl.rawValue)/"
+//        let urlStr = "\(baseUrl)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: User.shared.token ?? "",
-            ServerKey.username.rawValue : User.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
-        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{nil}], "status_code":Int, "message":String]
-            print("get infoDictionary: \(infoDictionary)")
-            if let infoObj = infoDictionary[ServerKey.data.rawValue] as? [String] {
-                handleInfo(infoObj.first ?? "")
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
+            print("get infoDictionary: \(responsDictionary)")
+            if let getInfo = responsDictionary["data"] as? [String], getInfo.count != 0 {
+                handleInfo(getInfo.first!)
+                print("returning getUserInfo = \(getInfo)")
             }
         }
-    }
-    func getUserInfoAll(handleInfo: @escaping ([String:AnyObject]) -> Void){
-        let sessionStr = "/users/\(User.shared.username!)/info/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: User.shared.token ?? "",
-            ServerKey.username.rawValue : User.shared.username ?? ""
-        ]
-        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{User}], "status_code":Int, "message":String]
-            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
-            if let dict = arr?.first as? [String:AnyObject] {
-                //print("----------get arr.first, dict = \(dict)")
-                handleInfo(dict)
-            }
-        }
-    }
-    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([String:AnyObject]) -> Void){
-        let sessionStr = "/users/\(User.shared.username!)/\(type.rawValue)/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: User.shared.token ?? "",
-            ServerKey.username.rawValue : User.shared.username ?? ""
-        ]
-        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{json of log array}], "status_code":Int, "message":String]
-            print("getDataWithUrlString infoDictionary = \(infoDictionary)")
-            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
-            print("TODO: after get arr = \(arr)")
-//            for i in 0..<arr?.count {
-//                if let dict = arr?.first as? [String:AnyObject] {
-//                    print("----------get arr.first, dict = \(dict)")
-//                    handleLogArray(dict)
-//                }
+//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{nil}], "status_code":Int, "message":String]
+//            print("get infoDictionary: \(infoDictionary)")
+//            if let infoObj = infoDictionary[ServerKey.data.rawValue] as? [String] {
+//                handleInfo(infoObj.first ?? "")
 //            }
+//        }
+    }
+    func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
+        let sessionStr = "/users/info/" // "\(ProfileManager.shared.username!)/"
+//        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
+        ]
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
+            if let data = responsDictionary["data"] as? [String : Any] {
+                handleInfo(data)
+                do {
+                    print("getUserInfoAll, data = \(data)")
+                    let getUser: User = try unbox(dictionary: data, atKey: "user")
+                    print("getUserInfoAll, getUser = \(getUser)")
+                }catch let err {
+                    print("get errorrrr when getUserInfoAll, err = \(err)")
+                }
+            }
         }
+//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{User}], "status_code":Int, "message":String]
+//            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
+//            if let dict = arr?.first as? [String:AnyObject] {
+//                //print("----------get arr.first, dict = \(dict)")
+//                handleInfo(dict)
+//            }
+//        }
+    }
+    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
+        let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
+        let urlStr = "\(baseUrl)\(sessionStr)"
+        let headers:[String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
+        ]
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
+            if let data = responsDictionary["data"] as? [String : Any] {
+                print("getUserLogsOf = \(data)")
+                do {
+                    if type == ServerUserLogUrl.myCarries {
+                        let carries: [Request] = try unbox(dictionary: data, atKey: "carries")
+                        handleLogArray(carries)
+                        print("get carries = \(carries)")
+                    }
+                    else if type == ServerUserLogUrl.myTrips {
+                        let trips : [Trip] = try unbox(dictionary: data, atKey: "trips")
+                        handleLogArray(trips)
+                        print("get trips = \(trips)")
+                    }
+                }catch let err  {
+                    print("get errororrro when getUserLogsOf \(type.rawValue), err = \(err)")
+                }
+            }
+        }
+//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{json of log array}], "status_code":Int, "message":String]
+//            print("getDataWithUrlString infoDictionary = \(infoDictionary)")
+//            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
+//            print("TODO: after get arr = \(arr)")
+////            for i in 0..<arr?.count {
+////                if let dict = arr?.first as? [String:AnyObject] {
+////                    print("----------get arr.first, dict = \(dict)")
+////                    handleLogArray(dict)
+////                }
+////            }
+//        }
     }
     func updateUserInfo(_ propUrl: ServerUserPropUrl, newInfo: String, completion: @escaping ([String:AnyObject]?) -> Void){
-        let sessionStr = "/users/\(User.shared.username!)/\(propUrl.rawValue)/"
+        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(propUrl.rawValue)/"
         let urlStr = "\(baseUrl)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: User.shared.token ?? "",
-            ServerKey.username.rawValue : User.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         //postDataToUrlString(<#T##urlStr: String##String#>, postData: <#T##[String : Any]#>, httpHeaders: <#T##[String : String]?#>, handleResponse: <#T##([String : AnyObject]) -> Void#>)
     }
 
     
-    
-    
-    func getUserRequestsLog(_ id: String) -> [Request] {
-        let userName = "user0"
-        let sessionStr = "/users/\(userName)/requests/"
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(getTimestampStr())&username=\(userName)&user_token=\(id)"
-        var requests = [Request]()
-        //        getDataWithUrlString(urlStr) { (dictionary) in
-        //            print("TODO: get dictionary and make a Request list: \(dictionary)")
-        //        }
-        return requests
-    }
-    func getUserTripsLog(_ id: String) -> [Trip] {
-        let userName = "user0"
-        let sessionStr = "/users/\(userName)/trips/"
-        let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(getTimestampStr())&username=\(userName)&user_token=\(id)"
-        var trips = [Trip]()
-        //        getDataWithUrlString(urlStr) { (dictionary) in
-        //            print("TODO: get dictionary and make a Trip list: \(dictionary)")
-        //        }
-        return trips
+    func getAllUsers(callback: @escaping(([User]?) -> Void)) {
+        
+        let route = "/users/allusers/"
+        let timestamp = NSDate.timeIntervalSinceReferenceDate
+        let parameters = [
+            "app_token" : appToken, "username": "user0",
+            "user_token": "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2",
+            "timestamp" : Int(timestamp)] as [String: Any]
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (responseValue) in
+            if let data = responseValue["data"] as? [String: Any] {
+                do {
+                    let users : [User] = try unbox(dictionary: data, atKey:"users")
+                    callback(users)
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     
-    func getAllUsers(){
-        let userName = "user0"
-        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        let sessionStr = "/api/1.0/users/allusers/"
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //getDataWithUrlString(urlStr)
+    // MARK: - ItemCategory APIs
+    
+    /// TODO: get full list from server, then setup and present here
+    func getFullItemCategoryListInDB() -> [ItemCategory] {
+        print("TODO: get full list from server, then setup and return.")
+        return []
     }
+    
+
     
     
     // MARK: - Trip APIs
@@ -272,6 +319,17 @@ class ApiServers : NSObject {
     
     
     // MARK: - basic GET and POST by url
+    /**
+     * ✅ get data with url string, return NULL, try with Alamofire and callback
+     */
+    private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], getDictionary: @escaping(([String : Any]) -> Void)) {
+        let requestUrlStr = host + route
+        Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
+            if let responseValue = response.value as? [String: Any] {
+                getDictionary(responseValue)
+            }
+        }
+    }
     /**
      * get data with url string, return NULL, try with completionHandler
      */

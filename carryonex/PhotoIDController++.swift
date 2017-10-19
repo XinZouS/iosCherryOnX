@@ -196,7 +196,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         activityIndicator.startAnimating() // start uploading image and show indicator
-        User.shared.nickName = self.nameTextField.text ?? ""
+        ProfileManager.shared.currentUser?.nickName = self.nameTextField.text!
 
         for pair in imageUploadSequence {
             let imgIdType : String = pair.key.rawValue
@@ -217,7 +217,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         uploadRequest?.acl = .private
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[imgIdType]!! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(User.shared.id!)" // no / at the end of bucket
+        uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)
@@ -257,8 +257,8 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             if self.imageUploadingSet.count == 1 {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
-                    User.shared.isVerified = true
-                    User.shared.saveIntoLocalDisk()
+                    ProfileManager.shared.currentUser?.isVerified = true
+                    ProfileManager.shared.saveUser()
                     self.navigationController?.popViewController(animated: true)
                     self.homePageController?.showAlertFromPhotoIdController()
                 }
@@ -276,19 +276,19 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
-            User.shared.passportUrl = url.absoluteString
+            ProfileManager.shared.currentUser?.passportUrl = url.absoluteString
             passportImgUrlCloud = url.absoluteString
             
         case ImageTypeOfID.idCardA.rawValue:
-            User.shared.idCardA_Url = url.absoluteString
+            ProfileManager.shared.currentUser?.idCardA_Url = url.absoluteString
             idCardAImgUrlCloud = url.absoluteString
             
         case ImageTypeOfID.idCardB.rawValue:
-            User.shared.idCardB_Url = url.absoluteString
+            ProfileManager.shared.currentUser?.idCardB_Url = url.absoluteString
             idCardBImgUrlCloud = url.absoluteString
             
         case ImageTypeOfID.profile.rawValue:
-            User.shared.imageUrl = url.absoluteString
+            ProfileManager.shared.currentUser?.imageUrl = url.absoluteString
             profileImgUrlCloud = url.absoluteString
             
         default:

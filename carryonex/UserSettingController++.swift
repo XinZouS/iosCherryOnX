@@ -73,8 +73,8 @@ extension UserSettingController {
         isModifyPhoneNumber = false
         isRegister = false
         alreadyExist = false
-        User.shared.clearCurrentData()
-        User.shared.removeFromLocalDisk() // remove local user for new user to login
+        ProfileManager.shared.removeUser() // remove local user for new user to login
+
         userProfileView?.removeProfileImageFromLocalFile()
         
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())

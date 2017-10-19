@@ -50,7 +50,7 @@ extension ItemTypeListController {
     // do this in viewDidLoad()
     internal func addItemTypesToList(){
         print("TODO: addItemTypesToList from Server, now use fake data.")
-        self.itemCategoryList = ItemCategory.sharedInstance.getFullList()
+        self.itemCategoryList = CategoryManager.shared.getFullList()
     }
     
     
