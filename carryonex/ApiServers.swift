@@ -123,19 +123,13 @@ class ApiServers : NSObject {
                     print("OK logout success! clear user data!")
                     ProfileManager.shared.currentUser?.removeFromLocalDisk()
                     ProfileManager.shared.currentUser = nil
-                    //ProfileManager.shared.saveUser()    //Why? - Zian
                 }
             }
         }
     }
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
-<<<<<<< HEAD
         let sessionStr = "/users/\(propertyUrl.rawValue)/"
 //        let urlStr = "\(baseUrl)\(sessionStr)"
-=======
-        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(propertyUrl.rawValue)/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
->>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -143,7 +137,7 @@ class ApiServers : NSObject {
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            print("get infoDictionary: \(infoDictionary)")
+            print("get infoDictionary: \(responsDictionary)")
             if let getInfo = responsDictionary["data"] as? [String], getInfo.count != 0 {
                 handleInfo(getInfo.first!)
                 print("returning getUserInfo = \(getInfo)")
@@ -156,15 +150,9 @@ class ApiServers : NSObject {
 //            }
 //        }
     }
-<<<<<<< HEAD
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
         let sessionStr = "/users/info/" // "\(ProfileManager.shared.username!)/"
 //        let urlStr = "\(baseUrl)\(sessionStr)"
-=======
-    func getUserInfoAll(handleInfo: @escaping ([String:AnyObject]) -> Void){
-        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/info/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
->>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -176,8 +164,8 @@ class ApiServers : NSObject {
                 handleInfo(data)
                 do {
                     print("getUserInfoAll, data = \(data)")
-                    let profile: ProfileManager = try unbox(dictionary: data, atKey: "user")
-                    print("getUserInfoAll, profile = \(profile)")
+                    let getUser: User = try unbox(dictionary: data, atKey: "user")
+                    print("getUserInfoAll, getUser = \(getUser)")
                 }catch let err {
                     print("get errorrrr when getUserInfoAll, err = \(err)")
                 }
@@ -191,13 +179,8 @@ class ApiServers : NSObject {
 //            }
 //        }
     }
-<<<<<<< HEAD
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
         let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
-=======
-    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([String:AnyObject]) -> Void){
-        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(type.rawValue)/"
->>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let urlStr = "\(baseUrl)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
@@ -270,6 +253,16 @@ class ApiServers : NSObject {
         }
     }
     
+    
+    // MARK: - ItemCategory APIs
+    
+    /// TODO: get full list from server, then setup and present here
+    func getFullItemCategoryListInDB() -> [ItemCategory] {
+        print("TODO: get full list from server, then setup and return.")
+        return []
+    }
+    
+
     
     
     // MARK: - Trip APIs

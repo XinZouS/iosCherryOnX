@@ -25,13 +25,14 @@ extension RequestInfoView {
         destinationTextView.text = request?.destinationAddress!.descriptionString()
         
         itemDetailLabel.text = labelTextList[5]
-        expectDeliveryTimeLabel.text = labelTextList[6] + "\(request?.expectDeliveryTimeDescriptionString() ?? "none")"
+        expectDeliveryTimeLabel.text = labelTextList[6] //+ "\(request?.expectDeliveryTimeDescriptionString() ?? "none")"
 
         setupItemContents()
     }
     
+    
     private func setupItemContents(){
-        let itemMap = ItemCategory.sharedInstance.getFullMapById()
+        let itemMap = CategoryManager.shared.getFullMapById()
         
         for item in (request?.numberOfItem)! {
             let icon = itemMap[item.key]!

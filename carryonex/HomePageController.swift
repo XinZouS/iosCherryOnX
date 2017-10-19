@@ -230,11 +230,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        title = "游箱" // for returning from UserInfoPage, change title back;
+        super.viewWillAppear(animated)
+        //title = "游箱" // for returning from UserInfoPage, change title back;
+        setupStatuesBar()
     }
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
-        setupStatuesBar()
         //setupUIContentsForUserIsShipperOrNot() do not need to check this for user, we dont need it;
     }
     override func viewWillDisappear(_ animated: Bool) {

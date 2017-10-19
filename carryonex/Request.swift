@@ -32,16 +32,16 @@ enum RequestKeyInDB : String {
     case imageUrls = "image_urls"
     
     //case sendingTimes = "" // date: [start, end, start, end, ...]
-    case expectDeliveryTime = "request_eta"
+    //case expectDeliveryTime = "request_eta"
     //case realDeliveryTime = "" in trip, with
     
-    //case cost = ""
+    case cost = ""
     
     case owner = "owner_id" // sender id
-    //case shipper = "" // carrier id
+    //case shipper = "" // carrier id, will get from tripId;
     case tripId = "trip_id"
-    //case startShippingTimeStamp = ""
-    //case endShippingTimeStamp = ""
+    case startShippingTimeStamp = "TODO:std"
+    case endShippingTimeStamp = "TODO:etd"
 }
 
 
@@ -51,7 +51,7 @@ class Request: NSObject, Unboxable {
     var numberOfItem: [String : Int] = [:] // [ItemIdEnum : num]
     
     var youxiangId: String?
-    var status: String = RequestStatus.waiting.rawValue
+    var status:     String = RequestStatus.waiting.rawValue
     
     var departureAddressId: String?
     var departureAddress:   Address? // change to Address ID when uploading to server
@@ -64,15 +64,9 @@ class Request: NSObject, Unboxable {
     var weight: Double = 0.0
     var imageUrls = [String]()
     
-    var sendingTimes:       [Double] = [] // date: [start, end, start, end, ...]
-    var expectDeliveryTime: Double?
-    var realDeliveryTime  : Double?
-    
     var cost: Double = 0.0
     
-    
     var owner : String? // sender id
-    var shipper:String? // carrier id
     var tripId: String?
     var startShippingTimeStamp: Double?
     var endShippingTimeStamp:   Double?
@@ -102,28 +96,13 @@ class Request: NSObject, Unboxable {
         self.weight = (try? unboxer.unbox(key: RequestKeyInDB.weight.rawValue)) ?? 0
         self.imageUrls = (try? unboxer.unbox(key: RequestKeyInDB.imageUrls.rawValue)) ?? []
         
-        self.sendingTimes = [Date().timeIntervalSince1970] //try? unboxer.unbox(key: RequestKeyInDB.sendingTimes.rawValue)
-        self.expectDeliveryTime = Date().timeIntervalSince1970 //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
-        self.realDeliveryTime = Date().timeIntervalSince1970 //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
-        
         self.cost = 0.0 //try? unboxer.unbox(key: RequestKeyInDB.cost.rawValue)
         
-        
         self.owner = try? unboxer.unbox(key: RequestKeyInDB.owner.rawValue)
-        self.shipper = "" //try? unboxer.unbox(key: RequestKeyInDB.shipper.rawValue)
         self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
         self.startShippingTimeStamp = Date().timeIntervalSinceNow //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
         self.endShippingTimeStamp = Date().timeIntervalSinceNow //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
     }
-    
-    func expectDeliveryTimeDescriptionString() -> String {
-        expectDeliveryTime = expectDeliveryTime ?? Date().timeIntervalSince1970
-        let isCN: Bool = false //destinationAddress.country == Country.China
-        let formatter = DateFormatter()
-        formatter.dateFormat = isCN ? "yyyy-MM-dd" : "MM/dd/yyyy"
-        return "\( formatter.string(from: Date(timeIntervalSince1970: expectDeliveryTime!)) )"
-    }
-    
     
     
     
@@ -143,10 +122,6 @@ class Request: NSObject, Unboxable {
         r.height = 4
         r.weight = 3.6
         r.imageUrls = []
-        
-        r.sendingTimes = [Date().timeIntervalSince1970]
-        r.expectDeliveryTime = Date().timeIntervalSince1970
-        r.realDeliveryTime = Date().timeIntervalSince1970
         
         r.cost = 88.8
         
@@ -170,8 +145,6 @@ class Request: NSObject, Unboxable {
         height = json[RequestKeyInDB.height.rawValue] as? Int ?? 0
         weight = json[RequestKeyInDB.weight.rawValue] as? Double ?? 0.0
         //imageUrls = json[RequestKeyInDB.imageUrls.rawValue] as? [String] ?? []
-        //sendingTimes = json[RequestKeyInDB.sendingTimes.rawValue] as? [Date] ?? []
-        expectDeliveryTime = json[RequestKeyInDB.expectDeliveryTime.rawValue] as? Double
         //cost = json[RequestKeyInDB.cost.rawValue] as? Float ?? 0
         owner = json[RequestKeyInDB.owner.rawValue] as? String ?? ""
         //shipper = json[RequestKeyInDB.shipper.rawValue] as? String ?? ""
@@ -193,13 +166,10 @@ class Request: NSObject, Unboxable {
         print("length = \(length), width = \(width), height = \(height)")
         print("weight = \(weight)")
         print("imageUrls = \(imageUrls)")
-        print("sendingTimes = ", sendingTimes)
-        print("expectDeliveryTime = ", expectDeliveryTime)
-        print("realdeliverytime = ", realDeliveryTime)
+
         print("cost = $ ", cost)
         
         print("owner = ", owner)
-        print("shipper = ", shipper)
         print("tripId = \(tripId)")
         print("startShippingTimeStamp = ", startShippingTimeStamp)
         print("endShippingTimeStamp = ", endShippingTimeStamp)

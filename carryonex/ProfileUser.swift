@@ -121,14 +121,14 @@ class ProfileUser: Unboxable {
     
     //MARK: - Data Mapping
     func setupUserByLocal(dictionary: [String : Any]) {
-        id          = dictionary["id"] as? String ?? "demoUser"
+        id          = dictionary["id"]       as? String ?? "demoUser"
         username    = dictionary["username"] as? String ?? ""
         password    = dictionary["password"] as? String ?? ""
-        token       = dictionary["token"] as? String ?? ""
+        token       = dictionary["token"]    as? String ?? ""
         nickName    = dictionary["nickName"] as? String ?? ""
-        phone       = dictionary["phone"] as? String ?? ""
+        phone       = dictionary["phone"]    as? String ?? ""
         phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? ""
-        email       = dictionary["email"] as? String ?? ""
+        email       = dictionary["email"]    as? String ?? ""
         imageUrl    = dictionary["imageUrl"] as? String ?? ""
     }
     
