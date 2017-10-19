@@ -75,7 +75,6 @@
 		665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */; };
 		6664C98A1F59A71B0088A9F5 /* RequestInfoView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */; };
 		666545B01F96A154006F8B26 /* CUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666545AF1F96A154006F8B26 /* CUser.swift */; };
-		667266641F66CAC70010FDEC /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266631F66CAC70010FDEC /* UserDefaultKeys.swift */; };
 		667266661F6715700010FDEC /* CheckingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266651F6715700010FDEC /* CheckingAccount.swift */; };
 		667266681F67158F0010FDEC /* CreditAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266671F67158F0010FDEC /* CreditAccount.swift */; };
 		667DBD6A1F95208800DF3800 /* UserGuidePageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD691F95208800DF3800 /* UserGuidePageTableCell.swift */; };
@@ -261,7 +260,6 @@
 		665DE4FB1F3A0B70004DDB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestInfoView++.swift"; sourceTree = "<group>"; };
 		666545AF1F96A154006F8B26 /* CUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CUser.swift; sourceTree = "<group>"; };
-		667266631F66CAC70010FDEC /* UserDefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		667266651F6715700010FDEC /* CheckingAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckingAccount.swift; sourceTree = "<group>"; };
 		667266671F67158F0010FDEC /* CreditAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditAccount.swift; sourceTree = "<group>"; };
 		667DBD691F95208800DF3800 /* UserGuidePageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuidePageTableCell.swift; sourceTree = "<group>"; };
@@ -721,7 +719,6 @@
 				66E650161F5F129300DA90DE /* ApiServers.swift */,
 				660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */,
 				6642D11F1F990DFF00C3AE29 /* CategoryManager.swift */,
-				667266631F66CAC70010FDEC /* UserDefaultKeys.swift */,
 				6681310A1F92F2810022AEED /* UIColor++.swift */,
 				66A16AF11F3A5F8100B32AD3 /* UIView++.swift */,
 				66E5204E1F4C76EC008E521D /* UILabel++.swift */,
@@ -1255,7 +1252,6 @@
 				66E650191F5F231200DA90DE /* OrdersSenderPageCell++.swift in Sources */,
 				66E650211F5F86C000DA90DE /* OrderLogShipperCell++.swift in Sources */,
 				660F4F831F5756DD00F4820D /* OkButton++.swift in Sources */,
-				667266641F66CAC70010FDEC /* UserDefaultKeys.swift in Sources */,
 				668609791F607CC600740A92 /* WalletCheckingCell++.swift in Sources */,
 				665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */,
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,

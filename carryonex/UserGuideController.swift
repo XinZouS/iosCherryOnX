@@ -17,34 +17,42 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
     let tabTitleMenuBarHeight : CGFloat = 40
     let tabTitleMenuBar = TabTitleMenuBar()
     
-    let faqs = ["如何接单","计费标准","认证与个人资料","如何提交身份认证"]
-    let titlesShipper = ["订单与行程","如何取消订单","运费到账时间","账号与信息","时效","安全与控诉"]
-    let titlesSender  = ["订单与行程","物品类型","如何取消订单","支付与账户","账号与信息","时效","安全与控诉"]
+    let faqsSender  = ["如何寄件","计费标准","如何提交身份认证"]
+    let faqsShipper = ["如何收件","计费标准","如何提交身份认证"]
+    let titlesSender  = ["订单与行程","物品类型","如何取消订单","支付与账户","账号与信息","时效","安全与控诉", "出行攻略"]
+    let titlesShipper = ["订单与行程","如何取消订单","运费到账时间","账号与信息","时效","安全与控诉", "出行攻略"]
 
-    let urlFaqs = [
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/"
+    let urlFaqsSender = [
+        "\(userGuideWebHoster)/doc_howtorequest",   //如何寄件
+        "\(userGuideWebHoster)/doc_pricing",        //计费标准
+        "\(userGuideWebHoster)/doc_verification"    //如何提交身份认证
     ]
-    let urlShipper = [
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/"
-    ]
-    let urlSender = [
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/",
-        "https://www.carryonex.com/"
+    let urlFaqsShiper = [
+        "\(userGuideWebHoster)/doc_howtocarry",     //如何收件
+        "\(userGuideWebHoster)/doc_pricing",        //计费标准
+        "\(userGuideWebHoster)/doc_verification"    //如何提交身份认证
     ]
     
+    let urlSender = [
+        "\(userGuideWebHoster)/doc_ordertrip",      //订单与行程
+        "\(userGuideWebHoster)/doc_itemcategory",   //物品类型
+        "\(userGuideWebHoster)/doc_cancelrequest",  //如何取消订单
+        "\(userGuideWebHoster)/doc_payment",        //支付与账户
+        "\(userGuideWebHoster)/doc_account",        //账号与信息
+        "\(userGuideWebHoster)/doc_effectiveness",  //时效
+        "\(userGuideWebHoster)/doc_security_charge_requester",  //安全与控诉(寄件人)
+        "\(userGuideWebHoster)/doc_guide"           //出行攻略
+    ]
+    let urlShipper = [
+        "\(userGuideWebHoster)/doc_ordertrip",      //订单与行程
+        "\(userGuideWebHoster)/doc_cancelrequest",  //如何取消订单
+        "\(userGuideWebHoster)/doc_payment_timing", //运费到账时间
+        "\(userGuideWebHoster)/doc_account",        //账号与信息
+        "\(userGuideWebHoster)/doc_effectiveness",  //时效
+        "\(userGuideWebHoster)/doc_security_charge_tripper", //安全与控诉(出行人)
+        "\(userGuideWebHoster)/doc_guide"           //出行攻略
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,10 +94,12 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
         var cell = UserGuidePageCell()
         if indexPath.item == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellSenderId, for: indexPath) as! UserGuidePageCell
-            cell.titles = [faqs, titlesSender]
+            cell.titles = [faqsSender, titlesSender]
+            cell.urls = [urlFaqsSender, urlSender]
         }else{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellShipperId, for: indexPath) as! UserGuidePageCell
-            cell.titles = [faqs, titlesShipper]
+            cell.titles = [faqsShipper, titlesShipper]
+            cell.urls = [urlFaqsShiper, urlShipper]
         }
         cell.userGuideCtl = self
         cell.backgroundColor = .white

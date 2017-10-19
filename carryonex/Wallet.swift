@@ -7,29 +7,38 @@
 //
 
 import Foundation
+import Unbox
 
- 
-class Wallet : NSObject {
+enum WalletKeyInDB: String {
+    case nounce = "nounce"
+    case creditAvailable = "available_credit"
+    case creditPending   = "pending_credit"
+}
+
+
+class Wallet : NSObject, Unboxable {
     
-    var id : String = "123456789"
+    var nounce : String?
     
-    var creditAvailable : Float = 6.00
-    var creditPending :   Float = 3.00
+    var creditAvailable : Float = 0.00
+    var creditPending :   Float = 0.00
     
-    var transactionIds = [String]() // ["12", "23"]
-    var transactions = [Transaction]()
     
     var checkingAccounts = [CheckingAccount]()
     var creditAccounts = [CreditAccount]()
     
-    static var sharedInstance = Wallet()
+    static var sharedInstance = Wallet() 
     
     
-    private override init() {
+    override init() {
         super.init()
         
-        fakeAccounts() // remove this before publish !!!!!!!!!
-        
+    }
+    
+    required init(unboxer: Unboxer) throws {
+        self.nounce = try? unboxer.unbox(key: WalletKeyInDB.nounce.rawValue)
+        self.creditAvailable = (try? unboxer.unbox(key: WalletKeyInDB.creditAvailable.rawValue)) ?? 0.0
+        self.creditPending   = (try? unboxer.unbox(key: WalletKeyInDB.creditPending.rawValue)) ?? 0.0
     }
     
     func fakeAccounts(){

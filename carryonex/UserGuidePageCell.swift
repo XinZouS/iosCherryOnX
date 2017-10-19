@@ -19,7 +19,13 @@ class UserGuidePageCell : UICollectionViewCell {
             }
         }
     }
-    var urls : [[String]]!
+    var urls : [[String]]! {
+        didSet{
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     let userGuidePageTableCellId = "userGuidePageTableCellId"
     

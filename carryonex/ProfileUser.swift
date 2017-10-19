@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-class ProfileUser: Unboxable {
+class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding for saving to disk
     var id:         String? = "demo user"
     var username:   String? = ""
     var password:   String? = ""
@@ -30,8 +30,8 @@ class ProfileUser: Unboxable {
     
     /// for save in local disk:
     
-    required init() {
-        
+    required override init() {
+        super.init()
     }
     
     internal required convenience init(coder aDecoder: NSCoder) {
@@ -150,7 +150,7 @@ class ProfileUser: Unboxable {
         print("Trying to save ProfileManager into local disk ...")
         DispatchQueue.main.async {
             let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self)
-            UserDefaults.standard.set(encodedData, forKey: "ProfileManager")
+            UserDefaults.standard.set(encodedData, forKey: "ProfileUser")
             UserDefaults.standard.synchronize()
             print("OK, save ProfileManager into local disk success!!!")
         }
@@ -158,7 +158,7 @@ class ProfileUser: Unboxable {
     
     func loadFromLocalDisk(){
         print("\n\rtrying to fetchUserFromLocalDiskAndSetup() ...... ")
-        guard let savedUser = UserDefaults.standard.object(forKey: "ProfileManager") as? Data else { return }
+        guard let savedUser = UserDefaults.standard.object(forKey: "ProfileUser") as? Data else { return }
         if let dictionary = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? [String:Any] {
             print("get saved dictionary(user) = \(dictionary)")
             setupUserByLocal(dictionary: dictionary)
@@ -167,7 +167,7 @@ class ProfileUser: Unboxable {
     }
     
     func removeFromLocalDisk(){
-        UserDefaults.standard.removeObject(forKey: "ProfileManager")
+        UserDefaults.standard.removeObject(forKey: "ProfileUser")
         print("OK, removed user from local disk.")
     }
     

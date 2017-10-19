@@ -10,8 +10,15 @@ import UIKit
 import Unbox
 
 class ProfileManager: NSObject {
+    
     static var shared = ProfileManager()
+    
     var currentUser: ProfileUser?
+    
+    private override init() {
+        super.init()
+        self.currentUser = ProfileUser()
+    }
     
     func isLoggedIn() -> Bool {
         return currentUser != nil
@@ -23,8 +30,8 @@ class ProfileManager: NSObject {
     }
     
     func loadUser() {
-        guard let user = self.currentUser else { return }
-        user.loadFromLocalDisk()
+        guard let curruser = self.currentUser else { return }
+        curruser.loadFromLocalDisk()
     }
     
     func removeUser() {

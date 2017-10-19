@@ -7,45 +7,47 @@
 //
 
 import UIKit
+import Unbox
 import MapKit
 
-enum Country: String {
+enum Country: String, UnboxableEnum {
     case China = "中国大陆"
     case UnitedStates = "United States"
 }
 
-class Address : NSObject {
+enum AddressKeyInDB : String {
+    case id         = "id"
+    case country    = "country"
+    case state      = "state"
+    case city       = "city"
+    case detailAddr = "street"
+    case zipcode    = "zipcode"
+    case recipientName = "resident"
+    case phoneNumber = "phone"
+    case longtitude = "longtitude"
+    case latitude   = "latitude"
+}
+
+
+
+class Address : NSObject, Unboxable {
     
-    var id : String!
+    var id : String?
     
-    var country: Country!
-    var state : String!
-    var city  : String!
+    var country: Country?
+    var state : String?
+    var city  : String?
     
-    var detailAddress: String!
+    var detailAddress: String?
     
-    var zipcode: String!
+    var zipcode: String?
     
-    var recipientName: String!
-    var phoneNumber: String!
+    var recipientName: String?
+    var phoneNumber: String?
     
-    var coordinateLongitude: Double = 0.0
-    var coordinateLatitude: Double = 0.0
-    
-    enum PropInDB : String {
-        case id         = "id"
-        case country    = "country"
-        case state      = "state"
-        case city       = "city"
-        case detailAddr = "street"
-        case zipcode    = "zipcode"
-        case recipientName = "resident"
-        case phoneNumber = "phone"
-        case longtitude = "longtitude"
-        case latitude   = "latitude"
-    }
-    
-    
+    var coordinateLatitude: Double = 40.785091 // Central Park, New York
+    var coordinateLongitude: Double = -73.968285 // Central Park, New York
+
     
     override init() {
         super.init()
@@ -80,6 +82,19 @@ class Address : NSObject {
         self.phoneNumber = pn
     }
     
+    required init(unboxer: Unboxer) throws {
+        self.id                 = try? unboxer.unbox(key: AddressKeyInDB.id.rawValue)
+        self.country            = try? unboxer.unbox(key: AddressKeyInDB.country.rawValue)
+        self.state              = try? unboxer.unbox(key: AddressKeyInDB.state.rawValue)
+        self.city               = try? unboxer.unbox(key: AddressKeyInDB.city.rawValue)
+        self.detailAddress      = try? unboxer.unbox(key: AddressKeyInDB.detailAddr.rawValue)
+        self.zipcode            = try? unboxer.unbox(key: AddressKeyInDB.zipcode.rawValue)
+        self.recipientName      = try? unboxer.unbox(key: AddressKeyInDB.recipientName.rawValue)
+        self.phoneNumber        = try? unboxer.unbox(key: AddressKeyInDB.phoneNumber.rawValue)
+        self.coordinateLatitude = (try? unboxer.unbox(key: AddressKeyInDB.latitude.rawValue)) ?? 40.785091
+        self.coordinateLongitude = (try? unboxer.unbox(key: AddressKeyInDB.longtitude.rawValue)) ?? -73.968285
+    }
+    
     func descriptionString() -> String {
         if self.country == Country.China {
             return "\(state!), \(city!), \(detailAddress!), 邮编 \(zipcode!)"
@@ -91,16 +106,16 @@ class Address : NSObject {
     func packAllPropertiesAsData() -> Data? {
         var json:[String:Any] =  [:]
         // the [key] is NOT allow to change! MUST the same as in DB;
-        json[PropInDB.id.rawValue]       = id
-        json[PropInDB.country.rawValue]  = country.rawValue
-        json[PropInDB.state.rawValue]    = state
-        json[PropInDB.city.rawValue]     = city
-        json[PropInDB.detailAddr.rawValue] = detailAddress
-        json[PropInDB.zipcode.rawValue]  = zipcode
-        json[PropInDB.recipientName.rawValue] = recipientName
-        json[PropInDB.phoneNumber.rawValue] = phoneNumber
-        json[PropInDB.longtitude.rawValue] = coordinateLongitude
-        json[PropInDB.latitude.rawValue] = coordinateLatitude
+        json[AddressKeyInDB.id.rawValue]       = id
+        json[AddressKeyInDB.country.rawValue]  = self.country!.rawValue
+        json[AddressKeyInDB.state.rawValue]    = state
+        json[AddressKeyInDB.city.rawValue]     = city
+        json[AddressKeyInDB.detailAddr.rawValue] = detailAddress
+        json[AddressKeyInDB.zipcode.rawValue]  = zipcode
+        json[AddressKeyInDB.recipientName.rawValue] = recipientName
+        json[AddressKeyInDB.phoneNumber.rawValue] = phoneNumber
+        json[AddressKeyInDB.longtitude.rawValue] = coordinateLongitude
+        json[AddressKeyInDB.latitude.rawValue] = coordinateLatitude
         
         do {
             if let dt = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) as Data? {
@@ -121,16 +136,16 @@ class Address : NSObject {
     }
     
     func setupByDictionaryFromDB(_ json: [String:Any]){
-        id          = json[PropInDB.id.rawValue] as? String ?? ""
-        country     = (json[PropInDB.country.rawValue] as? String ?? "") == Country.China.rawValue ? Country.China : Country.UnitedStates
-        state       = json[PropInDB.state.rawValue] as? String ?? ""
-        city        = json[PropInDB.city.rawValue] as? String ?? ""
-        detailAddress = json[PropInDB.detailAddr.rawValue] as? String ?? ""
-        zipcode     = json[PropInDB.zipcode.rawValue] as? String ?? ""
-        recipientName = json[PropInDB.recipientName.rawValue] as? String ?? ""
-        phoneNumber = json[PropInDB.phoneNumber.rawValue] as? String ?? ""
-        coordinateLongitude = json[PropInDB.longtitude.rawValue] as? Double ?? 0.0
-        coordinateLatitude  = json[PropInDB.latitude.rawValue] as? Double ?? 0.0
+        id          = json[AddressKeyInDB.id.rawValue]          as? String ?? ""
+        country     = (json[AddressKeyInDB.country.rawValue]    as? String ?? "") == Country.China.rawValue ? Country.China : Country.UnitedStates
+        state       = json[AddressKeyInDB.state.rawValue]       as? String ?? ""
+        city        = json[AddressKeyInDB.city.rawValue]        as? String ?? ""
+        detailAddress = json[AddressKeyInDB.detailAddr.rawValue] as? String ?? ""
+        zipcode     = json[AddressKeyInDB.zipcode.rawValue]     as? String ?? ""
+        recipientName = json[AddressKeyInDB.recipientName.rawValue] as? String ?? ""
+        phoneNumber = json[AddressKeyInDB.phoneNumber.rawValue] as? String ?? ""
+        coordinateLongitude = json[AddressKeyInDB.longtitude.rawValue] as? Double ?? 0.0
+        coordinateLatitude  = json[AddressKeyInDB.latitude.rawValue] as? Double ?? 0.0
     }
     
 }

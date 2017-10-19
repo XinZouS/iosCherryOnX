@@ -13,10 +13,10 @@ class LicensesController: UITableViewController {
     let licenseTableCellId = "licenseTableCellId"
     
     let titles = ["软件使用协议", "个人信息保护及隐私政策", "软件授权", "平台用户规则"]
-    let urls = ["http://192.168.0.119:5000/license",
-                "http://192.168.0.119:5000/privacy",
-                "http://192.168.0.119:5000/acknowledgements",
-                ""]
+    let urls = ["\(userGuideWebHoster)/doc_license",
+                "\(userGuideWebHoster)/doc_privacy",
+                "\(userGuideWebHoster)/doc_acknowledgements",
+                "\(userGuideWebHoster)/doc_agreement"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

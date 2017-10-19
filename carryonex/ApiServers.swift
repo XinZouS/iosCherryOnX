@@ -38,6 +38,7 @@ class ApiServers : NSObject {
         case appToken = "app_token"
         case userToken = "user_token"
         case username  = "username"
+        case password  = "password"
         case timestamp = "timestamp"
     }
     
@@ -45,8 +46,8 @@ class ApiServers : NSObject {
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
     //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
-    private let baseUrl = "http://192.168.0.119:5000/api/1.0"
-    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
+    private let host = "http://192.168.0.119:5000/api/1.0"
+    //private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -60,7 +61,7 @@ class ApiServers : NSObject {
     
     func registerUser(){
         let sessionStr = "/users/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
+        let urlStr = "\(host)\(sessionStr)"
         ProfileManager.shared.currentUser?.username = "testUsername"
         ProfileManager.shared.currentUser?.phone = "1234567890"
         ProfileManager.shared.currentUser?.password = "testPassword"
@@ -82,9 +83,10 @@ class ApiServers : NSObject {
     }
     func loginUser(){
         let sessionStr = "/users/login/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
-        let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary()
+        let urlStr = "\(host)\(sessionStr)"
         let headers:[String:String] = [
+            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+            ServerKey.password.rawValue: (ProfileManager.shared.currentUser?.password) ?? "",
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
@@ -99,19 +101,10 @@ class ApiServers : NSObject {
             }
         }
     }
-    
-    ///////////////// url demo todo!!!!!!!!!!!!!
-    func getTrip(tripCode: String) {
-        let urlComponents = URLComponents.init()
-    }
-    
-    
-    
-    
     func logoutUser(){
         if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
             let sessionStr = "/users/logout/"
-            let urlStr = "\(baseUrl)\(sessionStr)"
+            let urlStr = "\(host)\(sessionStr)"
             let headers:[String:String] = [
                 ServerKey.timestamp.rawValue: getTimestampStr(),
                 ServerKey.appToken.rawValue : appToken,
@@ -129,7 +122,7 @@ class ApiServers : NSObject {
     }
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
         let sessionStr = "/users/\(propertyUrl.rawValue)/"
-//        let urlStr = "\(baseUrl)\(sessionStr)"
+//        let urlStr = "\(host)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -181,7 +174,7 @@ class ApiServers : NSObject {
     }
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
         let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
-        let urlStr = "\(baseUrl)\(sessionStr)"
+        let urlStr = "\(host)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -221,7 +214,7 @@ class ApiServers : NSObject {
     }
     func updateUserInfo(_ propUrl: ServerUserPropUrl, newInfo: String, completion: @escaping ([String:AnyObject]?) -> Void){
         let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(propUrl.rawValue)/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
+        let urlStr = "\(host)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -269,7 +262,7 @@ class ApiServers : NSObject {
     
     func postTripInfo(trip: Trip){
         let sessionStr = "/trips/trips/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
+        let urlStr = "\(host)\(sessionStr)"
         //        postDataToUrlString(urlStr, postData: trip.)
     }
     
@@ -324,11 +317,16 @@ class ApiServers : NSObject {
      */
     private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], getDictionary: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
+        print("get requestUrlStr = \(requestUrlStr)")
+        print("get parameters = \(parameters)")
         Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
+            print("get response = \(response)")
             if let responseValue = response.value as? [String: Any] {
+                print("get responseValue = \(responseValue)")
                 getDictionary(responseValue)
             }
         }
+        
     }
     /**
      * get data with url string, return NULL, try with completionHandler

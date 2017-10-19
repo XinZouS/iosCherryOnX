@@ -259,7 +259,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
                     self.activityIndicator.stopAnimating()
                     ProfileManager.shared.currentUser?.isVerified = true
                     ProfileManager.shared.saveUser()
-                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
                     self.homePageController?.showAlertFromPhotoIdController()
                 }
             }else{
