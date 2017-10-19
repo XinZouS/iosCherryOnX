@@ -243,7 +243,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
     }
 
     private func isItHaveLogIn(){
-        if(ProfileManager.shared.username == ""){
+        if (!ProfileManager.shared.isLoggedIn()){
             let registerMainCtl = RegisterMainController()
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
@@ -448,8 +448,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ApiServers.shared.registerUser()
-        //ProfileManager.shared.username = "user0"
-        //ProfileManager.shared.password = "73dbe388246aa5ee6d71d98371bfb292"
+        //ProfileManager.shared.currentUser?.username = "user0"
+        //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
         //ApiServers.shared.loginUser()
         //ApiServers.shared.logoutUser()
         /*
@@ -461,52 +461,52 @@ class HomePageController: UIViewController, UISearchResultsUpdating {
         ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in
             print("get imageUrl = \(imageUrl)")
             if let url = imageUrl as? String {
-                ProfileManager.shared.imageUrl = url
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.imageUrl = url
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.passportUrl) { passporturl in
             print("get passportUrl = \(passporturl)")
             if let url = passporturl as? String {
-                ProfileManager.shared.passportUrl = url
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.passportUrl = url
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.idAUrl) { idaUrl in
             print("get idA url = \(idaUrl)")
             if let url = idaUrl as? String {
-                ProfileManager.shared.idCardA_Url = url
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.idCardA_Url = url
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.idBUrl) { idbUrl in
             if let url = idbUrl as? String {
                 print("get idB url = \(idbUrl)")
-                ProfileManager.shared.idCardB_Url = url
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.idCardB_Url = url
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.email) { email in
             if let e = email as? String {
                 print("get email = \(email)")
-                ProfileManager.shared.email = e
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.email = e
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.realName) { realname in
             if let name = realname as? String {
                 print("get realName = \(realname)")
-                ProfileManager.shared.nickName = name
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.nickName = name
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfo(.phone) { phone in
             if let p = phone as? String {
                 print("get Phone = \(phone)")
                 let arr = p.components(separatedBy: "-")
-                ProfileManager.shared.phoneCountryCode = arr.first!
-                ProfileManager.shared.phone = arr.last!
-                ProfileManager.shared.saveIntoLocalDisk()
+                ProfileManager.shared.currentUser?.phoneCountryCode = arr.first!
+                ProfileManager.shared.currentUser?.phone = arr.last!
+                ProfileManager.shared.saveUser()
             }
         }
         ApiServers.shared.getUserInfoAll { (dictionary) in

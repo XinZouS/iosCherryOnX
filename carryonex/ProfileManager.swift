@@ -9,6 +9,7 @@
 import UIKit
 import Unbox
 
+<<<<<<< HEAD
 
 
 class ProfileManager: User, NSCoding {
@@ -216,57 +217,29 @@ class ProfileManager: User, NSCoding {
             setupUserByLocal(dictionary: dictionary)
             print("OK, fetch User form local disk and setup success! getUser = \(self.printAllData())")
         }
+=======
+class ProfileManager: NSObject {
+    static var shared = ProfileManager()
+    var currentUser: ProfileUser?
+    
+    func isLoggedIn() -> Bool {
+        return currentUser != nil
+>>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
     }
     
-    func removeFromLocalDisk(){
-        UserDefaults.standard.removeObject(forKey: "ProfileManager")
-        print("OK, removed user from local disk.")
+    func saveUser() {
+        guard let user = self.currentUser else { return }
+        user.saveIntoLocalDisk()
     }
     
-    override func resetAllData(){
-        id          = "demoUser"
-        username    = ""
-        password    = ""
-        token       = ""
-        
-        nickName    = ""
-        
-        phone       = ""
-        phoneCountryCode = ""
-        email       = ""
-        
-        imageUrl    = ""
-        idCardA_Url = ""
-        idCardB_Url = ""
-        passportUrl = ""
-        isVerified  = false
-        walletId    = ""
-        
-        requestIdList = [] // all my requestId
-        tripIdList    = [] // all my tripId
-        
-        ordersIdLogAsShipper = [] // IDs of request I take in
+    func loadUser() {
+        guard let user = self.currentUser else { return }
+        user.loadFromLocalDisk()
     }
     
-
-    
-    override func printAllData(){
-        print("id = \(id!)")
-        print("username = \(username!)")
-        print("password = \(password!)")
-        print("token = \(token!)")
-        print("nickName = \(nickName!)")
-        print("phone = \(phone), countryCode = \(phoneCountryCode!)")
-        print("email = \(email!)")
-        print("imageUrl = \(imageUrl!)")
-        print("idcardA_Url = \(idCardA_Url)")
-        print("idcardB_Url = \(idCardB_Url)")
-        print("passportUrl = \(passportUrl)")
-        print("isVerified = \(isVerified)")
-        print("walletId = \(walletId)")
-        print("requestIdList = \(requestIdList)")
-        print("tripIdList = \(tripIdList)")
-        print("ordersIdLogAsShipper = \(ordersIdLogAsShipper)")
+    func removeUser() {
+        guard let user = self.currentUser else { return }
+        user.removeFromLocalDisk()
+        self.currentUser = nil
     }
-
 }

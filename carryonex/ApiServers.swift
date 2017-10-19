@@ -61,37 +61,41 @@ class ApiServers : NSObject {
     func registerUser(){
         let sessionStr = "/users/"
         let urlStr = "\(baseUrl)\(sessionStr)"
-        ProfileManager.shared.username = "testUsername"
-        ProfileManager.shared.phone = "1234567890"
-        ProfileManager.shared.password = "testPassword"
-        ProfileManager.shared.email = "testEmail@carryonex.com"
-        let dictionary = ProfileManager.shared.packAllPropertiesAsDictionary()
+        ProfileManager.shared.currentUser?.username = "testUsername"
+        ProfileManager.shared.currentUser?.phone = "1234567890"
+        ProfileManager.shared.currentUser?.password = "testPassword"
+        ProfileManager.shared.currentUser?.email = "testEmail@carryonex.com"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
-        postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                ProfileManager.shared.token = getToken.first ?? ""
-                ProfileManager.shared.saveIntoLocalDisk()
+        
+        if let dictionary = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
+                    ProfileManager.shared.saveUser()
+                }
             }
         }
     }
     func loginUser(){
         let sessionStr = "/users/login/"
         let urlStr = "\(baseUrl)\(sessionStr)"
-        let dict = ProfileManager.shared.packAllPropertiesAsDictionary()
+        let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary()
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
-        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                ProfileManager.shared.token = getToken.first ?? ""
-                ProfileManager.shared.saveIntoLocalDisk()
-                print("OKKKK get login token = \(getToken.first!)")
+        if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
+                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
+                    ProfileManager.shared.saveUser()
+                    print("OKKKK get login token = \(getToken.first!)")
+                }
             }
         }
     }
@@ -105,32 +109,38 @@ class ApiServers : NSObject {
     
     
     func logoutUser(){
-        let sessionStr = "/users/logout/"
-        let urlStr = "\(baseUrl)\(sessionStr)"
-        let dict = ProfileManager.shared.packAllPropertiesAsDictionary()
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.token ?? ""
-        ]
-        postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
-            print("get response dictionary: \(responsDictionary)")
-            if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
-                print("OK logout success! clear user data!")
-                ProfileManager.shared.removeFromLocalDisk()
-                ProfileManager.shared.resetAllData()
-                ProfileManager.shared.saveIntoLocalDisk()
+        if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            let sessionStr = "/users/logout/"
+            let urlStr = "\(baseUrl)\(sessionStr)"
+            let headers:[String:String] = [
+                ServerKey.timestamp.rawValue: getTimestampStr(),
+                ServerKey.appToken.rawValue : appToken,
+                ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? ""
+            ]
+            postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
+                print("get response dictionary: \(responsDictionary)")
+                if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
+                    print("OK logout success! clear user data!")
+                    ProfileManager.shared.currentUser?.removeFromLocalDisk()
+                    ProfileManager.shared.currentUser = nil
+                    //ProfileManager.shared.saveUser()    //Why? - Zian
+                }
             }
         }
     }
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
+<<<<<<< HEAD
         let sessionStr = "/users/\(propertyUrl.rawValue)/"
 //        let urlStr = "\(baseUrl)\(sessionStr)"
+=======
+        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(propertyUrl.rawValue)/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+>>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.token ?? "",
-            ServerKey.username.rawValue : ProfileManager.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             print("get infoDictionary: \(infoDictionary)")
@@ -146,14 +156,20 @@ class ApiServers : NSObject {
 //            }
 //        }
     }
+<<<<<<< HEAD
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
         let sessionStr = "/users/info/" // "\(ProfileManager.shared.username!)/"
 //        let urlStr = "\(baseUrl)\(sessionStr)"
+=======
+    func getUserInfoAll(handleInfo: @escaping ([String:AnyObject]) -> Void){
+        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/info/"
+        let urlStr = "\(baseUrl)\(sessionStr)"
+>>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.token ?? "",
-            ServerKey.username.rawValue : ProfileManager.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             if let data = responsDictionary["data"] as? [String : Any] {
@@ -175,14 +191,19 @@ class ApiServers : NSObject {
 //            }
 //        }
     }
+<<<<<<< HEAD
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
         let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
+=======
+    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([String:AnyObject]) -> Void){
+        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(type.rawValue)/"
+>>>>>>> 18c7340fcdc6c046dbe434d97c2470734f782185
         let urlStr = "\(baseUrl)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.token ?? "",
-            ServerKey.username.rawValue : ProfileManager.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             if let data = responsDictionary["data"] as? [String : Any] {
@@ -216,13 +237,13 @@ class ApiServers : NSObject {
 //        }
     }
     func updateUserInfo(_ propUrl: ServerUserPropUrl, newInfo: String, completion: @escaping ([String:AnyObject]?) -> Void){
-        let sessionStr = "/users/\(ProfileManager.shared.username!)/\(propUrl.rawValue)/"
+        let sessionStr = "/users/\(ProfileManager.shared.currentUser?.username!)/\(propUrl.rawValue)/"
         let urlStr = "\(baseUrl)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.token ?? "",
-            ServerKey.username.rawValue : ProfileManager.shared.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         //postDataToUrlString(<#T##urlStr: String##String#>, postData: <#T##[String : Any]#>, httpHeaders: <#T##[String : String]?#>, handleResponse: <#T##([String : AnyObject]) -> Void#>)
     }

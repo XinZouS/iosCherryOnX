@@ -187,7 +187,7 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
         
         requestInfoView.request = self.request
 
-//        let isShipperNow = ProfileManager.shared.isShipper!
+//        let isShipperNow = ProfileManager.shared.currentUser?.isShipper!
         let height: CGFloat = 300 //isShipperNow ? 300 : 0
 //        requestInfoView.isHidden = !isShipperNow
         
@@ -258,7 +258,7 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
         let h : CGFloat = 280
         scrollView.addSubview(collectionView)
         
-//        if ProfileManager.shared.isShipper {  // finishButton move with scrollview
+//        if ProfileManager.shared.currentUser?.isShipper {  // finishButton move with scrollview
 //            collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 0, width: 0, height: h)
 //        }else{
             collectionView.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: collectionViewSideMargin, topConstent: 10, rightConstent: collectionViewSideMargin, bottomConstent: 50, width: 0, height: 0)
@@ -273,7 +273,7 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupFinishButton(){
-//        if ProfileManager.shared.isShipper { // finishButton move with scrollview
+//        if ProfileManager.shared.currentUser?.isShipper { // finishButton move with scrollview
 //            scrollView.addSubview(finishButton)
 //            finishButton.addConstraints(left: view.leftAnchor, top: collectionView.bottomAnchor, right: view.rightAnchor, bottom: scrollView.bottomAnchor, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: buttonHeight)
 //        }else{

@@ -68,26 +68,25 @@ extension HomePageController {
     // MARK: - Save user into local disk
     
     internal func saveUserIntoLocalDisk(){
-        if ProfileManager.shared.phone != nil && ProfileManager.shared.id != nil {
-            ProfileManager.shared.saveIntoLocalDisk()
+        if ProfileManager.shared.currentUser?.phone != nil && ProfileManager.shared.currentUser?.id != nil {
+            ProfileManager.shared.saveUser()
         }
     }
     
     internal func fetchUserFromLocalDiskAndSetup(){
-        ProfileManager.shared.loadFromLocalDisk()
+        ProfileManager.shared.loadUser()
     }
     
     internal func removeUserFromLocalDisk(){
-        ProfileManager.shared.removeFromLocalDisk()
+        ProfileManager.shared.removeUser()
     }
-    
-
     
     /// MUST check if user isVerified
     
     func callShipperButtonTapped(){
-        if ProfileManager.shared.isVerified {
-//            let isShipper = ProfileManager.shared.isShipper
+        let verified = ProfileManager.shared.currentUser?.isVerified ?? false
+        if verified {
+//            let isShipper = ProfileManager.shared.currentUser?.isShipper
 //            if isShipper! {
                 let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
                 //navigationController?.pushViewController(postTripCtl, animated: true)
@@ -227,25 +226,25 @@ extension HomePageController {
     
     // do not need to check if user is shipper or sender;
 //    internal func switchUserType(){
-//        let s = ProfileManager.shared.isShipper!
-//        ProfileManager.shared.isShipper = !s
+//        let s = ProfileManager.shared.currentUser?.isShipper!
+//        ProfileManager.shared.currentUser?.isShipper = !s
 //
 //        setupUIContentsForUserIsShipperOrNot()
 //        flipPageHorizontally()
 //    }
 //    internal func switchToSender(){
-//        ProfileManager.shared.isShipper = false
+//        ProfileManager.shared.currentUser?.isShipper = false
 //        setupUIContentsForUserIsShipperOrNot()
 //        flipPageHorizontally()
 //    }
 //    internal func switchToShiper(){
-//        ProfileManager.shared.isShipper = true
+//        ProfileManager.shared.currentUser?.isShipper = true
 //        setupUIContentsForUserIsShipperOrNot()
 //        flipPageHorizontally()
 //    }
 //
 //    internal func setupUIContentsForUserIsShipperOrNot(){
-//        let s = ProfileManager.shared.isShipper!
+//        let s = ProfileManager.shared.currentUser?.isShipper!
 //        changeTextTo(isShipper: s)
 ////        changeImageTo(isShipper: s)
 //    }
@@ -257,7 +256,7 @@ extension HomePageController {
 //    private func changeTextTo(isShipper: Bool){
 //        let uStr = isShipper ? btnTitleShipForMe : btnTitleShipForYou
 //        setupSwitchUserTypeBtnTitle(str: uStr)
-//        print("now I am a shipper == \(ProfileManager.shared.isShipper), I can change to \(uStr)")
+//        print("now I am a shipper == \(ProfileManager.shared.currentUser?.isShipper), I can change to \(uStr)")
 //    }
 //    private func changeImageTo(isShipper: Bool){
 //        let newImgSideBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_B") : #imageLiteral(resourceName: "CarryonEx_A")
@@ -506,7 +505,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         uploadRequest.acl = .private
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.id!)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()
@@ -521,7 +520,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    ProfileManager.shared.imageUrl = publicURL.absoluteString
+                    ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
