@@ -13,6 +13,7 @@ class DetailSendLocationCell : DetailBaseCell{
         let l = UILabel()
         l.text = "送货地址:"
         //        l.backgroundColor = .cyan
+        l.textAlignment = NSTextAlignment.center
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()

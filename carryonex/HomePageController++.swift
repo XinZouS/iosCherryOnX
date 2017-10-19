@@ -253,6 +253,7 @@ extension HomePageController {
     
     func pullSideButtonTapped(){
         let ordersLogCtl = OrdersLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        isOrderList = true
         let orderNavView = UINavigationController(rootViewController: ordersLogCtl)
         self.present(orderNavView, animated: true, completion: nil)
     }
