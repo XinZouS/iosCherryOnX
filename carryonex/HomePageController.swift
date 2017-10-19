@@ -432,29 +432,27 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     private func testApiServers(){
         print("\r\n ------ Server connection (HomePageController) ------\r\n")
         
-        ApiServers.shared.getAllUsers { (users) in
-            if let users = users {
-                for user in users {
-                    print("User: \(user.username)")
-                }
-            }
-        }
-        
-        
-        //ApiServers.shared.getUserSaltByUsername("user0")
+//        ApiServers.shared.getAllUsers { (users) in
+//            if let users = users {
+//                for user in users {
+//                    print("User: \(user.username)")
+//                }
+//            }
+//        }
         
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        //ApiServers.shared.registerUser()
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
-        //ApiServers.shared.loginUser()
+        
+        //✅ApiServers.shared.registerUser()
+        //❌ApiServers.shared.loginUser()
         //ApiServers.shared.logoutUser()
+//        ApiServers.shared.getUserInfo(.salt) { (getSalt) in
+//            print("get salt: \(getSalt)")
+//            if let getSalt = getSalt as? String {
+//            }
+//        }
         /*
-        ApiServers.shared.getUserInfo(.salt) { (getSalt) in
-            print("get salt: \(getSalt)")
-            if let getSalt = getSalt as? String {
-            }
-        }
         ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in
             print("get imageUrl = \(imageUrl)")
             if let url = imageUrl as? String {

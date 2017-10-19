@@ -30,8 +30,8 @@ class ProfileManager: NSObject {
     }
     
     func loadUser() {
-        guard let user = self.currentUser else { return }
-        user.loadFromLocalDisk()
+        guard let curruser = self.currentUser else { return }
+        curruser.loadFromLocalDisk()
     }
     
     func removeUser() {

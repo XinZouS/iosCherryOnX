@@ -89,4 +89,6 @@ let WB_APPSecret = "38a4f8204cc784f81f9f0daaf31e02e3"
 let awsIdentityPoolId = "us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7"
 let awsBucketName = "carryoneximage"
 
+/// for more info display in MenuController
+let userGuideWebHoster = "http://54.245.216.35:5000"
 

@@ -50,7 +50,7 @@ extension UserSettingController {
             case 3:
                 print("TODO: open 关于游箱 page...") // http://192.168.0.119:5000/about_us
                 let webView = WebController()
-                webView.url = URL(string: "http://192.168.0.119:5000/about_us")
+                webView.url = URL(string: "\(userGuideWebHoster)/doc_about_us")
                 webView.webView.scrollView.isScrollEnabled = false
                 navigationController?.pushViewController(webView, animated: true)
                 webView.title = titles[indexPath.section][indexPath.item]
