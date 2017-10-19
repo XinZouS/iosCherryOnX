@@ -126,13 +126,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         return b
     }()
     
-    lazy var giftBarButtonView: UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Invite"), for: .normal)
-        b.backgroundColor = barColorGray
-        b.addTarget(self, action: #selector(showGiftController), for: .touchUpInside)
-        return b
-    }()
+//    lazy var giftBarButtonView: UIButton = {
+//        let b = UIButton()
+//        b.setImage(#imageLiteral(resourceName: "CarryonEx_Invite"), for: .normal)
+//        b.backgroundColor = barColorGray
+//        b.addTarget(self, action: #selector(showGiftController), for: .touchUpInside)
+//        return b
+//    }()
     
     lazy var targetCurrentLocationButton : UIButton = {
         let b = UIButton()
@@ -323,8 +323,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         view.addSubview(userInfoBarButtonView)
         userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: 20)
         
-        view.addSubview(giftBarButtonView)
-        giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
+        //view.addSubview(giftBarButtonView)
+        //giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
     }
 
     private func setupBlackBackgroundView(){
@@ -358,7 +358,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
         
-        //✅ApiServers.shared.registerUser()
+        //✅
+        ApiServers.shared.registerUser()
         //❌ApiServers.shared.loginUser()
         //ApiServers.shared.logoutUser()
 //        ApiServers.shared.getUserInfo(.salt) { (getSalt) in
