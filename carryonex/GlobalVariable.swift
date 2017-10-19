@@ -66,3 +66,27 @@ protocol ZipcodeCellDelegate: class {
 }
 
 
+/// Save user into disk by NSUserDefault
+enum UserDefaultKey : String {
+    case OnboardingFinished = "OnboardingFinished"
+    case profileImageLocalName = "profile.JPG"
+    case profileImageLocalUrl = "profileImageLocalUrl"
+}
+
+/// weixin SDK keys
+let WX_APPID = "wx9dc6e6f4fe161a4f"
+let WX_APPSecret = "360d1facd22ebe58ec58908728633432"
+
+/// QQ SDK keys
+let QQ_APPID = "100371282"
+let QQ_APPKEY = "aed9b0303e3ed1e27bae87c33761161d"
+
+/// Weibo SDK keys
+let WB_APPKEY = "568898243"
+let WB_APPSecret = "38a4f8204cc784f81f9f0daaf31e02e3"
+
+/// AWS server keys
+let awsIdentityPoolId = "us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7"
+let awsBucketName = "carryoneximage"
+
+

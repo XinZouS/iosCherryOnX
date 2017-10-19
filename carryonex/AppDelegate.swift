@@ -11,10 +11,6 @@ import CoreData
 import FBSDKCoreKit
  
 
-let awsIdentityPoolId = "us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7"
-
-let WX_APPID = "wx9dc6e6f4fe161a4f"
-let WX_APPSecret = "360d1facd22ebe58ec58908728633432"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -84,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
                 switch platform{
                 case SSDKPlatformType.typeSinaWeibo:
                     //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-                    appInfo?.ssdkSetupSinaWeibo(byAppKey: "568898243",
-                                                appSecret: "38a4f8204cc784f81f9f0daaf31e02e3",
+                    appInfo?.ssdkSetupSinaWeibo(byAppKey: WB_APPKEY,
+                                                appSecret: WB_APPSecret,
                                                 redirectUri: "http://www.sharesdk.cn",
                                                 authType: SSDKAuthTypeBoth)
                     
@@ -95,8 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
                                              appSecret: WX_APPSecret) // "64020361b8ec4c99936c0e3999a9f249")
                 case SSDKPlatformType.typeQQ:
                     //设置QQ应用信息
-                    appInfo?.ssdkSetupQQ(byAppId: "100371282",
-                                         appKey: "aed9b0303e3ed1e27bae87c33761161d",
+                    appInfo?.ssdkSetupQQ(byAppId: QQ_APPID,
+                                         appKey: QQ_APPKEY,
                                          authType: SSDKAuthTypeWeb)
                 default:
                     break

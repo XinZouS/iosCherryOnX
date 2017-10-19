@@ -10,8 +10,15 @@ import UIKit
 import Unbox
 
 class ProfileManager: NSObject {
+    
     static var shared = ProfileManager()
+    
     var currentUser: ProfileUser?
+    
+    private override init() {
+        super.init()
+        self.currentUser = ProfileUser()
+    }
     
     func isLoggedIn() -> Bool {
         return currentUser != nil

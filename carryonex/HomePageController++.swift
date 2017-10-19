@@ -146,8 +146,8 @@ extension HomePageController {
         }
         request.departureAddress = Address()   //TODO: for test only
         request.destinationAddress = Address() //TODO: for test only
-        let dpt = "\(request.departureAddress!.country.rawValue), \(request.departureAddress!.state), \(request.departureAddress!.city)"
-        let des = "\(request.destinationAddress!.country.rawValue), \(request.destinationAddress!.state), \(request.destinationAddress!.city)"
+        let dpt = "\(request.departureAddress!.country!.rawValue), \(request.departureAddress!.state), \(request.departureAddress!.city)"
+        let des = "\(request.destinationAddress!.country!.rawValue), \(request.destinationAddress!.state), \(request.destinationAddress!.city)"
         let pic = "\(request.departureAddress!.city), \(request.departureAddress!.detailAddress)"
         let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic)" //, 期望到达时间：\(exp)"
         let alertCtl = UIAlertController(title: "订单编号666666", message: msg, preferredStyle: .alert)

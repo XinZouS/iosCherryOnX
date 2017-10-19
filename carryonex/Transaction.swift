@@ -7,28 +7,38 @@
 //
 
 import Foundation
-
+import Unbox
  
-enum TransactionStatus : String {
+enum TransactionStatus : String, UnboxableEnum {
     case pending = "处理中"
     case finished = "交易完成"
 }
 
-class Transaction : NSObject {
+enum TransactionKeyInDB: String {
+    case nounce = "nounce"
+    case type = "ttype"
+}
+
+
+struct Transaction : Unboxable {
     
-    var id : String = "transactionId-xxx"
+    var nounce : String?
+    var type : String?
     
-    var payeeName: String = "userName-payee"
-    var payeeId :  String = "userId-payee"
+    var payeeName: String?
+    var payeeId :  String?
     
-    var amount : Float = 0.0
+    var amount : Float?
     
     var status : String = TransactionStatus.pending.rawValue
     
     
-    override init() {
-        super.init()
-        
+    init() {
+    }
+    
+    init(unboxer: Unboxer) throws {
+        self.nounce = try? unboxer.unbox(key: TransactionKeyInDB.nounce.rawValue)
+        self.type = try? unboxer.unbox(key: TransactionKeyInDB.type.rawValue)
     }
     
 }

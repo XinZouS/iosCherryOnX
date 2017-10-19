@@ -228,17 +228,17 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //title = "游箱" // for returning from UserInfoPage, change title back;
-        setupStatuesBar()
+        UIApplication.shared.statusBarStyle = .default
     }
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
         //setupUIContentsForUserIsShipperOrNot() do not need to check this for user, we dont need it;
         isItHaveLogIn()
-        setupStatuesBar()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveUserIntoLocalDisk()
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
     private func isItHaveLogIn(){
@@ -344,9 +344,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         }
     }
     
-    private func setupStatuesBar(){
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
 
 //    private func setupNavigationBar(){
 //        UINavigationBar.appearance().tintColor = buttonColorWhite
