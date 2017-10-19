@@ -121,7 +121,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     lazy var userInfoBarButtonView : UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_userInfomation"), for: .normal)
         b.addTarget(self, action: #selector(showUserInfoSideMenu), for: .touchUpInside)
         return b
     }()
@@ -134,53 +134,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         return b
     }()
     
-    // MARK: - for development use only:
-    lazy var gotoItemTypePageButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .cyan
-        b.setTitle("gotoItemTypePage", for: .normal)
-        b.addTarget(self, action: #selector(gotoItemTypePage), for: .touchUpInside)
-        return b
-    }()
-    lazy var gotoTripPageButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .cyan
-        b.setTitle("goto Trip", for: .normal)
-        b.addTarget(self, action: #selector(gotoTripPage), for: .touchUpInside)
-        return b
-    }()
-    lazy var gotoIDPageButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .green
-        b.setTitle("gotoIDPage", for: .normal)
-        b.addTarget(self, action: #selector(gotoIDPage), for: .touchUpInside)
-        return b
-    }()
-    lazy var gotoConfirmPageButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .orange
-        b.setTitle("gotoConfirmPage", for: .normal)
-        b.addTarget(self, action: #selector(gotoConfirmPage), for: .touchUpInside)
-        return b
-    }()
-    lazy var showNewRequestAlertButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = buttonColorPurple
-        b.setTitle("你有新订单！", for: .normal)
-        b.addTarget(self, action: #selector(showNewRequestAlert), for: .touchUpInside)
-        return b
-    }()
-    lazy var showOnboardingPageButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = buttonColorOrange
-        b.setTitle("Onboarding!", for: .normal)
-        b.addTarget(self, action: #selector(showOnboardingPage), for: .touchUpInside)
-        return b
-    }()
     lazy var targetCurrentLocationButton : UIButton = {
         let b = UIButton()
         b.addTarget(self, action: #selector(targetCurrentLocBtnTapped), for: .touchUpInside)
-        b.setImage(#imageLiteral(resourceName: "carryonex_locateMe"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_locationIcon"), for: .normal)
         return b
     }()
     
@@ -215,7 +172,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         setupSideButtonView()
         
-        setupDevelopButtons() //TODO: remove this when going on line;
         setupTargetCurrentLocationButton()
         setupTopButtons()
 
@@ -259,15 +215,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         view.addSubview(searchContainerView)
 
         searchContainerView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 70, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
-        // replace above line
-//        searchContainerView.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: h)
-//        searchContainerTopConstraint = searchContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: searchContentTopMargin)
-//        searchContainerTopConstraint.isActive = true
-//        searchContainerLeftConstraint = searchContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: searchContentSideMargin)
-//        searchContainerLeftConstraint.isActive = true
-//        searchContainerRightConstraint = searchContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -searchContentSideMargin)
-//        searchContainerRightConstraint.isActive = true
-        
+    
         let locationSearchTableViewController = LocationSearchTableController()
         locationSearchTableViewController.homePageController = self
         locationSearchTableViewController.handleMapSearchDelegate = self
@@ -345,14 +293,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
 
-//    private func setupNavigationBar(){
-//        UINavigationBar.appearance().tintColor = buttonColorWhite
-//        navigationController?.navigationBar.tintColor = buttonColorWhite
-//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-//
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userInfoBarButtonView)
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: giftBarButtonView)
-//    }
 
     private func setupSideButtonView(){
         view.addSubview(sideButtonContainerView)
@@ -373,7 +313,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func setupTargetCurrentLocationButton(){
         view.addSubview(targetCurrentLocationButton)
-        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 40, height: 40)
+        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 30, bottomConstent: 50, width: 50, height: 50)
     }
     
     private func setupTopButtons(){
@@ -381,36 +321,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         let topMargin: CGFloat = 36
         let sideMargin:CGFloat = 20
         view.addSubview(userInfoBarButtonView)
-        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: sz)
+        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: 20)
         
         view.addSubview(giftBarButtonView)
         giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
-    }
-
-    
-
-    
-    /**
-        for development use only
-     */
-    private func setupDevelopButtons(){
-        view.addSubview(gotoItemTypePageButton)
-        gotoItemTypePageButton.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 210, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
-        
-        view.addSubview(gotoTripPageButton)
-        gotoTripPageButton.addConstraints(left: nil, top: gotoItemTypePageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
-        
-        view.addSubview(gotoIDPageButton)
-        gotoIDPageButton.addConstraints(left: nil, top: gotoTripPageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 160, height: 30)
-        
-        view.addSubview(gotoConfirmPageButton)
-        gotoConfirmPageButton.addConstraints(left: nil, top: gotoIDPageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 180, height: 30)
-        
-        view.addSubview(showNewRequestAlertButton)
-        showNewRequestAlertButton.addConstraints(left: nil, top: gotoConfirmPageButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 140, height: 30)
-        
-        view.addSubview(showOnboardingPageButton)
-        showOnboardingPageButton.addConstraints(left: nil, top: showNewRequestAlertButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 140, height: 30)
     }
 
     private func setupBlackBackgroundView(){

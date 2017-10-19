@@ -25,9 +25,15 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         
         setupNavigationBar()
         
-        setupTabMenuBar()
+        if(isOrderList == false){
+            setupTabMenuBar()
+        }
         
         setupCollectonView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        isOrderList = false
     }
     
     private func setupNavigationBar(){
