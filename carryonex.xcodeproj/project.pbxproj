@@ -166,11 +166,13 @@
 		FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */; };
 		FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */; };
 		FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */; };
+		FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */; };
 		FF4A5B551F7D466C001D86D0 /* ProvinceAndCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */; };
 		FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */; };
 		FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
+		FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */; };
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */; };
@@ -343,11 +345,13 @@
 		FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordController.swift; sourceTree = "<group>"; };
 		FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterMainController.swift; sourceTree = "<group>"; };
 		FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterMainController++.swift"; sourceTree = "<group>"; };
+		FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailPage.swift; sourceTree = "<group>"; };
 		FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceAndCityCell.swift; sourceTree = "<group>"; };
 		FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProvinceAndCityCell++.swift"; sourceTree = "<group>"; };
 		FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressUS.plist; sourceTree = "<group>"; };
 		FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterEmailController++.swift"; sourceTree = "<group>"; };
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
+		FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
 				665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */,
 				665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */,
+				FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */,
 				665DE5011F3A59DA004DDB88 /* Model */,
 				665DE5021F3A59E4004DDB88 /* View */,
 				665DE5031F3A59E9004DDB88 /* Controller */,
@@ -840,6 +845,7 @@
 		66DA06C71F5DF605002C8442 /* OrdersLogPageCell */ = {
 			isa = PBXGroup;
 			children = (
+				FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */,
 				6633DC931F5DE7E500B2FFAC /* OrdersSenderPageCell.swift */,
 				66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */,
 				6633DC951F5DF02900B2FFAC /* OrderLogSenderCell.swift */,
@@ -1197,6 +1203,7 @@
 				660704E61F3CFB15000C09FD /* UserInfoViewController.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
+				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				66BB08301F487E3E00935950 /* ItemTypeListController.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,
@@ -1212,6 +1219,7 @@
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,
 				66E520491F4B6E2C008E521D /* SendingTimeCell.swift in Sources */,
 				664C64911F55C22C00AA8FFE /* Address.swift in Sources */,
+				FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */,
 				6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */,
 				66B31C1F1F743843005A4382 /* LocationSearchTableController.swift in Sources */,
 				FF4A5B551F7D466C001D86D0 /* ProvinceAndCityCell.swift in Sources */,

@@ -86,8 +86,9 @@ extension VerificationController: UITextFieldDelegate {
     private func commitVerificationCode(){
         let zoneCode = String(describing: ProfileManager.shared.currentUser?.phoneCountryCode)
         let phoneNum = String(describing: ProfileManager.shared.currentUser?.phone!)
+
         print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
-        if (isRegister == 1){
+        if (isRegister == true){
             let registEmailCtl = RegisterEmailController()
         navigationController?.pushViewController(registEmailCtl, animated: true)
         }else{  //for test
@@ -98,17 +99,24 @@ extension VerificationController: UITextFieldDelegate {
                 } else {
                     self.verifyFaild(err)
                 }
-                
             })
         }
     }
     
     private func verifySuccess(){
-        let inputPasswordCtl = InputPasswordLoginController()
-        print("验证成功! Go to Home page!")
+        let userSettingCtl = UserSettingController()
+        if (isModifyPhoneNumber == true){
+            print("修改")
+            navigationController?.pushViewController(userSettingCtl, animated: true)
+        }
+        else{
+            let inputPasswordCtl = InputPasswordLoginController()
+            isRegister = false
+            alreadyExist = true
+            print("验证成功! Go to Home page!")
+            navigationController?.pushViewController(inputPasswordCtl, animated: true)
+        }
         ProfileManager.shared.saveUser()
-        navigationController?.pushViewController(inputPasswordCtl, animated: true)
-        
         //self.phonenumberC?.dismissAndBackToHomePage() // replace reference by delegate
 //        showAlertWith(title: "验证成功✅", message: "将返回主页面")
 //        _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in

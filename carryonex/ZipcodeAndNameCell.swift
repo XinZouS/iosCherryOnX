@@ -8,13 +8,6 @@
 
 import UIKit
 
-
-
-protocol ZipcodeCellDelegate: class {
-    func setupTextField()
-}
-
-
 class ZipcodeAndNameCell : UITableViewCell {
     
     var addressCtl : AddressController!

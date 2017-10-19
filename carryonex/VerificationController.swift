@@ -11,8 +11,6 @@ import UIKit
 
 class VerificationController: UIViewController {
     
-    var isRegister = 0
-    
     var verificationCode = "1234"
     
     var resetTime: Int = 0
@@ -21,6 +19,7 @@ class VerificationController: UIViewController {
     
     weak var phoneNumberCtrlDelegate : PhoneNumberDelegate?
     
+    let phoneNumberCtl = PhoneNumberController()
     
     let hintLabel: UILabel = {
         let b = UILabel()

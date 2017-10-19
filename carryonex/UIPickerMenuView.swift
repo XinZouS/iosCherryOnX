@@ -11,15 +11,6 @@ import UIKit
 /// the open menbers for outside useage in protocol
 
 
-protocol PickerMenuViewDelegate: class {
-    
-    func setupMenuWith(hostView: UIView, targetPickerView: UIPickerView, leftBtn: UIButton, rightBtn: UIButton)
-    func setupTitle(text: String)
-    func showUpAnimation(withTitle: String)
-    func dismissAnimation()
-}
-
-
 
 class UIPickerMenuView: UIView, PickerMenuViewDelegate {
     

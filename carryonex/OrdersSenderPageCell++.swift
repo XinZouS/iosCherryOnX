@@ -51,6 +51,12 @@ extension OrdersSenderPageCell {
 //            self.collectionView.reloadData()
 //        }
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            let ordersDetailPage = OrderDetailPage(collectionViewLayout: layout)
+            ordersLogCtl.navigationController?.pushViewController(ordersDetailPage, animated: true)
+    }
     
     func fetchOrdersLogList(){
         print("TODO: fetchOrdersLogList from server, OrdersLogPageCell.fetchOrdersLogList() !!!!!")

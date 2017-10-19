@@ -67,7 +67,8 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             })
         }else{
             let verifiCtl = VerificationController()
-            verifiCtl.isRegister = 1
+            User.shared.username = phoneNumberTextField.text
+            isRegister = true
             navigationController?.pushViewController(verifiCtl, animated: true)
         }
     }
@@ -141,6 +142,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             phoneNumberTextField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
             phoneNumberTextField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
             isPhoneNumValid = true
+            if isModifyPhoneNumber == true {
+                nextButton.isEnabled =  isPhoneNumValid
+                nextButton.backgroundColor = nextButton.isEnabled ? buttonThemeColor : .lightGray
+            }
         }
         else{
             phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)

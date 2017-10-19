@@ -74,8 +74,10 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         var cell = OrdersSenderPageCell()
         if indexPath.item == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdSenderPage, for: indexPath) as! OrdersSenderPageCell
+            cell.ordersLogCtl = self
         }else{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdShipperPage, for: indexPath) as! OrdersShipperPageCell
+            cell.ordersLogCtl = self
         }
         cell.backgroundColor = .white
 

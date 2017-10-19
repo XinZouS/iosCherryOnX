@@ -18,8 +18,9 @@ extension UserSettingController {
         if indexPath.section == 0 {
             switch indexPath.item {
             case 0:
-                print("TODO: open 账号与安全 page...")
-                
+                let phoneNumberCtl = PhoneNumberController()
+                isModifyPhoneNumber = true
+                self.navigationController?.pushViewController(phoneNumberCtl, animated: true)
             case 1:
                 print("TODO: open 语言 page...")
 
@@ -69,8 +70,11 @@ extension UserSettingController {
     }
     
     func logoutButtonTapped(){
-        ProfileManager.shared.removeUser()
-        
+        isModifyPhoneNumber = false
+        isRegister = false
+        alreadyExist = false
+        ProfileManager.shared.removeUser() // remove local user for new user to login
+
         userProfileView?.removeProfileImageFromLocalFile()
         
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())
