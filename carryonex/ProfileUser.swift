@@ -60,7 +60,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         dictionary["ordersIdLogAsShipper"]  = aDecoder.decodeObject(forKey: "ordersIdLogAsShipper") as? [String]
         
         self.init()
-        setupUserByLocal(dictionary: dictionary)
+        setupUserByLocal(dictionary)
     }
     
     // should encode use internal for local disk saving
@@ -120,7 +120,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     }
     
     //MARK: - Data Mapping
-    func setupUserByLocal(dictionary: [String : Any]) {
+    func setupUserByLocal(_ dictionary: [String : Any]) {
         id          = dictionary["id"]       as? String ?? "demoUser"
         username    = dictionary["username"] as? String ?? ""
         password    = dictionary["password"] as? String ?? ""
@@ -161,7 +161,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         guard let savedUser = UserDefaults.standard.object(forKey: "ProfileUser") as? Data else { return }
         if let dictionary = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? [String:Any] {
             print("get saved dictionary(user) = \(dictionary)")
-            setupUserByLocal(dictionary: dictionary)
+            setupUserByLocal(dictionary)
             print("OK, fetch User form local disk and setup success! getUser = \(self.printAllData())")
         }
     }

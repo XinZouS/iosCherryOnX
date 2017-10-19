@@ -17,7 +17,6 @@ class ProfileManager: NSObject {
     
     private override init() {
         super.init()
-        self.currentUser = ProfileUser()
     }
     
     func isLoggedIn() -> Bool {
@@ -38,5 +37,18 @@ class ProfileManager: NSObject {
         guard let user = self.currentUser else { return }
         user.removeFromLocalDisk()
         self.currentUser = nil
+    }
+    
+    func loginUser(user: ProfileUser) {
+        if currentUser != nil {
+            print("Must log out before relogin a new user")
+            return
+        }
+        currentUser = user
+        saveUser()
+    }
+    
+    func logoutUser() {
+        removeUser()
     }
 }

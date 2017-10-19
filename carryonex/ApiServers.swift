@@ -46,8 +46,8 @@ class ApiServers : NSObject {
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
     //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
-    private let host = "http://192.168.0.119:5000/api/1.0"
-    //private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
+    //private let host = "http://192.168.0.119:5000/api/1.0"
+    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -59,28 +59,43 @@ class ApiServers : NSObject {
     
     // MARK: - User APIs
     
-    func registerUser(){
+    //Zian - The call back can be anything, i just use boolean to indicate register or not
+    func registerUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool) -> Swift.Void) {
         let sessionStr = "/users/"
-        let urlStr = "\(host)\(sessionStr)"
-        ProfileManager.shared.currentUser?.username = "testUsername"
-        ProfileManager.shared.currentUser?.phone = "1234567890"
-        ProfileManager.shared.currentUser?.password = "testPassword"
-        ProfileManager.shared.currentUser?.email = "testEmail@carryonex.com"
+        let urlStr = host + sessionStr
+        
+        let parameters = [
+            ServerKey.username.rawValue: username,
+            ServerKey.password.rawValue: password,
+            "phone": phone,
+            "email": email
+        ]
+        
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
         
-        if let dictionary = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
-            postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
-                print("get response dictionary: \(responsDictionary)")
-                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
-                    ProfileManager.shared.saveUser()
+        postDataToUrlString(urlStr, postData: parameters, httpHeaders: headers) { (response) in
+            print("get response dictionary: \(response)")
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let token = data["string"] as? String { //Change this key to "token" after they've update the code
+                    let profileUser = ProfileUser()
+                    profileUser.setupUserByLocal(parameters)
+                    profileUser.token = token
+                    ProfileManager.shared.loginUser(user: profileUser)
+                    callback(true)
+                } else {
+                    //Display error message
+                    callback(false)
                 }
+            } else {
+                //Data package not found
+                callback(false)
             }
         }
     }
+    
     func loginUser(){
         let sessionStr = "/users/login/"
         let urlStr = "\(host)\(sessionStr)"
