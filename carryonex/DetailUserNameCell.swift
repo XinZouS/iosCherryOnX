@@ -8,17 +8,7 @@
 
 import UIKit
 
-class DetailUserNameCell : UICollectionViewCell{
-    
-    var orderDetailPage : OrderDetailPage?
-    
-    var titleLabelWidthConstraint   : NSLayoutConstraint?
-    var titleLabelCenterYConstraint : NSLayoutConstraint?
-    
-    var senderImgBtnWidthConstraint   : NSLayoutConstraint?
-    var senderImgBtnCenterYConstraint : NSLayoutConstraint?
-    
-    var underlineViewBottomConstraint:NSLayoutConstraint?
+class DetailUserNameCell : DetailBaseCell {
     
     let nameLabel : UILabel = {
         let l = UILabel()
@@ -37,29 +27,17 @@ class DetailUserNameCell : UICollectionViewCell{
     let youxiangLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
-        l.text = "邮箱号：1234"
+        l.text = "游箱号：1234"
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()
     lazy var senderImgBtn : UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 40
-        b.backgroundColor = .lightGray
-//        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        b.backgroundColor = .white
+        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return b
     }()
-//    let textField : UITextField = {
-//        let t = UITextField()
-//        //        t.backgroundColor = .yellow
-//        //        t.placeholder = " "
-//        t.textAlignment = .right
-//        t.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16)
-//        t.returnKeyType = .done
-//        return t
-//    }()
-    
-    
-    let underlineView = UIView()
     
     
     
@@ -72,12 +50,10 @@ class DetailUserNameCell : UICollectionViewCell{
         setupLocalLabel()
         setupYouxiangLabel()
         setupSenderImgBtn()
-//        setupTextField()
-        
-        setupUnderlineView()
+        //        setupTextField()
         
     }
-    func setupSenderImgBtn(){
+    private func setupSenderImgBtn(){
         addSubview(senderImgBtn)
         var imgName = "CarryonEx_Logo"
         senderImgBtn.setImage(UIImage(named: imgName), for: .normal)
@@ -85,50 +61,24 @@ class DetailUserNameCell : UICollectionViewCell{
         senderImgBtnWidthConstraint = senderImgBtn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         senderImgBtnWidthConstraint?.isActive = true
     }
-    func setupNameLabel(){
+    private func setupNameLabel(){
         addSubview(nameLabel)
         nameLabel.addConstraints(left: leftAnchor, top: nil, right: nil, bottom: nil, leftConstent: 150, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
-    func setupLocalLabel(){
+    private func setupLocalLabel(){
         addSubview(localLabel)
         localLabel.addConstraints(left: leftAnchor, top: nameLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
-    func setupYouxiangLabel(){
+    private func setupYouxiangLabel(){
         addSubview(youxiangLabel)
         youxiangLabel.addConstraints(left: leftAnchor, top: localLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
-//    private func setupTextField(){
-//        addSubview(textField)
-//        textField.addConstraints(left: titleLabel.rightAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
-//        textField.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-//    }
-    
-    private func setupUnderlineView(){
-        underlineView.backgroundColor = .lightGray
-        addSubview(underlineView)
-        underlineView.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 1)
-        underlineViewBottomConstraint = underlineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
-        underlineViewBottomConstraint?.isActive = true
-    }
-    
-    
-    
-//    func addExtraContentToRight(_ content: UIView){
-//        addSubview(content)
-//        content.addConstraints(left: titleLabel.rightAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
-//        content.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//    }
-//    
-//    func addExtraContentToBottom(_ content: UIView){
-//        addSubview(content)
-//        content.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 22)
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

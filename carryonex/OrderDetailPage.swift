@@ -14,7 +14,7 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
     
     var request = Request()
     
-    let DetailUserNameCelId = "DetailUserNameCelId"
+    let DetailUserNameCellId = "DetailUserNameCellId"
     let DetailCreditLevelCellId = "DetailCreditLevelCellId"
     let DetailItemPictureCellId = "DetailItemPictureCellId"
     let DetailItemDetailCellId = "DetailItemDetailCellId"
@@ -23,7 +23,15 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
     let DetailPriceCellId = "DetailPriceCellId"
     let DetailButtonCellId = "DetailButtonCellId"
     
-    
+    var detailBaseCell : DetailBaseCell?
+    var detailUserNameCell : DetailUserNameCell?
+    var detailCreditLevelCell : DetailCreditLevelCell?
+    var detailItemPictureCell : DetailItemPictureCell?
+    var detailItemDetailCell : DetailItemDetailCell?
+    var detailGetLocationCell : DetailGetLocationCell?
+    var detailSendLocationCell : DetailSendLocationCell?
+    var detailPriceCell : DetailPriceCell?
+    var detailButtonCell : DetailButtonCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,17 +63,17 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         //collectionView?.contentInset = UIEdgeInsetsMake(0, 20, 50, 20) // replaced by constraints:
         let w : CGFloat = UIScreen.main.bounds.width < 325 ? 20 : 30
         collectionView?.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: w, topConstent: 10, rightConstent: w, bottomConstent: 40, width: 0, height: 0)
-        
+        collectionView?.showsVerticalScrollIndicator = false
         collectionView?.dataSource = self
         collectionView?.delegate = self
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailUserNameCelId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailCreditLevelCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailItemPictureCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailItemDetailCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailGetLocationCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailSentLocationCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailPriceCellId)
-        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailButtonCellId)
+        collectionView?.register(DetailUserNameCell.self, forCellWithReuseIdentifier: DetailUserNameCellId)
+        collectionView?.register(DetailCreditLevelCell.self, forCellWithReuseIdentifier: DetailCreditLevelCellId)
+        collectionView?.register(DetailItemPictureCell.self, forCellWithReuseIdentifier: DetailItemPictureCellId)
+        collectionView?.register(DetailItemDetailCell.self, forCellWithReuseIdentifier: DetailItemDetailCellId)
+        collectionView?.register(DetailGetLocationCell.self, forCellWithReuseIdentifier: DetailGetLocationCellId)
+        collectionView?.register(DetailSendLocationCell.self, forCellWithReuseIdentifier: DetailSentLocationCellId)
+        collectionView?.register(DetailPriceCell.self, forCellWithReuseIdentifier: DetailPriceCellId)
+        collectionView?.register(DetailButtonCell.self, forCellWithReuseIdentifier: DetailButtonCellId)
         collectionView?.isScrollEnabled = true
     }
     
@@ -75,7 +83,7 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         return 8
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cellId : String = DetailUserNameCelId
+        var cellId : String = DetailUserNameCellId
         switch indexPath.item{
         case 1:
             cellId = DetailCreditLevelCellId
@@ -92,10 +100,28 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         case 7:
             cellId = DetailButtonCellId
         default:
-            cellId = DetailUserNameCelId
+            cellId = DetailUserNameCellId
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailUserNameCell
-        cell.orderDetailPage = self
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailBaseCell
+        switch indexPath.item {
+        case 0 :
+            detailUserNameCell = cell as? DetailUserNameCell
+        case 1 :
+            detailCreditLevelCell = cell as? DetailCreditLevelCell
+        case 2:
+            detailItemPictureCell = cell as? DetailItemPictureCell
+        case 3:
+            detailItemDetailCell = cell as? DetailItemDetailCell
+        case 4:
+            detailGetLocationCell = cell as? DetailGetLocationCell
+        case 5:
+            detailSendLocationCell = cell as? DetailSendLocationCell
+        case 6:
+            detailPriceCell = cell as? DetailPriceCell
+        default:
+            detailButtonCell = cell as? DetailButtonCell
+        }
+         cell.orderDetailPage = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -108,7 +134,7 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         case 1:
             return CGSize(width: w, height: 50)
         case 2:
-            return CGSize(width: w, height: 200)
+            return CGSize(width: w, height: 150)
         case 3:
             return CGSize(width: w, height: 50)
         case 4:

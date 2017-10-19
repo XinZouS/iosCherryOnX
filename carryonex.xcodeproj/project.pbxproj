@@ -164,6 +164,14 @@
 		FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */; };
 		FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */; };
 		FF32AF701F97E42A00E67036 /* DetailUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */; };
+		FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896E61F98F3AC009B3EE5 /* DetailCreditLevelCell.swift */; };
+		FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896E81F9906D3009B3EE5 /* DetailBaseCell.swift */; };
+		FF4896EB1F9910E8009B3EE5 /* DetailItemPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896EA1F9910E8009B3EE5 /* DetailItemPictureCell.swift */; };
+		FF4896ED1F991BDC009B3EE5 /* DetailItemDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896EC1F991BDC009B3EE5 /* DetailItemDetailCell.swift */; };
+		FF4896EF1F992381009B3EE5 /* DetailGetLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896EE1F992381009B3EE5 /* DetailGetLocationCell.swift */; };
+		FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896F01F992732009B3EE5 /* DetailSendLocationCell.swift */; };
+		FF4896F31F9929F0009B3EE5 /* DetailPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896F21F9929F0009B3EE5 /* DetailPriceCell.swift */; };
+		FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896F41F992B53009B3EE5 /* DetailButtonCell.swift */; };
 		FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */; };
 		FF4A5B551F7D466C001D86D0 /* ProvinceAndCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */; };
 		FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */; };
@@ -341,6 +349,14 @@
 		FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterMainController.swift; sourceTree = "<group>"; };
 		FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterMainController++.swift"; sourceTree = "<group>"; };
 		FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserNameCell.swift; sourceTree = "<group>"; };
+		FF4896E61F98F3AC009B3EE5 /* DetailCreditLevelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCreditLevelCell.swift; sourceTree = "<group>"; };
+		FF4896E81F9906D3009B3EE5 /* DetailBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBaseCell.swift; sourceTree = "<group>"; };
+		FF4896EA1F9910E8009B3EE5 /* DetailItemPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemPictureCell.swift; sourceTree = "<group>"; };
+		FF4896EC1F991BDC009B3EE5 /* DetailItemDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemDetailCell.swift; sourceTree = "<group>"; };
+		FF4896EE1F992381009B3EE5 /* DetailGetLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGetLocationCell.swift; sourceTree = "<group>"; };
+		FF4896F01F992732009B3EE5 /* DetailSendLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSendLocationCell.swift; sourceTree = "<group>"; };
+		FF4896F21F9929F0009B3EE5 /* DetailPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPriceCell.swift; sourceTree = "<group>"; };
+		FF4896F41F992B53009B3EE5 /* DetailButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailButtonCell.swift; sourceTree = "<group>"; };
 		FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailPage.swift; sourceTree = "<group>"; };
 		FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceAndCityCell.swift; sourceTree = "<group>"; };
 		FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProvinceAndCityCell++.swift"; sourceTree = "<group>"; };
@@ -839,10 +855,10 @@
 			isa = PBXGroup;
 			children = (
 				FFBA50941F97D63700D390B2 /* OrderDetailPage */,
-				6633DC931F5DE7E500B2FFAC /* OrdersSenderPageCell.swift */,
 				66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */,
 				6633DC951F5DF02900B2FFAC /* OrderLogSenderCell.swift */,
 				66E6501E1F5F85B800DA90DE /* OrderLogShipperCell.swift */,
+				6633DC931F5DE7E500B2FFAC /* OrdersSenderPageCell.swift */,
 			);
 			name = OrdersLogPageCell;
 			sourceTree = "<group>";
@@ -945,8 +961,16 @@
 		FFBA50941F97D63700D390B2 /* OrderDetailPage */ = {
 			isa = PBXGroup;
 			children = (
-				FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */,
 				FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */,
+				FF4896E81F9906D3009B3EE5 /* DetailBaseCell.swift */,
+				FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */,
+				FF4896E61F98F3AC009B3EE5 /* DetailCreditLevelCell.swift */,
+				FF4896EA1F9910E8009B3EE5 /* DetailItemPictureCell.swift */,
+				FF4896EC1F991BDC009B3EE5 /* DetailItemDetailCell.swift */,
+				FF4896EE1F992381009B3EE5 /* DetailGetLocationCell.swift */,
+				FF4896F01F992732009B3EE5 /* DetailSendLocationCell.swift */,
+				FF4896F21F9929F0009B3EE5 /* DetailPriceCell.swift */,
+				FF4896F41F992B53009B3EE5 /* DetailButtonCell.swift */,
 			);
 			name = OrderDetailPage;
 			sourceTree = "<group>";
@@ -1108,6 +1132,7 @@
 				66E6501F1F5F85B800DA90DE /* OrderLogShipperCell.swift in Sources */,
 				660F4F701F570D9B00F4820D /* AddressDetailCell.swift in Sources */,
 				6633DC911F5DA63800B2FFAC /* OrdersLogController.swift in Sources */,
+				FF4896F31F9929F0009B3EE5 /* DetailPriceCell.swift in Sources */,
 				660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */,
 				66DA06CB1F5EE910002C8442 /* TabTitleMenuBar.swift in Sources */,
 				663121EB1F53651A000F7ACB /* PaymentCell.swift in Sources */,
@@ -1132,6 +1157,7 @@
 				6686096D1F6056DA00740A92 /* Wallet.swift in Sources */,
 				66C975791F3E149700450F37 /* VerificationController++.swift in Sources */,
 				667266681F67158F0010FDEC /* CreditAccount.swift in Sources */,
+				FF4896ED1F991BDC009B3EE5 /* DetailItemDetailCell.swift in Sources */,
 				664C648D1F5511C600AA8FFE /* PostTripController.swift in Sources */,
 				6686096B1F6052D400740A92 /* HeaderView.swift in Sources */,
 				665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */,
@@ -1156,6 +1182,7 @@
 				66E6501D1F5F473700DA90DE /* OrderShipperPageCell++.swift in Sources */,
 				6686097D1F609B6900740A92 /* WalletBaseCell++.swift in Sources */,
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
+				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */,
@@ -1179,12 +1206,14 @@
 				FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */,
 				6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */,
 				663121E71F534B17000F7ACB /* PaymentController.swift in Sources */,
+				FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */,
 				66E520521F4C81F6008E521D /* YouxiangCell++.swift in Sources */,
 				66E5204F1F4C76EC008E521D /* UILabel++.swift in Sources */,
 				66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */,
 				66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */,
 				663121E31F51F454000F7ACB /* TimeAvailableController++.swift in Sources */,
 				667DBD6D1F95230800DF3800 /* UserGuideController++.swift in Sources */,
+				FF4896EB1F9910E8009B3EE5 /* DetailItemPictureCell.swift in Sources */,
 				660704E81F3D062E000C09FD /* UserInfoViewCell.swift in Sources */,
 				66A16AF81F3B6B2E00B32AD3 /* Trip.swift in Sources */,
 				660F4F741F570E6300F4820D /* RecipientPhoneCell.swift in Sources */,
@@ -1200,12 +1229,14 @@
 				663121F11F53C129000F7ACB /* WaitingController++.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				660704E61F3CFB15000C09FD /* UserInfoViewController.swift in Sources */,
+				FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				66BB08301F487E3E00935950 /* ItemTypeListController.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,
+				FF4896EF1F992381009B3EE5 /* DetailGetLocationCell.swift in Sources */,
 				660704E21F3CDDC5000C09FD /* SlideMenuLeftCell.swift in Sources */,
 				668609711F6074E400740A92 /* WalletBaseCell.swift in Sources */,
 				663121F51F546185000F7ACB /* ConfirmBaseController++.swift in Sources */,
@@ -1234,6 +1265,7 @@
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
 				668131131F9413F70022AEED /* UserSettingCell.swift in Sources */,
 				660337CC1F955C74002F43A8 /* UserGuidePageCell++.swift in Sources */,
+				FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */,
 				664C5F2D1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift in Sources */,
 				6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */,
 				66D67FF51F951B2C002646F0 /* UserGuidePageCell.swift in Sources */,
