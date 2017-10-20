@@ -354,22 +354,21 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
+        let p = "2016666607" // phone number for testing
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
 
-        ApiServers.shared.registerUser(username: "xmanrevolution",
-                                       phone: "2321413284",
-                                       password: "testPassword",
-                                       email: "xman2@carryonex.com") { (didRegistered) in
-            if didRegistered {
-                print("registered")
-            }
-        }
+        // ✅
+//        ApiServers.shared.registerUser(username: p, phone: p, password: "testPassword", email: "\(p)@carryonex.com") { (didRegistered) in
+//            if didRegistered {
+//                print("registered, now user info = \(ProfileManager.shared.currentUser?.printAllData())")
+//            }
+//        }
         
-        //❌ApiServers.shared.loginUser()
-        //ApiServers.shared.logoutUser()
-//        ApiServers.shared.getUserInfo(.salt) { (getSalt) in
+//        ApiServers.shared.loginUser() // ✅
+        //ApiServers.shared.logoutUser() // ❌ post will test later...
+//        ApiServers.shared.getUserInfo(.salt) { (getSalt) in // ✅
 //            print("get salt: \(getSalt)")
 //            if let getSalt = getSalt as? String {
 //            }

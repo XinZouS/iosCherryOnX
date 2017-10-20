@@ -39,15 +39,17 @@ class ApiServers : NSObject {
         case userToken = "user_token"
         case username  = "username"
         case password  = "password"
+        case phone     = "phone"
+        case email     = "email"
         case timestamp = "timestamp"
     }
     
     
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
-    //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
-    //private let host = "http://192.168.0.119:5000/api/1.0"
-    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
+    //private let host = "http://0.0.0.0:5000/api/1.0"       // local host on this laptop you are looking at
+    //private let host = "http://192.168.0.119:5000/api/1.0" // local host on Siyuan's laptop
+    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on AWS
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -67,8 +69,8 @@ class ApiServers : NSObject {
         let parameters = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
-            "phone": phone,
-            "email": email
+            ServerKey.phone.rawValue:    phone,
+            ServerKey.email.rawValue:    email
         ]
         
         let headers:[String:String] = [
@@ -79,11 +81,12 @@ class ApiServers : NSObject {
         postDataToUrlString(urlStr, postData: parameters, httpHeaders: headers) { (response) in
             print("get response dictionary: \(response)")
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                if let token = data["string"] as? String { //Change this key to "token" after they've update the code
+                if let token = data[ServerKey.userToken.rawValue] as? String {
                     let profileUser = ProfileUser()
-                    profileUser.setupUserByLocal(parameters)
+                    profileUser.setupByLocal(parameters)
                     profileUser.token = token
-                    ProfileManager.shared.loginUser(user: profileUser)
+                    ProfileManager.shared.currentUser = profileUser
+                    ProfileManager.shared.saveUser()
                     callback(true)
                 } else {
                     //Display error message
@@ -106,6 +109,7 @@ class ApiServers : NSObject {
             ServerKey.appToken.rawValue : appToken
         ]
         if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            print("will loginUser with httpHeaders: \(headers)")
             postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
                 print("get response dictionary: \(responsDictionary)")
                 if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
@@ -144,9 +148,10 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
+        print("will getUserInfo \(propertyUrl.rawValue), with headers = \(headers)")
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             print("get infoDictionary: \(responsDictionary)")
-            if let getInfo = responsDictionary["data"] as? [String], getInfo.count != 0 {
+            if let getInfo = responsDictionary["string"] as? [String], getInfo.count != 0 {
                 handleInfo(getInfo.first!)
                 print("returning getUserInfo = \(getInfo)")
             }

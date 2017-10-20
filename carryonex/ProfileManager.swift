@@ -24,13 +24,23 @@ class ProfileManager: NSObject {
     }
     
     func saveUser() {
-        guard let user = self.currentUser else { return }
+        guard let user = self.currentUser else {
+            print("Errorro: current user is nil, can not be save!!!!!!")
+            return
+        }
         user.saveIntoLocalDisk()
+        print("OKKK! save user into LocalDisk: user = \(user.printAllData())")
     }
     
     func loadUser() {
-        guard let curruser = self.currentUser else { return }
-        curruser.loadFromLocalDisk()
+        //Xin - when app just open up, the currentUser == nil, this will fail when try to login, bcz need to load user from disk and get username, token
+        //guard let curruser = self.currentUser else { return }
+        //curruser.loadFromLocalDisk()
+        
+        //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
+        self.currentUser = ProfileUser().loadFromLocalDisk()
+//        loadUser.loadFromLocalDisk()
+        print("loadUser, now currentUser = \(self.currentUser!.printAllData())")
     }
     
     func removeUser() {
@@ -39,14 +49,15 @@ class ProfileManager: NSObject {
         self.currentUser = nil
     }
     
-    func loginUser(user: ProfileUser) {
-        if currentUser != nil {
-            print("Must log out before relogin a new user")
-            return
-        }
-        currentUser = user
-        saveUser()
-    }
+// Xin - I think login operation should do it in ApiServers for DB connection, here just do [ADD,DEL,REQ,MDF] for local user
+//    func loginUser(user: ProfileUser) {
+////        if currentUser != nil { Xin - currUser will never nil, bcz we need it to keep it sync to disk for username and token
+////            print("Must log out before relogin a new user")
+////            return
+////        }
+//        currentUser = user
+//        saveUser()
+//    }
     
     func logoutUser() {
         removeUser()
