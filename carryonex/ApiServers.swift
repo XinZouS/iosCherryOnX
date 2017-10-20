@@ -22,7 +22,7 @@ enum ServerUserPropUrl : String {
     case wallet = "wallet"
 }
 enum ServerUserLogUrl : String {
-    case myCarries = "carries"
+    case myCarries = "requests"
     case myTrips = "trips"
 }
 
@@ -39,15 +39,17 @@ class ApiServers : NSObject {
         case userToken = "user_token"
         case username  = "username"
         case password  = "password"
+        case phone     = "phone"
+        case email     = "email"
         case timestamp = "timestamp"
     }
     
     
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
-    //private let baseUrl = "http://0.0.0.0:5000/api/1.0"
-    private let host = "http://192.168.0.119:5000/api/1.0"
-    //private let host = "http://54.245.216.35:5000/api/1.0" // testing host on
+    //private let host = "http://0.0.0.0:5000/api/1.0"       // local host on this laptop you are looking at
+    //private let host = "http://192.168.0.119:5000/api/1.0" // local host on Siyuan's laptop
+    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on AWS
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -59,28 +61,44 @@ class ApiServers : NSObject {
     
     // MARK: - User APIs
     
-    func registerUser(){
+    //Zian - The call back can be anything, i just use boolean to indicate register or not
+    func registerUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool) -> Swift.Void) {
         let sessionStr = "/users/"
-        let urlStr = "\(host)\(sessionStr)"
-        ProfileManager.shared.currentUser?.username = "testUsername"
-        ProfileManager.shared.currentUser?.phone = "1234567890"
-        ProfileManager.shared.currentUser?.password = "testPassword"
-        ProfileManager.shared.currentUser?.email = "testEmail@carryonex.com"
+        let urlStr = host + sessionStr
+        
+        let parameters = [
+            ServerKey.username.rawValue: username,
+            ServerKey.password.rawValue: password,
+            ServerKey.phone.rawValue:    phone,
+            ServerKey.email.rawValue:    email
+        ]
+        
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
         
-        if let dictionary = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
-            postDataToUrlString(urlStr, postData: dictionary, httpHeaders: headers) { (responsDictionary) in
-                print("get response dictionary: \(responsDictionary)")
-                if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
-                    ProfileManager.shared.currentUser?.token = getToken.first ?? ""
+        postDataToUrlString(urlStr, postData: parameters, httpHeaders: headers) { (response) in
+            print("get response dictionary: \(response)")
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let token = data[ServerKey.userToken.rawValue] as? String {
+                    let profileUser = ProfileUser()
+                    profileUser.setupByLocal(parameters)
+                    profileUser.token = token
+                    ProfileManager.shared.currentUser = profileUser
                     ProfileManager.shared.saveUser()
+                    callback(true)
+                } else {
+                    //Display error message
+                    callback(false)
                 }
+            } else {
+                //Data package not found
+                callback(false)
             }
         }
     }
+    
     func loginUser(){
         let sessionStr = "/users/login/"
         let urlStr = "\(host)\(sessionStr)"
@@ -91,6 +109,7 @@ class ApiServers : NSObject {
             ServerKey.appToken.rawValue : appToken
         ]
         if let dict = ProfileManager.shared.currentUser?.packAllPropertiesAsDictionary() {
+            print("will loginUser with httpHeaders: \(headers)")
             postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
                 print("get response dictionary: \(responsDictionary)")
                 if let getToken = responsDictionary[ServerKey.data.rawValue] as? [String] {
@@ -129,23 +148,18 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
+        print("will getUserInfo \(propertyUrl.rawValue), with headers = \(headers)")
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             print("get infoDictionary: \(responsDictionary)")
-            if let getInfo = responsDictionary["data"] as? [String], getInfo.count != 0 {
-                handleInfo(getInfo.first!)
-                print("returning getUserInfo = \(getInfo)")
+            if let getDict = responsDictionary["data"] as? [String:Any], getDict.count != 0 {
+                let getStr = (getDict["string"] as? String) ?? ""
+                handleInfo(getStr)
+                print("returning getUserInfo string = \(getStr)")
             }
         }
-//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{nil}], "status_code":Int, "message":String]
-//            print("get infoDictionary: \(infoDictionary)")
-//            if let infoObj = infoDictionary[ServerKey.data.rawValue] as? [String] {
-//                handleInfo(infoObj.first ?? "")
-//            }
-//        }
     }
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
-        let sessionStr = "/users/info/" // "\(ProfileManager.shared.username!)/"
-//        let urlStr = "\(baseUrl)\(sessionStr)"
+        let sessionStr = "/users/info/"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -157,24 +171,16 @@ class ApiServers : NSObject {
                 handleInfo(data)
                 do {
                     print("getUserInfoAll, data = \(data)")
-                    let getUser: User = try unbox(dictionary: data, atKey: "user")
+                    let getUser: User = try unbox(dictionary: data, atKey: "string") // TODO: change the key to "user"
                     print("getUserInfoAll, getUser = \(getUser)")
                 }catch let err {
                     print("get errorrrr when getUserInfoAll, err = \(err)")
                 }
             }
         }
-//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{User}], "status_code":Int, "message":String]
-//            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
-//            if let dict = arr?.first as? [String:AnyObject] {
-//                //print("----------get arr.first, dict = \(dict)")
-//                handleInfo(dict)
-//            }
-//        }
     }
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
-        let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
-        let urlStr = "\(host)\(sessionStr)"
+        let sessionStr = "/users/\(type.rawValue)/"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -186,14 +192,14 @@ class ApiServers : NSObject {
                 print("getUserLogsOf = \(data)")
                 do {
                     if type == ServerUserLogUrl.myCarries {
-                        let carries: [Request] = try unbox(dictionary: data, atKey: "carries")
+                        let carries: [Request] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(carries)
-                        print("get carries = \(carries)")
+                        print("get my requests = \(carries)")
                     }
                     else if type == ServerUserLogUrl.myTrips {
-                        let trips : [Trip] = try unbox(dictionary: data, atKey: "trips")
+                        let trips : [Trip] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(trips)
-                        print("get trips = \(trips)")
+                        print("get my trips = \(trips)")
                     }
                 }catch let err  {
                     print("get errororrro when getUserLogsOf \(type.rawValue), err = \(err)")
