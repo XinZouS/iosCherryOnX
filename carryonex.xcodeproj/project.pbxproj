@@ -163,6 +163,7 @@
 		FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF009A681F7C44C8008EA215 /* addressCN.plist */; };
 		FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */; };
 		FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */; };
+		FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */; };
 		FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */; };
 		FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */; };
 		FF32AF701F97E42A00E67036 /* DetailUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */; };
@@ -350,6 +351,7 @@
 		FF009A681F7C44C8008EA215 /* addressCN.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressCN.plist; sourceTree = "<group>"; };
 		FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailController.swift; sourceTree = "<group>"; };
 		FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordController.swift; sourceTree = "<group>"; };
+		FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailCreditLevelCell++.swift"; sourceTree = "<group>"; };
 		FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterMainController.swift; sourceTree = "<group>"; };
 		FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterMainController++.swift"; sourceTree = "<group>"; };
 		FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserNameCell.swift; sourceTree = "<group>"; };
@@ -927,6 +929,7 @@
 		66E650131F5F11AF00DA90DE /* OrdersLogPageCell */ = {
 			isa = PBXGroup;
 			children = (
+				FF19FBF31F9A5510003AF0D6 /* OrderDetailPage */,
 				66E650181F5F231200DA90DE /* OrdersSenderPageCell++.swift */,
 				66E6501C1F5F473700DA90DE /* OrderShipperPageCell++.swift */,
 				66E6501A1F5F2F2200DA90DE /* OrderLogSenderCell++.swift */,
@@ -962,6 +965,14 @@
 				F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FF19FBF31F9A5510003AF0D6 /* OrderDetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */,
+			);
+			name = OrderDetailPage;
 			sourceTree = "<group>";
 		};
 		FFBA50941F97D63700D390B2 /* OrderDetailPage */ = {
@@ -1196,6 +1207,7 @@
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */,
 				660F4F7B1F571CD000F4820D /* RecipientPhoneCell++.swift in Sources */,
+				FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */,
 				664C64941F55CD6700AA8FFE /* PostBaseCell.swift in Sources */,
 				66E650171F5F129300DA90DE /* ApiServers.swift in Sources */,
 				66BB08321F487E5000935950 /* ItemTypeListController++.swift in Sources */,

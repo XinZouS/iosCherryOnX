@@ -9,8 +9,7 @@
 import UIKit
 
 
-
-class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     var request = Request()
     

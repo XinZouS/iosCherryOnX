@@ -11,7 +11,9 @@ import UIKit
 
 extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
+        isRegister = false
         alreadyExist = true
+        ProfileManager.shared.currentUser?.password = passwordField.text
         self.dismiss(animated: true, completion: nil)
     }
     
