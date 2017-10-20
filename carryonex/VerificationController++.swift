@@ -90,7 +90,7 @@ extension VerificationController: UITextFieldDelegate {
         print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
         if (isRegister == true){
             let registEmailCtl = RegisterEmailController()
-        navigationController?.pushViewController(registEmailCtl, animated: true)
+            navigationController?.pushViewController(registEmailCtl, animated: true)
         }else{  //for test
             guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
             SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
@@ -107,6 +107,7 @@ extension VerificationController: UITextFieldDelegate {
         let userSettingCtl = UserSettingController()
         if (isModifyPhoneNumber == true){
             print("修改")
+            isModifyPhoneNumber = false
             navigationController?.pushViewController(userSettingCtl, animated: true)
         }
         else{

@@ -92,18 +92,9 @@ extension HomePageController {
                 //navigationController?.pushViewController(postTripCtl, animated: true)
                 let navigationPostTrip = UINavigationController(rootViewController: postTripCtl)
                 self.present(navigationPostTrip, animated: true, completion: nil)
-//            }else{
-//                let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-//                //navigationController?.pushViewController(itemTypeListCtl, animated: true)
-//                let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
-//                self.present(navigationItemTypeList, animated: true, completion: nil)
-//            }
         }else{
             let photoIdCtl = PhotoIDController()
-//            let verifyNvg = UINavigationController(rootViewController: verifyView) // for single page
-//            present(verifyNvg, animated: false, completion: nil)
             photoIdCtl.homePageController = self
-            //navigationController?.pushViewController(photoIdCtl, animated: true) // for navigation page
             let navigationPhotoId = UINavigationController(rootViewController: photoIdCtl)
             self.present(navigationPhotoId, animated: true, completion: nil)
         }
@@ -112,13 +103,11 @@ extension HomePageController {
     /// MARK: - for development use only:
     func gotoItemTypePage(){
         let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-        //navigationController?.pushViewController(itemTypeListCtl, animated: true)
         let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
         self.present(navigationItemTypeList, animated: true, completion: nil)
     }
     func gotoTripPage(){
         let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
-        //navigationController?.pushViewController(postTripCtl, animated: true)
         let navTrip = UINavigationController(rootViewController: postTripCtl)
         present(navTrip, animated: true, completion: nil)
     }

@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailCreditLevelCell : DetailBaseCell{
+    
     lazy var wechatButton : UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 20
@@ -23,7 +24,7 @@ class DetailCreditLevelCell : DetailBaseCell{
         b.layer.cornerRadius = 20
         b.backgroundColor = .white
         b.setImage(#imageLiteral(resourceName: "Carryonex_phone"), for: .normal)
-        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        b.addTarget(self, action: #selector(phoneButtonTap), for: .touchUpInside)
         return b
     }()
     
@@ -41,7 +42,7 @@ class DetailCreditLevelCell : DetailBaseCell{
         b.layer.cornerRadius = 20
         b.setImage(#imageLiteral(resourceName: "carryonex_message"), for: .normal)
         b.backgroundColor = .white
-        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+//        b.addTarget(self, action: #selector(MessageButtonTap), for: .touchUpInside)
         return b
     }()
     
