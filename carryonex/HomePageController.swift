@@ -354,7 +354,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
-        let p = "2016666607" // phone number for testing
+        let p = "2016666608" // phone number for testing
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
@@ -366,92 +366,79 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
-//        ApiServers.shared.loginUser() // ✅
+        //ApiServers.shared.loginUser() // ✅
         //ApiServers.shared.logoutUser() // ❌ post will test later...
 //        ApiServers.shared.getUserInfo(.salt) { (getSalt) in // ✅
 //            print("get salt: \(getSalt)")
 //            if let getSalt = getSalt as? String {
 //            }
 //        }
-        /*
-        ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in
-            print("get imageUrl = \(imageUrl)")
-            if let url = imageUrl as? String {
-                ProfileManager.shared.currentUser?.imageUrl = url
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.passportUrl) { passporturl in
-            print("get passportUrl = \(passporturl)")
-            if let url = passporturl as? String {
-                ProfileManager.shared.currentUser?.passportUrl = url
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.idAUrl) { idaUrl in
-            print("get idA url = \(idaUrl)")
-            if let url = idaUrl as? String {
-                ProfileManager.shared.currentUser?.idCardA_Url = url
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.idBUrl) { idbUrl in
-            if let url = idbUrl as? String {
-                print("get idB url = \(idbUrl)")
-                ProfileManager.shared.currentUser?.idCardB_Url = url
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.email) { email in
-            if let e = email as? String {
-                print("get email = \(email)")
-                ProfileManager.shared.currentUser?.email = e
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.realName) { realname in
-            if let name = realname as? String {
-                print("get realName = \(realname)")
-                ProfileManager.shared.currentUser?.nickName = name
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfo(.phone) { phone in
-            if let p = phone as? String {
-                print("get Phone = \(phone)")
-                let arr = p.components(separatedBy: "-")
-                ProfileManager.shared.currentUser?.phoneCountryCode = arr.first!
-                ProfileManager.shared.currentUser?.phone = arr.last!
-                ProfileManager.shared.saveUser()
-            }
-        }
-        ApiServers.shared.getUserInfoAll { (dictionary) in
-            if let props = dictionary as? [String:AnyObject] {
-                print("OK!!! get user info will setup the model: \(props)")
-                /* props = [
-                 "real_name": <null>, "email": testEmail@carryonex.com, "salt": fa72f1deee7b7c4fe74a6518d5953b71,
-                 "token": 299a79d77aaac250192336d063855a23f30f646b46707f585e8eddadaddea99d, "idb_url": <null>,
-                 "pub_date": 2017-10-12 19:51:52.121448, "username": testUsername, "passport_url": <null>,
-                 "status": {
-                     description = inactive;
-                     id = 1;
-                 }, "id": 3, "stamp": 150000000, "phone": -1234567890, "wallet_id": <null>, "image_url": <null>,
-                 "password_hash": testPassword, "ida_url": <null>
-                 ]
-                 */
-            }
-        }
-        ApiServers.shared.getUserLogsOf(type: .myCarries) { (dictionary) in
-            if let logArr = dictionary as? [String : AnyObject] {
-                print("okkk!! get logArr = \(logArr)")
-            }
-        }
-        ApiServers.shared.getUserLogsOf(type: .myTrips) { (dictionary) in
-            if let logArr = dictionary as? [String : AnyObject] {
-                print("okkk!! get logArr = \(logArr)")
-            }
-        }
-         */
+//        ApiServers.shared.getUserInfo(.imageUrl) { (imageUrl) in // ✅
+//            print("get imageUrl = \(imageUrl)")
+//            if let url = imageUrl as? String {
+//                ProfileManager.shared.currentUser?.imageUrl = url
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.passportUrl) { passporturl in // ✅
+//            print("get passportUrl = \(passporturl)")
+//            if let url = passporturl as? String {
+//                ProfileManager.shared.currentUser?.passportUrl = url
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.idAUrl) { idaUrl in // ✅
+//            print("get idA url = \(idaUrl)")
+//            if let url = idaUrl as? String {
+//                ProfileManager.shared.currentUser?.idCardA_Url = url
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.idBUrl) { idbUrl in // ✅
+//            if let url = idbUrl as? String {
+//                print("get idB url = \(idbUrl)")
+//                ProfileManager.shared.currentUser?.idCardB_Url = url
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.email) { email in // ✅
+//            if let e = email as? String {
+//                print("get email = \(email)")
+//                ProfileManager.shared.currentUser?.email = e
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.realName) { realname in // ✅
+//            if let name = realname as? String {
+//                print("get realName = \(realname)")
+//                ProfileManager.shared.currentUser?.nickName = name
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfo(.phone) { phone in // ✅
+//            if let p = phone as? String {
+//                print("get Phone = \(phone)")
+//                let arr = p.components(separatedBy: "-")
+//                ProfileManager.shared.currentUser?.phoneCountryCode = arr.first!
+//                ProfileManager.shared.currentUser?.phone = arr.last!
+//                ProfileManager.shared.saveUser()
+//            }
+//        }
+//        ApiServers.shared.getUserInfoAll { (dictionary) in // ✅
+//            if let props = dictionary as? [String:AnyObject] {
+//                print("OK!!! get user info will setup the model: \(props)")
+//            }
+//        }
+//        ApiServers.shared.getUserLogsOf(type: .myCarries) { (dictionary) in // ✅
+//            if let logArr = dictionary as? [String : AnyObject] {
+//                print("okkk!! get logArr = \(logArr)")
+//            }
+//        }
+//        ApiServers.shared.getUserLogsOf(type: .myTrips) { (dictionary) in // ✅
+//            if let logArr = dictionary as? [String : AnyObject] {
+//                print("okkk!! get logArr = \(logArr)")
+//            }
+//        }
         
         
 

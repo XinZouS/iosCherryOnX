@@ -22,7 +22,7 @@ enum ServerUserPropUrl : String {
     case wallet = "wallet"
 }
 enum ServerUserLogUrl : String {
-    case myCarries = "carries"
+    case myCarries = "requests"
     case myTrips = "trips"
 }
 
@@ -151,21 +151,15 @@ class ApiServers : NSObject {
         print("will getUserInfo \(propertyUrl.rawValue), with headers = \(headers)")
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             print("get infoDictionary: \(responsDictionary)")
-            if let getInfo = responsDictionary["string"] as? [String], getInfo.count != 0 {
-                handleInfo(getInfo.first!)
-                print("returning getUserInfo = \(getInfo)")
+            if let getDict = responsDictionary["data"] as? [String:Any], getDict.count != 0 {
+                let getStr = (getDict["string"] as? String) ?? ""
+                handleInfo(getStr)
+                print("returning getUserInfo string = \(getStr)")
             }
         }
-//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{nil}], "status_code":Int, "message":String]
-//            print("get infoDictionary: \(infoDictionary)")
-//            if let infoObj = infoDictionary[ServerKey.data.rawValue] as? [String] {
-//                handleInfo(infoObj.first ?? "")
-//            }
-//        }
     }
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
-        let sessionStr = "/users/info/" // "\(ProfileManager.shared.username!)/"
-//        let urlStr = "\(baseUrl)\(sessionStr)"
+        let sessionStr = "/users/info/"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -177,24 +171,16 @@ class ApiServers : NSObject {
                 handleInfo(data)
                 do {
                     print("getUserInfoAll, data = \(data)")
-                    let getUser: User = try unbox(dictionary: data, atKey: "user")
+                    let getUser: User = try unbox(dictionary: data, atKey: "string") // TODO: change the key to "user"
                     print("getUserInfoAll, getUser = \(getUser)")
                 }catch let err {
                     print("get errorrrr when getUserInfoAll, err = \(err)")
                 }
             }
         }
-//        getDataWithUrlString(urlStr, httpHeaders: headers) { (infoDictionary) in //["data":[{User}], "status_code":Int, "message":String]
-//            let arr = infoDictionary["data"] as? [Any] // ["data":[any], ..]
-//            if let dict = arr?.first as? [String:AnyObject] {
-//                //print("----------get arr.first, dict = \(dict)")
-//                handleInfo(dict)
-//            }
-//        }
     }
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
-        let sessionStr = "/users/\(type.rawValue)/" // \(ProfileManager.shared.username!)/
-        let urlStr = "\(host)\(sessionStr)"
+        let sessionStr = "/users/\(type.rawValue)/"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -206,14 +192,14 @@ class ApiServers : NSObject {
                 print("getUserLogsOf = \(data)")
                 do {
                     if type == ServerUserLogUrl.myCarries {
-                        let carries: [Request] = try unbox(dictionary: data, atKey: "carries")
+                        let carries: [Request] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(carries)
-                        print("get carries = \(carries)")
+                        print("get my requests = \(carries)")
                     }
                     else if type == ServerUserLogUrl.myTrips {
-                        let trips : [Trip] = try unbox(dictionary: data, atKey: "trips")
+                        let trips : [Trip] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(trips)
-                        print("get trips = \(trips)")
+                        print("get my trips = \(trips)")
                     }
                 }catch let err  {
                     print("get errororrro when getUserLogsOf \(type.rawValue), err = \(err)")
