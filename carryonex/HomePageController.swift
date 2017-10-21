@@ -358,7 +358,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
-
+        
         // ✅
 //        ApiServers.shared.registerUser(username: p, phone: p, password: "testPassword", email: "\(p)@carryonex.com") { (didRegistered) in
 //            if didRegistered {
@@ -438,9 +438,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            if let logArr = dictionary as? [String : AnyObject] {
 //                print("okkk!! get logArr = \(logArr)")
 //            }
+//        }        
+//        ApiServers.shared.postLoginUser { (userToken) in // ✅
+//            if let userToken = userToken {
+//                print("user token: \(userToken)")
+//            }
 //        }
-        
-        
 
     }
     
