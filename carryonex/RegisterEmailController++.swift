@@ -11,7 +11,7 @@ import UIKit
 
 extension RegisterEmailController: UITextFieldDelegate {
      func okButtonTapped(){
-        
+        ProfileManager.shared.currentUser?.email = emailField.text
         let registerPasswordCtl = RegisterPasswordController()
         navigationController?.pushViewController(registerPasswordCtl, animated: true)
     }

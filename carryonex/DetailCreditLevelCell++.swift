@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 extension DetailCreditLevelCell{
     func wechatButtonTap(){
@@ -27,25 +28,47 @@ extension DetailCreditLevelCell{
             }
         }
     }
-//    func MessageButtonTap(){
-//        //首先要判断设备具不具备发送短信功能
-//        if MFMessageComposeViewController.canSendText(){
-//            let controller = MFMessageComposeViewController()
-//            //设置短信内容
-//            controller.body = "短信内容：欢迎来到hangge.com"
-//            //设置收件人列表
-//            controller.recipients = ["123456","120000"]
-//            //设置代理
-//            controller.messageComposeDelegate = self
-//            //打开界面
-//            self.presentViewController(controller, animated: true, completion: { () -> Void in
-//                
-//            })
-//        }else{
-//            print("本设备不能发送短信")
-//        }
-//    }
+    func MessageButtonTap(){
+        //设置联系人
+        let str = "18056088090"
+        //创建一个弹出框提示用户
+        let alertController = UIAlertController(title: "发短信", message: "是否给\(str)发送短信?", preferredStyle: .alert)
+        let cancleAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let sendAction = UIAlertAction(title: "确定", style: .default) { (alertController) in
+            //判断设备是否能发短信(真机还是模拟器)
+            if MFMessageComposeViewController.canSendText() {
+                let controller = MFMessageComposeViewController()
+                //短信的内容,可以不设置
+                controller.body = "你好"
+                //联系人列表
+                controller.recipients = [str]
+                self.orderDetailPage?.present(controller, animated: true,completion: nil)
+            } else {
+                print("本设备不能发短信")
+            }
+        }
+        alertController.addAction(cancleAction)
+        alertController.addAction(sendAction)
+        
+        self.orderDetailPage?.present(alertController, animated: true, completion: nil)
+    }
     func LinkinButtonTap(){
         
+    }
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+        //判断短信的状态
+        switch result{
+            
+        case .sent:
+            print("短信已发送")
+        case .cancelled:
+            print("短信取消发送")
+        case .failed:
+            print("短信发送失败")
+        default:
+            print("短信已发送")
+            break
+        }
     }
 }
