@@ -40,7 +40,7 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
         "\(userGuideWebHoster)/doc_payment",        //支付与账户
         "\(userGuideWebHoster)/doc_account",        //账号与信息
         "\(userGuideWebHoster)/doc_effectiveness",  //时效
-        "\(userGuideWebHoster)/doc_security_charge_requester",  //安全与控诉(寄件人)
+        "\(userGuideWebHoster)/doc_security_charge_requester",  //寄件人安全与控诉
         "\(userGuideWebHoster)/doc_guide"           //出行攻略
     ]
     let urlShipper = [
@@ -49,7 +49,7 @@ class UserGuideController: UICollectionViewController, UICollectionViewDelegateF
         "\(userGuideWebHoster)/doc_payment_timing", //运费到账时间
         "\(userGuideWebHoster)/doc_account",        //账号与信息
         "\(userGuideWebHoster)/doc_effectiveness",  //时效
-        "\(userGuideWebHoster)/doc_security_charge_tripper", //安全与控诉(出行人)
+        "\(userGuideWebHoster)/doc_security_charge_tripper", //出行人安全与控诉
         "\(userGuideWebHoster)/doc_guide"           //出行攻略
     ]
 

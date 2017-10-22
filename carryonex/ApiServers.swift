@@ -19,6 +19,7 @@ enum ServerUserPropUrl : String {
     case idBUrl     = "idburl"
     case email      = "email"
     case realName   = "realname"
+    case isExist    = "exist"
     case wallet     = "wallet"
 }
 /// response dictionary key group
@@ -31,6 +32,7 @@ let ServerUserPropKey : [ServerUserPropUrl:String] = [
     ServerUserPropUrl.idBUrl    : "idb_url",
     ServerUserPropUrl.email     : "email",
     ServerUserPropUrl.realName  : "real_name",
+    ServerUserPropUrl.isExist   : "exist",
     ServerUserPropUrl.wallet    : "wallet"
 ]
 enum ServerUserLogUrl : String {
@@ -38,8 +40,9 @@ enum ServerUserLogUrl : String {
     case myTrips = "trips"
 }
 
-enum ServerTripPropUrl : String {
-    case trips          = "trips"
+/// component of url query
+enum ServerTripUrl : String {
+    case youxiangCode   = "trips"
     case info           = "info"
     case startState     = "startstate/list"
     case startCity      = "startcity/list"
@@ -51,7 +54,16 @@ enum ServerTripPropUrl : String {
     case startToEndZip  = "startzipcode/endzipcode/list"
     case requests       = "trips/requests"
 }
-
+/// key of parameters in the query url
+let ServerTripPropKey : [ServerTripUrl:String] = [
+    ServerTripUrl.youxiangCode  : "trip_code",
+    ServerTripUrl.info          : "id",
+    ServerTripUrl.startState    : "query",
+    ServerTripUrl.startCity     : "query",
+    ServerTripUrl.startZipcode  : "query",
+    ServerTripUrl.startCountry  : "query",
+    ServerTripUrl.requests      : "id"
+]
 
 
 class ApiServers : NSObject {
@@ -264,7 +276,6 @@ class ApiServers : NSObject {
 
         }
     }
-
     
     func getAllUsers(callback: @escaping(([User]?) -> Void)) {
         
@@ -301,6 +312,37 @@ class ApiServers : NSObject {
     
     // MARK: - Trip APIs
     
+    func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String,[Trip]?) -> Void){
+        let route = "/trips/\(queryRoute.rawValue)/"
+        var headers: [String:String] = [
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
+        ]
+        if query2 == nil {
+            headers[ServerTripPropKey[queryRoute]!] = query
+        }else if let q2 = query2 {
+            headers["start"] = query
+            headers["end"] = q2
+        }
+        print("will getTrips [\(queryRoute)] with q1=[\(query)], q2=[\(query2)]")
+        print("     and headers = \(headers)")
+        getDataWithUrlRoute(route, parameters: headers) { (response) in
+            let msg = response["message"] as! String
+            if let data = response["data"] as? [String:Any] {
+                do {
+                    let trips : [Trip] = try unbox(dictionary: data, atKey: "trip")
+                    completion(msg, trips)
+                } catch let err {
+                    print("get errorororrr when getDataWithUrlRoute, err = \(err)")
+                }
+            }else{
+                completion(msg, nil)
+            }
+        }
+    }
+    
     func postTripInfo(trip: Trip){
         let sessionStr = "/trips/trips/"
         let parameter:[String:Any] = [
@@ -312,29 +354,11 @@ class ApiServers : NSObject {
             ]
         ]
         
-//        postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
-//            <#code#>
-//        }
+        postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
+            //
+        }
     }
     
-    func getTripById(tripId: String){
-        let userName = "user0"
-        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        let sessionStr = "/trips/\(tripId)/info/"
-        
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //getDataWithUrlString(urlStr)
-    }
-    
-    
-    func getTripByTripCode(_ tripCode: String){
-        let userName = "user0"
-        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        let sessionStr = "/trips/\(tripCode)/trips/"
-        
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //getDataWithUrlString(urlStr)
-    }
     
     
     
@@ -366,7 +390,7 @@ class ApiServers : NSObject {
     /**
      * ✅ get data with url string, return NULL, try with Alamofire and callback
      */
-    private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], getDictionary: @escaping(([String : Any]) -> Void)) {
+    private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
         print("get requestUrlStr = \(requestUrlStr)")
         print("get parameters = \(parameters)")
@@ -374,7 +398,7 @@ class ApiServers : NSObject {
             print("get response = \(response)")
             if let responseValue = response.value as? [String: Any] {
                 print("get responseValue = \(responseValue)")
-                getDictionary(responseValue)
+                completion(responseValue)
             }
         }
         
@@ -416,9 +440,9 @@ class ApiServers : NSObject {
                     getInfoDictionary(myJson)
 //                    if let getData = myJson?["data"] as? [Any] {
 //                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-//                        if let getDictionary = getData.first as? [String:AnyObject] {
-//                            //print("--- --- --- get getDictionary: \n\r\(getDictionary)")
-//                            //getInfoDictionary(getDictionary)
+//                        if let completion = getData.first as? [String:AnyObject] {
+//                            //print("--- --- --- get completion: \n\r\(completion)")
+//                            //getInfoDictionary(completion)
 //                        }
 //                    }else{
 //                        print("--- ---Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
@@ -437,7 +461,7 @@ class ApiServers : NSObject {
     /**
      * ✅ POST data with url string, using Alamofire
      */
-    private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], getDictionary: @escaping(([String : Any]) -> Void)) {
+    private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
         print("postDataWithUrlRoute requestUrlStr = \(requestUrlStr)")
         print("postDataWithUrlRoute parameters = \(parameters)")
@@ -446,7 +470,7 @@ class ApiServers : NSObject {
             print("get response = \(response)")
             if let responseValue = response.value as? [String: Any] {
                 print("get responseValue = \(responseValue)")
-                getDictionary(responseValue)
+                completion(responseValue)
             }
         }
         
@@ -489,16 +513,16 @@ class ApiServers : NSObject {
                 print("get data from postDataToUrlString(): \(data)")
                 guard let content = data else { return }
                 do {
-                    if let getDictionary = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:AnyObject] {
-                        print("--- --- get myJson = \n\r \(getDictionary) \n\r")
-                        handleResponse(getDictionary)
+                    if let completion = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:AnyObject] {
+                        print("--- --- get myJson = \n\r \(completion) \n\r")
+                        handleResponse(completion)
                     }else{
                         print("--- get eirirriir when recall haldler...Quite.")
                     }
 //                    if let getData = myJson?["data"] as? [Any] {
 //                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-//                        //if let getDictionary = getData.first as? [String:AnyObject] {
-//                        //    print("--- --- --- get getDictionary and return: \n\r\(getDictionary)")
+//                        //if let completion = getData.first as? [String:AnyObject] {
+//                        //    print("--- --- --- get completion and return: \n\r\(completion)")
 //                        //}
 //                    }else{
 //                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")

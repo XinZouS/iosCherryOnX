@@ -444,6 +444,22 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //                print("user token: \(userToken)")
 //            }
 //        }
+        
+        // MARK: - trip api test
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .info, query: "1", query2: nil) { (message, trips) in
+//            print("getTrips message = \(message)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startCity, query: "new_york", query2: nil) { (msg, trips) in
+//            print("getTrips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
 
     }
     
