@@ -42,6 +42,7 @@ extension DetailCreditLevelCell{
                 controller.body = "你好"
                 //联系人列表
                 controller.recipients = [str]
+                controller.messageComposeDelegate = self
                 self.orderDetailPage?.present(controller, animated: true,completion: nil)
             } else {
                 print("本设备不能发短信")
