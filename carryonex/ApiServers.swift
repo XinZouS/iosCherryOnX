@@ -25,8 +25,8 @@ enum ServerUserPropUrl : String {
 /// response dictionary key group
 let ServerUserPropKey : [ServerUserPropUrl:String] = [
     ServerUserPropUrl.salt      : "salt",
-    ServerUserPropUrl.imageUrl  : "image_url",
     ServerUserPropUrl.phone     : "phone",
+    ServerUserPropUrl.imageUrl  : "image_url",
     ServerUserPropUrl.passportUrl:"passport_url",
     ServerUserPropUrl.idAUrl    : "ida_url",
     ServerUserPropUrl.idBUrl    : "idb_url",
@@ -35,6 +35,7 @@ let ServerUserPropKey : [ServerUserPropUrl:String] = [
     ServerUserPropUrl.isExist   : "exist",
     ServerUserPropUrl.wallet    : "wallet"
 ]
+
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -104,7 +105,7 @@ class ApiServers : NSObject {
     func postRegisterUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool, String) -> Swift.Void) {
         
         let route = "/users/"
-        let data = [
+        let postData = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
             ServerKey.phone.rawValue:    phone,
@@ -113,7 +114,7 @@ class ApiServers : NSObject {
         let parameters:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.data.rawValue : data
+            ServerKey.data.rawValue : postData
         ]
         postDataWithUrlRoute(route, parameters: parameters) { (response) in
             print("get response dictionary: \(response)")
@@ -121,10 +122,9 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 print("get data = \(data)")
                 if let token = data[ServerKey.userToken.rawValue] as? String {
-                    let profileUser = ProfileUser()
-                    profileUser.setupByLocal(parameters)
-                    profileUser.token = token
-                    ProfileManager.shared.currentUser = profileUser
+                    ProfileManager.shared.currentUser = ProfileUser()
+                    ProfileManager.shared.currentUser?.setupByLocal(postData)
+                    ProfileManager.shared.currentUser?.token = token
                     ProfileManager.shared.saveUser()
                     callback(true, msg)
                 } else {
@@ -149,7 +149,18 @@ class ApiServers : NSObject {
             ]
         ]
         postDataWithUrlRoute(route, parameters: parameter) { (response) in
-            print(response)
+            print("response = ", response)
+            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                print("\n\r get data = \(data)")
+                if let token = data[ServerKey.userToken.rawValue] as? String {
+                    ProfileManager.shared.currentUser?.token = token
+                    ProfileManager.shared.saveUser()
+                    completion(token)
+                    print("\n\r now get current user = ")
+                    ProfileManager.shared.currentUser?.printAllData()
+                }
+            }
         }
     }
     
@@ -165,21 +176,14 @@ class ApiServers : NSObject {
         ]
         postDataWithUrlRoute(route, parameters: parms) { (response) in
             print("postLogoutUser, response = ", response)
-            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
+            let msg = response[ServerKey.message.rawValue] as? String
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                ProfileManager.shared.logoutUser()
                 completion(true, msg)
             }else{
                 completion(false, msg)
             }
         }
-//            postDataToUrlString(urlStr, postData: dict, httpHeaders: headers) { (responsDictionary) in
-//                print("get response dictionary: \(responsDictionary)")
-//                if let getStatus = responsDictionary[ServerKey.statusCode.rawValue] as? Int, getStatus == 200 {
-//                    print("OK logout success! clear user data!")
-//                    ProfileManager.shared.currentUser?.removeFromLocalDisk()
-//                    ProfileManager.shared.currentUser = nil
-//                }
-//            }
     }
 
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
@@ -256,8 +260,8 @@ class ApiServers : NSObject {
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
         let route = "/users/\(propUrl.rawValue)/"
         let data: [String:String] = [
-            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? "",
-            ServerUserPropKey[propUrl]!  : newInfo
+            ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
+            ServerUserPropKey[propUrl]! : newInfo
         ]
         let parms:[String:Any] = [
             ServerKey.appToken.rawValue : appToken,
@@ -266,9 +270,13 @@ class ApiServers : NSObject {
             ServerKey.data.rawValue: data
         ]
         postDataWithUrlRoute(route, parameters: parms) { (response) in
-            print("postLogoutUser, response = ", response)
+            print("postUpdateUserInfo, response = ", response)
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                if let userPropKey = ServerUserPropKey[propUrl], userPropKey != "" {
+                    ProfileManager.shared.currentUser?.setupByDictionaryFromDB([userPropKey:newInfo])
+                    ProfileManager.shared.saveUser()
+                }
                 completion(true, msg)
             }else{
                 completion(false, msg)

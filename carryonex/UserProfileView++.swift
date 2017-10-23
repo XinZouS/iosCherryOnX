@@ -31,7 +31,7 @@ extension UserProfileView {
     }
     
     internal func loadNameAndPhoneInfo(){
-        nameLabel.text = ProfileManager.shared.currentUser?.nickName ?? ""
+        nameLabel.text = ProfileManager.shared.currentUser?.realName ?? ""
         let phoneNum = ProfileManager.shared.currentUser?.phone ?? ""
         let cc = ProfileManager.shared.currentUser?.phoneCountryCode ?? ""
         phoneLabel.text = phoneNum.formatToPhoneNum(countryCode: cc)

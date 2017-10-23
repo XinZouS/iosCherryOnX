@@ -196,7 +196,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         activityIndicator.startAnimating() // start uploading image and show indicator
-        ProfileManager.shared.currentUser?.nickName = self.nameTextField.text!
+        ProfileManager.shared.currentUser?.realName = self.nameTextField.text!
 
         for pair in imageUploadSequence {
             let imgIdType : String = pair.key.rawValue

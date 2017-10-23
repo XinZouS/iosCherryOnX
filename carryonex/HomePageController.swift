@@ -347,28 +347,32 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     private func testApiServers(){
         print("\r\n ------ Server connection (HomePageController) ------\r\n")
         
-//        ApiServers.shared.getAllUsers { (users) in
-//            if let users = users {
-//                for user in users {
-//                    print("User: \(user.username)")
-//                }
-//            }
-//        }
-        
-        let p = "2016666609" // phone number for testing
+        let p = "2016666617" // phone number for testing
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
         
         // ✅
-//        ApiServers.shared.postRegisterUser(username: p, phone: p, password: "testPassword", email: "\(p)@carryonex.com") { (didRegistered) in
-//            if didRegistered {
-//                print("registered, now user info = \(ProfileManager.shared.currentUser?.printAllData())")
+//        ApiServers.shared.postRegisterUser(username: p, phone: p, password: "testpassword", email: "\(p)@carryonex.com") { (success, msg) in
+//            print("postRegisterUser msg = \(msg)")
+//            if success {
+//                print("OK register success")
+//                print("now user = \(ProfileManager.shared.currentUser?.printAllData())")
 //            }
 //        }
         
-        //ApiServers.shared.loginUser() // ✅
-        //ApiServers.shared.logoutUser() // ❌ post will test later...
+//        ApiServers.shared.postLoginUser { (newToken) in  // ✅
+//            print("get new token = \(newToken)")
+//        }
+        
+//        ApiServers.shared.postLogoutUser { (success, msg) in // ✅
+//            print("postLogoutUser msg = \(msg)")
+//            if success {
+//                print("OK logout success!!! msg = \(msg)")
+//            }else{
+//                print("cannot logout, msg = \(msg)")
+//            }
+//        }
 //        ApiServers.shared.getUserInfo(.salt) { (getSalt) in // ✅
 //            print("get salt: \(getSalt)")
 //            if let getSalt = getSalt as? String {
@@ -412,7 +416,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //        ApiServers.shared.getUserInfo(.realName) { realname in // ✅
 //            if let name = realname as? String {
 //                print("get realName = \(realname)")
-//                ProfileManager.shared.currentUser?.nickName = name
+//                ProfileManager.shared.currentUser?.realName = name
 //                ProfileManager.shared.saveUser()
 //            }
 //        }
@@ -439,12 +443,35 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            if let logArr = dictionary as? [String : AnyObject] {
 //                print("okkk!! get logArr = \(logArr)")
 //            }
-//        }        
-//        ApiServers.shared.postLoginUser { (userToken) in // ✅
-//            if let userToken = userToken {
-//                print("user token: \(userToken)")
-//            }
 //        }
+//        ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: "http://imageUrl.demo.jpg") { (success, msg) in // ✅
+//            print("postUpdateUser imageUrl, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.phone, newInfo: "2333332333") { (success, msg) in // ✅
+//            print("postUpdateUser phone, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.email, newInfo: "23333333@carryonex.com") { (success, msg) in // ✅
+//            print("postUpdateUser email, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.idAUrl, newInfo: "http://idAUrl.demo.jpg") { (success, msg) in // ✅
+//            print("postUpdateUser idAUrl, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.idBUrl, newInfo: "http://idBUrl.demo.jpg") { (success, msg) in // ✅
+//            print("postUpdateUser idBUrl, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.passportUrl, newInfo: "http://passport.demo.jpg") { (success, msg) in // ✅
+//            print("postUpdateUser passport, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.realName, newInfo: "my Real Name") { (success, msg) in // ✅
+//            print("postUpdateUser realName, msg = \(msg)")
+//        }
+//        ApiServers.shared.postUpdateUserInfo(.wallet, newInfo: "walletidtesting") { (success, msg) in // ✅
+//            print("postUpdateUser wallet, msg = \(msg)")
+//        }
+
+
+
+        
         
         // MARK: - trip api test
         // ❓

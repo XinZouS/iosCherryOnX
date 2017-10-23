@@ -72,6 +72,7 @@ enum UserDefaultKey : String {
     case OnboardingFinished = "OnboardingFinished"
     case profileImageLocalName = "profile.JPG"
     case profileImageLocalUrl = "profileImageLocalUrl"
+    case ProfileUser = "ProfileUser"
 }
 
 /// weixin SDK keys

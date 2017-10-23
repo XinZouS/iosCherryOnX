@@ -16,7 +16,7 @@ enum UserKeyInDB: String {
     case username = "username"
     case password = "password"
     case token       = "user_token"
-    case nickName    = "real_name"
+    case realName    = "real_name"
     case phone       = "phone"
     case email       = "email"
     case imageUrl    = "image_url"
@@ -32,7 +32,7 @@ class User: Unboxable {
     var username:   String? = ""
     var password:   String? = ""
     var token:      String? = ""
-    var nickName:   String? = ""
+    var realName:   String? = ""
     var phoneCountryCode: String? = ""
     var email:      String? = ""
     var imageUrl:   String? = ""
@@ -51,7 +51,7 @@ class User: Unboxable {
         username    = dictionary["username"] as? String ?? ""
         password    = dictionary["password"] as? String ?? ""
         token       = dictionary["token"] as? String ?? ""
-        nickName    = dictionary["nickName"] as? String ?? ""
+        realName    = dictionary["realName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
         phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? ""
         email       = dictionary["email"] as? String ?? ""
@@ -63,7 +63,7 @@ class User: Unboxable {
         username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? ""
         password    = dictionary[UserKeyInDB.password.rawValue] as? String ?? "" //TODO: this will be a hash, can we save it and use ?????
         token       = dictionary[UserKeyInDB.token.rawValue] as? String ?? ""
-        nickName    = dictionary[UserKeyInDB.nickName.rawValue] as? String ?? ""
+        realName    = dictionary[UserKeyInDB.realName.rawValue] as? String ?? ""
         phone       = (dictionary[UserKeyInDB.phone.rawValue] as? String)?.components(separatedBy: "-").last ?? ""
         phoneCountryCode = (dictionary[UserKeyInDB.phone.rawValue] as? String)?.components(separatedBy: "-").first ?? ""
         email       = dictionary[UserKeyInDB.email.rawValue] as? String ?? ""
@@ -83,7 +83,7 @@ class User: Unboxable {
         print("username = \(username!)")
         print("password = \(password!)")
         print("token = \(token!)")
-        print("nickName = \(nickName!)")
+        print("realName = \(realName!)")
         print("phone = \(phone), countryCode = \(phoneCountryCode!)")
         print("email = \(email!)")
         print("imageUrl = \(imageUrl!)")
@@ -94,7 +94,7 @@ class User: Unboxable {
         self.username   = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
         self.password   = try? unboxer.unbox(key: UserKeyInDB.password.rawValue)
         self.token      = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
-        self.nickName   = try? unboxer.unbox(key: UserKeyInDB.nickName.rawValue)
+        self.realName   = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)
         self.phone      = try? unboxer.unbox(key: UserKeyInDB.phone.rawValue)
         self.email      = try? unboxer.unbox(key: UserKeyInDB.email.rawValue)
         self.imageUrl   = try? unboxer.unbox(key: UserKeyInDB.imageUrl.rawValue)
