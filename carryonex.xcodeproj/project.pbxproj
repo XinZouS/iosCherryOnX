@@ -568,6 +568,7 @@
 				66CDBC6D1F7BF9E1008DCB6B /* MapSearch */,
 				663121EE1F539E04000F7ACB /* WaitingController.swift */,
 				663121F21F545B3C000F7ACB /* ConfirmBaseController.swift */,
+				667DBD731F95460800DF3800 /* WebController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -623,7 +624,6 @@
 			isa = PBXGroup;
 			children = (
 				667DBD711F953FC500DF3800 /* LicensesController.swift */,
-				667DBD731F95460800DF3800 /* WebController.swift */,
 			);
 			name = LicensesController;
 			sourceTree = "<group>";
