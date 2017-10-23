@@ -10,8 +10,8 @@ import UIKit
 
 class DetailBaseCell : UICollectionViewCell{
     
-    var orderDetailPage : OrderDetailPage?
     
+    var orderDetailPage : OrderDetailPage?
     var titleLabelWidthConstraint   : NSLayoutConstraint?
     var titleLabelCenterYConstraint : NSLayoutConstraint?
     
@@ -41,8 +41,6 @@ class DetailBaseCell : UICollectionViewCell{
         underlineViewBottomConstraint = underlineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
         underlineViewBottomConstraint?.isActive = true
     }
-    
-    
     
     
     required init?(coder aDecoder: NSCoder) {

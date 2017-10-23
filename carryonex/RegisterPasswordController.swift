@@ -63,7 +63,7 @@ class RegisterPasswordController: UIViewController {
     private func setupPasswordTextField(){
         passwordField = TextField()
         passwordField.placeholder = "Password"
-        passwordField.detail = "At least 8 characters"
+        passwordField.detail = "At least 6 characters"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         // Setting the visibilityIconButton color.

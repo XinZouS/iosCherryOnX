@@ -74,15 +74,11 @@ extension UserSettingController {
         isRegister = false
         alreadyExist = false
         ProfileManager.shared.removeUser() // remove local user for new user to login
-
         userProfileView?.removeProfileImageFromLocalFile()
-        
-        let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())
-        present(phoneNumNavCtl, animated: true) {
-            print("finish present phoneNumNavCtl.")
-        }
-        self.navigationController?.popToRootViewController(animated: false)
-        print("logout user!!!!!!")
+        dismiss(animated: true, completion: nil)
+        let registerMainNavCtl = UINavigationController(rootViewController: RegisterMainController())
+        present(registerMainNavCtl, animated: true, completion: nil)
+
     }
 
     

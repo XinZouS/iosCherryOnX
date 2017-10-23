@@ -75,6 +75,7 @@ extension HomePageController {
     
     internal func fetchUserFromLocalDiskAndSetup(){
         ProfileManager.shared.loadUser()
+        ProfileManager.shared.currentUser?.printAllData()
     }
     
     internal func removeUserFromLocalDisk(){
