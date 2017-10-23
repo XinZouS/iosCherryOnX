@@ -20,6 +20,7 @@ class ProfileManager: NSObject {
     }
     
     func isLoggedIn() -> Bool {
+        self.currentUser?.loadFromLocalDisk()
         return currentUser != nil
     }
     
@@ -40,7 +41,7 @@ class ProfileManager: NSObject {
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
         self.currentUser = ProfileUser().loadFromLocalDisk()
 //        loadUser.loadFromLocalDisk()
-        print("loadUser, now currentUser = \(self.currentUser!.printAllData())")
+//        print("loadUser, now currentUser = \(self.currentUser!.printAllData())")
     }
     
     func removeUser() {

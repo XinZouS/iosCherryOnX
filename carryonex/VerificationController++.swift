@@ -84,9 +84,8 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-        let zoneCode = String(describing: ProfileManager.shared.currentUser?.phoneCountryCode)
-        let phoneNum = String(describing: ProfileManager.shared.currentUser?.phone!)
-
+        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+        let phoneNum = ProfileManager.shared.currentUser?.phone!
         print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
         if (isRegister == true){
             let registEmailCtl = RegisterEmailController()
@@ -94,6 +93,7 @@ extension VerificationController: UITextFieldDelegate {
         }else{  //for test
             guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
             SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                print(zoneCode,phoneNum)
                 if err == nil {
                     self.verifySuccess()
                 } else {
@@ -117,12 +117,6 @@ extension VerificationController: UITextFieldDelegate {
             print("验证成功! Go to Home page!")
             navigationController?.pushViewController(inputPasswordCtl, animated: true)
         }
-        ProfileManager.shared.saveUser()
-        //self.phonenumberC?.dismissAndBackToHomePage() // replace reference by delegate
-//        showAlertWith(title: "验证成功✅", message: "将返回主页面")
-//        _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
-//            self.dismissAndBackToHomePage()
-//        })
     }
     func dismissAndBackToHomePage(){
         dismiss(animated: false) {

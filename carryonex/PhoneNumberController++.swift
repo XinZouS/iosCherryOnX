@@ -48,11 +48,12 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
 //        okButton.isEnabled = true
 //    }
     func nextButtonTapped(){
+        ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
          _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
         var alreadyExist = false
         if alreadyExist == true{
-            let phoneNum = ProfileManager.shared.currentUser?.phone ?? "0"
-            let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode ?? "86"
+            let phoneNum = ProfileManager.shared.currentUser?.phone
+            let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
             print("get : okButtonTapped, api send text msg and go to next page!!!")
             SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
                 print(err)
@@ -104,6 +105,8 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     // development use: go next page without phone verification
     func goToVerificationPage(){
+        ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
+        ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
         let verifiCtl = VerificationController()
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }

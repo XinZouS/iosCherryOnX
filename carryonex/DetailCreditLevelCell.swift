@@ -7,18 +7,15 @@
 //
 
 import UIKit
+import MessageUI
 
-class DetailCreditLevelCell : DetailBaseCell{
-    
-    lazy var wechatButton : UIButton = {
-        let b = UIButton()
-        b.layer.cornerRadius = 20
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Wechat_Icon"), for: .normal)
-        b.backgroundColor = .white
-        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return b
+class DetailCreditLevelCell : DetailBaseCell,MFMessageComposeViewControllerDelegate{
+    let CreditLabel : UILabel = {
+        let l = UILabel()
+        //        l.backgroundColor = .cyan
+        l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
+        return l
     }()
-    
     lazy var phoneButton : UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 20
@@ -28,21 +25,12 @@ class DetailCreditLevelCell : DetailBaseCell{
         return b
     }()
     
-    lazy var facebookButton : UIButton = {
-        let b = UIButton()
-        b.layer.cornerRadius = 20
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Facebook_Icon"), for: .normal)
-        b.backgroundColor = .white
-        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return b
-    }()
-    
     lazy var messageButton : UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 20
         b.setImage(#imageLiteral(resourceName: "carryonex_message"), for: .normal)
         b.backgroundColor = .white
-//        b.addTarget(self, action: #selector(MessageButtonTap), for: .touchUpInside)
+        b.addTarget(self, action: #selector(MessageButtonTap), for: .touchUpInside)
         return b
     }()
     
@@ -52,41 +40,33 @@ class DetailCreditLevelCell : DetailBaseCell{
         super.init(frame: frame)
         
         backgroundColor = .white
-        
+        setupCreditLevel()
         setupMessageBtn()
         setupPhoneBtn()
-        setupWechatBtn()
-        setupFacebookBtn()
         
+    }
+    private func setupCreditLevel(){
+        addSubview(CreditLabel)
+        let title = "5"
+        CreditLabel.text = "信用等级:"+title
+        CreditLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 10, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        titleLabelWidthConstraint = CreditLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
+        titleLabelWidthConstraint?.isActive = true
     }
     private func setupMessageBtn(){
         addSubview(messageButton)
-        messageButton.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 20, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 40, height: 40)
+        messageButton.addConstraints(left: nil, top: nil, right: rightAnchor, bottom: nil, leftConstent: nil, topConstent: 0, rightConstent: 20, bottomConstent: 0, width: 40, height: 40)
         senderImgBtnWidthConstraint = messageButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         senderImgBtnWidthConstraint?.isActive = true
     }
     
     private func setupPhoneBtn(){
         addSubview(phoneButton)
-        phoneButton.addConstraints(left: nil, top: topAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 40, height: 40)
+        phoneButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 40, height: 40)
         senderImgBtnWidthConstraint = phoneButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         senderImgBtnWidthConstraint?.isActive = true
-        senderImgBtnCenterYConstraint = phoneButton.centerXAnchor.constraint(equalTo: centerXAnchor,constant:-40)
+        senderImgBtnCenterYConstraint = phoneButton.centerXAnchor.constraint(equalTo: centerXAnchor,constant:40)
         senderImgBtnCenterYConstraint?.isActive = true
-    }
-    private func setupWechatBtn(){
-        addSubview(wechatButton)
-        wechatButton.addConstraints(left: nil, top: topAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 40, height: 40)
-        senderImgBtnWidthConstraint = wechatButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
-        senderImgBtnWidthConstraint?.isActive = true
-        senderImgBtnCenterYConstraint = wechatButton.centerXAnchor.constraint(equalTo: centerXAnchor,constant:40)
-        senderImgBtnCenterYConstraint?.isActive = true
-    }
-    private func setupFacebookBtn(){
-        addSubview(facebookButton)
-        facebookButton.addConstraints(left: nil, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 20, bottomConstent: 0, width: 40, height: 40)
-        senderImgBtnWidthConstraint = facebookButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
-        senderImgBtnWidthConstraint?.isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

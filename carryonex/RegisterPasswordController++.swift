@@ -14,6 +14,7 @@ extension RegisterPasswordController: UITextFieldDelegate {
         isRegister = false
         alreadyExist = true
         ProfileManager.shared.currentUser?.password = passwordField.text
+        ProfileManager.shared.currentUser?.saveIntoLocalDisk()
         self.dismiss(animated: true, completion: nil)
     }
     
