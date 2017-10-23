@@ -16,7 +16,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     var token:      String? = ""
     
     var nickName:   String? = ""
-    var phone:      String? = ""
+    var phone:      String? = "" { didSet{ setupPhoneAndCountryCode() }}
     var phoneCountryCode: String? = ""
     var email:      String? = ""
     
@@ -177,6 +177,14 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     func removeFromLocalDisk(){
         UserDefaults.standard.removeObject(forKey: "ProfileUser")
         print("OK, removed user from local disk.")
+    }
+    
+    private func setupPhoneAndCountryCode(){
+        if phone != nil, phone!.contains("-") {
+            let arr = phone!.components(separatedBy: "-")
+            phone = arr.last
+            phoneCountryCode = arr.first
+        }
     }
     
     func printAllData(){

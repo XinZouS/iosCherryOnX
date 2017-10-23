@@ -355,13 +355,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
-        let p = "2016666608" // phone number for testing
+        let p = "2016666609" // phone number for testing
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"
-
+        
         // ✅
-//        ApiServers.shared.registerUser(username: p, phone: p, password: "testPassword", email: "\(p)@carryonex.com") { (didRegistered) in
+//        ApiServers.shared.postRegisterUser(username: p, phone: p, password: "testPassword", email: "\(p)@carryonex.com") { (didRegistered) in
 //            if didRegistered {
 //                print("registered, now user info = \(ProfileManager.shared.currentUser?.printAllData())")
 //            }
@@ -438,6 +438,83 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //        ApiServers.shared.getUserLogsOf(type: .myTrips) { (dictionary) in // ✅
 //            if let logArr = dictionary as? [String : AnyObject] {
 //                print("okkk!! get logArr = \(logArr)")
+//            }
+//        }        
+//        ApiServers.shared.postLoginUser { (userToken) in // ✅
+//            if let userToken = userToken {
+//                print("user token: \(userToken)")
+//            }
+//        }
+        
+        // MARK: - trip api test
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .info, query: "1", query2: nil) { (message, trips) in
+//            print("getTrips message = \(message)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startCity, query: "new_york", query2: nil) { (msg, trips) in
+//            print("getTrips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startState, query: "NY", query2: nil) { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startCountry, query: "NY", query2: nil) { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startZipcode, query: "NY", query2: nil) { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startToEndCity, query: "new_york", query2: "beijing") { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startToEndState, query: "NY", query2: "beijing") { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startToEndCountry, query: "CN", query2: "US") { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .startToEndZip, query: "10000", query2: "010001") { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
+//            }
+//        }
+        // ❓
+//        ApiServers.shared.getTrips(queryRoute: .requests, query: "username??", query2: nil) { (msg, trips) in
+//            print("get trips message = \(msg)")
+//            if trips != nil {
+//                print("get trips info = \(trips)")
 //            }
 //        }
         
