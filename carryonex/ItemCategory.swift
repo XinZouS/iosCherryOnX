@@ -18,8 +18,10 @@ enum ItemNameEN: String {
     case food       = "Food"
     case healthCare = "Health Care"
     case electronics = "Electronics"
+    case book       = "Book"
     case cosmetic   = "Cosmetics"
     case jewelry    = "Jewelry"
+    case other      = "Other"
 }
 
 enum CategoryKeyInDB: String {

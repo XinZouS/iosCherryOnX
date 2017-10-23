@@ -284,6 +284,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }
     }
     
+    func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
     
 }

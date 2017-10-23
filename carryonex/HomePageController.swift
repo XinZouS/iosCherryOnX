@@ -121,7 +121,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     lazy var userInfoBarButtonView : UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_userInfomation"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_menu"), for: .normal)
         b.addTarget(self, action: #selector(showUserInfoSideMenu), for: .touchUpInside)
         return b
     }()
@@ -187,9 +187,9 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         UIApplication.shared.statusBarStyle = .default
     }
     override func viewDidAppear(_ animated: Bool) {
-        super .viewDidAppear(animated)
-        //setupUIContentsForUserIsShipperOrNot() do not need to check this for user, we dont need it;
+        super.viewDidAppear(animated)
         isItHaveLogIn()
+        userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

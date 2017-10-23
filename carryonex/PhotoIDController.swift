@@ -224,10 +224,9 @@ class PhotoIDController: UIViewController {
     
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.shared.statusBarStyle = .lightContent
         view.backgroundColor = .white
         
         setupNavigationBar()
@@ -273,7 +272,7 @@ class PhotoIDController: UIViewController {
         setupActivityIndicator()
         setupSubmitButton()
     }
-
+    
     private func setupNameInputContents(){
         
         scrollContainer.addSubview(nameLabel)

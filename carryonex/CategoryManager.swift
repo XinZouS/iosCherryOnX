@@ -21,8 +21,10 @@ struct CategoryManager {
         ItemNameEN.food.rawValue       : #imageLiteral(resourceName: "CarryonEx_Food"),
         ItemNameEN.healthCare.rawValue : #imageLiteral(resourceName: "CarryonEx_Medicine"),
         ItemNameEN.electronics.rawValue: #imageLiteral(resourceName: "CarryonEx_Electronics"),
+        ItemNameEN.book.rawValue       : #imageLiteral(resourceName: "carryonex_book"),
         ItemNameEN.cosmetic.rawValue   : #imageLiteral(resourceName: "CarryonEx_Cosmetics"),
-        ItemNameEN.jewelry.rawValue    : #imageLiteral(resourceName: "CarryonEx_Jewelry")
+        ItemNameEN.jewelry.rawValue    : #imageLiteral(resourceName: "CarryonEx_Jewelry"),
+        ItemNameEN.other.rawValue      : #imageLiteral(resourceName: "carryonex_other")
     ]
 
     
@@ -46,10 +48,12 @@ struct CategoryManager {
         let food        = ItemCategory(nameCn: "食品", nameEn: ItemNameEN.food.rawValue, iconImg: #imageLiteral(resourceName: "CarryonEx_Food"))
         let healthCare  = ItemCategory(nameCn: "医疗保健品", nameEn: ItemNameEN.healthCare.rawValue, iconImg: #imageLiteral(resourceName: "CarryonEx_Medicine"))
         let electronics = ItemCategory(nameCn: "电子产品", nameEn: ItemNameEN.electronics.rawValue, iconImg: #imageLiteral(resourceName: "CarryonEx_Electronics"))
+        let book        = ItemCategory(nameCn: "图书", nameEn: ItemNameEN.book.rawValue, iconImg: #imageLiteral(resourceName: "carryonex_book"))
         let cosmetic    = ItemCategory(nameCn: "美妆用品", nameEn: ItemNameEN.cosmetic.rawValue, iconImg: #imageLiteral(resourceName: "CarryonEx_Cosmetics"))
         let jewelry     = ItemCategory(nameCn: "饰品", nameEn: ItemNameEN.jewelry.rawValue, iconImg: #imageLiteral(resourceName: "CarryonEx_Jewelry"))
-        
-        return [mail, clothes, shoes, handbag, food, healthCare, electronics, cosmetic, jewelry]
+        let other       = ItemCategory(nameCn: "其它", nameEn: ItemNameEN.other.rawValue, iconImg: #imageLiteral(resourceName: "carryonex_other"))
+
+        return [mail, clothes, shoes, handbag, food, healthCare, electronics, book, cosmetic, jewelry, other]
     }
     
 

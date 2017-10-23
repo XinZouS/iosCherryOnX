@@ -16,9 +16,6 @@ extension WaitingController: FBSDKSharingDelegate {
     
     
     internal func dismissView(){
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        print("dismissView!!!!")
         dismiss(animated: true, completion: nil)
     }
     
