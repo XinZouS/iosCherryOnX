@@ -19,10 +19,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
         
     
-    let items: [(icon: String, color: UIColor)] = [
-        ("CarryonExIcon-29", UIColor(red:1, green:0.87, blue:00.7, alpha:0.8)),
-        ("CarryonEx_B", UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
-        ("CarryonEx_A", UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
+    let items: [(icon: UIImage, color: UIColor)] = [
+        ( #imageLiteral(resourceName: "button_youxiang") , UIColor(red:1, green:0.87, blue: 0.7, alpha:0.8)),
+        ( #imageLiteral(resourceName: "button_request") , UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
+        ( #imageLiteral(resourceName: "button_trip") , UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
         ]
     
     let mapView : MKMapView = {
@@ -60,9 +60,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         return t
     }()
 
-    
-    internal let btnTitleShipForMe : String = "成为发件人"
-    internal let btnTitleShipForYou: String = "成为揽件人"
     
     internal var isSideBtnViewShowing : Bool = false
     internal let sideBtnW : CGFloat = 40
@@ -266,12 +263,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     func circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
         button.backgroundColor = items[atIndex].color
         
-        button.setImage(UIImage(named: items[atIndex].icon), for: .normal)
+        button.setImage(items[atIndex].icon, for: .normal)
         
         // set highlited image
-        let highlightedImage  = UIImage(named: items[atIndex].icon)?.withRenderingMode(.alwaysTemplate)
+        let highlightedImage  = items[atIndex].icon.withRenderingMode(.alwaysTemplate)
         button.setImage(highlightedImage, for: .highlighted)
-        button.tintColor = UIColor.init(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.3)
+        button.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     }
     func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int) {
         print("button will selected: \(atIndex)")
