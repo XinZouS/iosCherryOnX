@@ -162,7 +162,7 @@ class ApiServers : NSObject {
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
-                ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username)!,
+                ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
                 ServerKey.password.rawValue: password
             ]
         ]
@@ -277,9 +277,8 @@ class ApiServers : NSObject {
     
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
         let route = "/users/\(propUrl.rawValue)"
-        let completPhone = (ProfileManager.shared.currentUser?.phoneCountryCode)!+"-"+(ProfileManager.shared.currentUser?.phone)!
         let data: [String:String] = [
-            ServerKey.username.rawValue : completPhone,
+            ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
             ServerUserPropKey[propUrl]! : newInfo
         ]
         let parms:[String:Any] = [
