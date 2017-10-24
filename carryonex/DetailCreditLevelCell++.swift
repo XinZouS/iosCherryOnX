@@ -10,9 +10,6 @@ import UIKit
 import MessageUI
 
 extension DetailCreditLevelCell{
-    func wechatButtonTap(){
-        
-    }
     
     func phoneButtonTap(){
         let PhoneNumberUrl = "tel://8613043579747"

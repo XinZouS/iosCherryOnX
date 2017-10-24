@@ -126,14 +126,18 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let w: CGFloat = collectionView.bounds.width
         let h : CGFloat = 50
-        
+        let photoBrowserViewCtl = PhotoBrowserViewController()
         switch indexPath.item {
         case 0:
             return CGSize(width: w, height: 100)
         case 1:
             return CGSize(width: w, height: 50)
         case 2:
-            return CGSize(width: w, height: 150)
+            if(photoBrowserViewCtl.thumbnailImageUrls.count > 3){
+                return CGSize(width: w, height: 230)
+            }else{
+                return CGSize(width: w, height: 150)
+            }
         case 3:
             return CGSize(width: w, height: 50)
         case 4:
@@ -150,5 +154,4 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
-
 }

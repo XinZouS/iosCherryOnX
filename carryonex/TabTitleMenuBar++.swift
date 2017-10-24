@@ -19,10 +19,10 @@ extension TabTitleMenuBar {
     }
     
     func changeBarTitleForScrolling(atSender: Bool){
-        let fountBold = UIFont.systemFont(ofSize: 16, weight: 1.6)
-        let fountSmal = UIFont.systemFont(ofSize: 14)
-        senderCell.titleLabel.font = atSender ? fountBold : fountSmal
-        shipperCell.titleLabel.font = atSender ? fountSmal : fountBold
+            let fountBold = UIFont.systemFont(ofSize: 16, weight: 1.6)
+            let fountSmal = UIFont.systemFont(ofSize: 14)
+            senderCell.titleLabel.font = atSender ? fountBold : fountSmal
+            shipperCell.titleLabel.font = atSender ? fountSmal : fountBold
     }
 
     
