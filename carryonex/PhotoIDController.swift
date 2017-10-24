@@ -56,7 +56,7 @@ class PhotoIDController: UIViewController {
     let titleLabel: UILabel = {
         let t = UILabel()
         t.textAlignment = .center
-        t.text = "我们需要您的个人信息以确保货物安全"
+        t.text = "我们需要验证您的个人信息以确保货物安全"
         t.textColor = textThemeColor
         t.font = UIFont.boldSystemFont(ofSize: 16)
         return t

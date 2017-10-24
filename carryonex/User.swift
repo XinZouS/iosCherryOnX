@@ -30,7 +30,6 @@ enum UserKeyInDB: String {
 class User: Unboxable {
     var id:         String? = "demoUser"
     var username:   String? = ""
-    var password:   String? = ""
     var token:      String? = ""
     var realName:   String? = ""
     var phoneCountryCode: String? = ""
@@ -49,7 +48,6 @@ class User: Unboxable {
     func setupUserByLocal(dictionary: [String : Any]) {
         id          = dictionary["id"] as? String ?? "demoUser"
         username    = dictionary["username"] as? String ?? ""
-        password    = dictionary["password"] as? String ?? ""
         token       = dictionary["token"] as? String ?? ""
         realName    = dictionary["realName"] as? String ?? ""
         phone       = dictionary["phone"] as? String ?? ""
@@ -61,7 +59,6 @@ class User: Unboxable {
     func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
         id          = dictionary[UserKeyInDB.id.rawValue] as? String ?? "demoUser"
         username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? ""
-        password    = dictionary[UserKeyInDB.password.rawValue] as? String ?? "" //TODO: this will be a hash, can we save it and use ?????
         token       = dictionary[UserKeyInDB.token.rawValue] as? String ?? ""
         realName    = dictionary[UserKeyInDB.realName.rawValue] as? String ?? ""
         phone       = (dictionary[UserKeyInDB.phone.rawValue] as? String)?.components(separatedBy: "-").last ?? ""
@@ -81,7 +78,6 @@ class User: Unboxable {
     open func printAllData(){
         print("id = \(id!)")
         print("username = \(username!)")
-        print("password = \(password!)")
         print("token = \(token!)")
         print("realName = \(realName!)")
         print("phone = \(phone), countryCode = \(phoneCountryCode!)")
@@ -92,7 +88,6 @@ class User: Unboxable {
     required init(unboxer: Unboxer) throws {
         self.id         = try? unboxer.unbox(key: UserKeyInDB.id.rawValue)
         self.username   = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
-        self.password   = try? unboxer.unbox(key: UserKeyInDB.password.rawValue)
         self.token      = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
         self.realName   = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)
         self.phone      = try? unboxer.unbox(key: UserKeyInDB.phone.rawValue)

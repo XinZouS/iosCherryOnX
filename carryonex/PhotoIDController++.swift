@@ -22,10 +22,12 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     /// dismiss keyboard by tapping return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
+        setupUserRealNameFrom(textField)
         return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
+        setupUserRealNameFrom(textField)
         return true
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -37,6 +39,16 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         nameTextField.resignFirstResponder()
     }
     
+    private func setupUserRealNameFrom(_ textField: UITextField){
+        if let newName = textField.text, newName != "" {
+            DispatchQueue.main.async(execute: {
+                ProfileManager.shared.currentUser?.realName = newName
+                ApiServers.shared.postUpdateUserInfo(.realName, newInfo: newName, completion: { (success, msg) in
+                    print("save realName to server success = \(success), msg = \(msg)")
+                })
+            })
+        }
+    }
     /// response to 4 image button tapped
     func passportButtonTapped(){
         imagePickedType = ImageTypeOfID.passport
@@ -208,8 +220,8 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
         
         // Configure aws cognito credentials:
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId:"us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7")
-        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USWest2, identityPoolId: awsIdentityPoolId)
+        let configuration = AWSServiceConfiguration(region: .USWest2, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
         // setup AWS Transfer Manager Request:
@@ -256,12 +268,12 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             print("number of images to be upload: ", self.imageUploadingSet.count)
             if self.imageUploadingSet.count == 1 {
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
                     ProfileManager.shared.currentUser?.isVerified = true
                     ProfileManager.shared.saveUser()
-                    self.dismiss(animated: true, completion: nil)
-                    self.homePageController?.showAlertFromPhotoIdController()
                 }
+                self.activityIndicator.stopAnimating()
+                self.dismiss(animated: true, completion: nil)
+                self.homePageController?.showAlertFromPhotoIdController()
             }else{
                 self.imageUploadingSet.removeFirst()
             }
@@ -274,29 +286,37 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         guard let fileType: String = fileName.components(separatedBy: ".").first else { return }
         print("get fileType = \(fileType), save urlStr = \(url.absoluteString)")
         
+        let urlStr = url.absoluteString
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
-            ProfileManager.shared.currentUser?.passportUrl = url.absoluteString
-            passportImgUrlCloud = url.absoluteString
+            ProfileManager.shared.currentUser?.passportUrl = urlStr
+            ApiServers.shared.postUpdateUserInfo(.passportUrl, newInfo: urlStr, completion: { (success, msg) in
+                self.passportImgUrlCloud = success ? urlStr : nil
+            })
             
         case ImageTypeOfID.idCardA.rawValue:
-            ProfileManager.shared.currentUser?.idCardA_Url = url.absoluteString
-            idCardAImgUrlCloud = url.absoluteString
+            ProfileManager.shared.currentUser?.idCardA_Url = urlStr
+            ApiServers.shared.postUpdateUserInfo(.idAUrl, newInfo: urlStr, completion: { (success, msg) in
+                self.idCardAImgUrlCloud = success ? urlStr : nil
+            })
             
         case ImageTypeOfID.idCardB.rawValue:
-            ProfileManager.shared.currentUser?.idCardB_Url = url.absoluteString
-            idCardBImgUrlCloud = url.absoluteString
+            ProfileManager.shared.currentUser?.idCardB_Url = urlStr
+            ApiServers.shared.postUpdateUserInfo(.idBUrl, newInfo: urlStr, completion: { (success, msg) in
+                self.idCardBImgUrlCloud = success ? urlStr : nil
+            })
             
         case ImageTypeOfID.profile.rawValue:
-            ProfileManager.shared.currentUser?.imageUrl = url.absoluteString
-            profileImgUrlCloud = url.absoluteString
+            ProfileManager.shared.currentUser?.imageUrl = urlStr
+            ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: urlStr, completion: { (success, msg) in
+                self.profileImgUrlCloud = success ? urlStr : nil
+            })
             
         default:
             print("invalide fileType input: \(fileType)")
             return
         }
         print("OK!!! saveImageCloudUrl, Uploaded to url:\(url)")
-        
     }
     
     

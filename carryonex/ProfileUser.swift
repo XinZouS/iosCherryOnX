@@ -12,7 +12,6 @@ import Unbox
 class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding for saving to disk
     var id:         String? = "demo user"
     var username:   String? = ""
-    var password:   String? = ""
     var token:      String? = ""
     
     var realName:   String? = ""
@@ -41,7 +40,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         
         dictionary["id"]        = aDecoder.decodeObject(forKey: "id")       as? String
         dictionary["username"]  = aDecoder.decodeObject(forKey: "username") as? String
-        dictionary["password"]  = aDecoder.decodeObject(forKey: "password") as? String
         dictionary["token"]     = aDecoder.decodeObject(forKey: "token")    as? String
         
         dictionary["realName"]  = aDecoder.decodeObject(forKey: "realName") as? String
@@ -69,7 +67,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         
         aCoder.encode(id, forKey: "id")
         aCoder.encode(username, forKey: "username")
-        aCoder.encode(password, forKey: "password")
         aCoder.encode(token, forKey: "token")
         
         aCoder.encode(realName, forKey: "realName")
@@ -93,7 +90,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         var json = [String:Any]()
         json[UserKeyInDB.id.rawValue]          = id
         json[UserKeyInDB.username.rawValue]    = username // value is "phone" to DB
-        json[UserKeyInDB.password.rawValue]    = password
         json[UserKeyInDB.token.rawValue]       = token
         
         json[UserKeyInDB.realName.rawValue]    = realName
@@ -126,7 +122,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         // should NOT modify other values if the dictionary didnot contains them!!!
         self.id          = dictionary["id"]       as? String ?? self.id
         self.username    = dictionary["username"] as? String ?? self.username
-        self.password    = dictionary["password"] as? String ?? self.password
         self.token       = dictionary["token"]    as? String ?? self.token
         
         self.realName    = dictionary["realName"] as? String ?? self.realName
@@ -145,7 +140,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         // should NOT modify other values if the dictionary didnot contains them!!!
         id          = dictionary[UserKeyInDB.id.rawValue]       as? String ?? self.id
         username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? self.username
-        password    = dictionary[UserKeyInDB.password.rawValue] as? String ?? self.password  //TODO: this will be a hash, get salt first
         token       = dictionary[UserKeyInDB.token.rawValue]    as? String ?? self.token
         
         realName    = dictionary[UserKeyInDB.realName.rawValue]     as? String ?? self.realName
@@ -198,7 +192,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     func printAllData(){
         print("id = \(id)")
         print("username = \(username)")
-        print("password = \(password)")
         print("token = \(token)")
         
         print("realName = \(realName)")
@@ -219,7 +212,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     required init(unboxer: Unboxer) throws {
         self.id         = try? unboxer.unbox(key: UserKeyInDB.id.rawValue)
         self.username   = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
-        self.password   = try? unboxer.unbox(key: UserKeyInDB.password.rawValue)
         self.token      = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
         
         self.realName   = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)

@@ -18,12 +18,6 @@ class UserSettingCell : UITableViewCell {
         return b
     }()
     
-    let arrowImageView: UIImageView = {
-        let v = UIImageView()
-        v.image = #imageLiteral(resourceName: "CarryonEx_Plus")
-        v.contentMode = .scaleAspectFit
-        return v
-    }()
     
     
     
@@ -33,7 +27,6 @@ class UserSettingCell : UITableViewCell {
         self.selectionStyle = .none
         
         setupTitleLabel()
-        setupArrowImage()
     }
     
     private func setupTitleLabel(){
@@ -41,13 +34,7 @@ class UserSettingCell : UITableViewCell {
         titleLabel.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 20, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 26)
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
-    private func setupArrowImage(){
-        addSubview(arrowImageView)
-        arrowImageView.addConstraints(left: nil, top: topAnchor, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 0, width: 20, height: 0)
-    }
-    
-    
+        
     
     
     required init?(coder aDecoder: NSCoder) {
