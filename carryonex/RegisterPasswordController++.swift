@@ -21,6 +21,7 @@ extension RegisterPasswordController: UITextFieldDelegate {
         ApiServers.shared.postRegisterUser(username: username!, phone: phone!, password: newPassword!, email: email!) { (isSuccess, msg) in
             if isSuccess == true{
                 print(msg)
+                ProfileManager.shared.saveUser()
                 self.dismiss(animated: true, completion: nil)
             }else{
                 print(msg)

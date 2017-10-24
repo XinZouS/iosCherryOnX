@@ -14,6 +14,7 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
             if (msg != nil) {
+                ProfileManager.shared.saveUser()
                 self.dismiss(animated: true, completion: nil)
             }else{
                 print(msg)
