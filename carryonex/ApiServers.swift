@@ -142,7 +142,7 @@ class ApiServers : NSObject {
     func isUserExisted(handleInfo: @escaping (Bool) -> Void){
         let sessionStr = "/users/exist"
         let headers:[String:String] = [
-            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username)!,
+            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
