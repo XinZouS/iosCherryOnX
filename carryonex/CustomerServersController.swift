@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class CustomerServersController: UIViewController {
     
     var titles: [[String]] = [
@@ -60,11 +58,11 @@ class CustomerServersController: UIViewController {
     }()
     
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +94,7 @@ class CustomerServersController: UIViewController {
 }
 
 
-extension CustomerServersController: UITableViewDelegate, UITableViewDataSource {
+extension CustomerServersController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return headers.count
@@ -106,9 +104,14 @@ extension CustomerServersController: UITableViewDelegate, UITableViewDataSource 
         return titles[section].count
     }
     
+}
+
+
+extension CustomerServersController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == headers.count - 1, indexPath.row == titles[indexPath.section].count - 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: footerInfoCellId, for: indexPath) 
+            let cell = tableView.dequeueReusableCell(withIdentifier: footerInfoCellId, for: indexPath)
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: customerServersCellId, for: indexPath)
@@ -122,7 +125,7 @@ extension CustomerServersController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == headers.count - 1, indexPath.row == titles[indexPath.section].count - 1 {
             return 80
-        }else{
+        } else {
             return 40
         }
     }
@@ -149,10 +152,8 @@ extension CustomerServersController: UITableViewDelegate, UITableViewDataSource 
         
         return v
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 36
     }
-    
-    
-    
 }
