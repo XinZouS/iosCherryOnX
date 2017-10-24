@@ -28,9 +28,9 @@ extension UserInfoMenuView {
             self.homePageCtl?.present(ordersNav, animated: true)
             
         case 2:
-            print("TODO: open 客服 page...")
-            let inviteFriendCtl = InviteFriendController()
-            self.homePageCtl?.present(inviteFriendCtl, animated: true)
+            let customerSv = CustomerServersController()
+            let customNav = UINavigationController(rootViewController: customerSv)
+            self.homePageCtl?.present(customNav, animated: true)
             
         case 3:
             let userSettingCtl = UserSettingController()

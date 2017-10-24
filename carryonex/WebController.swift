@@ -24,10 +24,14 @@ class WebController: UIViewController, WKNavigationDelegate {
         return w
     }()
     
+    var activityIndicator: UIActivityIndicatorCustomizeView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupWebView()
+        setupActivityIndicatorView()
     }
     
     private func setupWebView(){
@@ -40,7 +44,19 @@ class WebController: UIViewController, WKNavigationDelegate {
         DispatchQueue.main.async {
             let request = URLRequest(url: self.url)
             self.webView.load(request)
+            self.activityIndicator.startAnimating()
         }
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicator.stopAnimating()
+    }
+    
+    private func setupActivityIndicatorView(){
+        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
     }
 
 }
