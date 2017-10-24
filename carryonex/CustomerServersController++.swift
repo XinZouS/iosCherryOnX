@@ -32,6 +32,35 @@ extension CustomerServersController {
         }
     }
     
+    internal func getContentTitleAndUrlFromDB(){
+        ApiServers.shared.getConfigDocTitleAndUrls(typeKey: .customerService) { (dictionary) in
+            var getHeaders  : [String] = []
+            var getTitles   : [[String]] = [[]]
+            var getUrls     : [[String]] = [[]]
+            for pair in dictionary {
+                getHeaders.append(pair.key)
+                if let content = pair.value as? [[String:String]] {
+                    var newTitles: [String] = []
+                    var newUrls  : [String] = []
+                    for touple in content {
+                        newTitles.append(touple["title"] ?? "")
+                        newUrls.append(touple["url"] ?? "")
+                    }
+                    getTitles.append(newTitles)
+                    getUrls.append(newUrls)
+                }
+            }
+            if var last = getTitles.last as? [String] {
+                last.append(" ")
+                getTitles.removeLast()
+                getTitles.append(last)
+            }
+            self.headers = getHeaders
+            self.titles = getTitles
+            self.urls = getUrls
+        }
+    }
+    
 }
 
 // MARK: - Pop alert view

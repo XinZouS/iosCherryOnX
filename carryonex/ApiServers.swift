@@ -36,6 +36,11 @@ let ServerUserPropKey : [ServerUserPropUrl:String] = [
     ServerUserPropUrl.wallet    : "wallet"
 ]
 
+enum ServerConfigDocType: String {
+    case tutorials = "tutorials"
+    case customerService = "customer_service"
+}
+
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -88,8 +93,10 @@ class ApiServers : NSObject {
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
     //private let host = "http://0.0.0.0:5000/api/1.0"       // local host on this laptop you are looking at
-    //private let host = "http://192.168.0.119:5000/api/1.0" // local host on Siyuan's laptop
-    private let host = "http://54.245.216.35:5000/api/1.0" // testing host on AWS
+    private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
+    //private let host = "http://54.245.216.35:5000" // testing host on AWS
+    
+    private let hostVersion = "/api/1.0"
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
@@ -104,7 +111,7 @@ class ApiServers : NSObject {
     //Zian - The call back can be anything, i just use boolean to indicate register or not
     func postRegisterUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool, String) -> Swift.Void) {
         
-        let route = "/users"
+        let route = hostVersion + "/users"
         let postData = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
@@ -140,7 +147,7 @@ class ApiServers : NSObject {
     
     //user existed
     func isUserExisted(handleInfo: @escaping (Bool) -> Void){
-        let sessionStr = "/users/exist"
+        let sessionStr = hostVersion + "/users/exist"
         let headers:[String:String] = [
             ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
             ServerKey.timestamp.rawValue: getTimestampStr(),
@@ -157,7 +164,7 @@ class ApiServers : NSObject {
     }
 
   func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
-        let route = "/users/login"
+        let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -183,7 +190,7 @@ class ApiServers : NSObject {
     }
     
     func postLogoutUser(completion: @escaping (Bool, String?) -> Void){
-        let route = "/users/logout"
+        let route = hostVersion + "/users/logout"
         let parms:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -205,7 +212,7 @@ class ApiServers : NSObject {
     }
     
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
-        let sessionStr = "/users/\(propertyUrl.rawValue)"
+        let sessionStr = hostVersion + "/users/\(propertyUrl.rawValue)"
 //        let urlStr = "\(host)\(sessionStr)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
@@ -225,7 +232,7 @@ class ApiServers : NSObject {
     }
     /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
-        let sessionStr = "/users/info"
+        let sessionStr = hostVersion + "/users/info"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -247,7 +254,7 @@ class ApiServers : NSObject {
     }
     
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
-        let sessionStr = "/users/\(type.rawValue)"
+        let sessionStr = hostVersion + "/users/\(type.rawValue)"
         let headers:[String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -276,7 +283,7 @@ class ApiServers : NSObject {
     }
     
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
-        let route = "/users/\(propUrl.rawValue)"
+        let route = hostVersion + "/users/\(propUrl.rawValue)"
         let data: [String:String] = [
             ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
             ServerUserPropKey[propUrl]! : newInfo
@@ -305,7 +312,7 @@ class ApiServers : NSObject {
     
     func getAllUsers(callback: @escaping(([User]?) -> Void)) {
         
-        let route = "/users/allusers"
+        let route = hostVersion + "/users/allusers"
         let timestamp = NSDate.timeIntervalSinceReferenceDate
         let parameters = [
             "app_token" : appToken, "username": "user0",
@@ -324,6 +331,16 @@ class ApiServers : NSObject {
         }
     }
     
+    func getConfigDocTitleAndUrls(typeKey: ServerConfigDocType, completion: @escaping([String:Any]) -> Void){
+        let route = "/config"
+        getDataWithUrlRoute(route, parameters: [:]) { (responseValue) in
+            if let data = responseValue["data"] as? [String:Any], let config = data["config"] as? [String:Any] {
+                if let dictionary = config[typeKey.rawValue] as? [String:Any] {
+                    completion(dictionary)
+                }
+            }
+        }
+    }
     
     // MARK: - ItemCategory APIs
     
@@ -339,7 +356,7 @@ class ApiServers : NSObject {
     // MARK: - Trip APIs
     
     func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String,[Trip]?) -> Void){
-        let route = "/trips/\(queryRoute.rawValue)"
+        let route = hostVersion + "/trips/\(queryRoute.rawValue)"
         var headers: [String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
@@ -370,7 +387,7 @@ class ApiServers : NSObject {
     }
     
     func postTripInfo(trip: Trip){
-        let sessionStr = "/trips/trips"
+        let sessionStr = hostVersion + "/trips/trips"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,

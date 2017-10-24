@@ -12,24 +12,30 @@ import UIKit
 
 class CustomerServersController: UIViewController {
     
-    let titles: [[String]] = [
+    var titles: [[String]] = [
         ["服务区域", "特殊物品"],
         ["认证与个人资料", "订单无响应"],
         ["支付与账户", "运费到账时间"],
         ["在美国境外能用吗", "软件安全"],
         ["寄件人安全与控诉", "出行人安全与控诉", "责任追究", " "] // the last one empty is for "footer" info
     ]
-    let headers: [String] = ["猜你想问","订单类","支付类","软件问题","投诉问题"]
-    let headerIcons: [UIImage] = [#imageLiteral(resourceName: "CarryonExIcon-29"), #imageLiteral(resourceName: "carryonex_sheet"), #imageLiteral(resourceName: "carryonex_wallet"), #imageLiteral(resourceName: "carryonex_setting"), #imageLiteral(resourceName: "carryonex_customerSev") ]
     
-    let urls: [[String]] = [
+    var headers: [String] = ["猜你想问🔑","订单类🛎","支付类💳","软件问题📲","投诉问题⚠️"]
+    let headerIcons: [UIImage] = [#imageLiteral(resourceName: "CarryonExIcon-29"), #imageLiteral(resourceName: "carryonex_sheet"), #imageLiteral(resourceName: "carryonex_wallet"), #imageLiteral(resourceName: "carryonex_setting"), #imageLiteral(resourceName: "carryonex_customerSev"), #imageLiteral(resourceName: "CarryonExIcon-29"), #imageLiteral(resourceName: "carryonex_sheet"), #imageLiteral(resourceName: "carryonex_wallet"), #imageLiteral(resourceName: "carryonex_setting"), #imageLiteral(resourceName: "carryonex_customerSev") ] // in case we need more sections, title from DB, icon is local;
+    
+    var urls: [[String]] = [
         ["https://www.carryonex.com/", "https://www.carryonex.com/"], // "服务区域", "特殊物品"
         ["\(userGuideWebHoster)/doc_verification", "https://www.carryonex.com/"], // "认证与个人资料", "订单无响应"
         ["\(userGuideWebHoster)/doc_payment", "\(userGuideWebHoster)/doc_payment_timing"], // "支付与账户", "运费到账时间"
         ["https://www.carryonex.com/", "https://www.carryonex.com/"], // "在美国境外能用吗", "软件安全"
         // "寄件人安全与控诉", "出行人安全与控诉", "责任追究", " "
         ["\(userGuideWebHoster)/doc_security_charge_requester", "\(userGuideWebHoster)/doc_security_charge_tripper", "https://www.carryonex.com/", " "]
-    ]
+        ] { didSet{
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+            })
+        }
+    }
     
     let customerServersCellId = "customerServersCellId"
     let footerInfoCellId = "footerInfoCellId"
@@ -71,6 +77,7 @@ class CustomerServersController: UIViewController {
         
         setupTableView()
         setupBottomButton()
+        getContentTitleAndUrlFromDB()
     }
     
     private func setupTableView(){
