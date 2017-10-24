@@ -207,10 +207,9 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-        let ordersLogCtl = OrdersLogController(collectionViewLayout: UICollectionViewFlowLayout())
-        isOrderList = true
-        let orderNavView = UINavigationController(rootViewController: ordersLogCtl)
-        self.present(orderNavView, animated: true, completion: nil)
+        let waitingListCtl = WaitingListController(collectionViewLayout: UICollectionViewFlowLayout())
+        let waitingListView = UINavigationController(rootViewController: waitingListCtl)
+        self.present(waitingListView, animated: true, completion: nil)
     }
     
     // do not need to check if user is shipper or sender;

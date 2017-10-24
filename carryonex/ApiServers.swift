@@ -138,7 +138,25 @@ class ApiServers : NSObject {
         }
     }
     
-    func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
+    //user existed
+    func isUserExisted(handleInfo: @escaping (Bool) -> Void){
+        let sessionStr = "/users/exist"
+        let headers:[String:String] = [
+            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.appToken.rawValue : appToken
+        ]
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
+            print("get infoDictionary: \(responsDictionary)")
+            if let isExist = responsDictionary["status_code"] as? Int {
+                handleInfo(isExist != 200)
+            }else{
+                handleInfo(false)
+            }
+        }
+    }
+
+  func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
         let route = "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),

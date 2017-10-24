@@ -188,6 +188,12 @@
 		FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */; };
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
+		FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E501F9E44500011A425 /* PhotoBrowserViewController.swift */; };
+		FFDC0E531F9E44D70011A425 /* PhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E521F9E44D70011A425 /* PhotoBrowserCollectionViewCell.swift */; };
+		FFDC0E571F9E614F0011A425 /* DetailItemPictureCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E561F9E614F0011A425 /* DetailItemPictureCell++.swift */; };
+		FFDC0E5A1F9E8BD80011A425 /* WaitingListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E591F9E8BD80011A425 /* WaitingListController.swift */; };
+		FFDC0E5C1F9E8DD30011A425 /* WaitingListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E5B1F9E8DD30011A425 /* WaitingListCell.swift */; };
+		FFDC0E5F1F9E90A10011A425 /* WaitingListController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC0E5E1F9E90A10011A425 /* WaitingListController++.swift */; };
 		FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */; };
 		FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */; };
 /* End PBXBuildFile section */
@@ -380,6 +386,12 @@
 		FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
+		FFDC0E501F9E44500011A425 /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		FFDC0E521F9E44D70011A425 /* PhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
+		FFDC0E561F9E614F0011A425 /* DetailItemPictureCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailItemPictureCell++.swift"; sourceTree = "<group>"; };
+		FFDC0E591F9E8BD80011A425 /* WaitingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListController.swift; sourceTree = "<group>"; };
+		FFDC0E5B1F9E8DD30011A425 /* WaitingListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingListCell.swift; sourceTree = "<group>"; };
+		FFDC0E5E1F9E90A10011A425 /* WaitingListController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaitingListController++.swift"; sourceTree = "<group>"; };
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/WechatOpenSDK/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressDetailCell++.swift"; sourceTree = "<group>"; };
@@ -557,6 +569,7 @@
 		665DE5021F3A59E4004DDB88 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC0E581F9E8B9B0011A425 /* WaitingList */,
 				66421C6F1F65E3E50034D9DC /* OnboardingPage.swift */,
 				66C975701F3E12F500450F37 /* HomePages */,
 				66C975721F3E133200450F37 /* UserInfoPage */,
@@ -578,6 +591,7 @@
 		665DE5031F3A59E9004DDB88 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC0E5D1F9E906C0011A425 /* WaitingList */,
 				66421C711F65E7AD0034D9DC /* OnboardingPage++.swift */,
 				66C975711F3E130D00450F37 /* HomePages */,
 				66C975731F3E137100450F37 /* UserInfoPage */,
@@ -999,6 +1013,7 @@
 			children = (
 				FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */,
 				FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */,
+				FFDC0E561F9E614F0011A425 /* DetailItemPictureCell++.swift */,
 			);
 			name = OrderDetailPage;
 			sourceTree = "<group>";
@@ -1006,6 +1021,7 @@
 		FFBA50941F97D63700D390B2 /* OrderDetailPage */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC0E4F1F9E440C0011A425 /* PhotoBrowser */,
 				FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */,
 				FF4896E81F9906D3009B3EE5 /* DetailBaseCell.swift */,
 				FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */,
@@ -1018,6 +1034,32 @@
 				FF4896F41F992B53009B3EE5 /* DetailButtonCell.swift */,
 			);
 			name = OrderDetailPage;
+			sourceTree = "<group>";
+		};
+		FFDC0E4F1F9E440C0011A425 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				FFDC0E501F9E44500011A425 /* PhotoBrowserViewController.swift */,
+				FFDC0E521F9E44D70011A425 /* PhotoBrowserCollectionViewCell.swift */,
+			);
+			name = PhotoBrowser;
+			sourceTree = "<group>";
+		};
+		FFDC0E581F9E8B9B0011A425 /* WaitingList */ = {
+			isa = PBXGroup;
+			children = (
+				FFDC0E591F9E8BD80011A425 /* WaitingListController.swift */,
+				FFDC0E5B1F9E8DD30011A425 /* WaitingListCell.swift */,
+			);
+			name = WaitingList;
+			sourceTree = "<group>";
+		};
+		FFDC0E5D1F9E906C0011A425 /* WaitingList */ = {
+			isa = PBXGroup;
+			children = (
+				FFDC0E5E1F9E90A10011A425 /* WaitingListController++.swift */,
+			);
+			name = WaitingList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1168,8 +1210,10 @@
 				6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */,
 				66E520451F4B6E04008E521D /* YouxiangCell.swift in Sources */,
 				6681310B1F92F2810022AEED /* UIColor++.swift in Sources */,
+				FFDC0E5F1F9E90A10011A425 /* WaitingListController++.swift in Sources */,
 				66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */,
 				668131091F92C02A0022AEED /* UserInfoMenuView.swift in Sources */,
+				FFDC0E5C1F9E8DD30011A425 /* WaitingListCell.swift in Sources */,
 				6657E94D1F435C1F00755443 /* PhotoIDController++.swift in Sources */,
 				668609771F607ADB00740A92 /* WalletAddingCell.swift in Sources */,
 				666545B01F96A154006F8B26 /* CUser.swift in Sources */,
@@ -1237,6 +1281,7 @@
 				66F2FF0F1F9D00C200A37881 /* FooterInfoCell.swift in Sources */,
 				FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */,
 				660F4F7B1F571CD000F4820D /* RecipientPhoneCell++.swift in Sources */,
+				FFDC0E5A1F9E8BD80011A425 /* WaitingListController.swift in Sources */,
 				FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */,
 				664C64941F55CD6700AA8FFE /* PostBaseCell.swift in Sources */,
 				66E650171F5F129300DA90DE /* ApiServers.swift in Sources */,
@@ -1266,6 +1311,8 @@
 				667DBD6D1F95230800DF3800 /* UserGuideController++.swift in Sources */,
 				FF4896EB1F9910E8009B3EE5 /* DetailItemPictureCell.swift in Sources */,
 				660704E81F3D062E000C09FD /* UserInfoViewCell.swift in Sources */,
+				FFDC0E531F9E44D70011A425 /* PhotoBrowserCollectionViewCell.swift in Sources */,
+				FFDC0E571F9E614F0011A425 /* DetailItemPictureCell++.swift in Sources */,
 				66A16AF81F3B6B2E00B32AD3 /* Trip.swift in Sources */,
 				660F4F741F570E6300F4820D /* RecipientPhoneCell.swift in Sources */,
 				66D67FF31F95161C002646F0 /* UserGuideController.swift in Sources */,
@@ -1320,6 +1367,7 @@
 				6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */,
 				66D67FF51F951B2C002646F0 /* UserGuidePageCell.swift in Sources */,
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
+				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
 				6642D1201F990DFF00C3AE29 /* CategoryManager.swift in Sources */,

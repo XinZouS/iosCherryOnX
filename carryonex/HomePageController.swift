@@ -179,6 +179,10 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupUserInfoMenuView()
 
         testApiServers()
+        
+        ApiServers.shared.isUserExisted { (isExist) in
+            print(isExist)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
