@@ -63,7 +63,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                 } else {
                     print("PhoneNumberController: 有错误: \(err)")
                     let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
-                    self .showAlertWith(title: "获取验证码失败", message: msg)
+                    self.showAlertWith(title: "获取验证码失败", message: msg)
                 }
             })
         }else{
@@ -103,10 +103,13 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         self.navigationController?.pushViewController(disCtrlView, animated: true)
     }
     
-    // development use: go next page without phone verification
     func goToVerificationPage(){
         ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
-        ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+        if let currName = ProfileManager.shared.currentUser?.username, currName.characters.count > 6 {
+            // already has username, do nothing;
+        }else{
+            ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+        }
         let verifiCtl = VerificationController()
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
@@ -281,6 +284,14 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         self.navigationController?.popToRootViewController(animated: false)
         self.dismiss(animated: true) {
             print("go back to home page.")
+        }
+    }
+    
+    func cancelButtonTapped(){
+        if self.navigationController?.viewControllers.count == 1 {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

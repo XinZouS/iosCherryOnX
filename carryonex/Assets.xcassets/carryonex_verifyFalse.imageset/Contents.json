@@ -1,16 +1,16 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
-      "filename" : "主页左上角打开菜单按钮 1.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
+      "filename" : "carryonex_verifyFalse.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],

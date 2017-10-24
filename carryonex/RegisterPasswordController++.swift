@@ -13,8 +13,8 @@ extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
         isRegister = false
         alreadyExist = true
-        ProfileManager.shared.currentUser?.password = passwordField.text
-        ProfileManager.shared.currentUser?.saveIntoLocalDisk()
+        let newPassword = passwordField.text
+        // TODO: hash pw and upload to server
         self.dismiss(animated: true, completion: nil)
     }
     

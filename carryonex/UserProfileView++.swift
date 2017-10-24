@@ -17,6 +17,16 @@ extension UserProfileView {
         homePageCtl?.profileImageButtonTapped()
     }
     
+    internal func nameButtonTapped(){
+        let navPhoto = UINavigationController(rootViewController: PhotoIDController())
+        homePageCtl?.present(navPhoto, animated: true, completion: nil)
+    }
+    internal func phoneButtonTapped(){
+        isModifyPhoneNumber = true // this is a Global var ??? should be a propity in PhoneNumController is better;
+        let navPhone = UINavigationController(rootViewController: PhoneNumberController())
+        homePageCtl?.present(navPhone, animated: true, completion: nil)
+    }
+    
     private func getDocumentUrl() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
@@ -30,11 +40,32 @@ extension UserProfileView {
         return fileUrl
     }
     
-    internal func loadNameAndPhoneInfo(){
-        nameLabel.text = ProfileManager.shared.currentUser?.nickName ?? ""
-        let phoneNum = ProfileManager.shared.currentUser?.phone ?? ""
-        let cc = ProfileManager.shared.currentUser?.phoneCountryCode ?? ""
-        phoneLabel.text = phoneNum.formatToPhoneNum(countryCode: cc)
+    public func loadNameAndPhoneInfo(){ // also do this in HomePageController
+        if let currName = ProfileManager.shared.currentUser?.realName, currName != "" {
+            let attStr = NSAttributedString(string: currName, attributes: buttonAttributes)
+            nameButton.setAttributedTitle(attStr, for: .normal)
+            nameButton.isEnabled = false
+        }else{
+            let attStr = NSAttributedString(string: "请提交您的身份验证信息", attributes: buttonAttributes)
+            nameButton.setAttributedTitle(attStr, for: .normal)
+            nameButton.isEnabled = true
+        }
+
+        if let currPhone = ProfileManager.shared.currentUser?.phone, currPhone != "" {
+            let cc = ProfileManager.shared.currentUser?.phoneCountryCode ?? ""
+            let phoneStr = currPhone.formatToPhoneNum(countryCode: cc)
+            let attStr = NSAttributedString(string: phoneStr, attributes: buttonAttributes)
+            phoneButton.setAttributedTitle(attStr, for: .normal)
+            phoneButton.isEnabled = false
+        }else{
+            let attStr = NSAttributedString(string: "请验证您的手机号", attributes: buttonAttributes)
+            phoneButton.setAttributedTitle(attStr, for: .normal)
+            phoneButton.isEnabled = true
+        }
+        
+        if !nameButton.isEnabled && !phoneButton.isEnabled {
+            verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifyTrue")
+        }
     }
     
     internal func loadProfileImageFromLocalFile(){

@@ -24,24 +24,30 @@ class UserProfileView: UIView {
 //        return v
 //    }()
     
-    let nameLabel: UILabel = {
-        let b = UILabel()
-        b.text = "姓名??"
-        b.textColor = .white
-        b.font = UIFont.systemFont(ofSize: 18)
-        b.textAlignment = .center
+    let buttonAttributes : [String:Any] = [
+        NSForegroundColorAttributeName: UIColor.white,
+        NSFontAttributeName: UIFont.systemFont(ofSize: 16)
+    ]
+
+    lazy var nameButton: UIButton = {
+        let b = UIButton()
+        b.addTarget(self, action: #selector(nameButtonTapped), for: .touchUpInside)
         b.backgroundColor = .clear
         return b
     }()
     
-    let phoneLabel: UILabel = {
-        let b = UILabel()
-        b.text = "xxx.xxx.6666"
-        b.textColor = .white
-        b.font = UIFont.systemFont(ofSize: 16)
-        b.textAlignment = .center
+    lazy var phoneButton: UIButton = {
+        let b = UIButton()
+        b.addTarget(self, action: #selector(phoneButtonTapped), for: .touchUpInside)
         b.backgroundColor = .clear
         return b
+    }()
+    
+    let verifiedMarkerImage : UIImageView = {
+        let v = UIImageView()
+        v.contentMode = .scaleAspectFit
+        v.image = #imageLiteral(resourceName: "carryonex_verifyFalse")
+        return v
     }()
     
     private let profileImgHW: CGFloat = 60
@@ -84,11 +90,14 @@ class UserProfileView: UIView {
         
         setupProfileImgButton()
         
-        addSubview(nameLabel)
-        nameLabel.addConstraints(left: leftAnchor, top: profileImgButton.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
+        addSubview(nameButton)
+        nameButton.addConstraints(left: leftAnchor, top: profileImgButton.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
         
-        addSubview(phoneLabel)
-        phoneLabel.addConstraints(left: leftAnchor, top: nameLabel.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 6, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
+        addSubview(phoneButton)
+        phoneButton.addConstraints(left: leftAnchor, top: nameButton.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 6, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
+        
+        addSubview(verifiedMarkerImage)
+        verifiedMarkerImage.addConstraints(left: nil, top: nil, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 15, width: 30, height: 30)
         
 //        addSubview(isCarrierSegmentControl)
 //        isCarrierSegmentControl.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: -5, topConstent: 120, rightConstent: -5, bottomConstent: 0, width: 0, height: 55)

@@ -104,17 +104,24 @@ extension VerificationController: UITextFieldDelegate {
     }
     
     private func verifySuccess(){
-        let userSettingCtl = UserSettingController()
-        if (isModifyPhoneNumber == true){
+        DispatchQueue.main.async {
+            ProfileManager.shared.saveUser()
+            if let newPhone = ProfileManager.shared.currentUser?.phone {
+                ApiServers.shared.postUpdateUserInfo(.phone, newInfo: newPhone, completion: { (success, msg) in
+                    print("postUpdateUserInfo phone isSuccess = \(success), msg = \(msg)")
+                })
+            }
+        }
+        if isModifyPhoneNumber {
             print("修改")
             isModifyPhoneNumber = false
+            let userSettingCtl = UserSettingController()
             navigationController?.pushViewController(userSettingCtl, animated: true)
-        }
-        else{
-            let inputPasswordCtl = InputPasswordLoginController()
+        }else{
             isRegister = false
             alreadyExist = true
             print("验证成功! Go to Home page!")
+            let inputPasswordCtl = InputPasswordLoginController()
             navigationController?.pushViewController(inputPasswordCtl, animated: true)
         }
     }
