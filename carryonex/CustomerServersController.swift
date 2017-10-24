@@ -77,7 +77,7 @@ class CustomerServersController: UIViewController {
         
         setupTableView()
         setupBottomButton()
-        getContentTitleAndUrlFromDB()
+        //getContentTitleAndUrlFromDB()
     }
     
     private func setupTableView(){

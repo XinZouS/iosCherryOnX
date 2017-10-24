@@ -11,14 +11,8 @@ import Unbox
 
 struct Config {
     let version: String
-    let ask: [ConfigURLItem]
-    let order: [ConfigURLItem]
-    let payment: [ConfigURLItem]
-    let software: [ConfigURLItem]
-    let complain: [ConfigURLItem]
-    let problems: [ConfigURLItem]
-    let sender: [ConfigURLItem]
-    let carrier: [ConfigURLItem]
+    let tutorial: ConfigSection
+    let customerService: ConfigSection
 }
 
 //MARK: - Adjust based on config feed return.
@@ -26,14 +20,22 @@ struct Config {
 extension Config: Unboxable {
     init(unboxer: Unboxer) throws {
         self.version = try unboxer.unbox(key: "version")
-        self.ask = try unboxer.unbox(key: "customer_service.ask")
-        self.order = try unboxer.unbox(key: "customer_service.order")
-        self.payment = try unboxer.unbox(key: "customer_service.payment")
-        self.software = try unboxer.unbox(key: "customer_service.software")
-        self.complain = try unboxer.unbox(key: "customer_service.complain")
-        self.problems = try unboxer.unbox(key: "tutorials.problems")
-        self.sender = try unboxer.unbox(key: "tutorials.sender")
-        self.carrier = try unboxer.unbox(key: "tutorials.carrier")
+        self.tutorial = try unboxer.unbox(key: "tutorials")
+        self.customerService = try unboxer.unbox(key: "customer_service")
+    }
+}
+
+struct ConfigSection {
+    let title: String
+    let order: Int
+    let urlItems: [ConfigURLItem]
+}
+
+extension ConfigSection: Unboxable {
+    init(unboxer: Unboxer) throws {
+        self.title = try unboxer.unbox(key: "title")
+        self.order = try unboxer.unbox(key: "order")
+        self.urlItems = try unboxer.unbox(key: "urls")
     }
 }
 
