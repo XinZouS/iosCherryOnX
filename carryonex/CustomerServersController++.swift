@@ -34,20 +34,25 @@ extension CustomerServersController {
     
     internal func getContentTitleAndUrlFromDB(){
         ApiServers.shared.getConfigDocTitleAndUrls(typeKey: .customerService) { (dictionary) in
+            guard dictionary.count > 0 else { return }
+            
             var getHeaders  : [String] = []
-            var getTitles   : [[String]] = [[]]
-            var getUrls     : [[String]] = [[]]
+            var getTitles   : [[String]] = []
+            var getUrls     : [[String]] = []
+            
             for pair in dictionary {
-                getHeaders.append(pair.key)
-                if let content = pair.value as? [[String:String]] {
-                    var newTitles: [String] = []
-                    var newUrls  : [String] = []
-                    for touple in content {
-                        newTitles.append(touple["title"] ?? "")
-                        newUrls.append(touple["url"] ?? "")
+                if let p = pair.value as? [String:Any] {
+                    getHeaders.append(p["title"] as! String)
+                    if let urlDic = p["urls"] as? [[String:String]] {
+                        var titArr: [String] = []
+                        var urlArr: [String] = []
+                        for item in urlDic {
+                            titArr.append(item["title"] as! String)
+                            urlArr.append(item["url"] as! String)
+                        }
+                        getTitles.append(titArr)
+                        getUrls.append(urlArr)
                     }
-                    getTitles.append(newTitles)
-                    getUrls.append(newUrls)
                 }
             }
             if var last = getTitles.last as? [String] {

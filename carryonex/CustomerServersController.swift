@@ -107,7 +107,7 @@ extension CustomerServersController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == headers.count - 1, indexPath.row == titles[indexPath.section].count - 1 {
+        if indexPath.section == titles.count - 1, indexPath.row == titles[indexPath.section].count - 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: footerInfoCellId, for: indexPath) 
             return cell
         }else{
