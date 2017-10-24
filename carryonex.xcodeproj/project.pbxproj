@@ -162,6 +162,7 @@
 		66E650211F5F86C000DA90DE /* OrderLogShipperCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E650201F5F86C000DA90DE /* OrderLogShipperCell++.swift */; };
 		66F2FF0F1F9D00C200A37881 /* FooterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2FF0E1F9D00C200A37881 /* FooterInfoCell.swift */; };
 		90D4C228BA0130B57100B4AD /* Pods_carryonex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */; };
+		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
 		FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF009A681F7C44C8008EA215 /* addressCN.plist */; };
 		FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */; };
@@ -359,6 +360,7 @@
 		66E650201F5F86C000DA90DE /* OrderLogShipperCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrderLogShipperCell++.swift"; sourceTree = "<group>"; };
 		66F2FF0E1F9D00C200A37881 /* FooterInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterInfoCell.swift; sourceTree = "<group>"; };
 		8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carryonex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
 		FF009A681F7C44C8008EA215 /* addressCN.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressCN.plist; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				6686096E1F60703800740A92 /* Transaction.swift */,
 				667266651F6715700010FDEC /* CheckingAccount.swift */,
 				667266671F67158F0010FDEC /* CreditAccount.swift */,
+				E597D94D1F9FD32900B98CAB /* Config.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1372,6 +1375,7 @@
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
 				6642D1201F990DFF00C3AE29 /* CategoryManager.swift in Sources */,
 				660F4F6B1F56FFEC00F4820D /* AddressController.swift in Sources */,
+				E597D94E1F9FD32900B98CAB /* Config.swift in Sources */,
 				663B9A031F8BD3BF006CFBDA /* ImageCellCollectionCell++.swift in Sources */,
 				66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */,
 				667DBD6A1F95208800DF3800 /* UserGuidePageTableCell.swift in Sources */,
