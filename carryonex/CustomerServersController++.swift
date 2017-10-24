@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension CustomerServersController {
     
     func onlineCustomerServersButtonTapped(){
@@ -19,21 +18,6 @@ extension CustomerServersController {
     
     func backButtonTapped(){
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == titles.count - 1, indexPath.row == titles[titles.count - 1].count - 1 {
-            return // the last cell is for "footer" info, so do nothing
-        }else{
-            let webCtl = WebController()
-            webCtl.url = URL(string: urls[indexPath.section][indexPath.item]) ?? URL(string: "https://www.carryonex.com/")
-            webCtl.title = titles[indexPath.section][indexPath.row]
-            navigationController?.pushViewController(webCtl, animated: true)
-        }
-    }
-    
-    func loadDataSource() {
-        
     }
 }
 
