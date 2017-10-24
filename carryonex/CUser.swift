@@ -16,7 +16,7 @@ enum UserKey: String {
     case username = "username"
     case password = "password"
     case token       = "user_token"
-    case nickName    = "real_name"
+    case realName    = "real_name"
     case phone       = "phone"
     case email       = "email"
     case imageUrl    = "image_url"
@@ -32,7 +32,7 @@ struct CUser {
     var username:   String?
     var password:   String?
     var token:      String?
-    var nickName:   String? // username is for login, nickName is for display
+    var realName:   String? // username is for login, realName is for display
     var phone:      String?
     var email:      String?
     var imageUrl:   String?
@@ -44,7 +44,7 @@ extension CUser: Unboxable {
         self.username = try? unboxer.unbox(key: UserKey.username.rawValue)
         self.password = try? unboxer.unbox(key: UserKey.password.rawValue)
         self.token = try? unboxer.unbox(key: UserKey.token.rawValue)
-        self.nickName = try? unboxer.unbox(key: UserKey.nickName.rawValue)
+        self.realName = try? unboxer.unbox(key: UserKey.realName.rawValue)
         self.phone = try? unboxer.unbox(key: UserKey.phone.rawValue)
         self.email = try? unboxer.unbox(key: UserKey.email.rawValue)
         self.imageUrl = try? unboxer.unbox(key: UserKey.imageUrl.rawValue)

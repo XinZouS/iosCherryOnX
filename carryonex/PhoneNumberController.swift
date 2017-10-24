@@ -126,11 +126,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
-        if (isModifyPhoneNumber == false){
-            navigationController?.isNavigationBarHidden = true
-        }else{
-            navigationController?.isNavigationBarHidden = false
-        }
+        navigationController?.isNavigationBarHidden = !isModifyPhoneNumber
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -163,6 +159,9 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
         title = "输入手机"
+        
+        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     private func setupnextButton(){

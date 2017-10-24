@@ -56,7 +56,7 @@ class PhotoIDController: UIViewController {
     let titleLabel: UILabel = {
         let t = UILabel()
         t.textAlignment = .center
-        t.text = "我们需要您的个人信息以确保货物安全"
+        t.text = "我们需要验证您的个人信息以确保货物安全"
         t.textColor = textThemeColor
         t.font = UIFont.boldSystemFont(ofSize: 16)
         return t
@@ -224,10 +224,9 @@ class PhotoIDController: UIViewController {
     
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.shared.statusBarStyle = .lightContent
         view.backgroundColor = .white
         
         setupNavigationBar()
@@ -273,7 +272,7 @@ class PhotoIDController: UIViewController {
         setupActivityIndicator()
         setupSubmitButton()
     }
-
+    
     private func setupNameInputContents(){
         
         scrollContainer.addSubview(nameLabel)

@@ -642,9 +642,9 @@
 			isa = PBXGroup;
 			children = (
 				660704E51F3CFB15000C09FD /* UserInfoViewController.swift */,
+				66C9756E1F3DF15200450F37 /* UserProfileView.swift */,
 				668131081F92C02A0022AEED /* UserInfoMenuView.swift */,
 				660704E71F3D062E000C09FD /* UserInfoViewCell.swift */,
-				66C9756E1F3DF15200450F37 /* UserProfileView.swift */,
 			);
 			name = UserInfoMenuView;
 			sourceTree = "<group>";
@@ -664,8 +664,8 @@
 			isa = PBXGroup;
 			children = (
 				66C9756C1F3DEFB000450F37 /* UserInfoViewController++.swift */,
-				6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */,
 				664C648E1F5580A300AA8FFE /* UserProfileView++.swift */,
+				6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */,
 			);
 			name = UserMenuInfoView;
 			sourceTree = "<group>";

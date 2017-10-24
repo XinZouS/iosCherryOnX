@@ -108,7 +108,7 @@ class DisclaimerController: UIViewController {
 
         let p3 = "3. In the purpose of serving, CarryonEx may need your personal information to disclose your trip details and some data. \r\n 3. 为服务用户的目的，游箱可能通过使用您的个人信息，向您提供服务，包括但不限于向您发出活动和服务信息等 \r\n"
         
-        let p4 = "4. When we don’t get law permission or your permission, we can’t let your information out including pictures, nickname and address. \r\n 4. 承诺：非经法律程序或经您的许可不会泄露您的个人信息（如昵称、肖像、区域等） \r\n"
+        let p4 = "4. When we don’t get law permission or your permission, we can’t let your information out including pictures, realName and address. \r\n 4. 承诺：非经法律程序或经您的许可不会泄露您的个人信息（如昵称、肖像、区域等） \r\n"
         
         let p5 = "5. When you use the app to ask for service, we treat you know the agreement of our company. The data on the platform by you and your partners seem as our common properties. \r\n 5. 您在游箱平台上寻求服务，将视为您同意游箱将您个人信息展示给其他用户。您在游箱上与其他用户一起产生的全部内容，将视为你、其他用户和游箱平台三方所共有，游箱不会单独将相关内容在适当的范围内予以使用 \r\n \r\n"
         

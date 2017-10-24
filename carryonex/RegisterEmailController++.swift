@@ -10,10 +10,17 @@ import UIKit
 
 
 extension RegisterEmailController: UITextFieldDelegate {
+    
      func okButtonTapped(){
-        ProfileManager.shared.currentUser?.email = emailField.text
         let registerPasswordCtl = RegisterPasswordController()
         navigationController?.pushViewController(registerPasswordCtl, animated: true)
+        DispatchQueue.main.async {
+            let newEmail = self.emailField.text ?? ""
+            ProfileManager.shared.currentUser?.email = newEmail
+            ApiServers.shared.postUpdateUserInfo(.email, newInfo: newEmail, completion: { (success, msg) in
+                print("postUpdateUserInfo email, success = \(success), msg = \(msg)")
+            })
+        }
     }
     
     func checkEmail(){

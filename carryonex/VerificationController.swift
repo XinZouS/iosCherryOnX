@@ -19,7 +19,6 @@ class VerificationController: UIViewController {
     
     weak var phoneNumberCtrlDelegate : PhoneNumberDelegate?
     
-    let phoneNumberCtl = PhoneNumberController()
     
     let hintLabel: UILabel = {
         let b = UILabel()
