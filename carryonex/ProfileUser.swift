@@ -16,7 +16,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     
     var realName:   String? = ""
     var phone:      String? = "" { didSet{ setupPhoneAndCountryCode() }}
-    var phoneCountryCode: String? = ""
+    var phoneCountryCode: String? = "1"
     var email:      String? = ""
     
     var imageUrl:   String? = ""

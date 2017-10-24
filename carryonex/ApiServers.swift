@@ -142,7 +142,7 @@ class ApiServers : NSObject {
     func isUserExisted(handleInfo: @escaping (Bool) -> Void){
         let sessionStr = "/users/exist"
         let headers:[String:String] = [
-            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username)!,
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken
         ]
@@ -156,13 +156,13 @@ class ApiServers : NSObject {
         }
     }
 
-  func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
+    func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
         let route = "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
-                ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+                ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username)!,
                 ServerKey.password.rawValue: password
             ]
         ]
@@ -277,8 +277,9 @@ class ApiServers : NSObject {
     
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
         let route = "/users/\(propUrl.rawValue)"
+        let completPhone = (ProfileManager.shared.currentUser?.phoneCountryCode)!+"-"+(ProfileManager.shared.currentUser?.phone)!
         let data: [String:String] = [
-            ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
+            ServerKey.username.rawValue : completPhone,
             ServerUserPropKey[propUrl]! : newInfo
         ]
         let parms:[String:Any] = [

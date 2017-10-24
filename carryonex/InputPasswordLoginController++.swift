@@ -11,7 +11,15 @@ import UIKit
 
 extension InputPasswordLoginController: UITextFieldDelegate {
     func okButtonTapped(){
-        self.dismiss(animated: true, completion: nil)
+        let password = passwordField.text
+        ApiServers.shared.postLoginUser(password: password!) { (msg) in
+            if (msg != nil) {
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                print(msg)
+            }
+        }
+        
     }
     func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
