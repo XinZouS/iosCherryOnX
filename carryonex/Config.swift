@@ -10,9 +10,15 @@ import Foundation
 import Unbox
 
 struct Config {
-    let version: String
-    //let tutorial: ConfigSection
-    let customerService: ConfigSection
+    let version: Int
+    let faq: ConfigSection
+    let order: ConfigSection
+    let payment: ConfigSection
+    let softwareIssue: ConfigSection
+    let report: ConfigSection
+    let problems: [ConfigURLItem]
+    let sender: [ConfigURLItem]
+    let carrier: [ConfigURLItem]
 }
 
 //MARK: - Adjust based on config feed return.
@@ -20,8 +26,14 @@ struct Config {
 extension Config: Unboxable {
     init(unboxer: Unboxer) throws {
         self.version = try unboxer.unbox(key: "version")
-        //self.tutorial = try unboxer.unbox(key: "tutorials")
-        self.customerService = try unboxer.unbox(key: "customer_service")
+        self.faq = try unboxer.unbox(keyPath: "customer_service.faq")
+        self.order = try unboxer.unbox(keyPath: "customer_service.order")
+        self.payment = try unboxer.unbox(keyPath: "customer_service.payment")
+        self.softwareIssue = try unboxer.unbox(keyPath: "customer_service.software_issue")
+        self.report = try unboxer.unbox(keyPath: "customer_service.report")
+        self.problems = try unboxer.unbox(keyPath: "tutorials.problems")
+        self.sender = try unboxer.unbox(keyPath: "tutorials.sender")
+        self.carrier = try unboxer.unbox(keyPath: "tutorials.carrier")
     }
 }
 
@@ -49,7 +61,7 @@ struct ConfigURLItem {
 extension ConfigURLItem: Unboxable {
     init(unboxer: Unboxer) throws {
         self.title = try unboxer.unbox(key: "title")
-        self.titleAlias = try unboxer.unbox(key: "title_alias")
+        self.titleAlias = try unboxer.unbox(key: "title-alias")
         self.url = try unboxer.unbox(key: "url")
     }
 }

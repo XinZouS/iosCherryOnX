@@ -88,8 +88,8 @@ class ApiServers : NSObject {
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
     
     //private let host = "http://0.0.0.0:5000/api/1.0"       // local host on this laptop you are looking at
-    private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    //private let host = "http://54.245.216.35:5000" // testing host on AWS
+    //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
+    private let host = "http://54.245.216.35:5000" // testing host on AWS
     
     private let hostVersion = "/api/1.0"
     
@@ -332,9 +332,9 @@ class ApiServers : NSObject {
     func getConfig() {
         let route = "/config"
         getDataWithUrlRoute(route, parameters: [:]) { (responseValue) in
-            if let data = responseValue["data"] as? [String:Any] {
+            if let data = responseValue["data"] as? [String : Any] {
                 do {
-                    let config : Config = try unbox(dictionary: data)
+                    let config : Config = try unbox(dictionary: data, atKey: "config")
                     self.config = config
                     
                 } catch let error as NSError {
