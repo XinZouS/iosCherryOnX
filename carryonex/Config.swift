@@ -11,7 +11,7 @@ import Unbox
 
 struct Config {
     let version: String
-    let tutorial: ConfigSection
+    //let tutorial: ConfigSection
     let customerService: ConfigSection
 }
 
@@ -20,7 +20,7 @@ struct Config {
 extension Config: Unboxable {
     init(unboxer: Unboxer) throws {
         self.version = try unboxer.unbox(key: "version")
-        self.tutorial = try unboxer.unbox(key: "tutorials")
+        //self.tutorial = try unboxer.unbox(key: "tutorials")
         self.customerService = try unboxer.unbox(key: "customer_service")
     }
 }
