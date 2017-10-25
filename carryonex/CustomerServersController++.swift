@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension CustomerServersController {
     
     func onlineCustomerServersButtonTapped(){
@@ -79,6 +78,4 @@ extension CustomerServersController {
         v.addAction(action)
         present(v, animated: true, completion: nil)
     }
-    
 }
-

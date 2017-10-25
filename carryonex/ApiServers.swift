@@ -36,11 +36,6 @@ let ServerUserPropKey : [ServerUserPropUrl:String] = [
     ServerUserPropUrl.wallet    : "wallet"
 ]
 
-enum ServerConfigDocType: String {
-    case tutorials = "tutorials"
-    case customerService = "customer_service"
-}
-
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -105,6 +100,7 @@ class ApiServers : NSObject {
         return "\(t)"
     }
     
+    var config: Config?
     
     // MARK: - User APIs
     
@@ -331,12 +327,18 @@ class ApiServers : NSObject {
         }
     }
     
-    func getConfigDocTitleAndUrls(typeKey: ServerConfigDocType, completion: @escaping([String:Any]) -> Void){
+    
+    //MARK: - Config API
+    func getConfig() {
         let route = "/config"
         getDataWithUrlRoute(route, parameters: [:]) { (responseValue) in
-            if let data = responseValue["data"] as? [String:Any], let config = data["config"] as? [String:Any] {
-                if let dictionary = config[typeKey.rawValue] as? [String:Any] {
-                    completion(dictionary)
+            if let data = responseValue["data"] as? [String : Any] {
+                do {
+                    let config : Config = try unbox(dictionary: data, atKey: "config")
+                    self.config = config
+                    
+                } catch let error as NSError {
+                    print(error.localizedDescription)
                 }
             }
         }

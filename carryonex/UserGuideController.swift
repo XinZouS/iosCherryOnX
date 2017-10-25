@@ -8,110 +8,129 @@
 
 import UIKit
 
-
-class UserGuideController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let userGuidePageCellSenderId = "userGuidePageCellSenderId"
-    let userGuidePageCellShipperId = "userGuidePageCellShipperId"
-
+    enum UserGuideTabSection: Int {
+        case sender, carrier
+    }
+    
+    lazy var tableView : UITableView = {
+        let t = UITableView()
+        t.delegate = self
+        t.dataSource = self
+        return t
+    }()
+    
+    let userGuideCellId = "userGuideCellId"
+    
     let tabTitleMenuBarHeight : CGFloat = 40
-    let tabTitleMenuBar = TabTitleMenuBar()
     
-    let faqsSender  = ["如何寄件","计费标准","如何提交身份认证"]
-    let faqsShipper = ["如何收件","计费标准","如何提交身份认证"]
-    let titlesSender  = ["订单与行程","物品类型","如何取消订单","支付与账户","账号与信息","时效","安全与控诉", "出行攻略"]
-    let titlesShipper = ["订单与行程","如何取消订单","运费到账时间","账号与信息","时效","安全与控诉", "出行攻略"]
-
-    let urlFaqsSender = [
-        "\(userGuideWebHoster)/doc_howtorequest",   //如何寄件
-        "\(userGuideWebHoster)/doc_pricing",        //计费标准
-        "\(userGuideWebHoster)/doc_verification"    //如何提交身份认证
-    ]
-    let urlFaqsShiper = [
-        "\(userGuideWebHoster)/doc_howtocarry",     //如何收件
-        "\(userGuideWebHoster)/doc_pricing",        //计费标准
-        "\(userGuideWebHoster)/doc_verification"    //如何提交身份认证
-    ]
-    
-    let urlSender = [
-        "\(userGuideWebHoster)/doc_ordertrip",      //订单与行程
-        "\(userGuideWebHoster)/doc_itemcategory",   //物品类型
-        "\(userGuideWebHoster)/doc_cancelrequest",  //如何取消订单
-        "\(userGuideWebHoster)/doc_payment",        //支付与账户
-        "\(userGuideWebHoster)/doc_account",        //账号与信息
-        "\(userGuideWebHoster)/doc_effectiveness",  //时效
-        "\(userGuideWebHoster)/doc_security_charge_requester",  //寄件人安全与控诉
-        "\(userGuideWebHoster)/doc_guide"           //出行攻略
-    ]
-    let urlShipper = [
-        "\(userGuideWebHoster)/doc_ordertrip",      //订单与行程
-        "\(userGuideWebHoster)/doc_cancelrequest",  //如何取消订单
-        "\(userGuideWebHoster)/doc_payment_timing", //运费到账时间
-        "\(userGuideWebHoster)/doc_account",        //账号与信息
-        "\(userGuideWebHoster)/doc_effectiveness",  //时效
-        "\(userGuideWebHoster)/doc_security_charge_tripper", //出行人安全与控诉
-        "\(userGuideWebHoster)/doc_guide"           //出行攻略
-    ]
+    var topDataSource: [ConfigURLItem]?
+    var bottomDataSource: [ConfigURLItem]?
+    let segmentControl : UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["我是发件人", "我是揽件人"])
+        segment.selectedSegmentIndex = 0
+        segment.tintColor = buttonThemeColor
+        return segment
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTabMenuBar()
-        setupCollectonView()
-    }
-    
-    private func setupTabMenuBar(){
-        view.addSubview(tabTitleMenuBar)
-        tabTitleMenuBar.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: tabTitleMenuBarHeight)
+        //If config not found, do nothing
+        guard let config = ApiServers.shared.config else { return }
         
-        tabTitleMenuBar.userGuideController = self
+        view.backgroundColor = UIColor.white
+        
+        //Setup the datasource
+        topDataSource = config.problems
+        bottomDataSource = config.sender
+        
+        setupSegmentControl()
+        setupTableView()
     }
     
-    private func setupCollectonView(){
-        if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 5
+    private func setupSegmentControl(){
+        segmentControl.addTarget(self, action: #selector(handleSegmentValueChanged), for: .valueChanged)
+        view.addSubview(segmentControl)
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentControl.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: tabTitleMenuBarHeight)
+    }
+    
+    func handleSegmentValueChanged() {
+        guard let config = ApiServers.shared.config else { return }
+        if segmentControl.selectedSegmentIndex == UserGuideTabSection.sender.rawValue {
+            bottomDataSource = config.sender
+        } else if segmentControl.selectedSegmentIndex == UserGuideTabSection.carrier.rawValue {
+            bottomDataSource = config.carrier
         }
-        collectionView?.backgroundColor = .white
-        collectionView?.contentInset = UIEdgeInsetsMake(tabTitleMenuBarHeight, 0, 0, 0) // top, left, bottom, right
-        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(tabTitleMenuBarHeight, 0, 0, 0)
-        // !!!!!! constraints will NOT working for this collectionView...why??? setup in childViews.
-        //collectionView?.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        
-        collectionView?.register(UserGuidePageCell.self, forCellWithReuseIdentifier: userGuidePageCellSenderId)
-        collectionView?.register(UserGuidePageCell.self, forCellWithReuseIdentifier: userGuidePageCellShipperId)
-        collectionView?.isPagingEnabled = true
+        tableView.setContentOffset(CGPoint.zero, animated: false)   //Bring table view back to the top
+        tableView.reloadData()
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tabTitleMenuBar.titleList.count
-    }
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UserGuidePageCell()
-        if indexPath.item == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellSenderId, for: indexPath) as! UserGuidePageCell
-            cell.titles = [faqsSender, titlesSender]
-            cell.urls = [urlFaqsSender, urlSender]
-        }else{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: userGuidePageCellShipperId, for: indexPath) as! UserGuidePageCell
-            cell.titles = [faqsShipper, titlesShipper]
-            cell.urls = [urlFaqsShiper, urlShipper]
-        }
-        cell.userGuideCtl = self
-        cell.backgroundColor = .white
+    private func setupTableView(){
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: userGuideCellId)
+        tableView.backgroundColor = pickerColorLightGray
         
+        view.addSubview(tableView)
+        tableView.addConstraints(left: view.leftAnchor,
+                                 top: segmentControl.bottomAnchor,
+                                 right: view.rightAnchor,
+                                 bottom: view.bottomAnchor,
+                                 leftConstent: 0,
+                                 topConstent: 0,
+                                 rightConstent: 0,
+                                 bottomConstent: 0,
+                                 width: 0,
+                                 height: 0)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: userGuideCellId, for: indexPath)
+        var item: ConfigURLItem?
+        if indexPath.section == 0 {
+            item = topDataSource?[indexPath.row]
+        } else if indexPath.section == 1 {
+            item = bottomDataSource?[indexPath.row]
+        }
+        guard let urlItem = item else { return UITableViewCell() }
+        
+        cell.textLabel?.text = urlItem.title
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: self.view.frame.height)
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let dataSource = (indexPath.section == 0) ? topDataSource : bottomDataSource else { return }
+        let urlItem = dataSource[indexPath.row]
+        let webCtl = WebController()
+        webCtl.url = URL(string: urlItem.url)
+        webCtl.title = urlItem.title
+        navigationController?.pushViewController(webCtl, animated: true)
     }
     
-
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return topDataSource?.count ?? 0
+        } else {
+            return bottomDataSource?.count ?? 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "📝 常见问题"
+        } else if section == 1 {
+            return "✅ 操作说明"
+        }
+        return "❓"
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
 }
-
 

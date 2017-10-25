@@ -549,7 +549,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
-        
+        ApiServers.shared.getConfig()
 
     }
     
