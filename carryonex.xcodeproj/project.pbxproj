@@ -35,6 +35,7 @@
 		660F4F831F5756DD00F4820D /* OkButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F4F821F5756DD00F4820D /* OkButton++.swift */; };
 		661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661C821A1F4A08C40064D1FB /* RequestController.swift */; };
 		661C821D1F4A1DCC0064D1FB /* RequestController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661C821C1F4A1DCC0064D1FB /* RequestController++.swift */; };
+		662EA4C01FA0E53B002C62D1 /* TransportationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662EA4BF1FA0E53B002C62D1 /* TransportationCell.swift */; };
 		663121E11F51EBDF000F7ACB /* TimeAvailableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121E01F51EBDF000F7ACB /* TimeAvailableController.swift */; };
 		663121E31F51F454000F7ACB /* TimeAvailableController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121E21F51F454000F7ACB /* TimeAvailableController++.swift */; };
 		663121E51F5232FD000F7ACB /* ShipperAvailableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121E41F5232FD000F7ACB /* ShipperAvailableCell.swift */; };
@@ -225,6 +226,7 @@
 		660F4F821F5756DD00F4820D /* OkButton++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OkButton++.swift"; sourceTree = "<group>"; };
 		661C821A1F4A08C40064D1FB /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		661C821C1F4A1DCC0064D1FB /* RequestController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestController++.swift"; sourceTree = "<group>"; };
+		662EA4BF1FA0E53B002C62D1 /* TransportationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportationCell.swift; sourceTree = "<group>"; };
 		663121E01F51EBDF000F7ACB /* TimeAvailableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeAvailableController.swift; sourceTree = "<group>"; };
 		663121E21F51F454000F7ACB /* TimeAvailableController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeAvailableController++.swift"; sourceTree = "<group>"; };
 		663121E41F5232FD000F7ACB /* ShipperAvailableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipperAvailableCell.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			children = (
 				664C648C1F5511C600AA8FFE /* PostTripController.swift */,
 				664C64931F55CD6700AA8FFE /* PostBaseCell.swift */,
+				662EA4BF1FA0E53B002C62D1 /* TransportationCell.swift */,
 			);
 			name = PostTripController;
 			sourceTree = "<group>";
@@ -1341,6 +1344,7 @@
 				664C648F1F5580A300AA8FFE /* UserProfileView++.swift in Sources */,
 				660F4F811F57559400F4820D /* ButtonCell.swift in Sources */,
 				6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */,
+				662EA4C01FA0E53B002C62D1 /* TransportationCell.swift in Sources */,
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
 				668131131F9413F70022AEED /* UserSettingCell.swift in Sources */,
 				FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */,
