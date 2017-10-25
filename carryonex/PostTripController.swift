@@ -24,8 +24,7 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     }()
     
 //     row in collectionView: 0:transporation, 1:flightInfo, 
-//    let labelNames:     [String] = ["交通方式：", "出发地：", "目的地：", "出发时间：", "取货时间段："]
-    let labelNames:     [String] = ["交通方式：", "出发地：", "目的地：", "出发时间："]
+    let labelNames:     [String] = ["游箱类别", "出发地：", "目的地：", "出发时间："]
     let placeholders:   [String] = ["请选择出行方式", "请选择出发地", "请选择目的地", "请选择出发时间", "设置取货时间段"]
     let cellIds:        [String] = ["transportationCellId", "startAddressCellId", "endAddressCellId", "startTimeCellId", "pickUpTimeCellId"]
     
@@ -60,8 +59,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         b.tintColor = .black
         return b
     }()
-    
-
     
     
     
@@ -143,8 +140,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    
     
     
     
