@@ -19,10 +19,6 @@ extension PostTripController {
         let tit = "启禀皇上"
         let msg = "❓"
         let ok1 = "朕知道了", ok2 = "嗯，平身吧"
-        guard isTransportationSetted else {
-            displayAlert(title: tit, message: "\(msg)请选择您的【交通方式】。", action: ok1)
-            return
-        }
         guard isStartAddressSetted, isEndAddressSetted else {
             displayAlert(title: tit, message: "\(msg)请选择【出发地和目的地】。", action: ok2)
             return
@@ -41,6 +37,8 @@ extension PostTripController {
         present(waitingCtl, animated: true, completion: nil)
         navigationController?.popToRootViewController(animated: false)
 
+        activityIndicator.startAnimating()
+        
         uploadAddressToServer(addressStarting!)
         uploadAddressToServer(addressDestinat!)
         uploadTripToServer()
@@ -59,24 +57,10 @@ extension PostTripController {
         json["phoneNumber"] = addr.phoneNumber
     }
     private func uploadTripToServer(){
-        ApiServers.shared.postTripInfo(trip: self.trip)
-    }
-
-    func transportationCellButtonTapped(){
-        switch trip.transportation {
-        case .airplane:
-            trip.transportation = .bus
-            
-        case .bus:
-            trip.transportation = .car
-            
-        case .car:
-            trip.transportation = .airplane
-            
-        default:
-            trip.transportation = .airplane
+        ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg) in
+            print("get callback after uploadTripToServer(), success = \(success), msg = \(msg)")
+            self.activityIndicator.stopAnimating()
         }
-        isTransportationSetted = true
     }
     
     func startAddressButtonTapped(){
@@ -137,7 +121,7 @@ extension PostTripController {
 //        pickUpTimeCell?.infoLabel.text = "\(d1) -- \(d2)"
 //    }
     private func okButtonValidateCheck(){
-        let isOk = isTransportationSetted && isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
+        let isOk = isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
         okButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         okButton.isEnabled = isOk
     }
@@ -155,7 +139,7 @@ extension PostTripController {
     func displayAlert(title: String, message: String, action: String) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         }
         v.addAction(action)
         present(v, animated: true, completion: nil)

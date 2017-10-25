@@ -18,7 +18,7 @@ class RegisterMainController: UIViewController{
         b.layer.borderColor = UIColor.lightGray.cgColor
         b.layer.borderWidth = 1
         b.layer.cornerRadius = 5
-        b.setTitle("🇨🇳 +86", for: .normal)
+        b.setTitle("🇺🇸  +1", for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.borderColor = .clear
 //        b.addTarget(self, action: #selector(openFlagPicker), for: .touchUpInside)

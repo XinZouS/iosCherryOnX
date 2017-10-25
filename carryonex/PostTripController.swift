@@ -70,6 +70,8 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         return b
     }()
     
+    var activityIndicator: UIActivityIndicatorCustomizeView!
+
     
     
     override func viewDidLoad() {
@@ -79,6 +81,7 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         setupNavigationBar()
         setupOkButton()
         setupCollectionView()
+        setupActivityIndicatorView()
     }
     
     
@@ -114,8 +117,24 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         youxiangCategorySegment.centerYAnchor.constraint(equalTo: cell.infoLabel.centerYAnchor).isActive = true
     }
     
+    private func setupActivityIndicatorView(){
+        activityIndicator = UIActivityIndicatorCustomizeView() 
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+    }
+
+    
     func changeYouxiangCategory(){
-        
+        switch youxiangCategorySegment.selectedSegmentIndex {
+        case 0:
+            trip.transportation = .trunk
+        case 1:
+            trip.transportation = .luggage
+        default:
+            trip.transportation = .trunk
+        }
+        print("selected transporation at: \(trip.transportation.rawValue)")
     }
     
     

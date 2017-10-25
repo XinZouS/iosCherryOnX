@@ -8,6 +8,7 @@ target 'carryonex' do
   # Pods for carryonex
   
   pod 'Unbox'
+  # pod 'Wrap' should NOT wrap, bcz local property name will different from server!!!
   pod 'Alamofire'
   pod 'M13Checkbox'
   pod 'SMSSDK'

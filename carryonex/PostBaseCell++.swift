@@ -16,8 +16,6 @@ extension PostBaseCell {
     func infoButtonTapped(){
         print("cell tapped with idString: \(self.idString)")
         switch self.idString {
-        case postTripController.transportationCellId:
-            reactForTransportation()
         case postTripController.startAddressCellId:
             reactForStartAddress()
         case postTripController.endAddressCellId:
@@ -32,12 +30,6 @@ extension PostBaseCell {
         
     }
     
-    private func reactForTransportation(){
-        print("postTripController.transportationCellButtonTapped()...")
-        postTripController.transportationCellButtonTapped()
-        infoLabel.textColor = .black
-        infoLabel.text = postTripController.trip.transportation.rawValue
-    }
     private func reactForStartAddress(){
         postTripController.startAddressButtonTapped()
     }
