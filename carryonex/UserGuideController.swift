@@ -30,6 +30,7 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
     let segmentControl : UISegmentedControl = {
         let segment = UISegmentedControl(items: ["我是发件人", "我是揽件人"])
         segment.selectedSegmentIndex = 0
+        segment.tintColor = buttonThemeColor
         return segment
     }()
 
@@ -63,6 +64,7 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
         } else if segmentControl.selectedSegmentIndex == UserGuideTabSection.carrier.rawValue {
             bottomDataSource = config.carrier
         }
+        tableView.setContentOffset(CGPoint.zero, animated: false)   //Bring table view back to the top
         tableView.reloadData()
     }
     
@@ -78,7 +80,7 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
                                  leftConstent: 0,
                                  topConstent: 0,
                                  rightConstent: 0,
-                                 bottomConstent: 40,
+                                 bottomConstent: 0,
                                  width: 0,
                                  height: 0)
     }
