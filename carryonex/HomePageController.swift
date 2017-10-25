@@ -174,12 +174,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
         setupBlackBackgroundView()
         setupUserInfoMenuView()
-
-        testApiServers()
         
-        ApiServers.shared.isUserExisted { (isExist) in
-            print(isExist)
-        }
+        testApiServers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,7 +195,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
 
     private func isItHaveLogIn(){
-        if (!ProfileManager.shared.isLoggedIn()){
+        if (ProfileManager.shared.isLoggedIn()){
             ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
@@ -546,7 +542,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            }
 //        }
         
-        
+        ApiServers.shared.getConfig()
 
     }
     

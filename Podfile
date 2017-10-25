@@ -72,6 +72,6 @@ target 'carryonex' do
   #UI design
   pod 'CircleMenu'
   pod 'Material', '2.10.2'
-  pod 'JXPhotoBrowser'
+  pod 'JXPhotoBrowser', '0.3.7'
 
 end

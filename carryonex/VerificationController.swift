@@ -73,7 +73,7 @@ class VerificationController: UIViewController {
         let b = UIButton()
         b.setTitle("go next page", for: .normal)
         b.backgroundColor = .cyan
-        b.addTarget(self, action: #selector(goNextPage), for: .touchUpInside)
+//        b.addTarget(self, action: #selector(goNextPage), for: .touchUpInside)
         return b
     }()
         

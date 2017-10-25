@@ -15,7 +15,6 @@ extension TabTitleMenuBar {
     // scr
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         ordersLogController?.scrollToItemAt(num: indexPath.item)
-        userGuideController?.scrollToItemAt(num: indexPath.item)
     }
     
     func changeBarTitleForScrolling(atSender: Bool){
