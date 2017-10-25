@@ -33,7 +33,7 @@ extension UserSettingController {
             switch indexPath.item {
             case 0:
                 print("TODO: open 用户指南 page...")
-                let userGuide = UserGuideController(collectionViewLayout: UICollectionViewFlowLayout())
+                let userGuide = UserGuideController()
                 userGuide.title = titles[indexPath.section][indexPath.item]
                 navigationController?.pushViewController(userGuide, animated: true)
                 
