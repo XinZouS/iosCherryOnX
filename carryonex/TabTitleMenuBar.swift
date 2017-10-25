@@ -14,7 +14,6 @@ class TabTitleMenuBar : UIView, UICollectionViewDelegate, UICollectionViewDataSo
     
     /// Parent controllers:
     weak var ordersLogController: OrdersLogController?
-    weak var userGuideController: UserGuideController?
     
     let titleList = ["我是发件人", "我是揽件人"]
     
