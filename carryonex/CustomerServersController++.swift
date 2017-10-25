@@ -19,10 +19,6 @@ extension CustomerServersController {
     func backButtonTapped(){
         self.dismiss(animated: true, completion: nil)
     }
-}
-
-// MARK: - Pop alert view
-extension CustomerServersController {
     
     func displayAlert(title: String, message: String, action: String) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -32,6 +28,4 @@ extension CustomerServersController {
         v.addAction(action)
         present(v, animated: true, completion: nil)
     }
-    
 }
-
