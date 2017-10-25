@@ -190,7 +190,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        saveUserIntoLocalDisk()
+//        saveUserIntoLocalDisk()
         UIApplication.shared.statusBarStyle = .lightContent
     }
 

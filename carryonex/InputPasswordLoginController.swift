@@ -57,8 +57,8 @@ class InputPasswordLoginController: UIViewController {
     }
     private func setupPasswordTextField(){
         passwordField = TextField()
-        passwordField.placeholder = "Password"
-        passwordField.detail = "At least 8 characters"
+        passwordField.placeholder = "密码"
+        passwordField.detail = "请输入6位以上密码"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
