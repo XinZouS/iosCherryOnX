@@ -28,14 +28,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     let placeholders:   [String] = ["请选择出行方式", "请选择出发地", "请选择目的地", "请选择出发时间", "设置取货时间段"]
     let cellIds:        [String] = ["transportationCellId", "startAddressCellId", "endAddressCellId", "startTimeCellId", "pickUpTimeCellId"]
     
-    var isTransportationSetted = false
-    var isStartAddressSetted = false
-    var isEndAddressSetted = false
-    var isStartTimeSetted = false
-    //var isPickUpTimeSetted = false
-    
-    let basicTripCellId = "basicTripCellId"
-    
     let transportationCellId = "transportationCellId"
     let flightInfoCellId    = "flightInfoCellId" // currently not using this one;
     let startAddressCellId  = "startAddressCellId"
@@ -49,8 +41,26 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     var endAddressCell     : PostBaseCell?
     var startTimeCell      : PostBaseCell?
     //var pickUpTimeCell     : PostBaseCell?
-
     
+    var isTransportationSetted = false
+    var isStartAddressSetted = false
+    var isEndAddressSetted = false
+    var isStartTimeSetted = false
+    //var isPickUpTimeSetted = false
+    
+    let basicTripCellId = "basicTripCellId"
+    
+    lazy var youxiangCategorySegment: UISegmentedControl = {
+        let s = UISegmentedControl(items: ["后备箱", "行李箱"])
+        //s.tintColor = .white
+        s.tintColor = buttonThemeColor
+        s.selectedSegmentIndex = 0
+        s.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFont(ofSize: 16)], for: .normal)
+        s.addTarget(self, action: #selector(changeYouxiangCategory), for: .valueChanged)
+        return s
+    }()
+    
+
     lazy var okButton : UIButton = {
         let b = UIButton()
         b.setTitle("确认行程", for: .normal)
@@ -95,10 +105,21 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         self.collectionView?.register(PostBaseCell.self, forCellWithReuseIdentifier: basicTripCellId)
         self.collectionView?.backgroundColor = .white
 //        self.collectionView?.contentInset = UIEdgeInsetsMake(10, sideMargin, 10, sideMargin) // top, left, btm, right
-        collectionView?.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: okButton.topAnchor, leftConstent: sideMargin, topConstent: 30, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
+        collectionView?.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: okButton.topAnchor, leftConstent: sideMargin, topConstent: 10, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
+    }
+    
+    private func setupSegmentedControl(_ cell: PostBaseCell){
+        cell.addSubview(youxiangCategorySegment)
+        youxiangCategorySegment.addConstraints(left: cell.titleLabel.rightAnchor, top: nil, right: cell.rightAnchor, bottom: nil, leftConstent: 20, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        youxiangCategorySegment.centerYAnchor.constraint(equalTo: cell.infoLabel.centerYAnchor).isActive = true
+    }
+    
+    func changeYouxiangCategory(){
+        
     }
     
     
+
     
     /// -MARK: collectionView Delegate
     
@@ -116,6 +137,10 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         switch indexPath.item {
         case 0:
             transportationCell = cell
+            cell.infoButton.isEnabled = false
+            cell.infoButton.isHidden = true
+            cell.infoLabel.isHidden = true
+            setupSegmentedControl(transportationCell!)
         case 1:
             startAddressCell = cell
         case 2:
