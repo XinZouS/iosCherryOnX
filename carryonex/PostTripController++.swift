@@ -60,6 +60,7 @@ extension PostTripController {
         ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg) in
             print("get callback after uploadTripToServer(), success = \(success), msg = \(msg)")
             self.activityIndicator.stopAnimating()
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

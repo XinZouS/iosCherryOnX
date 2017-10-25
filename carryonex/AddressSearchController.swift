@@ -148,7 +148,7 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     
     private func setupTargetCurrentLocationButton(){
         view.addSubview(targetCurrentLocationButton)
-        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 20, width: 50, height: 50)
+        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 20, bottomConstent: 20, width: 50, height: 50)
     }
     
     

@@ -137,7 +137,7 @@ class Trip : NSObject, Unboxable {
         
         json[TripKeyInDB.id.rawValue] = id
         json[TripKeyInDB.carrierId.rawValue] = carrierId
-        json[TripKeyInDB.transportation.rawValue] = transportation
+        json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
         
         json[TripKeyInDB.totalLength.rawValue] = totalLength
         json[TripKeyInDB.totalWidth.rawValue]  = totalWidth
@@ -148,7 +148,7 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.startAddressId.rawValue] = startAddressId
         json[TripKeyInDB.endAddressId.rawValue]   = endAddressId
         
-        json[TripKeyInDB.status.rawValue]           = status
+        json[TripKeyInDB.status.rawValue]           = status.rawValue
         json[TripKeyInDB.pickupDate.rawValue]       = pickupDate
         json[TripKeyInDB.pickupTimeStart.rawValue]  = pickupTimeStart
         json[TripKeyInDB.pickupTimeEnd.rawValue]    = pickupTimeEnd
