@@ -17,7 +17,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
                 ProfileManager.shared.saveUser()
                 self.dismiss(animated: true, completion: nil)
             }else{
-                print(msg)
+                self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.detailLabel.text = "请输入正确的密码"
             }
         }
         
