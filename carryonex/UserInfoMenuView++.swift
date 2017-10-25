@@ -25,6 +25,7 @@ extension UserInfoMenuView {
             layout.scrollDirection = .horizontal
             let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
             let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
+            ordersNav.title = "订单记录"
             self.homePageCtl?.present(ordersNav, animated: true)
             
         case 2:

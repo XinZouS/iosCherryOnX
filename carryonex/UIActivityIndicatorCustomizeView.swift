@@ -51,9 +51,11 @@ class UIActivityIndicatorCustomizeView: UIView {
     }
     
     func stopAnimating(){
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-        self.isHidden = true
+        DispatchQueue.main.async(execute: {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.isHidden = true
+        })
     }
     
     
