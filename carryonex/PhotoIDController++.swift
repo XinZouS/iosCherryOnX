@@ -246,7 +246,9 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         let transferManager = AWSS3TransferManager.default()
         transferManager.upload(request).continueWith { (task: AWSTask) -> Any? in
             
-            UIApplication.shared.endIgnoringInteractionEvents()
+            DispatchQueue.main.async(execute: {
+                UIApplication.shared.endIgnoringInteractionEvents()
+            })
             
             if let err = task.error {
                 print("performFileUpload(): task.error = \(err)")

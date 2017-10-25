@@ -20,6 +20,7 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     let tabTitleMenuBar = TabTitleMenuBar()
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +38,6 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func setupNavigationBar(){
-        title = "订单记录"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 

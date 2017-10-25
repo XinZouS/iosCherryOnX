@@ -207,9 +207,16 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-        let waitingListCtl = WaitingListController(collectionViewLayout: UICollectionViewFlowLayout())
-        let waitingListView = UINavigationController(rootViewController: waitingListCtl)
-        self.present(waitingListView, animated: true, completion: nil)
+//        let waitingListCtl = WaitingListController(collectionViewLayout: UICollectionViewFlowLayout())
+//        let waitingListView = UINavigationController(rootViewController: waitingListCtl)
+//        self.present(waitingListView, animated: true, completion: nil)
+        // replaced by OrdersLogController() ---------------------------
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
+        let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
+        ordersNav.title = "我的游箱"
+        self.present(ordersNav, animated: true)
     }
     
     // do not need to check if user is shipper or sender;
