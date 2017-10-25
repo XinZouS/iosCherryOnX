@@ -118,8 +118,12 @@ extension CustomerServersController: UITableViewDataSource {
 extension CustomerServersController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == titles.count - 1, indexPath.row == titles[indexPath.section].count - 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: footerInfoCellId, for: indexPath) 
+
+        guard let configSections = dataSource else { return UITableViewCell() }
+        
+        if indexPath.section == configSections.count {
+            //Footer
+            let cell = tableView.dequeueReusableCell(withIdentifier: footerInfoCellId, for: indexPath)
             return cell
             
         } else {
