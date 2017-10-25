@@ -159,7 +159,7 @@ class ApiServers : NSObject {
         }
     }
 
-  func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
+    func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
         let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
