@@ -15,8 +15,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
             if(msg != "error"){
-                ProfileManager.shared.saveUser()
-                self.dismiss(animated: true, completion: nil)
+                ApiServers.shared.getUserInfoAll(handleInfo: { (info) in
+                    print(info)
+                    self.dismiss(animated: true, completion: nil)
+                })
             }else{
                 self.passwordField.leftViewNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.dividerNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)

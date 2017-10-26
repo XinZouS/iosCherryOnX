@@ -237,11 +237,15 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
+        let currToken = ProfileManager.shared.currentUser?.token ?? ""
+        
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             if let data = responsDictionary["data"] as? [String : Any] {
                 handleInfo(data)
                 do {
-                    let getUser: ProfileUser = try unbox(dictionary: data, atKey: "string") // TODO: change the key to "user"
+                    let getUser: ProfileUser = try unbox(dictionary: data, atKey: "user") // TODO: change the key to "user"
+                    print("ccccccccc",getUser)
+                    getUser.token = currToken
                     ProfileManager.shared.currentUser = getUser
                     ProfileManager.shared.saveUser()
                     print("getUserInfoAll, getUser = \(getUser)")
