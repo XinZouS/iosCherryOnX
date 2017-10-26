@@ -57,16 +57,12 @@ extension DetailCreditLevelCell{
         controller.dismiss(animated: true, completion: nil)
         //判断短信的状态
         switch result{
-            
-        case .sent:
-            print("短信已发送")
-        case .cancelled:
-            print("短信取消发送")
-        case .failed:
-            print("短信发送失败")
-        default:
-            print("短信已发送")
-            break
+            case .sent:
+                print("短信已发送")
+            case .cancelled:
+                print("短信取消发送")
+            case .failed:
+                print("短信发送失败")
         }
     }
 }

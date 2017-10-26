@@ -54,7 +54,6 @@
 		6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633DC951F5DF02900B2FFAC /* OrderLogSenderCell.swift */; };
 		663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */; };
 		663B9A031F8BD3BF006CFBDA /* ImageCellCollectionCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A021F8BD3BF006CFBDA /* ImageCellCollectionCell++.swift */; };
-		663F1C941F44ABEB00E866C2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 663F1C931F44ABEB00E866C2 /* README.md */; };
 		663F1C961F44DBD000E866C2 /* HomePageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663F1C951F44DBD000E866C2 /* HomePageTableCell.swift */; };
 		66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66421C6F1F65E3E50034D9DC /* OnboardingPage.swift */; };
 		66421C721F65E7AD0034D9DC /* OnboardingPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66421C711F65E7AD0034D9DC /* OnboardingPage++.swift */; };
@@ -1056,8 +1055,8 @@
 			buildConfigurationList = 665DE4FE1F3A0B70004DDB88 /* Build configuration list for PBXNativeTarget "carryonex" */;
 			buildPhases = (
 				E6A4C6E47CE8855BDA236D35 /* [CP] Check Pods Manifest.lock */,
-				665DE4E51F3A0B70004DDB88 /* Sources */,
 				665DE4E61F3A0B70004DDB88 /* Frameworks */,
+				665DE4E51F3A0B70004DDB88 /* Sources */,
 				665DE4E71F3A0B70004DDB88 /* Resources */,
 				DE4E7899D29AF53B4AC1FC51 /* [CP] Embed Pods Frameworks */,
 				21B824CBD9341B9FC30910B3 /* [CP] Copy Pods Resources */,
@@ -1078,13 +1077,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Xin Zou";
 				TargetAttributes = {
 					665DE4E81F3A0B70004DDB88 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 4G3CY5ZV6E;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
@@ -1279,7 +1278,6 @@
 				6686096F1F60703800740A92 /* Transaction.swift in Sources */,
 				668609751F60779500740A92 /* WalletCreditCell.swift in Sources */,
 				66A16AF41F3B56B500B32AD3 /* User.swift in Sources */,
-				663F1C941F44ABEB00E866C2 /* README.md in Sources */,
 				66A16AFA1F3B704A00B32AD3 /* HomePageController++.swift in Sources */,
 				660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */,
 				66C9757B1F3E159400450F37 /* PhoneNumberController++.swift in Sources */,
@@ -1389,7 +1387,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1397,7 +1397,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1439,7 +1443,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1447,7 +1453,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1476,6 +1486,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
@@ -1483,14 +1494,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"~/Documents/FacebookSDKs-iOS-4.26.0",
 				);
 				INFOPLIST_FILE = carryonex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/WechatOpenSDK/OpenSDK1.8.0",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryonex.huxingjiu.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "carryonex/carryonex-Bridging-Header.h";
@@ -1504,6 +1511,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
@@ -1514,10 +1522,7 @@
 				);
 				INFOPLIST_FILE = carryonex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/WechatOpenSDK/OpenSDK1.8.0",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryonex.huxingjiu.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "carryonex/carryonex-Bridging-Header.h";

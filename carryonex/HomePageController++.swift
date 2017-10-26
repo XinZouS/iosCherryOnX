@@ -128,7 +128,7 @@ extension HomePageController {
         /// -TODO: setup new request info and present to shipper:
         print("TODO: setup new request info and present to shipper")
         
-        var itemString: NSMutableString = ""
+        let itemString: NSMutableString = ""
         for m in request.numberOfItem {
             let name = m.key
             let num = m.value
@@ -136,36 +136,47 @@ extension HomePageController {
         }
         request.departureAddress = Address()   //TODO: for test only
         request.destinationAddress = Address() //TODO: for test only
-        let dpt = "\(request.departureAddress!.country!.rawValue), \(request.departureAddress!.state), \(request.departureAddress!.city)"
-        let des = "\(request.destinationAddress!.country!.rawValue), \(request.destinationAddress!.state), \(request.destinationAddress!.city)"
-        let pic = "\(request.departureAddress!.city), \(request.departureAddress!.detailAddress)"
-        let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic)" //, 期望到达时间：\(exp)"
-        let alertCtl = UIAlertController(title: "订单编号666666", message: msg, preferredStyle: .alert)
         
-        let actionCancel = UIAlertAction(title: "取消", style: .cancel) { (action) in
-            print("TODO: !!!!! shipper pass this request, send to server and find next!")
-            self.dismiss(animated: true, completion: nil)
+        if let departAddr = request.departureAddress, let destinationAddr = request.destinationAddress {
+            if let dptCountry = departAddr.country,
+                let dptSate = departAddr.state,
+                let dptCity = departAddr.city,
+                let destinCountry = destinationAddr.country,
+                let destinSate = destinationAddr.state,
+                let destinCity = destinationAddr.city,
+                let dptDetailAddr = departAddr.detailAddress
+            {
+                let dpt = "\(dptCountry.rawValue), \(dptSate), \(dptCity)"
+                let des = "\(destinCountry.rawValue), \(destinSate), \(destinCity)"
+                let pic = "\(dptCity), \(dptDetailAddr)"
+                let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic)" //, 期望到达时间：\(exp)"
+                let alertCtl = UIAlertController(title: "订单编号666666", message: msg, preferredStyle: .alert)
+                
+                let actionCancel = UIAlertAction(title: "取消", style: .cancel) { (action) in
+                    print("TODO: !!!!! shipper pass this request, send to server and find next!")
+                    self.dismiss(animated: true, completion: nil)
+                }
+                let actionConfirmTime = UIAlertAction(title: "确认时间", style: .default) { (action) in
+                    print("TODO: !!!!! shipper take this request, go to confirmTime controller!")
+                    self.dismiss(animated: true, completion: nil)
+                    
+                    let timeAvailableController = TimeAvailableController()
+                    timeAvailableController.request = request
+                    //self.navigationController?.pushViewController(timeAvailableController, animated: true)
+                    self.present(timeAvailableController, animated: true, completion: nil)
+                }
+                alertCtl.addAction(actionCancel)
+                alertCtl.addAction(actionConfirmTime)
+                
+                present(alertCtl, animated: true, completion: nil)
+            }
         }
-        let actionConfirmTime = UIAlertAction(title: "确认时间", style: .default) { (action) in
-            print("TODO: !!!!! shipper take this request, go to confirmTime controller!")
-            self.dismiss(animated: true, completion: nil)
-            
-            let timeAvailableController = TimeAvailableController()
-            timeAvailableController.request = request
-            //self.navigationController?.pushViewController(timeAvailableController, animated: true)
-            self.present(timeAvailableController, animated: true, completion: nil)
-        }
-        alertCtl.addAction(actionCancel)
-        alertCtl.addAction(actionConfirmTime)
-        
-        present(alertCtl, animated: true, completion: nil)
     }
+    
     func showOnboardingPage(){
         UserDefaults.standard.set(false, forKey: "OnboardingFinished")
         self.present(OnboardingController(), animated: true, completion: nil)
     }
-    
-    
     
     func showUserInfoSideMenu(){
         
@@ -180,6 +191,7 @@ extension HomePageController {
         // plan A: with slide-out menu
         //self.pageContainer?.toggleLeftPanel()
     }
+    
     private func userInfoMenuViewAnimateShow(){
         let offset = userInfoMenuView.bounds.width
         self.userInfoMenuRightConstraint?.constant = offset
@@ -190,6 +202,7 @@ extension HomePageController {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
     func userInfoMenuViewAnimateHide(){
         self.userInfoMenuRightConstraint?.constant = 0
         UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.2, options: .curveEaseIn, animations: {
@@ -263,18 +276,11 @@ extension HomePageController {
     private func flipPageHorizontally(){
         var rotate3D = CATransform3DIdentity
         rotate3D.m34 = 1.0 / -1000
-        rotate3D = CATransform3DRotate(rotate3D, CGFloat(M_PI / 0.3), 0.0, 1.0, 0.0)
+        rotate3D = CATransform3DRotate(rotate3D, CGFloat(Double.pi / 0.3), 0.0, 1.0, 0.0)
         view.layer.transform = rotate3D
         UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1.6, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             self.view.layer.transform = CATransform3DIdentity
         }, completion: nil)
-    }
-
-    
-    func setupSwipGestureRecognizer(){
-        let swipLeft = UISwipeGestureRecognizer(target: sideButtonContainerView, action: #selector(swiped))
-
-        let swipRight = UISwipeGestureRecognizer(target: sideButtonContainerView, action: #selector(swiped))
     }
 
     func swiped(_ gesture: UIGestureRecognizer){
@@ -576,10 +582,12 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         
         // setup AWS Transfer Manager Request:
         guard let uploadRequest = AWSS3TransferManagerUploadRequest() else { return }
+        guard let userId = ProfileManager.shared.currentUser?.id else { return }
+        
         uploadRequest.acl = .private
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()

@@ -64,17 +64,12 @@ extension PostTripController {
 
     func transportationCellButtonTapped(){
         switch trip.transportation {
-        case .airplane:
-            trip.transportation = .bus
-            
-        case .bus:
-            trip.transportation = .car
-            
-        case .car:
-            trip.transportation = .airplane
-            
-        default:
-            trip.transportation = .airplane
+            case .airplane:
+                trip.transportation = .bus
+            case .bus:
+                trip.transportation = .car
+            case .car:
+                trip.transportation = .airplane
         }
         isTransportationSetted = true
     }

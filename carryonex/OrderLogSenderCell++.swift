@@ -50,7 +50,7 @@ extension OrderLogSenderCell {
         
         updateCellStatusAndButtons()
         
-        requestIdLabel.text = "\(rq.id)"
+        requestIdLabel.text = "\(rq.id ?? "")"
         
         itemsTextView.text = getStringFromRequest(rq)
         
@@ -63,7 +63,7 @@ extension OrderLogSenderCell {
     
     
     private func getStringFromRequest(_ rq: Request) -> String {
-        var mutableStr = NSMutableString()
+        let mutableStr = NSMutableString()
         print("\(rq.numberOfItem)")
         for item in rq.numberOfItem {
             let name = item.key

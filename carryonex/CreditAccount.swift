@@ -30,17 +30,15 @@ class CreditAccount : CheckingAccount {
     
     func imageOfAccountType(type: CreditAccountType) -> UIImage {
         switch type {
-        case .VISA:
-            return #imageLiteral(resourceName: "CarryonEx_WechatPay")
+            case .VISA:
+                return #imageLiteral(resourceName: "CarryonEx_WechatPay")
+            case .Master:
+                return #imageLiteral(resourceName: "CarryonEx_PayPal")
+            case .Discover:
+                return #imageLiteral(resourceName: "CarryonEx_PayPal")
             
-        case .Master:
-            return #imageLiteral(resourceName: "CarryonEx_PayPal")
-            
-        case .Discover:
-            return #imageLiteral(resourceName: "CarryonEx_PayPal")
-            
-        default:
-            return #imageLiteral(resourceName: "CarryonEx_CreditCard")
+//        default:
+//            return #imageLiteral(resourceName: "CarryonEx_CreditCard")
         }
     }
     

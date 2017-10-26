@@ -20,9 +20,9 @@ class ProfileManager: NSObject {
     }
     
     func isLoggedIn() -> Bool {
-        ProfileManager.shared.saveUser()
-        print("ccccccccccccc",currentUser)
-        return ProfileManager.shared.currentUser == nil
+        self.currentUser?.loadFromLocalDisk()
+        print(currentUser ?? "")
+        return ProfileManager.shared.currentUser?.username == ""
     }
     
     func saveUser() {

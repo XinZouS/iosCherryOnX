@@ -193,7 +193,6 @@ class AddressController: UIViewController, UITableViewDelegate,UICollectionViewD
     }
     
     func setUpPicker(){
-        let margin: CGFloat = 30
         areaPickerMenu = UIPickerMenuView(frame: .zero)
         areaPickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: pickerView, leftBtn: areaPickerCancelButton, rightBtn: areaMenuOKButton)
         view.addSubview(areaPickerMenu!)

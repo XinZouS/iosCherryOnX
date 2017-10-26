@@ -10,6 +10,7 @@ import UIKit
 
 
 extension InputPasswordLoginController: UITextFieldDelegate {
+    
     func okButtonTapped(){
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
@@ -25,6 +26,7 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             }
         }
     }
+    
     func checkPassword(){
         passwordField.leftViewNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         passwordField.dividerNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -51,9 +53,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    func textViewDidBeginEditing(_ textView: UITextField) {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         transparentView.isHidden = false
-        textView.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
 
     func textFieldsInAllCellResignFirstResponder(){
@@ -63,10 +66,9 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
         
     }
     

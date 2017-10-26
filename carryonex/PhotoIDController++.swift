@@ -31,7 +31,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         return true
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
+        if touches.count > 0 {
             nameTextField.resignFirstResponder()
         }
     }
@@ -91,16 +91,14 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         if UIDevice.current.userInterfaceIdiom == .pad { // iPad MUST setup to present alertViewController
             var referenceView = self.idTypeButton
             switch imagePickedType! {
-            case ImageTypeOfID.passport:
-                referenceView = passportButton
-            case ImageTypeOfID.idCardA:
-                referenceView = idCardA_Button
-            case ImageTypeOfID.idCardB:
-                referenceView = idCardB_Button
-            case ImageTypeOfID.profile:
-                referenceView = profileButton
-            default:
-                referenceView = self.idTypeButton
+                case ImageTypeOfID.passport:
+                    referenceView = passportButton
+                case ImageTypeOfID.idCardA:
+                    referenceView = idCardA_Button
+                case ImageTypeOfID.idCardB:
+                    referenceView = idCardB_Button
+                case ImageTypeOfID.profile:
+                    referenceView = profileButton
             }
             attachmentMenu.popoverPresentationController?.sourceView = referenceView
         }
@@ -145,8 +143,8 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     private func openALCameraController(){
         let corpingParms = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 160, height: 90))
         let cameraViewController = CameraViewController(croppingParameters: corpingParms, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true, completion: { (getImg, phAsset) in
-            if let img = getImg as? UIImage {
-                self.presentImageOnButtons(getImg!)
+            if let image = getImg {
+                self.presentImageOnButtons(image)
             }
             self.dismiss(animated: true, completion: nil)
         })
@@ -162,25 +160,21 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         imageUploadSequence[imagePickedType] = localFileUrl
         
         switch imagePickedType {
-        case .passport:
-            passportButton.setImage(getImg, for: .normal)
-            passportReady = true
+            case .passport:
+                passportButton.setImage(getImg, for: .normal)
+                passportReady = true
             
-        case .idCardA:
-            idCardA_Button.setImage(getImg, for: .normal)
-            idCardAReady = true
+            case .idCardA:
+                idCardA_Button.setImage(getImg, for: .normal)
+                idCardAReady = true
             
-        case .idCardB:
-            idCardB_Button.setImage(getImg, for: .normal)
-            idCardBReady = true
+            case .idCardB:
+                idCardB_Button.setImage(getImg, for: .normal)
+                idCardBReady = true
             
-        case .profile:
-            profileButton.setImage(getImg, for: .normal)
-            profileReady = true
-            
-        default:
-            print("\n \n --- Warning: PhotoIDController++: unknow type of image selected.")
-            break
+            case .profile:
+                profileButton.setImage(getImg, for: .normal)
+                profileReady = true
         }
 
     }
@@ -218,6 +212,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     private func prepareUploadFile(fileName: String, imgIdType: ImageTypeOfID) {
         print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
+        guard let userId = ProfileManager.shared.currentUser?.id else { return }
         
         // Configure aws cognito credentials:
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USWest2, identityPoolId: awsIdentityPoolId)
@@ -229,7 +224,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         uploadRequest?.acl = .private
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[imgIdType]!! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
+        uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)
@@ -368,13 +363,14 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
 
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        let filePath = documentUrl.path
-        print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath!))")
-        do {
-            try fileManager.removeItem(atPath: "\(filePath!)/\(fileName)")
-            print("OK remove file at path: \(filePath), fileName = \(fileName)")
-        }catch let err {
-            print("error : when trying to move file: \(fileName), from path = \(filePath!), get err = \(err)")
+        if let filePath = documentUrl.path {
+            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            do {
+                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
+                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+            } catch let err {
+                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+            }
         }
     }
     

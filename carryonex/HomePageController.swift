@@ -306,9 +306,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         sideButtonContainerView.addSubview(switchUserTypeButton)
         switchUserTypeButton.addConstraints(left: pullSideBtnViewButton.rightAnchor, top: sideButtonContainerView.topAnchor, right: sideButtonContainerView .rightAnchor, bottom: sideButtonContainerView.bottomAnchor, leftConstent: -3, topConstent: 0, rightConstent: sideBtnW / 2 + 10, bottomConstent: 0, width: 0, height: 0)
-        //setupSwitchUserTypeBtnTitle(str: btnTitleShipForYou)
-        
-        setupSwipGestureRecognizer()
     }
 
     private func setupTargetCurrentLocationButton(){
@@ -346,7 +343,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     private func testApiServers(){
         print("\r\n ------ Server connection (HomePageController) ------\r\n")
         
-        let p = "2016666617" // phone number for testing
+        //let p = "2016666617" // phone number for testing
         //let userId = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //ProfileManager.shared.currentUser?.username = "user0"
         //ProfileManager.shared.currentUser?.password = "73dbe388246aa5ee6d71d98371bfb292"

@@ -93,7 +93,11 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         json[UserKeyInDB.token.rawValue]       = token
         
         json[UserKeyInDB.realName.rawValue]    = realName
-        json[UserKeyInDB.phone.rawValue]       = "\(phoneCountryCode)-\(phone)"
+        
+        if let phoneCountryCode = phoneCountryCode, let phone = phone {
+            json[UserKeyInDB.phone.rawValue] = "\(phoneCountryCode)-\(phone)"
+        }
+        
         json[UserKeyInDB.email.rawValue]       = email
         
         json[UserKeyInDB.imageUrl.rawValue]    = imageUrl
@@ -166,14 +170,14 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         }
     }
     
-    func loadFromLocalDisk() -> ProfileUser? {
+    @discardableResult func loadFromLocalDisk() -> ProfileUser? {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
-        if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: savedUser) as! ProfileUser // Xin - here MUST return as! ProfileUser, NOT [String:Any], otherwize local user unable to get value form disk.
-        }else{
-            print("errorr in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
+        if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
+            let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
+                return profileUser
         }
-        return nil as ProfileUser?
+        print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
+        return nil
     }
     
     func removeFromLocalDisk(){
@@ -181,32 +185,35 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         print("OK, removed user from local disk.")
     }
     
-    private func setupPhoneAndCountryCode(){
-        if phone != nil, phone!.contains("-") {
-            let arr = phone!.components(separatedBy: "-")
-            phone = arr.last
-            phoneCountryCode = (arr.first!.characters.count < 5) ? arr.first! : self.phoneCountryCode
+    private func setupPhoneAndCountryCode() {
+        guard let phone = phone else { return }
+        if phone.contains("-") {
+            let arr = phone.components(separatedBy: "-")
+            self.phone = arr.last
+            if let characterCount = arr.first?.characters.count, characterCount < 5 {
+                self.phoneCountryCode = arr.first
+            }
         }
     }
     
     func printAllData(){
-        print("id = \(id)")
-        print("username = \(username)")
-        print("token = \(token)")
+        print("id = \(id ?? "")")
+        print("username = \(username ?? "")")
+        print("token = \(token ?? "")")
         
-        print("realName = \(realName)")
-        print("phone = \(phone), countryCode = \(phoneCountryCode)")
-        print("email = \(email)")
+        print("realName = \(realName ?? "")")
+        print("phone = \(phone ?? ""), countryCode = \(phoneCountryCode ?? "")")
+        print("email = \(email ?? "")")
         
-        print("imageUrl = \(imageUrl)")
-        print("idcardA_Url = \(idCardA_Url)")
-        print("idcardB_Url = \(idCardB_Url)")
-        print("passportUrl = \(passportUrl)")
+        print("imageUrl = \(imageUrl ?? "")")
+        print("idcardA_Url = \(idCardA_Url ?? "")")
+        print("idcardB_Url = \(idCardB_Url ?? "")")
+        print("passportUrl = \(passportUrl ?? "")")
         print("isVerified = \(isVerified)")
         
-        print("requestIdList = \(requestIdList)")
-        print("tripIdList = \(tripIdList)")
-        print("ordersIdLogAsShipper = \(ordersIdLogAsShipper)")
+        print("requestIdList = \(requestIdList ?? [""])")
+        print("tripIdList = \(tripIdList ?? [""])")
+        print("ordersIdLogAsShipper = \(ordersIdLogAsShipper ?? [""])")
     }
     
     required init(unboxer: Unboxer) throws {

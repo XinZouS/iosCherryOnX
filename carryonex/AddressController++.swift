@@ -8,11 +8,7 @@
 
 import UIKit
 
-
-
-
 extension AddressController: UITextFieldDelegate {
-    
     
     func areaMenuOKButtonTapped(){
         print("provinceMenuPickerOKButtonTapped")
@@ -69,9 +65,9 @@ extension AddressController: UITextFieldDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         transparentView.isHidden = false
-        textView.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
     
     func textFieldsInAllCellResignFirstResponder(){
@@ -85,10 +81,9 @@ extension AddressController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
-        
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
     }
     
     func changeUIforCountry(){
