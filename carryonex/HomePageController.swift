@@ -176,6 +176,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupUserInfoMenuView()
         
         testApiServers()
+        
+        NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
