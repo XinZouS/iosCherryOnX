@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         // setup WeChatSDK
         WXApi.registerApp(WX_APPID, enableMTA: true)
         
-        
         return true
     }
     

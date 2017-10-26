@@ -20,17 +20,12 @@ class ProfileManager: NSObject {
     }
     
     func isLoggedIn() -> Bool {
-        self.currentUser?.loadFromLocalDisk()
-        return ProfileManager.shared.currentUser != nil
+        return currentUser != nil
     }
     
     func saveUser() {
-        guard let user = self.currentUser else {
-            print("Errorro: current user is nil, can not be save!!!!!!")
-            return
-        }
-        user.saveIntoLocalDisk()
-        print("OKKK! save user into LocalDisk: user = \(user.printAllData())")
+        guard let user = currentUser else { return }
+        saveProfileUserIntoLocalDisk(user)
     }
     
     func loadUser() {
@@ -39,29 +34,45 @@ class ProfileManager: NSObject {
         //curruser.loadFromLocalDisk()
         
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
-        self.currentUser = ProfileUser().loadFromLocalDisk()
-//        loadUser.loadFromLocalDisk()
-//        print("loadUser, now currentUser = \(self.currentUser!.printAllData())")
+        self.currentUser = loadProfileUserFromLocalDisk()
     }
     
     func removeUser() {
-        guard let user = self.currentUser else { return }
-        user.removeFromLocalDisk()
+        removeProfileUserFromLocalDisk()
         self.currentUser = nil
     }
-    
-// Xin - I think login operation should do it in ApiServers for DB connection, here just do [ADD,DEL,REQ,MDF] for local user
-//    func loginUser(user: ProfileUser) {
-////        if currentUser != nil { Xin - currUser will never nil, bcz we need it to keep it sync to disk for username and token
-////            print("Must log out before relogin a new user")
-////            return
-////        }
-//        currentUser = user
-//        saveUser()
-//    }
     
     func logoutUser() {
         removeUser()
         currentUser = ProfileUser()
     }
+    
+    
+    //MARK: - Local Disk Save
+    
+    func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
+        print("Trying to save ProfileManager into local disk ...")
+        DispatchQueue.main.async {
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: user)
+            UserDefaults.standard.set(encodedData, forKey: UserDefaultKey.ProfileUser.rawValue)
+            UserDefaults.standard.synchronize()
+            print("OK, save ProfileManager into local disk success!!! user = \(user.printAllData())")
+        }
+    }
+    
+    func loadProfileUserFromLocalDisk() -> ProfileUser? {
+        print("\n\rtrying to loadFromLocalDisk() ...... ")
+        if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
+            let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
+            return profileUser
+        }
+        print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
+        return nil
+    }
+    
+    func removeProfileUserFromLocalDisk(){
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.ProfileUser.rawValue)
+        print("OK, removed user from local disk.")
+    }
+    
 }
