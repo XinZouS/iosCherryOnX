@@ -451,14 +451,93 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
             self.openImagePickerWith(source: .camera, isAllowEditing: true)
         }
+        let wechatLogin = UIAlertAction(title: "微信获得信息", style: .default) { (action) in
+            self.wechatButtonTapped()
+        }
         let cancelSelect = UIAlertAction(title: "取消", style: .cancel) { (action) in
             self.dismiss(animated: true, completion: nil)
         }
         attachmentMenu.addAction(openLibrary)
         attachmentMenu.addAction(openCamera)
+         attachmentMenu.addAction(wechatLogin)
         attachmentMenu.addAction(cancelSelect)
         
         present(attachmentMenu, animated: true, completion: nil)
+    }
+    
+    //WECHAT lOGIN
+    func wechatButtonTapped(){
+        let urlStr = "weixin://"
+        if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
+            let red = SendAuthReq.init()
+            red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
+            red.state = "\(arc4random()%100)"
+            WXApi.send(red)
+        }else{
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
+            }
+        }
+    }
+    /**  微信通知  */
+    func WXLoginSuccess(notification:Notification) {
+        
+        let code = notification.object as! String
+        let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
+        
+        DispatchQueue.global().async {
+            
+            let requestURL: URL = URL.init(string: requestUrl)!
+            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+            
+            DispatchQueue.main.async {
+                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                let openid: String = jsonResult["openid"] as! String
+                let access_token: String = jsonResult["access_token"] as! String
+                self.getUserInfo(openid: openid, access_token: access_token)
+            }
+        }
+    }
+    
+    /**  获取用户信息  */
+    func getUserInfo(openid:String,access_token:String) {
+        let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
+        
+        DispatchQueue.global().async {
+            
+            let requestURL: URL = URL.init(string: requestUrl)!
+            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+            
+            DispatchQueue.main.async {
+                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                print(jsonResult)
+                if let imgUrl = jsonResult["headimgurl"] as? String {
+                    ProfileManager.shared.currentUser?.imageUrl = imgUrl
+                    ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: imgUrl, completion: { (success, msg) in
+                        print(success, msg)
+                        if success {
+                            self.userInfoMenuView.userProfileView.setupWechatImg()
+                        }else{
+                            print("错误")
+                        }
+                    })
+                }
+                if let realName = jsonResult["nickname"] as? String {
+                    ProfileManager.shared.currentUser?.realName = realName
+                    ApiServers.shared.postUpdateUserInfo(.realName, newInfo: realName, completion: { (success, msg) in
+                        print(success, msg)
+                        if success {
+                            self.userInfoMenuView.userProfileView.setupWechatRealName()
+                        }else{
+                            print("错误")
+                        }
+                    })
+                }
+            }
+        }
     }
     
     internal func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool){

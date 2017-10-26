@@ -195,23 +195,23 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             nextButton.backgroundColor = nextButton.isEnabled ? buttonThemeColor : .lightGray
         }
     }
-    
+  
     //WECHAT lOGIN
     func wechatButtonTapped(){
-//        let urlStr = "weixin://"
-//        if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
+       let urlStr = "weixin://"
+       if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
             let red = SendAuthReq.init()
             red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
             red.state = "\(arc4random()%100)"
             WXApi.send(red)
-//        }else{
-//            if #available(iOS 10.0, *) {
-//                UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
-//            } else {
-//                // Fallback on earlier versions
-//                UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
-//            }
-//        }
+       }else{
+           if #available(iOS 10.0, *) {
+               UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
+           } else {
+               // Fallback on earlier versions
+               UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
+           }
+       }
     }
     /**  微信通知  */
     func WXLoginSuccess(notification:Notification) {
@@ -249,7 +249,6 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             }
         }
     }
-    
 //    func registerButtonTapped(){
 //        let verifiCtl = VerificationController()
 //        verifiCtl.isRegister = 1

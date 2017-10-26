@@ -180,6 +180,8 @@ class ApiServers : NSObject {
                     completion(token)
                     print("\n\r now get current user = ")
                     ProfileManager.shared.currentUser?.printAllData()
+                }else{
+                   completion("error")
                 }
             }
         }

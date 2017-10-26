@@ -76,9 +76,6 @@ extension UserSettingController {
         ProfileManager.shared.removeUser() // remove local user for new user to login
         userProfileView?.removeProfileImageFromLocalFile()
         dismiss(animated: true, completion: nil)
-        let registerMainNavCtl = UINavigationController(rootViewController: RegisterMainController())
-        present(registerMainNavCtl, animated: true, completion: nil)
-
     }
 
     
