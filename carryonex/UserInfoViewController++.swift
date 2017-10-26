@@ -138,7 +138,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
     
     private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
         
-        guard let userId = ProfileManager.shared.currentUser?.id as? String else { return }
+        guard let userId = ProfileManager.shared.currentUser?.id else { return }
         
         let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
