@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 
 extension UserProfileView {
@@ -62,6 +62,9 @@ extension UserProfileView {
             phoneButton.setAttributedTitle(attStr, for: .normal)
             phoneButton.isEnabled = true
         }
+        if let imgPhoto = ProfileManager.shared.currentUser?.imageUrl{
+            profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
+        }
         
         if !nameButton.isEnabled && !phoneButton.isEnabled {
             verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifyTrue")
@@ -82,6 +85,18 @@ extension UserProfileView {
     
     internal func setupProfileImage(_ img: UIImage){
         profileImgButton.setImage(img, for: .normal)
+    }
+    
+    internal func setupWechatImg(){
+        let imgUrl = ProfileManager.shared.currentUser?.imageUrl
+        profileImgButton.kf.setImage(with:URL(string:imgUrl!), for: .normal)
+        
+    }
+    
+    internal func setupWechatRealName(){
+        let attStr = NSAttributedString(string: (ProfileManager.shared.currentUser?.realName)!, attributes: buttonAttributes)
+        nameButton.setAttributedTitle(attStr, for: .normal)
+        
     }
     
     public func removeProfileImageFromLocalFile(){

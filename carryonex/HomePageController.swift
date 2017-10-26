@@ -176,6 +176,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupUserInfoMenuView()
         
         testApiServers()
+        
+        NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -190,7 +192,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        saveUserIntoLocalDisk()
+//        saveUserIntoLocalDisk()
         UIApplication.shared.statusBarStyle = .lightContent
     }
 

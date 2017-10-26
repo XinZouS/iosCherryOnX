@@ -12,6 +12,7 @@ import Material
 class RegisterPasswordController: UIViewController {
     var passwordField: TextField!
     var passwordConfirmField: TextField!
+    var passwordCorrect : Bool = false
     fileprivate let constant: CGFloat = 32
     
     var transparentView : UIView = {
