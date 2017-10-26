@@ -197,7 +197,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
 
     private func isItHaveLogIn(){
-        if (ProfileManager.shared.isLoggedIn()){
+        if (!ProfileManager.shared.isLoggedIn()){
             ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false

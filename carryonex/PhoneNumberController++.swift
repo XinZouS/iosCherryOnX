@@ -64,20 +64,20 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                     self.navigationController?.pushViewController(inputPasswordLoginCtl, animated: true)
                 }
             }else{
-                //            let phoneNum = ProfileManager.shared.currentUser?.phone
-                //            let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-                //            print("get : okButtonTapped, api send text msg and go to next page!!!")
-                //            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                //                print(err)
-                //                if err == nil {
-                //                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                self.goToVerificationPage()
-                //                } else {
-                //                    print("PhoneNumberController: 有错误: \(err)")
-                //                    let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
-                //                    self.showAlertWith(title: "获取验证码失败", message: msg)
-                //                }
-                //            })
+                let phoneNum = ProfileManager.shared.currentUser?.phone
+                let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+                print("get : okButtonTapped, api send text msg and go to next page!!!")
+                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                    print(err)
+                    if err == nil {
+                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                        self.goToVerificationPage()
+                    } else {
+                        print("PhoneNumberController: 有错误: \(err)")
+                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+                        self.showAlertWith(title: "获取验证码失败", message: msg)
+                    }
+                })
             }
         }
     }

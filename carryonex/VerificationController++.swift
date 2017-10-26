@@ -84,51 +84,33 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-        //let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-        //let phoneNum = ProfileManager.shared.currentUser?.phone!
+        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+        let phoneNum = ProfileManager.shared.currentUser?.phone!
         let registEmailCtl = RegisterEmailController()
-        //print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
-//            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
-//            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-//                print(zoneCode,phoneNum)
-//                if err == nil {
+            print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
+            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
+            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                print(zoneCode,phoneNum)
+               if err == nil {
                     self.navigationController?.pushViewController(registEmailCtl, animated: true)
-//                } else {
-//                    self.verifyFaild(err)
-//                }
-//            })
-//        }
-    }
-    
-//    private func verifySuccess(){
-//        DispatchQueue.main.async {
-//            ProfileManager.shared.saveUser()
-//            if let newPhone = ProfileManager.shared.currentUser?.phone {
-//                ApiServers.shared.postUpdateUserInfo(.phone, newInfo: newPhone, completion: { (success, msg) in
-//                    print("postUpdateUserInfo phone isSuccess = \(success), msg = \(msg)")
-//                })
-//            }
-//        }
-
-    func dismissAndBackToHomePage(){
-        dismiss(animated: false) {
-            self.phoneNumberCtrlDelegate?.dismissAndReturnToHomePage()
+               } else {
+                    self.verifyFaild(err)
+               }
+            })
         }
+
+    private func verifyFaild(_ err: Error?){
+        print("验证失败，error: \(err!)")
+        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因: \(err!)"
+        showAlertWith(title: "验证失败", message: errMsg)
     }
-//    private func verifyFaild(_ err: Error?){
-//        print("验证失败，error: \(err!)")
-//        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因: \(err!)"
-//        showAlertWith(title: "验证失败", message: errMsg)
-//    }
-//
-//    func goNextPage(){ // development page jump use
-//        verifySuccess()
-//    }
     
     private func showAlertWith(title:String, message:String){
         let alertCtl = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertCtl.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             alertCtl.dismiss(animated: true, completion: nil)
+            let phoneNumberCtl = PhoneNumberController()
+            self.navigationController?.pushViewController(phoneNumberCtl, animated: true)
         }))
         self.present(alertCtl, animated: true, completion: nil)
     }

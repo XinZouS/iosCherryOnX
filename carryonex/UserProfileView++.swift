@@ -63,7 +63,9 @@ extension UserProfileView {
             phoneButton.isEnabled = true
         }
         if let imgPhoto = ProfileManager.shared.currentUser?.imageUrl{
-            profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
+            if(imgPhoto != ""){
+                profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
+            }
         }
         
         if !nameButton.isEnabled && !phoneButton.isEnabled {

@@ -16,7 +16,7 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
             if(msg != "error"){
                 ApiServers.shared.getUserInfoAll(handleInfo: { (info) in
-                    print("zxb",info)
+                    print(info)
                     self.dismiss(animated: true, completion: nil)
                 })
             }else{

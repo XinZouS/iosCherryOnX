@@ -21,8 +21,7 @@ class ProfileManager: NSObject {
     
     func isLoggedIn() -> Bool {
         self.currentUser?.loadFromLocalDisk()
-        print("zxb",currentUser ?? "")
-        return ProfileManager.shared.currentUser == nil
+        return ProfileManager.shared.currentUser != nil
     }
     
     func saveUser() {
