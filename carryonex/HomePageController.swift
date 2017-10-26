@@ -158,6 +158,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         if UserDefaults.standard.bool(forKey: UserDefaultKey.OnboardingFinished.rawValue) == false {
             presentOnboardingPage()
         }
+        
         fetchUserFromLocalDiskAndSetup()
         
         //setupNavigationBar()

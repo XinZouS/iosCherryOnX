@@ -159,32 +159,6 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     }
     
     //MARK:- Disk Save
-    
-    func saveIntoLocalDisk(){
-        print("Trying to save ProfileManager into local disk ...")
-        DispatchQueue.main.async {
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self)
-            UserDefaults.standard.set(encodedData, forKey: UserDefaultKey.ProfileUser.rawValue)
-            UserDefaults.standard.synchronize()
-            print("OK, save ProfileManager into local disk success!!! user = \(self.printAllData())")
-        }
-    }
-    
-    @discardableResult func loadFromLocalDisk() -> ProfileUser? {
-        print("\n\rtrying to loadFromLocalDisk() ...... ")
-        if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
-            let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
-                return profileUser
-        }
-        print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
-        return nil
-    }
-    
-    func removeFromLocalDisk(){
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.ProfileUser.rawValue)
-        print("OK, removed user from local disk.")
-    }
-    
     private func setupPhoneAndCountryCode() {
         guard let phone = phone else { return }
         if phone.contains("-") {
