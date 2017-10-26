@@ -22,7 +22,7 @@ import UIKit
             
             let mySize = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
             let option = NSStringDrawingOptions.usesLineFragmentOrigin
-            let attrib = [NSFontAttributeName: font]
+            let attrib = [NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
             
             let labelStrSize = strTextAsNSStr.boundingRect(with: mySize, options: option, attributes: attrib, context: nil).size
             

@@ -146,7 +146,7 @@ extension WaitingController: FBSDKSharingDelegate {
             
             switch state{
             case SSDKResponseState.success: print("分享成功")
-            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error?.localizedDescription)")
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error?.localizedDescription ?? "get err in ")")
             case SSDKResponseState.cancel:  print("操作取消")
             default:
                 break

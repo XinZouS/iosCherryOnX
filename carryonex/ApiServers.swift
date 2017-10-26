@@ -241,8 +241,9 @@ class ApiServers : NSObject {
             if let data = responsDictionary["data"] as? [String : Any] {
                 handleInfo(data)
                 do {
-                    print("getUserInfoAll, data = \(data)")
-                    let getUser: User = try unbox(dictionary: data, atKey: "string") // TODO: change the key to "user"
+                    let getUser: ProfileUser = try unbox(dictionary: data, atKey: "string") // TODO: change the key to "user"
+                    ProfileManager.shared.currentUser = getUser
+                    ProfileManager.shared.saveUser()
                     print("getUserInfoAll, getUser = \(getUser)")
                 }catch let err {
                     print("get errorrrr when getUserInfoAll, err = \(err)")
@@ -403,8 +404,8 @@ class ApiServers : NSObject {
         ]
         print("will postTripInfo, parameter = \(parameter)")
         postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
-            if let d = dictionary as? [String:Any] {
-                print("get respons dictionary when postTripInfo, dict = \(d)")
+            if dictionary.count > 0 {
+                print("get respons dictionary when postTripInfo, dict = \(dictionary)")
                 completion(true, "TODO: testing...", "get id,,,")
                 
             }else{
@@ -430,8 +431,8 @@ class ApiServers : NSObject {
         ]
         print("will postAddress, parameter = \(parameter)")
         postDataWithUrlRoute(route, parameters: parameter) { (dictionary) in
-            if let d = dictionary as? [String:Any] {
-                print("get respons dictionary when postTripInfo, dict = \(d)")
+            if dictionary.count > 0 {
+                print("get respons dictionary when postTripInfo, dict = \(dictionary)")
                 completion(true, "TODO: testing...", "get id,,,")
                 
             }else{
