@@ -85,12 +85,12 @@ extension VerificationController: UITextFieldDelegate {
     
     private func commitVerificationCode(){
         let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-        let phoneNum = ProfileManager.shared.currentUser?.phone!
+        let phoneNum = ProfileManager.shared.currentUser?.phone
         let registEmailCtl = RegisterEmailController()
-            print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
+            //print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
             guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
             SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                print(zoneCode,phoneNum)
+                //print(zoneCode,phoneNum)
                if err == nil {
                     self.navigationController?.pushViewController(registEmailCtl, animated: true)
                } else {

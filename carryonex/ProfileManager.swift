@@ -49,8 +49,7 @@ class ProfileManager: NSObject {
     
     
     //MARK: - Local Disk Save
-    
-    func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
+    private func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
         print("Trying to save ProfileManager into local disk ...")
         DispatchQueue.main.async {
             let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: user)
@@ -60,7 +59,7 @@ class ProfileManager: NSObject {
         }
     }
     
-    func loadProfileUserFromLocalDisk() -> ProfileUser? {
+    private func loadProfileUserFromLocalDisk() -> ProfileUser? {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
         if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
             let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
@@ -70,9 +69,8 @@ class ProfileManager: NSObject {
         return nil
     }
     
-    func removeProfileUserFromLocalDisk(){
+    private func removeProfileUserFromLocalDisk(){
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.ProfileUser.rawValue)
         print("OK, removed user from local disk.")
     }
-    
 }
