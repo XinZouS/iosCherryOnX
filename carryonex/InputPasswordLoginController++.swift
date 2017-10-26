@@ -10,19 +10,29 @@ import UIKit
 
 
 extension InputPasswordLoginController: UITextFieldDelegate {
+    
     func okButtonTapped(){
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
-            if (msg != nil) {
+            if(msg != "error"){
                 ProfileManager.shared.saveUser()
                 self.dismiss(animated: true, completion: nil)
             }else{
-                print(msg)
+                self.passwordField.leftViewNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.dividerNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.placeholderNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.detailLabel.text = "密码错误请重新输入"
             }
         }
-        
     }
+    
     func checkPassword(){
+        passwordField.leftViewNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        passwordField.dividerNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        passwordField.placeholderNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        passwordField.detailLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        passwordField.detailLabel.text = "请输入6位以上密码"
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
         let maybePassword = passwordField.text
@@ -43,9 +53,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    func textViewDidBeginEditing(_ textView: UITextField) {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         transparentView.isHidden = false
-        textView.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
 
     func textFieldsInAllCellResignFirstResponder(){
@@ -55,10 +66,9 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
         
     }
     

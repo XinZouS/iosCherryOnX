@@ -137,6 +137,9 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
     // MARK: - AWS S3 storage for profile image
     
     private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
+        
+        guard let userId = ProfileManager.shared.currentUser?.id as? String else { return }
+        
         let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
         
@@ -150,7 +153,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
         uploadRequest.acl = .private
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()

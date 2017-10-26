@@ -87,17 +87,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return b
     }()
     
-    lazy var wechatlogin:UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .lightGray
-        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        b.setTitle("微信登入", for: .normal)
-        b.layer.cornerRadius = 5
-        b.layer.masksToBounds = true
-        b.addTarget(self, action: #selector(wechatButtonTapped), for: .touchUpInside)
-        return b
-    }()
-    
 //    lazy var okButton: UIButton = {
 //        let b = UIButton()
 //        b.backgroundColor = .lightGray // buttonColorBlue
@@ -149,8 +138,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
 //        setupDevelopButton()
         setupnextButton()
-        setupWechatButton()
-        NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
     
@@ -188,15 +175,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
 //        devBtn.widthAnchor.constraint(equalToConstant: 148).isActive = true
 //        devBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
 //    }
-    
-    private func setupWechatButton(){
-        view.addSubview(wechatlogin)
-        wechatlogin.translatesAutoresizingMaskIntoConstraints = false
-        wechatlogin.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        wechatlogin.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
-        wechatlogin.widthAnchor.constraint(equalToConstant: 148).isActive = true
-        wechatlogin.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    }
     
     private func setupPhoneNumTextField(){
         phoneNumberTextField = TextField()

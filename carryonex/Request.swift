@@ -157,22 +157,22 @@ class Request: NSObject, Unboxable {
     func printAll(){
         print("-------------")
         print("Current Request : ")
-        print("id = ", id)
+        print("id = ", id ?? "")
         print("numberOfItem = ", numberOfItem)
-        print("youxiangId = ", youxiangId)
+        print("youxiangId = ", youxiangId ?? "")
         print("status = ", status)
-        print("departure address = ", departureAddress)
-        print("destination address = ", destinationAddress)
+        print("departure address = ", departureAddress ?? "")
+        print("destination address = ", destinationAddress ?? "")
         print("length = \(length), width = \(width), height = \(height)")
         print("weight = \(weight)")
         print("imageUrls = \(imageUrls)")
 
         print("cost = $ ", cost)
         
-        print("owner = ", owner)
-        print("tripId = \(tripId)")
-        print("startShippingTimeStamp = ", startShippingTimeStamp)
-        print("endShippingTimeStamp = ", endShippingTimeStamp)
+        print("owner = ", owner ?? "")
+        print("tripId = \(tripId ?? "")")
+        print("startShippingTimeStamp = ", startShippingTimeStamp ?? "")
+        print("endShippingTimeStamp = ", endShippingTimeStamp ?? "")
         print(" ---------- ")
     }
     

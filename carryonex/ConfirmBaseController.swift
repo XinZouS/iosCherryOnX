@@ -177,7 +177,6 @@ class ConfirmBaseController: UIViewController {
         view.addSubview(deliveryLocationLabel)
         deliveryLocationLabel.addConstraints(left: lf, top: deliveryTimeLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: leftMargin, topConstent: lineMargin, rightConstent: 0, bottomConstent: 0, width: 80, height: labelHeigh)
         
-        let txVwHeigh: CGFloat = UIScreen.main.bounds.width < 325 ? 75 : 85
         view.addSubview(deliveryLocationTextView)
         deliveryLocationTextView.addConstraints(left: deliveryLocationLabel.rightAnchor, top: deliveryTimeLabel.bottomAnchor, right: rt, bottom: nil, leftConstent: 2, topConstent: 0, rightConstent: leftMargin - 20, bottomConstent: 0, width: 0, height: 0)
         deliveryLocationTxVwHeightConstraint = deliveryLocationTextView.heightAnchor.constraint(equalToConstant: 75)

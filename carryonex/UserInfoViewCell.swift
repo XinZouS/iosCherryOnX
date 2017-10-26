@@ -23,7 +23,6 @@ class UserInfoViewCell: UICollectionViewCell {
         v.contentMode = .scaleAspectFit
         return v
     }()
-    
 //    let underlineView: UIView = {
 //        let v = UIView()
 //        v.backgroundColor = barColorLightGray

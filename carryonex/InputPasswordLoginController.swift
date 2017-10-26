@@ -10,6 +10,7 @@ import UIKit
 import Material
 
 class InputPasswordLoginController: UIViewController {
+    
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32
     
@@ -32,6 +33,7 @@ class InputPasswordLoginController: UIViewController {
         b.isEnabled = false
         return b
     }()
+    
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
@@ -57,8 +59,8 @@ class InputPasswordLoginController: UIViewController {
     }
     private func setupPasswordTextField(){
         passwordField = TextField()
-        passwordField.placeholder = "Password"
-        passwordField.detail = "At least 8 characters"
+        passwordField.placeholder = "密码"
+        passwordField.detail = "请输入6位以上密码"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)

@@ -111,10 +111,10 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         guard let addressDictionary = placemark.addressDictionary else { return }
         
         address.country = (addressDictionary["CountryCode"] as! String) == "US" ? Country.UnitedStates : Country.China
-        address.state = addressDictionary["State"] as! String
-        address.city = addressDictionary["City"] as! String
-        address.detailAddress = addressDictionary["Street"] as! String
-        address.zipcode = addressDictionary["ZIP"] as! String
+        address.state = addressDictionary["State"] as? String
+        address.city = addressDictionary["City"] as? String
+        address.detailAddress = addressDictionary["Street"] as? String
+        address.zipcode = addressDictionary["ZIP"] as? String
         address.recipientName = ""
         address.phoneNumber = ""
         address.coordinateLatitude  = placemark.coordinate.latitude
@@ -139,7 +139,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
             placeMark = placeArray[0]
             
             // Address dictionary
-            print(placeMark.addressDictionary)
+            //print(placeMark.addressDictionary)
             
             //self.saveAddressInfoBy(placeMark as! MKPlacemark) --> this is an ERROR!!! Do it as following:
             let country = placeMark.addressDictionary?["CountryCode"] as? String ?? "US"
@@ -156,7 +156,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
 
             if let locationName = placeMark.addressDictionary?["Name"] as? String {
                 self.address.detailAddress = locationName
-                print("get locationName = \(locationName), address.detailAddress = \(self.address.detailAddress)")
+                //print("get locationName = \(locationName), address.detailAddress = \(self.address.detailAddress)")
                 annotation.title = (country == "US") ? locationName : dt // dt: detailAdd for China only
             }
             annotation.subtitle = (country == "US") ? "\(st) \(ct)" : "\(ct) \(st)"
@@ -178,10 +178,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         locateMapTo(self.address)
     }
     internal func locateMapTo(_ add: Address){
-        guard let lati = add.coordinateLatitude as? Double,
-            let long = add.coordinateLongitude as? Double else { return }
-        
-        let pm = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: lati, longitude: long))
+        let pm = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: add.coordinateLatitude, longitude: add.coordinateLongitude))
         dropPinZoomIn(placemark: pm)
     }
 
@@ -242,9 +239,9 @@ extension AddressSearchController : MKMapViewDelegate {
         
         let st = address.state!, ct = address.city!
         var dt = address.detailAddress!
-        if let placeNames = dt.components(separatedBy: ",") as? [String] {
-            dt = placeNames.first ?? ""
-        }
+        let placeNames = dt.components(separatedBy: ",")
+        dt = placeNames.first ?? ""
+        
         //let addShort = address.country == Country.China ? "\(st), \(ct)" : "\(ct), \(st)"
         let add = address.country == Country.China ? "\(st), \(ct), \(dt)" : "\(dt), \(ct), \(st)"
         //let add = UIDevice.current.userInterfaceIdiom == .phone ? addShort : addLong
@@ -264,9 +261,6 @@ extension AddressSearchController : MKMapViewDelegate {
         case AddressSearchType.tripDestination:
             postTripCtl?.addressDestinat = self.address
             postTripCtl?.setupEndAddress(string: add)
-
-        default:
-            print("get error type when updateAddressInfoToParentController in AddressSearchController++ !!!")
         }
         print("get new address: ", add)
     }
@@ -281,35 +275,31 @@ extension AddressSearchController {
         guard let currType = self.searchType else { return }
         
         switch currType {
+            case AddressSearchType.requestStarting:
+                if let currAdd = request?.departureAddress {
+                    setupCurrentAddress(currAdd)
+                    // }else{ // connect reference when address annotation OK button tapped
+                    // self.request?.destinationAddress = self.address
+                }
             
-        case AddressSearchType.requestStarting:
-            if let currAdd = request?.departureAddress {
-                setupCurrentAddress(currAdd)
-                // }else{ // connect reference when address annotation OK button tapped
-                // self.request?.destinationAddress = self.address
-            }
+            case AddressSearchType.requestDestination:
+                if let currAdd = request?.destinationAddress {
+                    setupCurrentAddress(currAdd)
+                }
             
-        case AddressSearchType.requestDestination:
-            if let currAdd = request?.destinationAddress {
-                setupCurrentAddress(currAdd)
-            }
+            case AddressSearchType.tripStarting:
+                if let currAdd = postTripCtl?.addressStarting {
+                    setupCurrentAddress(currAdd)
+                    // }else{
+                    // self.postTripCtl?.addressStarting = self.address
+                }
             
-        case AddressSearchType.tripStarting:
-            if let currAdd = postTripCtl?.addressStarting {
-                setupCurrentAddress(currAdd)
-                // }else{
-                // self.postTripCtl?.addressStarting = self.address
-            }
-            
-        case AddressSearchType.tripDestination:
-            if let currAdd = postTripCtl?.addressDestinat {
-                setupCurrentAddress(currAdd)
-                // }else{
-                // self.postTripCtl?.addressDestinat = self.address
-            }
-            
-        default:
-            print("!!!get undefined type in AddressSearchController.setupAddressReferences()")
+            case AddressSearchType.tripDestination:
+                if let currAdd = postTripCtl?.addressDestinat {
+                    setupCurrentAddress(currAdd)
+                    // }else{
+                    // self.postTripCtl?.addressDestinat = self.address
+                }
         }
     }
 

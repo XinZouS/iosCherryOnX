@@ -57,7 +57,6 @@ class PaymentCell : UICollectionViewCell {
     }
     
     private func setupCheckbox(){
-        let margin: CGFloat = 5
         addSubview(checkbox)
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         checkbox.rightAnchor.constraint(equalTo: rightAnchor, constant: -25).isActive = true
