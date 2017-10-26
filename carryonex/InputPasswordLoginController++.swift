@@ -10,6 +10,7 @@ import UIKit
 
 
 extension InputPasswordLoginController: UITextFieldDelegate {
+    
     func okButtonTapped(){
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
@@ -23,8 +24,8 @@ extension InputPasswordLoginController: UITextFieldDelegate {
                 self.passwordField.detailLabel.text = "请输入正确的密码"
             }
         }
-        
     }
+    
     func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
@@ -46,9 +47,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    func textViewDidBeginEditing(_ textView: UITextField) {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         transparentView.isHidden = false
-        textView.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
 
     func textFieldsInAllCellResignFirstResponder(){
@@ -58,10 +60,9 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
         
     }
     

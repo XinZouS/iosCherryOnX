@@ -248,7 +248,7 @@ extension RequestController {
     
     internal func uploadImagesToAwsAndGetUrls(){
         for pair in imageUploadSequence {
-            let imageName = pair.key as! String
+            let imageName = pair.key
             prepareUploadFile(fileName: imageName)
         }
     }
@@ -303,7 +303,6 @@ extension RequestController {
     }
     
     private func saveImageCloudUrl(url : URL){
-        let fileName: String = url.lastPathComponent
         request.imageUrls.append(url.absoluteString)
         print("OK!!! saveImageCloudUrl, Uploaded to url: \(url)")
     }
@@ -323,13 +322,14 @@ extension RequestController {
         
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        let filePath = documentUrl.path
-        print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath!))")
+        
+        guard let filePath = documentUrl.path else { return }
+        print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
         do {
-            try fileManager.removeItem(atPath: "\(filePath!)/\(fileName)")
+            try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
             print("OK remove file at path: \(filePath), fileName = \(fileName)")
         }catch let err {
-            print("error : when trying to move file: \(fileName), from path = \(filePath!), get err = \(err)")
+            print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
         }
     }
     
@@ -449,6 +449,7 @@ extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
             expectDeliveryTimeButton.setAttributedTitle(attTitleStr, for: .normal)
             
             // expectDeliveryTimes = ["三天内送达", "一周内送达", "二周内送达"]
+            /*
             var expDateStr = "三天内送达"
             var delta : TimeInterval = 0
             let day : TimeInterval = 3600 * 24
@@ -465,6 +466,7 @@ extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
             default:
                 delta = 0
             }
+            */
             //request.expectDeliveryTime = Date(timeIntervalSinceNow: delta).timeIntervalSince1970
             //let dateString = request.expectDeliveryTime!.description
             //cell06ExpectDelivery?.textField.text = expDateStr

@@ -101,10 +101,9 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
-        
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
     }
     
     func showUserAgreementPage(){
@@ -127,9 +126,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     // MARK: textField and keyboard
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        phoneNumberTextField.becomeFirstResponder()
+        _ = phoneNumberTextField.becomeFirstResponder()
         flagPicker.isHidden = true
     }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         phoneNumberTextField.resignFirstResponder()
 //        updatePhoneNum()

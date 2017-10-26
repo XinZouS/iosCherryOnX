@@ -29,10 +29,11 @@ extension RegisterPasswordController: UITextFieldDelegate {
         }
     }
     
-    func textViewDidBeginEditing(_ textView: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         transparentView.isHidden = false
-        textView.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
+    
     func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
@@ -77,9 +78,9 @@ extension RegisterPasswordController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let touch = touches.first else { return }
-        
-        textFieldsInAllCellResignFirstResponder()
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
         
     }
 }

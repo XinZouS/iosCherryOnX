@@ -10,6 +10,7 @@ import UIKit
 import Material
 
 class InputPasswordLoginController: UIViewController {
+    
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32
     
@@ -32,6 +33,7 @@ class InputPasswordLoginController: UIViewController {
         b.isEnabled = false
         return b
     }()
+    
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
