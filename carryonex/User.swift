@@ -80,7 +80,7 @@ class User: Unboxable {
         print("username = \(username!)")
         print("token = \(token!)")
         print("realName = \(realName!)")
-        print("phone = \(phone), countryCode = \(phoneCountryCode!)")
+        print("phone = \(phone!), countryCode = \(phoneCountryCode!)")
         print("email = \(email!)")
         print("imageUrl = \(imageUrl!)")
     }

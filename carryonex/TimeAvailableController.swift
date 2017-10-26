@@ -255,7 +255,7 @@ class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICo
     }
 
     private func setupCollectionView(){
-        let h : CGFloat = 280
+        //let h : CGFloat = 280
         scrollView.addSubview(collectionView)
         
 //        if ProfileManager.shared.currentUser?.isShipper {  // finishButton move with scrollview
