@@ -69,12 +69,12 @@ class PostBaseCell : UICollectionViewCell {
     
     private func setupTitleLabel(){
         addSubview(titleLabel)
-        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 100, height: 20)
+        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 20, rightConstent: 0, bottomConstent: 0, width: 100, height: 20)
     }
     
     private func setupInfoLabelAndButton(){
         addSubview(infoLabel)
-        infoLabel.addConstraints(left: titleLabel.rightAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
+        infoLabel.addConstraints(left: titleLabel.rightAnchor, top: titleLabel.topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 20)
     }
     
     private func setupUnderlineView(){

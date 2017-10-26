@@ -390,19 +390,54 @@ class ApiServers : NSObject {
         }
     }
     
-    func postTripInfo(trip: Trip){
+    func postTripInfo(trip: Trip, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
         let sessionStr = hostVersion + "/trips/trips"
+        var tripDict = trip.packAsDictionaryForDB()
+        tripDict[ServerKey.username.rawValue] = ProfileManager.shared.currentUser?.username ?? ""
+        
         let parameter:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.data.rawValue: [
-                ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
-            ]
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.data.rawValue: tripDict
         ]
-        
+        print("will postTripInfo, parameter = \(parameter)")
         postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
-            //
+            if let d = dictionary as? [String:Any] {
+                print("get respons dictionary when postTripInfo, dict = \(d)")
+                completion(true, "TODO: testing...", "get id,,,")
+                
+            }else{
+                completion(false, "TODO: testing...", "get id,,,")
+                
+            }
+        }
+    }
+    
+    
+    // MARK: - Address APIs
+    
+    func postAddressInfo(address: Address, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
+        let route = hostVersion + "/addresses/addresses"
+        var addDict = address.packAsDictionaryForDB()
+        addDict[ServerKey.username.rawValue] = ProfileManager.shared.currentUser?.username ?? ""
+        
+        let parameter:[String:Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.data.rawValue: addDict
+        ]
+        print("will postAddress, parameter = \(parameter)")
+        postDataWithUrlRoute(route, parameters: parameter) { (dictionary) in
+            if let d = dictionary as? [String:Any] {
+                print("get respons dictionary when postTripInfo, dict = \(d)")
+                completion(true, "TODO: testing...", "get id,,,")
+                
+            }else{
+                completion(false, "TODO: testing...", "get id,,,")
+                
+            }
         }
     }
     

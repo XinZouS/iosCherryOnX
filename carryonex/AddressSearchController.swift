@@ -60,7 +60,7 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     lazy var targetCurrentLocationButton : UIButton = {
         let b = UIButton()
         b.addTarget(self, action: #selector(targetCurrentLocBtnTapped), for: .touchUpInside)
-        b.setImage(#imageLiteral(resourceName: "yadianwenqing"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_locationIcon"), for: .normal)
         return b
     }()
     
@@ -148,7 +148,7 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     
     private func setupTargetCurrentLocationButton(){
         view.addSubview(targetCurrentLocationButton)
-        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 40, height: 40)
+        targetCurrentLocationButton.addConstraints(left: nil, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 20, bottomConstent: 20, width: 50, height: 50)
     }
     
     

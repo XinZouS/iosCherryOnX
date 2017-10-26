@@ -119,13 +119,6 @@ class Address : NSObject, Unboxable {
         
         do {
             if let dt = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) as Data? {
-                //                let decoded = try JSONSerialization.jsonObject(with: dt as Data, options: [])
-                //                // here "decoded" is of type `Any`, decoded from JSON data
-                //                if let dc = decoded as? [String:Any] {
-                //                    for item in dc {
-                //                        print("key = \(item.key), val = \(item.value)")
-                //                    }
-                //                }
                 return dt
             }
             
@@ -146,6 +139,21 @@ class Address : NSObject, Unboxable {
         phoneNumber = json[AddressKeyInDB.phoneNumber.rawValue] as? String ?? ""
         coordinateLongitude = json[AddressKeyInDB.longtitude.rawValue] as? Double ?? 0.0
         coordinateLatitude  = json[AddressKeyInDB.latitude.rawValue] as? Double ?? 0.0
+    }
+    
+    func packAsDictionaryForDB() -> [String:Any] {
+        var json = [String:Any]()
+        json[AddressKeyInDB.id.rawValue]            = id
+        json[AddressKeyInDB.country.rawValue]       = country?.rawValue
+        json[AddressKeyInDB.state.rawValue]         = state
+        json[AddressKeyInDB.city.rawValue]          = city
+        json[AddressKeyInDB.detailAddr.rawValue]    = detailAddress
+        json[AddressKeyInDB.zipcode.rawValue]       = zipcode
+        json[AddressKeyInDB.recipientName.rawValue] = recipientName
+        json[AddressKeyInDB.phoneNumber.rawValue]   = phoneNumber
+        json[AddressKeyInDB.longtitude.rawValue]    = coordinateLongitude
+        json[AddressKeyInDB.latitude.rawValue]      = coordinateLatitude
+        return json
     }
     
 }

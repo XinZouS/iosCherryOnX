@@ -19,10 +19,6 @@ extension PostTripController {
         let tit = "启禀皇上"
         let msg = "❓"
         let ok1 = "朕知道了", ok2 = "嗯，平身吧"
-        guard isTransportationSetted else {
-            displayAlert(title: tit, message: "\(msg)请选择您的【交通方式】。", action: ok1)
-            return
-        }
         guard isStartAddressSetted, isEndAddressSetted else {
             displayAlert(title: tit, message: "\(msg)请选择【出发地和目的地】。", action: ok2)
             return
@@ -41,37 +37,39 @@ extension PostTripController {
         present(waitingCtl, animated: true, completion: nil)
         navigationController?.popToRootViewController(animated: false)
 
-        uploadAddressToServer(addressStarting!)
-        uploadAddressToServer(addressDestinat!)
-        uploadTripToServer()
+        activityIndicator.startAnimating()
+        
+        uploadAddressToServer(addressStarting!, addressDestinat!) { (finished, msg) in
+            if finished {
+                self.uploadTripToServer()
+            }else{
+                let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
+                self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
+            }
+        }
     }
     
-    private func uploadAddressToServer(_ addr : Address){
-        print("TODO: parse address to JSON and upload to server and get addressId back...")
-        
-        var country:[String:Country] = [:]
-        country["country"] = addr.country
-        var json:[String:String] = [:]
-        json["city"] = addr.city
-        json["detailAddress"] = addr.detailAddress
-        json["zipCode"] = addr.zipcode
-        json["recipientName"] = addr.recipientName
-        json["phoneNumber"] = addr.phoneNumber
+    private func uploadAddressToServer(_ addr1 : Address, _ addr2 : Address, completion: @escaping(Bool, String) -> Void){
+        ApiServers.shared.postAddressInfo(address: addr1) { (success1, msg1, addrId1) in
+            if success1 {
+                ApiServers.shared.postAddressInfo(address: addr2) { (success2, msg2, addrId2) in
+                    if success2 {
+                        completion(true, msg2) // OK, success!!!
+                    }else{
+                        completion(false, msg2)
+                    }
+                }
+            }else{
+                completion(false, msg1)
+            }
+        }
     }
     private func uploadTripToServer(){
-        ApiServers.shared.postTripInfo(trip: self.trip)
-    }
-
-    func transportationCellButtonTapped(){
-        switch trip.transportation {
-            case .airplane:
-                trip.transportation = .bus
-            case .bus:
-                trip.transportation = .car
-            case .car:
-                trip.transportation = .airplane
+        ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg, id) in
+            print("get callback after uploadTripToServer(), success = \(success), msg = \(msg)")
+            self.activityIndicator.stopAnimating()
+            self.dismiss(animated: true, completion: nil)
         }
-        isTransportationSetted = true
     }
     
     func startAddressButtonTapped(){
@@ -132,7 +130,7 @@ extension PostTripController {
 //        pickUpTimeCell?.infoLabel.text = "\(d1) -- \(d2)"
 //    }
     private func okButtonValidateCheck(){
-        let isOk = isTransportationSetted && isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
+        let isOk = isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
         okButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         okButton.isEnabled = isOk
     }
@@ -150,7 +148,7 @@ extension PostTripController {
     func displayAlert(title: String, message: String, action: String) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         }
         v.addAction(action)
         present(v, animated: true, completion: nil)
