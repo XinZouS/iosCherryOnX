@@ -8,25 +8,21 @@
 
 import UIKit
 
-
-
 extension RequestBaseCell : UITextFieldDelegate {
         
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        
-        textField.resignFirstResponder()
+        if touches.count > 0 {
+            textField.resignFirstResponder()
+        }
     }
-    
-    
 }
 

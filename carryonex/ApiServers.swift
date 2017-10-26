@@ -95,9 +95,9 @@ class ApiServers : NSObject {
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
-        let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
+        //let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
+        //return "\(t)"
         return "\(150000000)" // TODO: this is for test only.
-        return "\(t)"
     }
     
     var config: Config?
@@ -171,7 +171,7 @@ class ApiServers : NSObject {
         ]
         postDataWithUrlRoute(route, parameters: parameter) { (response) in
             print("response = ", response)
-            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
+//            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 print("\n\r get data = \(data)")
                 if let token = data[ServerKey.userToken.rawValue] as? String {
@@ -371,8 +371,8 @@ class ApiServers : NSObject {
             headers["start"] = query
             headers["end"] = q2
         }
-        print("will getTrips [\(queryRoute)] with q1=[\(query)], q2=[\(query2)]")
-        print("     and headers = \(headers)")
+        //print("will getTrips [\(queryRoute)] with q1=[\(query)], q2=[\(query2)]")
+        //print("     and headers = \(headers)")
         getDataWithUrlRoute(route, parameters: headers) { (response) in
             let msg = response["message"] as! String
             if let data = response["data"] as? [String:Any] {
@@ -413,7 +413,7 @@ class ApiServers : NSObject {
         //let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
         //let sessionStr = "/api/1.0/addresses/addresses/"
         //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        let dataPackage = address.packAllPropertiesAsData()
+        //let dataPackage = address.packAllPropertiesAsData()
         //print(dataPackage)
         //        postDataWithUrlString(urlStr,dataPackage)
     }

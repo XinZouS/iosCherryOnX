@@ -55,8 +55,7 @@ class DetailUserNameCell : DetailBaseCell {
     }
     private func setupSenderImgBtn(){
         addSubview(senderImgBtn)
-        var imgName = "CarryonEx_Logo"
-        senderImgBtn.setImage(UIImage(named: imgName), for: .normal)
+        senderImgBtn.setImage(UIImage(named: "CarryonEx_Logo"), for: .normal)
         senderImgBtn.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 50, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 80, height: 80)
         senderImgBtnWidthConstraint = senderImgBtn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         senderImgBtnWidthConstraint?.isActive = true

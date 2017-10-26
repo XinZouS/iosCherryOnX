@@ -261,12 +261,13 @@ extension RequestController {
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
+        guard let userId = ProfileManager.shared.currentUser?.id else { return }
         // setup AWS Transfer Manager Request:
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         uploadRequest?.acl = .private
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[fileName]! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(ProfileManager.shared.currentUser?.id!)" // no / at the end of bucket
+        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(userId)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)

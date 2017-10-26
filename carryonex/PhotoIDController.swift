@@ -402,8 +402,6 @@ class PhotoIDController: UIViewController {
             idCardBLabelHeightConstraint?.constant  = 0
             idCardBButtonHeightConstraint?.constant = 0
             
-        default:
-            print("Error: PhotoIDController: ")
         }
         
         // change button title by attributed string:

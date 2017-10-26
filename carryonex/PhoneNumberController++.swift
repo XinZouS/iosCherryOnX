@@ -198,7 +198,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     //WECHAT lOGIN
     func wechatButtonTapped(){
-        let urlStr = "weixin://"
+//        let urlStr = "weixin://"
 //        if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
             let red = SendAuthReq.init()
             red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
@@ -288,7 +288,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         ProfileManager.shared.currentUser?.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
         flagButton.setTitle(flagsTitle[row], for: .normal)
-        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
+//        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }
     
     

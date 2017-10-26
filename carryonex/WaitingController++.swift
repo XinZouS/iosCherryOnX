@@ -56,7 +56,6 @@ extension WaitingController: FBSDKSharingDelegate {
         let imgUrl = URL(string: "https://static.wixstatic.com/media/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png/v1/fill/w_161,h_66,al_c,usm_0.66_1.00_0.01/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png")
         
         let content = LinkShareContent(url: url!, title: title, description: "description!!!", quote: msg, imageURL: imgUrl) //FBSDKShareLinkContent()
-        let ct2 = LinkShareContent.init(url: url!, title: title, description: "description222", quote: msg, imageURL: imgUrl)
         do {
             try ShareDialog.show(from: self, content: content)
         }catch let err {
@@ -88,9 +87,9 @@ extension WaitingController: FBSDKSharingDelegate {
     
     private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?, webUrl: String?){
         let req = SendMessageToWXReq()
-        var message = WXMediaMessage()
+        let message = WXMediaMessage()
         // 1. share Image:
-        if let img = image, let fileName = imageFileName {
+        if let img = image {
             //message.setThumbImage(img)  //生成缩略图
             UIGraphicsBeginImageContext(CGSize(width: 200, height: 200))
             img.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -108,8 +107,8 @@ extension WaitingController: FBSDKSharingDelegate {
             }
             req.bText = false
             req.message = message
-        }else
-        if let url = webUrl { // 2. share offical Website:
+        
+        } else if webUrl != nil { // 2. share offical Website:
             let web =  WXWebpageObject()
             web.webpageUrl = "https://www.carryonex.com/"
             message.mediaObject = web
@@ -120,7 +119,7 @@ extension WaitingController: FBSDKSharingDelegate {
             req.bText = false
             req.message = message
 
-        }else { // 3. share text message:
+        } else { // 3. share text message:
             req.bText = true
             req.text = textMsg
         }
@@ -147,7 +146,7 @@ extension WaitingController: FBSDKSharingDelegate {
             
             switch state{
             case SSDKResponseState.success: print("分享成功")
-            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error?.localizedDescription)")
             case SSDKResponseState.cancel:  print("操作取消")
             default:
                 break

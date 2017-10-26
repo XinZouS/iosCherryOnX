@@ -44,9 +44,9 @@ extension UIColor {
     
     static func color(_ red: Int, green: Int, blue: Int, alpha: Float) -> UIColor {
         return UIColor(
-            colorLiteralRed: Float(1.0) / Float(255.0) * Float(red),
-            green: Float(1.0) / Float(255.0) * Float(green),
-            blue: Float(1.0) / Float(255.0) * Float(blue),
-            alpha: alpha)
+            displayP3Red: CGFloat(red) / 255.0,
+            green: CGFloat(green) / 255.0,
+            blue: CGFloat(blue) / 255.0,
+            alpha: CGFloat(alpha))
     }
 }

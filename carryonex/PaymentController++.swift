@@ -53,7 +53,7 @@ extension PaymentController {
     }
     func putItemCategoryInfo(){
         for (key,value) in request.numberOfItem{
-            var showContent = UILabel()
+            let showContent = UILabel()
             switch key{
             case "Mail":
                 showContent.text = "邮件 X \(value)"

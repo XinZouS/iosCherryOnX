@@ -31,19 +31,13 @@ extension TimeAvailableController {
     // UIGestureRecognizerDelegate
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let shouldBegin = true //self.collectionView.contentOffset.y <= -self.collectionView.contentInset.top
-        // collectionView.contentOffset.y is ONLY for panGesture when collectionView NOT ont top or bottom;
-        
-        if shouldBegin {
-            let velocity = self.scopeGesture.velocity(in: self.view)
-            switch self.calendarView.scope {
-            case .month:
-                return velocity.y < 0
-            case .week:
-                return velocity.y > 0
-            }
+        let velocity = self.scopeGesture.velocity(in: self.view)
+        switch self.calendarView.scope {
+        case .month:
+            return velocity.y < 0
+        case .week:
+            return velocity.y > 0
         }
-        return shouldBegin
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {

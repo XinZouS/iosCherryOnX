@@ -123,9 +123,9 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
          cell.orderDetailPage = self
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let w: CGFloat = collectionView.bounds.width
-        let h : CGFloat = 50
         let photoBrowserViewCtl = PhotoBrowserViewController()
         switch indexPath.item {
         case 0:

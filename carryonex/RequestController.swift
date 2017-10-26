@@ -359,7 +359,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     
     private func setupPickers(){
 
-        let margin: CGFloat = 30
         setupVolumLenWidthHighValues()
         
         volumPickerMenu = UIPickerMenuView(frame: .zero)
@@ -367,10 +366,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         
         expectDeliveryTimePickerMenu = UIPickerMenuView(frame: .zero)
         expectDeliveryTimePickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: expectDeliveryTimePicker, leftBtn: expectDeliveryPickerCancelButton, rightBtn: expectDeliveryTimeMenuOKButton)
-        
-//        setupBlurView(margin)
-//        setupVolumePicker(margin)
-//        setupExpectDeliveryTimePicker(margin)
     }
     
     
