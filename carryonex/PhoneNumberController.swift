@@ -86,35 +86,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         b.addTarget(self, action: #selector(showUserAgreementPage), for: .touchUpInside)
         return b
     }()
-    
-//    lazy var okButton: UIButton = {
-//        let b = UIButton()
-//        b.backgroundColor = .lightGray // buttonColorBlue
-//        b.setTitle("用户注册", for: .normal)
-//        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-//        b.layer.cornerRadius = 5
-//        b.layer.masksToBounds = true
-////        b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
-//        b.isEnabled = false
-//        return b
-//    }()
-//
-//    lazy var devBtn: UIButton = {
-//        let b = UIButton()
-//        b.backgroundColor = .lightGray
-//        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-//        b.setTitle("用户注册", for: .normal)
-//        b.layer.cornerRadius = 5
-//        b.layer.masksToBounds = true
-//        b.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-//        return b
-//    }()
-    
-    
+        
     // for keyboard notification:
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
+        phoneNumberTextField.becomeFirstResponder()
         navigationController?.isNavigationBarHidden = !isModifyPhoneNumber
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -158,28 +135,11 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         nextButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
     }
     
-//    private func setupOkButton(){
-//        view.addSubview(okButton)
-//        okButton.translatesAutoresizingMaskIntoConstraints = false
-//        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-//        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
-//        okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
-//        okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//    }
-//
-//    private func setupDevelopButton(){
-//        view.addSubview(devBtn)
-//        devBtn.translatesAutoresizingMaskIntoConstraints = false
-//        devBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-//        devBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
-//        devBtn.widthAnchor.constraint(equalToConstant: 148).isActive = true
-//        devBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//    }
-    
     private func setupPhoneNumTextField(){
         phoneNumberTextField = TextField()
         phoneNumberTextField.placeholder = "请输入手机号"
         phoneNumberTextField.detail = "手机号码"
+        phoneNumberTextField.keyboardAppearance = .dark
         phoneNumberTextField.clearButtonMode = .whileEditing
         phoneNumberTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
         phoneNumberTextField.keyboardType = .numberPad

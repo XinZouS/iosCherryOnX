@@ -14,14 +14,6 @@ class InputPasswordLoginController: UIViewController {
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32
     
-    var transparentView : UIView = {
-        let v = UIView()
-        v.isHidden = true
-        v.backgroundColor = .clear
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
-        return v
-    }()
-    
     lazy var okButton: UIButton = {
         let b = UIButton()
         b.setTitle("→", for: .normal)
@@ -53,6 +45,10 @@ class InputPasswordLoginController: UIViewController {
     internal func handleResignResponderButton(button: UIButton) {
         passwordField?.resignFirstResponder()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        passwordField.becomeFirstResponder()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +68,10 @@ class InputPasswordLoginController: UIViewController {
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
+        passwordField.keyboardAppearance = .dark
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
+        passwordField.becomeFirstResponder()
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView

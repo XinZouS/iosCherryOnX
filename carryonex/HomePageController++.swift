@@ -103,8 +103,8 @@ extension HomePageController {
     
     /// MARK: - for development use only:
     func gotoItemTypePage(){
-        let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-        let navigationItemTypeList = UINavigationController(rootViewController: itemTypeListCtl)
+        let ItemListYouxiangInputCtl = ItemListYouxiangInputController()
+        let navigationItemTypeList = UINavigationController(rootViewController: ItemListYouxiangInputCtl)
         self.present(navigationItemTypeList, animated: true, completion: nil)
     }
     func gotoTripPage(){

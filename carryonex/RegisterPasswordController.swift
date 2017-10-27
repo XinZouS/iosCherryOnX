@@ -15,14 +15,6 @@ class RegisterPasswordController: UIViewController {
     var passwordCorrect : Bool = false
     fileprivate let constant: CGFloat = 32
     
-    var transparentView : UIView = {
-        let v = UIView()
-        v.isHidden = true
-        v.backgroundColor = .clear
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
-        return v
-    }()
-    
     lazy var okButton: UIButton = {
         let b = UIButton()
         b.setTitle("→", for: .normal)
@@ -44,7 +36,10 @@ class RegisterPasswordController: UIViewController {
     internal func handleResignResponderButton(button: UIButton) {
         passwordField?.resignFirstResponder()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        passwordField.becomeFirstResponder()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +60,7 @@ class RegisterPasswordController: UIViewController {
         passwordField.detail = "At least 6 characters"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
+        passwordField.keyboardAppearance = .dark
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         let leftView = UIImageView()

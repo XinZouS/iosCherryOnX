@@ -64,7 +64,7 @@ extension RequestController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-        cell00Youxiang?.textField.resignFirstResponder()
+//        cell00Youxiang?.textField.resignFirstResponder()
         cell01Departure?.textField.resignFirstResponder()
         cell02Destination?.textField.resignFirstResponder()
         cell03Volum?.textField.resignFirstResponder()
@@ -140,15 +140,15 @@ extension RequestController: UITextFieldDelegate {
 
 
     func sendingTimeButtonTapped(){
-        if cell00Youxiang?.textField.text == "666" { // get trip info by this youxiangCode
-            let timeAvailableController = TimeAvailableController()
-            timeAvailableController.request = self.request
-            navigationController?.pushViewController(timeAvailableController, animated: true)
-        }else{
-            let sendingTimeCtl = SendingTimeController()
-            sendingTimeCtl.requestController = self
-            navigationController?.pushViewController(sendingTimeCtl, animated: true)
-        }
+//        if cell00Youxiang?.textField.text == "666" { // get trip info by this youxiangCode
+//            let timeAvailableController = TimeAvailableController()
+//            timeAvailableController.request = self.request
+//            navigationController?.pushViewController(timeAvailableController, animated: true)
+//        }else{
+//            let sendingTimeCtl = SendingTimeController()
+//            sendingTimeCtl.requestController = self
+//            navigationController?.pushViewController(sendingTimeCtl, animated: true)
+//        }
     }
     
     func expectDeliveryTimeButtonTapped(){
@@ -174,7 +174,7 @@ extension RequestController: UITextFieldDelegate {
     }
     
     private func setupRequestInfo(){
-        request.youxiangId = cell00Youxiang?.textField.text ?? ""
+//        request.youxiangId = cell00Youxiang?.textField.text ?? ""
         //request.destinationAddress = 在AddressController里设置好后回传引用
         request.weight = Double(cell04Weight?.textField.text ?? "0") ?? 0.0
         

@@ -33,11 +33,6 @@ extension RegisterPasswordController: UITextFieldDelegate {
         }
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        transparentView.isHidden = false
-        textField.becomeFirstResponder()
-    }
-    
     func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
@@ -77,18 +72,5 @@ extension RegisterPasswordController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    func textFieldsInAllCellResignFirstResponder(){
-        transparentView.isHidden = true
-        passwordField.resignFirstResponder()
-        passwordConfirmField.resignFirstResponder()
-    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        if touches.count > 0 {
-            textFieldsInAllCellResignFirstResponder()
-        }
-        
-    }
 }
