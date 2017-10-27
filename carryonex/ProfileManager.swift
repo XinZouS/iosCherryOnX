@@ -63,6 +63,7 @@ class ProfileManager: NSObject {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
         if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
             let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
+            profileUser.token = "e33bbe34ed137ca196f9a8c2731d1575377c8c1cffe30335cd1cae30800dee4f"
             return profileUser
         }
         print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
