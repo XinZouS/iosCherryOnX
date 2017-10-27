@@ -1,31 +1,32 @@
 //
-//  RegisterEmailController.swift
+//  ItemListYouxiangInputController.swift
 //  carryonex
 //
-//  Created by zxbMacPro on 2017/10/6.
+//  Created by zxbMacPro on 2017/10/27.
 //  Copyright © 2017年 Xin Zou. All rights reserved.
 //
 
 import UIKit
 import Material
 
-class RegisterEmailController: UIViewController {
-    var emailField: ErrorTextField!
+class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegateFlowLayout{
+    var youxiangField: ErrorTextField!
     fileprivate let constant: CGFloat = 32
     
     let textFieldH : CGFloat = 30
+
     lazy var  okButton : UIButton = {
         let b = UIButton()
         b.setTitle("→", for: .normal)
         b.layer.cornerRadius = 30
-        b.backgroundColor = .lightGray
+        b.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
-        b.isEnabled = false
+        b.isEnabled = true
         return b
     }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailField.becomeFirstResponder()
+        youxiangField.becomeFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,8 @@ class RegisterEmailController: UIViewController {
         setupEmailTextField()
         
         setupOkButton()
+        
+        setupNavigationBar()
     }
     /// Prepares the resign responder button.
     fileprivate func prepareResignResponderButton() {
@@ -47,24 +50,32 @@ class RegisterEmailController: UIViewController {
     /// Handle the resign responder button.
     @objc
     internal func handleResignResponderButton(button: UIButton) {
-        emailField?.resignFirstResponder()
+        youxiangField?.resignFirstResponder()
     }
     fileprivate func setupEmailTextField(){
-        emailField = ErrorTextField()
-        emailField.placeholder = "Email"
-        emailField.detail = "Error, incorrect email"
-        emailField.isClearIconButtonEnabled = true
-        emailField.delegate = self
-        emailField.keyboardAppearance = .dark
-        emailField.isPlaceholderUppercasedWhenEditing = true
-        emailField.addTarget(self, action: #selector(checkEmail), for: .editingChanged)
+        youxiangField = ErrorTextField()
+        youxiangField.placeholder = "游箱号码"
+        youxiangField.detail = "Error, incorrect email"
+        youxiangField.isClearIconButtonEnabled = true
+        youxiangField.keyboardType = .phonePad
+        youxiangField.isPlaceholderUppercasedWhenEditing = true
+        youxiangField.becomeFirstResponder()
+        youxiangField.keyboardAppearance = .dark
         let leftView = UIImageView()
-        leftView.image = Icon.email
-        emailField.leftView = leftView
+        leftView.image = Icon.bell
+        youxiangField.leftView = leftView
         
-        view.layout(emailField).center(offsetY: -80).left(60).right(60)
+        view.layout(youxiangField).center(offsetY: -80).left(60).right(60)
     }
-    
+    private func setupNavigationBar(){
+        title = "填写游箱"
+        UINavigationBar.appearance().tintColor = buttonColorWhite
+        navigationController?.navigationBar.tintColor = buttonColorWhite
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
+        
+        let cancel = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancel
+    }
     
     private func setupOkButton(){
         view.addSubview(okButton)
@@ -73,6 +84,3 @@ class RegisterEmailController: UIViewController {
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
     }
 }
-
-
-

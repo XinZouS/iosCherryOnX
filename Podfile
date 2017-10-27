@@ -75,5 +75,7 @@ target 'carryonex' do
   pod 'CircleMenu', '3.0.0'
   pod 'Material', '2.10.2'
   pod 'JXPhotoBrowser', '0.3.7'
+  #Online chat
+  pod 'UdeskSDK'
 
 end

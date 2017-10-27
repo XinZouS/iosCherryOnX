@@ -38,28 +38,21 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     var imageUploadSequence: [String : URL] = [:] // imageName(tripId) : url
 
     let expectDeliveryTimes:[String] = ["三天内送达", "一周内送达", "二周内送达"]
-    
-    // row in collectionView: 0:youxiang 1:depa, 2:destnat, 3:volum,   4:weight,  5:sendingTi, 6:expectDeliv, 7:cost,
-    //let labelNames = ["游箱号(选填):", "取货地址:", "收货地址:", "货物总体积:", "货物总重量:", "取货时间:", "期望到达时间:", "运货费用:"]
-    // row in collectionView: 0:youxiang 1:depa, 2:destnat,  3:volum,   4:weight,   5:cost
-    let labelNames = ["游箱号(选填):", "发件地址:", "收货地址:", "货物总体积:", "货物总重量:", "货物清晰照:", "运货费用:"]
+
+    let labelNames = [ "发件地址:", "收货地址:", "货物总体积:", "货物总重量:", "货物清晰照:", "运货费用:"]
     let placeholders = ["请输入承运人的行程游箱号", "请输入发件地址", "请选择货物送达位置", "请选择包裹的尺寸(inch)", "请填写包裹总重量(磅)"]
 
     let basicCellId = "basicCellId"         // 1 - 3
-    let youxiangCellId = "youxiangCellId"   // 0
     let weightCellId = "weightCellId"       // 4
     let sendingTimeCellId = "sendingTimeCellId" // 5
     let expectDeliveryTimeCellId = "expectDeliveryTimeCellId" // 6
     let imageCellId = "imageCellId"
     let costCellId = "costCellId"           // 7
     
-    var cell00Youxiang :    YouxiangCell?
     var cell01Departure:    RequestBaseCell?
     var cell02Destination:  RequestBaseCell?
     var cell03Volum:        RequestBaseCell?
     var cell04Weight :      WeightCell?
-    //var cell05SendingTime:  SendingTimeCell?
-    //var cell06ExpectDelivery:ExpectDeliveryTimeCell?
     var cell08Image:        ImageCell?
     var cell07Cost :        CostCell?
     
@@ -128,13 +121,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     
     var blurEffect : UIBlurEffect!
     
-//    lazy var blurView : UIVisualEffectView = {
-//        let v = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.light ))
-//        v.isUserInteractionEnabled = true
-//        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickerViewAnimateToHide)))
-//        return v
-//    }()
-    
     let pickerViewTitleLabel : UILabel = {
         let b = UILabel()
         b.textAlignment = .center
@@ -151,7 +137,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         let attTitleStr = NSAttributedString(string: "选择取货时间", attributes: attributes)
         b.setAttributedTitle(attTitleStr, for: .normal)
         b.contentHorizontalAlignment = .right
-//        b.backgroundColor = .green
         b.addTarget(self, action: #selector(sendingTimeButtonTapped), for: .touchUpInside)
         return b
     }()
@@ -164,7 +149,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         let attTitleStr = NSAttributedString(string: "选择期望送达时间", attributes: attributes)
         b.setAttributedTitle(attTitleStr, for: .normal)
         b.contentHorizontalAlignment = .right
-//        b.backgroundColor = .green
         b.addTarget(self, action: #selector(expectDeliveryTimeButtonTapped), for: .touchUpInside)
         return b
     }()
@@ -182,7 +166,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     
     let costSumLabel: UILabel = {
         let l = UILabel()
-//        l.backgroundColor = .yellow
         l.textColor = textThemeColor
         l.font = UIFont.boldSystemFont(ofSize: 24)
         l.textAlignment = .right
@@ -245,15 +228,11 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.isPagingEnabled = false
         collectionView?.keyboardDismissMode = .interactive
         
-        collectionView?.register(YouxiangCell.self, forCellWithReuseIdentifier: youxiangCellId)
         collectionView?.register(RequestBaseCell.self, forCellWithReuseIdentifier: basicCellId)
         collectionView?.register(WeightCell.self, forCellWithReuseIdentifier: weightCellId)
-        //collectionView?.register(SendingTimeCell.self, forCellWithReuseIdentifier: sendingTimeCellId)
-        //collectionView?.register(ExpectDeliveryTimeCell.self, forCellWithReuseIdentifier: expectDeliveryTimeCellId)
         collectionView?.register(ImageCell.self, forCellWithReuseIdentifier: imageCellId)
         collectionView?.register(CostCell.self, forCellWithReuseIdentifier: costCellId)
         
-//        view.addSubview(collectionView)
         let w : CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 10 : 36
         collectionView?.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: w, topConstent: 0, rightConstent: w, bottomConstent: 40, width: 0, height: 0)
         
@@ -267,14 +246,8 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         var cellId : String = basicCellId
         
         switch indexPath.item {
-        case 0 :
-            cellId = youxiangCellId
         case 4 :
             cellId = weightCellId
-        //case 5 :
-        //    cellId = sendingTimeCellId
-        //case 6 :
-        //    cellId = expectDeliveryTimeCellId
         case 5 :
             cellId = imageCellId
         case 6 :
@@ -290,47 +263,28 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         cell.titleLabel.text = labelNames[indexPath.item]
         
         switch indexPath.item {
+
         case 0 :
-            if let cell = cell as? YouxiangCell {
-                cell00Youxiang = cell
-                cell00Youxiang?.textField.placeholder = placeholders[indexPath.item]
-            }
-        case 1 :
             cell01Departure = cell
             cell01Departure?.textField.placeholder = placeholders[indexPath.item]
-//            cell01Departure?.titleLabelWidthConstraint?.isActive = false // close it before change
-//            cell01Departure?.titleLabelWidthConstraint = cell01Departure?.titleLabel.widthAnchor.constraint(equalToConstant: 60)
-//            cell01Departure?.titleLabelWidthConstraint?.isActive = true
-        case 2 :
+
+        case 1 :
             cell02Destination = cell
             cell02Destination?.textField.placeholder = placeholders[indexPath.item]
-//            cell02Destination?.titleLabelWidthConstraint?.isActive = false // close it before change
-//            cell02Destination?.titleLabelWidthConstraint = cell02Destination?.titleLabel.widthAnchor.constraint(equalToConstant: 60)
-//            cell02Destination?.titleLabelWidthConstraint?.isActive = true
-        case 3 :
+            
+        case 2 :
             cell03Volum = cell
             cell03Volum?.textField.placeholder = placeholders[indexPath.item]
-        case 4 :
+        case 3 :
             if let cell = cell as? WeightCell {
                 cell04Weight = cell
                 cell04Weight?.textField.placeholder = placeholders[indexPath.item]
             }
-//        case 5 :
-//            if let cell = cell as? SendingTimeCell {
-//                cell05SendingTime = cell
-//                cell05SendingTime?.textField.text = "10月4日12:00-22:00"
-//                cell05SendingTime?.addExtraContentToRight(sendingTimeButton)
-//            }
-//        case 6 :
-//            if let cell = cell as? ExpectDeliveryTimeCell {
-//                cell06ExpectDelivery = cell
-//                cell06ExpectDelivery?.addExtraContentToRight(expectDeliveryTimeButton)
-//            }
-        case 5 :
+        case 4 :
             if let cell = cell as? ImageCell {
                 cell08Image = cell
             }
-        case 6 :
+        case 5 :
             if let cell = cell as? CostCell {
                 cell07Cost = cell
                 cell07Cost?.addExtraContentToRight(costSumLabel)
@@ -369,39 +323,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     
-    
-    
-//    private func setupBlurView(_ margin: CGFloat){
-//        guard let window = UIApplication.shared.keyWindow else { return }
-//        blurEffect = blurView.effect as! UIBlurEffect
-//        window.addSubview(blurView)
-//        blurView.frame = window.bounds
-//        blurView.isHidden = true
-//        
-//        addBlurViewSubtitleLabel(margin) // 2 titles setup order should NOT be change
-//        addBlurViewTitleLabel()
-//    }
-//    
-    // add subtitleLabel
-//    private func addBlurViewSubtitleLabel(_ margin: CGFloat){
-//        let titleL = subtitleCellLabel("长")
-//        let titleW = subtitleCellLabel("宽")
-//        let titleH = subtitleCellLabel("高")
-//        pickerViewSubtitleStackView = UIStackView(arrangedSubviews: [titleL, titleW, titleH])
-//        pickerViewSubtitleStackView.axis = .horizontal
-//        pickerViewSubtitleStackView.distribution = .fillEqually
-//        
-//        blurView.addSubview(pickerViewSubtitleStackView)
-//        pickerViewSubtitleStackView.addConstraints(left: blurView.leftAnchor, top: nil, right: blurView.rightAnchor, bottom: nil, leftConstent: margin, topConstent: 0, rightConstent: margin, bottomConstent: 0, width: 0, height: 20)
-//        let pickerHeigh = UIScreen.main.bounds.height / 3.0
-//        pickerViewSubtitleStackView.centerYAnchor.constraint(equalTo: blurView.centerYAnchor, constant: -(pickerHeigh / 2)).isActive = true
-//    }
-    // add titleLabel
-//    private func addBlurViewTitleLabel(){
-//        blurView.addSubview(pickerViewTitleLabel)
-//        pickerViewTitleLabel.addConstraints(left: blurView.leftAnchor, top: nil, right: blurView.rightAnchor, bottom: pickerViewSubtitleStackView.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 20, width: 0, height: 30)
-//    }
-    
     private func subtitleCellLabel(_ str: String) -> UILabel {
         let l = UILabel()
         l.text = str
@@ -410,23 +331,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         return l
     }
     
-//    private func setupVolumePicker(_ margin: CGFloat){
-//        blurView.addSubview(volumePicker)
-//        volumePicker.addConstraints(left: blurView.leftAnchor, top: nil, right: blurView.rightAnchor, bottom: nil, leftConstent: margin, topConstent: 0, rightConstent: margin, bottomConstent: 0, width: 0, height: 0)
-//        volumePicker.centerYAnchor.constraint(equalTo: blurView.centerYAnchor).isActive = true
-//        volumePickerHeighConstraint = volumePicker.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.0)
-//        volumePickerHeighConstraint?.isActive = true
-//        volumePicker.isHidden = true
-//    }
-//    
-//    private func setupExpectDeliveryTimePicker(_ margin: CGFloat){
-//        blurView.addSubview(expectDeliveryTimePicker)
-//        expectDeliveryTimePicker.addConstraints(left: blurView.leftAnchor, top: nil, right: blurView.rightAnchor, bottom: nil, leftConstent: margin, topConstent: 0, rightConstent: margin, bottomConstent: 0, width: 0, height: 0)
-//        expectDeliveryTimePicker.centerYAnchor.constraint(equalTo: blurView.centerYAnchor).isActive = true
-//        expectDeliveryTimePickerHeighConstraint = expectDeliveryTimePicker.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4.0)
-//        expectDeliveryTimePickerHeighConstraint?.isActive = true
-//        expectDeliveryTimePicker.isHidden = true
-//    }
     
     private func setupPaymentButton(){
         view.addSubview(paymentButton)

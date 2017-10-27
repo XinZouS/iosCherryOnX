@@ -39,17 +39,5 @@ extension RegisterEmailController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    
-    func textFieldsInAllCellResignFirstResponder(){
-        transparentView.isHidden = true
-        emailField.resignFirstResponder()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        if touches.first != nil {
-            textFieldsInAllCellResignFirstResponder()
-        }
 
-    }
 }

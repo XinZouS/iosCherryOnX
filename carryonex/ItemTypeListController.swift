@@ -37,27 +37,12 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
         view.backgroundColor = .white
         
         addItemTypesToList()
-        
-        setupNavigationBar()
         setupCollectionView()        
         setupSubmitButton() 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         request.numberOfItem.removeAll() // reset NumOfItems in the current Request
-    }
-    
-    
-    private func setupNavigationBar(){
-        title = "货物清单"
-        UINavigationBar.appearance().tintColor = buttonColorWhite
-        navigationController?.navigationBar.tintColor = buttonColorWhite
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
-        let barBtn = UIBarButtonItem(title: "确认清单", style: .plain, target: self, action: #selector(submitButtonTapped))
-        navigationItem.rightBarButtonItem = barBtn
-        let cancel = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.leftBarButtonItem = cancel
     }
     
     private func setupCollectionView(){
@@ -102,11 +87,7 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
-    }
-    
-    
-    
-    
+    }  
     
 }
 
