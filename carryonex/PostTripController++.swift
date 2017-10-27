@@ -34,14 +34,15 @@ extension PostTripController {
         
         activityIndicator.startAnimating()
         
-        uploadAddressToServer(addressStarting!, addressDestinat!) { (finished, msg) in
-            if finished {
-                self.uploadTripToServer()
-            }else{
-                let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
-                self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
-            }
-        }
+        uploadTripToServer()
+        
+//        uploadAddressToServer(addressStarting!, addressDestinat!) { (finished, msg) in
+//            if finished {
+//            }else{
+//                let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
+//                self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
+//            }
+//        }
     }
     
     private func uploadAddressToServer(_ addr1 : Address, _ addr2 : Address, completion: @escaping(Bool, String) -> Void){

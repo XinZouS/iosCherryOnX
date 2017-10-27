@@ -24,7 +24,7 @@ enum AddressKeyInDB : String {
     case zipcode    = "zipcode"
     case recipientName = "resident"
     case phoneNumber = "phone"
-    case longtitude = "longtitude"
+    case longtitude = "longitude"
     case latitude   = "latitude"
 }
 
@@ -155,6 +155,4 @@ class Address : NSObject, Unboxable {
         json[AddressKeyInDB.latitude.rawValue]      = coordinateLatitude
         return json
     }
-    
 }
-
