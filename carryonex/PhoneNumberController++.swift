@@ -90,11 +90,15 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                         print("PhoneNumberController: 有错误: \(String(describing: err))")
                         let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
                         self.showAlertWith(title: "获取验证码失败", message: msg)
+                        return
                     }
+                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                    self.goToVerificationPage()
                 })
             }
         }
     }
+    
     @objc private func nextButtonEnable(){
         nextButton.isEnabled = false
         nextButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)

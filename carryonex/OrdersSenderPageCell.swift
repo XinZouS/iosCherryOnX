@@ -14,7 +14,11 @@ class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, U
     var ordersLogCtl : OrdersLogController!
     let cellIdOrderLogSenderCell = "cellIdOrderLogSenderCell"
     
-    var dataList: [Request]?
+    var dataList: [Request]? {
+        didSet{
+            dataListDidSet()
+        }
+    }
     
     
     lazy var collectionView: UICollectionView = {

@@ -13,7 +13,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
 
     
     override func updateCellStatusAndButtons() {
-        print("!!!!!!!!!!!!!!! in shipper cell: updateCellStatusAndButtons")
+        
         guard let rq = self.request else { return }
         
         let attributes : [String:Any] = [
