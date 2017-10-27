@@ -10,10 +10,18 @@ import Foundation
 import MapKit
 import Unbox
 
-
 enum Transportation : String, UnboxableEnum {
     case trunk = "Trunk"
     case luggage = "Luggage"
+    
+    func rawValueCN() -> String {
+        switch self {
+        case .trunk:
+            return "后备箱"
+        case .luggage:
+            return "行李箱"
+        }
+    }
 }
 
 enum TripKeyInDB : String {
@@ -32,7 +40,7 @@ enum TripKeyInDB : String {
     case startAddressId = "start_address_id"
     case endAddressId   = "end_address_id"
     
-    case status         = "status_id"
+    case statusId        = "status_id"
     case pickupDate     = "pickup_date"
     case pickupTimeStart = "pickup_start_time"
     case pickupTimeEnd  = "pickup_end_time"
@@ -41,9 +49,9 @@ enum TripKeyInDB : String {
 
 class Trip : NSObject, Unboxable {
     
-    var id:        String?
+    var id: String?
     var tripCode: String?
-    var carrierId: String?
+    var carrierId: String?  //TODO: DELETE THIS
     var transportation: Transportation = .trunk
     
     var totalLength: Double = 0.0
@@ -51,23 +59,18 @@ class Trip : NSObject, Unboxable {
     var totalWeight: Double = 0.0
     var totalHeight: Double = 0.0
     var eta: Double?
-
+    
     var startAddressId: String?
     var endAddressId:   String?
-    
-    // location is NOT for DB, bcz address contains these propertities
+
+    // TODO: Break them up to long and lat
     var startLocation: CLLocationCoordinate2D?
     var endLocation  : CLLocationCoordinate2D?
     
-    var status: RequestStatus = RequestStatus.waiting
+    var statusId: Int = RequestStatus.waiting.rawValue
     var pickupDate:      Double? // travel starts
     var pickupTimeStart: Double?
     var pickupTimeEnd:   Double?
-    
-    let transportationCN : [Transportation:String] = [
-        Transportation.trunk    : "后备箱", //"Trunk"
-        Transportation.luggage  : "行李箱", //"Luggage"
-    ]
     
     override init() {
         super.init()
@@ -85,7 +88,7 @@ class Trip : NSObject, Unboxable {
         self.startLocation = CLLocationCoordinate2DMake(40.785091, -73.968285) // Central Park, New York
         self.endLocation = CLLocationCoordinate2DMake(40.785091, -73.968285) // Central Park, New York
         
-        self.status = RequestStatus.waiting
+        self.statusId = RequestStatus.waiting.rawValue
         self.pickupDate =       Date().timeIntervalSince1970
         self.pickupTimeStart =  Date().timeIntervalSince1970
         self.pickupTimeEnd =    Date().timeIntervalSince1970
@@ -110,7 +113,7 @@ class Trip : NSObject, Unboxable {
         self.startLocation  = CLLocationCoordinate2DMake(40.785091, -73.968285) // Central Park, New York
         self.endLocation    = CLLocationCoordinate2DMake(40.785091, -73.968285) // Central Park, New York
 
-        self.status         = (try? unboxer.unbox(key: TripKeyInDB.status.rawValue)) ?? RequestStatus.waiting
+        self.statusId = (try? unboxer.unbox(key: TripKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
         self.pickupDate     = try?  unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
         self.pickupTimeStart = try? unboxer.unbox(key: TripKeyInDB.pickupTimeStart.rawValue)
         self.pickupTimeEnd  = try?  unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
@@ -131,18 +134,17 @@ class Trip : NSObject, Unboxable {
         self.startAddressId = json[TripKeyInDB.startAddressId.rawValue] as? String ?? ""
         self.endAddressId   = json[TripKeyInDB.endAddressId.rawValue] as? String ?? ""
 
-        self.status         = json[TripKeyInDB.status.rawValue] as? RequestStatus ?? RequestStatus.waiting
+        self.statusId        = json[TripKeyInDB.statusId.rawValue] as? Int ?? RequestStatus.waiting.rawValue
         self.pickupDate     = json[TripKeyInDB.pickupDate.rawValue] as? Double
         self.pickupTimeStart = json[TripKeyInDB.pickupTimeStart.rawValue] as? Double
         self.pickupTimeEnd  = json[TripKeyInDB.pickupTimeEnd.rawValue] as? Double
     }
     
-    func packAsDictionaryForDB() -> [String:Any] {
-        var json = [String:Any]()
+    func packAsDictionaryForDB() -> [String: Any] {
+        var json = [String: Any]()
         
         json[TripKeyInDB.id.rawValue] = id
         json[TripKeyInDB.tripCode.rawValue] = tripCode
-        json[TripKeyInDB.carrierId.rawValue] = carrierId
         json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
         
         json[TripKeyInDB.totalLength.rawValue] = totalLength
@@ -154,7 +156,30 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.startAddressId.rawValue] = startAddressId
         json[TripKeyInDB.endAddressId.rawValue]   = endAddressId
         
-        json[TripKeyInDB.status.rawValue]           = status.rawValue
+        json[TripKeyInDB.statusId.rawValue] = statusId
+        
+        json[TripKeyInDB.pickupDate.rawValue] = Int(pickupDate ?? 0)
+        json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
+        json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
+        
+        return json
+    }
+    
+    func packAsPostData() -> [String: Any] {
+        
+        var json = [String: Any]()
+        json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
+        
+        json[TripKeyInDB.totalLength.rawValue] = totalLength
+        json[TripKeyInDB.totalWidth.rawValue]  = totalWidth
+        json[TripKeyInDB.totalWeight.rawValue] = totalWeight
+        json[TripKeyInDB.totalHeight.rawValue] = totalHeight
+        json[TripKeyInDB.eta.rawValue] = Int(eta ?? 0)
+        
+        json[TripKeyInDB.startAddressId.rawValue] = startAddressId
+        json[TripKeyInDB.endAddressId.rawValue]   = endAddressId
+        
+        json[TripKeyInDB.statusId.rawValue] = statusId
         
         json[TripKeyInDB.pickupDate.rawValue]       = Int(pickupDate ?? 0)
         json[TripKeyInDB.pickupTimeStart.rawValue]  = Int(pickupTimeStart ?? 0)

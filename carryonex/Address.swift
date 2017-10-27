@@ -48,7 +48,6 @@ class Address : NSObject, Unboxable {
     var coordinateLatitude: Double = 40.785091 // Central Park, New York
     var coordinateLongitude: Double = -73.968285 // Central Park, New York
 
-    
     override init() {
         super.init()
         

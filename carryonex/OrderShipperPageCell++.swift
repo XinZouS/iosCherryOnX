@@ -41,11 +41,11 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
         r1.cost = 30.25
         
         let r2 = Request.fakeRequestDemo()
-        r2.status = RequestStatus.shipping.rawValue
+        r2.statusId = RequestStatus.shipping.rawValue
         r2.cost = 60.88
         
         let r3 = Request.fakeRequestDemo()
-        r3.status = RequestStatus.finished.rawValue
+        r3.statusId = RequestStatus.finished.rawValue
         r3.cost = 160.55
         
         let r4 = Request.fakeRequestDemo()

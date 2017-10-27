@@ -19,7 +19,7 @@ extension OrderLogSenderCell {
     func updateUIContentsForRequest(){
         guard let rq = self.request else { return }
         
-        switch rq.status {
+        switch rq.statusId{
         case RequestStatus.waiting.rawValue:
             statusLabel.layer.borderColor = buttonThemeColor.cgColor
             statusLabel.textColor = buttonThemeColor
@@ -45,7 +45,7 @@ extension OrderLogSenderCell {
             contactButton.isHidden = true
             
         default:
-            print("error::: get undefine status of Request: \(rq.status)")
+            print("error::: get undefine status of Request: \(rq.statusId)")
         }
         
         updateCellStatusAndButtons()
@@ -85,7 +85,7 @@ extension OrderLogSenderCell {
         ]
         var attributeString = NSAttributedString()
         
-        switch rq.status {
+        switch rq.statusId{
         case RequestStatus.waiting.rawValue:
             statusLabel.text = "等待接单"
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
@@ -99,7 +99,7 @@ extension OrderLogSenderCell {
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
             
         default:
-            print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(rq.status)")
+            print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(rq.statusId)")
         }
         
         detailButton.setAttributedTitle(attributeString, for: .normal)

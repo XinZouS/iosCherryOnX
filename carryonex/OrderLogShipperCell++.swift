@@ -22,7 +22,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
         ]
         var attributeString = NSAttributedString()
         
-        switch rq.status {
+        switch rq.statusId{
         case RequestStatus.waiting.rawValue:
             statusLabel.text = "等待出发"
             detailButtonWidthConstraint.constant = buttonWidthShort
@@ -39,7 +39,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
             
         default:
-            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(rq.status)")
+            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(rq.statusId)")
         }
         
         detailButton.setAttributedTitle(attributeString, for: .normal)
