@@ -29,6 +29,35 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         }
     }
     
+    func forgetButtonTapped(){
+        let phoneNum = ProfileManager.shared.currentUser?.phone
+        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+        print("get : okButtonTapped, api send text msg and go to next page!!!")
+        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+            if err == nil {
+                print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                self.goToVerificationPage()
+            } else {
+                print("PhoneNumberController: 有错误: \(err)")
+                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+                self.showAlertWith(title: "获取验证码失败", message: msg)
+            }
+        })
+    }
+    
+    func goToVerificationPage(){
+        let verifiCtl = VerificationController()
+        self.navigationController?.pushViewController(verifiCtl, animated: true)
+    }
+    
+    private func showAlertWith(title:String, message:String){
+        let alertCtl = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertCtl.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            alertCtl.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertCtl, animated: true, completion: nil)
+    }
+    
     func checkPassword(){
         passwordField.leftViewNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         passwordField.dividerNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)

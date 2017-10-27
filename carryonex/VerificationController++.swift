@@ -84,19 +84,42 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-        let phoneNum = ProfileManager.shared.currentUser?.phone
+//        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+//        let phoneNum = ProfileManager.shared.currentUser?.phone!
         let registEmailCtl = RegisterEmailController()
-            //print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(phoneNum), zoneCode: \(zoneCode)")
-            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
-            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                //print(zoneCode,phoneNum)
-               if err == nil {
+        let registPasswordCtl = RegisterPasswordController()
+//        print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(String(describing: phoneNum)), zoneCode: \(String(describing: zoneCode))")
+//            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
+//            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+//                print(zoneCode ?? "1",phoneNum ?? "")
+//               if err == nil {
+                if(isRegister == true){
                     self.navigationController?.pushViewController(registEmailCtl, animated: true)
-               } else {
-                    self.verifyFaild(err)
-               }
-            })
+                }else{
+                    if(isModifyPhoneNumber==true){
+                        let phoneNumber = ModifyCode+"-"+ModifyPhone
+                        ApiServers.shared.postUpdateUserInfo(.phone, newInfo: phoneNumber, completion: { (success, msg) in
+                            if success {
+                                print(msg)
+                                isModifyPhoneNumber = false
+                                ProfileManager.shared.currentUser?.phoneCountryCode = ModifyCode
+                                ProfileManager.shared.currentUser?.phone = ModifyPhone
+                                ModifyPhone = ""
+                                ModifyCode = "1"
+                                let userSettingCtl = UserSettingController()
+                                self.navigationController?.pushViewController(userSettingCtl, animated: true)
+                            }else{
+                                print(msg)
+                            }
+                        })
+                    }else{
+                        self.navigationController?.pushViewController(registPasswordCtl, animated: true)
+                    }
+                }
+//               } else {
+//                    self.verifyFaild(err)
+//               }
+//            })
         }
 
     private func verifyFaild(_ err: Error?){

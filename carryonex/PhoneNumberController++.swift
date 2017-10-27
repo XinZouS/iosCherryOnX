@@ -48,31 +48,47 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
 //        okButton.isEnabled = true
 //    }
     func nextButtonTapped(){
-        ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
-        ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+        if (isModifyPhoneNumber == true){
+            ModifyPhone = phoneNumberTextField.text!
+        }else{
+            ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
+            ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+        }
         let inputPasswordLoginCtl = InputPasswordLoginController()
 //         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
         ApiServers.shared.isUserExisted { (isExist) in
            alreadyExist = isExist
             if alreadyExist == true{
                 if (isModifyPhoneNumber == true) {
-                    print("修改")
-                    isModifyPhoneNumber = false
-                    let userSettingCtl = UserSettingController()
-                    self.navigationController?.pushViewController(userSettingCtl, animated: true)
-                
-                } else{
+//                    print("修改")
+//                    let phoneNum = ProfileManager.shared.currentUser?.phone
+//                    let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+//                    print("get : okButtonTapped, api send text msg and go to next page!!!")
+//                    SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+//                        if err == nil {
+                            print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                            self.goToVerificationPage()
+//                        } else {
+//                            print("PhoneNumberController: 有错误: \(String(describing: err))")
+//                            let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+//                            self.showAlertWith(title: "获取验证码失败", message: msg)
+//                        }
+//                    })
+                }else{
                     self.navigationController?.pushViewController(inputPasswordLoginCtl, animated: true)
                 }
-                
-            } else {
+            }else{
+                isRegister = true
                 let phoneNum = ProfileManager.shared.currentUser?.phone
                 let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
                 print("get : okButtonTapped, api send text msg and go to next page!!!")
                 SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                    //print(err?.localizedDescription)
-                    if let error = err {
-                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(error.localizedDescription)"
+                    if err == nil {
+                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                        self.goToVerificationPage()
+                    } else {
+                        print("PhoneNumberController: 有错误: \(String(describing: err))")
+                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
                         self.showAlertWith(title: "获取验证码失败", message: msg)
                         return
                     }
@@ -146,11 +162,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         case "1"?:
             phonePattern = "^[0-9]{10}$"
         default:
-            break
+            phonePattern = "^[0-9]{10}$"
         }
         let matcher = MyRegex(phonePattern)
         let maybephone = phoneNumberTextField.text
-        ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
         if matcher.match(input: maybephone!) {
             print("电话格式正确")
             phoneNumberTextField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
@@ -183,10 +198,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }
     }
     
-    private func updatePhoneNum(){
-        let phoneNumber = phoneNumberTextField.text ?? "0"
-        ProfileManager.shared.currentUser?.phone = phoneNumber
-    }
+//    private func updatePhoneNum(){
+//        let phoneNumber = phoneNumberTextField.text ?? "0"
+//        ProfileManager.shared.currentUser?.phone = phoneNumber
+//    }
 //
     private func updateNextButton(){
         guard let num = phoneNumberTextField.text else { return }
@@ -197,65 +212,6 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             nextButton.backgroundColor = nextButton.isEnabled ? buttonThemeColor : .lightGray
         }
     }
-  
-    //WECHAT lOGIN
-    func wechatButtonTapped(){
-       let urlStr = "weixin://"
-       if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
-            let red = SendAuthReq.init()
-            red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
-            red.state = "\(arc4random()%100)"
-            WXApi.send(red)
-       }else{
-           if #available(iOS 10.0, *) {
-               UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
-           } else {
-               // Fallback on earlier versions
-               UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
-           }
-       }
-    }
-    /**  微信通知  */
-    func WXLoginSuccess(notification:Notification) {
-        
-        let code = notification.object as! String
-        let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
-        
-        DispatchQueue.global().async {
-            
-            let requestURL: URL = URL.init(string: requestUrl)!
-            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-            
-            DispatchQueue.main.async {
-                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                let openid: String = jsonResult["openid"] as! String
-                let access_token: String = jsonResult["access_token"] as! String
-                self.getUserInfo(openid: openid, access_token: access_token)
-            }
-        }
-    }
-    
-    /**  获取用户信息  */
-    func getUserInfo(openid:String,access_token:String) {
-        let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
-        
-        DispatchQueue.global().async {
-            
-            let requestURL: URL = URL.init(string: requestUrl)!
-            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-            
-            DispatchQueue.main.async {
-                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                print(jsonResult)
-                
-            }
-        }
-    }
-//    func registerButtonTapped(){
-//        let verifiCtl = VerificationController()
-//        verifiCtl.isRegister = 1
-//        navigationController?.pushViewController(verifiCtl, animated: true)
-//    }
     
     func setupKeyboardObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
@@ -287,7 +243,11 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         return flagsTitle[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        ProfileManager.shared.currentUser?.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
+        if (isModifyPhoneNumber==true){
+            ModifyCode = codeOfFlag[flagsTitle[row]]!
+        }else{
+            ProfileManager.shared.currentUser?.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
+        }
         flagButton.setTitle(flagsTitle[row], for: .normal)
 //        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }

@@ -22,8 +22,9 @@ var isModifyPhoneNumber : Bool = false
 var isUserAgree: Bool = false
 var isRegister : Bool = false
 var alreadyExist:Bool = false
-var isOrderList : Bool = false
-
+var isOrderList:Bool = false
+var ModifyPhone:String = ""
+var ModifyCode:String = "1"
 //正则校验
 struct MyRegex {
     let regex: NSRegularExpression?

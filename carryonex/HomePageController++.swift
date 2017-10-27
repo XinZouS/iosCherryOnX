@@ -616,8 +616,8 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             return nil
         }
         
-        
     }
+    
 }
 // MARK: - Pop alert view
 extension HomePageController {
