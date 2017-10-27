@@ -60,27 +60,29 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                     isModifyPhoneNumber = false
                     let userSettingCtl = UserSettingController()
                     self.navigationController?.pushViewController(userSettingCtl, animated: true)
-                }else{
+                
+                } else{
                     self.navigationController?.pushViewController(inputPasswordLoginCtl, animated: true)
                 }
-            }else{
+                
+            } else {
                 let phoneNum = ProfileManager.shared.currentUser?.phone
                 let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
                 print("get : okButtonTapped, api send text msg and go to next page!!!")
                 SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                    print(err)
-                    if err == nil {
-                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                        self.goToVerificationPage()
-                    } else {
-                        print("PhoneNumberController: 有错误: \(err)")
-                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+                    //print(err?.localizedDescription)
+                    if let error = err {
+                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(error.localizedDescription)"
                         self.showAlertWith(title: "获取验证码失败", message: msg)
+                        return
                     }
+                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                    self.goToVerificationPage()
                 })
             }
         }
     }
+    
     @objc private func nextButtonEnable(){
         nextButton.isEnabled = false
         nextButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
