@@ -89,7 +89,7 @@ class ApiServers : NSObject {
     
     //private let host = "http://0.0.0.0:5000"       // local host on this laptop you are looking at
     //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    private let host = "http://54.245.216.35:5000" // testing host on AWS
+    private let host = "http://54.245.216.35:5000"  // testing host on AWS
     
     private let hostVersion = "/api/1.0"
     
@@ -101,6 +101,16 @@ class ApiServers : NSObject {
     }
     
     var config: Config?
+    
+    
+    private override init() {
+        super.init()
+        
+        //TODO: for test use only, remove this before launch;
+        ProfileManager.shared.currentUser?.phone = "1-2016662333"
+        ProfileManager.shared.currentUser?.token = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
+    }
+    
     
     // MARK: - User APIs
     
@@ -142,7 +152,7 @@ class ApiServers : NSObject {
     }
     
     //user existed
-    func isUserExisted(handleInfo: @escaping (Bool) -> Void){
+    func getIsUserExisted(handleInfo: @escaping (Bool) -> Void){
         let sessionStr = hostVersion + "/users/exist"
         let headers:[String:String] = [
             ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
@@ -369,9 +379,8 @@ class ApiServers : NSObject {
         var headers: [String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: "c061da0ffe4f8369b3989a182bd56702adfbc44bc5321ceca706a164671541db",
-//ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.username.rawValue : "user1" //ProfileManager.shared.currentUser?.username ?? ""
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         if query2 == nil {
             headers[ServerTripPropKey[queryRoute]!] = query

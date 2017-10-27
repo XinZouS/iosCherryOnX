@@ -24,7 +24,6 @@ class PhotoIDController: UIViewController {
     var idType: IDSelectionTypeString = .passport
     
     var imagePickedType: ImageTypeOfID?
-    let imageCompress: CGFloat = 0.1
     
     var idCardAImgUrlLocal : URL?
     var idCardBImgUrlLocal : URL?
