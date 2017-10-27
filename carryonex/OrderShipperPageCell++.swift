@@ -13,6 +13,26 @@ import Foundation
 
 extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
     
+    override func dataListDidSet(){
+        guard let data = dataList, data.count > 0 else { return }
+        for req in data {
+//            let tId = req.tripId ?? ""
+//            ApiServers.shared.getTrips(queryRoute: .infoById, query: tId, query2: nil, completion: { (msg, getTrips) in
+//                if let matchTrip = getTrips?.first as? Trip {
+//                    let newPair = Pair(matchTrip, [req])
+//                    self.pairList.append(newPair)
+//                }
+//            })
+            // fake data for testing:
+            let matchTrip = Trip()
+            let newPair = Pair(matchTrip, [req, req])
+            self.pairList.append(newPair)
+        }
+        self.collectionView.reloadData()
+//        DispatchQueue.main.async {
+//
+//        }
+    }
     
     override func fetchRequests() {
         print("fetchRequests in OrdersShipperPageCell++")

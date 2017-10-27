@@ -32,11 +32,6 @@ extension PostTripController {
 //            return
 //        }
         
-        let waitingCtl = WaitingController()
-        waitingCtl.isForShipper = true
-        present(waitingCtl, animated: true, completion: nil)
-        navigationController?.popToRootViewController(animated: false)
-
         activityIndicator.startAnimating()
         
         uploadAddressToServer(addressStarting!, addressDestinat!) { (finished, msg) in
@@ -54,7 +49,7 @@ extension PostTripController {
             if success1 {
                 ApiServers.shared.postAddressInfo(address: addr2) { (success2, msg2, addrId2) in
                     if success2 {
-                        completion(true, msg2) // OK, success!!!
+                        completion(true, msg2) // OK 2 address upload
                     }else{
                         completion(false, msg2)
                     }
@@ -67,8 +62,18 @@ extension PostTripController {
     private func uploadTripToServer(){
         ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg, id) in
             print("get callback after uploadTripToServer(), success = \(success), msg = \(msg)")
-            self.activityIndicator.stopAnimating()
-            self.dismiss(animated: true, completion: nil)
+            if success {
+                let waitingCtl = WaitingController()
+                waitingCtl.isForShipper = true
+                self.present(waitingCtl, animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: false)
+                
+                self.activityIndicator.stopAnimating()
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
+                self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
+            }
         }
     }
     

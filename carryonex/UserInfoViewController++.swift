@@ -169,7 +169,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
                     ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
-                    print(ProfileManager.shared.currentUser?.imageUrl)
+                    //print(ProfileManager.shared.currentUser?.imageUrl)
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
