@@ -95,9 +95,9 @@ class ApiServers : NSObject {
     
     private func getTimestampStr() -> String {
         //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
-        //let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
-        //return "\(t)"
-        return "\(150000000)" // TODO: this is for test only.
+        let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
+        return "\(t)"
+        //return "\(150000000)" // TODO: this is for test only.
     }
     
     var config: Config?

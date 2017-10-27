@@ -199,7 +199,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-            ProfileManager.shared.currentUser = ProfileUser()
+            //ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
