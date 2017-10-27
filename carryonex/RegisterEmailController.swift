@@ -32,15 +32,13 @@ class RegisterEmailController: UIViewController {
         t.font = UIFont.systemFont(ofSize: 16)
         return t
     }()
-    lazy var okButton: UIButton = {
+    lazy var  okButton : UIButton = {
         let b = UIButton()
-        b.backgroundColor = .lightGray // buttonColorBlue
-        b.setTitle("确认", for: .normal)
-        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        b.layer.cornerRadius = 5
-        b.layer.masksToBounds = true
-        b.isEnabled = false
+        b.setTitle("→", for: .normal)
+        b.layer.cornerRadius = 30
+        b.backgroundColor = .lightGray
         b.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
+        b.isEnabled = false
         return b
     }()
     
@@ -78,17 +76,15 @@ class RegisterEmailController: UIViewController {
         leftView.image = Icon.email
         emailField.leftView = leftView
         
-        view.layout(emailField).center(offsetX: 60).left(60).right(60)
+        view.layout(emailField).center(offsetY: -80).left(60).right(60)
     }
     
     
     private func setupOkButton(){
         view.addSubview(okButton)
-        okButton.translatesAutoresizingMaskIntoConstraints = false
-        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
-        okButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
-        okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
+        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
+        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
     }
 }
 
