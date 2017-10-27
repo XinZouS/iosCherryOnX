@@ -44,7 +44,7 @@ enum ServerUserLogUrl : String {
 /// component of url query
 enum ServerTripUrl : String {
     case youxiangCode   = "trips"
-    case info           = "info"
+    case infoById       = "info"
     case startState     = "startstate/list"
     case startCity      = "startcity/list"
     case startZipcode   = "startzipcode/list"
@@ -58,7 +58,7 @@ enum ServerTripUrl : String {
 /// key of parameters in the query url
 let ServerTripPropKey : [ServerTripUrl:String] = [
     ServerTripUrl.youxiangCode  : "trip_code",
-    ServerTripUrl.info          : "id",
+    ServerTripUrl.infoById      : "id",
     ServerTripUrl.startState    : "query",
     ServerTripUrl.startCity     : "query",
     ServerTripUrl.startZipcode  : "query",
@@ -369,8 +369,9 @@ class ApiServers : NSObject {
         var headers: [String:String] = [
             ServerKey.timestamp.rawValue: getTimestampStr(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
+            ServerKey.userToken.rawValue: "c061da0ffe4f8369b3989a182bd56702adfbc44bc5321ceca706a164671541db",
+//ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.username.rawValue : "user1" //ProfileManager.shared.currentUser?.username ?? ""
         ]
         if query2 == nil {
             headers[ServerTripPropKey[queryRoute]!] = query
@@ -446,6 +447,10 @@ class ApiServers : NSObject {
         }
     }
     
+    
+    // MARK: - Request APIs
+    
+    //func 
     
     
     

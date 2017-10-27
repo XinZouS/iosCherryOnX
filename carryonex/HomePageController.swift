@@ -472,7 +472,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         // MARK: - trip api test
         // ❓
-//        ApiServers.shared.getTrips(queryRoute: .info, query: "1", query2: nil) { (message, trips) in
+//        ApiServers.shared.getTrips(queryRoute: .infoById, query: "1", query2: nil) { (message, trips) in
 //            print("getTrips message = \(message)")
 //            if trips != nil {
 //                print("get trips info = \(trips)")

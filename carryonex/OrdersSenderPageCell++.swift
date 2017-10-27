@@ -17,6 +17,11 @@ extension OrdersSenderPageCell {
         collectionView.register(OrderLogSenderCell.self, forCellWithReuseIdentifier: cellIdOrderLogSenderCell)
     }
     
+    func dataListDidSet(){
+        print(" --- OrdersSenderPageCell.dataListDidSet()")
+    }
+
+    
     func fetchRequests() {
         print("fetchRequests in OrdersSenderPageCell++")
         

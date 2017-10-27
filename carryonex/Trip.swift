@@ -18,6 +18,7 @@ enum Transportation : String, UnboxableEnum {
 
 enum TripKeyInDB : String {
     case id             = "id"
+    case tripCode       = "trip_code"
     case username       = "username"
     case carrierId      = "carrier_id"
     case transportation = "transportation"
@@ -40,7 +41,8 @@ enum TripKeyInDB : String {
 
 class Trip : NSObject, Unboxable {
     
-    var id:         String?
+    var id:        String?
+    var tripCode: String?
     var carrierId: String?
     var transportation: Transportation = .trunk
     
@@ -71,6 +73,7 @@ class Trip : NSObject, Unboxable {
         super.init()
         
         self.id = "id"
+        self.tripCode = "tripCode"
         self.carrierId = "carrierId"
         self.transportation = .trunk
         
@@ -91,7 +94,8 @@ class Trip : NSObject, Unboxable {
     
     required init(unboxer: Unboxer) {
         self.id             = try? unboxer.unbox(key: TripKeyInDB.id.rawValue)
-        self.carrierId     = try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
+        self.tripCode   = try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
+        self.carrierId      = try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
         self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
         
         self.totalLength = (try? unboxer.unbox(key: TripKeyInDB.totalLength.rawValue)) ?? 0.0
@@ -114,6 +118,7 @@ class Trip : NSObject, Unboxable {
     
     func setupByDictionaryFromDB(_ json: [String:Any]){
         self.id             = json[TripKeyInDB.id.rawValue] as? String ?? ""
+        self.tripCode       = json[TripKeyInDB.tripCode.rawValue] as? String ?? ""
         self.carrierId      = json[TripKeyInDB.carrierId.rawValue] as? String ?? ""
         self.transportation = json[TripKeyInDB.transportation.rawValue] as? Transportation ?? .trunk
         
@@ -136,6 +141,7 @@ class Trip : NSObject, Unboxable {
         var json = [String:Any]()
         
         json[TripKeyInDB.id.rawValue] = id
+        json[TripKeyInDB.tripCode.rawValue] = tripCode
         json[TripKeyInDB.carrierId.rawValue] = carrierId
         json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
         
@@ -156,6 +162,16 @@ class Trip : NSObject, Unboxable {
         return json
     }
     
+    func getStartAddress() -> Address {
+        print("TODO: get start address by id from DB")
+        return Address()
+    }
+    
+    func getEndAddress() -> Address {
+        print("TODO: get end address by id from DB")
+        return Address()
+    }
+
     
 }
 
