@@ -33,6 +33,14 @@ class InputPasswordLoginController: UIViewController {
         b.isEnabled = false
         return b
     }()
+    lazy var forgetButton: UIButton = {
+        let b = UIButton()
+        b.backgroundColor = .lightGray // buttonColorBlue
+        b.setTitle("忘记密码？", for: .normal)
+        b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        b.addTarget(self, action: #selector(forgetButtonTapped), for: .touchUpInside)
+        return b
+    }()
     
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
@@ -56,6 +64,7 @@ class InputPasswordLoginController: UIViewController {
         
         setupOkButton()
         
+        setupForgetButton()
     }
     private func setupPasswordTextField(){
         passwordField = TextField()
@@ -72,6 +81,14 @@ class InputPasswordLoginController: UIViewController {
         view.layout(passwordField).center().left(60).right(60)
     }
     
+    private func setupForgetButton(){
+        view.addSubview(forgetButton)
+        forgetButton.translatesAutoresizingMaskIntoConstraints = false
+        forgetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        forgetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 130).isActive = true
+        forgetButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
+        forgetButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
     
     private func setupOkButton(){
         view.addSubview(okButton)

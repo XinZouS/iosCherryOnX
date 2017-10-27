@@ -11,21 +11,25 @@ import UIKit
 
 extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
-        isRegister = false
-        alreadyExist = true
-        let newPassword = passwordField.text
-        let username = ProfileManager.shared.currentUser?.username
-        let phone = ProfileManager.shared.currentUser?.phone
-        let email = ProfileManager.shared.currentUser?.email
-        // TODO: hash pw and upload to server
-        ApiServers.shared.postRegisterUser(username: username!, phone: phone!, password: newPassword!, email: email!) { (isSuccess, msg) in
-            if isSuccess == true{
-                print(msg)
-                ProfileManager.shared.saveUser()
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                print(msg)
+        if(isRegister == true){
+            let newPassword = passwordField.text
+            let username = ProfileManager.shared.currentUser?.username
+            let phone = ProfileManager.shared.currentUser?.phone
+            let email = ProfileManager.shared.currentUser?.email
+            // TODO: hash pw and upload to server
+            ApiServers.shared.postRegisterUser(username: username!, phone: phone!, password: newPassword!, email: email!) { (isSuccess, msg) in
+                if isSuccess == true{
+                    print(msg)
+                    isRegister = false
+                    ProfileManager.shared.saveUser()
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    print(msg)
+                }
             }
+        }else{
+//            let newPassword = passwordField.text
+            print("改密码咯")
         }
     }
     
