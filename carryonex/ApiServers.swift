@@ -93,13 +93,6 @@ class ApiServers : NSObject {
     
     private let hostVersion = "/api/1.0"
     
-    private func getTimestampStr() -> Int {
-        //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
-        let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
-        return t
-        //return "\(150000000)" // TODO: this is for test only.
-    }
-    
     var config: Config?
     
     // MARK: - User APIs
@@ -115,7 +108,7 @@ class ApiServers : NSObject {
             ServerKey.email.rawValue:    email
         ]
         let parameters:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData
         ]
@@ -146,7 +139,7 @@ class ApiServers : NSObject {
         let sessionStr = hostVersion + "/users/exist"
         let headers:[String: Any] = [
             ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
@@ -162,7 +155,7 @@ class ApiServers : NSObject {
     func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
         let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
                 ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
@@ -190,7 +183,7 @@ class ApiServers : NSObject {
     func postLogoutUser(completion: @escaping (Bool, String?) -> Void){
         let route = hostVersion + "/users/logout"
         let parms:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.data.rawValue : [
@@ -213,7 +206,7 @@ class ApiServers : NSObject {
         let sessionStr = hostVersion + "/users/\(propertyUrl.rawValue)"
 //        let urlStr = "\(host)\(sessionStr)"
         let headers:[String: Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
@@ -232,7 +225,7 @@ class ApiServers : NSObject {
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
         let sessionStr = hostVersion + "/users/info"
         let headers:[String: Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
@@ -259,7 +252,7 @@ class ApiServers : NSObject {
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
         let sessionStr = hostVersion + "/users/\(type.rawValue)"
         let headers:[String: Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
@@ -272,13 +265,14 @@ class ApiServers : NSObject {
                         let carries: [Request] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(carries)
                         print("get my requests = \(carries)")
-                    }
-                    else if type == ServerUserLogUrl.myTrips {
+                    
+                    } else if type == ServerUserLogUrl.myTrips {
                         let trips : [Trip] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(trips)
                         print("get my trips = \(trips)")
                     }
-                }catch let err  {
+                    
+                } catch let err  {
                     print("get errororrro when getUserLogsOf \(type.rawValue), err = \(err)")
                 }
             }
@@ -287,14 +281,14 @@ class ApiServers : NSObject {
     
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
         let route = hostVersion + "/users/\(propUrl.rawValue)"
-        let data: [String:String] = [
+        let data: [String: String] = [
             ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
             ServerUserPropKey[propUrl]! : newInfo
         ]
-        let parms:[String:Any] = [
+        let parms:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.data.rawValue     : data
         ]
         postDataWithUrlRoute(route, parameters: parms) { (response) in
@@ -306,21 +300,20 @@ class ApiServers : NSObject {
                     ProfileManager.shared.saveUser()
                 }
                 completion(true, msg)
-            }else{
+            
+            } else {
                 completion(false, msg)
             }
-
         }
     }
     
     func getAllUsers(callback: @escaping(([User]?) -> Void)) {
-        
         let route = hostVersion + "/users/allusers"
-        let timestamp = NSDate.timeIntervalSinceReferenceDate
-        let parameters = [
+        let parameters : [String: Any] = [
             "app_token" : appToken, "username": "user0",
             "user_token": "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2",
-            "timestamp" : Int(timestamp)] as [String: Any]
+            "timestamp" : Date.getTimestampNow()
+        ]
         
         getDataWithUrlRoute(route, parameters: parameters) { (responseValue) in
             if let data = responseValue["data"] as? [String: Any] {
@@ -367,7 +360,7 @@ class ApiServers : NSObject {
     func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String,[Trip]?) -> Void){
         let route = hostVersion + "/trips/\(queryRoute.rawValue)"
         var headers: [String: Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: "c061da0ffe4f8369b3989a182bd56702adfbc44bc5321ceca706a164671541db",
 //ProfileManager.shared.currentUser?.token ?? "",
@@ -402,7 +395,7 @@ class ApiServers : NSObject {
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.username.rawValue: ProfileManager.shared.currentUser?.username ?? "",
             ServerKey.data.rawValue: tripDict
         ]
@@ -430,7 +423,7 @@ class ApiServers : NSObject {
         let parameter:[String:Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.data.rawValue: addDict,
             ServerKey.username.rawValue: ProfileManager.shared.currentUser?.username ?? ""
         ]
