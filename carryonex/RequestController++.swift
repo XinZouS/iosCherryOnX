@@ -228,7 +228,6 @@ extension RequestController {
         let corpingParms = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 200, height: 200))
         let cameraViewController = CameraViewController(croppingParameters: corpingParms, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true, completion: { (getImg, phAsset) in
             if let img = getImg {
-                //let timeStamp = Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate
                 let formatter = DateFormatter()
                 formatter.timeZone = TimeZone.current
                 formatter.dateFormat = "yyyy_MM_dd_hhmmss"

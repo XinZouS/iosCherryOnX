@@ -24,7 +24,7 @@ enum AddressKeyInDB : String {
     case zipcode    = "zipcode"
     case recipientName = "resident"
     case phoneNumber = "phone"
-    case longtitude = "longtitude"
+    case longtitude = "longitude"
     case latitude   = "latitude"
 }
 
@@ -48,7 +48,6 @@ class Address : NSObject, Unboxable {
     var coordinateLatitude: Double = 40.785091 // Central Park, New York
     var coordinateLongitude: Double = -73.968285 // Central Park, New York
 
-    
     override init() {
         super.init()
         
@@ -155,6 +154,4 @@ class Address : NSObject, Unboxable {
         json[AddressKeyInDB.latitude.rawValue]      = coordinateLatitude
         return json
     }
-    
 }
-

@@ -56,7 +56,7 @@ enum ServerTripUrl : String {
     case requests       = "trips/requests"
 }
 /// key of parameters in the query url
-let ServerTripPropKey : [ServerTripUrl:String] = [
+let ServerTripPropKey : [ServerTripUrl : String] = [
     ServerTripUrl.youxiangCode  : "trip_code",
     ServerTripUrl.infoById      : "id",
     ServerTripUrl.startState    : "query",
@@ -93,13 +93,6 @@ class ApiServers : NSObject {
     
     private let hostVersion = "/api/1.0"
     
-    private func getTimestampStr() -> String {
-        //let t = Int(Date.timeIntervalSinceReferenceDate + Date.timeIntervalBetween1970AndReferenceDate)
-        let t = Int(NSDate.timeIntervalSinceReferenceDate) // will this work ???????
-        return "\(t)"
-        //return "\(150000000)" // TODO: this is for test only.
-    }
-    
     var config: Config?
     
     
@@ -125,7 +118,7 @@ class ApiServers : NSObject {
             ServerKey.email.rawValue:    email
         ]
         let parameters:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData
         ]
@@ -154,13 +147,12 @@ class ApiServers : NSObject {
     //user existed
     func getIsUserExisted(handleInfo: @escaping (Bool) -> Void){
         let sessionStr = hostVersion + "/users/exist"
-        let headers:[String:String] = [
+        let headers:[String: Any] = [
             ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            print("get infoDictionary: \(responsDictionary)")
             if let isExist = responsDictionary["status_code"] as? Int {
                 handleInfo(isExist != 200)
             }else{
@@ -172,7 +164,7 @@ class ApiServers : NSObject {
     func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
         let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
                 ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
@@ -180,15 +172,11 @@ class ApiServers : NSObject {
             ]
         ]
         postDataWithUrlRoute(route, parameters: parameter) { (response) in
-            print("response = ", response)
-//            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                print("\n\r get data = \(data)")
                 if let token = data[ServerKey.userToken.rawValue] as? String {
                     ProfileManager.shared.currentUser?.token = token
                     ProfileManager.shared.saveUser()
                     completion(token)
-                    print("\n\r now get current user = ")
                     ProfileManager.shared.currentUser?.printAllData()
                 }else{
                    completion("error")
@@ -200,7 +188,7 @@ class ApiServers : NSObject {
     func postLogoutUser(completion: @escaping (Bool, String?) -> Void){
         let route = hostVersion + "/users/logout"
         let parms:[String:Any] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.data.rawValue : [
@@ -208,7 +196,6 @@ class ApiServers : NSObject {
             ]
         ]
         postDataWithUrlRoute(route, parameters: parms) { (response) in
-            print("postLogoutUser, response = ", response)
             let msg = response[ServerKey.message.rawValue] as? String
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 ProfileManager.shared.logoutUser()
@@ -220,29 +207,25 @@ class ApiServers : NSObject {
     }
     
     func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
-        let sessionStr = hostVersion + "/users/\(propertyUrl.rawValue)"
-//        let urlStr = "\(host)\(sessionStr)"
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+        let sessionStr = hostVersion + "/users/" + propertyUrl.rawValue
+        let headers:[String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
-        print("will getUserInfo \(propertyUrl.rawValue), with headers = \(headers)")
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            print("get infoDictionary: \(responsDictionary)")
             if let getDict = responsDictionary["data"] as? [String:Any], getDict.count != 0 {
                 let getStr = (getDict["string"] as? String) ?? ""
                 handleInfo(getStr)
-                print("returning getUserInfo string = \(getStr)")
             }
         }
     }
     /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
     func getUserInfoAll(handleInfo: @escaping ([String:Any]) -> Void){
         let sessionStr = hostVersion + "/users/info"
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+        let headers:[String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
@@ -253,62 +236,58 @@ class ApiServers : NSObject {
             if let data = responsDictionary["data"] as? [String : Any] {
                 handleInfo(data)
                 do {
-                    let getUser: ProfileUser = try unbox(dictionary: data, atKey: "user") // TODO: change the key to "user"
-                    print("ccccccccc",getUser)
+                    // TODO: change the key to "user"
+                    let getUser: ProfileUser = try unbox(dictionary: data, atKey: "user")
                     getUser.token = currToken
                     ProfileManager.shared.currentUser = getUser
                     ProfileManager.shared.saveUser()
-                    print("getUserInfoAll, getUser = \(getUser)")
-                }catch let err {
-                    print("get errorrrr when getUserInfoAll, err = \(err)")
+                } catch let err {
+                    print("get error when getUserInfoAll, err = \(err)")
                 }
             }
         }
     }
     
     func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]) -> Void){
-        let sessionStr = hostVersion + "/users/\(type.rawValue)"
-        let headers:[String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+        let sessionStr = hostVersion + "/users/" + type.rawValue
+        let headers:[String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
         getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
             if let data = responsDictionary["data"] as? [String : Any] {
-                print("getUserLogsOf = \(data)")
                 do {
                     if type == ServerUserLogUrl.myCarries {
                         let carries: [Request] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(carries)
-                        print("get my requests = \(carries)")
-                    }
-                    else if type == ServerUserLogUrl.myTrips {
+                    
+                    } else if type == ServerUserLogUrl.myTrips {
                         let trips : [Trip] = try unbox(dictionary: data, atKey: type.rawValue)
                         handleLogArray(trips)
-                        print("get my trips = \(trips)")
                     }
-                }catch let err  {
-                    print("get errororrro when getUserLogsOf \(type.rawValue), err = \(err)")
+                    
+                } catch let err  {
+                    print("get error when getUserLogsOf \(type.rawValue), err = \(err)")
                 }
             }
         }
     }
     
     func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
-        let route = hostVersion + "/users/\(propUrl.rawValue)"
-        let data: [String:String] = [
+        let route = hostVersion + "/users/" + propUrl.rawValue
+        let data: [String: String] = [
             ServerKey.username.rawValue : (ProfileManager.shared.currentUser?.username)!,
             ServerUserPropKey[propUrl]! : newInfo
         ]
-        let parms:[String:Any] = [
+        let parms:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.data.rawValue     : data
         ]
         postDataWithUrlRoute(route, parameters: parms) { (response) in
-            print("postUpdateUserInfo, response = ", response)
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 if let userPropKey = ServerUserPropKey[propUrl], userPropKey != "" {
@@ -316,29 +295,27 @@ class ApiServers : NSObject {
                     ProfileManager.shared.saveUser()
                 }
                 completion(true, msg)
-            }else{
+            
+            } else {
                 completion(false, msg)
             }
-
         }
     }
     
     func getAllUsers(callback: @escaping(([User]?) -> Void)) {
-        
         let route = hostVersion + "/users/allusers"
-        let timestamp = NSDate.timeIntervalSinceReferenceDate
-        let parameters = [
-            "app_token" : appToken, "username": "user0",
-            "user_token": "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2",
-            "timestamp" : Int(timestamp)] as [String: Any]
-        
+        let parameters : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow()
+        ]
         getDataWithUrlRoute(route, parameters: parameters) { (responseValue) in
             if let data = responseValue["data"] as? [String: Any] {
                 do {
                     let users : [User] = try unbox(dictionary: data, atKey:"users")
                     callback(users)
                 } catch let error as NSError {
-                    print(error.localizedDescription)
+                    print("getAllUsers error: \(error.localizedDescription)")
                 }
             }
         }
@@ -355,41 +332,38 @@ class ApiServers : NSObject {
                     self.config = config
                     
                 } catch let error as NSError {
-                    print(error.localizedDescription)
+                    print("getConfig error: \(error.localizedDescription)")
                 }
             }
         }
     }
     
-    // MARK: - ItemCategory APIs
     
-    /// TODO: get full list from server, then setup and present here
+    // MARK: - ItemCategory APIs
+    // TODO: get full list from server, then setup and present here
     func getFullItemCategoryListInDB() -> [ItemCategory] {
-        print("TODO: get full list from server, then setup and return.")
         return []
     }
     
-
-    
     
     // MARK: - Trip APIs
-    
     func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String,[Trip]?) -> Void){
         let route = hostVersion + "/trips/\(queryRoute.rawValue)"
-        var headers: [String:String] = [
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+        var headers: [String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
             ServerKey.username.rawValue : ProfileManager.shared.currentUser?.username ?? ""
         ]
-        if query2 == nil {
-            headers[ServerTripPropKey[queryRoute]!] = query
-        }else if let q2 = query2 {
+        
+        if query2 == nil, let route = ServerTripPropKey[queryRoute] {
+            headers[route] = query
+            
+        } else if let q2 = query2 {
             headers["start"] = query
             headers["end"] = q2
         }
-        //print("will getTrips [\(queryRoute)] with q1=[\(query)], q2=[\(query2)]")
-        //print("     and headers = \(headers)")
+        
         getDataWithUrlRoute(route, parameters: headers) { (response) in
             let msg = response["message"] as! String
             if let data = response["data"] as? [String:Any] {
@@ -397,7 +371,7 @@ class ApiServers : NSObject {
                     let trips : [Trip] = try unbox(dictionary: data, atKey: "trip")
                     completion(msg, trips)
                 } catch let err {
-                    print("get errorororrr when getDataWithUrlRoute, err = \(err)")
+                    print("getTrips = \(err.localizedDescription)")
                 }
             }else{
                 completion(msg, nil)
@@ -407,49 +381,53 @@ class ApiServers : NSObject {
     
     func postTripInfo(trip: Trip, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
         let sessionStr = hostVersion + "/trips/trips"
-        var tripDict = trip.packAsDictionaryForDB()
-        tripDict[ServerKey.username.rawValue] = ProfileManager.shared.currentUser?.username ?? ""
+        var tripDict = trip.packAsPostData()
         
-        let parameter:[String:Any] = [
+        //TODO: Remove them
+        tripDict[TripKeyInDB.carrierId.rawValue] = 4
+        tripDict[TripKeyInDB.startAddressId.rawValue] = 1509137387
+        tripDict[TripKeyInDB.endAddressId.rawValue] = 1509137387
+        
+        let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
+            ServerKey.username.rawValue: ProfileManager.shared.currentUser?.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.data.rawValue: tripDict
         ]
-        print("will postTripInfo, parameter = \(parameter)")
+        
         postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
+            print("Dictionary \(dictionary)")
             if dictionary.count > 0 {
-                print("get respons dictionary when postTripInfo, dict = \(dictionary)")
                 completion(true, "TODO: testing...", "get id,,,")
                 
-            }else{
+            } else {
                 completion(false, "TODO: testing...", "get id,,,")
-                
             }
         }
     }
     
     
     // MARK: - Address APIs
-    
     func postAddressInfo(address: Address, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
         let route = hostVersion + "/addresses/addresses"
         var addDict = address.packAsDictionaryForDB()
-        addDict[ServerKey.username.rawValue] = ProfileManager.shared.currentUser?.username ?? ""
+        addDict.removeValue(forKey: "id")
         
-        let parameter:[String:Any] = [
+        let parameter:[String : Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: ProfileManager.shared.currentUser?.token ?? "",
-            ServerKey.timestamp.rawValue: getTimestampStr(),
-            ServerKey.data.rawValue: addDict
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: addDict,
+            ServerKey.username.rawValue: ProfileManager.shared.currentUser?.username ?? ""
         ]
-        print("will postAddress, parameter = \(parameter)")
+        
         postDataWithUrlRoute(route, parameters: parameter) { (dictionary) in
             if dictionary.count > 0 {
-                print("get respons dictionary when postTripInfo, dict = \(dictionary)")
+                //TODO:postAddressInfo
                 completion(true, "TODO: testing...", "get id,,,")
                 
-            }else{
+            } else {
                 completion(false, "TODO: testing...", "get id,,,")
                 
             }
@@ -459,11 +437,7 @@ class ApiServers : NSObject {
     
     // MARK: - Request APIs
     
-    //func 
-    
-    
-    
-    //send order information to Server
+    //TODO: sentOrderInformation
     func sentOrderInformation(address:Address){
         //let userName = "user0"
         //let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
@@ -474,6 +448,7 @@ class ApiServers : NSObject {
         //        postDataWithUrlString(urlStr,dataPackage)
     }
     
+    //TODO: sentRequestImageUrls
     func sentRequestImageUrls(){
 //        let userName = "user0"
 //        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
@@ -485,157 +460,32 @@ class ApiServers : NSObject {
     }
     
     
-    
-    
     // MARK: - basic GET and POST by url
     /**
      * ✅ get data with url string, return NULL, try with Alamofire and callback
      */
     private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
-        print("get requestUrlStr = \(requestUrlStr)")
-        print("get parameters = \(parameters)")
         Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
-            print("get response = \(response)")
             if let responseValue = response.value as? [String: Any] {
-                print("get responseValue = \(responseValue)")
                 completion(responseValue)
             }
         }
         
     }
-    /**
-     * get data with url string, return NULL, try with completionHandler
-     */
-    private func getDataWithUrlString(_ urlStr:String, httpHeaders:[String:String]?, getInfoDictionary: @escaping ([String:AnyObject]) -> Void) {
-        print("\n\r === URL: \(urlStr) ===")
-        var urlStrHeaders: String = ""
-        if let headers = httpHeaders { // this is NOT working !!!!!!
-            for pair in headers {
-                urlStrHeaders.append("\(pair.key)=\(pair.value)&")
-            }
-        }
-        print("get urlStrHeaders = \(urlStrHeaders)")
-        
-        urlStrHeaders.remove(at: urlStrHeaders.index(before: urlStrHeaders.endIndex))
-        let url = NSURL(string: "\(urlStr)?\(urlStrHeaders)")! as URL
-        
-        var request = NSMutableURLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
-        request.httpMethod = "GET"
-        
-        let httpData = NSData(data: "{}".data(using: String.Encoding.utf8)! )
-        request.httpBody = httpData as Data // get func will NOT have request.httpBody
-
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request) { (data, response, err) in
-            if err != nil {
-                print("Errorrrr :: in ApiServers::fetchAllUsers(), dataTask err = \(err!)")
-            }else{
-                if let httpResponse = response as? HTTPURLResponse {
-                    print("\r\n get response: \(httpResponse)")
-                }
-                guard let content = data else { return }
-                do {
-                    if let myJson = try JSONSerialization.jsonObject(with: content, options: .allowFragments) as? [String:AnyObject] {
-                    //print("--- get myJson = \(myJson) \n\r")
-                    getInfoDictionary(myJson)
-//                    if let getData = myJson?["data"] as? [Any] {
-//                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-//                        if let completion = getData.first as? [String:AnyObject] {
-//                            //print("--- --- --- get completion: \n\r\(completion)")
-//                            //getInfoDictionary(completion)
-//                        }
-//                    }else{
-//                        print("--- ---Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
-//                    }
-                    }
-                }catch let jsonErr {
-                    print("--- get Error when parsing JSON: err = \(jsonErr) \n\r")
-                }
-            }
-        }
-        dataTask.resume()
-        
-    }
-    
     
     /**
      * ✅ POST data with url string, using Alamofire
      */
     private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
-        print("postDataWithUrlRoute requestUrlStr = \(requestUrlStr)")
-        print("postDataWithUrlRoute parameters = \(parameters)")
-        
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-            print("get response = \(response)")
             if let responseValue = response.value as? [String: Any] {
-                print("get responseValue = \(responseValue)")
                 completion(responseValue)
             }
         }
         
     }
-    /**
-     * POST data with url string, get the ID pass from server, using completing handler
-     */
-    private func postDataToUrlString(_ urlStr:String, postData: [String:Any], httpHeaders:[String:String]?, handleResponse: @escaping ([String:AnyObject]) -> Void) {
-        print("\n\r === postDataToUrlString: \(urlStr) ===")
-        let nsUrl = NSURL(string: urlStr)! as URL
-        
-        var request = NSMutableURLRequest(url: nsUrl, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0) as URLRequest
-        request.httpMethod = "POST"
-        //this will NOT work: request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var httpData = Data()
-        
-        var httpBody : [String:Any] = [ServerKey.data.rawValue : postData]
-        if let headers = httpHeaders {
-            for pair in headers {
-                httpBody[pair.key] = pair.value
-            }
-        }
-        do {
-            httpData = try JSONSerialization.data(withJSONObject: httpBody, options: []) as Data
-        }catch let err {
-            print("get errrorororor when parsing data: \(err)")
-        }
-        request.httpBody = httpData //postData
-        
-//        var getId : String = ""
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request) { (data, response, err) in
-            if err != nil {
-                print("--- Error!!! ApiServers::postDataToUrlString(), dataTask err = \(err!)")
-            }else{
-                //let httpResponse = response as? HTTPURLResponse // ????????????/
-                guard let content = data else { return }
-                print("get data from postDataToUrlString(): \(content)")
-                do {
-                    if let completion = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as? [String:AnyObject] {
-                        print("--- --- get myJson = \n\r \(completion) \n\r")
-                        handleResponse(completion)
-                    }else{
-                        print("--- get eirirriir when recall haldler...Quite.")
-                    }
-//                    if let getData = myJson?["data"] as? [Any] {
-//                        print("--- --- get myJson[data] = \n\r \(myJson?["data"]) \n\r")
-//                        //if let completion = getData.first as? [String:AnyObject] {
-//                        //    print("--- --- --- get completion and return: \n\r\(completion)")
-//                        //}
-//                    }else{
-//                        print("--- --- --- Error in get jsonData: \n\r\(myJson?["data"])  \n\r")
-//                    }
-                }catch let jsonErr {
-                    print("--- --- get Error when parsing JSON: err = \(jsonErr) \n\r")
-                }
-            }
-        }
-        dataTask.resume()
-    }
-    
     
 }
 
