@@ -56,7 +56,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }
         let inputPasswordLoginCtl = InputPasswordLoginController()
 //         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
-        ApiServers.shared.isUserExisted { (isExist) in
+        ApiServers.shared.getIsUserExisted { (isExist) in
            alreadyExist = isExist
             if alreadyExist == true{
                 if (isModifyPhoneNumber == true) {

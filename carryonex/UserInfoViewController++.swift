@@ -144,7 +144,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
         
         // Configure aws cognito credentials:
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId:"us-west-2:08a19db5-a7cc-4e82-b3e1-6d0898e6f2b7")
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId: awsIdentityPoolId)
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         

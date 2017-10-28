@@ -67,10 +67,9 @@ extension PostTripController {
                 let waitingCtl = WaitingController()
                 waitingCtl.isForShipper = true
                 self.present(waitingCtl, animated: true, completion: nil)
-                self.navigationController?.popToRootViewController(animated: false)
-                
-                self.activityIndicator.stopAnimating()
                 self.dismiss(animated: true, completion: nil)
+
+                self.activityIndicator.stopAnimating()
             }else{
                 let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
                 self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
