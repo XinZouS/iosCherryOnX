@@ -56,6 +56,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
                 print("registrationId获取失败:",rescode)
             }
         }
+        
+        //UDesk Manager
+        if ProfileManager.shared.isLoggedIn() {
+            let domain = "carryonex.udesk.cn"
+            let appKey = "1d3ffd926dd53b91b8e13c5bc6080405"
+            let appId = "89139ec04e28961d"
+            let organizaion = UdeskOrganization.init(domain: domain, appKey: appKey, appId: appId)
+            
+            let customer = UdeskCustomer()
+            customer.sdkToken = ProfileManager.shared.currentUser?.id
+            customer.nickName = ProfileManager.shared.currentUser?.realName
+            UdeskManager.initWith(organizaion, customer: customer)
+        }
+        
         return true
     }
     
