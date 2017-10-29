@@ -124,14 +124,13 @@ class ApiServers : NSObject {
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 print("get data = \(data)")
-                if let token = data[ServerKey.userToken.rawValue] as? String {
-                    ProfileManager.shared.currentUser = ProfileUser()
-                    ProfileManager.shared.currentUser?.setupByLocal(postData)
-                    ProfileManager.shared.currentUser?.token = token
-                    ProfileManager.shared.saveUser()
+                do {
+                    let user: ProfileUser = try unbox(dictionary: data)
+                    ProfileManager.shared.login(user: user)
                     callback(true, msg)
-                } else {
-                    //Display error message
+                    
+                } catch let error as NSError {
+                    print(error.localizedDescription)
                     callback(false, msg)
                 }
             } else {

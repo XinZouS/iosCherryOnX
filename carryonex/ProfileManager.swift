@@ -35,6 +35,9 @@ class ProfileManager: NSObject {
         
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
         self.currentUser = loadProfileUserFromLocalDisk()
+        
+        guard let currentUser = currentUser else { return }
+        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
     }
     
     func removeUser() {
@@ -42,9 +45,17 @@ class ProfileManager: NSObject {
         self.currentUser = nil
     }
     
+    func login(user: ProfileUser) {
+        currentUser = user
+        saveProfileUserIntoLocalDisk(user)
+        guard let currentUser = currentUser else { return }
+        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
+    }
+    
     func logoutUser() {
         removeUser()
         currentUser = nil
+        ServiceManager.shared.logoutUdesk()
     }
     
     
