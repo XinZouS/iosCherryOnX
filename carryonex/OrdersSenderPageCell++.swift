@@ -32,19 +32,19 @@ extension OrdersSenderPageCell {
         r1.cost = 12.65
         
         let r2 = Request.fakeRequestDemo()
-        r2.status = RequestStatus.shipping.rawValue
+        r2.statusId = RequestStatus.shipping.rawValue
         r2.cost = 80.25
         
         let r3 = Request.fakeRequestDemo()
-        r3.status = RequestStatus.finished.rawValue
+        r3.statusId = RequestStatus.finished.rawValue
         r3.cost = 6.20
         
         let r4 = Request.fakeRequestDemo()
-        r4.status = RequestStatus.shipping.rawValue
+        r4.statusId = RequestStatus.shipping.rawValue
         r4.cost = 90.80
         
         let r5 = Request.fakeRequestDemo()
-        r5.status = RequestStatus.finished.rawValue
+        r5.statusId = RequestStatus.finished.rawValue
         r5.cost = 650.80
         
         let fakeRequests = [r0, r1, r2, r3, r4, r5]

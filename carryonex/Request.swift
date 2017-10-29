@@ -9,18 +9,18 @@
 import MapKit
 import Unbox
 
-enum RequestStatus: String, UnboxableEnum {
-    case waiting = "waiting"
-    case shipping = "shipping"
-    case finished = "finished"
-    case canceled = "canceled"
+enum RequestStatus: Int {
+    case waiting = 0
+    case shipping = 1
+    case finished = 2
+    case canceled = 3
 } 
 
 enum RequestKeyInDB : String {
     case id = "id"
     case numberOfItem = "name"
     case youxiangId = "youxiang_id"
-    case status = "status_id"
+    case statusId = "status_id"
     
     case departureAddressId = "start_address_id"
     case destinationAddressId = "end_address_id"
@@ -51,7 +51,7 @@ class Request: NSObject, Unboxable {
     var numberOfItem: [String : Int] = [:] // [ItemIdEnum : num]
     
     var youxiangId: String?
-    var status:     String = RequestStatus.waiting.rawValue
+    var statusId: Int = RequestStatus.waiting.rawValue
     
     var departureAddressId: String?
     var departureAddress:   Address? // change to Address ID when uploading to server
@@ -79,11 +79,11 @@ class Request: NSObject, Unboxable {
     }
     
     required init(unboxer: Unboxer) {
-        self.id             = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
+        self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.numberOfItem = [:] // [ItemIdEnum : num]
         
-        self.youxiangId     = try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
-        self.status         = (try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)) ?? RequestStatus.waiting.rawValue
+        self.youxiangId = try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
+        self.statusId = (try? unboxer.unbox(key: RequestKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
         
         self.departureAddressId = try? unboxer.unbox(key: RequestKeyInDB.departureAddressId.rawValue)
         self.departureAddress   = nil // change to Address ID when uploading to server
@@ -113,7 +113,7 @@ class Request: NSObject, Unboxable {
         r.id = "requestID666"
         r.numberOfItem = ["Mail":3, "Electronics":1]
         r.youxiangId = "123"
-        r.status = RequestStatus.waiting.rawValue
+        r.statusId = RequestStatus.waiting.rawValue
         
         r.departureAddress = add1
         r.destinationAddress = add2
@@ -137,7 +137,7 @@ class Request: NSObject, Unboxable {
         id = json[RequestKeyInDB.id.rawValue] as? String ?? ""
         numberOfItem = json[RequestKeyInDB.numberOfItem.rawValue] as? [String:Int] ?? [:]
         youxiangId = json[RequestKeyInDB.youxiangId.rawValue] as? String ?? ""
-        status = json[RequestKeyInDB.status.rawValue] as? String ?? ""
+        statusId = json[RequestKeyInDB.statusId.rawValue] as? Int ?? 0
         departureAddressId = json[RequestKeyInDB.departureAddressId.rawValue] as? String ?? ""
         destinationAddressId = json[RequestKeyInDB.destinationAddressId.rawValue] as? String ?? ""
         length = json[RequestKeyInDB.length.rawValue] as? Int ?? 0
@@ -160,7 +160,7 @@ class Request: NSObject, Unboxable {
         print("id = ", id ?? "")
         print("numberOfItem = ", numberOfItem)
         print("youxiangId = ", youxiangId ?? "")
-        print("status = ", status)
+        print("statusId = ", statusId)
         print("departure address = ", departureAddress ?? "")
         print("destination address = ", destinationAddress ?? "")
         print("length = \(length), width = \(width), height = \(height)")

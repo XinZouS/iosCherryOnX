@@ -33,7 +33,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     let maxHigh: Int = 10
     var volumLen: [Int] = [], volumWidth: [Int] = [], volumHigh: [Int] = []
     
-    let imageCompress: CGFloat = 0.1
     var imageUploadingSet: Set<String> = []
     var imageUploadSequence: [String : URL] = [:] // imageName(tripId) : url
 

@@ -66,6 +66,10 @@ extension Date {
         now = calendar.date(from: nowComponents)!
         return now as Date
     }
+    
+    static func getTimestampNow() -> Int {
+        return Int(NSDate.timeIntervalSinceReferenceDate)
+    }
 }
 
 /* usage:
