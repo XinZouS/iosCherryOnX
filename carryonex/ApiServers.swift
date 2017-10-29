@@ -126,6 +126,12 @@ class ApiServers : NSObject {
             print("get response dictionary: \(response)")
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let token = data[ServerKey.userToken.rawValue] as? String {
+                    ProfileManager.shared.currentUser = ProfileUser()
+                    ProfileManager.shared.currentUser?.token = token
+                }else{
+                    print("失败")
+                }
                 print("get data = \(data)")
                 do {
                     let user: ProfileUser = try unbox(dictionary: data)
@@ -147,7 +153,7 @@ class ApiServers : NSObject {
     func getIsUserExisted(handleInfo: @escaping (Bool) -> Void){
         let sessionStr = hostVersion + "/users/exist"
         let headers:[String: Any] = [
-            ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+            ServerKey.username.rawValue: phoneInput,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken
         ]
@@ -166,13 +172,14 @@ class ApiServers : NSObject {
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
-                ServerKey.username.rawValue: (ProfileManager.shared.currentUser?.username) ?? "",
+                ServerKey.username.rawValue: phoneInput,
                 ServerKey.password.rawValue: password
             ]
         ]
         postDataWithUrlRoute(route, parameters: parameter) { (response) in
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
+                    ProfileManager.shared.currentUser = ProfileUser()
                     ProfileManager.shared.currentUser?.token = token
                     ProfileManager.shared.saveUser()
                     completion(token)

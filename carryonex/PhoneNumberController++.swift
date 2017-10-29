@@ -15,44 +15,11 @@ protocol PhoneNumberDelegate : class {
 
 
 extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
-    
-    // MARK: logic func
-    
-//    func okButtonTapped(){
-//        okButtonDisable()
-//        _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(okButtonEnable), userInfo: nil, repeats: false)
-//
-//        let phoneNum = ProfileManager.shared.currentUser?.phone ?? "0"
-//        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode ?? "86"
-//        print("get : okButtonTapped, api send text msg and go to next page!!!")
-//        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-//            print(err)
-//            if err == nil {
-//                print("PhoneNumberController: 获取验证码成功, go next page!!!")
-//                self.goToVerificationPage()
-//            } else {
-//                print("PhoneNumberController: 有错误: \(err)")
-//                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
-//                self .showAlertWith(title: "获取验证码失败", message: msg)
-//            }
-//        })
-//    }
-//    private func okButtonDisable(){
-//        okButton.setTitle("正在请求验证码...", for: .normal)
-//        okButton.backgroundColor = .lightGray
-//        okButton.isEnabled = false
-//    }
-//    @objc private func okButtonEnable(){
-//        okButton.setTitle("获取验证码", for: .normal)
-//        okButton.backgroundColor = buttonThemeColor
-//        okButton.isEnabled = true
-//    }
     func nextButtonTapped(){
         if (isModifyPhoneNumber == true){
             ModifyPhone = phoneNumberTextField.text!
         }else{
-            ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
-            ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+            phoneInput = phoneNumberTextField.text!
         }
         let inputPasswordLoginCtl = InputPasswordLoginController()
 //         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
@@ -60,41 +27,39 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
            alreadyExist = isExist
             if alreadyExist == true{
                 if (isModifyPhoneNumber == true) {
-//                    print("修改")
-//                    let phoneNum = ProfileManager.shared.currentUser?.phone
-//                    let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-//                    print("get : okButtonTapped, api send text msg and go to next page!!!")
-//                    SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-//                        if err == nil {
+                    print("修改")
+                    let phoneNum = ProfileManager.shared.currentUser?.phone
+                    let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+                    print("get : okButtonTapped, api send text msg and go to next page!!!")
+                    SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                        if err == nil {
                             print("PhoneNumberController: 获取验证码成功, go next page!!!")
                             self.goToVerificationPage()
-//                        } else {
-//                            print("PhoneNumberController: 有错误: \(String(describing: err))")
-//                            let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-//                            self.showAlertWith(title: "获取验证码失败", message: msg)
-//                        }
-//                    })
+                        } else {
+                            print("PhoneNumberController: 有错误: \(String(describing: err))")
+                            let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+                            self.showAlertWith(title: "获取验证码失败", message: msg)
+                        }
+                    })
                 }else{
                     self.navigationController?.pushViewController(inputPasswordLoginCtl, animated: true)
                 }
             }else{
                 isRegister = true
-                let phoneNum = ProfileManager.shared.currentUser?.phone
-                let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-                print("get : okButtonTapped, api send text msg and go to next page!!!")
-                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-                    if err == nil {
-                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
+//                let phoneNum = phoneInput
+//                let zoneCode = ZoneCodeInput
+//                print("get : okButtonTapped, api send text msg and go to next page!!!")
+//                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+//                    if err == nil {
+//                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
                         self.goToVerificationPage()
-                    } else {
-                        print("PhoneNumberController: 有错误: \(String(describing: err))")
-                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                        self.showAlertWith(title: "获取验证码失败", message: msg)
-                        return
-                    }
-                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                    self.goToVerificationPage()
-                })
+//                    } else {
+//                        print("PhoneNumberController: 有错误: \(String(describing: err))")
+//                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+//                        self.showAlertWith(title: "获取验证码失败", message: msg)
+//                        return
+//                    }
+//                })
             }
         }
     }
@@ -130,11 +95,6 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     }
     
     func goToVerificationPage(){
-        if let currName = ProfileManager.shared.currentUser?.username, currName.characters.count > 6 {
-            // already has username, do nothing;
-        }else{
-            ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
-        }
         let verifiCtl = VerificationController()
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
@@ -156,10 +116,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     func checkPhone(){
         var phonePattern = ""
-        switch ProfileManager.shared.currentUser?.phoneCountryCode {
-        case "86"?:
+        switch ZoneCodeInput {
+        case "86":
             phonePattern = "^1[0-9]{10}$"
-        case "1"?:
+        case "1":
             phonePattern = "^[0-9]{10}$"
         default:
             phonePattern = "^[0-9]{10}$"
@@ -246,7 +206,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         if (isModifyPhoneNumber==true){
             ModifyCode = codeOfFlag[flagsTitle[row]]!
         }else{
-            ProfileManager.shared.currentUser?.phoneCountryCode = codeOfFlag[flagsTitle[row]]!
+            ZoneCodeInput = codeOfFlag[flagsTitle[row]]!
         }
         flagButton.setTitle(flagsTitle[row], for: .normal)
 //        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)

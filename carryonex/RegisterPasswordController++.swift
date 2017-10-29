@@ -13,15 +13,19 @@ extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
         if(isRegister == true){
             let newPassword = passwordField.text
-            let username = ProfileManager.shared.currentUser?.username
-            let phone = ProfileManager.shared.currentUser?.phone
-            let email = ProfileManager.shared.currentUser?.email
             // TODO: hash pw and upload to server
-            ApiServers.shared.postRegisterUser(username: username!, phone: phone!, password: newPassword!, email: email!) { (isSuccess, msg) in
+            ApiServers.shared.postRegisterUser(username: phoneInput, phone: phoneInput, password: newPassword!, email: emailInput) { (isSuccess, msg) in
                 if isSuccess == true{
                     print(msg)
                     isRegister = false
+                    ProfileManager.shared.currentUser?.phone = phoneInput
+                    ProfileManager.shared.currentUser?.username = phoneInput
+                    ProfileManager.shared.currentUser?.phoneCountryCode = ZoneCodeInput
+                    ProfileManager.shared.currentUser?.email = emailInput
                     ProfileManager.shared.saveUser()
+                    phoneInput = ""
+                    ZoneCodeInput = "1"
+                    emailInput = ""
                     self.dismiss(animated: true, completion: nil)
                 }else{
                     print(msg)

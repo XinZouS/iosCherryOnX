@@ -12,17 +12,24 @@ import UIKit
 extension InputPasswordLoginController: UITextFieldDelegate {
     
     func okButtonTapped(){
+        
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
             if(msg != "error"){
+                ProfileManager.shared.currentUser?.phone = phoneInput
+                ProfileManager.shared.currentUser?.username = phoneInput
+                ProfileManager.shared.currentUser?.phoneCountryCode = ZoneCodeInput
                 ApiServers.shared.getUserInfoAll(handleInfo: { (info) in
                     print(info)
+                    phoneInput = ""
+                    ZoneCodeInput = "1"
+                    emailInput = ""
                     self.dismiss(animated: true, completion: nil)
                 })
             }else{
-                self.passwordField.leftViewNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.dividerNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.placeholderNormalColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+                self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.detailLabel.text = "密码错误请重新输入"
             }
@@ -38,8 +45,8 @@ extension InputPasswordLoginController: UITextFieldDelegate {
                 print("PhoneNumberController: 获取验证码成功, go next page!!!")
                 self.goToVerificationPage()
             } else {
-                print("PhoneNumberController: 有错误: \(err)")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(err)"
+                print("PhoneNumberController: 有错误: \(String(describing: err))")
+                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
                 self.showAlertWith(title: "获取验证码失败", message: msg)
             }
         })

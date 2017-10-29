@@ -57,8 +57,8 @@ class RegisterPasswordController: UIViewController {
     }
     private func setupPasswordTextField(){
         passwordField = TextField()
-        passwordField.placeholder = "Password"
-        passwordField.detail = "At least 6 characters"
+        passwordField.placeholder = "密码"
+        passwordField.detail = "请输入最少6位密码"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         passwordField.keyboardAppearance = .dark
@@ -74,9 +74,10 @@ class RegisterPasswordController: UIViewController {
     
     private func setupPasswordConfirmTextField(){
         passwordConfirmField = TextField()
-        passwordConfirmField.placeholder = "confirm"
-        passwordConfirmField.detail = "Confirm your password"
+        passwordConfirmField.placeholder = "确认"
+        passwordConfirmField.detail = "请确认你的密码"
         passwordConfirmField.clearButtonMode = .whileEditing
+        passwordConfirmField.keyboardAppearance = .dark
         passwordConfirmField.isVisibilityIconButtonEnabled = true
         // Setting the visibilityIconButton color.
         passwordConfirmField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)

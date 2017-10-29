@@ -84,8 +84,15 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-//        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-//        let phoneNum = ProfileManager.shared.currentUser?.phone!
+        var zoneCode = ""
+        var phoneNum = ""
+        if (isModifyPhoneNumber == true){
+            zoneCode = (ProfileManager.shared.currentUser?.phoneCountryCode)!
+            phoneNum = (ProfileManager.shared.currentUser?.phone)!
+        }else{
+            zoneCode = ZoneCodeInput
+            phoneNum = phoneInput
+        }
         let registEmailCtl = RegisterEmailController()
         let registPasswordCtl = RegisterPasswordController()
 //        print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(String(describing: phoneNum)), zoneCode: \(String(describing: zoneCode))")
@@ -93,29 +100,29 @@ extension VerificationController: UITextFieldDelegate {
 //            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
 //                print(zoneCode ?? "1",phoneNum ?? "")
 //               if err == nil {
-                if(isRegister == true){
+//                if(isRegister == true){
                     self.navigationController?.pushViewController(registEmailCtl, animated: true)
-                }else{
-                    if(isModifyPhoneNumber==true){
-                        let phoneNumber = ModifyCode+"-"+ModifyPhone
-                        ApiServers.shared.postUpdateUserInfo(.phone, newInfo: phoneNumber, completion: { (success, msg) in
-                            if success {
-                                print(msg)
-                                isModifyPhoneNumber = false
-                                ProfileManager.shared.currentUser?.phoneCountryCode = ModifyCode
-                                ProfileManager.shared.currentUser?.phone = ModifyPhone
-                                ModifyPhone = ""
-                                ModifyCode = "1"
-                                let userSettingCtl = UserSettingController()
-                                self.navigationController?.pushViewController(userSettingCtl, animated: true)
-                            }else{
-                                print(msg)
-                            }
-                        })
-                    }else{
-                        self.navigationController?.pushViewController(registPasswordCtl, animated: true)
-                    }
-                }
+//                }else{
+//                    if(isModifyPhoneNumber==true){
+//                        let phoneNumber = ModifyCode+"-"+ModifyPhone
+//                        ApiServers.shared.postUpdateUserInfo(.phone, newInfo: phoneNumber, completion: { (success, msg) in
+//                            if success {
+//                                print(msg)
+//                                isModifyPhoneNumber = false
+//                                ProfileManager.shared.currentUser?.phoneCountryCode = ModifyCode
+//                                ProfileManager.shared.currentUser?.phone = ModifyPhone
+//                                ModifyPhone = ""
+//                                ModifyCode = "1"
+//                                let userSettingCtl = UserSettingController()
+//                                self.navigationController?.pushViewController(userSettingCtl, animated: true)
+//                            }else{
+//                                print(msg)
+//                            }
+//                        })
+//                    }else{
+//                        self.navigationController?.pushViewController(registPasswordCtl, animated: true)
+//                    }
+//                }
 //               } else {
 //                    self.verifyFaild(err)
 //               }

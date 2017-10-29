@@ -159,8 +159,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             presentOnboardingPage()
         }
         
-        fetchUserFromLocalDiskAndSetup()
-        
         //setupNavigationBar()
         setupMapView()
 
@@ -185,6 +183,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         super.viewWillAppear(animated)
         //title = "游箱" // for returning from UserInfoPage, change title back;
         UIApplication.shared.statusBarStyle = .default
+        fetchUserFromLocalDiskAndSetup()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -199,7 +198,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-            //ProfileManager.shared.currentUser = ProfileUser()
+//            ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
