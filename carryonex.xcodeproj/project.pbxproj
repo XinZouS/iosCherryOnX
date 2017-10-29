@@ -158,6 +158,7 @@
 		66E650211F5F86C000DA90DE /* OrderLogShipperCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E650201F5F86C000DA90DE /* OrderLogShipperCell++.swift */; };
 		66F2FF0F1F9D00C200A37881 /* FooterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2FF0E1F9D00C200A37881 /* FooterInfoCell.swift */; };
 		90D4C228BA0130B57100B4AD /* Pods_carryonex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */; };
+		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
 		FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF009A681F7C44C8008EA215 /* addressCN.plist */; };
@@ -358,6 +359,7 @@
 		66E650201F5F86C000DA90DE /* OrderLogShipperCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrderLogShipperCell++.swift"; sourceTree = "<group>"; };
 		66F2FF0E1F9D00C200A37881 /* FooterInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterInfoCell.swift; sourceTree = "<group>"; };
 		8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carryonex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				665DE5021F3A59E4004DDB88 /* View */,
 				665DE5031F3A59E9004DDB88 /* Controller */,
 				66A16AF01F3A5DC000B32AD3 /* Helpers */,
+				E58FDC991FA5A202000C126E /* Managers */,
 				663F1C931F44ABEB00E866C2 /* README.md */,
 				665DE4F61F3A0B70004DDB88 /* Assets.xcassets */,
 				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
@@ -1002,6 +1005,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E58FDC991FA5A202000C126E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E58FDC9A1FA5A226000C126E /* ServiceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		F9EB5F0D4C24FA38E1E6E2E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1267,6 +1278,7 @@
 				669518201F60D0C100BFC37B /* WalletController++.swift in Sources */,
 				660F4F771F5718D900F4820D /* AddressController++.swift in Sources */,
 				667266661F6715700010FDEC /* CheckingAccount.swift in Sources */,
+				E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
 				66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */,
