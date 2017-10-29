@@ -9,6 +9,7 @@
 import UIKit
 import Material
 
+
 class RegisterPasswordController: UIViewController {
     var passwordField: TextField!
     var passwordConfirmField: TextField!

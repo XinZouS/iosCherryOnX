@@ -77,5 +77,6 @@ target 'carryonex' do
   pod 'JXPhotoBrowser', '0.3.7'
   #Online chat
   pod 'UdeskSDK'
+  pod 'JPush'
 
 end

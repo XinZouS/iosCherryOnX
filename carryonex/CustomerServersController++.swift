@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import UdeskSDK
 
 extension CustomerServersController {
     
     func onlineCustomerServersButtonTapped(){
-        //displayAlert(title: "Online Customer Servers", message: "Got questions? Please call our online assistan: 201-666-2333", action: "OK")
-        guard let callUrl = URL(string: "tel://\(19292150588)") else { return }
-        UIApplication.shared.open(callUrl, options: [:], completionHandler: nil)
+        let dict : NSDictionary = [
+            "productImageUrl":"http://img.club.pchome.net/kdsarticle/2013/11small/21/,fd548da909d64a988da20fa0ec124ef3_1000x750.jpg",
+            "productTitle":"测试测试测试测你测试测试测你测试测试测你测试测试测你测试测",
+            "productDetail":"¥88888.088888.088888.0",
+            "productURL":"http://www.baidu.com"
+        ]
+        let chatViewManager = UdeskSDKManager()
+        chatViewManager.setProductMessage(dict as! [AnyHashable : Any])
+        chatViewManager.pushUdesk(in: self, completion: nil)
     }
     
     func backButtonTapped(){

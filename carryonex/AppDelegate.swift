@@ -9,8 +9,7 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
- 
-
+import UdeskSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -32,10 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //window?.rootViewController = PageContainer()
         window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
         
-        // setup MOB msm verification
-//        let smAppkey = "202b81354d75e"
-//        let app_secrect = "15e6f9dae82927d06568db03f133d75c"
-        //SMSSDK.registerApp(smAppkey, withSecret: app_secrect) // no func regisiterApp() ?????
+        //set up Udesk
+        
         
         setupMobSharingSDK()
         
@@ -44,7 +41,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
         // setup WeChatSDK
         WXApi.registerApp(WX_APPID, enableMTA: true)
-        
+        //set up Udesk
+        let UdeskAppkey = "ca3d8ae00d9609f1f37515cb"
+        let isProduction:Bool = false;
+        let entity = JPUSHRegisterEntity()
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound]
+        entity.types = Int(notificationTypes.rawValue)
+        JPUSHService.register(forRemoteNotificationConfig: entity, delegate: nil)
+        JPUSHService.setup(withOption: launchOptions, appKey:UdeskAppkey , channel: "AppStore", apsForProduction: isProduction)
+        JPUSHService.registrationIDCompletionHandler { (rescode , registrationId) in
+            if(rescode == 0){
+                UdeskManager.registerDeviceToken(registrationId)
+            }else{
+                print("registrationId获取失败:",rescode)
+            }
+        }
         return true
     }
     
@@ -112,11 +123,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        UdeskManager.setupCustomerOnline()
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        JPUSHService.registerDeviceToken(deviceToken)
+        UdeskManager.startUdeskPush()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
