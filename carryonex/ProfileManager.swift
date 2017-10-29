@@ -44,7 +44,7 @@ class ProfileManager: NSObject {
     
     func logoutUser() {
         removeUser()
-        currentUser = ProfileUser()
+        currentUser = nil
     }
     
     
