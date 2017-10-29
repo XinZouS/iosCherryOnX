@@ -53,6 +53,9 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         }else{
             ProfileManager.shared.currentUser?.phone = phoneNumberTextField.text
             ProfileManager.shared.currentUser?.username = phoneNumberTextField.text
+            if let user = ProfileManager.shared.currentUser {
+                print("User Phone: \(user.phone) | User username: \(user.username)")
+            }
         }
         let inputPasswordLoginCtl = InputPasswordLoginController()
 //         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
