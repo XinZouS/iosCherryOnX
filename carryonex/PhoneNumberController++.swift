@@ -15,21 +15,24 @@ protocol PhoneNumberDelegate : class {
 
 
 extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
-    func nextButtonTapped(){
-        if (isModifyPhoneNumber == true){
+    func nextButtonTapped() {
+        if (isModifyPhoneNumber){
             ModifyPhone = phoneNumberTextField.text!
-        }else{
+        } else {
             phoneInput = phoneNumberTextField.text!
         }
+        
         let inputPasswordLoginCtl = InputPasswordLoginController()
-//         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(nextButtonEnable), userInfo: nil, repeats: false)
         ApiServers.shared.getIsUserExisted { (isExist) in
            alreadyExist = isExist
             if alreadyExist == true{
                 if (isModifyPhoneNumber == true) {
                     print("修改")
-                    let phoneNum = ProfileManager.shared.currentUser?.phone
-                    let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
+                    
+                    guard let profileUser = ProfileManager.shared.getCurrentUser() else { return }
+                    let phoneNum = profileUser.phone
+                    let zoneCode = profileUser.phoneCountryCode
+                    
                     print("get : okButtonTapped, api send text msg and go to next page!!!")
                     SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
                         if err == nil {
@@ -41,9 +44,11 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                             self.showAlertWith(title: "获取验证码失败", message: msg)
                         }
                     })
-                }else{
+                    
+                } else {
                     self.navigationController?.pushViewController(inputPasswordLoginCtl, animated: true)
                 }
+                
             }else{
                 isRegister = true
 //                let phoneNum = phoneInput

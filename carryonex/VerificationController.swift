@@ -155,15 +155,18 @@ class VerificationController: UIViewController {
     private func setupHintLabels(){
         view.addSubview(hintLabel2)
         hintLabel2.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: verifiCodeContainer?.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 20, width: 0, height: 15)
-        var zoneCode = ""
-        var phone = ""
-        if (isModifyPhoneNumber == true){
-             zoneCode = String(describing: ProfileManager.shared.currentUser?.phoneCountryCode ?? "0")
-             phone = String(describing: ProfileManager.shared.currentUser?.phone ?? "000")
-        }else{
+        var zoneCode = "0"
+        var phone = "000"
+        if (isModifyPhoneNumber) {
+            if let profileUser = ProfileManager.shared.getCurrentUser() {
+                zoneCode = profileUser.phoneCountryCode ?? "0"
+                phone = profileUser.phone ?? "000"
+            }
+        } else {
             zoneCode = ZoneCodeInput
             phone = phoneInput
         }
+        
         hintLabel2.text = "验证码已发送到 \(zoneCode) \(phone)"
         
         view.addSubview(hintLabel)

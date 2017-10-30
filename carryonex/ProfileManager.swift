@@ -13,7 +13,7 @@ class ProfileManager: NSObject {
     
     static var shared = ProfileManager()
     
-    var currentUser: ProfileUser?
+    private var currentUser: ProfileUser?
     
     private override init() {
         super.init()
@@ -34,8 +34,7 @@ class ProfileManager: NSObject {
         //curruser.loadFromLocalDisk()
         
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
-        ProfileManager.shared.currentUser = loadProfileUserFromLocalDisk()
-        print(ProfileManager.shared.currentUser?.phone)
+        self.currentUser = loadProfileUserFromLocalDisk()
         guard let currentUser = currentUser else { return }
         ServiceManager.shared.setupUDeskWithUser(user: currentUser)
     }
@@ -46,10 +45,18 @@ class ProfileManager: NSObject {
     }
     
     func login(user: ProfileUser) {
-        currentUser = user
-        saveProfileUserIntoLocalDisk(user)
+        updateCurrentUser(user)
         guard let currentUser = currentUser else { return }
         ServiceManager.shared.setupUDeskWithUser(user: currentUser)
+    }
+    
+    func getCurrentUser() -> ProfileUser? {
+        return currentUser
+    }
+    
+    func updateCurrentUser(_ user: ProfileUser) {
+        currentUser = user
+        saveProfileUserIntoLocalDisk(user)
     }
     
     func logoutUser() {
@@ -57,7 +64,6 @@ class ProfileManager: NSObject {
         currentUser = nil
         ServiceManager.shared.logoutUdesk()
     }
-    
     
     //MARK: - Local Disk Save
     private func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
@@ -74,7 +80,6 @@ class ProfileManager: NSObject {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
         if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
             let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
-            print(profileUser.phone)
             return profileUser
         }
         print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")

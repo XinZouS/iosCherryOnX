@@ -260,7 +260,7 @@ extension RequestController {
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
-        guard let userId = ProfileManager.shared.currentUser?.id else { return }
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
         // setup AWS Transfer Manager Request:
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         uploadRequest?.acl = .private

@@ -16,11 +16,16 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         let password = passwordField.text
         ApiServers.shared.postLoginUser(password: password!) { (msg) in
             if(msg != "error"){
-                ProfileManager.shared.currentUser?.phone = phoneInput
-                ProfileManager.shared.currentUser?.username = phoneInput
-                ProfileManager.shared.currentUser?.phoneCountryCode = ZoneCodeInput
+                
+                if let profileUser = ProfileManager.shared.getCurrentUser() {
+                    profileUser.phone = phoneInput
+                    profileUser.username = phoneInput
+                    profileUser.phoneCountryCode = ZoneCodeInput
+                    ProfileManager.shared.updateCurrentUser(profileUser)
+                }
+                
                 ApiServers.shared.getUserInfoAll(handleInfo: { (info) in
-                    print(info)
+                    //print(info)
                     phoneInput = ""
                     ZoneCodeInput = "1"
                     emailInput = ""
@@ -37,19 +42,23 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     }
     
     func forgetButtonTapped(){
-        let phoneNum = ProfileManager.shared.currentUser?.phone
-        let zoneCode = ProfileManager.shared.currentUser?.phoneCountryCode
-        print("get : okButtonTapped, api send text msg and go to next page!!!")
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-            if err == nil {
-                print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                self.goToVerificationPage()
-            } else {
-                print("PhoneNumberController: 有错误: \(String(describing: err))")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.showAlertWith(title: "获取验证码失败", message: msg)
-            }
-        })
+        
+        if let profileUser = ProfileManager.shared.getCurrentUser() {
+            let phoneNum = profileUser.phone
+            let zoneCode = profileUser.phoneCountryCode
+            
+            print("get : okButtonTapped, api send text msg and go to next page!!!")
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+                if err == nil {
+                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                    self.goToVerificationPage()
+                } else {
+                    print("PhoneNumberController: 有错误: \(String(describing: err))")
+                    let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+                    self.showAlertWith(title: "获取验证码失败", message: msg)
+                }
+            })
+        }
     }
     
     func goToVerificationPage(){

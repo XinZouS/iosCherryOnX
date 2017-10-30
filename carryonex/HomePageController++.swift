@@ -70,16 +70,11 @@ extension HomePageController {
     // MARK: - Save user into local disk
     
     internal func saveUserIntoLocalDisk(){
-        if ProfileManager.shared.currentUser?.phone != nil && ProfileManager.shared.currentUser?.id != nil {
-            ProfileManager.shared.saveUser()
-        }
+        ProfileManager.shared.saveUser()    //Save user will check for user validation data internally.
     }
     
     internal func fetchUserFromLocalDiskAndSetup(){
-        ProfileManager.shared.currentUser = ProfileUser()
         ProfileManager.shared.loadUser()
-        //ProfileManager.shared.currentUser?.printAllData()
-        
     }
     
     internal func removeUserFromLocalDisk(){
@@ -89,15 +84,18 @@ extension HomePageController {
     /// MUST check if user isVerified
     
     func callShipperButtonTapped(){
-        let verified = ProfileManager.shared.currentUser?.isVerified ?? false
+        var verified = false
+        
+        if let profileUser = ProfileManager.shared.getCurrentUser() {
+            verified = profileUser.isVerified
+        }
+        
         if verified {
-//            let isShipper = ProfileManager.shared.currentUser?.isShipper
-//            if isShipper! {
-                let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
-                //navigationController?.pushViewController(postTripCtl, animated: true)
-                let navigationPostTrip = UINavigationController(rootViewController: postTripCtl)
-                self.present(navigationPostTrip, animated: true, completion: nil)
-        }else{
+            let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
+            let navigationPostTrip = UINavigationController(rootViewController: postTripCtl)
+            self.present(navigationPostTrip, animated: true, completion: nil)
+            
+        } else {
             let photoIdCtl = PhotoIDController()
             photoIdCtl.homePageController = self
             let navigationPhotoId = UINavigationController(rootViewController: photoIdCtl)
@@ -529,7 +527,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
     
     private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
         
-        guard let userId = ProfileManager.shared.currentUser?.id else { return }
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
 
         let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
@@ -558,8 +556,14 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             }
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
-                if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
+                
+                if let bucket = uploadRequest.bucket,
+                    let key = uploadRequest.key,
+                    let publicURL = url?.appendingPathComponent(bucket).appendingPathComponent(key) {
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.imageUrl = publicURL.absoluteString
+                        ProfileManager.shared.updateCurrentUser(profileUser)
+                    }
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
@@ -631,7 +635,12 @@ extension HomePageController {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 print(jsonResult)
                 if let imgUrl = jsonResult["headimgurl"] as? String {
-                    ProfileManager.shared.currentUser?.imageUrl = imgUrl
+                    
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.imageUrl = imgUrl
+                        ProfileManager.shared.updateCurrentUser(profileUser)
+                    }
+                    
                     ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: imgUrl, completion: { (success, msg) in
                         print(success, msg)
                         if success {
@@ -641,8 +650,12 @@ extension HomePageController {
                         }
                     })
                 }
+                
                 if let realName = jsonResult["nickname"] as? String {
-                    ProfileManager.shared.currentUser?.realName = realName
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.realName = realName
+                        ProfileManager.shared.updateCurrentUser(profileUser)
+                    }
                     ApiServers.shared.postUpdateUserInfo(.realName, newInfo: realName, completion: { (success, msg) in
                         print(success, msg)
                         if success {

@@ -84,15 +84,17 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-        var zoneCode = ""
-        var phoneNum = ""
-        if (isModifyPhoneNumber == true){
-            zoneCode = (ProfileManager.shared.currentUser?.phoneCountryCode)!
-            phoneNum = (ProfileManager.shared.currentUser?.phone)!
-        }else{
-            zoneCode = ZoneCodeInput
-            phoneNum = phoneInput
-        }
+//        var zoneCode = ""
+//        var phoneNum = ""
+//        if (isModifyPhoneNumber){
+//            if let profileUser = ProfileManager.shared.getCurrentUser() {
+//                zoneCode = profileUser.phoneCountryCode
+//                phoneNum = profileUser.phone
+//            }
+//        }else{
+//            zoneCode = ZoneCodeInput
+//            phoneNum = phoneInput
+//        }
         let registEmailCtl = RegisterEmailController()
         let registPasswordCtl = RegisterPasswordController()
 //        print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(String(describing: phoneNum)), zoneCode: \(String(describing: zoneCode))")
