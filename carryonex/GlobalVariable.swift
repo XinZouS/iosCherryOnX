@@ -23,8 +23,14 @@ var isUserAgree: Bool = false
 var isRegister : Bool = false
 var alreadyExist:Bool = false
 var isOrderList:Bool = false
+
+//注册使用
 var ModifyPhone:String = ""
 var ModifyCode:String = "1"
+var phoneInput:String = ""
+var ZoneCodeInput:String = "1"
+var emailInput = ""
+
 //正则校验
 struct MyRegex {
     let regex: NSRegularExpression?

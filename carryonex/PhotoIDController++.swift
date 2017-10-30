@@ -42,7 +42,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     private func setupUserRealNameFrom(_ textField: UITextField){
         if let newName = textField.text, newName != "" {
             DispatchQueue.main.async(execute: {
-                ProfileManager.shared.currentUser?.realName = newName
+                if let profileUser = ProfileManager.shared.getCurrentUser() {
+                    profileUser.realName = newName
+                    ProfileManager.shared.updateCurrentUser(profileUser)
+                }
                 ApiServers.shared.postUpdateUserInfo(.realName, newInfo: newName, completion: { (success, msg) in
                     print("save realName to server success = \(success), msg = \(msg)")
                 })
@@ -202,7 +205,11 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         activityIndicator.startAnimating() // start uploading image and show indicator
-        ProfileManager.shared.currentUser?.realName = self.nameTextField.text!
+        
+        if let profileUser = ProfileManager.shared.getCurrentUser() {
+            profileUser.realName = self.nameTextField.text
+            ProfileManager.shared.updateCurrentUser(profileUser)
+        }
 
         for pair in imageUploadSequence {
             let imgIdType : String = pair.key.rawValue
@@ -212,7 +219,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     private func prepareUploadFile(fileName: String, imgIdType: ImageTypeOfID) {
         print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
-        guard let userId = ProfileManager.shared.currentUser?.id else { return }
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
         
         // Configure aws cognito credentials:
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USWest2, identityPoolId: awsIdentityPoolId)
@@ -265,8 +272,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             print("number of images to be upload: ", self.imageUploadingSet.count)
             if self.imageUploadingSet.count == 1 {
                 DispatchQueue.main.async {
-                    ProfileManager.shared.currentUser?.isVerified = true
-                    ProfileManager.shared.saveUser()
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.isVerified = true
+                        ProfileManager.shared.updateCurrentUser(profileUser)
+                    }
                 }
                 self.activityIndicator.stopAnimating()
                 self.dismiss(animated: true, completion: nil)
@@ -286,25 +295,45 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         let urlStr = url.absoluteString
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
-            ProfileManager.shared.currentUser?.passportUrl = urlStr
+            
+            if let profileUser = ProfileManager.shared.getCurrentUser() {
+                profileUser.passportUrl = urlStr
+                ProfileManager.shared.updateCurrentUser(profileUser)
+            }
+            
             ApiServers.shared.postUpdateUserInfo(.passportUrl, newInfo: urlStr, completion: { (success, msg) in
                 self.passportImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.idCardA.rawValue:
-            ProfileManager.shared.currentUser?.idCardA_Url = urlStr
+            
+            if let profileUser = ProfileManager.shared.getCurrentUser() {
+                profileUser.idCardA_Url = urlStr
+                ProfileManager.shared.updateCurrentUser(profileUser)
+            }
+            
             ApiServers.shared.postUpdateUserInfo(.idAUrl, newInfo: urlStr, completion: { (success, msg) in
                 self.idCardAImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.idCardB.rawValue:
-            ProfileManager.shared.currentUser?.idCardB_Url = urlStr
+            
+            if let profileUser = ProfileManager.shared.getCurrentUser() {
+                profileUser.idCardB_Url = urlStr
+                ProfileManager.shared.updateCurrentUser(profileUser)
+            }
+            
             ApiServers.shared.postUpdateUserInfo(.idBUrl, newInfo: urlStr, completion: { (success, msg) in
                 self.idCardBImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.profile.rawValue:
-            ProfileManager.shared.currentUser?.imageUrl = urlStr
+            
+            if let profileUser = ProfileManager.shared.getCurrentUser() {
+                profileUser.imageUrl = urlStr
+                ProfileManager.shared.updateCurrentUser(profileUser)
+            }
+            
             ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: urlStr, completion: { (success, msg) in
                 self.profileImgUrlCloud = success ? urlStr : nil
             })

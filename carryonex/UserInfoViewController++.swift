@@ -138,7 +138,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
     
     private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
         
-        guard let userId = ProfileManager.shared.currentUser?.id else { return }
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
         
         let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
@@ -165,13 +165,17 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
                 //self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
                 return nil
             }
+            
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    ProfileManager.shared.currentUser?.imageUrl = publicURL.absoluteString
-                    //print(ProfileManager.shared.currentUser?.imageUrl)
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.imageUrl = publicURL.absoluteString
+                        ProfileManager.shared.updateCurrentUser(profileUser)
+                    }
                 }
-            }else{
+            
+            } else {
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
             }
             
@@ -180,10 +184,9 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
                 //let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
                 //self.displayAlert(title: "✅上传完成", message: msg, action: "朕知道了")
             //}
+            
             return nil
         }
-
-        
     }
     
     

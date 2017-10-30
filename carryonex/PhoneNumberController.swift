@@ -104,7 +104,6 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         setupNavigationBar()
 //        setupOkButton() // the order of this 3 is NOT allow to change!
         setupPhoneNumTextField()

@@ -13,7 +13,7 @@ class ProfileManager: NSObject {
     
     static var shared = ProfileManager()
     
-    var currentUser: ProfileUser?
+    private var currentUser: ProfileUser?
     
     private override init() {
         super.init()
@@ -35,6 +35,8 @@ class ProfileManager: NSObject {
         
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
         self.currentUser = loadProfileUserFromLocalDisk()
+        guard let currentUser = currentUser else { return }
+        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
     }
     
     func removeUser() {
@@ -42,11 +44,26 @@ class ProfileManager: NSObject {
         self.currentUser = nil
     }
     
-    func logoutUser() {
-        removeUser()
-        currentUser = ProfileUser()
+    func login(user: ProfileUser) {
+        updateCurrentUser(user)
+        guard let currentUser = currentUser else { return }
+        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
     }
     
+    func getCurrentUser() -> ProfileUser? {
+        return currentUser
+    }
+    
+    func updateCurrentUser(_ user: ProfileUser) {
+        currentUser = user
+        saveProfileUserIntoLocalDisk(user)
+    }
+    
+    func logoutUser() {
+        removeUser()
+        currentUser = nil
+        ServiceManager.shared.logoutUdesk()
+    }
     
     //MARK: - Local Disk Save
     private func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
@@ -63,7 +80,6 @@ class ProfileManager: NSObject {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
         if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
             let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
-            profileUser.token = "e33bbe34ed137ca196f9a8c2731d1575377c8c1cffe30335cd1cae30800dee4f"
             return profileUser
         }
         print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")

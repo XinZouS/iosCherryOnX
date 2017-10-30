@@ -41,18 +41,19 @@ extension UserProfileView {
     }
     
     public func loadNameAndPhoneInfo(){ // also do this in HomePageController
-        if let currName = ProfileManager.shared.currentUser?.realName, currName != "" {
+        if let currName = ProfileManager.shared.getCurrentUser()?.realName, currName != "" {
             let attStr = NSAttributedString(string: currName, attributes: buttonAttributes)
             nameButton.setAttributedTitle(attStr, for: .normal)
             nameButton.isEnabled = false
-        }else{
+        
+        } else {
             let attStr = NSAttributedString(string: "请提交您的身份验证信息", attributes: buttonAttributes)
             nameButton.setAttributedTitle(attStr, for: .normal)
             nameButton.isEnabled = true
         }
 
-        if let currPhone = ProfileManager.shared.currentUser?.phone, currPhone != "" {
-            let cc = ProfileManager.shared.currentUser?.phoneCountryCode ?? ""
+        if let currPhone = ProfileManager.shared.getCurrentUser()?.phone, currPhone != "" {
+            let cc = ProfileManager.shared.getCurrentUser()?.phoneCountryCode ?? ""
             let phoneStr = currPhone.formatToPhoneNum(countryCode: cc)
             let attStr = NSAttributedString(string: phoneStr, attributes: buttonAttributes)
             phoneButton.setAttributedTitle(attStr, for: .normal)
@@ -62,9 +63,11 @@ extension UserProfileView {
             phoneButton.setAttributedTitle(attStr, for: .normal)
             phoneButton.isEnabled = true
         }
-        if let imgPhoto = ProfileManager.shared.currentUser?.imageUrl{
+        if let imgPhoto = ProfileManager.shared.getCurrentUser()?.imageUrl{
             if(imgPhoto != ""){
                 profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
+            }else{
+                profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
             }
         }
         
@@ -90,13 +93,13 @@ extension UserProfileView {
     }
     
     internal func setupWechatImg(){
-        let imgUrl = ProfileManager.shared.currentUser?.imageUrl
+        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl
         profileImgButton.kf.setImage(with:URL(string:imgUrl!), for: .normal)
         
     }
     
     internal func setupWechatRealName(){
-        let attStr = NSAttributedString(string: (ProfileManager.shared.currentUser?.realName)!, attributes: buttonAttributes)
+        let attStr = NSAttributedString(string: (ProfileManager.shared.getCurrentUser()?.realName)!, attributes: buttonAttributes)
         nameButton.setAttributedTitle(attStr, for: .normal)
         
     }

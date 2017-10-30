@@ -10,7 +10,7 @@ import UIKit
 import Material
 
 class RegisterEmailController: UIViewController {
-    var emailField: ErrorTextField!
+    var emailField: TextField!
     fileprivate let constant: CGFloat = 32
     
     let textFieldH : CGFloat = 30
@@ -50,9 +50,9 @@ class RegisterEmailController: UIViewController {
         emailField?.resignFirstResponder()
     }
     fileprivate func setupEmailTextField(){
-        emailField = ErrorTextField()
-        emailField.placeholder = "Email"
-        emailField.detail = "Error, incorrect email"
+        emailField = TextField()
+        emailField.placeholder = "电子邮箱"
+        emailField.detail = "请输入邮箱"
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         emailField.keyboardAppearance = .dark
@@ -70,7 +70,7 @@ class RegisterEmailController: UIViewController {
         view.addSubview(okButton)
         okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
         okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
-        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
+        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40).isActive = true
     }
 }
 

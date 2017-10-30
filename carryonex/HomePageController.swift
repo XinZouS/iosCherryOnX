@@ -150,8 +150,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
 
-    
-    
     // MARK: - setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,21 +161,16 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         //setupNavigationBar()
         setupMapView()
-
         setupSearchContents()
-
         setupCallShipperButton()
-        
         setupSideButtonView()
-        
         setupTargetCurrentLocationButton()
         setupTopButtons()
-
         setupBlackBackgroundView()
         setupUserInfoMenuView()
-        
+
         testApiServers()
-        
+
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
@@ -199,7 +192,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-            //ProfileManager.shared.currentUser = ProfileUser()
+//            ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
