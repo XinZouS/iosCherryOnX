@@ -100,8 +100,8 @@ class ApiServers : NSObject {
         super.init()
         
         //TODO: for test use only, remove this before launch;
-        ProfileManager.shared.currentUser?.phone = "1-2016662333"
-        ProfileManager.shared.currentUser?.token = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
+//        ProfileManager.shared.currentUser?.phone = "1-2016662333"
+//        ProfileManager.shared.currentUser?.token = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
     }
     
     
