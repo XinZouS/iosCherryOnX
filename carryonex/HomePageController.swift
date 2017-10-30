@@ -168,7 +168,9 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupTopButtons()
         setupBlackBackgroundView()
         setupUserInfoMenuView()
-//        testApiServers()
+
+        testApiServers()
+
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
