@@ -65,6 +65,8 @@ extension UserProfileView {
         if let imgPhoto = ProfileManager.shared.currentUser?.imageUrl{
             if(imgPhoto != ""){
                 profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
+            }else{
+                profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
             }
         }
         

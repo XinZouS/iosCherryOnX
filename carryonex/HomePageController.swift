@@ -150,8 +150,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
 
-    
-    
     // MARK: - setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,23 +157,18 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             presentOnboardingPage()
         }
         
+        fetchUserFromLocalDiskAndSetup()
+        
         //setupNavigationBar()
         setupMapView()
-
         setupSearchContents()
-
         setupCallShipperButton()
-        
         setupSideButtonView()
-        
         setupTargetCurrentLocationButton()
         setupTopButtons()
-
         setupBlackBackgroundView()
         setupUserInfoMenuView()
-        
-        testApiServers()
-        
+//        testApiServers()
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
@@ -183,7 +176,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         super.viewWillAppear(animated)
         //title = "游箱" // for returning from UserInfoPage, change title back;
         UIApplication.shared.statusBarStyle = .default
-        fetchUserFromLocalDiskAndSetup()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

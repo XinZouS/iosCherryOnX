@@ -34,7 +34,8 @@ class ProfileManager: NSObject {
         //curruser.loadFromLocalDisk()
         
         //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
-        self.currentUser = loadProfileUserFromLocalDisk()
+        ProfileManager.shared.currentUser = loadProfileUserFromLocalDisk()
+        print(ProfileManager.shared.currentUser?.phone)
         guard let currentUser = currentUser else { return }
         ServiceManager.shared.setupUDeskWithUser(user: currentUser)
     }
@@ -73,7 +74,7 @@ class ProfileManager: NSObject {
         print("\n\rtrying to loadFromLocalDisk() ...... ")
         if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
             let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
-            profileUser.token = "e33bbe34ed137ca196f9a8c2731d1575377c8c1cffe30335cd1cae30800dee4f"
+            print(profileUser.phone)
             return profileUser
         }
         print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
