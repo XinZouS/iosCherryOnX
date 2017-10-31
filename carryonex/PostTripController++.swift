@@ -62,13 +62,11 @@ extension PostTripController {
     }
     private func uploadTripToServer(){
         ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg, id) in
-            print("get callback after uploadTripToServer(), success = \(success), msg = \(msg)")
+            print("get callback after uploadTripToServer(), success = \(success), msg = \(msg), tripID: \(id)")
             if success {
                 let waitingCtl = WaitingController()
                 waitingCtl.isForShipper = true
                 self.present(waitingCtl, animated: true, completion: nil)
-                self.dismiss(animated: true, completion: nil)
-
                 self.activityIndicator.stopAnimating()
             }else{
                 let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
