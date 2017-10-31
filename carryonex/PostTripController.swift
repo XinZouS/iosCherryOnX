@@ -166,6 +166,9 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
             endAddressCell = cell
         case 3:
             startTimeCell = cell
+            startTimeCell?.infoLabel.text = self.dateFormatter.string(from: Date())
+            startTimeCell?.infoLabel.textColor = .black
+            trip.pickupDate = Date().timeIntervalSince1970 // today's Date as Double
 //        case 4:
 //            pickUpTimeCell = cell
         default:

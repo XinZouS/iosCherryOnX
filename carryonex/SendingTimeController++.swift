@@ -23,7 +23,7 @@ extension SendingTimeController {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         currSelectedDate = setTimeForGolbalDate(from: date)
         currDaysInterval = TimeInterval(currSelectedDate.seconds(from: Date()))
-
+        
         let formattedDate = self.dateFormatter.string(from: currSelectedDate)
         tableHeadLabel.text = "\(formattedDate) \(tableHeadString)"
         print("did select date = \(currSelectedDate), formatted = \(formattedDate)")
@@ -50,6 +50,11 @@ extension SendingTimeController {
         nowComponents.second = cal.component(.second, from: now)
         //nowComponents.timeZone = TimeZone(abbreviation: "GMT")
         return cal.date(from: nowComponents)! as Date
+    }
+    
+    // not allow user to select date ealier than today
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return date.timeIntervalSince1970 > (Date().timeIntervalSince1970 - 3600 * 23)
     }
     
     // UIGestureRecognizerDelegate
@@ -115,6 +120,12 @@ extension SendingTimeController {
         
         //return [del, edit] // 出现为：row [ edit | del ]
         return [del]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if postTripControllerStartTime != nil {
+            okButtonTapped()
+        }
     }
 }
 

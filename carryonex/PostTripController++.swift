@@ -125,6 +125,7 @@ extension PostTripController {
     }
     func setupStartTime(date: Date){
         isStartTimeSetted = true
+        trip.pickupDate = date.timeIntervalSince1970
         startTimeCell?.infoLabel.textColor = .black
         startTimeCell?.infoLabel.text = dateFormatter.string(from: date)
         okButtonValidateCheck()
