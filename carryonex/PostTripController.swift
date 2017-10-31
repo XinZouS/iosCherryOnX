@@ -45,8 +45,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     var isTransportationSetted = false
     var isStartAddressSetted = false
     var isEndAddressSetted = false
-    var isStartTimeSetted = false
-    //var isPickUpTimeSetted = false
     
     let basicTripCellId = "basicTripCellId"
     

@@ -205,6 +205,10 @@ extension RequestController: UITextFieldDelegate {
             displayAlert(title: t, message: "请填写【货物总重量】，\n以磅(lb)为单位。\n(1 kg = 2.2 lb) \n(1 市斤[500g] = 1.1 lb)", action: ok)
             return
         }
+        if imageUploadingSet.count == 0 {
+            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            return
+        }
         setupRequestInfo()
         let paymentController = PaymentController()
         paymentController.request = self.request

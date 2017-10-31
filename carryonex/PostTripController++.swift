@@ -24,11 +24,6 @@ extension PostTripController {
             return
         }
         
-        guard isStartTimeSetted else {
-            displayAlert(title: tit, message: "\(msg)请挑个【出发时间】的吉日吧。", action: ok1)
-            return
-        }
-        
         uploadTripToServer()
     }
     
@@ -124,7 +119,6 @@ extension PostTripController {
         okButtonValidateCheck()
     }
     func setupStartTime(date: Date){
-        isStartTimeSetted = true
         trip.pickupDate = date.timeIntervalSince1970
         startTimeCell?.infoLabel.textColor = .black
         startTimeCell?.infoLabel.text = dateFormatter.string(from: date)
@@ -137,7 +131,7 @@ extension PostTripController {
 //        pickUpTimeCell?.infoLabel.text = "\(d1) -- \(d2)"
 //    }
     private func okButtonValidateCheck(){
-        let isOk = isStartAddressSetted && isEndAddressSetted && isStartTimeSetted
+        let isOk = isStartAddressSetted && isEndAddressSetted
         okButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         okButton.isEnabled = isOk
     }

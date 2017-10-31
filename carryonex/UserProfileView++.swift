@@ -72,7 +72,7 @@ extension UserProfileView {
         }
         
         if !nameButton.isEnabled && !phoneButton.isEnabled {
-            verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifyTrue")
+            verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifiedTrue")
         }
     }
     
