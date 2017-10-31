@@ -61,7 +61,7 @@ class Trip : NSObject, Unboxable {
     var eta: Double?
     
     var startAddress: Address?
-    var endAddress:   Address?
+    var endAddress: Address?
 
     // TODO: Break them up to long and lat
     var startLocation: CLLocationCoordinate2D?
@@ -114,6 +114,7 @@ class Trip : NSObject, Unboxable {
         self.endLocation    = CLLocationCoordinate2DMake(40.785091, -73.968285) // Central Park, New York
 
         self.statusId = (try? unboxer.unbox(key: TripKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
+        
         self.pickupDate     = try?  unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
         self.pickupTimeStart = try? unboxer.unbox(key: TripKeyInDB.pickupTimeStart.rawValue)
         self.pickupTimeEnd  = try?  unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
@@ -154,7 +155,7 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.eta.rawValue] = Int(eta ?? 0)
         
         json[TripKeyInDB.startAddress.rawValue] = startAddress?.packAsDictionaryForDB()
-        json[TripKeyInDB.startAddress.rawValue] = endAddress?.packAsDictionaryForDB()
+        json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
         
         json[TripKeyInDB.statusId.rawValue] = statusId
         
@@ -177,7 +178,7 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.eta.rawValue] = Int(eta ?? 0)
         
         json[TripKeyInDB.startAddress.rawValue] = startAddress?.packAsDictionaryForDB()
-        json[TripKeyInDB.startAddress.rawValue] = endAddress?.packAsDictionaryForDB()
+        json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
         
         json[TripKeyInDB.statusId.rawValue] = statusId
         

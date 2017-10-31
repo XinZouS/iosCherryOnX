@@ -450,7 +450,8 @@ class ApiServers : NSObject {
         }
         
         let sessionStr = hostVersion + "/trips/trips"
-        let tripDict = trip.packAsPostData()
+        var tripDict = trip.packAsPostData()
+        tripDict[TripKeyInDB.carrierId.rawValue] = profileUser.id
         
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
@@ -461,7 +462,7 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(sessionStr, parameters: parameter) { (response) in
-            
+            print(response)
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let trip: Trip = try unbox(dictionary: data, atKey: "trip")
@@ -554,6 +555,9 @@ class ApiServers : NSObject {
     private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
         let requestUrlStr = host + route
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            
+            print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
+            
             if let responseValue = response.value as? [String: Any] {
                 completion(responseValue)
             }

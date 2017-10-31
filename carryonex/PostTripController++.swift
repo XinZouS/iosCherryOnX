@@ -35,32 +35,33 @@ extension PostTripController {
         activityIndicator.startAnimating()
         
         uploadTripToServer()
-        
-//        uploadAddressToServer(addressStarting!, addressDestinat!) { (finished, msg) in
-//            if finished {
-//            }else{
-//                let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
-//                self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
-//            }
-//        }
     }
     
-    private func uploadAddressToServer(_ addr1 : Address, _ addr2 : Address, completion: @escaping(Bool, String) -> Void){
-        ApiServers.shared.postAddressInfo(address: addr1) { (success1, msg1, addrId1) in
-            if success1 {
-                ApiServers.shared.postAddressInfo(address: addr2) { (success2, msg2, addrId2) in
-                    if success2 {
-                        completion(true, msg2) // OK 2 address upload
-                    }else{
-                        completion(false, msg2)
-                    }
-                }
-            }else{
-                completion(false, msg1)
-            }
-        }
-    }
+//    private func uploadAddressToServer(_ addr1 : Address, _ addr2 : Address, completion: @escaping(Bool, String) -> Void){
+//        ApiServers.shared.postAddressInfo(address: addr1) { (success1, msg1, addrId1) in
+//            if success1 {
+//                ApiServers.shared.postAddressInfo(address: addr2) { (success2, msg2, addrId2) in
+//                    if success2 {
+//                        completion(true, msg2) // OK 2 address upload
+//                    }else{
+//                        completion(false, msg2)
+//                    }
+//                }
+//            }else{
+//                completion(false, msg1)
+//            }
+//        }
+//    }
+    
     private func uploadTripToServer(){
+        guard let start = self.addressStarting, let destination = self.addressDestinat else {
+            return
+        }
+        
+        //Set address for trip
+        self.trip.startAddress = start
+        self.trip.endAddress = destination
+        
         ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg, id) in
             if success {
                 
@@ -118,14 +119,12 @@ extension PostTripController {
         startAddressCell?.infoLabel.textColor = .black
         startAddressCell?.infoLabel.text = string
         okButtonValidateCheck()
-        print("setupStartingAddress: ", string)
     }
     func setupEndAddress(string: String){
         isEndAddressSetted = true
         endAddressCell?.infoLabel.textColor = .black
         endAddressCell?.infoLabel.text = string
         okButtonValidateCheck()
-        print("setupEndAddress: ", string)
     }
     func setupStartTime(date: Date){
         isStartTimeSetted = true
