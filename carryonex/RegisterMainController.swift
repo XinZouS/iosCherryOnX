@@ -46,7 +46,22 @@ class RegisterMainController: UIViewController{
     
     private func setupImageView(){
         let imageView = UIImageView(image:UIImage(named:"background"))
-        imageView.frame = CGRect(x:0, y:0, width:420, height:500)
+        var w = 0,h = 0
+        switch UIScreen.main.bounds.width {
+        case 320:
+            w = 330
+            h = 380
+        case 375:
+            w = 385
+            h = 468
+        case 414:
+            w = 424
+            h = 636
+        default:
+            w = 424
+            h = 636
+        }
+        imageView.frame = CGRect(x:0, y:0, width:w, height:h)
         self.view.addSubview(imageView)
     }
     
@@ -61,11 +76,22 @@ class RegisterMainController: UIViewController{
         flagButton.centerYAnchor.constraint(equalTo: phoneNumberTextField.centerYAnchor).isActive = true
     }
     private func setupPhoneNumTextField(){
+        var h = 0
+        switch UIScreen.main.bounds.width {
+        case 320:
+            h = 440
+        case 375:
+            h = 518
+        case 414:
+            h = 686
+        default:
+            h = 686
+        }
         phoneNumberTextField = TextField()
         phoneNumberTextField.placeholder = "请输入手机号"
         phoneNumberTextField.detail = "手机号码"
         phoneNumberTextField.clearButtonMode = .whileEditing
         phoneNumberTextField.isEnabled = false
-        view.layout(phoneNumberTextField).top(550).left(100).right(20)
+        view.layout(phoneNumberTextField).top(CGFloat(h)).left(100).right(20)
     }
 }

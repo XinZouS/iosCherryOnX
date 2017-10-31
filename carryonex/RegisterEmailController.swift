@@ -67,10 +67,25 @@ class RegisterEmailController: UIViewController {
     
     
     private func setupOkButton(){
+        var h = 0,w = 0
+        switch UIScreen.main.bounds.width {
+        case 320:
+            h = 0
+            w = 120
+        case 375:
+            h = 40
+            w = 150
+        case 414:
+            h = 80
+            w = 180
+        default:
+            h = 80
+            w = 180
+        }
         view.addSubview(okButton)
         okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
-        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
-        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40).isActive = true
+        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: CGFloat(w)).isActive = true
+        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
     }
 }
 
