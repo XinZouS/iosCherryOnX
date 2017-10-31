@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
 		6602D3761F795C86005FFE05 /* ItemTypeListCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6602D3751F795C86005FFE05 /* ItemTypeListCell++.swift */; };
 		660460361F4F1E4B00E5DC4C /* RequestBaseCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460351F4F1E4B00E5DC4C /* RequestBaseCell++.swift */; };
 		660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460551F4F6B7500E5DC4C /* SendingTimeController.swift */; };
@@ -203,6 +204,7 @@
 
 /* Begin PBXFileReference section */
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
+		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
 		6602D3751F795C86005FFE05 /* ItemTypeListCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemTypeListCell++.swift"; sourceTree = "<group>"; };
 		660460351F4F1E4B00E5DC4C /* RequestBaseCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestBaseCell++.swift"; sourceTree = "<group>"; };
 		660460551F4F6B7500E5DC4C /* SendingTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeController.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 				667266651F6715700010FDEC /* CheckingAccount.swift */,
 				667266671F67158F0010FDEC /* CreditAccount.swift */,
 				E597D94D1F9FD32900B98CAB /* Config.swift */,
+				4D002EE21FA843E300F77553 /* TripOrder.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1268,6 +1271,7 @@
 				6686096B1F6052D400740A92 /* HeaderView.swift in Sources */,
 				665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */,
 				663121F31F545B3C000F7ACB /* ConfirmBaseController.swift in Sources */,
+				4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */,
 				FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */,
 				E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */,
 				66099F4D1F588FB100B12E21 /* AddressSearchController.swift in Sources */,
