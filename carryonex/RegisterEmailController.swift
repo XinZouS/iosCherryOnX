@@ -25,7 +25,7 @@ class RegisterEmailController: UIViewController {
     }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailField.becomeFirstResponder()
+        _ = emailField.becomeFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
