@@ -234,47 +234,6 @@ extension HomePageController {
         self.present(ordersNav, animated: true)
     }
     
-    // do not need to check if user is shipper or sender;
-//    internal func switchUserType(){
-//        let s = ProfileManager.shared.currentUser?.isShipper!
-//        ProfileManager.shared.currentUser?.isShipper = !s
-//
-//        setupUIContentsForUserIsShipperOrNot()
-//        flipPageHorizontally()
-//    }
-//    internal func switchToSender(){
-//        ProfileManager.shared.currentUser?.isShipper = false
-//        setupUIContentsForUserIsShipperOrNot()
-//        flipPageHorizontally()
-//    }
-//    internal func switchToShiper(){
-//        ProfileManager.shared.currentUser?.isShipper = true
-//        setupUIContentsForUserIsShipperOrNot()
-//        flipPageHorizontally()
-//    }
-//
-//    internal func setupUIContentsForUserIsShipperOrNot(){
-//        let s = ProfileManager.shared.currentUser?.isShipper!
-//        changeTextTo(isShipper: s)
-////        changeImageTo(isShipper: s)
-//    }
-//    internal func setupSwitchUserTypeBtnTitle(str: String){
-//        let attriStr = NSMutableAttributedString(string: str, attributes: switchUserTypeAttributes)
-//        switchUserTypeButton.setAttributedTitle(attriStr, for: .normal)
-//    }
-    // for text and button image
-//    private func changeTextTo(isShipper: Bool){
-//        let uStr = isShipper ? btnTitleShipForMe : btnTitleShipForYou
-//        setupSwitchUserTypeBtnTitle(str: uStr)
-//        print("now I am a shipper == \(ProfileManager.shared.currentUser?.isShipper), I can change to \(uStr)")
-//    }
-//    private func changeImageTo(isShipper: Bool){
-//        let newImgSideBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_B") : #imageLiteral(resourceName: "CarryonEx_A")
-//        let newImgMainBtn : UIImage = isShipper ? #imageLiteral(resourceName: "CarryonEx_Transportation") : #imageLiteral(resourceName: "CarryonEx_Logo")
-//        pullSideBtnViewButton.setImage(newImgSideBtn, for: .normal)
-//        callShipperButton.setImage(newImgMainBtn, for: .normal)
-//    }
-
     private func flipPageHorizontally(){
         var rotate3D = CATransform3DIdentity
         rotate3D.m34 = 1.0 / -1000

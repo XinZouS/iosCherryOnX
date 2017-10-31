@@ -13,7 +13,7 @@ class GiftController: UIViewController {
     
     var silenceCarouselView : SilenceCarouselView?
     
-    let imgArray: [Any] = [
+    let imgCarouselArray: [Any] = [
 //        "http://www.netbian.com/d/file/20150519/f2897426d8747f2704f3d1e4c2e33fc2.jpg",
 //        "http://www.netbian.com/d/file/20130502/701d50ab1c8ca5b5a7515b0098b7c3f3.jpg",
 //        URL(string: "http://www.netbian.com/d/file/20110418/48d30d13ae088fd80fde8b4f6f4e73f9.jpg")!,
@@ -30,23 +30,29 @@ class GiftController: UIViewController {
         let s = UISegmentedControl(items: ["幸运抽奖", "游票兑换"])
         s.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .selected)
         s.tintColor = buttonThemeColor // selected
-        s.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.lightGray], for: .normal)
-        s.backgroundColor = UIColor.gray // deselected
+        s.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gray], for: .normal)
         s.selectedSegmentIndex = 0
         return s
     }()
     
     let cellIdPrize = "cellIdPrize"
     let cellIdYoupiao = "cellIdYoupiao"
+    
     lazy var collectionView : UICollectionView = {
-        let v = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 3
+        layout.minimumLineSpacing = 3
+
+        let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.backgroundColor = .clear
         v.dataSource = self
         v.delegate = self
         return v
     }()
     
-    var dataSource = ["1", "2", "3"]
+    var luckyPrizes = ["1", "2", "3", "1", "2", "3"]
+    var youpiaoExchanges = ["1", "2", "3", "2", "3"]
     
     
 
@@ -56,7 +62,7 @@ class GiftController: UIViewController {
         setupNavigationBar()
         setupSilenceCarouseView()
         setupDetailBarView()
-        setupSegmentBar()
+        //setupSegmentBar()
         setupCollectionView()
     }
     
@@ -72,7 +78,7 @@ class GiftController: UIViewController {
         let h = view.bounds.height / 5
         let yOffset: CGFloat = (self.navigationController?.navigationBar.bounds.height ?? 0) + UIApplication.shared.statusBarFrame.height
         let f = CGRect(x: 0, y: yOffset, width: view.bounds.width, height: h)
-        silenceCarouselView = SilenceCarouselView(frame: f, imageArray: imgArray, silenceCarouselViewTapBlock: { (silenceCarView, page) in
+        silenceCarouselView = SilenceCarouselView(frame: f, imageArray: imgCarouselArray, silenceCarouselViewTapBlock: { (silenceCarView, page) in
             print("GiftController: setupSilenceCarouseView(), tap block: page = \(page)")
         })
         silenceCarouselView?.timeInterval = 2
@@ -84,7 +90,7 @@ class GiftController: UIViewController {
     private func setupDetailBarView(){
         detailBarView.giftCtl = self
         view.addSubview(detailBarView)
-        detailBarView.addConstraints(left: view.leftAnchor, top: silenceCarouselView?.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 60)
+        detailBarView.addConstraints(left: view.leftAnchor, top: silenceCarouselView?.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 50)
     }
     
     private func setupSegmentBar(){
@@ -102,15 +108,20 @@ class GiftController: UIViewController {
             //bottomDataSource = config.carrier
         }
         //tableView.setContentOffset(CGPoint.zero, animated: false)   //Bring table view back to the top
-        //tableView.reloadData()
+        collectionView.reloadData()
     }
     
     private func setupCollectionView(){
-        collectionView.register(GiftPrizeCell.self, forCellWithReuseIdentifier: cellIdPrize)
+        collectionView.backgroundColor = .clear
+        //collectionView.register(GiftPrizeCell.self, forCellWithReuseIdentifier: cellIdPrize)
         collectionView.register(GiftYoupiaoCell.self, forCellWithReuseIdentifier: cellIdYoupiao)
-        let sideMargin: CGFloat = 30
+
+        let sideMargin: CGFloat = 20
         view.addSubview(collectionView)
-        collectionView.addConstraints(left: view.leftAnchor, top: segmentBar.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: sideMargin, topConstent: segmentMargin, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
+        collectionView.addConstraints(left: view.leftAnchor, top: detailBarView.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: sideMargin, topConstent: 1, rightConstent: sideMargin, bottomConstent: 0, width: 0, height: 0)
+
+        //collectionView.contentInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>) // t,l,b,r
+        //collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
     }
 
 }
@@ -122,24 +133,14 @@ extension GiftController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return youpiaoExchanges.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if segmentBar.selectedSegmentIndex == GiftTabSection.prize.rawValue {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdPrize, for: indexPath) as! GiftPrizeCell
-            //TODO: setup cell data
-            
-            return cell
-        }
-        else if segmentBar.selectedSegmentIndex == GiftTabSection.youpiao.rawValue {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdYoupiao, for: indexPath) as! GiftYoupiaoCell
-            //TODO: setup cell data
-
-            return cell
-        }else{
-            return UICollectionViewCell()
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdYoupiao, for: indexPath) as! GiftYoupiaoCell
+        //TODO: setup cell data
+        
+        return cell
     }
     
 }
@@ -147,7 +148,7 @@ extension GiftController: UICollectionViewDataSource {
 extension GiftController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 60)
+        return CGSize(width: collectionView.bounds.width / 2 - 2, height: 180)
     }
     
 }
@@ -166,9 +167,10 @@ extension GiftController: UICollectionViewDelegate {
 extension GiftController {
     
     func silenceCarouseImageReload(){
-        silenceCarouselView?.imageArray = imgArray
+        silenceCarouselView?.imageArray = imgCarouselArray
         silenceCarouselView?.reload()
     }
+    
     
     
 }

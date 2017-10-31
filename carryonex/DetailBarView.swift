@@ -22,7 +22,7 @@ class DetailBarView : UIView {
     
     let nameLabel : UILabel = {
         let b = UILabel()
-        b.font = UIFont.systemFont(ofSize: 18)
+        b.font = UIFont.systemFont(ofSize: 16)
         b.text = "userName"
         return b
     }()
@@ -49,7 +49,7 @@ class DetailBarView : UIView {
     }()
     
     lazy var youpiaoButton : UIButton = {
-        let att = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+        let att = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]
         let tit = NSAttributedString(string: "赚游票", attributes: att)
         let b = UIButton()
         b.addTarget(self, action: #selector(youpiaoButtonTapped), for: .touchUpInside)
@@ -75,7 +75,7 @@ class DetailBarView : UIView {
     }
     
     private func setupProfileContents(){
-        let sz : CGFloat = 34
+        let sz : CGFloat = 32
         addSubview(profileImageView)
         profileImageView.addConstraints(left: leftAnchor, top: nil, right: nil, bottom: nil, leftConstent: 10, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: sz, height: sz)
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -103,7 +103,7 @@ class DetailBarView : UIView {
     }
 
     private func setupYoupiaoButton(){
-        let h : CGFloat = 30
+        let h : CGFloat = 26
         addSubview(youpiaoButton)
         youpiaoButton.addConstraints(left: nil, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 20, bottomConstent: 0, width: 70, height: h)
         youpiaoButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
