@@ -91,7 +91,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
-        phoneNumberTextField.becomeFirstResponder()
+        _ = phoneNumberTextField.becomeFirstResponder()
         navigationController?.isNavigationBarHidden = !isModifyPhoneNumber
     }
     override func viewWillDisappear(_ animated: Bool) {

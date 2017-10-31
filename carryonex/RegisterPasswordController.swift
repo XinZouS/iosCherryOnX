@@ -39,7 +39,7 @@ class RegisterPasswordController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        passwordField.becomeFirstResponder()
+        _ = passwordField.becomeFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,13 +9,13 @@
 import UIKit
 import FSCalendar
 
-
-
 class TimeAvailableController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UIGestureRecognizerDelegate {
     
     var request : Request! {
         didSet{
-            print("TODO: TimeAvailableController.request gets value, id = \(request.id), should setup info in TimeAvailableController page!!!")
+            if let id = request?.id {
+                print("TODO: TimeAvailableController.request gets value, id = \(id), should setup info in TimeAvailableController page!!!")
+            }
         }
     }
     

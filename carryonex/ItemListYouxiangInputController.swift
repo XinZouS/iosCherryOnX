@@ -26,7 +26,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
     }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        youxiangField.becomeFirstResponder()
+        _ = youxiangField.becomeFirstResponder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         youxiangField.isClearIconButtonEnabled = true
         youxiangField.keyboardType = .phonePad
         youxiangField.isPlaceholderUppercasedWhenEditing = true
-        youxiangField.becomeFirstResponder()
+        _ = youxiangField.becomeFirstResponder()
         youxiangField.keyboardAppearance = .dark
         let leftView = UIImageView()
         leftView.image = Icon.bell

@@ -47,7 +47,7 @@ class InputPasswordLoginController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        passwordField.becomeFirstResponder()
+        _ = passwordField.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ class InputPasswordLoginController: UIViewController {
         passwordField.keyboardAppearance = .dark
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
-        passwordField.becomeFirstResponder()
+        _ = passwordField.becomeFirstResponder()
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView

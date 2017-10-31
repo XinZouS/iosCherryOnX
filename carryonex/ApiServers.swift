@@ -442,7 +442,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postTripInfo(trip: Trip, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
+    func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success,msg,id)
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", "")
@@ -450,12 +450,7 @@ class ApiServers : NSObject {
         }
         
         let sessionStr = hostVersion + "/trips/trips"
-        var tripDict = trip.packAsPostData()
-        
-        //TODO: Remove them
-        tripDict[TripKeyInDB.carrierId.rawValue] = 4
-        tripDict[TripKeyInDB.startAddressId.rawValue] = 1509137387
-        tripDict[TripKeyInDB.endAddressId.rawValue] = 1509137387
+        let tripDict = trip.packAsPostData()
         
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
@@ -465,11 +460,19 @@ class ApiServers : NSObject {
             ServerKey.data.rawValue: tripDict
         ]
         
-        postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
-            if dictionary.count > 0 {
-                completion(true, "TODO: testing...", "get id,,,")
+        postDataWithUrlRoute(sessionStr, parameters: parameter) { (response) in
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let trip: Trip = try unbox(dictionary: data, atKey: "trip")
+                    completion(true, "Data post successful", trip.id)
+                    
+                } catch let error as NSError {
+                    completion(false, error.localizedDescription, nil)
+                }
             } else {
-                completion(false, "TODO: testing...", "get id,,,")
+                let msg = response[ServerKey.message.rawValue] as? String
+                completion(false, msg, "Unable to post trip data")
             }
         }
     }
