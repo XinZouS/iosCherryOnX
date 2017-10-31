@@ -163,7 +163,7 @@ class VerificationController: UIViewController {
                 phone = profileUser.phone ?? "000"
             }
         } else {
-            zoneCode = ZoneCodeInput
+            zoneCode = zoneCodeInput
             phone = phoneInput
         }
         
@@ -172,11 +172,6 @@ class VerificationController: UIViewController {
         view.addSubview(hintLabel)
         hintLabel.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: verifiCodeContainer?.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 26)
     }
-
-    
-    
-    
-    
 }
 
 

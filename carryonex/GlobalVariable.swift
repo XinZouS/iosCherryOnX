@@ -25,10 +25,10 @@ var alreadyExist:Bool = false
 var isOrderList:Bool = false
 
 //注册使用
-var ModifyPhone:String = ""
-var ModifyCode:String = "1"
-var phoneInput:String = ""
-var ZoneCodeInput:String = "1"
+var modifyPhone: String = ""
+var modifyCode: String = "1"
+var phoneInput: String = ""
+var zoneCodeInput: String = "1"
 var emailInput = ""
 
 //正则校验

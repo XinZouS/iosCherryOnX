@@ -22,13 +22,13 @@ extension RegisterPasswordController: UITextFieldDelegate {
                     if let profileUser = ProfileManager.shared.getCurrentUser() {
                         profileUser.phone = phoneInput
                         profileUser.username = phoneInput
-                        profileUser.phoneCountryCode = ZoneCodeInput
+                        profileUser.phoneCountryCode = zoneCodeInput
                         profileUser.email = emailInput
                         ProfileManager.shared.updateCurrentUser(profileUser)
                     }
                     
                     phoneInput = ""
-                    ZoneCodeInput = "1"
+                    zoneCodeInput = "1"
                     emailInput = ""
                     self.dismiss(animated: true, completion: nil)
                 
