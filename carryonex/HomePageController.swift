@@ -263,11 +263,11 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         button.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     }
     func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int) {
-        print("button will selected: \(atIndex)")
+        //print("button will selected: \(atIndex)")
     }
     
     func circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int) {
-        print("button did selected: \(atIndex)")
+        //print("button did selected: \(atIndex)")
         switch atIndex{
         case 0:
             //callShipperButtonTapped()

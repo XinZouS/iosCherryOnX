@@ -12,9 +12,7 @@ import UIKit
 
 extension PostBaseCell {
     
-    
     func infoButtonTapped(){
-        print("cell tapped with idString: \(self.idString)")
         switch self.idString {
         case postTripController.startAddressCellId:
             reactForStartAddress()
