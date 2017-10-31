@@ -14,6 +14,15 @@ import Material
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var phoneNumberTextField : TextField!
     var isPhoneNumValid: Bool = false
+    var isLoading: Bool = false {
+        didSet{
+            if isLoading {
+                loadingIndicator.startAnimating()
+            } else {
+                loadingIndicator.stopAnimating()
+            }
+        }
+    }
     
     var transparentView : UIView = {
         let v = UIView()
@@ -86,14 +95,21 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         b.addTarget(self, action: #selector(showUserAgreementPage), for: .touchUpInside)
         return b
     }()
+    
+    var loadingIndicator: UIActivityIndicatorView = {
+        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        loadingView.hidesWhenStopped = true
+        return loadingView
+    }()
         
     // for keyboard notification:
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
-        phoneNumberTextField.becomeFirstResponder()
+        _ = phoneNumberTextField.becomeFirstResponder()
         navigationController?.isNavigationBarHidden = !isModifyPhoneNumber
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -114,6 +130,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
 //        setupDevelopButton()
         setupnextButton()
+        setupLoadingIndicator()
     }
     
     
@@ -171,10 +188,12 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         agreeCheckbox.centerYAnchor.constraint(equalTo: agreeLabel.centerYAnchor).isActive = true
     }
 
-    
-    
-    
-    
+    private func setupLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
 }
 
 
@@ -216,6 +235,5 @@ extension PhoneNumberController {
             
         }  
     }
-    
 }
 

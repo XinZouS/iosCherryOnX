@@ -16,24 +16,24 @@ extension RegisterPasswordController: UITextFieldDelegate {
             // TODO: hash pw and upload to server
             ApiServers.shared.postRegisterUser(username: phoneInput, phone: phoneInput, password: newPassword!, email: emailInput) { (isSuccess, msg) in
                 if isSuccess {
-                    print(msg)
+                    if let msg = msg { print(msg) }
                     isRegister = false
                     
                     if let profileUser = ProfileManager.shared.getCurrentUser() {
                         profileUser.phone = phoneInput
                         profileUser.username = phoneInput
-                        profileUser.phoneCountryCode = ZoneCodeInput
+                        profileUser.phoneCountryCode = zoneCodeInput
                         profileUser.email = emailInput
                         ProfileManager.shared.updateCurrentUser(profileUser)
                     }
                     
                     phoneInput = ""
-                    ZoneCodeInput = "1"
+                    zoneCodeInput = "1"
                     emailInput = ""
                     self.dismiss(animated: true, completion: nil)
                 
                 } else {
-                    print(msg)
+                    if let msg = msg { print(msg) }
                 }
             }
             

@@ -20,12 +20,12 @@ extension InputPasswordLoginController: UITextFieldDelegate {
                 if let profileUser = ProfileManager.shared.getCurrentUser() {
                     profileUser.phone = phoneInput
                     profileUser.username = phoneInput
-                    profileUser.phoneCountryCode = ZoneCodeInput
+                    profileUser.phoneCountryCode = zoneCodeInput
                     ProfileManager.shared.updateCurrentUser(profileUser)
                 }
                     //print(info)
                     phoneInput = ""
-                    ZoneCodeInput = "1"
+                    zoneCodeInput = "1"
                     emailInput = ""
                     self.dismiss(animated: true, completion: nil)
             }else{

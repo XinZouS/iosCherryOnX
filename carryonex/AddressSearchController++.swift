@@ -262,7 +262,6 @@ extension AddressSearchController : MKMapViewDelegate {
             postTripCtl?.addressDestinat = self.address
             postTripCtl?.setupEndAddress(string: add)
         }
-        print("get new address: ", add)
     }
     
 }

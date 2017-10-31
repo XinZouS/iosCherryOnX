@@ -41,7 +41,9 @@ extension UserInfoMenuView {
             self.homePageCtl?.present(settingNavigationCtl, animated: true, completion: nil)
             
         case 4:
-            print("TODO: open 游票兑换")
+            let giftController = GiftController()
+            let giftNav = UINavigationController(rootViewController: giftController)
+            self.homePageCtl?.present(giftNav, animated: true, completion: nil)
             
         default:
             print("Error!!! undefined item selected at row: \(indexPath.item)")

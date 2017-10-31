@@ -96,7 +96,7 @@ extension VerificationController: UITextFieldDelegate {
 //            phoneNum = phoneInput
 //        }
         let registEmailCtl = RegisterEmailController()
-        let registPasswordCtl = RegisterPasswordController()
+        //let registPasswordCtl = RegisterPasswordController()
 //        print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(String(describing: phoneNum)), zoneCode: \(String(describing: zoneCode))")
 //            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
 //            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in

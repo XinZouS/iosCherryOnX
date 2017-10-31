@@ -104,7 +104,7 @@ class ApiServers : NSObject {
     // MARK: - User APIs
     
     //Zian - The call back can be anything, i just use boolean to indicate register or not
-    func postRegisterUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool, String) -> Swift.Void) {
+    func postRegisterUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool, String?) -> Swift.Void) {
         
         let route = hostVersion + "/users"
         let postData = [
@@ -118,8 +118,16 @@ class ApiServers : NSObject {
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData
         ]
-        postDataWithUrlRoute(route, parameters: parameters) { (response) in
-            print("get response dictionary: \(response)")
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("postRegisterUser response error: \(error.localizedDescription)")
+                }
+                callback(false, error?.localizedDescription)
+                return
+            }
+            
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
@@ -128,19 +136,20 @@ class ApiServers : NSObject {
                     profileUser.token = token
                     ProfileManager.shared.login(user: profileUser)
                     
-                }else{
-                    print("失败")
+                } else {
+                    print("Unable to find token...")
+                    callback(false, "Unable to find token")
                 }
-                print("get data = \(data)")
+                
                 do {
                     let user: ProfileUser = try unbox(dictionary: data)
                     ProfileManager.shared.login(user: user)
                     callback(true, msg)
                     
                 } catch let error as NSError {
-                    print(error.localizedDescription)
-                    callback(false, msg)
+                    callback(false, error.localizedDescription)
                 }
+                
             } else {
                 //Data package not found
                 callback(false, msg)
@@ -166,7 +175,6 @@ class ApiServers : NSObject {
     }
 
     func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
-        
         let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
@@ -176,7 +184,15 @@ class ApiServers : NSObject {
                 ServerKey.password.rawValue: password
             ]
         ]
-        postDataWithUrlRoute(route, parameters: parameter) { (response) in
+        postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postLoginUser response error: \(error.localizedDescription)")
+                }
+                completion(error?.localizedDescription)
+                return
+            }
+            
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
                     
@@ -187,8 +203,8 @@ class ApiServers : NSObject {
                     
                     completion(token)
                     
-                }else{
-                   completion("error")
+                } else {
+                   completion(nil)
                 }
             }
         }
@@ -211,7 +227,15 @@ class ApiServers : NSObject {
             ]
         ]
         
-        postDataWithUrlRoute(route, parameters: parms) { (response) in
+        postDataWithUrlRoute(route, parameters: parms) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postLogoutUser response error: \(error.localizedDescription)")
+                }
+                completion(false, error?.localizedDescription)
+                return
+            }
+            
             let msg = response[ServerKey.message.rawValue] as? String
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 ProfileManager.shared.logoutUser()
@@ -333,7 +357,14 @@ class ApiServers : NSObject {
             ServerKey.data.rawValue     : data
         ]
         
-        postDataWithUrlRoute(route, parameters: parms) { (response) in
+        postDataWithUrlRoute(route, parameters: parms) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postUpdateUserInfo response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 if let userPropKey = ServerUserPropKey[propUrl], userPropKey != "" {
@@ -442,7 +473,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postTripInfo(trip: Trip, completion: @escaping (Bool, String, String) -> Void){ //callBack(success,msg,id)
+    func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success,msg,id)
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", "")
@@ -450,12 +481,7 @@ class ApiServers : NSObject {
         }
         
         let sessionStr = hostVersion + "/trips/trips"
-        var tripDict = trip.packAsPostData()
-        
-        //TODO: Remove them
-        tripDict[TripKeyInDB.carrierId.rawValue] = 4
-        tripDict[TripKeyInDB.startAddressId.rawValue] = 1509137387
-        tripDict[TripKeyInDB.endAddressId.rawValue] = 1509137387
+        let tripDict = trip.packAsPostData()
         
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
@@ -465,18 +491,33 @@ class ApiServers : NSObject {
             ServerKey.data.rawValue: tripDict
         ]
         
-        postDataWithUrlRoute(sessionStr, parameters: parameter) { (dictionary) in
-            if dictionary.count > 0 {
-                completion(true, "TODO: testing...", "get id,,,")
+        postDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postTripInfo response error: \(error.localizedDescription)")
+                }
+                completion(false, error?.localizedDescription, nil)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let trip: Trip = try unbox(dictionary: data, atKey: "trip")
+                    completion(true, "Data post successful", trip.id)
+                    
+                } catch let error as NSError {
+                    completion(false, error.localizedDescription, nil)
+                }
             } else {
-                completion(false, "TODO: testing...", "get id,,,")
+                let msg = response[ServerKey.message.rawValue] as? String
+                completion(false, msg, "Unable to post trip data")
             }
         }
     }
     
     
     // MARK: - Address APIs
-    func postAddressInfo(address: Address, completion: @escaping (Bool, String, String) -> Void){ //callBack(success, msg, id)
+    func postAddressInfo(address: Address, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success, msg, id)
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             completion(false, "postAddressInfo: Profile user empty, pleaes login to get the address info", "")
@@ -495,8 +536,16 @@ class ApiServers : NSObject {
             ServerKey.username.rawValue: profileUser.username ?? ""
         ]
         
-        postDataWithUrlRoute(route, parameters: parameter) { (dictionary) in
-            if dictionary.count > 0 {
+        postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postAddressInfo response error: \(error.localizedDescription)")
+                }
+                completion(false, error?.localizedDescription, nil)
+                return
+            }
+            
+            if response.count > 0 {
                 //TODO:postAddressInfo
                 completion(true, "TODO: testing...", "get id,,,")
             } else {
@@ -548,11 +597,16 @@ class ApiServers : NSObject {
     /**
      * ✅ POST data with url string, using Alamofire
      */
-    private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
+    private func postDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]?, Error?) -> Void)) {
         let requestUrlStr = host + route
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            
+            print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue) as Any)
+            
             if let responseValue = response.value as? [String: Any] {
-                completion(responseValue)
+                completion(responseValue, nil)
+            } else {
+                completion(nil, response.result.error)
             }
         }
         
