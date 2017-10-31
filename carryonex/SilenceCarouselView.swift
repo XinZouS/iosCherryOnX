@@ -5,7 +5,7 @@
 //  轮播控件
 //  Created by Xin Zou on 10/30/17.
 //  Copyright © 2017 Xin Zou. All rights reserved.
-//  Reference:
+//  Reference: https://github.com/SilenceL/SilenceCarouselView
 
 import UIKit
 
@@ -33,10 +33,10 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
     var scrollView:UIScrollView?
     var pageControl:UIPageControl?
     
-    var time:NSTimeInterval = 1
-    private var timer:NSTimer?
+    var timeInterval  : TimeInterval = 1
+    private var timer : Timer?
     
-    var imageArray:[AnyObject]?
+    var imageArray:[Any]?
     
     private var currentImgView:UIImageView?
     private var otherImgView:UIImageView? // 左右滑动时设置的图片
@@ -54,17 +54,16 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
     /**
      解决timer被强引用无法释放的问题
      */
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        if newSuperview == nil && timer != nil {
+    public override func willMove(toWindow newWindow: UIWindow?) {
+        if newWindow == nil && timer != nil {
             timer?.invalidate()
             timer = nil
         }
     }
     
+    
+    // 移除计时器
     deinit{
-        /**
-         *  移除计时器
-         */
         if timer != nil {
             timer?.invalidate()
         }
@@ -79,7 +78,7 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
      
      - returns: 初始化成功的轮播对象
      */
-    init(frame: CGRect,imageArray: [AnyObject],silenceCarouselViewTapBlock: SilenceCarouselViewTapBlock) {
+    init(frame: CGRect, imageArray: [Any], silenceCarouselViewTapBlock: @escaping SilenceCarouselViewTapBlock) {
         super.init(frame: frame)
         self.imageArray = imageArray
         self.silenceCarouselViewTapBlock = silenceCarouselViewTapBlock
@@ -104,17 +103,20 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
         if timer != nil {
             timer?.invalidate()
         }
-        timer = NSTimer.scheduledTimerWithTimeInterval(self.time, target: self, selector: #selector(SilenceCarouselView.timerFunction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: self.timeInterval, target: self, selector: #selector(rollImages), userInfo: nil, repeats: true)
         //        timer?.fire()
-        NSRunLoop.currentRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
+        RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
         
     }
     
     /**
      定时调用的方法: 动画改变scrollview的偏移量就可以实现自动滚动
      */
-    func timerFunction() -> (){
-        self.scrollView?.setContentOffset(CGPointMake(self.scrollView!.bounds.size.width * 2, 0), animated: true)
+    func rollImages() -> (){
+        if let w = self.scrollView?.bounds.width {
+            let p = CGPoint(x: w * 2, y: 0)
+            self.scrollView?.setContentOffset(p, animated: true)
+        }
     }
     
     
@@ -124,57 +126,58 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
     private func initView() -> (){
         if self.scrollView == nil {
             self.scrollView = UIScrollView.init(frame: self.bounds)
-            self.scrollView?.pagingEnabled = true
+            self.scrollView?.isPagingEnabled = true
             self.scrollView?.showsHorizontalScrollIndicator = false
             self.scrollView?.showsVerticalScrollIndicator = false
             self.scrollView?.delegate = self
             self.addSubview(self.scrollView!)
             
             self.otherImgView = UIImageView(frame: self.bounds)
-            self.otherImgView?.userInteractionEnabled = true
-            self.otherImgView!.contentMode = .ScaleAspectFill
+            self.otherImgView?.isUserInteractionEnabled = true
+            self.otherImgView!.contentMode = .scaleAspectFill
             self.otherImgView!.clipsToBounds = true;
             self.scrollView!.addSubview(self.otherImgView!)
-            self.otherImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SilenceCarouselView.clickImg)))
+            self.otherImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappingImage)))
             
             self.currentImgView = UIImageView(frame: self.bounds)
-            self.currentImgView?.userInteractionEnabled = true
-            self.currentImgView!.contentMode = .ScaleAspectFill
+            self.currentImgView?.isUserInteractionEnabled = true
+            self.currentImgView!.contentMode = .scaleAspectFill
             self.currentImgView!.clipsToBounds = true;
-            self.currentImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SilenceCarouselView.clickImg)))
+            self.currentImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappingImage)))
             self.scrollView!.addSubview(self.currentImgView!)
             
-            self.pageControl = UIPageControl(frame: CGRectMake(0,self.bounds.size.height - 30,self.bounds.size.width, 30))
+            let rec = CGRect(x: 0, y: self.bounds.height - 30, width: self.bounds.width, height: 30)
+            self.pageControl = UIPageControl(frame: rec)
             self.addSubview(self.pageControl!)
         }
         self.scrollView?.frame = self.bounds
         // 设置内容宽度为3倍的尺寸
-        self.scrollView?.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height)
+        self.scrollView?.contentSize = self.bounds.size
         // 设置当前显示的图片
-        self.currentImgView?.frame = CGRectMake(self.bounds.size.width,0,self.bounds.size.width, self.bounds.size.height)
-        self.loadImg(self.currentImgView!, index: 0)
+        self.currentImgView?.frame = self.frame
+        self.loadImg(imgView: self.currentImgView!, index: 0)
         // 设置页数
         self.pageControl?.numberOfPages = self.imageArray!.count
         self.pageControl?.currentPage = 0
         self.pageControl?.hidesForSinglePage = true
         // 设置显示的位置
-        self.scrollView?.contentOffset = CGPointMake(self.bounds.size.width, 0)
+        self.scrollView?.contentOffset = CGPoint(x: self.bounds.width, y: 0)
         // 设置整个轮播图片的显示逻辑
         self.reloadImg()
         //为一张图片的时候
         if self.pageControl?.numberOfPages == 1 {
-            self.scrollView?.contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height)
-            self.scrollView?.contentOffset = CGPointMake(0, 0)
-            self.currentImgView?.frame = CGRectMake(0,0,self.bounds.size.width, self.bounds.size.height)
+            self.scrollView?.contentSize = self.frame.size
+            self.scrollView?.contentOffset = CGPoint(x:0, y:0)
+            self.currentImgView?.frame = self.frame
         }
     }
     
     /**
      图片点击事件
      */
-    func clickImg() -> (){
+    func tappingImage(){
         if self.silenceCarouselViewTapBlock != nil {
-            self.silenceCarouselViewTapBlock!(carouselView: self,index: self.pageControl!.currentPage)
+            self.silenceCarouselViewTapBlock!(self, self.pageControl!.currentPage)
         }
     }
     
@@ -191,11 +194,12 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
         self.currIndex = self.nextIndex;
         self.pageControl!.currentPage = self.currIndex
         // 将当前图片的位置放到中间
-        self.currentImgView!.frame = CGRectMake(self.scrollView!.bounds.size.width, 0, self.scrollView!.bounds.size.width, self.scrollView!.bounds.size.height)
+        let fra = CGRect(x: (scrollView?.frame.width)!, y: 0, width: (scrollView?.frame.width)!, height: (scrollView?.bounds.height)!)
+        self.currentImgView!.frame = fra
         // 将其他图片对象的图片给当前显示的图片
         self.currentImgView!.image = self.otherImgView!.image
         // 设置视图滚到中间位置
-        self.scrollView!.contentOffset = CGPointMake(self.scrollView!.bounds.size.width, 0)
+        self.scrollView!.contentOffset = CGPoint(x: (scrollView?.bounds.width)!, y: 0)
     }
     
     /**
@@ -207,20 +211,18 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
     private func loadImg(imgView:UIImageView,index:Int){
         let imgData = self.imageArray![index]
         // 如果是字符串类型，就去拼接URL
-        if imgData is String {
-            // MARK: - 此处可以换成别的网络图片加载逻辑
-            imgView.kf_setImageWithURL(NSURL(string: imgData as! String)!, placeholderImage: nil)
+        if let url = imgData as? String {
+            imgView.yy_setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "CarryonEx_Logo")) //此处可以换成别的网络图片加载逻辑
         }
-            // 如果是NSURL类型则直接去加载
-        else if imgData is NSURL {
-            // MARK: - 此处可以换成别的网络图片加载逻辑
-            imgView.kf_setImageWithURL(imgData as! NSURL, placeholderImage: nil)
+        // 如果是URL类型则直接去加载
+        else if let url = imgData as? URL {
+            imgView.yy_setImage(with: url, placeholder: #imageLiteral(resourceName: "CarryonEx_Logo")) // 此处可以换成别的网络图片加载逻辑
         }
-            // 图片类型
+        // 图片类型
         else if imgData is UIImage {
             imgView.image = imgData as? UIImage
         }
-            // 其他未找到为空
+        // 其他未找到为空
         else{
             imgView.image = nil
         }
@@ -230,36 +232,36 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
     
     //MARK: - UIScrollView代理方法
     
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        // 开始拖动时停止自动轮播
+    // 开始拖动时停止自动轮播
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.timer?.invalidate()
     }
     
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        // 结束拖动时开启自动轮播
+    // 结束拖动时开启自动轮播
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.initTimer()
     }
     
-    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         // 带动画的设置scrollview位置后会调用此方法
         self.reloadImg() // 设置图片
     }
     
     
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // 结束滚动时重置方向
         self.currentDirec = .DirecNone
         // 设置图片
         self.reloadImg()
     }
     
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 设置手指滑动方向
         self.currentDirec = scrollView.contentOffset.x > scrollView.bounds.size.width ? .DirecLeft : .DirecRight;
         // 向右滑
         if self.currentDirec == .DirecRight {
             // 将其他图片显示到左边
-            self.otherImgView!.frame = CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+            self.otherImgView!.frame = scrollView.frame
             // 下一索引-1
             self.nextIndex = self.currIndex - 1
             // 当索引 < 0 时, 显示最后一张图片
@@ -270,12 +272,13 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
             // 向左滑动
         else if self.currentDirec == .DirecLeft {
             // 将其他图片显示到右边
-            self.otherImgView!.frame = CGRectMake(CGRectGetMaxX(self.currentImgView!.frame), 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+            let fra = CGRect(x: (currentImgView?.frame.maxX)!, y: 0, width: scrollView.bounds.width, height: scrollView.bounds.height)
+            self.otherImgView!.frame = fra
             // 设置下一索引
             self.nextIndex = (self.currIndex + 1) % self.imageArray!.count
         }
         // 去加载图片
-        self.loadImg(self.otherImgView!, index: self.nextIndex)
+        self.loadImg(imgView: self.otherImgView!, index: self.nextIndex)
     }
     
     

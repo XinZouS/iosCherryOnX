@@ -78,6 +78,11 @@
 		667DBD721F953FC500DF3800 /* LicensesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD711F953FC500DF3800 /* LicensesController.swift */; };
 		667DBD741F95460800DF3800 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD731F95460800DF3800 /* WebController.swift */; };
 		667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD761F954FA300DF3800 /* LicensesController++.swift */; };
+		667E8F8F1FA78B36007B1C51 /* GiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E8F8E1FA78B36007B1C51 /* GiftController.swift */; };
+		667E8F911FA78C03007B1C51 /* SilenceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E8F901FA78C03007B1C51 /* SilenceCarouselView.swift */; };
+		667E8F931FA7B11D007B1C51 /* DetailBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E8F921FA7B11D007B1C51 /* DetailBarView.swift */; };
+		667E8F951FA7CC6A007B1C51 /* GiftPrizeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E8F941FA7CC6A007B1C51 /* GiftPrizeCell.swift */; };
+		667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E8F961FA7CC80007B1C51 /* GiftYoupiaoCell.swift */; };
 		668131091F92C02A0022AEED /* UserInfoMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668131081F92C02A0022AEED /* UserInfoMenuView.swift */; };
 		6681310B1F92F2810022AEED /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681310A1F92F2810022AEED /* UIColor++.swift */; };
 		6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */; };
@@ -278,6 +283,11 @@
 		667DBD711F953FC500DF3800 /* LicensesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesController.swift; sourceTree = "<group>"; };
 		667DBD731F95460800DF3800 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 		667DBD761F954FA300DF3800 /* LicensesController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LicensesController++.swift"; sourceTree = "<group>"; };
+		667E8F8E1FA78B36007B1C51 /* GiftController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftController.swift; sourceTree = "<group>"; };
+		667E8F901FA78C03007B1C51 /* SilenceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilenceCarouselView.swift; sourceTree = "<group>"; };
+		667E8F921FA7B11D007B1C51 /* DetailBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBarView.swift; sourceTree = "<group>"; };
+		667E8F941FA7CC6A007B1C51 /* GiftPrizeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPrizeCell.swift; sourceTree = "<group>"; };
+		667E8F961FA7CC80007B1C51 /* GiftYoupiaoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftYoupiaoCell.swift; sourceTree = "<group>"; };
 		668131081F92C02A0022AEED /* UserInfoMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoMenuView.swift; sourceTree = "<group>"; };
 		6681310A1F92F2810022AEED /* UIColor++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
 		6681310C1F93EE070022AEED /* UserInfoMenuView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoMenuView++.swift"; sourceTree = "<group>"; };
@@ -655,6 +665,18 @@
 			name = LicensesController;
 			sourceTree = "<group>";
 		};
+		667E8F8D1FA788B3007B1C51 /* Gift */ = {
+			isa = PBXGroup;
+			children = (
+				667E8F8E1FA78B36007B1C51 /* GiftController.swift */,
+				667E8F901FA78C03007B1C51 /* SilenceCarouselView.swift */,
+				667E8F921FA7B11D007B1C51 /* DetailBarView.swift */,
+				667E8F941FA7CC6A007B1C51 /* GiftPrizeCell.swift */,
+				667E8F961FA7CC80007B1C51 /* GiftYoupiaoCell.swift */,
+			);
+			name = Gift;
+			sourceTree = "<group>";
+		};
 		668131101F9413330022AEED /* UserInfoMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +854,7 @@
 				6633DC921F5DB52F00B2FFAC /* OrdersLogController */,
 				668131111F9413690022AEED /* UserSettingController */,
 				668609671F604FBC00740A92 /* Wallet */,
+				667E8F8D1FA788B3007B1C51 /* Gift */,
 			);
 			name = UserInfoPage;
 			sourceTree = "<group>";
@@ -1278,6 +1301,7 @@
 				669518201F60D0C100BFC37B /* WalletController++.swift in Sources */,
 				660F4F771F5718D900F4820D /* AddressController++.swift in Sources */,
 				667266661F6715700010FDEC /* CheckingAccount.swift in Sources */,
+				667E8F8F1FA78B36007B1C51 /* GiftController.swift in Sources */,
 				E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
@@ -1312,6 +1336,7 @@
 				660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */,
 				66C9757B1F3E159400450F37 /* PhoneNumberController++.swift in Sources */,
 				6633DC8F1F5CE42C00B2FFAC /* AddressSearchController++.swift in Sources */,
+				667E8F951FA7CC6A007B1C51 /* GiftPrizeCell.swift in Sources */,
 				66BB08361F489DEA00935950 /* ItemTypeListCell.swift in Sources */,
 				FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */,
 				6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */,
@@ -1361,6 +1386,7 @@
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,
 				66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */,
 				66E520491F4B6E2C008E521D /* SendingTimeCell.swift in Sources */,
+				667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */,
 				664C64911F55C22C00AA8FFE /* Address.swift in Sources */,
 				FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */,
 				6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */,
@@ -1379,6 +1405,7 @@
 				FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */,
 				664C5F2D1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift in Sources */,
 				6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */,
+				667E8F931FA7B11D007B1C51 /* DetailBarView.swift in Sources */,
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
 				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
@@ -1386,6 +1413,7 @@
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
 				6642D1201F990DFF00C3AE29 /* CategoryManager.swift in Sources */,
 				660F4F6B1F56FFEC00F4820D /* AddressController.swift in Sources */,
+				667E8F911FA78C03007B1C51 /* SilenceCarouselView.swift in Sources */,
 				E597D94E1F9FD32900B98CAB /* Config.swift in Sources */,
 				663B9A031F8BD3BF006CFBDA /* ImageCellCollectionCell++.swift in Sources */,
 				66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */,
