@@ -60,17 +60,17 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                 print("Sending Verification Code")
                 self.isLoading = true
                 
-                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-                    self.isLoading = false
-                    if let err = err {
-                        print("PhoneNumberController: 有错误: \(String(describing: err))")
-                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                        self.showAlertWith(title: "获取验证码失败", message: msg)
-                        return
-                    }
-                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+//                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
+//                    self.isLoading = false
+//                    if let err = err {
+//                        print("PhoneNumberController: 有错误: \(String(describing: err))")
+//                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+//                        self.showAlertWith(title: "获取验证码失败", message: msg)
+//                        return
+//                    }
+//                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
                     self.goToVerificationPage()
-                })
+//                })
             }
         }
     }
@@ -212,6 +212,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             zoneCodeInput = codeOfFlag[flagsTitle[row]]!
         }
         flagButton.setTitle(flagsTitle[row], for: .normal)
+        checkPhone()
 //        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }
     
