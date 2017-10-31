@@ -23,16 +23,11 @@ extension PostTripController {
             displayAlert(title: tit, message: "\(msg)请选择【出发地和目的地】。", action: ok2)
             return
         }
+        
         guard isStartTimeSetted else {
             displayAlert(title: tit, message: "\(msg)请挑个【出发时间】的吉日吧。", action: ok1)
             return
         }
-//        guard isPickUpTimeSetted else {
-//            displayAlert(title: tit, message: "\(msg)请选个吉时作为【取货时间段】。", action: ok2)
-//            return
-//        }
-        
-        activityIndicator.startAnimating()
         
         uploadTripToServer()
     }
@@ -62,6 +57,8 @@ extension PostTripController {
         self.trip.startAddress = start
         self.trip.endAddress = destination
         
+        activityIndicator.startAnimating()
+        
         ApiServers.shared.postTripInfo(trip: self.trip) { (success, msg, id) in
             if success {
                 
@@ -72,7 +69,6 @@ extension PostTripController {
                 let waitingCtl = WaitingController()
                 waitingCtl.isForShipper = true
                 self.present(waitingCtl, animated: true, completion: nil)
-                self.activityIndicator.stopAnimating()
                 
             } else {
                 if let msg = msg {
@@ -80,6 +76,7 @@ extension PostTripController {
                     self.displayAlert(title: "⚠️上传失败了", message: m, action: "朕知道了")
                 }
             }
+            self.activityIndicator.stopAnimating()
         }
     }
     
