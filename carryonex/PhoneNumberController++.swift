@@ -25,7 +25,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         let inputPasswordLoginCtl = InputPasswordLoginController()
         ApiServers.shared.getIsUserExisted { (isExist) in
            alreadyExist = isExist
-            if alreadyExist == true{
+            if alreadyExist{
                 if (isModifyPhoneNumber == true) {
                     print("修改")
                     
@@ -214,6 +214,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             ZoneCodeInput = codeOfFlag[flagsTitle[row]]!
         }
         flagButton.setTitle(flagsTitle[row], for: .normal)
+        checkPhone()
 //        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }
     

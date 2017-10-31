@@ -64,15 +64,15 @@ extension UserProfileView {
             phoneButton.isEnabled = true
         }
         if let imgPhoto = ProfileManager.shared.getCurrentUser()?.imageUrl{
-            if(imgPhoto != ""){
                 profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
-            }else{
-                profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
-            }
+        }else{
+            profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
         }
         
         if !nameButton.isEnabled && !phoneButton.isEnabled {
             verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifyTrue")
+        }else{
+            verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifyFalse")
         }
     }
     

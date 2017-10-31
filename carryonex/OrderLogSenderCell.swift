@@ -12,6 +12,8 @@ import UIKit
 
 class OrderLogSenderCell : UICollectionViewCell {
     
+    var ordersLogCtl : OrdersLogController?
+    
     var request : Request! {
         didSet{
             updateUIContentsForRequest()
@@ -47,7 +49,6 @@ class OrderLogSenderCell : UICollectionViewCell {
     
     lazy var contactButton : UIButton = {
         let b = UIButton()
-        b.addTarget(self, action: #selector(contactInfoButtonTapped), for: .touchUpInside)
         b.layer.borderColor = UIColor.lightGray.cgColor
         b.layer.borderWidth = 1
         b.layer.cornerRadius = 5

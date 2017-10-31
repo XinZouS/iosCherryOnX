@@ -23,14 +23,11 @@ extension InputPasswordLoginController: UITextFieldDelegate {
                     profileUser.phoneCountryCode = ZoneCodeInput
                     ProfileManager.shared.updateCurrentUser(profileUser)
                 }
-                
-                ApiServers.shared.getUserInfoAll(handleInfo: { (info) in
                     //print(info)
                     phoneInput = ""
                     ZoneCodeInput = "1"
                     emailInput = ""
                     self.dismiss(animated: true, completion: nil)
-                })
             }else{
                 self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
