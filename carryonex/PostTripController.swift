@@ -45,8 +45,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     var isTransportationSetted = false
     var isStartAddressSetted = false
     var isEndAddressSetted = false
-    var isStartTimeSetted = false
-    //var isPickUpTimeSetted = false
     
     let basicTripCellId = "basicTripCellId"
     
@@ -166,6 +164,9 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
             endAddressCell = cell
         case 3:
             startTimeCell = cell
+            startTimeCell?.infoLabel.text = self.dateFormatter.string(from: Date())
+            startTimeCell?.infoLabel.textColor = .black
+            trip.pickupDate = Date().timeIntervalSince1970 // today's Date as Double
 //        case 4:
 //            pickUpTimeCell = cell
         default:

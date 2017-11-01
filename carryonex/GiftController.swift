@@ -73,6 +73,12 @@ class GiftController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         view.backgroundColor = pickerColorLightGray
+        
+        let cancelButton = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(cancelButtonTapped))
+        navigationItem.leftBarButtonItem = cancelButton
+        
+        let detailButton = UIBarButtonItem(title: "兑换明细", style: .plain, target: self, action: #selector(detailButtonTapped))
+        navigationItem.rightBarButtonItem = detailButton
     }
     private func setupSilenceCarouseView(){
         let h = view.bounds.height / 5
@@ -171,6 +177,14 @@ extension GiftController {
         silenceCarouselView?.reload()
     }
     
+    
+    func cancelButtonTapped(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func detailButtonTapped(){
+//        self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+    }
     
     
 }

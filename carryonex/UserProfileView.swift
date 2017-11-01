@@ -46,7 +46,7 @@ class UserProfileView: UIView {
     let verifiedMarkerImage : UIImageView = {
         let v = UIImageView()
         v.contentMode = .scaleAspectFit
-        v.image = #imageLiteral(resourceName: "carryonex_verifyFalse")
+        v.image = #imageLiteral(resourceName: "carryonex_verifiedFalse")
         return v
     }()
     
