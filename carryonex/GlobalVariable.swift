@@ -72,6 +72,19 @@ protocol ZipcodeCellDelegate: class {
     func setupTextField()
 }
 
+//TODO: rename this to more general name
+enum UserGuideTabSection: Int {
+    case sender, carrier
+    
+    var stringValue: String {
+        switch self {
+        case .sender:
+            return "sender"
+        case .carrier:
+            return "carrier"
+        }
+    }
+}
 
 /// Save user into disk by NSUserDefault
 enum UserDefaultKey : String {

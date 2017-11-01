@@ -301,26 +301,4 @@ extension AddressSearchController {
                 }
         }
     }
-
 }
-
-
-// MARK: - Pop alert view
-extension AddressSearchController {
-    
-    internal func displayAlert(title: String, message: String, action: String) {
-        DispatchQueue.main.async {
-            let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: action, style: .default) { (action) in
-                self.dismiss(animated: true, completion: nil)
-            }
-            v.addAction(action)
-            self.present(v, animated: true, completion: nil)
-        }
-    }
-    
-}
-
-
-
-

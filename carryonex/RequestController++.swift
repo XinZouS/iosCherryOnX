@@ -503,25 +503,4 @@ extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         return label
     }
-
 }
-
-
-// MARK: - Pop alert view
-extension RequestController {
-    
-    internal func displayAlert(title: String, message: String, action: String) {
-        DispatchQueue.main.async {
-            let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: action, style: .default) { (action) in
-                self.dismiss(animated: true, completion: nil)
-            }
-            v.addAction(action)
-            self.present(v, animated: true, completion: nil)
-        }
-    }
-    
-}
-
-
-

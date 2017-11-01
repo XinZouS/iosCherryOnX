@@ -13,6 +13,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     var id:         String? = "demo user"
     var username:   String? = ""
     var token:      String? = ""
+    var password:   String? = ""
     
     var realName:   String? = ""
     var phone:      String? = "" { didSet{ setupPhoneAndCountryCode() }}
@@ -41,6 +42,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         dictionary["id"]        = aDecoder.decodeObject(forKey: "id")       as? String
         dictionary["username"]  = aDecoder.decodeObject(forKey: "username") as? String
         dictionary["token"]     = aDecoder.decodeObject(forKey: "token")    as? String
+        dictionary["password"]  = aDecoder.decodeObject(forKey: "password") as? String
         
         dictionary["realName"]  = aDecoder.decodeObject(forKey: "realName") as? String
         dictionary["phone"]     = aDecoder.decodeObject(forKey: "phone")    as? String
@@ -68,6 +70,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         aCoder.encode(id, forKey: "id")
         aCoder.encode(username, forKey: "username")
         aCoder.encode(token, forKey: "token")
+        aCoder.encode(password, forKey: "password")
         
         aCoder.encode(realName, forKey: "realName")
         aCoder.encode(phone, forKey: "phone")
@@ -79,28 +82,23 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         aCoder.encode(idCardB_Url, forKey: "idCardB_Url")
         aCoder.encode(passportUrl, forKey: "passportUrl")
         aCoder.encode(isVerified, forKey: "isVerified")
-        
-        // these should save into DB, not local
-//        aCoder.encode(requestIdList, forKey: "requestIdList")
-//        aCoder.encode(tripIdList, forKey: "tripIdList")
-//        aCoder.encode(ordersIdLogAsShipper, forKey: "ordersIdLogAsShipper")
     }
     
     func packAllPropertiesAsDictionary() -> [String:Any] {
         var json = [String:Any]()
-        json[UserKeyInDB.id.rawValue]          = id
-        json[UserKeyInDB.username.rawValue]    = username // value is "phone" to DB
-        json[UserKeyInDB.token.rawValue]       = token
+        json[UserKeyInDB.id.rawValue] = id
+        json[UserKeyInDB.username.rawValue] = username // value is "phone" to DB
+        json[UserKeyInDB.token.rawValue] = token
+        json[UserKeyInDB.password.rawValue] = password
         
-        json[UserKeyInDB.realName.rawValue]    = realName
+        json[UserKeyInDB.realName.rawValue] = realName
         
         if let phoneCountryCode = phoneCountryCode, let phone = phone {
             json[UserKeyInDB.phone.rawValue] = "\(phoneCountryCode)-\(phone)"
         }
         
-        json[UserKeyInDB.email.rawValue]       = email
-        
-        json[UserKeyInDB.imageUrl.rawValue]    = imageUrl
+        json[UserKeyInDB.email.rawValue] = email
+        json[UserKeyInDB.imageUrl.rawValue] = imageUrl
         json[UserKeyInDB.idCardA_Url.rawValue] = idCardA_Url
         json[UserKeyInDB.idCardB_Url.rawValue] = idCardB_Url
         json[UserKeyInDB.passportUrl.rawValue] = passportUrl
@@ -127,6 +125,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         self.id          = dictionary["id"]       as? String ?? self.id
         self.username    = dictionary["username"] as? String ?? self.username
         self.token       = dictionary["token"]    as? String ?? self.token
+        self.password    = dictionary["password"] as? String ?? self.password
         
         self.realName    = dictionary["realName"] as? String ?? self.realName
         self.phone       = dictionary["phone"]    as? String ?? self.phone
@@ -146,6 +145,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? self.username
         token       = dictionary[UserKeyInDB.token.rawValue]    as? String ?? self.token
         
+        password    = dictionary[UserKeyInDB.password.rawValue]     as? String ?? self.password
         realName    = dictionary[UserKeyInDB.realName.rawValue]     as? String ?? self.realName
         phone       = dictionary[UserKeyInDB.phone.rawValue]        as? String ?? self.phone
         //phoneCountryCode = dictionary[UserKeyInDB.phone.rawValue]   as? String ?? self.phoneCountryCode , there is NO countrycode in DB!!
@@ -174,6 +174,8 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
         print("id = \(id ?? "")")
         print("username = \(username ?? "")")
         print("token = \(token ?? "")")
+        print("password = \(password ?? "")")
+        
         
         print("realName = \(realName ?? "")")
         print("phone = \(phone ?? ""), countryCode = \(phoneCountryCode ?? "")")
@@ -191,19 +193,20 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     }
     
     required init(unboxer: Unboxer) throws {
-        self.id         = try? unboxer.unbox(key: UserKeyInDB.id.rawValue)
-        self.username   = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
-        self.token      = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
+        self.id = try? unboxer.unbox(key: UserKeyInDB.id.rawValue)
+        self.username = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
+        self.token = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
+        self.password = try? unboxer.unbox(key: UserKeyInDB.password.rawValue)
         
-        self.realName   = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)
-        self.phone      = try? unboxer.unbox(key: UserKeyInDB.phone.rawValue)
-        self.email      = try? unboxer.unbox(key: UserKeyInDB.email.rawValue)
+        self.realName = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)
+        self.phone = try? unboxer.unbox(key: UserKeyInDB.phone.rawValue)
+        self.email = try? unboxer.unbox(key: UserKeyInDB.email.rawValue)
         
-        self.imageUrl   = try? unboxer.unbox(key: UserKeyInDB.imageUrl.rawValue)
+        self.imageUrl = try? unboxer.unbox(key: UserKeyInDB.imageUrl.rawValue)
         self.idCardA_Url = try? unboxer.unbox(key: UserKeyInDB.idCardA_Url.rawValue)
         self.idCardB_Url = try? unboxer.unbox(key: UserKeyInDB.idCardB_Url.rawValue)
         self.passportUrl = try? unboxer.unbox(key: UserKeyInDB.passportUrl.rawValue)
-        self.isVerified  = (try? unboxer.unbox(key: UserKeyInDB.isVerified.rawValue)) ?? false
+        self.isVerified = (try? unboxer.unbox(key: UserKeyInDB.isVerified.rawValue)) ?? false
     }
 }
 

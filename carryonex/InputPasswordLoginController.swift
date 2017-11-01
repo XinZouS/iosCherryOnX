@@ -11,6 +11,7 @@ import Material
 
 class InputPasswordLoginController: UIViewController {
     
+    var username: String?
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32
     

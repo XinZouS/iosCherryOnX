@@ -232,23 +232,5 @@ extension SendingTimeController {
             self.backgroundTransparentView.isHidden = true
             self.timePickerMenuView.isHidden = true
         }
-    }
-
-    
+    }    
 }
-
-
-// MARK: - Pop alert view
-extension SendingTimeController {
-    
-    func displayAlert(title: String, message: String, action: String) {
-        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: action, style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }
-        v.addAction(action)
-        present(v, animated: true, completion: nil)
-    }
-    
-}
-

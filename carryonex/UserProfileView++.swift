@@ -84,7 +84,7 @@ extension UserProfileView {
             let newProfileImg = UIImage(data: data)
             profileImgButton.setImage(newProfileImg, for: .normal)
         }catch let err {
-            print("get errorrrr when loadProfileImageFromLocalFile(), err = \(err)")
+            print("[ERROR]: loadProfileImageFromLocalFile() \(err)")
         }
     }
     
