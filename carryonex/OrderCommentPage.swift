@@ -8,11 +8,20 @@
 
 import UIKit
 
-class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate{
     
+    var transparentView : UIView = {
+        let v = UIView()
+        v.isHidden = true
+        v.backgroundColor = .black
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
+        return v
+    }()
     var array = ["神速","超级细心","骗子","善于沟通","很有责任心"]
-    var request = Request()
+    var forLongIndex = 0
+    var forNameIndex = 0
     
+    var request = Request()
     let commentUserNameCellId = "commentUserNameCellId"
     let commentViewCellId = "commentViewCellId"
     let commentTextviewAndSubmitCellId = "commentTextviewAndSubmitCellId"
@@ -59,8 +68,8 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
         collectionView?.delegate = self
         collectionView?.register(CommentUserNameCell.self, forCellWithReuseIdentifier: commentUserNameCellId)
         collectionView?.register(CommentViewCell.self, forCellWithReuseIdentifier: commentViewCellId)
-        collectionView?.register(CommentTextViewAndSubmitCell.self, forCellWithReuseIdentifier:commentTextviewAndSubmitCellId)
         collectionView?.register(CommentTagCell.self, forCellWithReuseIdentifier:commentTagCellId)
+        collectionView?.register(CommentTextViewAndSubmitCell.self, forCellWithReuseIdentifier:commentTextviewAndSubmitCellId)
     }
     
     /// collectionView delegate
@@ -82,25 +91,35 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
         default:
             cellId = commentTagCellId
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommentBaseCell
         switch indexPath.item {
         case 0 :
-            commentUserNameCell = cell as? CommentUserNameCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommentUserNameCell
+            commentUserNameCell = cell
+            cell.orderCommentPage = self
+            return cell
         case 1:
-            commentViewCell = cell as? CommentViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommentViewCell
+            commentViewCell = cell
+            cell.orderCommentPage = self
+            return cell
         case 2+tagNum:
-            commentTextViewAndSubmmitCell = cell as? CommentTextViewAndSubmitCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as!CommentTextViewAndSubmitCell
+            commentTextViewAndSubmmitCell = cell
+            cell.orderCommentPage = self
+            return cell
         default:
-            commentTagCell = cell as? CommentTagCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommentTagCell
+            commentTagCell = cell
+            cell.commentStateLabel.text  = array[indexPath.item-2]
+            cell.orderCommentPage = self
+            return cell
         }
-        cell.orderCommentPage = self
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let w: CGFloat = collectionView.bounds.width
-        let tagStringLong = 2
         let tagNum = array.count
+        var tagStringLong = 0
         switch UIScreen.main.bounds.width {
         case 320:
             switch indexPath.item {
@@ -109,20 +128,24 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
             case 1:
                 return CGSize(width: w, height: 50)
             case 2+tagNum:
-                return CGSize(width: w, height: 350)
+                return CGSize(width: w, height: 150)
             default:
-                return CGSize(width: 20*tagStringLong, height: 400)
+                tagStringLong = array[forLongIndex].characters.count
+                forLongIndex = forLongIndex+1
+                return CGSize(width: 20*tagStringLong, height: 0)
             }
         case 375:
             switch indexPath.item {
             case 0:
                 return CGSize(width: w, height: 128)
             case 1:
-                return CGSize(width: w, height: 50)
+                return CGSize(width: w, height: 150)
             case 2+tagNum:
-                return CGSize(width: w, height: 440)
+                return CGSize(width: w, height: 240)
             default:
-                return CGSize(width: 20*tagStringLong, height: 400)
+                tagStringLong = array[forLongIndex].characters.count
+                forLongIndex += 1
+                return CGSize(width: 30*tagStringLong, height: 0)
             }
         case 414:
             switch indexPath.item {
@@ -131,20 +154,20 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
             case 1:
                 return CGSize(width: w, height: 50)
             case 2+tagNum:
-                return CGSize(width: w, height: 500)
+                return CGSize(width: w, height: 300)
             default:
-                return CGSize(width: 20*tagStringLong, height: 400)
+                return CGSize(width: 20*tagStringLong, height: 40)
             }
         default:
             switch indexPath.item {
             case 0:
                 return CGSize(width: w, height: 196)
             case 1:
-                return CGSize(width: w, height: 50)
+                return CGSize(width: w, height: 300)
             case 2+tagNum:
-                return CGSize(width: w, height: 540)
+                return CGSize(width: w, height: 300)
             default:
-                return CGSize(width: 20*tagStringLong, height: 400)
+                return CGSize(width: 25*tagStringLong, height: 0)
             }
         }
     }

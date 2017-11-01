@@ -42,6 +42,7 @@ class CommentUserNameCell : CommentBaseCell {
         setupNameLabel()
         setupLocalLabel()
         setupSenderImgBtn()
+        setupUnderlineView()
         //        setupTextField()
         
     }
@@ -63,6 +64,13 @@ class CommentUserNameCell : CommentBaseCell {
         localLabel.addConstraints(left: leftAnchor, top: nameLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
+    }
+    private func setupUnderlineView(){
+        underlineView.backgroundColor = .lightGray
+        addSubview(underlineView)
+        underlineView.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 1)
+        underlineViewBottomConstraint = underlineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
+        underlineViewBottomConstraint?.isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
