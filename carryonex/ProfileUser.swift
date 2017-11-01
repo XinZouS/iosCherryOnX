@@ -122,7 +122,7 @@ class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding
     func setupByLocal(_ dictionary: [String : Any]) {
 //        print("will setup by dict = \(dictionary)")
         // should NOT modify other values if the dictionary didnot contains them!!!
-        self.id          = dictionary["id"]       as? String ?? self.id
+        self.id          = dictionary["id"]       as? String ?? self.id 
         self.username    = dictionary["username"] as? String ?? self.username
         self.token       = dictionary["token"]    as? String ?? self.token
         self.password    = dictionary["password"] as? String ?? self.password

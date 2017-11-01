@@ -77,11 +77,11 @@ class RegisterEmailController: UIViewController {
             h = 40
             w = 150
         case 414:
-            h = 80
-            w = 180
+            h = 60
+            w = 170
         default:
-            h = 80
-            w = 180
+            h = 60
+            w = 170
         }
         view.addSubview(okButton)
         okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)

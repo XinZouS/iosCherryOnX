@@ -18,6 +18,11 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         didSet{
             if isLoading {
                 loadingIndicator.startAnimating()
+                flagPicker.isHidden = true
+                flagButton.isEnabled = false
+                phoneNumberTextField.isEnabled = false
+                agreeCheckbox.isEnabled = false
+                agreeButton.isEnabled = false
             } else {
                 loadingIndicator.stopAnimating()
             }
@@ -114,6 +119,10 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         navigationController?.isNavigationBarHidden = false
+        flagButton.isEnabled = true
+        phoneNumberTextField.isEnabled = true
+        agreeCheckbox.isEnabled = true
+        agreeButton.isEnabled = true
     }
     
     override func viewDidLoad() {
@@ -154,11 +163,11 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
             h = 80
             w = 150
         case 414:
-            h = 120
-            w = 180
+            h = 100
+            w = 170
         default:
-            h = 120
-            w = 180
+            h = 100
+            w = 170
         }
         view.addSubview(nextButton)
         nextButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
