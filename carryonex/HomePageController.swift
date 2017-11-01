@@ -169,7 +169,19 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupBlackBackgroundView()
         setupUserInfoMenuView()
 
-        testApiServers()
+        
+        //Zian: If user is already loggin the app, relogin to refresh the token to
+        //ensure token is in sync with server
+        if ProfileManager.shared.isLoggedIn() {
+            if let username = ProfileManager.shared.getCurrentUser()?.username,
+                let phone = ProfileManager.shared.getCurrentUser()?.phone,
+                let password = ProfileManager.shared.getCurrentUser()?.password {
+                ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (newToken) in
+                    print("NEW TOKEN RENEWED = \(newToken)")
+                    self.testApiServers()
+                }
+            }
+        }
 
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
@@ -460,7 +472,21 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            print("postUpdateUser wallet, msg = \(msg)")
 //        }
 
-
+        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let tripOrders = tripOrders {
+                for order in tripOrders {
+                    print("Trip: \(order.trip)")
+                    print("Requests: \(order.requests!)")
+                }
+            } else {
+                print("Trip order is nil")
+            }
+        }
 
         
         

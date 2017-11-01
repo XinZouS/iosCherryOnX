@@ -642,16 +642,6 @@ extension HomePageController {
             self.displayAlert(title: "✅上传完成", message: msg, action: "朕知道了")
         }
     }
-    
-    func displayAlert(title: String, message: String, action: String) {
-        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: action, style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }
-        v.addAction(action)
-        present(v, animated: true, completion: nil)
-    }
-    
 }
 
 

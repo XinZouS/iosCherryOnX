@@ -15,10 +15,17 @@ protocol PhoneNumberDelegate : class {
 extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     func nextButtonTapped() {
+        
         if (isModifyPhoneNumber){
             modifyPhone = phoneNumberTextField.text!
         } else {
             phoneInput = phoneNumberTextField.text!
+        }
+        
+        guard let phoneNumber = phoneNumberTextField.text else {
+            //alert!!
+            print("Phone number is empty")
+            return
         }
         
         isLoading = true
@@ -55,7 +62,9 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                     })
                     
                 } else {
-                    self.navigationController?.pushViewController(InputPasswordLoginController(), animated: true)
+                    let inputPasswordLoginViewController = InputPasswordLoginController()
+                    inputPasswordLoginViewController.username = phoneNumber
+                    self.navigationController?.pushViewController(inputPasswordLoginViewController, animated: true)
                 }
                 
             } else {
