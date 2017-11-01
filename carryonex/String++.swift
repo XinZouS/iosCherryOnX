@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+    
     func formatToPhoneNum(countryCode: String) -> String {
         var phone = self
         let len = self.characters.count
@@ -34,6 +35,14 @@ extension String {
             )
         }
         return "+\(countryCode) \(phone)"
+    }
+    
+    func isTrue() -> Bool {
+        return self.lowercased() == "true"
+    }
+    
+    func isFalse() -> Bool {
+        return self.lowercased() == "false"
     }
 }
 

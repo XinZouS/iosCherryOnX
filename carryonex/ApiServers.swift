@@ -177,9 +177,16 @@ class ApiServers : NSObject {
             }
             
             //TODO: Bad Check
-            if let isExist = response["status_code"] as? Int {
-                completion(isExist != 200, nil)
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let isExists = data["isExists"] as? String {
+                    print("getIsUserExisted: isExists field value \(isExists)")
+                    completion(isExists.isTrue(), nil)
+                } else {
+                    print("getIsUserExisted: isExists field empty")
+                    completion(false, nil)
+                }
             } else {
+                print("getIsUserExisted: Data field empty")
                 completion(false, nil)
             }
         }
@@ -668,9 +675,12 @@ class ApiServers : NSObject {
      */
     private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]?, Error?) -> Void)) {
         let requestUrlStr = host + route
+        
         Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
             
-            print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue) as Any)
+            if let urlRequest = response.request?.url {
+                print("Request: \(urlRequest), Params: \(parameters)")
+            }
             
             if let responseValue = response.value as? [String: Any] {
                 completion(responseValue, nil)
@@ -687,7 +697,9 @@ class ApiServers : NSObject {
         let requestUrlStr = host + route
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             
-            print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue) as Any)
+            if let requestBody = response.request?.httpBody {
+                print(NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) as Any)
+            }
             
             if let responseValue = response.value as? [String: Any] {
                 completion(responseValue, nil)
