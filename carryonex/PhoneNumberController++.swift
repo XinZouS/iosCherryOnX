@@ -23,7 +23,12 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         
         isLoading = true
         
-        ApiServers.shared.getIsUserExisted { (isExist) in
+        ApiServers.shared.getIsUserExisted { (isExist, error) in
+            
+            if let error = error {
+                print("getIsUserExisted error: \(error.localizedDescription)")
+                return
+            }
             
             self.isLoading = false
             
