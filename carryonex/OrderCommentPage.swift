@@ -120,55 +120,17 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
         let w: CGFloat = collectionView.bounds.width
         let tagNum = array.count
         var tagStringLong = 0
-        switch UIScreen.main.bounds.width {
-        case 320:
-            switch indexPath.item {
-            case 0:
-                return CGSize(width: w, height: 80)
-            case 1:
-                return CGSize(width: w, height: 50)
-            case 2+tagNum:
-                return CGSize(width: w, height: 150)
-            default:
-                tagStringLong = array[forLongIndex].characters.count
-                forLongIndex = forLongIndex+1
-                return CGSize(width: 20*tagStringLong, height: 0)
-            }
-        case 375:
-            switch indexPath.item {
-            case 0:
-                return CGSize(width: w, height: 128)
-            case 1:
-                return CGSize(width: w, height: 150)
-            case 2+tagNum:
-                return CGSize(width: w, height: 240)
-            default:
-                tagStringLong = array[forLongIndex].characters.count
-                forLongIndex += 1
-                return CGSize(width: 30*tagStringLong, height: 0)
-            }
-        case 414:
-            switch indexPath.item {
-            case 0:
-                return CGSize(width: w, height: 167)
-            case 1:
-                return CGSize(width: w, height: 50)
-            case 2+tagNum:
-                return CGSize(width: w, height: 300)
-            default:
-                return CGSize(width: 20*tagStringLong, height: 40)
-            }
+        switch indexPath.item {
+        case 0:
+            return CGSize(width: w, height: 128)
+        case 1:
+            return CGSize(width: w, height: 150)
+        case 2+tagNum:
+            return CGSize(width: w, height: 240)
         default:
-            switch indexPath.item {
-            case 0:
-                return CGSize(width: w, height: 196)
-            case 1:
-                return CGSize(width: w, height: 300)
-            case 2+tagNum:
-                return CGSize(width: w, height: 300)
-            default:
-                return CGSize(width: 25*tagStringLong, height: 0)
-            }
+            tagStringLong = array[forLongIndex].characters.count
+            forLongIndex += 1
+            return CGSize(width: 30*tagStringLong, height: 0)
         }
     }
     

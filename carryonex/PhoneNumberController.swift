@@ -83,7 +83,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     lazy var agreeButton : UIButton = {
         let attributes : [String: Any] = [
-            NSFontAttributeName : UIFont.systemFont(ofSize: 12),
+            NSFontAttributeName : UIFont.systemFont(ofSize: 14),
             NSForegroundColorAttributeName : UIColor.blue,
             NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
         ]
@@ -195,7 +195,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         agreeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
         agreeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
         view.addSubview(agreeButton)
-        agreeButton.addConstraints(left: agreeLabel.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 1, topConstent: 0, rightConstent: 0, bottomConstent: 10, width: 52, height: 30)
+        agreeButton.addConstraints(left: agreeLabel.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 1, topConstent: 0, rightConstent: 0, bottomConstent: 10, width: 72, height: 30)
         agreeButton.centerYAnchor.constraint(equalTo: agreeLabel.centerYAnchor).isActive = true
         
         view.addSubview(agreeCheckbox)

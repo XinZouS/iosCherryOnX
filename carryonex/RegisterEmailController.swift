@@ -58,6 +58,7 @@ class RegisterEmailController: UIViewController {
         emailField.keyboardAppearance = .dark
         emailField.isPlaceholderUppercasedWhenEditing = true
         emailField.addTarget(self, action: #selector(checkEmail), for: .editingChanged)
+        emailField.keyboardType = .emailAddress
         let leftView = UIImageView()
         leftView.image = Icon.email
         emailField.leftView = leftView
