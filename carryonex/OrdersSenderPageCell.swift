@@ -59,6 +59,7 @@ class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogSenderCell, for: indexPath) as! OrderLogSenderCell
         
+        cell.ordersLogCtl = self.ordersLogCtl
         if indexPath.item < (dataList?.count)! {
             cell.request = dataList?[indexPath.item]
         }

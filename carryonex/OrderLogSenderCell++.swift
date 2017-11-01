@@ -31,6 +31,7 @@ extension OrderLogSenderCell {
             ]
             let attributeString = NSAttributedString(string: "联系", attributes: attributes)
             contactButton.setAttributedTitle(attributeString, for: .normal)
+            contactButton.addTarget(self, action: #selector(contactInfoButtonTapped), for: .touchUpInside)
             
         case RequestStatus.shipping.rawValue:
             statusLabel.layer.borderColor = UIColor.lightGray.cgColor
@@ -42,8 +43,14 @@ extension OrderLogSenderCell {
             statusLabel.layer.borderColor = UIColor.lightGray.cgColor
             statusLabel.textColor = .lightGray
             statusLabel.backgroundColor = pickerColorLightGray
-            contactButton.isHidden = true
-            
+            contactButton.isHidden = false
+            let attributes : [String:Any] = [
+                NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+                NSForegroundColorAttributeName: UIColor.black
+            ]
+            let attributeString = NSAttributedString(string: "评价", attributes: attributes)
+            contactButton.setAttributedTitle(attributeString, for: .normal)
+            contactButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
         default:
             print("error::: get undefine status of Request: \(rq.statusId)")
         }
@@ -108,6 +115,13 @@ extension OrderLogSenderCell {
     
     func contactInfoButtonTapped(){
         print("TODO: contactInfoButtonTapped()...")
+    }
+    
+    func commentButtonTapped(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let orderCommentPage = OrderCommentPage(collectionViewLayout: layout)
+        ordersLogCtl?.navigationController?.pushViewController(orderCommentPage, animated: true)
     }
     
     func detailButtonTapped(){

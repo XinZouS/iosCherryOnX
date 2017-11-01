@@ -32,15 +32,15 @@ extension RequestController: UITextFieldDelegate {
 
         switch textField.tag {
             
-        case 1: // starting address 取货地址
+        case 0: // starting address 取货地址
             view.endEditing(true)
             startingTextFieldTapped()
             
-        case 2: // destination address 收货地址
+        case 1: // destination address 收货地址
             view.endEditing(true)
             destinationTextFieldTapped()
 
-        case 3: // volume
+        case 2: // volume
             volumPickerMenu?.showUpAnimation(withTitle: "包裹长，宽，高(inch)")
             view.endEditing(true)
         default:
@@ -64,26 +64,23 @@ extension RequestController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-//        cell00Youxiang?.textField.resignFirstResponder()
         cell01Departure?.textField.resignFirstResponder()
         cell02Destination?.textField.resignFirstResponder()
         cell03Volum?.textField.resignFirstResponder()
         cell04Weight?.textField.resignFirstResponder()
-        //cell05SendingTime?.textField.resignFirstResponder()
-        //cell06ExpectDelivery?.textField.resignFirstResponder()
         cell07Cost?.textField.resignFirstResponder()
     }
     private func isWeightValidatedIn(_ textField: UITextField) {
-        if textField.tag == 4 {
+        if textField.tag == 3 {
             is04WeightSet = (textField.text != nil && textField.text != "" && textField.text != "0")
         }
     }
     private func isVolumValidatedIn(_ textField: UITextField) {
-        if textField.tag == 3 {
+        if textField.tag == 2 {
             is03VolumSet = (textField.text != nil && textField.text != "")
         }
     }
-
+    
 
     func volumeMenuOKButtonTapped(){
         print("volumeMenuOKButtonTapped")
@@ -163,12 +160,12 @@ extension RequestController: UITextFieldDelegate {
         
         textFieldsInAllCellResignFirstResponder()
         
-        setPaymentIsEnable()
+//        setPaymentIsEnable()
     }
 
     private func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
-        let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet //&& is05SendingTimeSet && is06ExpectDeliverySet
+        let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet && is07takePicture//&& is05SendingTimeSet && is06ExpectDeliverySet
         //paymentButton.isEnabled = isOk
         paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
     }

@@ -21,7 +21,6 @@ var flagsTitle : [String] = ["🇺🇸  +1", "🇨🇳 +86", "🇭🇰 852", "�
 var isModifyPhoneNumber : Bool = false
 var isUserAgree: Bool = false
 var isRegister : Bool = false
-var alreadyExist:Bool = false
 var isOrderList:Bool = false
 
 //注册使用

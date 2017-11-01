@@ -157,24 +157,43 @@ class ApiServers : NSObject {
         }
     }
     
-    //user existed
-    func getIsUserExisted(handleInfo: @escaping (Bool) -> Void){
+    func getIsUserExisted(completion: @escaping (Bool, Error?) -> Void){
+        
         let sessionStr = hostVersion + "/users/exist"
         let headers:[String: Any] = [
             ServerKey.username.rawValue: phoneInput,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken
         ]
-        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            if let isExist = responsDictionary["status_code"] as? Int {
-                handleInfo(isExist != 200)
-            }else{
-                handleInfo(false)
+        
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getIsUserExisted response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            //TODO: Bad Check
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let isExists = data["isExists"] as? String {
+                    print("getIsUserExisted: isExists field value \(isExists)")
+                    completion(isExists.isTrue(), nil)
+                } else {
+                    print("getIsUserExisted: isExists field empty")
+                    completion(false, nil)
+                }
+            } else {
+                print("getIsUserExisted: Data field empty")
+                completion(false, nil)
             }
         }
     }
 
     func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
+        
         let route = hostVersion + "/users/login"
         let parameter:[String:Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
@@ -184,6 +203,7 @@ class ApiServers : NSObject {
                 ServerKey.password.rawValue: password
             ]
         ]
+        
         postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
             guard let response = response else {
                 if let error = error {
@@ -246,10 +266,11 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(_ propertyUrl: ServerUserPropUrl, handleInfo: @escaping (String) -> Void){
+    func getUserInfo(_ propertyUrl: ServerUserPropUrl, completion: @escaping (String?) -> Void){
+        
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUserInfo: Profile user empty, please login to get user info")
-            handleInfo("")
+            completion(nil)
             return
         }
         
@@ -261,20 +282,32 @@ class ApiServers : NSObject {
             ServerKey.username.rawValue : profileUser.username ?? ""
         ]
         
-        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            if let getDict = responsDictionary["data"] as? [String:Any], getDict.count != 0 {
-                let getStr = (getDict["string"] as? String) ?? ""
-                handleInfo(getStr)
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getUserInfo response error: \(error.localizedDescription)")
+                }
+                completion(error?.localizedDescription)
+                return
+            }
+            
+            if let data = response["data"] as? [String: Any], data.count != 0 {
+                let getStr = data["string"] as? String
+                completion(getStr)
+                
+            } else {
+                completion(nil)
             }
         }
     }
     
     
     /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
-    func getUserInfoAll(handleInfo: @escaping ([String: Any]?) -> Void) {
+    func getUserInfoAll(completion: @escaping ([String: Any]?) -> Void) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUserInfoAll: Profile user empty, please login to get user info all")
-            handleInfo(nil)
+            completion(nil)
             return
         }
         
@@ -288,26 +321,36 @@ class ApiServers : NSObject {
         
         let currToken = profileUser.token ?? ""
         
-        getDataWithUrlRoute(sessionStr, parameters: headers) { (responseDictionary) in
-            if let data = responseDictionary["data"] as? [String : Any] {
-                handleInfo(data)
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getUserInfoAll response error: \(error.localizedDescription)")
+                }
+                completion(nil)
+                return
+            }
+            
+            if let data = response["data"] as? [String : Any] {
                 do {
-                    // TODO: change the key to "user"
                     let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
                     user.token = currToken
                     ProfileManager.shared.updateCurrentUser(user)
+                    completion(data)
+                    
                 } catch let err {
-                    print("get error when getUserInfoAll, err = \(err)")
+                    completion(nil)
+                    print("get error when getUserInfoAll, err = \(err.localizedDescription)")
                 }
             }
         }
     }
     
-    func getUserLogsOf(type: ServerUserLogUrl, handleLogArray: @escaping ([Any]?) -> Void){
+    func getUserLogsOf(type: ServerUserLogUrl, completion: @escaping([Any]?) -> Void){
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUserLogsOf: Profile user empty, please login to get user logs")
-            handleLogArray(nil)
+            completion(nil)
             return
         }
         
@@ -318,16 +361,26 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue : profileUser.username ?? ""
         ]
-        getDataWithUrlRoute(sessionStr, parameters: headers) { (responsDictionary) in
-            if let data = responsDictionary["data"] as? [String : Any] {
+        
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getUserLogsOf response error: \(error.localizedDescription)")
+                }
+                completion(nil)
+                return
+            }
+            
+            if let data = response["data"] as? [String : Any] {
                 do {
                     if type == ServerUserLogUrl.myCarries {
                         let carries: [Request] = try unbox(dictionary: data, atKey: type.rawValue)
-                        handleLogArray(carries)
+                        completion(carries)
                     
                     } else if type == ServerUserLogUrl.myTrips {
                         let trips : [Trip] = try unbox(dictionary: data, atKey: type.rawValue)
-                        handleLogArray(trips)
+                        completion(trips)
                     }
                     
                 } catch let err  {
@@ -358,6 +411,7 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
+            
             guard let response = response else {
                 if let error = error {
                     print("postUpdateUserInfo response error: \(error.localizedDescription)")
@@ -382,11 +436,11 @@ class ApiServers : NSObject {
         }
     }
     
-    func getAllUsers(callback: @escaping(([User]?) -> Void)) {
+    func getAllUsers(completion: @escaping(([User]?) -> Void)) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getAllUsers: Profile user empty, pleaes login to get all users list")
-            callback(nil)
+            completion(nil)
             return
         }
         
@@ -396,14 +450,26 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.timestamp.rawValue: Date.getTimestampNow()
         ]
-        getDataWithUrlRoute(route, parameters: parameters) { (responseValue) in
-            if let data = responseValue["data"] as? [String: Any] {
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getAllUsers response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response["data"] as? [String: Any] {
                 do {
                     let users : [User] = try unbox(dictionary: data, atKey:"users")
-                    callback(users)
+                    completion(users)
                 } catch let error as NSError {
                     print("getAllUsers error: \(error.localizedDescription)")
                 }
+            } else {
+                print("getAllUsers: Empty data field")
+                completion(nil)
             }
         }
     }
@@ -411,9 +477,19 @@ class ApiServers : NSObject {
     
     //MARK: - Config API
     func getConfig() {
+        
         let route = "/config"
-        getDataWithUrlRoute(route, parameters: [:]) { (responseValue) in
-            if let data = responseValue["data"] as? [String : Any] {
+        
+        getDataWithUrlRoute(route, parameters: [:]) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getConfig response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response["data"] as? [String : Any] {
                 do {
                     let config : Config = try unbox(dictionary: data, atKey: "config")
                     self.config = config
@@ -458,16 +534,27 @@ class ApiServers : NSObject {
             headers["end"] = q2
         }
         
-        getDataWithUrlRoute(route, parameters: headers) { (response) in
+        getDataWithUrlRoute(route, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getTrips response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            //TODO: REDO THIS CHECK
             let msg = response["message"] as! String
             if let data = response["data"] as? [String:Any] {
                 do {
                     let trips : [Trip] = try unbox(dictionary: data, atKey: "trip")
                     completion(msg, trips)
+                    
                 } catch let err {
                     print("getTrips = \(err.localizedDescription)")
                 }
-            }else{
+                
+            } else{
                 completion(msg, nil)
             }
         }
@@ -492,6 +579,7 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in
+            
             guard let response = response else {
                 if let error = error {
                     print("postTripInfo response error: \(error.localizedDescription)")
@@ -537,6 +625,7 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
+            
             guard let response = response else {
                 if let error = error {
                     print("postAddressInfo response error: \(error.localizedDescription)")
@@ -584,14 +673,21 @@ class ApiServers : NSObject {
     /**
      * ✅ get data with url string, return NULL, try with Alamofire and callback
      */
-    private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]) -> Void)) {
+    private func getDataWithUrlRoute(_ route: String, parameters: [String: Any], completion: @escaping(([String : Any]?, Error?) -> Void)) {
         let requestUrlStr = host + route
+        
         Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
+            
+            if let urlRequest = response.request?.url {
+                print("Request: \(urlRequest), Params: \(parameters)")
+            }
+            
             if let responseValue = response.value as? [String: Any] {
-                completion(responseValue)
+                completion(responseValue, nil)
+            } else {
+                completion(nil, response.result.error)
             }
         }
-        
     }
     
     /**
@@ -601,7 +697,9 @@ class ApiServers : NSObject {
         let requestUrlStr = host + route
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             
-            print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue) as Any)
+            if let requestBody = response.request?.httpBody {
+                print(NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) as Any)
+            }
             
             if let responseValue = response.value as? [String: Any] {
                 completion(responseValue, nil)

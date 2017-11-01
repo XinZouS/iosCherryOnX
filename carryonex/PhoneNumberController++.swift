@@ -23,11 +23,15 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         
         isLoading = true
         
-        ApiServers.shared.getIsUserExisted { (isExist) in
+        ApiServers.shared.getIsUserExisted { (isExist, error) in
+            
+            if let error = error {
+                print("getIsUserExisted error: \(error.localizedDescription)")
+                return
+            }
             
             self.isLoading = false
             
-            alreadyExist = isExist   //Zian: why?
             if isExist {
                 if (isModifyPhoneNumber == true) {
                     guard let profileUser = ProfileManager.shared.getCurrentUser() else {
@@ -212,6 +216,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             zoneCodeInput = codeOfFlag[flagsTitle[row]]!
         }
         flagButton.setTitle(flagsTitle[row], for: .normal)
+        checkPhone()
 //        print("pick countryCode: " , ProfileManager.shared.currentUser?.phoneCountryCode)
     }
     

@@ -39,7 +39,7 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     let expectDeliveryTimes:[String] = ["三天内送达", "一周内送达", "二周内送达"]
 
     let labelNames = [ "发件地址:", "收货地址:", "货物总体积:", "货物总重量:", "货物清晰照:", "运货费用:"]
-    let placeholders = ["请输入承运人的行程游箱号", "请输入发件地址", "请选择货物送达位置", "请选择包裹的尺寸(inch)", "请填写包裹总重量(磅)"]
+    let placeholders = ["请输入发件地址", "请选择货物送达位置", "请选择包裹的尺寸(inch)", "请填写包裹总重量(磅)"]
 
     let basicCellId = "basicCellId"         // 1 - 3
     let weightCellId = "weightCellId"       // 4
@@ -58,7 +58,7 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     
     /// for paymentButton.isEnable condictions
     var is01DepartureSet = false, is02DestinationSet = false, is03VolumSet = false
-    var is04WeightSet = false, is05SendingTimeSet = false, is06ExpectDeliverySet = false
+    var is04WeightSet = false, is05SendingTimeSet = false, is06ExpectDeliverySet = false,is07takePicture = false
     
     
     var volumPickerMenu : UIPickerMenuView?
@@ -245,11 +245,11 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         var cellId : String = basicCellId
         
         switch indexPath.item {
-        case 4 :
+        case 3 :
             cellId = weightCellId
-        case 5 :
+        case 4 :
             cellId = imageCellId
-        case 6 :
+        case 5 :
             cellId = costCellId
         default:
             cellId = basicCellId
@@ -270,24 +270,17 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         case 1 :
             cell02Destination = cell
             cell02Destination?.textField.placeholder = placeholders[indexPath.item]
-            
         case 2 :
             cell03Volum = cell
             cell03Volum?.textField.placeholder = placeholders[indexPath.item]
         case 3 :
-            if let cell = cell as? WeightCell {
-                cell04Weight = cell
-                cell04Weight?.textField.placeholder = placeholders[indexPath.item]
-            }
+            cell04Weight = cell as? WeightCell
+            cell04Weight?.textField.placeholder = placeholders[indexPath.item]
         case 4 :
-            if let cell = cell as? ImageCell {
-                cell08Image = cell
-            }
+            cell08Image = cell as? ImageCell
         case 5 :
-            if let cell = cell as? CostCell {
-                cell07Cost = cell
-                cell07Cost?.addExtraContentToRight(costSumLabel)
-            }
+            cell07Cost = cell as? CostCell
+            cell07Cost?.addExtraContentToRight(costSumLabel)
         default:
             cell.textField.isHidden = true
         }
@@ -299,9 +292,7 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         let h : CGFloat = 50
         
         switch indexPath.item {
-        case 0:
-            return CGSize(width: w, height: 96)
-        case 5:
+        case 4:
             return CGSize(width: w, height: UIDevice.current.userInterfaceIdiom == .phone ? 180 : 260)
         default:
             return CGSize(width: w, height: h)

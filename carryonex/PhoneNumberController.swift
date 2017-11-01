@@ -145,10 +145,25 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     private func setupnextButton(){
+        var h = 0,w = 0
+        switch UIScreen.main.bounds.width {
+        case 320:
+            h = 30
+            w = 130
+        case 375:
+            h = 80
+            w = 150
+        case 414:
+            h = 120
+            w = 180
+        default:
+            h = 120
+            w = 180
+        }
         view.addSubview(nextButton)
         nextButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
-        nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
-        nextButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
+        nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: CGFloat(w)).isActive = true
+        nextButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
     }
     
     private func setupPhoneNumTextField(){
@@ -159,7 +174,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         phoneNumberTextField.clearButtonMode = .whileEditing
         phoneNumberTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
         phoneNumberTextField.keyboardType = .numberPad
-        view.layout(phoneNumberTextField).top(200).left(100).right(20)
+        view.layout(phoneNumberTextField).center(offsetY: -120).left(100).right(20)
     }
     
     
@@ -180,7 +195,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         agreeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
         agreeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
         view.addSubview(agreeButton)
-        agreeButton.addConstraints(left: agreeLabel.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 1, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 52, height: 30)
+        agreeButton.addConstraints(left: agreeLabel.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 1, topConstent: 0, rightConstent: 0, bottomConstent: 10, width: 52, height: 30)
         agreeButton.centerYAnchor.constraint(equalTo: agreeLabel.centerYAnchor).isActive = true
         
         view.addSubview(agreeCheckbox)
