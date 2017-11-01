@@ -56,10 +56,10 @@ class RegisterMainController: UIViewController{
             h = 468
         case 414:
             w = 424
-            h = 636
+            h = 536
         default:
             w = 424
-            h = 636
+            h = 536
         }
         imageView.frame = CGRect(x:0, y:0, width:w, height:h)
         self.view.addSubview(imageView)
@@ -83,9 +83,9 @@ class RegisterMainController: UIViewController{
         case 375:
             h = 518
         case 414:
-            h = 686
+            h = 586
         default:
-            h = 686
+            h = 586
         }
         phoneNumberTextField = TextField()
         phoneNumberTextField.placeholder = "请输入手机号"
