@@ -10,4 +10,21 @@ import UIKit
 
 extension OrderCommentPage {
     
+    func textFieldDidBeginEditing(_ textView: UITextView) {
+        transparentView.isHidden = false
+        textView.becomeFirstResponder()
+    }
+    
+    func textFieldsInAllCellResignFirstResponder(){
+        transparentView.isHidden = true
+        commentTextViewAndSubmmitCell?.commentTextView.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
+        }
+    }
 }
