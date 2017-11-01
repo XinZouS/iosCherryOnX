@@ -158,7 +158,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         }
         
         fetchUserFromLocalDiskAndSetup()
-        print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
+        //print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
         //setupNavigationBar()
         setupMapView()
         setupSearchContents()
@@ -182,7 +182,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
-         print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
+        //print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
         userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
     }
     override func viewWillDisappear(_ animated: Bool) {

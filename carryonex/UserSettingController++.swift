@@ -72,10 +72,8 @@ extension UserSettingController {
     func logoutButtonTapped(){
         isModifyPhoneNumber = false
         isRegister = false
-        alreadyExist = false
         ProfileManager.shared.removeUser() // remove local user for new user to login
         userProfileView?.removeProfileImageFromLocalFile()
-        
         dismiss(animated: true, completion: nil)
     }
 
