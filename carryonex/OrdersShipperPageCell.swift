@@ -21,15 +21,17 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
         }
     }
     
-    var pairList = [Pair]()
+    var pairList: [Pair] = []
 
         
     let cellIdOrderLogShipperHeader = "cellIdOrderLogShipperHeader"
-    let cellIdOrderLogShipperCell = "cellIdOrderLogShipperCell"
+    let cellIdOrderLogShipperCell   = "cellIdOrderLogShipperCell"
+    let cellIdOrderLogShipperEmtpyCell = "cellIdOrderLogShipperEmtpyCell"
     
     override func registerCollectionView(){
         collectionView.register(OrderLogShipperCell.self, forCellWithReuseIdentifier: cellIdOrderLogShipperCell)
         collectionView.register(OrdersShipperHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: cellIdOrderLogShipperHeader)
+        collectionView.register(OrdersLogShipperEmptyCell.self, forCellWithReuseIdentifier: cellIdOrderLogShipperEmtpyCell)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -40,19 +42,26 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
         if pairList.count == 0 {
             return 0
         }else{
-            return pairList[section].requests.count
+            let n = pairList[section].requests.count
+            return n == 0 ? 1 : n // 1 is for displaying an empty cell as hint for user
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperCell, for: indexPath) as! OrderLogShipperCell
-        
         let pair = pairList[indexPath.section]
-        for req in pair.requests {
-            cell.request = req
-        }
 
-        return cell
+        if pair.requests.count == 0 { // display an empty cell as hint for user
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperEmtpyCell, for: indexPath) as! OrdersLogShipperEmptyCell
+            
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperCell, for: indexPath) as! OrderLogShipperCell
+//            for req in pair.requests {
+//                cell.request = req
+//            }
+            cell.request = pair.requests[indexPath.item]
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

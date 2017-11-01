@@ -15,6 +15,10 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
     
     override func dataListDidSet(){
         guard let data = dataList, data.count > 0 else { return }
+
+        let emptyPair = Pair(Trip(), []) // TODO: remove this, for testing only.
+        self.pairList.append(emptyPair)
+        
         for req in data {
 //            let tId = req.tripId ?? ""
 //            ApiServers.shared.getTrips(queryRoute: .infoById, query: tId, query2: nil, completion: { (msg, getTrips) in
@@ -23,10 +27,12 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
 //                    self.pairList.append(newPair)
 //                }
 //            })
-            // fake data for testing:
+            
+            //TODO: should get data from Server, now fake data for testing:
             let matchTrip = Trip()
             let newPair = Pair(matchTrip, [req, req])
             self.pairList.append(newPair)
+            
         }
         self.collectionView.reloadData()
 //        DispatchQueue.main.async {
