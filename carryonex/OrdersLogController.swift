@@ -23,6 +23,7 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "我的游箱"
         
         setupNavigationBar()
         
