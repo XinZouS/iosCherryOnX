@@ -23,7 +23,6 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
     
     var pairList: [Pair] = []
 
-        
     let cellIdOrderLogShipperHeader = "cellIdOrderLogShipperHeader"
     let cellIdOrderLogShipperCell   = "cellIdOrderLogShipperCell"
     let cellIdOrderLogShipperEmtpyCell = "cellIdOrderLogShipperEmtpyCell"
@@ -39,12 +38,8 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if pairList.count == 0 {
-            return 0
-        }else{
-            let n = pairList[section].requests.count
-            return n == 0 ? 1 : n // 1 is for displaying an empty cell as hint for user
-        }
+        let n = pairList[section].requests.count
+        return n == 0 ? 1 : n // 1 is for displaying an empty cell as hint for user
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -52,13 +47,10 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
 
         if pair.requests.count == 0 { // display an empty cell as hint for user
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperEmtpyCell, for: indexPath) as! OrdersLogShipperEmptyCell
-            
+            cell.ordersLogCtl = self.ordersLogCtl
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperCell, for: indexPath) as! OrderLogShipperCell
-//            for req in pair.requests {
-//                cell.request = req
-//            }
             cell.request = pair.requests[indexPath.item]
             return cell
         }

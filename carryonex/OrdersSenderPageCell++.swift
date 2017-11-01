@@ -18,7 +18,15 @@ extension OrdersSenderPageCell {
     }
     
     func dataListDidSet(){
-        print(" --- OrdersSenderPageCell.dataListDidSet()")
+        guard let data = dataList else { return }
+        
+        guard data.count > 0 else {
+            collectionView.isHidden = true //backgroundColor = .clear
+            return
+        }
+        
+        collectionView.isHidden = false
+
     }
 
     
@@ -48,7 +56,7 @@ extension OrdersSenderPageCell {
         r5.cost = 650.80
         
         let fakeRequests = [r0, r1, r2, r3, r4, r5]
-        self.dataList = fakeRequests
+        self.dataList = [] //fakeRequests
         
         
 //        ApiServers.sharedInstance.fetchRequests { (requests: [Request]) in
@@ -73,5 +81,15 @@ extension OrdersSenderPageCell {
         print("TODO: updateUIContentsForRequestsList [..] ...")
     }
     
+    func backgroundButtonTapped(){
+        guard let id = self.reuseIdentifier else { return }
+        if id == ordersLogCtl.cellIdSenderPage {
+            ordersLogCtl.navigationController?.pushViewController(ItemListYouxiangInputController(), animated: true)
+        }else{
+            let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
+            ordersLogCtl.navigationController?.pushViewController(postTripCtl, animated: true)
+        }
+
+    }
     
 }

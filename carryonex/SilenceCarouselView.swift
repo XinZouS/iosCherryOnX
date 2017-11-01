@@ -134,14 +134,14 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
             
             self.otherImgView = UIImageView(frame: self.bounds)
             self.otherImgView?.isUserInteractionEnabled = true
-            self.otherImgView!.contentMode = .scaleAspectFill
+            self.otherImgView!.contentMode = .scaleAspectFit
             self.otherImgView!.clipsToBounds = true;
             self.scrollView!.addSubview(self.otherImgView!)
             self.otherImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappingImage)))
             
             self.currentImgView = UIImageView(frame: self.bounds)
             self.currentImgView?.isUserInteractionEnabled = true
-            self.currentImgView!.contentMode = .scaleAspectFill
+            self.currentImgView!.contentMode = .scaleAspectFit
             self.currentImgView!.clipsToBounds = true;
             self.currentImgView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappingImage)))
             self.scrollView!.addSubview(self.currentImgView!)

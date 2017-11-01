@@ -15,6 +15,7 @@ class OrdersLogShipperEmptyCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let b = UILabel()
         b.numberOfLines = 2
+        b.font = UIFont.systemFont(ofSize: 14)
         b.textAlignment = .center
         b.textColor = .lightGray
         b.text = "你还没收到新的订单呢，\r快去分享你的行程给好友吧！"
@@ -28,8 +29,6 @@ class OrdersLogShipperEmptyCell: UICollectionViewCell {
         b.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         b.setAttributedTitle(str, for: .normal)
         b.backgroundColor = buttonThemeColor
-        b.layer.masksToBounds = true
-        b.layer.cornerRadius = 20
         return b
     }()
     
@@ -37,12 +36,12 @@ class OrdersLogShipperEmptyCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = pickerColorLightGray
         
-        let margin: CGFloat = 30
+        let margin: CGFloat = 90
         addSubview(titleLabel)
-        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: margin, topConstent: 10, rightConstent: margin, bottomConstent: 0, width: 0, height: 40)
+        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: margin, topConstent: 5, rightConstent: margin, bottomConstent: 0, width: 0, height: 50)
         
         addSubview(shareButton)
-        shareButton.addConstraints(left: leftAnchor, top: titleLabel.bottomAnchor, right: rightAnchor, bottom: bottomAnchor, leftConstent: margin, topConstent: 5, rightConstent: margin, bottomConstent: 5, width: 0, height: 0)
+        shareButton.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: bottomAnchor, leftConstent: margin, topConstent: 0, rightConstent: margin, bottomConstent: 10, width: 0, height: 40)
     }
     
     
@@ -60,7 +59,7 @@ class OrdersLogShipperEmptyCell: UICollectionViewCell {
 extension OrdersLogShipperEmptyCell {
     
     func shareButtonTapped(){
-        ordersLogCtl?.present(WaitingController(), animated: true, completion: nil)
+        ordersLogCtl?.navigationController?.pushViewController(WaitingController(), animated: true)
     }
     
     

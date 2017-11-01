@@ -14,34 +14,28 @@ import Foundation
 extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
     
     override func dataListDidSet(){
-        guard let data = dataList, data.count > 0 else { return }
+        guard let data = dataList else { return }
+        
+        guard data.count > 0 else {
+            collectionView.isHidden = true
+            return
+        }
+        collectionView.isHidden = false
 
         let emptyPair = Pair(Trip(), []) // TODO: remove this, for testing only.
         self.pairList.append(emptyPair)
-        
         for req in data {
-//            let tId = req.tripId ?? ""
-//            ApiServers.shared.getTrips(queryRoute: .infoById, query: tId, query2: nil, completion: { (msg, getTrips) in
-//                if let matchTrip = getTrips?.first as? Trip {
-//                    let newPair = Pair(matchTrip, [req])
-//                    self.pairList.append(newPair)
-//                }
-//            })
-            
             //TODO: should get data from Server, now fake data for testing:
             let matchTrip = Trip()
             let newPair = Pair(matchTrip, [req, req])
             self.pairList.append(newPair)
-            
         }
         self.collectionView.reloadData()
-//        DispatchQueue.main.async {
-//
-//        }
+
     }
     
+    // TODO: fetchRequest from Server!!
     override func fetchRequests() {
-        print("fetchRequests in OrdersShipperPageCell++")
         
         let r1 = Request.fakeRequestDemo()
         r1.cost = 30.25
@@ -58,7 +52,7 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
         r4.cost = 9.8
         
         let fakeRequests = [r1, r2, r3, r4]
-        self.dataList = fakeRequests
+        self.dataList = [] //fakeRequests
         
         
 //        ApiServers.sharedInstance.fetchRequests { (requests: [Request]) in
@@ -67,6 +61,5 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
 //        }
     }
 
-    
     
 }
