@@ -82,6 +82,9 @@ class ApiServers : NSObject {
         case phone     = "phone"
         case email     = "email"
         case timestamp = "timestamp"
+        case pageCount = "page_count"
+        case offset = "offset"
+        case userType = "user_type"
     }
     
     
@@ -94,7 +97,6 @@ class ApiServers : NSObject {
     private let hostVersion = "/api/1.0"
     
     var config: Config?
-    
     
     private override init() {
         super.init()
@@ -118,6 +120,7 @@ class ApiServers : NSObject {
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData
         ]
+        
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             
             guard let response = response else {
@@ -130,20 +133,13 @@ class ApiServers : NSObject {
             
             let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                if let token = data[ServerKey.userToken.rawValue] as? String {
-                    
-                    let profileUser = ProfileUser()
-                    profileUser.token = token
-                    ProfileManager.shared.login(user: profileUser)
-                    
-                } else {
-                    print("Unable to find token...")
-                    callback(false, "Unable to find token")
-                }
-                
                 do {
-                    let user: ProfileUser = try unbox(dictionary: data)
-                    ProfileManager.shared.login(user: user)
+                    let profileUser: ProfileUser = try unbox(dictionary: data)
+                    profileUser.username = username
+                    profileUser.password = password
+                    profileUser.phone = phone
+                    profileUser.printAllData()
+                    ProfileManager.shared.login(user: profileUser)
                     callback(true, msg)
                     
                 } catch let error as NSError {
@@ -192,14 +188,14 @@ class ApiServers : NSObject {
         }
     }
 
-    func postLoginUser(password: String, completion: @escaping (String?) -> Void) {
+    func postLoginUser(username: String, phone: String, password: String, completion: @escaping (String?) -> Void) {
         
         let route = hostVersion + "/users/login"
-        let parameter:[String:Any] = [
+        let parameter:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
-                ServerKey.username.rawValue: phoneInput,
+                ServerKey.username.rawValue: username,
                 ServerKey.password.rawValue: password
             ]
         ]
@@ -216,10 +212,23 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
                     
-                    let profileUser = ProfileUser()
-                    profileUser.token = token
-                    profileUser.printAllData()
-                    ProfileManager.shared.login(user: profileUser)
+                    //Zian: If user already exists - relogin the user with existing profile
+                    if let profileUser = ProfileManager.shared.getCurrentUser() {
+                        profileUser.token = token   //Refresh the token
+                        profileUser.printAllData()
+                        ProfileManager.shared.login(user: profileUser)
+                        
+                    } else {
+                        //Zian: If user delete the app and he happens to have account already
+                        //TODO: Ideally we should get ALL user info from server
+                        let profileUser = ProfileUser()
+                        profileUser.username = username
+                        profileUser.password = password
+                        profileUser.phone = phone
+                        profileUser.token = token
+                        profileUser.printAllData()
+                        ProfileManager.shared.login(user: profileUser)
+                    }
                     
                     completion(token)
                     
@@ -474,6 +483,49 @@ class ApiServers : NSObject {
         }
     }
     
+    //Todo: Change UserGuideTabSection
+    func getUsersTrips(userType: UserGuideTabSection, offset: Int, pageCount: Int, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/trips"
+        let parameters : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.offset.rawValue: offset,
+            ServerKey.pageCount.rawValue: pageCount,
+            ServerKey.userType.rawValue: userType.stringValue
+        ]
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("getUsersTrips response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response["data"] as? [String: Any] {
+                do {
+                    let tripOrders : [TripOrder] = try unbox(dictionary: data, atKey:"trips")
+                    completion(tripOrders, nil)
+                } catch let error as NSError {
+                    print("getUsersTrips error: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+            } else {
+                print("getUsersTrips: Empty data field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     
     //MARK: - Config API
     func getConfig() {
@@ -679,10 +731,26 @@ class ApiServers : NSObject {
         Alamofire.request(requestUrlStr, parameters: parameters).responseJSON { response in
             
             if let urlRequest = response.request?.url {
-                print("Request: \(urlRequest), Params: \(parameters)")
+                let printText: String = """
+                =========================
+                [REQUEST] \(urlRequest)
+                [PARAMS]: \(parameters)
+                """
+                print(printText)
             }
             
             if let responseValue = response.value as? [String: Any] {
+                if let statusCode = responseValue[ServerKey.statusCode.rawValue] as? Int, statusCode != 200 {
+                    let message = responseValue[ServerKey.message.rawValue] ?? ""
+                    let printText: String = """
+                    =========================
+                    [STATUS_CODE] \(statusCode)
+                    [MESSAGE]: \(message)
+                    [ROUTE]: \(route)"
+                    """
+                    print(printText)
+                }
+                
                 completion(responseValue, nil)
             } else {
                 completion(nil, response.result.error)
@@ -697,21 +765,31 @@ class ApiServers : NSObject {
         let requestUrlStr = host + route
         Alamofire.request(requestUrlStr, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             
-            if let requestBody = response.request?.httpBody {
-                print(NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) as Any)
+            if let requestBody = response.request?.httpBody, let body = NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) {
+                let printText: String = """
+                =========================
+                [BODY] \(body))
+                """
+                print(printText)
             }
             
             if let responseValue = response.value as? [String: Any] {
+                
+                if let statusCode = responseValue[ServerKey.statusCode.rawValue] as? Int, statusCode != 200 {
+                    let message = responseValue[ServerKey.message.rawValue] ?? ""
+                    let printText: String = """
+                    =========================
+                    [STATUS_CODE] \(statusCode)
+                    [MESSAGE]: \(message)
+                    [ROUTE]: \(route)"
+                    """
+                    print(printText)
+                }
                 completion(responseValue, nil)
+                
             } else {
                 completion(nil, response.result.error)
             }
         }
-        
     }
-    
 }
-
-
-
-

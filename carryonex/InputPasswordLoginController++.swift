@@ -13,8 +13,14 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     
     func okButtonTapped(){
         
-        let password = passwordField.text
-        ApiServers.shared.postLoginUser(password: password!) { (msg) in
+        guard let username = username, let password = passwordField.text else {
+            displayAlert(title: "请输入密码", message: "密码不能为空", action: "知道了") {
+                _ = self.passwordField.becomeFirstResponder()
+            }
+            return
+        }
+        
+        ApiServers.shared.postLoginUser(username: username, phone: username, password: password) { (msg) in
             if(msg != "error"){
                 
                 if let profileUser = ProfileManager.shared.getCurrentUser() {

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CommentViewCell : CommentBaseCell {
-    
+class CommentViewCell : CommentBaseCell,UITextViewDelegate {
+
     let commentStateLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
@@ -21,72 +21,37 @@ class CommentViewCell : CommentBaseCell {
     var starCommentView: UIStackView?
     var tagCommentView: UIStackView?
     
-    let StarCommentBtn1 :UIButton = {
+    lazy var StarCommentBtn1 :UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+        b.addTarget(self, action: #selector(starButton1Tapped), for: .touchUpInside)
         return b
     }()
-    let StarCommentBtn2 :UIButton = {
+   lazy var StarCommentBtn2 :UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+        b.addTarget(self, action: #selector(starButton2Tapped), for: .touchUpInside)
         return b
     }()
-    let StarCommentBtn3 :UIButton = {
+   lazy var StarCommentBtn3 :UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+        b.addTarget(self, action: #selector(starButton3Tapped), for: .touchUpInside)
         return b
     }()
-    let StarCommentBtn4 :UIButton = {
+    lazy var StarCommentBtn4 :UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+        b.addTarget(self, action: #selector(starButton4Tapped), for: .touchUpInside)
         return b
     }()
-    let StarCommentBtn5 :UIButton = {
+    lazy var StarCommentBtn5 :UIButton = {
         let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "CarryonEx_Logo"), for: .normal)
+        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+        b.addTarget(self, action: #selector(starButton5Tapped), for: .touchUpInside)
         return b
     }()
     
-    let TagCommentBtn1 :UIButton = {
-        let b = UIButton()
-        b.layer.cornerRadius = 10
-        b.setTitle("神速", for: .normal)
-        b.setTitleColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .normal)
-        b.layer.masksToBounds = true
-        return b
-    }()
-    let TagCommentBtn2 :UIButton = {
-        let b = UIButton()
-        b.setTitleColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .normal)
-        b.layer.cornerRadius = 10
-        b.setTitle("超级细心", for: .normal)
-        b.layer.masksToBounds = true
-        return b
-    }()
-    let TagCommentBtn3 :UIButton = {
-        let b = UIButton()
-        b.setTitleColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .normal)
-        b.layer.cornerRadius = 10
-        b.setTitle("骗子", for: .normal)
-        b.layer.masksToBounds = true
-        return b
-    }()
-    let TagCommentBtn4 :UIButton = {
-        let b = UIButton()
-        b.setTitleColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .normal)
-        b.layer.cornerRadius = 10
-        b.setTitle("善于沟通", for: .normal)
-        b.layer.masksToBounds = true
-        return b
-    }()
-    let TagCommentBtn5 :UIButton = {
-        let b = UIButton()
-        b.setTitleColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .normal)
-        b.layer.cornerRadius = 10
-        b.setTitle("很有责任心", for: .normal)
-        b.layer.masksToBounds = true
-        return b
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -98,7 +63,10 @@ class CommentViewCell : CommentBaseCell {
     }
     private func setupCommentStateLabel(){
         addSubview(commentStateLabel)
-        commentStateLabel.addConstraints(left: leftAnchor, top: nil, right: nil, bottom: nil, leftConstent: 150, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        commentStateLabel.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        titleLabelCenterYConstraint = commentStateLabel.centerXAnchor.constraint(equalTo: centerXAnchor,constant:35)
+        titleLabelCenterYConstraint?.isActive = true
+        
         titleLabelWidthConstraint = commentStateLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }

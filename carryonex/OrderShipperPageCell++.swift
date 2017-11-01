@@ -51,8 +51,8 @@ extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
         let r4 = Request.fakeRequestDemo()
         r4.cost = 9.8
         
-        let fakeRequests = [r1, r2, r3, r4]
-        self.dataList = [] //fakeRequests
+        //let fakeRequests = [r1, r2, r3, r4]
+        self.dataList = []
         
         
 //        ApiServers.sharedInstance.fetchRequests { (requests: [Request]) in

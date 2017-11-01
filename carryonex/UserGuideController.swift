@@ -10,10 +10,6 @@ import UIKit
 
 class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    enum UserGuideTabSection: Int {
-        case sender, carrier
-    }
-    
     lazy var tableView : UITableView = {
         let t = UITableView()
         t.delegate = self
