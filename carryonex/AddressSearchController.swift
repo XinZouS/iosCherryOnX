@@ -101,7 +101,6 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
         
         locationSearchTable.mapView = self.mapView
         locationSearchTable.handleMapSearchDelegate = self
-        
     }
     
     private func setupSearchBar(){

@@ -39,6 +39,10 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         
         setupNavigationBar()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        youxiangField.resignFirstResponder()
+    }
     /// Prepares the resign responder button.
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)

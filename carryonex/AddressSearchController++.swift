@@ -120,7 +120,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         address.coordinateLatitude  = placemark.coordinate.latitude
         address.coordinateLongitude = placemark.coordinate.longitude
         
-        print("do saveAddressInfoBy placemark, add = ", address.descriptionString())
+//        print("do saveAddressInfoBy placemark, add = ", address.descriptionString())
     }
     
     
@@ -238,7 +238,7 @@ extension AddressSearchController : MKMapViewDelegate {
         guard let currType = self.searchType else { return }
         
         let st = address.state!, ct = address.city!
-        var dt = address.detailAddress!
+        var dt = address.detailAddress ?? ""
         let placeNames = dt.components(separatedBy: ",")
         dt = placeNames.first ?? ""
         

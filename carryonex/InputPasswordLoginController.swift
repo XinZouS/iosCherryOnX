@@ -63,6 +63,10 @@ class InputPasswordLoginController: UIViewController {
         
         setupForgetButton()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        passwordField.resignFirstResponder()
+    }
     
     private func setupPasswordTextField(){
         passwordField = TextField()
