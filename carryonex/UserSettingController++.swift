@@ -13,8 +13,6 @@ extension UserSettingController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // titles: [[String]] = [["账号与安全", "语言"], ["用户指南", "给游箱评价", "法律条款与隐私政策", "关于游箱"]]
-        
         if indexPath.section == 0 {
             switch indexPath.item {
             case 0:
@@ -58,11 +56,7 @@ extension UserSettingController {
             default:
                 print("erororrroor UserSettingCtl++: undefined selection at section = \(indexPath.section), item = \(indexPath.item)")
             }
-            
-
         }
-        
-
     }
     
     func backButtonTapped(){
@@ -72,10 +66,8 @@ extension UserSettingController {
     func logoutButtonTapped(){
         isModifyPhoneNumber = false
         isRegister = false
-        ProfileManager.shared.removeUser() // remove local user for new user to login
+        ProfileManager.shared.logoutUser()
         userProfileView?.removeProfileImageFromLocalFile()
         dismiss(animated: true, completion: nil)
     }
-
-    
 }

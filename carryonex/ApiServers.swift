@@ -135,21 +135,9 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let profileUser: ProfileUser = try unbox(dictionary: data)
-                    profileUser.username = username
-                    profileUser.password = password
                     
-                    //Use remote value
-                    if let phoneReturn = data[ServerKey.phone.rawValue] as? String {
-                        profileUser.phone = phoneReturn
-                    } else {
-                        profileUser.phone = phone
-                    }
-                    
-                    if let emailReturn = data[ServerKey.email.rawValue] as? String {
-                        profileUser.email = emailReturn
-                    } else {
-                        profileUser.email = email
-                    }
+                    //profileUser.username = username
+                    //profileUser.password = password
                     
                     profileUser.printAllData()
                     ProfileManager.shared.login(user: profileUser)
@@ -236,7 +224,6 @@ class ApiServers : NSObject {
                         //TODO: Ideally we should get ALL user info from server
                         let profileUser = ProfileUser()
                         profileUser.username = username
-                        profileUser.password = password
                         //TODO: missing email
                         profileUser.phone = phone
                         profileUser.token = token
@@ -289,20 +276,15 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(_ propertyUrl: ServerUserPropUrl, completion: @escaping (String?) -> Void){
+    func getUserInfo(username: String, userToken: String, completion: @escaping (String?) -> Void){
         
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getUserInfo: Profile user empty, please login to get user info")
-            completion(nil)
-            return
-        }
+        let sessionStr = hostVersion + "/users/info"
         
-        let sessionStr = hostVersion + "/users/" + propertyUrl.rawValue
         let headers:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.username.rawValue : profileUser.username ?? ""
+            ServerKey.username.rawValue : username,
+            ServerKey.userToken.rawValue: userToken
         ]
         
         getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
@@ -315,11 +297,20 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response["data"] as? [String: Any], data.count != 0 {
-                let getStr = data["string"] as? String
-                completion(getStr)
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
+                    user.printAllData()
+                    ProfileManager.shared.login(user: user)
+                    completion(user.token)
+                    
+                } catch let err {
+                    completion(nil)
+                    print("get error when getUserInfo, err = \(err.localizedDescription)")
+                }
                 
             } else {
+                print("getUserInfo empty data")
                 completion(nil)
             }
         }
@@ -447,7 +438,8 @@ class ApiServers : NSObject {
                 if let userPropKey = ServerUserPropKey[propUrl], userPropKey != "" {
                     
                     if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.setupByDictionaryFromDB([userPropKey:newInfo])
+                        //profileUser.setupByDictionaryFromDB([userPropKey: newInfo])
+                        //TODO: Update user
                         ProfileManager.shared.updateCurrentUser(profileUser)
                     }
                 }

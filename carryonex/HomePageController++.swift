@@ -67,22 +67,7 @@ extension HomePageController: UITextFieldDelegate {
 
 extension HomePageController {
     
-    // MARK: - Save user into local disk
-    
-    internal func saveUserIntoLocalDisk(){
-        ProfileManager.shared.saveUser()    //Save user will check for user validation data internally.
-    }
-    
-    internal func fetchUserFromLocalDiskAndSetup(){
-        ProfileManager.shared.loadUser()
-    }
-    
-    internal func removeUserFromLocalDisk(){
-        ProfileManager.shared.removeUser()
-    }
-    
     /// MUST check if user isVerified
-    
     func callShipperButtonTapped(){
         var verified = false
         

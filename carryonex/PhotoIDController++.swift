@@ -308,7 +308,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         case ImageTypeOfID.idCardA.rawValue:
             
             if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.idCardA_Url = urlStr
+                profileUser.idAUrl = urlStr
                 ProfileManager.shared.updateCurrentUser(profileUser)
             }
             
@@ -319,7 +319,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         case ImageTypeOfID.idCardB.rawValue:
             
             if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.idCardB_Url = urlStr
+                profileUser.idBUrl = urlStr
                 ProfileManager.shared.updateCurrentUser(profileUser)
             }
             

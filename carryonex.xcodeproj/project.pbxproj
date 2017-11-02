@@ -167,6 +167,8 @@
 		90D4C228BA0130B57100B4AD /* Pods_carryonex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */; };
 		E52FFBAA1FAA2C4800E79CDF /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */; };
 		E53791E41FAB731E009647CD /* Notifications++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E31FAB731E009647CD /* Notifications++.swift */; };
+		E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */; };
+		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
@@ -386,6 +388,8 @@
 		8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carryonex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		E53791E31FAB731E009647CD /* Notifications++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications++.swift"; sourceTree = "<group>"; };
+		E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		E5791E531FABC60E006B4F68 /* UserDefaults++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults++.swift"; sourceTree = "<group>"; };
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
@@ -586,6 +590,7 @@
 				665DE5031F3A59E9004DDB88 /* Controller */,
 				66A16AF01F3A5DC000B32AD3 /* Helpers */,
 				E58FDC991FA5A202000C126E /* Managers */,
+				E53791E61FABC047009647CD /* Vendor */,
 				663F1C931F44ABEB00E866C2 /* README.md */,
 				665DE4F61F3A0B70004DDB88 /* Assets.xcassets */,
 				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
@@ -824,6 +829,7 @@
 				66A16AFF1F3BB3AA00B32AD3 /* SideMenuLeftController.swift */,
 				E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */,
 				E53791E31FAB731E009647CD /* Notifications++.swift */,
+				E5791E531FABC60E006B4F68 /* UserDefaults++.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1058,6 +1064,14 @@
 				8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E53791E61FABC047009647CD /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */,
+			);
+			path = Vendor;
 			sourceTree = "<group>";
 		};
 		E58FDC991FA5A202000C126E /* Managers */ = {
@@ -1330,6 +1344,7 @@
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
+				E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */,
 				669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */,
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
@@ -1428,6 +1443,7 @@
 				668131171F94163C0022AEED /* UserSettingController++.swift in Sources */,
 				663121F11F53C129000F7ACB /* WaitingController++.swift in Sources */,
 				FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */,
+				E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				660704E61F3CFB15000C09FD /* UserInfoViewController.swift in Sources */,
 				FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */,

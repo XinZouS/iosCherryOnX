@@ -35,7 +35,7 @@ extension UserInfoViewController {
     
     func logoutButtonTapped() {
         
-        ProfileManager.shared.removeUser()
+        ProfileManager.shared.logoutUser()
         userProfileView.removeProfileImageFromLocalFile()
 
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())

@@ -54,7 +54,6 @@ class UserInfoViewController: UICollectionViewController, UICollectionViewDelega
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        ProfileManager.shared.saveUser()
     }
     
     
