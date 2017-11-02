@@ -35,7 +35,7 @@ class Address : NSObject, Unboxable {
     var country: Country?
     var state : String?
     var city  : String?
-    var detailAddress: String?
+    var detailAddress: String? = ""
     var zipcode: String?
     var recipientName: String?
     var phoneNumber: String?
