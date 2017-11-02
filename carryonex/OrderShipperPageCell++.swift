@@ -8,10 +8,7 @@
 
 import Foundation
 
-
-
-
-extension OrdersShipperPageCell: OrdersSenderPageCellDelegate {
+extension OrdersShipperPageCell {
     
     override func dataListDidSet(){
         

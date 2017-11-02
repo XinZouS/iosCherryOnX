@@ -39,7 +39,7 @@ class OrdersShipperPageCell : OrdersSenderPageCell {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let tripOrder = dataSource?[section], let req = tripOrder.requests {
-            return req.count
+            return (req.count > 0) ? req.count : 1
         }
         return 1
     }
