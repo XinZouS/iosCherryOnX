@@ -55,6 +55,12 @@ class RegisterPasswordController: UIViewController {
         setupOkButton()
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        passwordField.resignFirstResponder()
+        passwordConfirmField.resignFirstResponder()
+    }
+    
     private func setupPasswordTextField(){
         passwordField = TextField()
         passwordField.placeholder = "密码"
