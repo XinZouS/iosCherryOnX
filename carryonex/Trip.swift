@@ -186,11 +186,11 @@ class Trip : NSObject, Unboxable {
     
     func getStartAddress() -> Address {
         print("TODO: get start address by id from DB")
-        return Address()
+        return self.startAddress ?? Address()
     }
     
     func getEndAddress() -> Address {
         print("TODO: get end address by id from DB")
-        return Address()
+        return self.endAddress ?? Address()
     }
 }

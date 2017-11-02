@@ -10,39 +10,17 @@ import Foundation
 
 extension OrdersShipperPageCell {
     
-    override func dataListDidSet(){
-        
-        guard let data = dataSource, data.count > 0 else {
-            collectionView.isHidden = true
-            return
-        }
-        
-        collectionView.isHidden = false
-        
-        self.collectionView.reloadData()
-    }
-    
-    override func fetchRequests() {
+    func fetchRequests() {
         
         ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
-            
             self.dataSource = tripOrders
-            
-//            if let tripOrders = tripOrders {
-//                for order in tripOrders {
-//                    print("Trip: \(order.trip)")
-//                    print("Requests: \(order.requests!)")
-//                }
-//            } else {
-//                print("Trip order is nil")
-//            }
         }
         
-        /*
+        
         let r1 = Request.fakeRequestDemo()
         r1.cost = 30.25
         
@@ -57,14 +35,40 @@ extension OrdersShipperPageCell {
         let r4 = Request.fakeRequestDemo()
         r4.cost = 9.8
         
-        //let fakeRequests = [r1, r2, r3, r4]
-        self.dataList = []
-        */
+        let a1 = Address(country: .UnitedStates, state: "NY", city: "New York", detailAddress: "bala bala~~", zipCode: "10001", recipient: "ZhangSan", phoneNum: "012345688")
+        let a2 = Address(country: .China, state: "GuangDong", city: "GuangZhou", detailAddress: "Ke cun", zipCode: "510006", recipient: "Micle", phoneNum: "0987655432")
         
-//        ApiServers.sharedInstance.fetchRequests { (requests: [Request]) in
-//            self.dataList = requests
-//            self.collectionView.reloadData()
-//        }
+        let p1 = Trip()
+        p1.tripCode = "66888"
+        p1.startAddress = a1
+        p1.endAddress = a2
+        
+        let p2 = Trip()
+        p2.tripCode = "23333"
+        p2.startAddress = a2
+        p2.endAddress = a1
+        
+        let t1 = TripOrder(trip: p1, requests: [])
+        let t2 = TripOrder(trip: p2, requests: [r1])
+        let t3 = TripOrder(trip: Trip(), requests: [r2, r3, r4])
+
+        self.dataSource = [t1, t2, t3]
+//        self.dataSource = []
+ 
+    }
+    
+    public func setupCollectionViewHidden(){
+        guard let data = dataSource, data.count > 0 else {
+            collectionView.isHidden = true
+            return
+        }
+        collectionView.isHidden = false
+    }
+    
+
+    override func backgroundButtonTapped() {
+        let postTripCtl = PostTripController(collectionViewLayout: UICollectionViewFlowLayout())
+        ordersLogCtl.navigationController?.pushViewController(postTripCtl, animated: true)
     }
 
     
