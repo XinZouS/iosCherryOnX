@@ -76,6 +76,7 @@ class InputPasswordLoginController: UIViewController {
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView
+        passwordField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(passwordField).center(offsetY: -100).left(60).right(60)
     }
     

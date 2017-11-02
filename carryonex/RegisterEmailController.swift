@@ -62,7 +62,7 @@ class RegisterEmailController: UIViewController {
         let leftView = UIImageView()
         leftView.image = Icon.email
         emailField.leftView = leftView
-        
+        emailField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(emailField).center(offsetY: -80).left(60).right(60)
     }
     
