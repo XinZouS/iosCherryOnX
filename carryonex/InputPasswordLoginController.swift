@@ -46,6 +46,7 @@ class InputPasswordLoginController: UIViewController {
     internal func handleResignResponderButton(button: UIButton) {
         passwordField?.resignFirstResponder()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _ = passwordField.becomeFirstResponder()
@@ -62,6 +63,7 @@ class InputPasswordLoginController: UIViewController {
         
         setupForgetButton()
     }
+    
     private func setupPasswordTextField(){
         passwordField = TextField()
         passwordField.placeholder = "密码"

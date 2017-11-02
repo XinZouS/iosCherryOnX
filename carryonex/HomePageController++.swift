@@ -175,10 +175,10 @@ extension HomePageController {
         }
     }
     
-    func showOnboardingPage(){
-        UserDefaults.standard.set(false, forKey: "OnboardingFinished")
-        self.present(OnboardingController(), animated: true, completion: nil)
-    }
+//    private func showOnboardingPage(){
+//        UserDefaults.standard.set(false, forKey: "OnboardingFinished")
+//        self.present(OnboardingController(), animated: true, completion: nil)
+//    }
     
     func showUserInfoSideMenu(){
         
@@ -558,25 +558,6 @@ extension HomePageController {
             } else {
                 // Fallback on earlier versions
                 UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
-            }
-        }
-    }
-    /**  微信通知  */
-    func WXLoginSuccess(notification:Notification) {
-        
-        let code = notification.object as! String
-        let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
-        
-        DispatchQueue.global().async {
-            
-            let requestURL: URL = URL.init(string: requestUrl)!
-            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-            
-            DispatchQueue.main.async {
-                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                let openid: String = jsonResult["openid"] as! String
-                let access_token: String = jsonResult["access_token"] as! String
-                self.getUserInfo(openid: openid, access_token: access_token)
             }
         }
     }

@@ -20,21 +20,23 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             return
         }
         
+        _ = passwordField.resignFirstResponder()
+        
         ApiServers.shared.postLoginUser(username: username, phone: username, password: password) { (msg) in
             if(msg != "error"){
-                
                 if let profileUser = ProfileManager.shared.getCurrentUser() {
                     profileUser.phone = phoneInput
                     profileUser.username = phoneInput
                     profileUser.phoneCountryCode = zoneCodeInput
                     ProfileManager.shared.updateCurrentUser(profileUser)
                 }
-                    //print(info)
-                    phoneInput = ""
-                    zoneCodeInput = "1"
-                    emailInput = ""
-                    self.dismiss(animated: true, completion: nil)
-            }else{
+                //print(info)
+                phoneInput = ""
+                zoneCodeInput = "1"
+                emailInput = ""
+                self.dismiss(animated: true, completion: nil)
+                
+            } else {
                 self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)

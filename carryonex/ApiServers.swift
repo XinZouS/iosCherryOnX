@@ -137,7 +137,20 @@ class ApiServers : NSObject {
                     let profileUser: ProfileUser = try unbox(dictionary: data)
                     profileUser.username = username
                     profileUser.password = password
-                    profileUser.phone = phone
+                    
+                    //Use remote value
+                    if let phoneReturn = data[ServerKey.phone.rawValue] as? String {
+                        profileUser.phone = phoneReturn
+                    } else {
+                        profileUser.phone = phone
+                    }
+                    
+                    if let emailReturn = data[ServerKey.email.rawValue] as? String {
+                        profileUser.email = emailReturn
+                    } else {
+                        profileUser.email = email
+                    }
+                    
                     profileUser.printAllData()
                     ProfileManager.shared.login(user: profileUser)
                     callback(true, msg)
@@ -224,6 +237,7 @@ class ApiServers : NSObject {
                         let profileUser = ProfileUser()
                         profileUser.username = username
                         profileUser.password = password
+                        //TODO: missing email
                         profileUser.phone = phone
                         profileUser.token = token
                         profileUser.printAllData()
@@ -749,6 +763,8 @@ class ApiServers : NSObject {
                     [ROUTE]: \(route)"
                     """
                     print(printText)
+                    
+                    self.handleAbnormalStatusCode(statusCode)
                 }
                 
                 completion(responseValue, nil)
@@ -784,12 +800,25 @@ class ApiServers : NSObject {
                     [ROUTE]: \(route)"
                     """
                     print(printText)
+                    
+                    self.handleAbnormalStatusCode(statusCode)
                 }
                 completion(responseValue, nil)
                 
             } else {
                 completion(nil, response.result.error)
             }
+        }
+    }
+}
+
+extension ApiServers {
+    func handleAbnormalStatusCode(_ statusCode: Int) {
+        switch statusCode {
+        case 401:
+            NotificationCenter.default.post(name: NSNotification.Name.Network.Invalid, object: nil)
+        default:
+            print("[Status Code] Not handled: \(statusCode)")
         }
     }
 }
