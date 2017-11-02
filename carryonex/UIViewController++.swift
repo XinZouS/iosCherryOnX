@@ -17,10 +17,10 @@ extension UIViewController {
     func displayAlert(title: String, message: String, action: String, completion:(() -> Void)?) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
+            completion?()
         }
         v.addAction(action)
-        present(v, animated: true, completion: completion)
+        present(v, animated: true, completion: nil)
     }
     
 }

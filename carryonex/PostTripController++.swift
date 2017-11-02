@@ -18,7 +18,8 @@ extension PostTripController {
     func okButtonTapped(sender:UIButton){
         let tit = "启禀皇上"
         let msg = "❓"
-        let ok1 = "朕知道了", ok2 = "嗯，平身吧"
+//        let ok1 = "朕知道了",
+        let ok2 = "嗯，平身吧"
         guard isStartAddressSetted, isEndAddressSetted else {
             displayAlert(title: tit, message: "\(msg)请选择【出发地和目的地】。", action: ok2)
             return
