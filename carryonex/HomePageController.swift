@@ -321,11 +321,11 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     private func setupTopButtons(){
-        let sz : CGFloat = 30
+        let sz : CGFloat = 36
         let topMargin: CGFloat = 36
         let sideMargin:CGFloat = 20
         view.addSubview(userInfoBarButtonView)
-        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: 20)
+        userInfoBarButtonView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: nil, bottom: nil, leftConstent: sideMargin, topConstent: topMargin, rightConstent: 0, bottomConstent: 0, width: sz, height: 24)
         
         //view.addSubview(giftBarButtonView)
         //giftBarButtonView.addConstraints(left: nil, top: view.topAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: topMargin, rightConstent: sideMargin, bottomConstent: 0, width: sz, height: sz)
