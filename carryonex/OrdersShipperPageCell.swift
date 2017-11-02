@@ -91,7 +91,8 @@ extension OrdersShipperPageCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: cellIdOrderLogShipperHeader, for: indexPath)
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: cellIdOrderLogShipperHeader, for: indexPath) as! OrdersShipperHeaderCell
+            header.trip = dataSource?[indexPath.section].trip ?? Trip()
             return header
         }else{
             return UICollectionReusableView()
@@ -114,5 +115,6 @@ extension OrdersShipperPageCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 40)
     }
+    
     
 }

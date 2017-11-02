@@ -36,10 +36,10 @@ class OrdersLogShipperEmptyCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = pickerColorLightGray
         
-        let margin: CGFloat = 90
         addSubview(titleLabel)
-        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: margin, topConstent: 5, rightConstent: margin, bottomConstent: 0, width: 0, height: 50)
+        titleLabel.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
         
+        let margin: CGFloat = 90
         addSubview(shareButton)
         shareButton.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: bottomAnchor, leftConstent: margin, topConstent: 0, rightConstent: margin, bottomConstent: 10, width: 0, height: 40)
     }
