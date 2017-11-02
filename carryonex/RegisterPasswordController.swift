@@ -68,6 +68,7 @@ class RegisterPasswordController: UIViewController {
         leftView.image = Icon.settings
         passwordField.leftView = leftView
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
+        passwordField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(passwordField).top(200).left(60).right(60)
     }
     
@@ -85,7 +86,7 @@ class RegisterPasswordController: UIViewController {
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordConfirmField.leftView = leftView
-        
+        passwordConfirmField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(passwordConfirmField).center().left(60).right(60)
     }
     

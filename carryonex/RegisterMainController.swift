@@ -92,6 +92,7 @@ class RegisterMainController: UIViewController{
         phoneNumberTextField.detail = "手机号码"
         phoneNumberTextField.clearButtonMode = .whileEditing
         phoneNumberTextField.isEnabled = false
+        phoneNumberTextField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(phoneNumberTextField).top(CGFloat(h)).left(100).right(20)
     }
 }

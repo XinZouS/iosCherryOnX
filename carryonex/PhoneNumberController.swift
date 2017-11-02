@@ -183,7 +183,8 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
         phoneNumberTextField.clearButtonMode = .whileEditing
         phoneNumberTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
         phoneNumberTextField.keyboardType = .numberPad
-        view.layout(phoneNumberTextField).center(offsetY: -120).left(100).right(20)
+        phoneNumberTextField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
+        view.layout(phoneNumberTextField).center(offsetY: -120).left(100).right(60)
     }
     
     
@@ -200,7 +201,7 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     private func setupAgreeItems(){
         view.addSubview(agreeLabel)
-        agreeLabel.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 400, width: 90, height: 20)
+        agreeLabel.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 350, width: 90, height: 20)
         agreeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
         agreeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
         view.addSubview(agreeButton)
