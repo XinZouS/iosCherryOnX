@@ -178,7 +178,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 let password = ProfileManager.shared.getCurrentUser()?.password {
                 ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (newToken) in
                     print("NEW TOKEN RENEWED = \(newToken)")
-                    self.testApiServers()
+                    //self.testApiServers()
                 }
             }
         }
