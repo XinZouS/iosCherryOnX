@@ -8,31 +8,35 @@
 
 import UIKit
 
-
-
 extension OrdersSenderPageCell {
-    
     
     func registerCollectionView(){
         collectionView.register(OrderLogSenderCell.self, forCellWithReuseIdentifier: cellIdOrderLogSenderCell)
     }
     
     func dataListDidSet(){
-        guard let data = dataList else { return }
-        
-        guard data.count > 0 else {
-            collectionView.isHidden = true //backgroundColor = .clear
+        guard let data = dataSource, data.count > 0 else {
+            collectionView.isHidden = true
             return
         }
         
         collectionView.isHidden = false
-
     }
 
     
     func fetchRequests() {
         print("fetchRequests in OrdersSenderPageCell++")
         
+        ApiServers.shared.getUsersTrips(userType: .sender, offset: 0, pageCount: 4) { (tripOrders, error) in
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
+            
+            self.dataSource = tripOrders
+        }
+        
+        /*
         let r0 = Request.fakeRequestDemo()
         r0.cost = 300.65
 
@@ -57,7 +61,7 @@ extension OrdersSenderPageCell {
         
         let fakeRequests = [r0, r1, r2, r3, r4, r5]
         self.dataList = [] //fakeRequests
-        
+        */
         
 //        ApiServers.sharedInstance.fetchRequests { (requests: [Request]) in
 //            self.dataList = requests
@@ -74,8 +78,6 @@ extension OrdersSenderPageCell {
     func fetchOrdersLogList(){
         print("TODO: fetchOrdersLogList from server, OrdersLogPageCell.fetchOrdersLogList() !!!!!")
     }
-    
-    
     
     func updateUIContentsForRequestsList(){
         print("TODO: updateUIContentsForRequestsList [..] ...")

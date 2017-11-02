@@ -18,7 +18,7 @@ class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, U
     }
     let cellIdOrderLogSenderCell = "cellIdOrderLogSenderCell"
     
-    var dataList: [Request]? {
+    var dataSource: [TripOrder]? {
         didSet{
             dataListDidSet()
         }
@@ -107,36 +107,37 @@ class OrdersSenderPageCell : UICollectionViewCell, UICollectionViewDataSource, U
     }
     
     
-    /// - MARK: collectionView delegate, for page container
+    // - MARK: collectionView delegate, for page container
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataList?.count ?? 0
+        return dataSource?.count ?? 0
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let tripOrder = dataSource?[indexPath.section], let reqs = tripOrder.requests else {
+            return UICollectionViewCell()
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogSenderCell, for: indexPath) as! OrderLogSenderCell
         
         cell.ordersLogCtl = self.ordersLogCtl
-        if indexPath.item < (dataList?.count)! {
-            cell.request = dataList?[indexPath.item]
-        }
+        cell.request = reqs[indexPath.item]
 
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.frame.width, height: 100) // for each log item in one page
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-    
-    
-    
-    
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

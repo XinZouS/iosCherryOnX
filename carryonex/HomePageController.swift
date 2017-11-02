@@ -150,16 +150,19 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserDefaults.standard.bool(forKey: UserDefaultKey.OnboardingFinished.rawValue) == false {
-            presentOnboardingPage()
-        }
+        
+//        if !UserDefaults.standard.bool(forKey: UserDefaultKey.OnboardingFinished.rawValue) {
+//            showOnboardingPage()
+//        }
         
         fetchUserFromLocalDiskAndSetup()
-        //print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
-        //setupNavigationBar()
         setupMapView()
         setupSearchContents()
         setupCallShipperButton()
@@ -169,6 +172,9 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupBlackBackgroundView()
         setupUserInfoMenuView()
 
+        addNotificationObservers()
+        
+        ApiServers.shared.getConfig()
         
         //Zian: If user is already loggin the app, relogin to refresh the token to
         //ensure token is in sync with server
@@ -177,43 +183,36 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 let phone = ProfileManager.shared.getCurrentUser()?.phone,
                 let password = ProfileManager.shared.getCurrentUser()?.password {
                 ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (newToken) in
-                    print("NEW TOKEN RENEWED = \(newToken)")
-                    self.testApiServers()
+                    if let token = newToken { print("NEW TOKEN RENEWED = \(token)") }
+                    //self.testApiServers()
                 }
             }
         }
-
-        NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginSuccessNotification"),object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //title = "游箱" // for returning from UserInfoPage, change title back;
         UIApplication.shared.statusBarStyle = .default
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
-        //print(ProfileManager.shared.getCurrentUser()?.phoneCountryCode)
         userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        saveUserIntoLocalDisk()
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-//            ProfileManager.shared.currentUser = ProfileUser()
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         }
-    }
-    private func presentOnboardingPage(){
-        self.present(OnboardingController(), animated: true, completion: nil)
     }
 
     private func setupSearchContents(){
@@ -254,7 +253,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     private func setupMapView(){
         view.addSubview(mapView)
         mapView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        
         zoomToUserLocation()
     }
     
@@ -337,6 +335,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userInfoMenuViewAnimateHide))
         backgroundBlackView.addGestureRecognizer(tapGesture)
     }
+    
     private func setupUserInfoMenuView(){
         userInfoMenuView.homePageCtl = self
         let w : CGFloat = 270
@@ -346,6 +345,41 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         userInfoMenuRightConstraint?.isActive = true
     }
 
+    
+    //MARK: - Notification Handlers
+    
+    private func addNotificationObservers() {
+        
+        /**  微信通知  */
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
+            
+            let code = notification.object as! String
+            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
+            
+            DispatchQueue.global().async {
+                let requestURL: URL = URL.init(string: requestUrl)!
+                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+                DispatchQueue.main.async {
+                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                    let openid: String = jsonResult["openid"] as! String
+                    let access_token: String = jsonResult["access_token"] as! String
+                    self?.getUserInfo(openid: openid, access_token: access_token)
+                }
+            }
+        }
+        
+        //登录异常（如改变设备）
+        NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
+            self?.displayAlert(title: "账号异常", message: "登入账号出现异常，请重新登入。", action: "好") {
+                self?.showPhoneNumberPage()
+            }
+        }
+    }
+    
+    private func showPhoneNumberPage() {
+        let phoneNumberViewContainer = UINavigationController.init(rootViewController: PhoneNumberController())
+        present(phoneNumberViewContainer, animated: true, completion: nil)
+    }
     
     private func testApiServers(){
         print("\r\n ------ Server connection (HomePageController) ------\r\n")
@@ -561,25 +595,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //                print("get trips info = \(trips)")
 //            }
 //        }
-        
-        ApiServers.shared.getConfig()
 
-    }
-    
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-  
-}
-
-/// for UserInfoMenu view at the left side of Home page
-extension HomePageController {
-    
-    
-    
+    }  
 }
 

@@ -78,17 +78,19 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         return tabTitleMenuBar.titleList.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = OrdersSenderPageCell()
+        
+        print("IndexPath: \(indexPath.section), \(indexPath.item)")
         if indexPath.item == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdSenderPage, for: indexPath) as! OrdersSenderPageCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdSenderPage, for: indexPath) as! OrdersSenderPageCell
             cell.ordersLogCtl = self
-        }else{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdShipperPage, for: indexPath) as! OrdersShipperPageCell
+            cell.backgroundColor = .white
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdShipperPage, for: indexPath) as! OrdersShipperPageCell
             cell.ordersLogCtl = self
+            cell.backgroundColor = .white
+            return cell
         }
-        cell.backgroundColor = .white
-
-        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width, height: self.view.frame.height)
