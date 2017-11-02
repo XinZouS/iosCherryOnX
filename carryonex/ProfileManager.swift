@@ -16,13 +16,21 @@ struct KeychainConfiguration {
 
 class ProfileManager: NSObject {
 
+    //MARK: - Variables
+    
     static var shared = ProfileManager()
     
     private var currentUser: ProfileUser?
     
-    private override init() {
-        super.init()
+    var username: String? {
+        get { return UserDefaults.getUserName() }
     }
+    
+    var userToken: String? {
+        get { return readUserTokenFromKeychain() }
+    }
+    
+    //MARK: - Methods
     
     func isLoggedIn() -> Bool {
         return currentUser != nil
@@ -30,8 +38,11 @@ class ProfileManager: NSObject {
     
     func login(user: ProfileUser) {
         updateCurrentUser(user)
-        guard let currentUser = currentUser else { return }
-        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
+        ServiceManager.shared.setupUDeskWithUser(user: user)
+        
+        if let username = user.username, let token = user.token {
+            saveUserTokenToKeychain(username: username, userToken: token)
+        }
     }
     
     func getCurrentUser() -> ProfileUser? {
@@ -42,13 +53,19 @@ class ProfileManager: NSObject {
         currentUser = user
     }
     
+    func updateUserToken(username: String, userToken: String) {
+        deleteUserTokenFromKeychain()
+        saveUserTokenToKeychain(username: username, userToken: userToken)
+    }
+    
     func logoutUser() {
-        deleteUser()
+        self.currentUser = nil
+        deleteUserTokenFromKeychain()
         ServiceManager.shared.logoutUdesk()
     }
     
-    //Token Management
-    private func saveUser(username: String, userToken: String) {
+    //MARK: - Token Management
+    private func saveUserTokenToKeychain(username: String, userToken: String) {
         do {
             let userTokenItem = tokenItem(account: username)
             try userTokenItem.savePassword(userToken)
@@ -57,9 +74,7 @@ class ProfileManager: NSObject {
         }
     }
     
-    private func deleteUser() {
-        self.currentUser = nil
-        
+    private func deleteUserTokenFromKeychain() {
         if let username = UserDefaults.getUserName() {
             do {
                 let userTokenItem = tokenItem(account: username)
@@ -68,6 +83,29 @@ class ProfileManager: NSObject {
                 fatalError("Error updating keychain - \(error)")
             }
         }
+    }
+    
+    private func readUserTokenFromKeychain() -> String? {
+        
+        var token: String?
+        
+        if let username = UserDefaults.getUserName() {
+            do {
+                let userTokenItem = tokenItem(account: username)
+                try token = userTokenItem.readPassword()
+            } catch {
+                fatalError("Error reading password from keychain - \(error)")
+            }
+            
+        } else {
+            print("Username not found")
+        }
+        
+        if token == nil {
+            print("User token not found")
+        }
+        
+        return token
     }
     
     private func tokenItem(account: String) -> KeychainPasswordItem {

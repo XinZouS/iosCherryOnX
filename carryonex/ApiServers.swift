@@ -135,12 +135,8 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let profileUser: ProfileUser = try unbox(dictionary: data)
-                    
-                    //profileUser.username = username
-                    //profileUser.password = password
-                    
                     profileUser.printAllData()
-                    ProfileManager.shared.login(user: profileUser)
+                    ProfileManager.shared.login(user:profileUser)
                     callback(true, msg)
                     
                 } catch let error as NSError {
