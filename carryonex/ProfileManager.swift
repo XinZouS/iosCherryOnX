@@ -31,11 +31,18 @@ class ProfileManager: NSObject {
     }
     
     
-    //MARK: - Login Methods
+    //MARK: - Convenience Methods
     
     func isLoggedIn() -> Bool {
         return UserDefaults.getUsername() != nil
     }
+    
+    func getCurrentUser() -> ProfileUser? {
+        return currentUser
+    }
+    
+    
+    //MARK: - Login Methods
     
     func loadLocalUser() {
         if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
@@ -118,19 +125,6 @@ class ProfileManager: NSObject {
         }
     }
     
-    private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
-        self.currentUser = user
-        ServiceManager.shared.setupUDeskWithUser(user: user)
-        
-        if writeToKeychain, let username = user.username, let token = user.token {
-            self.saveUserTokenToKeychain(username: username, userToken: token)
-        }
-    }
-    
-    func getCurrentUser() -> ProfileUser? {
-        return currentUser
-    }
-    
     func logoutUser() {
         self.currentUser = nil
         deleteUserTokenFromKeychain()
@@ -139,6 +133,7 @@ class ProfileManager: NSObject {
     
     
     //MARK: - Update Methods
+    
     func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
         guard isLoggedIn() else {
             print("User is not logged in, unable to update \(type.rawValue) value")
@@ -184,6 +179,16 @@ class ProfileManager: NSObject {
     }
     
     //MARK: - Keychain Management
+    
+    private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
+        self.currentUser = user
+        ServiceManager.shared.setupUDeskWithUser(user: user)
+        
+        if writeToKeychain, let username = user.username, let token = user.token {
+            self.saveUserTokenToKeychain(username: username, userToken: token)
+        }
+    }
+    
     private func saveUserTokenToKeychain(username: String, userToken: String) {
         do {
             let userTokenItem = tokenItem(account: username)
