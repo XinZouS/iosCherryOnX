@@ -481,7 +481,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         
         // setup AWS Transfer Manager Request:
         guard let uploadRequest = AWSS3TransferManagerUploadRequest() else { return }
-        uploadRequest.acl = .private
+        uploadRequest.acl = .publicRead
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
         uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
