@@ -121,16 +121,15 @@ class ApiServers : NSObject {
     
     
     // MARK: - User APIs
-    
-    //Zian - The call back can be anything, i just use boolean to indicate register or not
-    func postRegisterUser(username: String, phone: String, password: String, email: String, callback: @escaping(Bool, String?) -> Swift.Void) {
+    // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
+    func postRegisterUser(username: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
         let route = hostVersion + "/users"
         let postData = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
-            ServerKey.phone.rawValue:    phone,
-            ServerKey.email.rawValue:    email
+            ServerKey.phone.rawValue: phone,
+            ServerKey.email.rawValue: email
         ]
         let parameters:[String:Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
@@ -143,26 +142,39 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postRegisterUser response error: \(error.localizedDescription)")
                 }
-                callback(false, error?.localizedDescription)
+                completion(nil, error)
                 return
             }
             
-            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let token = data[ServerKey.userToken.rawValue] as? String {
+                    completion(token, nil)
+                } else {
+                    print("postRegisterUser - Unable to find token from user data")
+                    completion(nil, nil)
+                }
+            } else {
+                print("postRegisterUser - Unable to find user data")
+                completion(nil, nil)
+            }
+            
+            /*
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let profileUser: ProfileUser = try unbox(dictionary: data)
                     profileUser.printAllData()
-                    ProfileManager.shared.login(user:profileUser)
-                    callback(true, msg)
+                    completion(profileUser, nil)
                     
                 } catch let error as NSError {
-                    callback(false, error.localizedDescription)
+                    print("postRegisterUser unbox error: \(error.localizedDescription)")
+                    completion(nil, error)
                 }
                 
             } else {
-                //Data package not found
-                callback(false, msg)
-            }
+                let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
+                print("postRegisterUser - Data package not found. Response message: \(msg)")
+                completion(nil, nil)
+            }*/
         }
     }
     
@@ -185,7 +197,6 @@ class ApiServers : NSObject {
                 return
             }
             
-            //TODO: Bad Check
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let isExists = data["isExists"] as? String {
                     print("getIsUserExisted: isExists field value \(isExists)")
@@ -201,7 +212,7 @@ class ApiServers : NSObject {
         }
     }
 
-    func postLoginUser(username: String, phone: String, password: String, completion: @escaping (Bool) -> Void) {
+    func postLoginUser(username: String, password: String, completion: @escaping (String?, Error?) -> Void) {
         
         let route = hostVersion + "/users/login"
         let parameter:[String: Any] = [
@@ -218,36 +229,20 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postLoginUser response error: \(error.localizedDescription)")
                 }
-                completion(false)
+                completion(nil, error)
                 return
             }
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
-                    
-                    //Zian: If user already exists - relogin the user with existing profile
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.token = token   //Refresh the token
-                        profileUser.printAllData()
-                        ProfileManager.shared.login(user: profileUser)
-                        
-                    } else {
-                        //Zian: If user delete the app and he happens to have account already
-                        //TODO: Ideally we should get ALL user info from server
-                        let profileUser = ProfileUser()
-                        profileUser.username = username
-                        //TODO: missing email
-                        profileUser.phone = phone
-                        profileUser.token = token
-                        profileUser.printAllData()
-                        ProfileManager.shared.login(user: profileUser)
-                    }
-                    
-                    completion(true)
-                    
+                    completion(token, nil)
                 } else {
-                   completion(false)
+                    print("postLoginUser - Unable to find token from user data")
+                    completion(nil, nil)
                 }
+            } else {
+                print("postLoginUser - Unable to find user data")
+                completion(nil, nil)
             }
         }
     }
@@ -288,7 +283,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(username: String, userToken: String, completion: @escaping (String?) -> Void){
+    func getUserInfo(username: String, userToken: String, completion: @escaping (ProfileUser?, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/info"
         
@@ -303,9 +298,9 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("getUserInfo response error: \(error.localizedDescription)")
+                    print("GetUserInfo response error: \(error.localizedDescription)")
                 }
-                completion(error?.localizedDescription)
+                completion(nil, error)
                 return
             }
             
@@ -313,62 +308,58 @@ class ApiServers : NSObject {
                 do {
                     let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
                     user.printAllData()
-                    ProfileManager.shared.login(user: user)
-                    completion(user.token)
+                    completion(user, nil)
                     
-                } catch let err {
-                    completion(nil)
-                    print("get error when getUserInfo, err = \(err.localizedDescription)")
+                } catch let error {
+                    completion(nil, error)
+                    print("Get error when getUserInfo. Error = \(error.localizedDescription)")
                 }
                 
             } else {
-                print("getUserInfo empty data")
-                completion(nil)
+                print("GetUserInfo empty data")
+                completion(nil, nil)
             }
         }
     }
     
     
-    /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
-    func getUserInfoAll(completion: @escaping ([String: Any]?) -> Void) {
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getUserInfoAll: Profile user empty, please login to get user info all")
-            completion(nil)
-            return
-        }
-        
-        let sessionStr = hostVersion + "/users/info"
-        let headers:[String: Any] = [
-            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.username.rawValue : profileUser.username ?? ""
-        ]
-        
-        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
-            
-            guard let response = response else {
-                if let error = error {
-                    print("getUserInfoAll response error: \(error.localizedDescription)")
-                }
-                completion(nil)
-                return
-            }
-            
-            if let data = response["data"] as? [String : Any] {
-                do {
-                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
-                    //Zian should we relogin?......
-                    ProfileManager.shared.login(user: user)
-                    completion(data)
-                    
-                } catch let err {
-                    completion(nil)
-                    print("get error when getUserInfoAll, err = \(err.localizedDescription)")
-                }
-            }
-        }
-    }
+//    /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
+//    func getUserInfoAll(completion: @escaping (ProfileUser?) -> Void) {
+//        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+//            print("getUserInfoAll: Profile user empty, please login to get user info all")
+//            completion(nil)
+//            return
+//        }
+//
+//        let sessionStr = hostVersion + "/users/info"
+//        let headers:[String: Any] = [
+//            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+//            ServerKey.appToken.rawValue : appToken,
+//            ServerKey.userToken.rawValue: profileUser.token ?? "",
+//            ServerKey.username.rawValue : profileUser.username ?? ""
+//        ]
+//
+//        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+//            guard let response = response else {
+//                if let error = error {
+//                    print("getUserInfoAll response error: \(error.localizedDescription)")
+//                }
+//                completion(nil)
+//                return
+//            }
+//
+//            if let data = response["data"] as? [String : Any] {
+//                do {
+//                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
+//                    completion(user)
+//
+//                } catch let err {
+//                    print("get error when getUserInfoAll, err = \(err.localizedDescription)")
+//                    completion(nil)
+//                }
+//            }
+//        }
+//    }
     
     func getUserLogsOf(type: ServerUserLogUrl, completion: @escaping([Any]?) -> Void){
         
@@ -753,8 +744,8 @@ class ApiServers : NSObject {
             if let urlRequest = response.request?.url {
                 let printText: String = """
                 =========================
+                [ROUTE] \(route)
                 [REQUEST] \(urlRequest)
-                [PARAMS]: \(parameters)
                 """
                 print(printText)
             }
@@ -790,6 +781,8 @@ class ApiServers : NSObject {
             if let requestBody = response.request?.httpBody, let body = NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) {
                 let printText: String = """
                 =========================
+                [ROUTE] \(route)
+                [PARAMETERS] \(parameters)
                 [BODY] \(body))
                 """
                 print(printText)

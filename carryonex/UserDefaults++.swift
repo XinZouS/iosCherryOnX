@@ -17,11 +17,11 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
-    static func getUserName() -> String? {
+    static func getUsername() -> String? {
         return UserDefaults.standard.string(forKey: usernameKey)
     }
     
-    static func removeUserName() {
+    static func removeUsername() {
         UserDefaults.standard.removeObject(forKey: usernameKey)
     }
 

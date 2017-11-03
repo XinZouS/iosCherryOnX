@@ -44,6 +44,7 @@ class ProfileUser: Unboxable  {
     var passportUrl: String?
     var isIdVerified: Bool = false
     var isPhoneVerified: Bool = false
+    var status: Status?
     
     init() {
         //Initialization
@@ -83,6 +84,7 @@ class ProfileUser: Unboxable  {
         self.username = try? unboxer.unbox(key: ProfileUserKey.username.rawValue)
         self.token = try? unboxer.unbox(key: ProfileUserKey.token.rawValue)
         
+        self.status = try? unboxer.unbox(key: ProfileUserKey.status.rawValue)
         self.realName = try? unboxer.unbox(key: ProfileUserKey.realName.rawValue)
         self.phone = try? unboxer.unbox(key: ProfileUserKey.phone.rawValue)
         self.email = try? unboxer.unbox(key: ProfileUserKey.email.rawValue)
@@ -92,7 +94,19 @@ class ProfileUser: Unboxable  {
         self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
         
-        self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
-        self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        //TODO: Zian: NEED FROM MENGDI
+        //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        //self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
+    }
+}
+
+
+class Status: Unboxable  {
+    var id: Int?
+    var description: String?
+    
+    required init(unboxer: Unboxer) throws {
+        self.id = try? unboxer.unbox(key: "id")
+        self.description = try? unboxer.unbox(key: "description")
     }
 }
