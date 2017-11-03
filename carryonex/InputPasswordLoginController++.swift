@@ -22,15 +22,8 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         
         _ = passwordField.resignFirstResponder()
         
-        ApiServers.shared.postLoginUser(username: username, phone: username, password: password) { (msg) in
-            if(msg != "error"){
-                if let profileUser = ProfileManager.shared.getCurrentUser() {
-                    profileUser.phone = phoneInput
-                    profileUser.username = phoneInput
-                    profileUser.phoneCountryCode = zoneCodeInput
-                    ProfileManager.shared.updateCurrentUser(profileUser)
-                }
-                //print(info)
+        ApiServers.shared.postLoginUser(username: username, phone: username, password: password) { (success) in
+            if(success){
                 phoneInput = ""
                 zoneCodeInput = "1"
                 emailInput = ""

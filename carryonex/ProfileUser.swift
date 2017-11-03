@@ -26,6 +26,8 @@ class ProfileUser: Unboxable  {
         case idAUrl      = "ida_url"
         case idBUrl      = "idb_url"
         case walletId    = "wallet_id"
+        case isIdVerified = "is_id_verified"
+        case isPhoneVerified = "is_phone_verified"
     }
     
     var id: String?
@@ -39,7 +41,8 @@ class ProfileUser: Unboxable  {
     var idAUrl: String?
     var idBUrl: String?
     var passportUrl: String?
-    var isVerified: Bool = false
+    var isIdVerified: Bool = false
+    var isPhoneVerified: Bool = false
     
     init() {
         //Initialization
@@ -68,7 +71,8 @@ class ProfileUser: Unboxable  {
         idA_Url = \(idAUrl ?? "")
         idB_Url = \(idBUrl ?? "")"
         passportUrl = \(passportUrl ?? "")
-        isVerified = \(isVerified)
+        isIdVerified = \(isIdVerified)
+        isPhoneVerified = \(isPhoneVerified)
         """
         print(allData)
     }
@@ -86,5 +90,8 @@ class ProfileUser: Unboxable  {
         self.idAUrl = try? unboxer.unbox(key: ProfileUserKey.idAUrl.rawValue)
         self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
+        
+        self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
     }
 }

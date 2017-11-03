@@ -30,27 +30,25 @@ class ProfileManager: NSObject {
         get { return readUserTokenFromKeychain() }
     }
     
-    //MARK: - Methods
+    
+    //MARK: - Login Methods
     
     func isLoggedIn() -> Bool {
         return currentUser != nil
     }
     
     func login(user: ProfileUser) {
-        updateCurrentUser(user)
+        currentUser = user
         ServiceManager.shared.setupUDeskWithUser(user: user)
         
         if let username = user.username, let token = user.token {
+            UserDefaults.setUsername(username)
             saveUserTokenToKeychain(username: username, userToken: token)
         }
     }
     
     func getCurrentUser() -> ProfileUser? {
         return currentUser
-    }
-    
-    func updateCurrentUser(_ user: ProfileUser) {
-        currentUser = user
     }
     
     func updateUserToken(username: String, userToken: String) {
@@ -62,6 +60,52 @@ class ProfileManager: NSObject {
         self.currentUser = nil
         deleteUserTokenFromKeychain()
         ServiceManager.shared.logoutUdesk()
+    }
+    
+    
+    //MARK: - Update Methods
+    
+    func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
+        guard isLoggedIn() else {
+            print("User is not logged in, unable to update image url")
+            completion?(false)
+            return
+        }
+        
+        ApiServers.shared.postUpdateUserInfo(type, value: value) { (success, error) in
+            if let error = error {
+                print("updateImageUrl Error: \(error)")
+            }
+            
+            if success {
+                self.updateCurrentUser(updateType: type, value: value)
+            }
+            
+            completion?(success)
+        }
+    }
+    
+    private func updateCurrentUser(updateType: UsersInfoUpdate, value: String) {
+        switch (updateType) {
+        case .imageUrl:
+            currentUser?.imageUrl = value
+        case .realName:
+            currentUser?.realName = value
+        case .passportUrl:
+            currentUser?.passportUrl = value
+        case .email:
+            currentUser?.email = value
+        case .idAUrl:
+            currentUser?.idAUrl = value
+        case .idBUrl:
+            currentUser?.idBUrl = value
+        case .isIdVerified:
+            currentUser?.isIdVerified = value.toBool()
+        case .isPhoneVerified:
+            currentUser?.isPhoneVerified = value.toBool()
+        default:
+            print("Wrong update, not handling")
+        }
     }
     
     //MARK: - Token Management

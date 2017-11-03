@@ -504,10 +504,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
                 if let bucket = uploadRequest.bucket,
                     let key = uploadRequest.key,
                     let publicURL = url?.appendingPathComponent(bucket).appendingPathComponent(key) {
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.imageUrl = publicURL.absoluteString
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
+                    ProfileManager.shared.updateUserInfo(.imageUrl, value: publicURL.absoluteString, completion: nil)
                 }
             }else{
                 print("errrorrr!!! task.result is nil, !!!! did not upload")
@@ -560,33 +557,17 @@ extension HomePageController {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 print(jsonResult)
                 if let imgUrl = jsonResult["headimgurl"] as? String {
-                    
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.imageUrl = imgUrl
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
-                    
-                    ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: imgUrl, completion: { (success, msg) in
-                        print(success, msg)
+                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
                         if success {
                             self.userInfoMenuView.userProfileView.setupWechatImg()
-                        }else{
-                            print("错误")
                         }
                     })
                 }
                 
                 if let realName = jsonResult["nickname"] as? String {
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.realName = realName
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
-                    ApiServers.shared.postUpdateUserInfo(.realName, newInfo: realName, completion: { (success, msg) in
-                        print(success, msg)
+                    ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: { (success) in
                         if success {
                             self.userInfoMenuView.userProfileView.setupWechatRealName()
-                        }else{
-                            print("错误")
                         }
                     })
                 }

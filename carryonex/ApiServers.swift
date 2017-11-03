@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import Unbox
 
-enum ServerUserPropUrl : String {
+enum UsersInfoUpdate : String {
     case salt       = "salt"
     case imageUrl   = "imageurl"
     case phone      = "phone"
@@ -21,20 +21,9 @@ enum ServerUserPropUrl : String {
     case realName   = "realname"
     case isExist    = "exist"
     case wallet     = "wallet"
+    case isIdVerified = "is_id_verified"
+    case isPhoneVerified = "is_phone_verified"
 }
-/// response dictionary key group
-let ServerUserPropKey : [ServerUserPropUrl:String] = [
-    ServerUserPropUrl.salt      : "salt",
-    ServerUserPropUrl.phone     : "phone",
-    ServerUserPropUrl.imageUrl  : "image_url",
-    ServerUserPropUrl.passportUrl:"passport_url",
-    ServerUserPropUrl.idAUrl    : "ida_url",
-    ServerUserPropUrl.idBUrl    : "idb_url",
-    ServerUserPropUrl.email     : "email",
-    ServerUserPropUrl.realName  : "real_name",
-    ServerUserPropUrl.isExist   : "exist",
-    ServerUserPropUrl.wallet    : "wallet"
-]
 
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
@@ -55,6 +44,7 @@ enum ServerTripUrl : String {
     case startToEndZip  = "startzipcode/endzipcode/list"
     case requests       = "trips/requests"
 }
+
 /// key of parameters in the query url
 let ServerTripPropKey : [ServerTripUrl : String] = [
     ServerTripUrl.youxiangCode  : "trip_code",
@@ -185,7 +175,7 @@ class ApiServers : NSObject {
         }
     }
 
-    func postLoginUser(username: String, phone: String, password: String, completion: @escaping (String?) -> Void) {
+    func postLoginUser(username: String, phone: String, password: String, completion: @escaping (Bool) -> Void) {
         
         let route = hostVersion + "/users/login"
         let parameter:[String: Any] = [
@@ -202,7 +192,7 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postLoginUser response error: \(error.localizedDescription)")
                 }
-                completion(error?.localizedDescription)
+                completion(false)
                 return
             }
             
@@ -227,10 +217,10 @@ class ApiServers : NSObject {
                         ProfileManager.shared.login(user: profileUser)
                     }
                     
-                    completion(token)
+                    completion(true)
                     
                 } else {
-                   completion(nil)
+                   completion(false)
                 }
             }
         }
@@ -329,8 +319,6 @@ class ApiServers : NSObject {
             ServerKey.username.rawValue : profileUser.username ?? ""
         ]
         
-        let currToken = profileUser.token ?? ""
-        
         getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
             
             guard let response = response else {
@@ -344,8 +332,8 @@ class ApiServers : NSObject {
             if let data = response["data"] as? [String : Any] {
                 do {
                     let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
-                    user.token = currToken
-                    ProfileManager.shared.updateCurrentUser(user)
+                    //Zian should we relogin?......
+                    ProfileManager.shared.login(user: user)
                     completion(data)
                     
                 } catch let err {
@@ -400,22 +388,29 @@ class ApiServers : NSObject {
         }
     }
     
-    func postUpdateUserInfo(_ propUrl: ServerUserPropUrl, newInfo:String, completion: @escaping (Bool, String) -> Void){
+    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void){
         
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+        guard ProfileManager.shared.isLoggedIn() else {
             print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
-            completion(false, "")
+            completion(false, nil)
             return
         }
         
-        let route = hostVersion + "/users/" + propUrl.rawValue
+        guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
+            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/" + updateType.rawValue
         let data: [String: String] = [
-            ServerKey.username.rawValue : profileUser.username ?? "",
-            ServerUserPropKey[propUrl]! : newInfo
+            ServerKey.username.rawValue : username,
+            updateType.rawValue : value
         ]
+        
         let parms:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.userToken.rawValue: userToken,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.data.rawValue     : data
         ]
@@ -425,25 +420,12 @@ class ApiServers : NSObject {
             guard let response = response else {
                 if let error = error {
                     print("postUpdateUserInfo response error: \(error.localizedDescription)")
+                    completion(false, error)
                 }
                 return
             }
             
-            let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
-            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                if let userPropKey = ServerUserPropKey[propUrl], userPropKey != "" {
-                    
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        //profileUser.setupByDictionaryFromDB([userPropKey: newInfo])
-                        //TODO: Update user
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
-                }
-                completion(true, msg)
-            
-            } else {
-                completion(false, msg)
-            }
+            //let data = response[ServerKey.data.rawValue]
         }
     }
     
@@ -484,6 +466,7 @@ class ApiServers : NSObject {
             }
         }
     }
+    
     
     //Todo: Change UserGuideTabSection
     func getUsersTrips(userType: UserGuideTabSection, offset: Int, pageCount: Int, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
