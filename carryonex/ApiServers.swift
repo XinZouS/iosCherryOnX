@@ -25,6 +25,33 @@ enum UsersInfoUpdate : String {
     case isPhoneVerified = "is_phone_verified"
 }
 
+let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
+    UsersInfoUpdate.salt : ProfileUserKey.salt,
+    UsersInfoUpdate.phone : ProfileUserKey.phone,
+    UsersInfoUpdate.imageUrl : ProfileUserKey.imageUrl,
+    UsersInfoUpdate.passportUrl: ProfileUserKey.passportUrl,
+    UsersInfoUpdate.idAUrl : ProfileUserKey.idAUrl,
+    UsersInfoUpdate.idBUrl : ProfileUserKey.idBUrl,
+    UsersInfoUpdate.email : ProfileUserKey.email,
+    UsersInfoUpdate.realName  : ProfileUserKey.realName,
+    UsersInfoUpdate.wallet : ProfileUserKey.walletId
+]
+
+/*
+ let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
+ UsersInfoUpdate.salt : ProfileUserKey.salt,
+ UsersInfoUpdate.phone : ProfileUserKey.phone,
+ UsersInfoUpdate.imageUrl  : ProfileUserKey.imageUrl,
+ UsersInfoUpdate.passportUrl:"passport_url",
+ UsersInfoUpdate.idAUrl    : "ida_url",
+ UsersInfoUpdate.idBUrl    : "idb_url",
+ UsersInfoUpdate.email     : "email",
+ UsersInfoUpdate.realName  : "real_name",
+ UsersInfoUpdate.isExist   : "exist",
+ UsersInfoUpdate.wallet    : "wallet"
+ ]
+ */
+
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -112,7 +139,6 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("postRegisterUser response error: \(error.localizedDescription)")
@@ -403,20 +429,27 @@ class ApiServers : NSObject {
         }
         
         let route = hostVersion + "/users/" + updateType.rawValue
-        let data: [String: String] = [
-            ServerKey.username.rawValue : username,
-            updateType.rawValue : value
-        ]
+        
+        
+        var data: [String: String] = [:]
+        if let profileKey = UsersInfoUpdateKey[updateType]?.rawValue {
+            data[profileKey] = value
+            
+        } else {
+            print("Update profile key for \(updateType.rawValue) not found, update failed.")
+            completion(false, nil)
+            return
+        }
         
         let parms:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : username,
             ServerKey.userToken.rawValue: userToken,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.data.rawValue     : data
+            ServerKey.data.rawValue : data
         ]
         
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("postUpdateUserInfo response error: \(error.localizedDescription)")
@@ -425,12 +458,22 @@ class ApiServers : NSObject {
                 return
             }
             
-            //let data = response[ServerKey.data.rawValue]
+            if let code = response[ServerKey.statusCode.rawValue] as? Int {
+                if code == 200 {
+                    print("Code 200, update \(updateType.rawValue) successful")
+                    completion(true, nil)
+                } else {
+                    print("Code \(code), update \(updateType.rawValue) failed")
+                    completion(false, nil)
+                }
+            } else {
+                print("Code is missing, update \(updateType.rawValue) failed")
+                completion(false, nil)
+            }
         }
     }
     
     func getAllUsers(completion: @escaping(([User]?) -> Void)) {
-        
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getAllUsers: Profile user empty, pleaes login to get all users list")
             completion(nil)
@@ -445,7 +488,6 @@ class ApiServers : NSObject {
         ]
         
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("getAllUsers response error: \(error.localizedDescription)")
@@ -488,7 +530,6 @@ class ApiServers : NSObject {
         ]
         
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("getUsersTrips response error: \(error.localizedDescription)")
@@ -514,11 +555,8 @@ class ApiServers : NSObject {
     
     //MARK: - Config API
     func getConfig() {
-        
         let route = "/config"
-        
         getDataWithUrlRoute(route, parameters: [:]) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("getConfig response error: \(error.localizedDescription)")
@@ -547,8 +585,7 @@ class ApiServers : NSObject {
     
     
     // MARK: - Trip APIs
-    func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String,[Trip]?) -> Void){
-        
+    func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String, [Trip]?) -> Void){
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getTrips: Profile user empty, pleaes login to get trips")
             completion("", nil)
@@ -572,7 +609,6 @@ class ApiServers : NSObject {
         }
         
         getDataWithUrlRoute(route, parameters: headers) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("getTrips response error: \(error.localizedDescription)")
@@ -598,7 +634,6 @@ class ApiServers : NSObject {
     }
     
     func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success,msg,id)
-        
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", "")
             return
@@ -633,6 +668,7 @@ class ApiServers : NSObject {
                 } catch let error as NSError {
                     completion(false, error.localizedDescription, nil)
                 }
+                
             } else {
                 let msg = response[ServerKey.message.rawValue] as? String
                 completion(false, msg, "Unable to post trip data")
@@ -662,7 +698,6 @@ class ApiServers : NSObject {
         ]
         
         postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
-            
             guard let response = response else {
                 if let error = error {
                     print("postAddressInfo response error: \(error.localizedDescription)")

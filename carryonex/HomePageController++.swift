@@ -63,8 +63,6 @@ extension HomePageController: UITextFieldDelegate {
     
 }
 
-
-
 extension HomePageController {
     
     /// MUST check if user isVerified
@@ -72,7 +70,7 @@ extension HomePageController {
         var verified = false
         
         if let profileUser = ProfileManager.shared.getCurrentUser() {
-            verified = profileUser.isVerified
+            verified = profileUser.isIdVerified
         }
         
         if verified {

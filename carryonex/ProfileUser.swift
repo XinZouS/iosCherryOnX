@@ -9,26 +9,27 @@
 import Foundation
 import Unbox
 
+enum ProfileUserKey: String {
+    case id          = "id"
+    case email       = "email"
+    case username    = "username"
+    case phone       = "phone"
+    case realName    = "real_name"
+    case status      = "status"
+    case token       = "token"
+    case imageUrl    = "image_url"
+    case pubDate     = "pub_date"
+    case timestamp   = "timestamp"
+    case salt        = "salt"
+    case passportUrl = "passport_url"
+    case idAUrl      = "ida_url"
+    case idBUrl      = "idb_url"
+    case walletId    = "wallet_id"
+    case isIdVerified = "is_id_verified"
+    case isPhoneVerified = "is_phone_verified"
+}
+
 class ProfileUser: Unboxable  {
-    enum ProfileUserKey: String {
-        case id          = "id"
-        case email       = "email"
-        case username    = "username"
-        case phone       = "phone"
-        case realName    = "real_name"
-        case status      = "status"
-        case token       = "token"
-        case imageUrl    = "image_url"
-        case pubDate     = "pub_date"
-        case timestamp   = "timestamp"
-        case salt        = "salt"
-        case passportUrl = "passport_url"
-        case idAUrl      = "ida_url"
-        case idBUrl      = "idb_url"
-        case walletId    = "wallet_id"
-        case isIdVerified = "is_id_verified"
-        case isPhoneVerified = "is_phone_verified"
-    }
     
     var id: String?
     var username: String?
