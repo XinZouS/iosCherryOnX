@@ -162,7 +162,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            showOnboardingPage()
 //        }
         
-        fetchUserFromLocalDiskAndSetup()
         setupMapView()
         setupSearchContents()
         setupCallShipperButton()
@@ -178,16 +177,23 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         //Zian: If user is already loggin the app, relogin to refresh the token to
         //ensure token is in sync with server
+        
+        //Put your password here:
+        //let password = "montag"
+        /*
         if ProfileManager.shared.isLoggedIn() {
             if let username = ProfileManager.shared.getCurrentUser()?.username,
-                let phone = ProfileManager.shared.getCurrentUser()?.phone,
-                let password = ProfileManager.shared.getCurrentUser()?.password {
-                ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (newToken) in
-                    if let token = newToken { print("NEW TOKEN RENEWED = \(token)") }
-                    //self.testApiServers()
+                let phone = ProfileManager.shared.getCurrentUser()?.phone {
+                ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (success) in
+                    if success {
+                        print("Login Completed")
+                        self.testApiServers()
+                    }
                 }
             }
         }
+         */
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -212,6 +218,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
+        } else {
+            ProfileManager.shared.loadLocalUser()
         }
     }
 

@@ -88,8 +88,9 @@ extension UserProfileView {
             let data = try Data(contentsOf: fileUrl)
             let newProfileImg = UIImage(data: data)
             profileImgButton.setImage(newProfileImg, for: .normal)
-        }catch let err {
-            print("[ERROR]: loadProfileImageFromLocalFile() \(err)")
+            
+        } catch let err {
+            print("[ERROR]: loadProfileImageFromLocalFile() \(err.localizedDescription) | File: \(fileUrl)")
         }
     }
     
@@ -100,7 +101,6 @@ extension UserProfileView {
     internal func setupWechatImg(){
         let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl
         profileImgButton.kf.setImage(with:URL(string:imgUrl!), for: .normal)
-        
     }
     
     internal func setupWechatRealName(){

@@ -9,204 +9,104 @@
 import Foundation
 import Unbox
 
-class ProfileUser: NSObject, NSCoding, Unboxable { // need NSObject and NSCoding for saving to disk
-    var id:         String? = "demo user"
-    var username:   String? = ""
-    var token:      String? = ""
-    var password:   String? = ""
-    
-    var realName:   String? = ""
-    var phone:      String? = "" { didSet{ setupPhoneAndCountryCode() }}
-    var phoneCountryCode: String? = "1"
-    var email:      String? = ""
-    
-    var imageUrl:   String? = ""
-    var idCardA_Url: String? = ""
-    var idCardB_Url: String? = ""
-    var passportUrl: String? = ""
-    var isVerified : Bool = false
-    
-    var requestIdList : [String]? = []
-    var tripIdList    : [String]? = []
-    var ordersIdLogAsShipper: [String]? = []
-    
-    /// for save in local disk:
-    
-    required override init() {
-        super.init()
-    }
-    
-    internal required convenience init(coder aDecoder: NSCoder) {
-        var dictionary = [String : Any]()
-        
-        dictionary["id"]        = aDecoder.decodeObject(forKey: "id")       as? String
-        dictionary["username"]  = aDecoder.decodeObject(forKey: "username") as? String
-        dictionary["token"]     = aDecoder.decodeObject(forKey: "token")    as? String
-        dictionary["password"]  = aDecoder.decodeObject(forKey: "password") as? String
-        
-        dictionary["realName"]  = aDecoder.decodeObject(forKey: "realName") as? String
-        dictionary["phone"]     = aDecoder.decodeObject(forKey: "phone")    as? String
-        dictionary["phoneCountryCode"]  = aDecoder.decodeObject(forKey: "phoneCountryCode") as? String
-        dictionary["email"]     = aDecoder.decodeObject(forKey: "email")    as? String
-        
-        dictionary["imageUrl"]     = aDecoder.decodeObject(forKey: "imageUrl")    as? String
-        dictionary["idCardA_Url"]  = aDecoder.decodeObject(forKey: "idCardA_Url") as? String
-        dictionary["idCardB_Url"]  = aDecoder.decodeObject(forKey: "idCardB_Url") as? String
-        dictionary["passportUrl"]  = aDecoder.decodeObject(forKey: "passportUrl") as? String
-        dictionary["isVerified"]   = aDecoder.decodeObject(forKey: "isVerified")  as? Bool
+enum ProfileUserKey: String {
+    case id          = "id"
+    case email       = "email"
+    case username    = "username"
+    case phone       = "phone"
+    case realName    = "real_name"
+    case status      = "status"
+    case token       = "token"
+    case imageUrl    = "image_url"
+    case pubDate     = "pub_date"
+    case timestamp   = "timestamp"
+    case salt        = "salt"
+    case passportUrl = "passport_url"
+    case idAUrl      = "ida_url"
+    case idBUrl      = "idb_url"
+    case walletId    = "wallet_id"
+    case isIdVerified = "is_id_verified"
+    case isPhoneVerified = "is_phone_verified"
+}
 
-        // these should save into DB, not local
-//        dictionary["requestIdList"]  = aDecoder.decodeObject(forKey: "requestIdList") as? [String]
-//        dictionary["tripIdList"]     = aDecoder.decodeObject(forKey: "tripIdList")    as? [String]
-//        dictionary["ordersIdLogAsShipper"]  = aDecoder.decodeObject(forKey: "ordersIdLogAsShipper") as? [String]
-        
-        self.init()
-        setupByLocal(dictionary)
+class ProfileUser: Unboxable  {
+    
+    var id: String?
+    var username: String?
+    var token: String?
+    var realName: String?
+    var phone: String?
+    var phoneCountryCode: String?
+    var email: String?
+    var imageUrl: String?
+    var idAUrl: String?
+    var idBUrl: String?
+    var passportUrl: String?
+    var isIdVerified: Bool = false
+    var isPhoneVerified: Bool = false
+    var status: Status?
+    
+    init() {
+        //Initialization
     }
     
-    // should encode use internal for local disk saving
-    internal func encode(with aCoder: NSCoder) {
-        
-        aCoder.encode(id, forKey: "id")
-        aCoder.encode(username, forKey: "username")
-        aCoder.encode(token, forKey: "token")
-        aCoder.encode(password, forKey: "password")
-        
-        aCoder.encode(realName, forKey: "realName")
-        aCoder.encode(phone, forKey: "phone")
-        aCoder.encode(phoneCountryCode, forKey: "phoneCountryCode")
-        aCoder.encode(email, forKey: "email")
-        
-        aCoder.encode(imageUrl, forKey: "imageUrl")
-        aCoder.encode(idCardA_Url, forKey: "idCardA_Url")
-        aCoder.encode(idCardB_Url, forKey: "idCardB_Url")
-        aCoder.encode(passportUrl, forKey: "passportUrl")
-        aCoder.encode(isVerified, forKey: "isVerified")
-    }
-    
-    func packAllPropertiesAsDictionary() -> [String:Any] {
-        var json = [String:Any]()
-        json[UserKeyInDB.id.rawValue] = id
-        json[UserKeyInDB.username.rawValue] = username // value is "phone" to DB
-        json[UserKeyInDB.token.rawValue] = token
-        json[UserKeyInDB.password.rawValue] = password
-        
-        json[UserKeyInDB.realName.rawValue] = realName
-        
-        if let phoneCountryCode = phoneCountryCode, let phone = phone {
-            json[UserKeyInDB.phone.rawValue] = "\(phoneCountryCode)-\(phone)"
-        }
-        
-        json[UserKeyInDB.email.rawValue] = email
-        json[UserKeyInDB.imageUrl.rawValue] = imageUrl
-        json[UserKeyInDB.idCardA_Url.rawValue] = idCardA_Url
-        json[UserKeyInDB.idCardB_Url.rawValue] = idCardB_Url
-        json[UserKeyInDB.passportUrl.rawValue] = passportUrl
-        json[UserKeyInDB.isVerified.rawValue]  = isVerified
-        return json
-    }
-    
-    func packAllPropertiesAsData() -> Data? {
-        let json = packAllPropertiesAsDictionary
-        do {
-            if let dt = try JSONSerialization.data(withJSONObject: json, options: []) as Data? {
-                return dt
-            }
-        } catch let err {
-            print("get errorroror when JSONSerialization for User object: \(err)")
-        }
-        return nil
-    }
-    
-    //MARK: - Data Mapping
-    func setupByLocal(_ dictionary: [String : Any]) {
-//        print("will setup by dict = \(dictionary)")
-        // should NOT modify other values if the dictionary didnot contains them!!!
-        self.id          = dictionary["id"]       as? String ?? self.id 
-        self.username    = dictionary["username"] as? String ?? self.username
-        self.token       = dictionary["token"]    as? String ?? self.token
-        self.password    = dictionary["password"] as? String ?? self.password
-        
-        self.realName    = dictionary["realName"] as? String ?? self.realName
-        self.phone       = dictionary["phone"]    as? String ?? self.phone
-        self.phoneCountryCode = dictionary["phoneCountryCode"] as? String ?? self.phoneCountryCode
-        self.email       = dictionary["email"]    as? String ?? self.email
-        
-        self.imageUrl    = dictionary["imageUrl"] as? String ?? self.imageUrl
-        self.idCardA_Url = dictionary["idCardA_Url"] as? String ?? self.idCardA_Url
-        self.idCardB_Url = dictionary["idCardB_Url"] as? String ?? self.idCardB_Url
-        self.passportUrl = dictionary["passportUrl"] as? String ?? self.passportUrl
-        self.isVerified  = dictionary["isVerified"] as? Bool ?? self.isVerified
-    }
-    
-    func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
-        // should NOT modify other values if the dictionary didnot contains them!!!
-        id          = dictionary[UserKeyInDB.id.rawValue]       as? String ?? self.id
-        username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? self.username
-        token       = dictionary[UserKeyInDB.token.rawValue]    as? String ?? self.token
-        
-        password    = dictionary[UserKeyInDB.password.rawValue]     as? String ?? self.password
-        realName    = dictionary[UserKeyInDB.realName.rawValue]     as? String ?? self.realName
-        phone       = dictionary[UserKeyInDB.phone.rawValue]        as? String ?? self.phone
-        //phoneCountryCode = dictionary[UserKeyInDB.phone.rawValue]   as? String ?? self.phoneCountryCode , there is NO countrycode in DB!!
-        email       = dictionary[UserKeyInDB.email.rawValue]        as? String ?? self.email
-        
-        imageUrl    = dictionary[UserKeyInDB.imageUrl.rawValue]     as? String ?? self.imageUrl
-        idCardA_Url = dictionary[UserKeyInDB.idCardA_Url.rawValue]  as? String ?? self.idCardA_Url
-        idCardB_Url = dictionary[UserKeyInDB.idCardB_Url.rawValue]  as? String ?? self.idCardB_Url
-        passportUrl = dictionary[UserKeyInDB.passportUrl.rawValue]  as? String ?? self.passportUrl
-        isVerified  = dictionary[UserKeyInDB.isVerified.rawValue]   as? Bool   ?? self.isVerified
-    }
-    
-    //MARK:- Disk Save
-    private func setupPhoneAndCountryCode() {
-        guard let phone = phone else { return }
-        if phone.contains("-") {
-            let arr = phone.components(separatedBy: "-")
-            self.phone = arr.last
-            if let characterCount = arr.first?.characters.count, characterCount < 5 {
-                self.phoneCountryCode = arr.first
-            }
-        }
-    }
-    
+//    private func setupPhoneAndCountryCode() {
+//        guard let phone = phone else { return }
+//        if phone.contains("-") {
+//            let arr = phone.components(separatedBy: "-")
+//            self.phone = arr.last
+//            if let characterCount = arr.first?.characters.count, characterCount < 5 {
+//                self.phoneCountryCode = arr.first
+//            }
+//        }
+//    }
+//
     func printAllData(){
-        print("id = \(id ?? "")")
-        print("username = \(username ?? "")")
-        print("token = \(token ?? "")")
-        print("password = \(password ?? "")")
-        
-        
-        print("realName = \(realName ?? "")")
-        print("phone = \(phone ?? ""), countryCode = \(phoneCountryCode ?? "")")
-        print("email = \(email ?? "")")
-        
-        print("imageUrl = \(imageUrl ?? "")")
-        print("idcardA_Url = \(idCardA_Url ?? "")")
-        print("idcardB_Url = \(idCardB_Url ?? "")")
-        print("passportUrl = \(passportUrl ?? "")")
-        print("isVerified = \(isVerified)")
-        
-        print("requestIdList = \(requestIdList ?? [""])")
-        print("tripIdList = \(tripIdList ?? [""])")
-        print("ordersIdLogAsShipper = \(ordersIdLogAsShipper ?? [""])")
+        let allData = """
+        id = \(id ?? "")
+        username = \(username ?? "")
+        token = \(token ?? "")
+        realName = \(realName ?? "")
+        phone = \(phone ?? ""), countryCode = \(phoneCountryCode ?? "")
+        email = \(email ?? "")
+        imageUrl = \(imageUrl ?? "")
+        idA_Url = \(idAUrl ?? "")
+        idB_Url = \(idBUrl ?? "")"
+        passportUrl = \(passportUrl ?? "")
+        isIdVerified = \(isIdVerified)
+        isPhoneVerified = \(isPhoneVerified)
+        """
+        print(allData)
     }
-    
+ 
     required init(unboxer: Unboxer) throws {
-        self.id = try? unboxer.unbox(key: UserKeyInDB.id.rawValue)
-        self.username = try? unboxer.unbox(key: UserKeyInDB.username.rawValue)
-        self.token = try? unboxer.unbox(key: UserKeyInDB.token.rawValue)
-        self.password = try? unboxer.unbox(key: UserKeyInDB.password.rawValue)
+        self.id = try? unboxer.unbox(key: ProfileUserKey.id.rawValue)
+        self.username = try? unboxer.unbox(key: ProfileUserKey.username.rawValue)
+        self.token = try? unboxer.unbox(key: ProfileUserKey.token.rawValue)
         
-        self.realName = try? unboxer.unbox(key: UserKeyInDB.realName.rawValue)
-        self.phone = try? unboxer.unbox(key: UserKeyInDB.phone.rawValue)
-        self.email = try? unboxer.unbox(key: UserKeyInDB.email.rawValue)
+        self.status = try? unboxer.unbox(key: ProfileUserKey.status.rawValue)
+        self.realName = try? unboxer.unbox(key: ProfileUserKey.realName.rawValue)
+        self.phone = try? unboxer.unbox(key: ProfileUserKey.phone.rawValue)
+        self.email = try? unboxer.unbox(key: ProfileUserKey.email.rawValue)
         
-        self.imageUrl = try? unboxer.unbox(key: UserKeyInDB.imageUrl.rawValue)
-        self.idCardA_Url = try? unboxer.unbox(key: UserKeyInDB.idCardA_Url.rawValue)
-        self.idCardB_Url = try? unboxer.unbox(key: UserKeyInDB.idCardB_Url.rawValue)
-        self.passportUrl = try? unboxer.unbox(key: UserKeyInDB.passportUrl.rawValue)
-        self.isVerified = (try? unboxer.unbox(key: UserKeyInDB.isVerified.rawValue)) ?? false
+        self.imageUrl = try? unboxer.unbox(key: ProfileUserKey.imageUrl.rawValue)
+        self.idAUrl = try? unboxer.unbox(key: ProfileUserKey.idAUrl.rawValue)
+        self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
+        self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
+        
+        //TODO: Zian: NEED FROM MENGDI
+        //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        //self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
     }
 }
 
+
+class Status: Unboxable  {
+    var id: Int?
+    var description: String?
+    
+    required init(unboxer: Unboxer) throws {
+        self.id = try? unboxer.unbox(key: "id")
+        self.description = try? unboxer.unbox(key: "description")
+    }
+}

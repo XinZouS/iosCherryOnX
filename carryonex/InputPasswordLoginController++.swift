@@ -22,15 +22,8 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         
         _ = passwordField.resignFirstResponder()
         
-        ApiServers.shared.postLoginUser(username: username, phone: username, password: password) { (msg) in
-            if(msg != "error"){
-                if let profileUser = ProfileManager.shared.getCurrentUser() {
-                    profileUser.phone = phoneInput
-                    profileUser.username = phoneInput
-                    profileUser.phoneCountryCode = zoneCodeInput
-                    ProfileManager.shared.updateCurrentUser(profileUser)
-                }
-                //print(info)
+        ProfileManager.shared.login(username: username, password: password) { (success) in
+            if (success) {
                 phoneInput = ""
                 zoneCodeInput = "1"
                 emailInput = ""
@@ -105,5 +98,4 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
     }
-    
 }

@@ -37,12 +37,20 @@ extension String {
         return "+\(countryCode) \(phone)"
     }
     
+    //ZIAN: ONLY FOR THIS SERVER!!! KNOW YOUR PURPOSE BEFORE USING IT!
     func isTrue() -> Bool {
-        return self.lowercased() == "true"
+        return self.lowercased() == "true" || self == "1"
     }
     
     func isFalse() -> Bool {
-        return self.lowercased() == "false"
+        return self.lowercased() == "false" || self == "0"
+    }
+    
+    func toBool() -> Bool {
+        if self.lowercased() == "false" || self == "0" {
+            return false
+        }
+        return true
     }
 }
 

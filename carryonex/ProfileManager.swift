@@ -9,85 +9,235 @@
 import UIKit
 import Unbox
 
+struct KeychainConfiguration {
+    static let serviceName = "CarryonEx"
+    static let accessGroup: String? = nil
+}
+
 class ProfileManager: NSObject {
+
+    //MARK: - Variables
     
     static var shared = ProfileManager()
     
     private var currentUser: ProfileUser?
     
-    private override init() {
-        super.init()
+    var username: String? {
+        get { return UserDefaults.getUsername() }
     }
+    
+    var userToken: String? {
+        get { return readUserTokenFromKeychain() }
+    }
+    
+    
+    //MARK: - Convenience Methods
     
     func isLoggedIn() -> Bool {
-        return currentUser != nil
-    }
-    
-    func saveUser() {
-        guard let user = currentUser else { return }
-        saveProfileUserIntoLocalDisk(user)
-    }
-    
-    func loadUser() {
-        //Xin - when app just open up, the currentUser == nil, this will fail when try to login, bcz need to load user from disk and get username, token
-        //guard let curruser = self.currentUser else { return }
-        //curruser.loadFromLocalDisk()
-        
-        //Xin - loadUser will always replace currentuser(may be nil) in RAM by the user saved in disk(if not nil)
-        self.currentUser = loadProfileUserFromLocalDisk()
-        guard let currentUser = currentUser else { return }
-        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
-    }
-    
-    func removeUser() {
-        removeProfileUserFromLocalDisk()
-        self.currentUser = nil
-    }
-    
-    func login(user: ProfileUser) {
-        updateCurrentUser(user)
-        guard let currentUser = currentUser else { return }
-        ServiceManager.shared.setupUDeskWithUser(user: currentUser)
+        return UserDefaults.getUsername() != nil
     }
     
     func getCurrentUser() -> ProfileUser? {
         return currentUser
     }
     
-    func updateCurrentUser(_ user: ProfileUser) {
-        currentUser = user
-        saveProfileUserIntoLocalDisk(user)
+    
+    //MARK: - Login Methods
+    
+    func loadLocalUser() {
+        if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+                if let error = error {
+                    print("loadLocalUser Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let user = user {
+                    self.updateCurrentUser(user, writeToKeychain: false)
+                } else {
+                    print("return user info is nil")
+                }
+            })
+        }
+    }
+    
+    func register(username: String, phone: String, password: String, email: String, completion: @escaping(Bool) -> Swift.Void) {
+        ApiServers.shared.postRegisterUser(username: username, phone: phone, password: password, email: email) { (userToken, error) in
+            if let error = error {
+                print("Register Error: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            guard let userToken = userToken else {
+                print("Unable to retrieve token")
+                return
+            }
+            
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+                if let error = error {
+                    print("loadLocalUser Error: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                if let user = user {
+                    self.updateCurrentUser(user, writeToKeychain: true)
+                    completion(true)
+                } else {
+                    print("return user info is nil")
+                    completion(false)
+                }
+            })
+        }
+    }
+    
+    func login(username: String, password: String, completion: @escaping(Bool) -> Swift.Void) {
+        
+        ApiServers.shared.postLoginUser(username: username, password: password) { (userToken, error) in
+            if let error = error {
+                print("Register Error: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            guard let userToken = userToken else {
+                print("Unable to retrieve token")
+                completion(false)
+                return
+            }
+            
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+                if let error = error {
+                    print("loadLocalUser Error: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                if let user = user {
+                    self.updateCurrentUser(user, writeToKeychain: true)
+                    completion(true)
+                } else {
+                    print("return user info is nil")
+                    completion(false)
+                }
+            })
+        }
     }
     
     func logoutUser() {
-        removeUser()
-        currentUser = nil
+        self.currentUser = nil
+        deleteUserTokenFromKeychain()
         ServiceManager.shared.logoutUdesk()
     }
     
-    //MARK: - Local Disk Save
-    private func saveProfileUserIntoLocalDisk(_ user: ProfileUser){
-        print("Trying to save ProfileManager into local disk ...")
-        DispatchQueue.main.async {
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: user)
-            UserDefaults.standard.set(encodedData, forKey: UserDefaultKey.ProfileUser.rawValue)
-            UserDefaults.standard.synchronize()
-            print("OK, save ProfileManager into local disk success!!! user = \(user.printAllData())")
+    
+    //MARK: - Update Methods
+    
+    func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
+        guard isLoggedIn() else {
+            print("User is not logged in, unable to update \(type.rawValue) value")
+            completion?(false)
+            return
+        }
+        
+        ApiServers.shared.postUpdateUserInfo(type, value: value) { (success, error) in
+            if let error = error {
+                print("updateImageUrl Error: \(error.localizedDescription)")
+            }
+            
+            if success {
+                self.updateUserParams(type, value: value)
+            }
+            completion?(success)
         }
     }
     
-    private func loadProfileUserFromLocalDisk() -> ProfileUser? {
-        print("\n\rtrying to loadFromLocalDisk() ...... ")
-        if let savedUser = UserDefaults.standard.object(forKey: UserDefaultKey.ProfileUser.rawValue) as? Data,
-            let profileUser = NSKeyedUnarchiver.unarchiveObject(with: savedUser) as? ProfileUser {
-            return profileUser
+    private func updateUserParams(_ type: UsersInfoUpdate, value: String) {
+        switch (type) {
+        case .imageUrl:
+            currentUser?.imageUrl = value
+        case .realName:
+            currentUser?.realName = value
+        case .passportUrl:
+            currentUser?.passportUrl = value
+        case .email:
+            currentUser?.email = value
+        case .idAUrl:
+            currentUser?.idAUrl = value
+        case .idBUrl:
+            currentUser?.idBUrl = value
+        case .isIdVerified:
+            currentUser?.isIdVerified = value.toBool()
+        case .isPhoneVerified:
+            currentUser?.isPhoneVerified = value.toBool()
+        case .phone:
+            currentUser?.phone = value
+        default:
+            print("Not handling update type \(type.rawValue) yet.")
         }
-        print("error in ProfileUser.swift: loadFromLocalDisk(): can not get Data, will return nil instead...")
-        return nil
     }
     
-    private func removeProfileUserFromLocalDisk(){
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.ProfileUser.rawValue)
-        print("OK, removed user from local disk.")
+    //MARK: - Keychain Management
+    
+    private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
+        self.currentUser = user
+        ServiceManager.shared.setupUDeskWithUser(user: user)
+        
+        if writeToKeychain, let username = user.username, let token = user.token {
+            self.saveUserTokenToKeychain(username: username, userToken: token)
+        }
+    }
+    
+    private func saveUserTokenToKeychain(username: String, userToken: String) {
+        do {
+            let userTokenItem = tokenItem(account: username)
+            try userTokenItem.savePassword(userToken)
+            UserDefaults.setUsername(username)
+        } catch {
+            fatalError("Error updating keychain - \(error)")
+        }
+    }
+    
+    private func deleteUserTokenFromKeychain() {
+        if let username = UserDefaults.getUsername() {
+            do {
+                let userTokenItem = tokenItem(account: username)
+                try userTokenItem.deleteItem()
+                UserDefaults.removeUsername()
+            } catch {
+                fatalError("Error updating keychain - \(error)")
+            }
+        }
+    }
+    
+    private func readUserTokenFromKeychain() -> String? {
+        
+        var token: String?
+        
+        if let username = UserDefaults.getUsername() {
+            do {
+                let userTokenItem = tokenItem(account: username)
+                try token = userTokenItem.readPassword()
+            } catch {
+                fatalError("Error reading password from keychain - \(error)")
+            }
+            
+        } else {
+            print("Username not found")
+        }
+        
+        if token == nil {
+            print("User token not found")
+        }
+        
+        return token
+    }
+    
+    private func tokenItem(account: String) -> KeychainPasswordItem {
+        let userTokenItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                                 account: account,
+                                                 accessGroup: KeychainConfiguration.accessGroup)
+        return userTokenItem
     }
 }

@@ -42,13 +42,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     private func setupUserRealNameFrom(_ textField: UITextField){
         if let newName = textField.text, newName != "" {
             DispatchQueue.main.async(execute: {
-                if let profileUser = ProfileManager.shared.getCurrentUser() {
-                    profileUser.realName = newName
-                    ProfileManager.shared.updateCurrentUser(profileUser)
-                }
-                ApiServers.shared.postUpdateUserInfo(.realName, newInfo: newName, completion: { (success, msg) in
-                    print("save realName to server success = \(success), msg = \(msg)")
-                })
+                ProfileManager.shared.updateUserInfo(.realName, value: newName, completion: nil)
             })
         }
     }
@@ -206,11 +200,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         UIApplication.shared.beginIgnoringInteractionEvents()
         activityIndicator.startAnimating() // start uploading image and show indicator
         
-        if let profileUser = ProfileManager.shared.getCurrentUser() {
-            profileUser.realName = self.nameTextField.text
-            ProfileManager.shared.updateCurrentUser(profileUser)
+        if let realName = self.nameTextField.text, !realName.isEmpty {
+            ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: nil)
         }
-
+        
         for pair in imageUploadSequence {
             let imgIdType : String = pair.key.rawValue
             prepareUploadFile(fileName: "\(imgIdType).JPG", imgIdType: pair.key)
@@ -272,10 +265,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             print("number of images to be upload: ", self.imageUploadingSet.count)
             if self.imageUploadingSet.count == 1 {
                 DispatchQueue.main.async {
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.isVerified = true
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
+                    ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
                 }
                 self.activityIndicator.stopAnimating()
                 self.dismiss(animated: true, completion: nil)
@@ -295,46 +285,22 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         let urlStr = url.absoluteString
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
-            
-            if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.passportUrl = urlStr
-                ProfileManager.shared.updateCurrentUser(profileUser)
-            }
-            
-            ApiServers.shared.postUpdateUserInfo(.passportUrl, newInfo: urlStr, completion: { (success, msg) in
+            ProfileManager.shared.updateUserInfo(.passportUrl, value: urlStr, completion: { (success) in
                 self.passportImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.idCardA.rawValue:
-            
-            if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.idCardA_Url = urlStr
-                ProfileManager.shared.updateCurrentUser(profileUser)
-            }
-            
-            ApiServers.shared.postUpdateUserInfo(.idAUrl, newInfo: urlStr, completion: { (success, msg) in
+            ProfileManager.shared.updateUserInfo(.idAUrl, value: urlStr, completion: { (success) in
                 self.idCardAImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.idCardB.rawValue:
-            
-            if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.idCardB_Url = urlStr
-                ProfileManager.shared.updateCurrentUser(profileUser)
-            }
-            
-            ApiServers.shared.postUpdateUserInfo(.idBUrl, newInfo: urlStr, completion: { (success, msg) in
+            ProfileManager.shared.updateUserInfo(.idBUrl, value: urlStr, completion: { (success) in
                 self.idCardBImgUrlCloud = success ? urlStr : nil
             })
             
         case ImageTypeOfID.profile.rawValue:
-            
-            if let profileUser = ProfileManager.shared.getCurrentUser() {
-                profileUser.imageUrl = urlStr
-                ProfileManager.shared.updateCurrentUser(profileUser)
-            }
-            
-            ApiServers.shared.postUpdateUserInfo(.imageUrl, newInfo: urlStr, completion: { (success, msg) in
+            ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
                 self.profileImgUrlCloud = success ? urlStr : nil
             })
             

@@ -35,7 +35,7 @@ extension UserInfoViewController {
     
     func logoutButtonTapped() {
         
-        ProfileManager.shared.removeUser()
+        ProfileManager.shared.logoutUser()
         userProfileView.removeProfileImageFromLocalFile()
 
         let phoneNumNavCtl = UINavigationController(rootViewController: PhoneNumberController())
@@ -169,10 +169,7 @@ extension UserInfoViewController : UINavigationControllerDelegate, UIImagePicker
             if task.result != nil {
                 let url = AWSS3.default().configuration.endpoint.url
                 if let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!) {
-                    if let profileUser = ProfileManager.shared.getCurrentUser() {
-                        profileUser.imageUrl = publicURL.absoluteString
-                        ProfileManager.shared.updateCurrentUser(profileUser)
-                    }
+                    ProfileManager.shared.updateUserInfo(.imageUrl, value: publicURL.absoluteString, completion: nil)
                 }
             
             } else {
