@@ -10,26 +10,23 @@ import UIKit
 import Reachability
 
 class ReachabilityManager {
-    
     static let shared = ReachabilityManager()
-    
-    let reachability = Reachability()!
-    
-    private init(){
-        do{
-            try self.reachability.startNotifier()
-        }catch{
+    let reachability = Reachability()
+}
+
+extension ReachabilityManager {
+    func startObserving() {
+        do {
+            try self.reachability?.startNotifier()
+        } catch{
             print("error in ReachabilityManager::startObserving, could not start reachability notifier")
         }
     }
     
-    
-}
-
-
-extension ReachabilityManager {
-    
+    /*
     func startObserving(completionHandler: @escaping(Bool) -> Void){
+        
+        /*
         NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: reachability, queue: nil) { notification in
             
             guard let reachability = notification.object as? Reachability else { return }
@@ -46,12 +43,13 @@ extension ReachabilityManager {
                 print("ReachabilityManager: Network not reachable")
                 completionHandler(false)
             }
+         */
         }
     }
-    
+    */
     func stopObserving(){
-        reachability.stopNotifier()
-        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
+        //reachability.stopNotifier()
+        //NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
     }
     
 }

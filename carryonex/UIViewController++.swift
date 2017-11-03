@@ -19,6 +19,7 @@ extension UIViewController {
         let action = UIAlertAction(title: action, style: .default) { (action) in
             completion?()
         }
+        
         v.addAction(action)
         present(v, animated: true, completion: nil)
     }

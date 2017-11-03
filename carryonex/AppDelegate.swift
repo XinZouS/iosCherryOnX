@@ -31,9 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //window?.rootViewController = PageContainer()
         window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
         
+        //Set up reachability
+        ReachabilityManager.shared.startObserving()
+        
         //set up Udesk
-        
-        
         setupMobSharingSDK()
         
         // setupFacebookSharingSDK
