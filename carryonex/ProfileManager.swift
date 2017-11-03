@@ -44,7 +44,12 @@ class ProfileManager: NSObject {
                     print("loadLocalUser Error: \(error.localizedDescription)")
                     return
                 }
-                self.currentUser = user
+                
+                if let user = user {
+                    self.updateCurrentUser(user, writeToKeychain: false)
+                } else {
+                    print("return user info is nil")
+                }
             })
         }
     }
@@ -70,7 +75,7 @@ class ProfileManager: NSObject {
                 }
                 
                 if let user = user {
-                    self.updateCurrentUser(user: user)
+                    self.updateCurrentUser(user, writeToKeychain: true)
                     completion(true)
                 } else {
                     print("return user info is nil")
@@ -103,7 +108,7 @@ class ProfileManager: NSObject {
                 }
                 
                 if let user = user {
-                    self.updateCurrentUser(user: user)
+                    self.updateCurrentUser(user, writeToKeychain: true)
                     completion(true)
                 } else {
                     print("return user info is nil")
@@ -113,22 +118,17 @@ class ProfileManager: NSObject {
         }
     }
     
-    private func updateCurrentUser(user: ProfileUser) {
+    private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
         self.currentUser = user
         ServiceManager.shared.setupUDeskWithUser(user: user)
         
-        if let username = user.username, let token = user.token {
+        if writeToKeychain, let username = user.username, let token = user.token {
             self.saveUserTokenToKeychain(username: username, userToken: token)
         }
     }
     
     func getCurrentUser() -> ProfileUser? {
         return currentUser
-    }
-    
-    func updateUserToken(username: String, userToken: String) {
-        deleteUserTokenFromKeychain()
-        saveUserTokenToKeychain(username: username, userToken: userToken)
     }
     
     func logoutUser() {
@@ -152,13 +152,13 @@ class ProfileManager: NSObject {
             }
             
             if success {
-                self.updateUserInfo(type, value: value)
+                self.updateUserParams(type, value: value)
             }
             completion?(success)
         }
     }
     
-    private func updateUserInfo(_ type: UsersInfoUpdate, value: String) {
+    private func updateUserParams(_ type: UsersInfoUpdate, value: String) {
         switch (type) {
         case .imageUrl:
             currentUser?.imageUrl = value
@@ -183,7 +183,7 @@ class ProfileManager: NSObject {
         }
     }
     
-    //MARK: - Token Management
+    //MARK: - Keychain Management
     private func saveUserTokenToKeychain(username: String, userToken: String) {
         do {
             let userTokenItem = tokenItem(account: username)

@@ -323,44 +323,6 @@ class ApiServers : NSObject {
     }
     
     
-//    /// DO NOT merge this into getUserInfo->String, too much setup and different returning object!
-//    func getUserInfoAll(completion: @escaping (ProfileUser?) -> Void) {
-//        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-//            print("getUserInfoAll: Profile user empty, please login to get user info all")
-//            completion(nil)
-//            return
-//        }
-//
-//        let sessionStr = hostVersion + "/users/info"
-//        let headers:[String: Any] = [
-//            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-//            ServerKey.appToken.rawValue : appToken,
-//            ServerKey.userToken.rawValue: profileUser.token ?? "",
-//            ServerKey.username.rawValue : profileUser.username ?? ""
-//        ]
-//
-//        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
-//            guard let response = response else {
-//                if let error = error {
-//                    print("getUserInfoAll response error: \(error.localizedDescription)")
-//                }
-//                completion(nil)
-//                return
-//            }
-//
-//            if let data = response["data"] as? [String : Any] {
-//                do {
-//                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
-//                    completion(user)
-//
-//                } catch let err {
-//                    print("get error when getUserInfoAll, err = \(err.localizedDescription)")
-//                    completion(nil)
-//                }
-//            }
-//        }
-//    }
-    
     func getUserLogsOf(type: ServerUserLogUrl, completion: @escaping([Any]?) -> Void){
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
