@@ -134,6 +134,7 @@
 		66BB08341F48967600935950 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08331F48967600935950 /* ItemCategory.swift */; };
 		66BB08361F489DEA00935950 /* ItemTypeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08351F489DEA00935950 /* ItemTypeListCell.swift */; };
 		66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C11FABA36500755754 /* OrdersBasePageCell.swift */; };
+		66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C31FACBB4300755754 /* ReachabilityManager.swift */; };
 		66C9756D1F3DEFB000450F37 /* UserInfoViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9756C1F3DEFB000450F37 /* UserInfoViewController++.swift */; };
 		66C9756F1F3DF15200450F37 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9756E1F3DF15200450F37 /* UserProfileView.swift */; };
 		66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C975761F3E141600450F37 /* PhoneNumberController.swift */; };
@@ -356,6 +357,7 @@
 		66BB08331F48967600935950 /* ItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
 		66BB08351F489DEA00935950 /* ItemTypeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTypeListCell.swift; sourceTree = "<group>"; };
 		66C138C11FABA36500755754 /* OrdersBasePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersBasePageCell.swift; sourceTree = "<group>"; };
+		66C138C31FACBB4300755754 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		66C9756C1F3DEFB000450F37 /* UserInfoViewController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserInfoViewController++.swift"; sourceTree = "<group>"; };
 		66C9756E1F3DF15200450F37 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		66C975761F3E141600450F37 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberController.swift; sourceTree = "<group>"; };
@@ -1081,6 +1083,7 @@
 			isa = PBXGroup;
 			children = (
 				E58FDC9A1FA5A226000C126E /* ServiceManager.swift */,
+				66C138C31FACBB4300755754 /* ReachabilityManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1483,6 +1486,7 @@
 				66A9FAE01F897D4200BDC36F /* ImageCell++.swift in Sources */,
 				FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */,
 				664C648F1F5580A300AA8FFE /* UserProfileView++.swift in Sources */,
+				66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */,
 				E53791E41FAB731E009647CD /* Notifications++.swift in Sources */,
 				660F4F811F57559400F4820D /* ButtonCell.swift in Sources */,
 				6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */,
