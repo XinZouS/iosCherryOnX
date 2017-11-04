@@ -222,13 +222,14 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         // setup AWS Transfer Manager Request:
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         if imgIdType == .profile {
-            uploadRequest?.acl = .publicRead
+            uploadRequest?.acl = .publicReadWrite
+            uploadRequest?.bucket = "\(awsPublicBucketName)/userProfileImages/\(userId)" // no / at the end of bucket
         }else{
             uploadRequest?.acl = .private
+            uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
         }
         uploadRequest?.key = fileName // MUST NOT change this!!
         uploadRequest?.body = imageUploadSequence[imgIdType]!! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
         uploadRequest?.contentType = "image/jpeg"
         
         performFileUpload(request: uploadRequest)

@@ -208,6 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             }
         }
     }
+    
 
 }
 
