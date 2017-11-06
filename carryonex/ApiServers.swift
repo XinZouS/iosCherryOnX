@@ -21,8 +21,8 @@ enum UsersInfoUpdate : String {
     case realName   = "realname"
     case isExist    = "exist"
     case wallet     = "wallet"
-    case isIdVerified = "is_id_verified"
-    case isPhoneVerified = "is_phone_verified"
+    case isIdVerified = "idverified"
+    case isPhoneVerified = "phoneverified"
 }
 
 let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
