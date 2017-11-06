@@ -1,19 +1,18 @@
 //
-//  CommentViewCell.swift
+//  OrderDetailCommentTitleCell.swift
 //  carryonex
 //
-//  Created by zxbMacPro on 2017/10/30.
+//  Created by zxbMacPro on 2017/11/6.
 //  Copyright © 2017年 Xin Zou. All rights reserved.
 //
 
 import UIKit
 
-class CommentViewCell : CommentBaseCell,UITextViewDelegate {
-
-    let commentStateLabel : UILabel = {
+class OrderDetailCommentTitleCell : OrderDetailCommentBaseCell {
+    
+    var CommentNumLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
-        l.text = "非常好"
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()
@@ -23,33 +22,30 @@ class CommentViewCell : CommentBaseCell,UITextViewDelegate {
     lazy var StarCommentBtn1 :UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton1Tapped), for: .touchUpInside)
         return b
     }()
-   lazy var StarCommentBtn2 :UIButton = {
+    lazy var StarCommentBtn2 :UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton2Tapped), for: .touchUpInside)
         return b
     }()
-   lazy var StarCommentBtn3 :UIButton = {
+    lazy var StarCommentBtn3 :UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton3Tapped), for: .touchUpInside)
         return b
     }()
     lazy var StarCommentBtn4 :UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton4Tapped), for: .touchUpInside)
         return b
     }()
     lazy var StarCommentBtn5 :UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton5Tapped), for: .touchUpInside)
         return b
     }()
+
+    
     
     
     override init(frame: CGRect) {
@@ -57,17 +53,9 @@ class CommentViewCell : CommentBaseCell,UITextViewDelegate {
         
         backgroundColor = .white
         
-        setupCommentStateLabel()
+        setupNameLabel()
         setupStarCommentView()
-    }
-    private func setupCommentStateLabel(){
-        addSubview(commentStateLabel)
-        commentStateLabel.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
-        titleLabelCenterYConstraint = commentStateLabel.centerXAnchor.constraint(equalTo: centerXAnchor,constant:35)
-        titleLabelCenterYConstraint?.isActive = true
         
-        titleLabelWidthConstraint = commentStateLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
-        titleLabelWidthConstraint?.isActive = true
     }
     private func setupStarCommentView(){
         let w : CGFloat = 46, h : CGFloat = 46, l : CGFloat = 0
@@ -94,7 +82,14 @@ class CommentViewCell : CommentBaseCell,UITextViewDelegate {
         starCommentView?.distribution = .fillEqually
         
         addSubview(starCommentView!)
-        starCommentView?.addConstraints(left: leftAnchor, top: commentStateLabel.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 20, topConstent: 20, rightConstent: 20, bottomConstent: 0, width: 0, height: h)
+        starCommentView?.addConstraints(left: leftAnchor, top: CommentNumLabel.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 20, topConstent: 20, rightConstent: 20, bottomConstent: 0, width: 0, height: h)
+    }
+    
+    private func setupNameLabel(){
+        addSubview(CommentNumLabel)
+        CommentNumLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 10, topConstent: 30, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        titleLabelWidthConstraint = CommentNumLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
+        titleLabelWidthConstraint?.isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

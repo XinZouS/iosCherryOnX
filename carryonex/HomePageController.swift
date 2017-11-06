@@ -15,6 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 import Reachability
+import Crashlytics
 
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
     

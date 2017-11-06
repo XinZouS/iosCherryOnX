@@ -1,33 +1,24 @@
 //
-//  DetailUserNameCell.swift
+//  OrderDetailCommentInfoCell.swift
 //  carryonex
 //
-//  Created by zxbMacPro on 2017/10/18.
+//  Created by zxbMacPro on 2017/11/6.
 //  Copyright © 2017年 Xin Zou. All rights reserved.
 //
 
 import UIKit
 
-class DetailUserNameCell : DetailBaseCell {
+class OrderDetailCommentInfoCell : OrderDetailCommentBaseCell {
     
-    let nameLabel : UILabel = {
+    var nameLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
-        l.text = "玖"
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()
-    let localLabel : UILabel = {
+    var localLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
-        l.text = "美国纽约"
-        l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
-        return l
-    }()
-    let youxiangLabel : UILabel = {
-        let l = UILabel()
-        //        l.backgroundColor = .cyan
-        l.text = "游箱号：1234"
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()
@@ -35,10 +26,14 @@ class DetailUserNameCell : DetailBaseCell {
         let b = UIButton()
         b.layer.cornerRadius = 40
         b.backgroundColor = .white
-        b.addTarget(self, action: #selector(senderImgBtnTapped), for: .touchUpInside)
+        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return b
     }()
     
+    var commentTextView : UITextView = {
+        let v = UITextView()
+        return v
+    }()
     
     
     override init(frame: CGRect) {
@@ -48,21 +43,21 @@ class DetailUserNameCell : DetailBaseCell {
         
         setupNameLabel()
         setupLocalLabel()
-        setupYouxiangLabel()
         setupSenderImgBtn()
+        setupCommentView()
+        setupUnderlineView()
         //        setupTextField()
         
     }
     private func setupSenderImgBtn(){
         addSubview(senderImgBtn)
-        senderImgBtn.setImage(UIImage(named: "CarryonEx_Logo"), for: .normal)
-        senderImgBtn.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 50, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 80, height: 80)
+        senderImgBtn.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 50, topConstent: 20, rightConstent: 0, bottomConstent: 0, width: 80, height: 80)
         senderImgBtnWidthConstraint = senderImgBtn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         senderImgBtnWidthConstraint?.isActive = true
     }
     private func setupNameLabel(){
         addSubview(nameLabel)
-        nameLabel.addConstraints(left: leftAnchor, top: nil, right: nil, bottom: nil, leftConstent: 150, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        nameLabel.addConstraints(left: leftAnchor, top: topAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 30, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
@@ -72,11 +67,16 @@ class DetailUserNameCell : DetailBaseCell {
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
-    private func setupYouxiangLabel(){
-        addSubview(youxiangLabel)
-        youxiangLabel.addConstraints(left: leftAnchor, top: localLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
-        titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
-        titleLabelWidthConstraint?.isActive = true
+    private func setupCommentView(){
+        addSubview(commentTextView)
+        commentTextView.addConstraints(left: leftAnchor, top: senderImgBtn.bottomAnchor, right: nil, bottom: nil, leftConstent: 10, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: UIScreen.main.bounds.width, height: 30)
+    }
+    private func setupUnderlineView(){
+        underlineView.backgroundColor = .lightGray
+        addSubview(underlineView)
+        underlineView.addConstraints(left: leftAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 1)
+        underlineViewBottomConstraint = underlineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
+        underlineViewBottomConstraint?.isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

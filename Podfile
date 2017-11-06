@@ -81,5 +81,10 @@ target 'carryonex' do
 
   #Network connection detactor
   pod 'ReachabilitySwift'
-  
+
+  # Fabric install
+  use_frameworks!
+  pod 'Fabric'
+  pod 'Crashlytics'
+
 end

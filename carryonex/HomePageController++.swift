@@ -18,7 +18,6 @@ import AWSS3
 import ALCameraViewController
 
 
-
 /**
  for textField and keyboard control;
  */
@@ -473,7 +472,6 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
 
         let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
         let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
-        
         // Configure aws cognito credentials:
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId: awsIdentityPoolId)
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
