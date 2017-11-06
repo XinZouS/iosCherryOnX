@@ -30,11 +30,6 @@ class PhotoIDController: UIViewController {
     var passportImgUrlLocal: URL?
     var profileImgUrlLocal : URL?
     
-    var idCardAImgUrlCloud : String?
-    var idCardBImgUrlCloud : String?
-    var passportImgUrlCloud: String?
-    var profileImgUrlCloud : String?
-    
     var imageUploadingSet: Set<String> = []
     var imageUploadSequence: [ImageTypeOfID : URL?] = [:]
     

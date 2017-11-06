@@ -121,8 +121,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         var getImg : UIImage = #imageLiteral(resourceName: "CarryonEx_Logo")
         if let editedImg = info[UIImagePickerControllerEditedImage] as? UIImage {
             getImg = editedImg
-        }else
-        if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
             getImg = originalImg
         }
 
@@ -244,25 +243,21 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
             ProfileManager.shared.updateUserInfo(.passportUrl, value: urlStr, completion: { (success) in
-                self.passportImgUrlCloud = success ? urlStr : nil
                 self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.idCardA.rawValue:
             ProfileManager.shared.updateUserInfo(.idAUrl, value: urlStr, completion: { (success) in
-                self.idCardAImgUrlCloud = success ? urlStr : nil
                 self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.idCardB.rawValue:
             ProfileManager.shared.updateUserInfo(.idBUrl, value: urlStr, completion: { (success) in
-                self.idCardBImgUrlCloud = success ? urlStr : nil
                 self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.profile.rawValue:
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
-                self.profileImgUrlCloud = success ? urlStr : nil
                 self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
@@ -275,12 +270,13 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
 
     private func didFinishedUploadImagesToAws(allSuccess: Bool){
         guard allSuccess else {
+            activityIndicator.stopAnimating()
             displayAlertForUploadFailed(error: nil)
             return
         }
-        guard imageUploadingSet.count == 1 else { return }
+        guard imageUploadingSet.count <= 1 else { return }
         
-        self.activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
         
         DispatchQueue.main.async {
@@ -298,7 +294,6 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     }
     
     private func displayAlertForUploadFailed(error: Error?){
-        self.activityIndicator.stopAnimating()
         //UIApplication.shared.endIgnoringInteractionEvents() error: .endIgnoringInteractionEvents() must be used from main thread only - Xin
         
         if let nav = self.navigationController {
@@ -313,29 +308,6 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         // Store the completion handler.
         AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
     }
-    
-    /// save image to temporary directory
-//    func generateImageUrlInLocalTemporaryDirectory(fileName: String, idImg: UIImage) -> URL? {
-//        let fileUrl = URL(fileURLWithPath: NSTemporaryDirectory().appending(fileName))
-//        let data = UIImageJPEGRepresentation(idImg, imageCompress)
-//        do {
-//            try data?.write(to: fileUrl, options: .atomicWrite)
-//        }catch let err {
-//            print("\n\r err in generateImageUrlInLocalTemporaryDirectory() data?.write: ", err)
-//            return nil
-//        }
-//        return fileUrl
-//    }
-//
-//    func removeImageWithUrlInLocalTemporaryDirectory(fileName: String){
-//        let fileUrl = NSURL(fileURLWithPath: NSTemporaryDirectory().appending(fileName))
-//        do {
-//            try FileManager.default.removeItem(at: fileUrl as URL)
-//            print("OK, remove image with url local for file: \(fileName)")
-//        }catch let err {
-//            print("err in removeImageWithUrlInLocalTemporaryDirectory: ", err)
-//        }
-//    }
     
     private func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

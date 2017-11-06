@@ -204,6 +204,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        ReachabilityManager.shared.startObserving()
         isItHaveLogIn()
     }
     
@@ -219,12 +220,14 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
-        } else {
+        }else{
             self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+                self.activityIndicator.stopAnimating()
                 if isSuccess {
-                    self.activityIndicator.stopAnimating()
+                    let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
                     self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
+                    self.userInfoMenuView.userProfileView.loadProfileImageFromAws(urlStr: imgUrl)
                 }
             })
         }
@@ -303,15 +306,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //print("button did selected: \(atIndex)")
         switch atIndex{
         case 0:
-            //callShipperButtonTapped()
             showUserInfoSideMenu()
             
         case 1:
-            //switchToSender() no need to switch, just open the page for sender
             gotoItemTypePage()
             
         case 2:
-            //switchToShiper() no need to switch just open the page for shipper
             gotoTripPage()
             
         default:
