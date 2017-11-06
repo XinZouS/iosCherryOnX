@@ -1210,7 +1210,7 @@
 					665DE4E81F3A0B70004DDB88 = {
 						CreatedOnToolsVersion = 8.3.3;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
@@ -1644,7 +1644,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42AU2524CN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1747,8 +1748,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "87ccd2bf-abb4-4639-b59f-3a482e899694";
-				PROVISIONING_PROFILE_SPECIFIER = "CarryonEx Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "carryonex/carryonex-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1764,8 +1765,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42AU2524CN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1868,8 +1869,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e8e9da0-512d-4f93-93e0-90baa11f92d4";
-				PROVISIONING_PROFILE_SPECIFIER = "CarryonEx App Store";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "carryonex/carryonex-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
