@@ -237,12 +237,17 @@ class PhotoIDController: UIViewController {
     
     private func setupNavigationBar(){
         title = "验证信息"
-        UINavigationBar.appearance().tintColor = buttonColorWhite
-        navigationController?.navigationBar.tintColor = buttonColorWhite
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
-        
-        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.leftBarButtonItem = cancelButton
+        let layer = navigationController?.viewControllers.count ?? 1
+        if layer == 1 { // self. is rootController
+            UINavigationBar.appearance().tintColor = buttonColorWhite
+            navigationController?.navigationBar.tintColor = buttonColorWhite
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
+            
+            let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
+            navigationItem.leftBarButtonItem = cancelButton
+        }else{ // is enter from SettingController
+            // do nothing, do NOT change bar setups;
+        }
     }
     
     private func setupTitleLabel(){
