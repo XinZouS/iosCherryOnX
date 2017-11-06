@@ -36,6 +36,7 @@ extension UserInfoMenuView {
         case 3:
             let userSettingCtl = UserSettingController()
             userSettingCtl.userProfileView = self.userProfileView
+            userSettingCtl.homePageCtl = self.homePageCtl
             let settingNavigationCtl = UINavigationController(rootViewController: userSettingCtl)
             userSettingCtl.title = self.titles[indexPath.item]
             self.homePageCtl?.present(settingNavigationCtl, animated: true, completion: nil)

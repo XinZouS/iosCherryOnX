@@ -12,8 +12,8 @@ import Unbox
 
 enum UsersInfoUpdate : String {
     case salt       = "salt"
-    case imageUrl   = "imageurl"
     case phone      = "phone"
+    case imageUrl   = "imageurl"
     case passportUrl = "passporturl"
     case idAUrl     = "idaurl"
     case idBUrl     = "idburl"
@@ -34,7 +34,9 @@ let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
     UsersInfoUpdate.idBUrl : ProfileUserKey.idBUrl,
     UsersInfoUpdate.email : ProfileUserKey.email,
     UsersInfoUpdate.realName  : ProfileUserKey.realName,
-    UsersInfoUpdate.wallet : ProfileUserKey.walletId
+    UsersInfoUpdate.wallet : ProfileUserKey.walletId,
+    UsersInfoUpdate.isIdVerified : ProfileUserKey.isIdVerified,
+    UsersInfoUpdate.isPhoneVerified : ProfileUserKey.isPhoneVerified
 ]
 
 /*
@@ -389,7 +391,7 @@ class ApiServers : NSObject {
             data[profileKey] = value
             
         } else {
-            print("Update profile key for \(updateType.rawValue) not found, update failed.")
+            print("Error in ApiServers: Update profile key for [\(updateType.rawValue)] not found, update failed.")
             completion(false, nil)
             return
         }
@@ -746,6 +748,7 @@ class ApiServers : NSObject {
                 [ROUTE] \(route)
                 [PARAMETERS] \(parameters)
                 [BODY] \(body))
+                 _
                 """
                 print(printText)
             }

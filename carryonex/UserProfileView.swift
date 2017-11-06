@@ -13,17 +13,6 @@ class UserProfileView: UIView {
  
     var homePageCtl : HomePageController?
     
-    var userInfoViewCtl : UserInfoViewController?
-    
-//    let profileView: UIImageView = {
-//        let v = UIImageView()
-//        //v.backgroundColor = UIColor.green
-//        v.layer.cornerRadius = 40
-//        v.layer.masksToBounds = true
-//        v.image = #imageLiteral(resourceName: "yadianwenqing")
-//        return v
-//    }()
-    
     let buttonAttributes : [String:Any] = [
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont.systemFont(ofSize: 16)

@@ -201,121 +201,103 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         activityIndicator.startAnimating() // start uploading image and show indicator
         
         if let realName = self.nameTextField.text, !realName.isEmpty {
-            ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: nil)
+            ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: { (success) in
+                if !success {
+                    self.displayAlertForUploadFailed()
+                    return
+                }
+            })
         }
         
+        uploadAllImagesToAws()
+    }
+    
+    private func uploadAllImagesToAws(){
         for pair in imageUploadSequence {
             let imgIdType : String = pair.key.rawValue
-            prepareUploadFile(fileName: "\(imgIdType).JPG", imgIdType: pair.key)
-        }
-    }
-    
-    private func prepareUploadFile(fileName: String, imgIdType: ImageTypeOfID) {
-        print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
-        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
-        
-        // Configure aws cognito credentials:
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USWest2, identityPoolId: awsIdentityPoolId)
-        let configuration = AWSServiceConfiguration(region: .USWest2, credentialsProvider: credentialsProvider)
-        AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
-        // setup AWS Transfer Manager Request:
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        if imgIdType == .profile {
-            uploadRequest?.acl = .publicReadWrite
-            uploadRequest?.bucket = "\(awsPublicBucketName)/userProfileImages/\(userId)" // no / at the end of bucket
-        }else{
-            uploadRequest?.acl = .private
-            uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
-        }
-        uploadRequest?.key = fileName // MUST NOT change this!!
-        uploadRequest?.body = imageUploadSequence[imgIdType]!! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.contentType = "image/jpeg"
-        
-        performFileUpload(request: uploadRequest)
-    }
-    
-    
-    private func performFileUpload(request: AWSS3TransferManagerUploadRequest?){
-        
-        guard let request = request else {
-            print("get nil in AWSS3TransferManagerUploadRequest.....")
-            return
-        }
-        
-        let transferManager = AWSS3TransferManager.default()
-        transferManager.upload(request).continueWith { (task: AWSTask) -> Any? in
-            
-            DispatchQueue.main.async(execute: {
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
-            
-            if let err = task.error {
-                print("performFileUpload(): task.error = \(err)")
-                self.activityIndicator.stopAnimating()
-                self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
-                return nil
+            let filename = imgIdType + ".JPG"
+            if let locUrl = pair.value {
+                AwsServerManager.shared.uploadFile(fileName: filename, imgIdType: pair.key, localUrl: locUrl, completion: { (error, url) in
+                    if let err = error {
+                        print("performFileUpload(): task.error = \(err)")
+                        self.activityIndicator.stopAnimating()
+                        self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
+                    }
+                    if let publicUrl = url {
+                        print("PhotoIDController: uploadAllImages get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
+                        self.saveImageCloudUrl(url: publicUrl)
+                        self.removeImageWithUrlInLocalFileDirectory(fileName: filename)
+                    }else{
+                        print("errrorrr!!! task.result is nil, !!!! did not upload")
+                    }
+                    
+                    if self.imageUploadingSet.count == 1 {
+                        DispatchQueue.main.async {
+                            ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
+                        }
+                        self.activityIndicator.stopAnimating()
+                        self.dismiss(animated: true, completion: nil)
+                        self.homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
+                    }else{
+                        self.imageUploadingSet.removeFirst()
+                    }
+                    
+                }) // end of uploadFile()
             }
-            if task.result != nil {
-                let url = AWSS3.default().configuration.endpoint.url
-                if let publicURL = url?.appendingPathComponent(request.bucket!).appendingPathComponent(request.key!) {
-                    self.saveImageCloudUrl(url: publicURL)
-                }
-            }else{
-                print("errrorrr!!! task.result is nil, !!!! did not upload")
-            }
-            
-            self.removeImageWithUrlInLocalFileDirectory(fileName: request.key!)
-            
-            print("number of images to be upload: ", self.imageUploadingSet.count)
-            if self.imageUploadingSet.count == 1 {
-                DispatchQueue.main.async {
-                    ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
-                }
-                self.activityIndicator.stopAnimating()
-                self.dismiss(animated: true, completion: nil)
-                self.homePageController?.showAlertFromPhotoIdController()
-            }else{
-                self.imageUploadingSet.removeFirst()
-            }
-            return nil
         }
     }
     
     private func saveImageCloudUrl(url : URL){
         let fileName: String = url.lastPathComponent
         guard let fileType: String = fileName.components(separatedBy: ".").first else { return }
-        print("get fileType = \(fileType), save urlStr = \(url.absoluteString)")
+        print("saveImageCloudUrl: get fileType = \(fileType), save urlStr = \(url.absoluteString)")
         
+        var uploadSuccess = false
         let urlStr = url.absoluteString
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
             ProfileManager.shared.updateUserInfo(.passportUrl, value: urlStr, completion: { (success) in
                 self.passportImgUrlCloud = success ? urlStr : nil
+                uploadSuccess = success
             })
             
         case ImageTypeOfID.idCardA.rawValue:
             ProfileManager.shared.updateUserInfo(.idAUrl, value: urlStr, completion: { (success) in
                 self.idCardAImgUrlCloud = success ? urlStr : nil
+                uploadSuccess = success
             })
             
         case ImageTypeOfID.idCardB.rawValue:
             ProfileManager.shared.updateUserInfo(.idBUrl, value: urlStr, completion: { (success) in
                 self.idCardBImgUrlCloud = success ? urlStr : nil
+                uploadSuccess = success
             })
             
         case ImageTypeOfID.profile.rawValue:
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
                 self.profileImgUrlCloud = success ? urlStr : nil
+                uploadSuccess = success
             })
             
         default:
-            print("invalide fileType input: \(fileType)")
+            print("saveImageCloudUrl: invalide fileType input: \(fileType)")
             return
         }
-        print("OK!!! saveImageCloudUrl, Uploaded to url:\(url)")
+        if !uploadSuccess {
+            displayAlertForUploadFailed()
+        }
     }
-    
+
+    private func displayAlertForUploadFailed(){
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+            let msg = "未能成功上传您的验证信息，请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！"
+            displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
+        }else{
+            dismiss(animated: true, completion: nil)
+            homePageController?.showAlertFromPhotoIdController(isUploadSuccess: false)
+        }
+    }
     
     // MARK: - Image Saving and Loading to fileSystem
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {

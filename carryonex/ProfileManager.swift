@@ -44,18 +44,21 @@ class ProfileManager: NSObject {
     
     //MARK: - Login Methods
     
-    func loadLocalUser() {
+    func loadLocalUser(completion: @escaping(Bool) -> Void) {
         if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
             ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
                 if let error = error {
                     print("loadLocalUser Error: \(error.localizedDescription)")
+                    completion(false)
                     return
                 }
                 
                 if let user = user {
                     self.updateCurrentUser(user, writeToKeychain: false)
+                    completion(true)
                 } else {
-                    print("return user info is nil")
+                    print("error: loadLocalUser: return user info is nil")
+                    completion(false)
                 }
             })
         }

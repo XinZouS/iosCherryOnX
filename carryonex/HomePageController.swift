@@ -203,7 +203,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
-        userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -219,7 +218,11 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         } else {
-            ProfileManager.shared.loadLocalUser()
+            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+                if isSuccess {
+                    self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
+                }
+            })
         }
     }
 
