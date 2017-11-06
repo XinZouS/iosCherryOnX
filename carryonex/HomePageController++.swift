@@ -481,10 +481,10 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         
         // setup AWS Transfer Manager Request:
         guard let uploadRequest = AWSS3TransferManagerUploadRequest() else { return }
-        uploadRequest.acl = .publicRead
+        uploadRequest.acl = .publicReadWrite
         uploadRequest.key = fileName // MUST NOT change this!!
         uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(userId)" // no / at the end of bucket
+        uploadRequest.bucket = "\(awsPublicBucketName)/userProfileImages/\(userId)" // no / at the end of bucket
         uploadRequest.contentType = "image/jpeg"
         
         let transferManager = AWSS3TransferManager.default()
@@ -577,14 +577,27 @@ extension HomePageController {
 // MARK: - Pop alert view
 extension HomePageController {
     
-    func showAlertFromPhotoIdController(){
-        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.showAlertFromPhotoIdAfterDelay), userInfo: nil, repeats: false)
+    func showAlertFromPhotoIdController(isUploadSuccess: Bool){
+//        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.showAlertFromPhotoIdAfterDelaySuccess), userInfo: nil, repeats: false)
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
+            if isUploadSuccess {
+                self.showAlertFromPhotoIdAfterDelaySuccess()
+            }else{
+                self.showAlertFromPhotoIdAfterDelayFailed()
+            }
+        })
     }
     
-    internal func showAlertFromPhotoIdAfterDelay(){
+    internal func showAlertFromPhotoIdAfterDelaySuccess(){
         DispatchQueue.main.async { 
             let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
             self.displayAlert(title: "✅上传完成", message: msg, action: "朕知道了")
+        }
+    }
+    internal func showAlertFromPhotoIdAfterDelayFailed(){
+        DispatchQueue.main.async {
+            let msg = "未能成功上传您的验证信息，请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！"
+            self.displayAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了")
         }
     }
 }

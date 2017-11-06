@@ -18,19 +18,24 @@ extension UserSettingController {
             case 0:
                 let phoneNumberCtl = PhoneNumberController()
                 isModifyPhoneNumber = true
-                self.navigationController?.pushViewController(phoneNumberCtl, animated: true)
+                navigationController?.pushViewController(phoneNumberCtl, animated: true)
+                
             case 1:
-                print("TODO: open 语言 page...")
+                let p = PhotoIDController()
+                p.homePageController = self.homePageCtl
+                navigationController?.pushViewController(p, animated: true) // for navigation page
 
+            case 2:
+                print("TODO: open 语言 page...")
+                
             default:
-                print("erororrroor UserSettingCtl++: undefined selection at section = \(indexPath.section), item = \(indexPath.item)")
+                print("error: UserSettingCtl++: undefined selection at section = \(indexPath.section), item = \(indexPath.item)")
             }
             
         }else{ // section == 1
             
             switch indexPath.item {
             case 0:
-                print("TODO: open 用户指南 page...")
                 let userGuide = UserGuideController()
                 userGuide.title = titles[indexPath.section][indexPath.item]
                 navigationController?.pushViewController(userGuide, animated: true)
@@ -39,14 +44,11 @@ extension UserSettingController {
                 print("TODO: open 给游箱评价 page...")
                 
             case 2:
-                print("TODO: open 法律条款与隐私政策 page...")
-                // (1) http://192.168.0.119:5000/license (2)http://192.168.0.119:5000/privacy (3)http://192.168.0.119:5000/acknowledgements
                 let lic = LicensesController()
                 navigationController?.pushViewController(lic, animated: true)
                 lic.title = titles[indexPath.section][indexPath.item]
                 
-            case 3:
-                print("TODO: open 关于游箱 page...") // http://192.168.0.119:5000/about_us
+            case 3: // open 关于游箱 page: http://192.168.0.119:5000/about_us
                 let webView = WebController()
                 webView.url = URL(string: "\(userGuideWebHoster)/doc_about_us")
                 webView.webView.scrollView.isScrollEnabled = false

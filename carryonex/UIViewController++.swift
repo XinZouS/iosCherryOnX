@@ -22,12 +22,22 @@ extension UIViewController {
         
         v.addAction(action)
         
-        if let currVC = topViewController(base: self) {
-            currVC.present(v, animated: true, completion: nil)
-        }
+        present(v, animated: true, completion: nil)
     }
     
-    
+    func displayGlobalAlert(title: String, message: String, action: String, completion:(() -> Void)?) {
+        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: action, style: .default) { (action) in
+            completion?()
+        }
+        
+        v.addAction(action)
+        
+        if let topVC = topViewController(base: self) {
+            topVC.present(v, animated: true, completion: nil)
+        }
+    }
+
     func topViewController(base: UIViewController? = ((UIApplication.shared).delegate as! AppDelegate).window?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
@@ -42,4 +52,6 @@ extension UIViewController {
         }
         return base
     }
+    
+    
 }
