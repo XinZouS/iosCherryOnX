@@ -32,6 +32,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         return m
     }()
     
+    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    
     var selectedPin : MKPlacemark? = nil
     
     internal let locationManager = CLLocationManager()
@@ -169,7 +171,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupTopButtons()
         setupBlackBackgroundView()
         setupUserInfoMenuView()
-
+        setupActivityIndicator()
         addNotificationObservers()
         
         ApiServers.shared.getConfig()
@@ -218,12 +220,21 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         } else {
+            self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
+                    self.activityIndicator.stopAnimating()
                     self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
                 }
             })
         }
+    }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
     }
 
     private func setupSearchContents(){
