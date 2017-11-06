@@ -38,8 +38,6 @@ extension AwsServerManager {
         if imgIdType == .profile {
             uploadRequest?.acl = .publicReadWrite
             uploadRequest?.bucket = "\(awsPublicBucketName)/userProfileImages/\(userPhone)" // no / at the end of bucket
-//            uploadRequest?.acl = .private
-//            uploadRequest?.bucket = "\(awsBucketName)/userProfileImages/\(userPhone)" // no / at the end of bucket
         }else{
             uploadRequest?.acl = .private
             uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userPhone)" // no / at the end of bucket
@@ -60,8 +58,8 @@ extension AwsServerManager {
                 UIApplication.shared.endIgnoringInteractionEvents()
             })
             
-            if let err = task.error {
-                print("performFileUpload(): task.error = \(err)")
+            if let err = task.error, let req = uploadRequest {
+                print("performFileUpload(): task.error = \(err), target bucket = \(req.bucket.debugDescription)")
                 completion(err, nil)
                 return nil
             }
