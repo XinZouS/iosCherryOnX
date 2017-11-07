@@ -180,6 +180,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //ensure token is in sync with server
         
         //Put your password here:
+        /*
         let password = "montag"
         if ProfileManager.shared.isLoggedIn() {
             if let username = ProfileManager.shared.getCurrentUser()?.username {
@@ -197,7 +198,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 }
             }
         }
-        
+        */
     }
     
     override func viewWillAppear(_ animated: Bool) {
