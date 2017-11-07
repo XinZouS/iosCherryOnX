@@ -167,7 +167,7 @@ class Request: NSObject, Unboxable {
         print("weight = \(weight)")
         print("imageUrls = \(imageUrls)")
 
-        print("cost = $ ", cost)
+        print("cost = ", cost)
         
         print("owner = ", owner ?? "")
         print("tripId = \(tripId ?? "")")

@@ -97,6 +97,8 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
                     referenceView = idCardB_Button
                 case ImageTypeOfID.profile:
                     referenceView = profileButton
+                case ImageTypeOfID.requestImages: // not necessary, Xcode foce me to do this; - Xin
+                    referenceView = profileButton // bcz this page will NEVER display for request imgs;
             }
             attachmentMenu.popoverPresentationController?.sourceView = referenceView
         }
@@ -172,6 +174,9 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             case .profile:
                 profileButton.setImage(getImg, for: .normal)
                 profileReady = true
+            
+            case .requestImages:
+                print("Error: should NOT set up requestImages in PhotoIDController++")
         }
 
     }

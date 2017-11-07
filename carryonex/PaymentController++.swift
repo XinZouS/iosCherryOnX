@@ -101,9 +101,11 @@ extension PaymentController {
         ApiServers.shared.sentOrderInformation(address: request.destinationAddress!)
         let waitingCtl = WaitingController()
         waitingCtl.isForShipper = false
-        present(waitingCtl, animated: true, completion: nil)
-//        navigationController?.pushViewController(waitingCtl, animated: true)
-        navigationController?.popToRootViewController(animated: false)
+        
+        // TODO: how to dismiss current page and present the new waitingCtl ????
+        present(waitingCtl, animated: true) {
+            self.navigationController?.dismiss(animated: false, completion: nil)
+        }
     }
     
     
