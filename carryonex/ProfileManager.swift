@@ -64,8 +64,8 @@ class ProfileManager: NSObject {
         }
     }
     
-    func register(username: String, phone: String, password: String, email: String, completion: @escaping(Bool) -> Swift.Void) {
-        ApiServers.shared.postRegisterUser(username: username, phone: phone, password: password, email: email) { (userToken, error) in
+    func register(username: String, countryCode: String, phone: String, password: String, email: String, completion: @escaping(Bool) -> Swift.Void) {
+        ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email) { (userToken, error) in
             if let error = error {
                 print("Register Error: \(error.localizedDescription)")
                 completion(false)

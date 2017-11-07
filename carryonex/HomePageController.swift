@@ -217,14 +217,14 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     private func isItHaveLogIn(){
         
-        if !appDidLaunch {
-            if (!ProfileManager.shared.isLoggedIn()){
-                let registerMainCtl = RegisterMainController()
-                isModifyPhoneNumber = false
-                let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
-                self.present(registerRootCtl, animated: false, completion: nil)
+        if (!ProfileManager.shared.isLoggedIn()){
+            let registerMainCtl = RegisterMainController()
+            isModifyPhoneNumber = false
+            let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
+            self.present(registerRootCtl, animated: false, completion: nil)
             
-            } else {
+        } else {
+            if !appDidLaunch {
                 self.activityIndicator.startAnimating()
                 ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                     self.activityIndicator.stopAnimating()
@@ -234,8 +234,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                         print("error: isItHaveLogIn(): loadLocalUser is failed...")
                     }
                 })
+                appDidLaunch = true
             }
-            appDidLaunch = true
         }
         
     }
