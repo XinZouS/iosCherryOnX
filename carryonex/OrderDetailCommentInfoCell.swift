@@ -16,7 +16,7 @@ class OrderDetailCommentInfoCell : OrderDetailCommentBaseCell {
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
     }()
-    var localLabel : UILabel = {
+    var timeLabel : UILabel = {
         let l = UILabel()
         //        l.backgroundColor = .cyan
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
@@ -25,6 +25,7 @@ class OrderDetailCommentInfoCell : OrderDetailCommentBaseCell {
     lazy var senderImgBtn : UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 40
+        b.layer.masksToBounds = true
         b.backgroundColor = .white
         //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return b
@@ -42,7 +43,7 @@ class OrderDetailCommentInfoCell : OrderDetailCommentBaseCell {
         backgroundColor = .white
         
         setupNameLabel()
-        setupLocalLabel()
+        setupTimeLabel()
         setupSenderImgBtn()
         setupCommentView()
         setupUnderlineView()
@@ -61,9 +62,9 @@ class OrderDetailCommentInfoCell : OrderDetailCommentBaseCell {
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
-    private func setupLocalLabel(){
-        addSubview(localLabel)
-        localLabel.addConstraints(left: leftAnchor, top: nameLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+    private func setupTimeLabel(){
+        addSubview(timeLabel)
+        timeLabel.addConstraints(left: leftAnchor, top: nameLabel.bottomAnchor, right: nil, bottom: nil, leftConstent: 150, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
         titleLabelWidthConstraint = nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width < 325 ? 95 : 130)
         titleLabelWidthConstraint?.isActive = true
     }
