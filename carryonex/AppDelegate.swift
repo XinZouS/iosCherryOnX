@@ -49,7 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         // setup Fabric
         Fabric.with([Crashlytics.self, AWSCognito.self])
-        self.logUser()
         
         //setup BrainTree
         BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")

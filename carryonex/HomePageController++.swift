@@ -222,6 +222,8 @@ extension HomePageController {
         //      for test ===================================
         let clientTokenOrTokenizationKey = "sandbox_29yqtgvt_jj626h3ph2ywgc97"
         let request =  BTDropInRequest()
+        request.amount = "19"
+        request.currencyCode = "USD"
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             if (error != nil) {
@@ -229,18 +231,11 @@ extension HomePageController {
             } else if (result?.isCancelled == true) {
                 print("CANCELLED")
             } else if let result = result {
-                // Use the BTDropInResult properties to update your UI
-                // result.paymentOptionType = .payPal
-                // result.paymentMethod
-                // result.paymentIcon
-                // result.paymentDescription
+                let selectedPaymentMethod = result.paymentMethod!
+                ApiServers.shared.postNonceToServer(paymentMethodNonce: selectedPaymentMethod.nonce)
             }
-            controller.apiClient.fetchOrReturnRemoteConfiguration({ (<#BTConfiguration?#>, <#Error?#>) in
-                <#code#>
-            })
             controller.dismiss(animated: true, completion: nil)
         }
-        
         self.present(dropIn!, animated: true, completion: nil)
         
     }
