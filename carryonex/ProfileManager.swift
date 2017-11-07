@@ -8,6 +8,7 @@
 
 import UIKit
 import Unbox
+import Crashlytics
 
 struct KeychainConfiguration {
     static let serviceName = "CarryonEx"
@@ -186,6 +187,10 @@ class ProfileManager: NSObject {
     private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
         self.currentUser = user
         ServiceManager.shared.setupUDeskWithUser(user: user)
+        
+        Crashlytics.sharedInstance().setUserEmail(user.email)
+        Crashlytics.sharedInstance().setUserIdentifier(user.id)
+        Crashlytics.sharedInstance().setUserName(user.username)
         
         if writeToKeychain, let username = user.username, let token = user.token {
             self.saveUserTokenToKeychain(username: username, userToken: token)
