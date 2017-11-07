@@ -41,7 +41,7 @@ extension UserProfileView {
             return profileImgLocalUrl
     }
     
-    public func loadNameAndPhoneInfo(){ // also do this in HomePageController
+    public func loadNamePhoneImage(){ // also do this in HomePageController
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         
         if let currName = currUser.realName, currName != "" {
@@ -65,30 +65,14 @@ extension UserProfileView {
             phoneButton.setAttributedTitle(attStr, for: .normal)
             phoneButton.isEnabled = true
         }
-        if let imgUrl = currUser.imageUrl, imgUrl != "" {
-            print("loadNameAndPhoneInfo(): get imgPhoto url = [\(imgUrl)]")
-            profileImgButton.kf.setImage(with:URL(string:imgUrl), for: .normal)
-        }else{
-            profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
-        }
+        
+        let imgUrl = URL(string: currUser.imageUrl ?? "")
+        profileImgButton.kf.setImage(with:imgUrl, for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
         
         if !nameButton.isEnabled && !phoneButton.isEnabled {
             verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifiedTrue")
         }else{
             verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifiedFalse")
-        }
-    }
-    
-    internal func loadProfileImageFromLocalFile(){
-        let documentUrl = getDocumentUrl()
-        let fileUrl = documentUrl.appendingPathComponent(ImageTypeOfID.profile.rawValue + ".JPG")
-        do {
-            let data = try Data(contentsOf: fileUrl)
-            let newProfileImg = UIImage(data: data)
-            profileImgButton.setImage(newProfileImg, for: .normal)
-            
-        } catch let err {
-            print("[ERROR]: loadProfileImageFromLocalFile() \(err.localizedDescription) | File: \(fileUrl)")
         }
     }
     
@@ -102,8 +86,10 @@ extension UserProfileView {
         }
     }
     
-    internal func loadProfileImageFromAws(urlStr: String){
-        profileImgButton.kf.setImage(with: URL(string: urlStr), for: .normal)
+    internal func setupProfileImageFromAws(){
+        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
+        print("setup profile image from aws url = \(imgUrl)")
+        profileImgButton.kf.setImage(with: URL(string: imgUrl), for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
     }
     
     internal func setupProfileImage(_ img: UIImage){
@@ -111,9 +97,8 @@ extension UserProfileView {
     }
     
     internal func setupWechatImg(){
-        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl
-        print("get wechat url = \(imgUrl)")
-        profileImgButton.kf.setImage(with: URL(string: imgUrl!), for: .normal)
+        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
+        profileImgButton.kf.setImage(with: URL(string: imgUrl), for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
     }
     
     internal func setupWechatRealName(){
