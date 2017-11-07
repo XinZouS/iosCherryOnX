@@ -226,13 +226,14 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         } else {
-            
             self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-                if isSuccess {
-                    self.activityIndicator.stopAnimating()
-                    self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
-                }
+                self.activityIndicator.stopAnimating()
+                    if isSuccess {
+                        self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
+                    } else {
+                        print("error: isItHaveLogIn(): loadLocalUser is failed...")
+                    }
             })
         }
     }
