@@ -277,6 +277,9 @@ class PhotoIDController: UIViewController {
         scrollContainer.addSubview(nameLabel)
         nameLabel.addConstraints(left: view.leftAnchor, top: scrollContainer.topAnchor, right: nil, bottom: nil, leftConstent: pageMargin, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 90, height: labelH)
         
+        if let currName = ProfileManager.shared.getCurrentUser()?.realName {
+            nameTextField.text = currName
+        }
         scrollContainer.addSubview(nameTextField)
         nameTextField.addConstraints(left: nameLabel.rightAnchor, top: nameLabel.topAnchor, right: view.rightAnchor, bottom: nameLabel.bottomAnchor, leftConstent: 10, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 0)
         nameTextField.becomeFirstResponder()
