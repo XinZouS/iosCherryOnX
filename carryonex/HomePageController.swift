@@ -221,11 +221,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
         } else {
+            UIApplication.shared.beginIgnoringInteractionEvents()
             self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
                     self.activityIndicator.stopAnimating()
                     self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                 }
             })
         }
