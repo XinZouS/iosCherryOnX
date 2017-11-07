@@ -268,7 +268,6 @@ extension RequestController {
     internal func uploadImagesToAwsAndGetUrls(){
         for pair in imageUploadSequence {
             let imageName = pair.key
-//            prepareUploadFile(fileName: imageName)
             
             if let url = imageUploadSequence[imageName] {
                 AwsServerManager.shared.uploadFile(fileName: imageName, imgIdType: .requestImages, localUrl: url, completion: { (err, getUrl) in
@@ -278,14 +277,21 @@ extension RequestController {
                     }
                     if let getUrl = getUrl {
                         self.request.imageUrls.append(getUrl.absoluteString)
+                        
                         if self.request.imageUrls.count == self.imageUploadSequence.count {
+                            self.request.imageUrls.sort(by: { (s1: String, s2: String) -> Bool in
+                                return s1 < s2
+                            })
                             var imageUrlsDictionary: [Int: String] = [:] // order and urlString: {"0":"img0", "1":"img1", ...}
                             for i in 0..<self.request.imageUrls.count {
                                 imageUrlsDictionary[i] = self.request.imageUrls[i]
                             }
                             // TODO: upload urls dictionary to our Server;
                             print("\n\n search this senten to locate in code to get dictionary - Xin")
-                            print("get dictionary ready for uploading to Server =\n \(imageUrlsDictionary)")
+                            print("get dictionary ready for uploading to Server = ")
+                            for pair in imageUrlsDictionary {
+                                print("key = \(pair.key), val = \(pair.value)")
+                            }
                             
                             // then remove the images from cache
                             self.removeAllImageFromLocal()
