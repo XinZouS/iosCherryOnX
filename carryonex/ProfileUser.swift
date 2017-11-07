@@ -25,8 +25,8 @@ enum ProfileUserKey: String {
     case idAUrl      = "ida_url"
     case idBUrl      = "idb_url"
     case walletId    = "wallet_id"
-    case isIdVerified = "is_id_verified"
-    case isPhoneVerified = "is_phone_verified"
+    case isIdVerified = "id_verified"
+    case isPhoneVerified = "phone_verified"
 }
 
 class ProfileUser: Unboxable  {

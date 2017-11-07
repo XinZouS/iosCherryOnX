@@ -31,29 +31,31 @@ extension UserProfileView {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
     
-    public func saveProfileImageToLocalFile(image: UIImage) -> URL {
-        let fileName = UserDefaultKey.profileImageLocalName.rawValue
-        let fileUrl = getDocumentUrl().appendingPathComponent(fileName)
-        if let imgData = UIImageJPEGRepresentation(image, 0.3) {
-            try? imgData.write(to: fileUrl, options: .atomic)
-        }
-        return fileUrl
+    public func saveProfileImageToDocumentDirectory(image: UIImage) -> URL {
+            let fileName = "\(ImageTypeOfID.profile.rawValue).JPG"
+            let profileImgLocalUrl = getDocumentUrl().appendingPathComponent(fileName)
+            if let imgData = UIImageJPEGRepresentation(image, imageCompress) {
+                try? imgData.write(to: profileImgLocalUrl, options: .atomic)
+            }
+            print("saveProfileImageToDocumentDirectory: \(profileImgLocalUrl)")
+            return profileImgLocalUrl
     }
     
     public func loadNameAndPhoneInfo(){ // also do this in HomePageController
-        if let currName = ProfileManager.shared.getCurrentUser()?.realName, currName != "" {
+        guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
+        
+        if let currName = currUser.realName, currName != "" {
             let attStr = NSAttributedString(string: currName, attributes: buttonAttributes)
             nameButton.setAttributedTitle(attStr, for: .normal)
             nameButton.isEnabled = false
-        
-        } else {
+        }else{
             let attStr = NSAttributedString(string: "请提交您的身份验证信息", attributes: buttonAttributes)
             nameButton.setAttributedTitle(attStr, for: .normal)
             nameButton.isEnabled = true
         }
 
-        if let currPhone = ProfileManager.shared.getCurrentUser()?.phone, currPhone != "" {
-            let cc = ProfileManager.shared.getCurrentUser()?.phoneCountryCode ?? ""
+        if let currPhone = currUser.phone, currPhone != "" {
+            let cc = currUser.phoneCountryCode ?? ""
             let phoneStr = currPhone.formatToPhoneNum(countryCode: cc)
             let attStr = NSAttributedString(string: phoneStr, attributes: buttonAttributes)
             phoneButton.setAttributedTitle(attStr, for: .normal)
@@ -63,13 +65,9 @@ extension UserProfileView {
             phoneButton.setAttributedTitle(attStr, for: .normal)
             phoneButton.isEnabled = true
         }
-        if let imgPhoto = ProfileManager.shared.getCurrentUser()?.imageUrl{
-            if (imgPhoto != ""){
-                print(ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
-                profileImgButton.kf.setImage(with:URL(string:imgPhoto), for: .normal)
-            }else{
-                profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
-            }
+        if let imgUrl = currUser.imageUrl, imgUrl != "" {
+            print("loadNameAndPhoneInfo(): get imgPhoto url = [\(imgUrl)]")
+            profileImgButton.kf.setImage(with:URL(string:imgUrl), for: .normal)
         }else{
             profileImgButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
         }
@@ -83,7 +81,7 @@ extension UserProfileView {
     
     internal func loadProfileImageFromLocalFile(){
         let documentUrl = getDocumentUrl()
-        let fileUrl = documentUrl.appendingPathComponent(UserDefaultKey.profileImageLocalName.rawValue)
+        let fileUrl = documentUrl.appendingPathComponent(ImageTypeOfID.profile.rawValue + ".JPG")
         do {
             let data = try Data(contentsOf: fileUrl)
             let newProfileImg = UIImage(data: data)
@@ -94,25 +92,34 @@ extension UserProfileView {
         }
     }
     
+    public func removeProfileImageFromLocalFile(){
+        let documentUrl = getDocumentUrl()
+        let fileUrl = documentUrl.appendingPathComponent(ImageTypeOfID.profile.rawValue + ".JPG")
+        do {
+            try FileManager.default.removeItem(at: fileUrl)
+        }catch let err {
+            print("[ERROR]: removeProfileImageFromLocalFile() \(err.localizedDescription) | File: \(fileUrl)")
+        }
+    }
+    
+    internal func loadProfileImageFromAws(urlStr: String){
+        profileImgButton.kf.setImage(with: URL(string: urlStr), for: .normal)
+    }
+    
     internal func setupProfileImage(_ img: UIImage){
         profileImgButton.setImage(img, for: .normal)
     }
     
     internal func setupWechatImg(){
         let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl
-        profileImgButton.kf.setImage(with:URL(string:imgUrl!), for: .normal)
+        print("get wechat url = \(imgUrl)")
+        profileImgButton.kf.setImage(with: URL(string: imgUrl!), for: .normal)
     }
     
     internal func setupWechatRealName(){
         let attStr = NSAttributedString(string: (ProfileManager.shared.getCurrentUser()?.realName)!, attributes: buttonAttributes)
         nameButton.setAttributedTitle(attStr, for: .normal)
         
-    }
-    
-    public func removeProfileImageFromLocalFile(){
-        let documentUrl = getDocumentUrl()
-        let fileUrl = documentUrl.appendingPathComponent(UserDefaultKey.profileImageLocalName.rawValue)
-        try? FileManager.default.removeItem(at: fileUrl)
     }
     
 }

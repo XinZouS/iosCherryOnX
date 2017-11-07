@@ -181,21 +181,25 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //ensure token is in sync with server
         
         //Put your password here:
-        //let password = "montag"
         /*
+        let password = "montag"
         if ProfileManager.shared.isLoggedIn() {
-            if let username = ProfileManager.shared.getCurrentUser()?.username,
-                let phone = ProfileManager.shared.getCurrentUser()?.phone {
-                ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (success) in
-                    if success {
-                        print("Login Completed")
-                        self.testApiServers()
+            if let username = ProfileManager.shared.getCurrentUser()?.username {
+                ApiServers.shared.postLoginUser(username: username, password: password) { (token, error) in
+                    if let error = error {
+                        print("Post login user: \(error.localizedDescription)")
+                        return
                     }
+                    
+                    if let token = token {
+                        print("Login Completed. New Token: \(token)")
+                    }
+                    
+                    self.testApiServers()
                 }
             }
         }
-         */
-        
+        */
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,6 +209,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        ReachabilityManager.shared.startObserving()
         isItHaveLogIn()
     }
     
@@ -224,11 +229,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             UIApplication.shared.beginIgnoringInteractionEvents()
             self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-                if isSuccess {
-                    self.activityIndicator.stopAnimating()
-                    self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                }
+                self.activityIndicator.stopAnimating()
+                    if isSuccess {
+                        self.userInfoMenuView.userProfileView.loadNamePhoneImage()
+                    } else {
+                        print("error: isItHaveLogIn(): loadLocalUser is failed...")
+                    }
             })
         }
     }
@@ -306,15 +312,12 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //print("button did selected: \(atIndex)")
         switch atIndex{
         case 0:
-            //callShipperButtonTapped()
             showUserInfoSideMenu()
             
         case 1:
-            //switchToSender() no need to switch, just open the page for sender
             gotoItemTypePage()
             
         case 2:
-            //switchToShiper() no need to switch just open the page for shipper
             gotoTripPage()
             
         default:

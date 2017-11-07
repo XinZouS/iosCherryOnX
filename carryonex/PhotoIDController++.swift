@@ -121,8 +121,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         var getImg : UIImage = #imageLiteral(resourceName: "CarryonEx_Logo")
         if let editedImg = info[UIImagePickerControllerEditedImage] as? UIImage {
             getImg = editedImg
-        }else
-        if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
             getImg = originalImg
         }
 
@@ -203,7 +202,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         if let realName = self.nameTextField.text, !realName.isEmpty {
             ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: { (success) in
                 if !success {
-                    self.displayAlertForUploadFailed()
+                    self.displayAlertForUploadFailed(error: nil)
                     return
                 }
             })
@@ -214,36 +213,24 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     private func uploadAllImagesToAws(){
         for pair in imageUploadSequence {
+            guard let locUrl = pair.value else { continue }
             let imgIdType : String = pair.key.rawValue
             let filename = imgIdType + ".JPG"
-            if let locUrl = pair.value {
-                AwsServerManager.shared.uploadFile(fileName: filename, imgIdType: pair.key, localUrl: locUrl, completion: { (error, url) in
-                    if let err = error {
-                        print("performFileUpload(): task.error = \(err)")
-                        self.activityIndicator.stopAnimating()
-                        self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
-                    }
-                    if let publicUrl = url {
-                        print("PhotoIDController: uploadAllImages get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
-                        self.saveImageCloudUrl(url: publicUrl)
-                        self.removeImageWithUrlInLocalFileDirectory(fileName: filename)
-                    }else{
-                        print("errrorrr!!! task.result is nil, !!!! did not upload")
-                    }
-                    
-                    if self.imageUploadingSet.count == 1 {
-                        DispatchQueue.main.async {
-                            ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
-                        }
-                        self.activityIndicator.stopAnimating()
-                        self.dismiss(animated: true, completion: nil)
-                        self.homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
-                    }else{
-                        self.imageUploadingSet.removeFirst()
-                    }
-                    
-                }) // end of uploadFile()
-            }
+            
+            AwsServerManager.shared.uploadFile(fileName: filename, imgIdType: pair.key, localUrl: locUrl, completion: { (error, url) in
+                if let err = error {
+                    self.displayAlertForUploadFailed(error: err)
+                }
+                if let publicUrl = url, publicUrl.absoluteString != "" {
+                    print("PhotoIDController: uploadAllImages get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
+                    self.imageUploadingSet.removeFirst()
+                    self.removeImageWithUrlInLocalFileDirectory(fileName: filename)
+                    self.saveImageCloudUrl(url: publicUrl) // finily will end up here if all success
+                }else{
+                    print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
+                }
+                
+            }) // end of uploadFile()
         }
     }
     
@@ -252,50 +239,67 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         guard let fileType: String = fileName.components(separatedBy: ".").first else { return }
         print("saveImageCloudUrl: get fileType = \(fileType), save urlStr = \(url.absoluteString)")
         
-        var uploadSuccess = false
         let urlStr = url.absoluteString
         switch fileType {
         case ImageTypeOfID.passport.rawValue:
             ProfileManager.shared.updateUserInfo(.passportUrl, value: urlStr, completion: { (success) in
-                self.passportImgUrlCloud = success ? urlStr : nil
-                uploadSuccess = success
+                self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.idCardA.rawValue:
             ProfileManager.shared.updateUserInfo(.idAUrl, value: urlStr, completion: { (success) in
-                self.idCardAImgUrlCloud = success ? urlStr : nil
-                uploadSuccess = success
+                self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.idCardB.rawValue:
             ProfileManager.shared.updateUserInfo(.idBUrl, value: urlStr, completion: { (success) in
-                self.idCardBImgUrlCloud = success ? urlStr : nil
-                uploadSuccess = success
+                self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         case ImageTypeOfID.profile.rawValue:
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
-                self.profileImgUrlCloud = success ? urlStr : nil
-                uploadSuccess = success
+                self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
         default:
             print("saveImageCloudUrl: invalide fileType input: \(fileType)")
+            self.didFinishedUploadImagesToAws(allSuccess: false)
             return
-        }
-        if !uploadSuccess {
-            displayAlertForUploadFailed()
         }
     }
 
-    private func displayAlertForUploadFailed(){
+    private func didFinishedUploadImagesToAws(allSuccess: Bool){
+        guard allSuccess else {
+            activityIndicator.stopAnimating()
+            displayAlertForUploadFailed(error: nil)
+            return
+        }
+        guard imageUploadingSet.count <= 1 else { return }
+        
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+        
+        DispatchQueue.main.async {
+            ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
+        }
+        let layer = navigationController?.viewControllers.count ?? 1
+        if layer == 1 {
+            self.dismiss(animated: false, completion: nil)
+            homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
+        }else{
+            navigationController?.popToRootViewController(animated: false)
+            let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
+            displayGlobalAlert(title: "✅上传成功", message: msg, action: "朕知道了", completion: nil)
+        }
+    }
+    
+    private func displayAlertForUploadFailed(error: Error?){
+        //UIApplication.shared.endIgnoringInteractionEvents() error: .endIgnoringInteractionEvents() must be used from main thread only - Xin
+        
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
-            let msg = "未能成功上传您的验证信息，请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！"
-            displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
-        }else{
-            dismiss(animated: true, completion: nil)
-            homePageController?.showAlertFromPhotoIdController(isUploadSuccess: false)
+            let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(error.debugDescription)"
+            displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "换个姿势再来一次", completion: nil)
         }
     }
     
@@ -303,29 +307,6 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         // Store the completion handler.
         AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
-    }
-    
-    /// save image to temporary directory
-    func generateImageUrlInLocalTemporaryDirectory(fileName: String, idImg: UIImage) -> URL? {
-        let fileUrl = URL(fileURLWithPath: NSTemporaryDirectory().appending(fileName))
-        let data = UIImageJPEGRepresentation(idImg, imageCompress)
-        do {
-            try data?.write(to: fileUrl, options: .atomicWrite)
-        }catch let err {
-            print("\n\r err in generateImageUrlInLocalTemporaryDirectory() data?.write: ", err)
-            return nil
-        }
-        return fileUrl
-    }
-    
-    func removeImageWithUrlInLocalTemporaryDirectory(fileName: String){
-        let fileUrl = NSURL(fileURLWithPath: NSTemporaryDirectory().appending(fileName))
-        do {
-            try FileManager.default.removeItem(at: fileUrl as URL)
-            print("OK, remove image with url local for file: \(fileName)")
-        }catch let err {
-            print("err in removeImageWithUrlInLocalTemporaryDirectory: ", err)
-        }
     }
     
     private func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {

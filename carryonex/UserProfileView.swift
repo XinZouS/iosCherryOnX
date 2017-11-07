@@ -44,7 +44,6 @@ class UserProfileView: UIView {
     lazy var profileImgButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .clear
-        b.setTitle(" ", for: .normal)
         b.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
         b.imageView?.contentMode = .scaleAspectFill
         b.imageView?.layer.cornerRadius = 30
@@ -92,8 +91,6 @@ class UserProfileView: UIView {
 //        isCarrierSegmentControl.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: -5, topConstent: 120, rightConstent: -5, bottomConstent: 0, width: 0, height: 55)
 //        isCarrierSegmentControl.selectedSegmentIndex = User.shared.isShipper! ? 1 : 0
         
-        loadProfileImageFromLocalFile()
-        loadNameAndPhoneInfo()
     }
     
     private func setupProfileImgButton(){
@@ -103,8 +100,6 @@ class UserProfileView: UIView {
         profileImgButton.widthAnchor.constraint(equalToConstant: profileImgHW).isActive = true
         profileImgButton.heightAnchor.constraint(equalToConstant: profileImgHW).isActive = true
         profileImgButton.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
-        //profileImgButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        
     }
     
     
