@@ -15,6 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 import Reachability
+import Crashlytics
 
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
     
@@ -181,21 +182,25 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         //ensure token is in sync with server
         
         //Put your password here:
-        //let password = "montag"
         /*
+        let password = "montag"
         if ProfileManager.shared.isLoggedIn() {
-            if let username = ProfileManager.shared.getCurrentUser()?.username,
-                let phone = ProfileManager.shared.getCurrentUser()?.phone {
-                ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (success) in
-                    if success {
-                        print("Login Completed")
-                        self.testApiServers()
+            if let username = ProfileManager.shared.getCurrentUser()?.username {
+                ApiServers.shared.postLoginUser(username: username, password: password) { (token, error) in
+                    if let error = error {
+                        print("Post login user: \(error.localizedDescription)")
+                        return
                     }
+                    
+                    if let token = token {
+                        print("Login Completed. New Token: \(token)")
+                    }
+                    
+                    self.testApiServers()
                 }
             }
         }
-         */
-        
+        */
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -215,8 +220,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         ReachabilityManager.shared.stopObserving()
     }
     
-    private func isItHaveLogIn(){
-        
+    private func isItHaveLogIn(){        
         if !appDidLaunch {
             if (!ProfileManager.shared.isLoggedIn()){
                 let registerMainCtl = RegisterMainController()

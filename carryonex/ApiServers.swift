@@ -588,6 +588,58 @@ class ApiServers : NSObject {
         }
     }
     
+    func getTripInfo(id: String, completion: @escaping (Bool, Trip?, Error?) -> Void) { //callback(success, trip object, error)
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("getTripInfo: Profile user empty, pleaes login to get trip info")
+            completion(false, nil, nil)
+            return
+        }
+        
+        let sessionStr = hostVersion + "/trips/info"
+        
+        let parameter:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            "id": id
+        ]
+        
+        getDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getTrips response error: \(error.localizedDescription)")
+                }
+                completion(false, nil, error)
+                return
+            }
+            
+            if let statusCode = response["status_code"] as? Int {
+                if statusCode == 401 {
+                    print("No trip is found")
+                    completion(false, nil, nil)
+                    
+                } else {
+                    if let data = response[ServerKey.data.rawValue] as? [String : Any] {
+                        do {
+                            let trip : Trip = try unbox(dictionary: data, atKey: "trip")
+                            completion(true, trip, nil)
+                            
+                        } catch let err {
+                            print("getTripInfo error: \(err.localizedDescription)")
+                            completion(false, nil, err)
+                        }
+                        
+                    } else {
+                        print("No data is found")
+                        completion(false, nil, nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    
     func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success,msg,id)
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", "")
