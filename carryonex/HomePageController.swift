@@ -233,7 +233,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                     self.activityIndicator.stopAnimating()
                     if isSuccess {
-                        self.userInfoMenuView.userProfileView.loadNamePhoneImage()
+                        self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
                     } else {
                         print("error: isItHaveLogIn(): loadLocalUser is failed...")
                     }
