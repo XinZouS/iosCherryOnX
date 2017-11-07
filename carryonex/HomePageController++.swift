@@ -19,7 +19,6 @@ import ALCameraViewController
 import Kingfisher
 
 
-
 /**
  for textField and keyboard control;
  */
