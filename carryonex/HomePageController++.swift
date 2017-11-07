@@ -429,7 +429,6 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
             getImg = originalImg
         }
-        activityIndicator.startAnimating()
         uploadImageToAws(getImg: getImg)
     }
     
@@ -452,6 +451,8 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
     
     /// MARK: - Image upload to AWS
     private func uploadImageToAws(getImg: UIImage){
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
@@ -461,8 +462,9 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
     }
 
     private func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
-        activityIndicator.stopAnimating()
         if let err = error {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
             self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
         }
@@ -476,6 +478,8 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
                     cache.cleanExpiredDiskCache()
                     self.userInfoMenuView.userProfileView.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                 }
             })
         }else{

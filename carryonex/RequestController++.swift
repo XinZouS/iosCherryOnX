@@ -81,9 +81,17 @@ extension RequestController: UITextFieldDelegate {
         }
     }
     
+    private func computePrice(){
+        // TODO: should get price from server, now using fake price:
+        let v = request.length * request.width * request.height
+        let prz = 5 * (Double(v) + request.weight)
+        costSumLabel.text = "\(prz)"
+    }
+    
 
     func volumeMenuOKButtonTapped(){
         print("volumeMenuOKButtonTapped")
+        computePrice()
         is03VolumSet = true
         volumPickerMenu?.dismissAnimation()
     }
@@ -96,6 +104,7 @@ extension RequestController: UITextFieldDelegate {
     
     func pickersCancelButtonTapped(){
         print("pickersCancelButtonTapped")
+        computePrice()
         volumPickerMenu?.dismissAnimation()
         isVolumValidatedIn((cell03Volum?.textField)!)
         isWeightValidatedIn((cell04Weight?.textField)!)
@@ -168,13 +177,15 @@ extension RequestController: UITextFieldDelegate {
         let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet && is07takePicture//&& is05SendingTimeSet && is06ExpectDeliverySet
         //paymentButton.isEnabled = isOk
         paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
+        setupRequestInfo()
     }
     
     private func setupRequestInfo(){
 //        request.youxiangId = cell00Youxiang?.textField.text ?? ""
         //request.destinationAddress = 在AddressController里设置好后回传引用
         request.weight = Double(cell04Weight?.textField.text ?? "0") ?? 0.0
-        
+        computePrice()
+
         print(request.printAll())
     }
 
