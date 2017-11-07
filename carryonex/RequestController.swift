@@ -168,7 +168,15 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         l.textColor = textThemeColor
         l.font = UIFont.boldSystemFont(ofSize: 24)
         l.textAlignment = .right
-        l.text = "0元"
+        l.text = "0"
+        return l
+    }()
+    let costCurrencyMarker: UILabel = {
+        let l = UILabel()
+        l.textColor = textThemeColor
+        l.font = UIFont.boldSystemFont(ofSize: 24)
+        l.textAlignment = .right
+        l.text = "元"
         return l
     }()
     
@@ -280,7 +288,8 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
             cell08Image = cell as? ImageCell
         case 5 :
             cell07Cost = cell as? CostCell
-            cell07Cost?.addExtraContentToRight(costSumLabel)
+            cell07Cost?.addExtraContentToRight(costSumLabel, constent: 40)
+            cell07Cost?.addExtraContentToRight(costCurrencyMarker, constent: 0)
         default:
             cell.textField.isHidden = true
         }

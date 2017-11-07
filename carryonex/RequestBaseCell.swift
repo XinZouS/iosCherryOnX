@@ -77,9 +77,9 @@ class RequestBaseCell : UICollectionViewCell {
     
     
     
-    func addExtraContentToRight(_ content: UIView){
+    func addExtraContentToRight(_ content: UIView, constent: CGFloat){
         addSubview(content)
-        content.addConstraints(left: titleLabel.rightAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        content.addConstraints(left: titleLabel.rightAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: constent, bottomConstent: 0, width: 0, height: 30)
         content.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
