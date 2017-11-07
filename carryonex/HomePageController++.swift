@@ -16,6 +16,7 @@ import AWSCore
 import AWSS3
 
 import ALCameraViewController
+import Kingfisher
 
 import BraintreeDropIn
 import Braintree
@@ -456,9 +457,6 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
             getImg = originalImg
         }
-        
-        activityIndicator.startAnimating()
-        userInfoMenuView.userProfileView.setupProfileImage(getImg)
         uploadImageToAws(getImg: getImg)
     }
     
@@ -481,6 +479,8 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
     
     /// MARK: - Image upload to AWS
     private func uploadImageToAws(getImg: UIImage){
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
@@ -488,16 +488,28 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         })
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     private func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
-        activityIndicator.stopAnimating()
         if let err = error {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
             self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
         }
         if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
             print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
-            self.saveImageCloudUrl(url: publicUrl) // finily will end up here if all success
+            ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
+                if success {
+                    let cache = KingfisherManager.shared.cache
+                    cache.clearDiskCache()
+                    cache.clearMemoryCache()
+                    cache.cleanExpiredDiskCache()
+                    self.userInfoMenuView.userProfileView.setupProfileImageFromAws()
+                    self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+            })
         }else{
             print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
         }
@@ -514,29 +526,18 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         return profileImgLocalUrl
     }
     
-//    func removeImageWithUrlInLocalFileDirectory(fileName: String){
-//        let fileType = fileName.components(separatedBy: ".").first!
-//        if fileType == ImageTypeOfID.profile.rawValue { return }
-//
-//        let fileManager = FileManager.default
-//        let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-//        if let filePath = documentUrl.path {
-//            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
-//            do {
-//                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-//                print("OK remove file at path: \(filePath), fileName = \(fileName)")
-//            } catch let err {
-//                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
-//            }
-//        }
-//    }
-    
-    private func saveImageCloudUrl(url: URL){
-        ProfileManager.shared.updateUserInfo(.imageUrl, value: url.absoluteString, completion: { (success) in
-            if success {
-                self.activityIndicator.stopAnimating()
+    func removeImageWithUrlInLocalFileDirectory(fileName: String){
+        let fileManager = FileManager.default
+        let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        if let filePath = documentUrl.path {
+            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            do {
+                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
+                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+            } catch let err {
+                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
             }
-        })
+        }
     }
     
 }

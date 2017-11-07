@@ -98,6 +98,7 @@ class ApiServers : NSObject {
         case userToken = "user_token"
         case username  = "username"
         case password  = "password"
+        case countryCode = "country_code"
         case phone     = "phone"
         case email     = "email"
         case timestamp = "timestamp"
@@ -124,12 +125,13 @@ class ApiServers : NSObject {
     
     // MARK: - User APIs
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
-    func postRegisterUser(username: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
+    func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
         let route = hostVersion + "/users"
         let postData = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
+            ServerKey.countryCode.rawValue: countryCode,
             ServerKey.phone.rawValue: phone,
             ServerKey.email.rawValue: email
         ]

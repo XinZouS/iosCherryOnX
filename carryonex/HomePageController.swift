@@ -151,7 +151,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }()
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
-
+    var appDidLaunch = false
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -220,22 +221,28 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     private func isItHaveLogIn(){
+        
         if (!ProfileManager.shared.isLoggedIn()){
             let registerMainCtl = RegisterMainController()
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
+            
         } else {
-            self.activityIndicator.startAnimating()
-            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-                self.activityIndicator.stopAnimating()
+            if !appDidLaunch {
+                self.activityIndicator.startAnimating()
+                ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+                    self.activityIndicator.stopAnimating()
                     if isSuccess {
-                        self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
+                        self.userInfoMenuView.userProfileView.loadNamePhoneImage()
                     } else {
                         print("error: isItHaveLogIn(): loadLocalUser is failed...")
                     }
-            })
+                })
+                appDidLaunch = true
+            }
         }
+        
     }
     
     private func setupActivityIndicator(){

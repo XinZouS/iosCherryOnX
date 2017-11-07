@@ -14,6 +14,7 @@ import AWSCore
 import AWSS3
 
 import ALCameraViewController
+import Kingfisher
 
 
 
@@ -258,6 +259,14 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             
         case ImageTypeOfID.profile.rawValue:
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
+                if success {
+                    let cache = KingfisherManager.shared.cache
+                    cache.clearDiskCache()
+                    cache.clearMemoryCache()
+                    cache.cleanExpiredDiskCache()
+                    self.homePageController?.userInfoMenuView.userProfileView.setupProfileImageFromAws()
+                    self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
+                }
                 self.didFinishedUploadImagesToAws(allSuccess: success)
             })
             
@@ -274,7 +283,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             displayAlertForUploadFailed(error: nil)
             return
         }
-        guard imageUploadingSet.count <= 1 else { return }
+        guard imageUploadingSet.count == 0 else { return }
         
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
@@ -287,9 +296,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             self.dismiss(animated: false, completion: nil)
             homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
         }else{
-            navigationController?.popToRootViewController(animated: false)
             let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
-            displayGlobalAlert(title: "✅上传成功", message: msg, action: "朕知道了", completion: nil)
+            displayGlobalAlert(title: "✅上传成功", message: msg, action: "朕知道了", completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
         }
     }
     
