@@ -1684,6 +1684,7 @@
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 42AU2524CN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
