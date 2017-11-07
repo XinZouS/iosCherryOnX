@@ -837,4 +837,15 @@ extension ApiServers {
             print("[Status Code] Not handled: \(statusCode)")
         }
     }
+    func postNonceToServer(paymentMethodNonce: String) {
+        // Update URL with your server
+        let paymentURL = URL(string: "https://your-server.example.com/payment-methods")!
+        var request = URLRequest(url: paymentURL)
+        request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
+        request.httpMethod = "POST"
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            // TODO: Handle success or failure
+            }.resume()
+    }
 }

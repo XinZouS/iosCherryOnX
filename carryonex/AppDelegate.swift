@@ -13,6 +13,7 @@ import UdeskSDK
 import Fabric
 import Crashlytics
 import AWSCognito
+import Braintree
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -49,6 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         // setup Fabric
         Fabric.with([Crashlytics.self, AWSCognito.self])
         self.logUser()
+        
+        //setup BrainTree
+        BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")
+        
         return true
     }
     
@@ -149,12 +154,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         WXApi.handleOpen(url, delegate: self)
+        
+        if url.scheme?.localizedCaseInsensitiveCompare("com.your-company.Your-App.payments") == .orderedSame {
+            return BTAppSwitch.handleOpen(url, options: options)
+        }
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         WXApi.handleOpen(url, delegate: self)
+        if url.scheme?.localizedCaseInsensitiveCompare("com.your-company.Your-App.payments") == .orderedSame {
+            return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
+        }
         return true
     }
     

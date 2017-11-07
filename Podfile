@@ -87,4 +87,6 @@ target 'carryonex' do
   pod 'Fabric'
   pod 'Crashlytics'
 
+  # brainTree payment method
+  pod 'BraintreeDropIn'
 end

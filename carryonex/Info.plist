@@ -49,6 +49,16 @@
 				<string>wx9dc6e6f4fe161a4f</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.carryontech.carryonex</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.carryontech.carryonex.payment</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
