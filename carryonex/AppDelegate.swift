@@ -48,18 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         // setup Fabric
         Fabric.with([Crashlytics.self, AWSCognito.self])
-        self.logUser()
         return true
     }
-    
-    func logUser() {
-        // TODO: Use the current user's information
-        // You can call any combination of these three methods
-        Crashlytics.sharedInstance().setUserEmail("huxingjiu@gmail.com")
-        Crashlytics.sharedInstance().setUserIdentifier("Hu18717788655")
-        Crashlytics.sharedInstance().setUserName("carryon tech")
-    }
-
     
     /**
      *  初始化ShareSDK应用 http://wiki.mob.com/swift%E8%B0%83%E7%94%A8/
