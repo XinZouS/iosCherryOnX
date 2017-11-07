@@ -29,6 +29,7 @@ class ImageCellCollectionCell : UICollectionViewCell {
         let b = UIButton()
         b.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         b.setImage(#imageLiteral(resourceName: "CarryonEx_Close"), for: .normal)
+        b.backgroundColor = UIColor(white: 1, alpha: 0.3)
         return b
     }()
     
@@ -48,6 +49,8 @@ class ImageCellCollectionCell : UICollectionViewCell {
     func setupCancelButton(){
         let margin: CGFloat = 10
         let sz    : CGFloat = 15
+        cancelButton.layer.cornerRadius = sz / 2
+        cancelButton.layer.masksToBounds = true
         addSubview(cancelButton)
         cancelButton.addConstraints(left: nil, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: margin, rightConstent: margin, bottomConstent: 0, width: sz, height: sz)
     }

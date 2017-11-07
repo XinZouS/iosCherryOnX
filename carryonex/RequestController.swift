@@ -191,6 +191,12 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
 
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setPaymentIsEnable()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         

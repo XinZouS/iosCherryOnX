@@ -73,6 +73,9 @@ extension RequestController: UITextFieldDelegate {
     private func isWeightValidatedIn(_ textField: UITextField) {
         if textField.tag == 3 {
             is04WeightSet = (textField.text != nil && textField.text != "" && textField.text != "0")
+            if is04WeightSet {
+                request.weight = Double(textField.text ?? "0") ?? 0
+            }
         }
     }
     private func isVolumValidatedIn(_ textField: UITextField) {
@@ -84,7 +87,8 @@ extension RequestController: UITextFieldDelegate {
     private func computePrice(){
         // TODO: should get price from server, now using fake price:
         let v = request.length * request.width * request.height
-        let prz = 5 * (Double(v) + request.weight)
+        let prz: Double = 5 * (Double(v) + request.weight)
+        request.cost = prz
         costSumLabel.text = "\(prz)"
     }
     
@@ -169,13 +173,17 @@ extension RequestController: UITextFieldDelegate {
         
         textFieldsInAllCellResignFirstResponder()
         
-//        setPaymentIsEnable()
+        setPaymentIsEnable()
     }
 
-    private func setPaymentIsEnable(){
+    internal func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
+        is01DepartureSet = request.departureAddress != nil
+        is02DestinationSet = request.destinationAddress != nil
+        is04WeightSet = request.width != 0
+        is07takePicture = imageUploadSequence.count > 0
         let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet && is07takePicture//&& is05SendingTimeSet && is06ExpectDeliverySet
-        //paymentButton.isEnabled = isOk
+//        paymentButton.isEnabled = isOk
         paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         setupRequestInfo()
     }
@@ -186,12 +194,11 @@ extension RequestController: UITextFieldDelegate {
         request.weight = Double(cell04Weight?.textField.text ?? "0") ?? 0.0
         computePrice()
 
-        print(request.printAll())
+        request.printAll()
     }
 
     /// OK button at bottom of page
     func paymentButtonTapped(){
-        print("TODO: upload images to aws, and get urls")
         uploadImagesToAwsAndGetUrls()
         print("TODO: upload Request() to server")
 
@@ -250,6 +257,7 @@ extension RequestController {
         })
         self.present(cameraViewController, animated: true, completion: nil)
     }
+    
     private func presentImageIntoCellCollectionView(_ image: UIImage, imageName: String){
         let localFileUrl = self.saveImageToDocumentDirectory(img: image, name: imageName)
         self.imageUploadSequence[imageName] = localFileUrl
@@ -260,63 +268,41 @@ extension RequestController {
     internal func uploadImagesToAwsAndGetUrls(){
         for pair in imageUploadSequence {
             let imageName = pair.key
-            prepareUploadFile(fileName: imageName)
-        }
-    }
+            
+            if let url = imageUploadSequence[imageName] {
+                AwsServerManager.shared.uploadFile(fileName: imageName, imgIdType: .requestImages, localUrl: url, completion: { (err, getUrl) in
+                    if let err = err {
+                        print("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
+                        return
+                    }
+                    if let getUrl = getUrl {
+                        self.request.imageUrls.append(getUrl.absoluteString)
+                        
+                        if self.request.imageUrls.count == self.imageUploadSequence.count {
+                            self.request.imageUrls.sort(by: { (s1: String, s2: String) -> Bool in
+                                return s1 < s2
+                            })
+                            var imageUrlsDictionary: [Int: String] = [:] // order and urlString: {"0":"img0", "1":"img1", ...}
+                            for i in 0..<self.request.imageUrls.count {
+                                imageUrlsDictionary[i] = self.request.imageUrls[i]
+                            }
+                            // TODO: upload urls dictionary to our Server;
+                            print("\n\n search this senten to locate in code to get dictionary - Xin")
+                            print("get dictionary ready for uploading to Server = ")
+                            for pair in imageUrlsDictionary {
+                                print("key = \(pair.key), val = \(pair.value)")
+                            }
+                            
+                            // then remove the images from cache
+                            self.removeAllImageFromLocal()
+                        }
+                    }
+                })
 
-    private func prepareUploadFile(fileName: String) {
-        print("prepareUploadFile: \(fileName)")
-        
-        // Configure aws cognito credentials:
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId: awsIdentityPoolId)
-        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
-        AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
-        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
-        // setup AWS Transfer Manager Request:
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest?.acl = .private
-        uploadRequest?.key = fileName // MUST NOT change this!!
-        uploadRequest?.body = imageUploadSequence[fileName]! //generateImageUrlInLocalTemporaryDirectory(fileName: fileName, idImg: imageToUpload)
-        uploadRequest?.bucket = "\(awsBucketName)/RequestPhotos/\(userId)" // no / at the end of bucket
-        uploadRequest?.contentType = "image/jpeg"
-        
-        performFileUpload(request: uploadRequest)
-    }
-    
-    
-    private func performFileUpload(request: AWSS3TransferManagerUploadRequest?){
-        
-        guard let request = request else {
-            print("get nil in AWSS3TransferManagerUploadRequest.....")
-            return
-        }
-        let transferManager = AWSS3TransferManager.default()
-        transferManager.upload(request).continueWith { (task: AWSTask) -> Any? in
-            
-            if let err = task.error {
-                print("performFileUpload(): task.error = \(err)")
-                self.activityIndicator.stopAnimating()
-                self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
-                return nil
+            } else {
+                print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
             }
-            if task.result != nil {
-                let url = AWSS3.default().configuration.endpoint.url
-                if let publicURL = url?.appendingPathComponent(request.bucket!).appendingPathComponent(request.key!) {
-                    self.saveImageCloudUrl(url: publicURL)
-                }
-            }else{
-                self.displayAlert(title: "⛔️上传失败", message: "上传出现错误， 请稍后重试。", action: "换个姿势再来一次")
-            }
-            
-            return nil
         }
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
-    private func saveImageCloudUrl(url : URL){
-        request.imageUrls.append(url.absoluteString)
-        print("OK!!! saveImageCloudUrl, Uploaded to url: \(url)")
     }
     
     func removeAllImageFromLocal(){

@@ -49,6 +49,7 @@ enum ImageTypeOfID : String {
     case idCardA = "idCardA"
     case idCardB = "idCardB"
     case profile = "profile"
+    case requestImages = "requestImages"
 }
 
 protocol PickerMenuViewDelegate: class {
