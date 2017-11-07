@@ -35,7 +35,7 @@ class DetailUserNameCell : DetailBaseCell {
         let b = UIButton()
         b.layer.cornerRadius = 40
         b.backgroundColor = .white
-        //        b.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        b.addTarget(self, action: #selector(senderImgBtnTapped), for: .touchUpInside)
         return b
     }()
     

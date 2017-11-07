@@ -18,7 +18,6 @@ import AWSS3
 import ALCameraViewController
 
 
-
 /**
  for textField and keyboard control;
  */

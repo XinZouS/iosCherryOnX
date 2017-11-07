@@ -198,6 +198,11 @@
 		FF4D14CF1FA3BF7D009CC1A0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
+		FF62245B1FB0F24900280FDA /* OrderDetailCommentPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */; };
+		FF62245D1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245C1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift */; };
+		FF62245F1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245E1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift */; };
+		FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6224601FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift */; };
+		FF6224631FB0F9CD00280FDA /* DetailUserNameCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6224621FB0F9CD00280FDA /* DetailUserNameCell++.swift */; };
 		FF66FE291FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF66FE281FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift */; };
 		FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */; };
 		FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */; };
@@ -423,6 +428,11 @@
 		FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterEmailController++.swift"; sourceTree = "<group>"; };
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
+		FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentPageController.swift; sourceTree = "<group>"; };
+		FF62245C1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentBaseCell.swift; sourceTree = "<group>"; };
+		FF62245E1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentTitleCell.swift; sourceTree = "<group>"; };
+		FF6224601FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentInfoCell.swift; sourceTree = "<group>"; };
+		FF6224621FB0F9CD00280FDA /* DetailUserNameCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailUserNameCell++.swift"; sourceTree = "<group>"; };
 		FF66FE281FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderCommentAndSubmitCell++.swift"; sourceTree = "<group>"; };
 		FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommentViewCell++.swift"; sourceTree = "<group>"; };
 		FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
@@ -963,6 +973,7 @@
 		66DA06C71F5DF605002C8442 /* OrdersLogPageCell */ = {
 			isa = PBXGroup;
 			children = (
+				FF6224591FB0F1DE00280FDA /* OrderDetailCommentPage */,
 				FFCB0F1B1FA79F7A00180BDB /* OrderCommentPage */,
 				FFBA50941F97D63700D390B2 /* OrderDetailPage */,
 				66C138C11FABA36500755754 /* OrdersBasePageCell.swift */,
@@ -1100,8 +1111,20 @@
 				FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */,
 				FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */,
 				FFDC0E561F9E614F0011A425 /* DetailItemPictureCell++.swift */,
+				FF6224621FB0F9CD00280FDA /* DetailUserNameCell++.swift */,
 			);
 			name = OrderDetailPage;
+			sourceTree = "<group>";
+		};
+		FF6224591FB0F1DE00280FDA /* OrderDetailCommentPage */ = {
+			isa = PBXGroup;
+			children = (
+				FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */,
+				FF62245C1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift */,
+				FF62245E1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift */,
+				FF6224601FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift */,
+			);
+			name = OrderDetailCommentPage;
 			sourceTree = "<group>";
 		};
 		FFBA50941F97D63700D390B2 /* OrderDetailPage */ = {
@@ -1184,6 +1207,7 @@
 				665DE4E71F3A0B70004DDB88 /* Resources */,
 				DE4E7899D29AF53B4AC1FC51 /* [CP] Embed Pods Frameworks */,
 				21B824CBD9341B9FC30910B3 /* [CP] Copy Pods Resources */,
+				FF6224581FB0D55500280FDA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1309,6 +1333,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FF6224581FB0D55500280FDA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 0f39b02f8dbd3132843e208daf2435688641a903 3a6dae455d7830d627bb034c577aca77e98aa95f96d44674318315ef046b17d9";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1348,6 +1385,7 @@
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
+				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
 				E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */,
 				669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */,
@@ -1359,6 +1397,7 @@
 				669518231F60D79100BFC37B /* CreditController++.swift in Sources */,
 				FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */,
 				663121EF1F539E04000F7ACB /* WaitingController.swift in Sources */,
+				FF62245F1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift in Sources */,
 				66BB08341F48967600935950 /* ItemCategory.swift in Sources */,
 				66E520471F4B6E16008E521D /* WeightCell.swift in Sources */,
 				6686096D1F6056DA00740A92 /* Wallet.swift in Sources */,
@@ -1392,6 +1431,7 @@
 				660460361F4F1E4B00E5DC4C /* RequestBaseCell++.swift in Sources */,
 				66E5204B1F4B6E3E008E521D /* ExpectDeliveryTimeCell.swift in Sources */,
 				66E6501D1F5F473700DA90DE /* OrderShipperPageCell++.swift in Sources */,
+				FF62245D1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift in Sources */,
 				6686097D1F609B6900740A92 /* WalletBaseCell++.swift in Sources */,
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
@@ -1423,6 +1463,7 @@
 				FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */,
 				6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */,
 				663121E71F534B17000F7ACB /* PaymentController.swift in Sources */,
+				FF6224631FB0F9CD00280FDA /* DetailUserNameCell++.swift in Sources */,
 				FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */,
 				66E520521F4C81F6008E521D /* YouxiangCell++.swift in Sources */,
 				66E5204F1F4C76EC008E521D /* UILabel++.swift in Sources */,
@@ -1430,6 +1471,7 @@
 				66A4B5651FA27C3C000D133C /* OrdersShipperHeaderCell.swift in Sources */,
 				66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */,
 				66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */,
+				FF62245B1FB0F24900280FDA /* OrderDetailCommentPageController.swift in Sources */,
 				663121E31F51F454000F7ACB /* TimeAvailableController++.swift in Sources */,
 				FF4896EB1F9910E8009B3EE5 /* DetailItemPictureCell.swift in Sources */,
 				660704E81F3D062E000C09FD /* UserInfoViewCell.swift in Sources */,

@@ -15,6 +15,7 @@ import MapKit
 import paper_onboarding
 import CircleMenu
 import Reachability
+import Crashlytics
 
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
     
@@ -224,15 +225,16 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
-        }else{
+        } else {
+            UIApplication.shared.beginIgnoringInteractionEvents()
             self.activityIndicator.startAnimating()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 self.activityIndicator.stopAnimating()
-                if isSuccess {
-                    let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
-                    self.userInfoMenuView.userProfileView.loadNameAndPhoneInfo()
-                    self.userInfoMenuView.userProfileView.loadProfileImageFromAws(urlStr: imgUrl)
-                }
+                    if isSuccess {
+                        self.userInfoMenuView.userProfileView.loadNamePhoneImage()
+                    } else {
+                        print("error: isItHaveLogIn(): loadLocalUser is failed...")
+                    }
             })
         }
     }

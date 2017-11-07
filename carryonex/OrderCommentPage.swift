@@ -128,7 +128,7 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
         case 2+tagNum:
             return CGSize(width: w, height: 240)
         default:
-            tagStringLong = array[forLongIndex].characters.count
+            tagStringLong = array[forLongIndex].count
             forLongIndex += 1
             return CGSize(width: 30*tagStringLong, height: 0)
         }
