@@ -12,7 +12,7 @@ import UIKit
 extension RegisterPasswordController: UITextFieldDelegate {
     
     func okButtonTapped(){
-        if (isRegister) {
+        if (isRegister) { 
             let newPassword = passwordField.text ?? "123456"
             ProfileManager.shared.register(username: phoneInput, countryCode: zoneCodeInput, phone: phoneInput, password: newPassword, email: emailInput, completion: { (success) in
                 if success {
