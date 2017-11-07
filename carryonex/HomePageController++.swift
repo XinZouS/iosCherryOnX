@@ -383,7 +383,6 @@ extension HomePageController : MKMapViewDelegate {
 
 
 
-/// for user image selection and upload to AWS
 extension HomePageController : UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func profileImageButtonTapped(){
@@ -392,7 +391,7 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
         }
         let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
-            self.openImagePickerWith(source: .camera, isAllowEditing: true)
+            self.openALCameraController()
         }
         let wechatLogin = UIAlertAction(title: "微信获得信息", style: .default) { (action) in
             self.wechatButtonTapped()
@@ -402,27 +401,13 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         }
         attachmentMenu.addAction(openLibrary)
         attachmentMenu.addAction(openCamera)
-         attachmentMenu.addAction(wechatLogin)
+        attachmentMenu.addAction(wechatLogin)
         attachmentMenu.addAction(cancelSelect)
         
         present(attachmentMenu, animated: true, completion: nil)
     }
     
-    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            //activityIndicator.startAnimating()
-            userInfoMenuView.userProfileView.setupProfileImage(editedImage)
-            if let localUrl = info[UIImagePickerControllerReferenceURL] as? URL {
-                uploadProfileImageToAws(assetUrl: localUrl, image: editedImage)
-            }
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
+    /// MARK: - ALCameraView or ImagePicker setup
     internal func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool){
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = source
@@ -436,6 +421,60 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         present(imagePicker, animated: true, completion: nil)
     }
     
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var getImg : UIImage = #imageLiteral(resourceName: "CarryonEx_User")
+        if let editedImg = info[UIImagePickerControllerEditedImage] as? UIImage {
+            getImg = editedImg
+        }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            getImg = originalImg
+        }
+        
+        activityIndicator.startAnimating()
+        userInfoMenuView.userProfileView.setupProfileImage(getImg)
+        uploadImageToAws(getImg: getImg)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func openALCameraController(){
+        let corpingParms = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 160, height: 160))
+        let cameraViewController = CameraViewController(croppingParameters: corpingParms, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true, completion: { (getImg, phAsset) in
+            
+            if let image = getImg {
+                self.userInfoMenuView.userProfileView.setupProfileImage(image)
+                self.uploadImageToAws(getImg: image)
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+        self.present(cameraViewController, animated: true, completion: nil)
+    }
+    
+    /// MARK: - Image upload to AWS
+    private func uploadImageToAws(getImg: UIImage){
+        let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
+        let n = ImageTypeOfID.profile.rawValue + ".JPG"
+        AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
+            self.handleAwsServerImageUploadCompletion(err, awsUrl)
+        })
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
+        activityIndicator.stopAnimating()
+        if let err = error {
+            let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
+            self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
+        }
+        if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
+            print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
+            self.saveImageCloudUrl(url: publicUrl) // finily will end up here if all success
+        }else{
+            print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
+        }
+    }
+
     private func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = "\(idType.rawValue).JPG" // UserDefaultKey.profileImageLocalName.rawValue
@@ -447,75 +486,30 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
         return profileImgLocalUrl
     }
     
-    func removeImageWithUrlInLocalFileDirectory(fileName: String){
-        let fileType = fileName.components(separatedBy: ".").first!
-        if fileType == ImageTypeOfID.profile.rawValue { return }
-        
-        let fileManager = FileManager.default
-        let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        if let filePath = documentUrl.path {
-            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
-            do {
-                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                print("OK remove file at path: \(filePath), fileName = \(fileName)")
-            } catch let err {
-                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
-            }
-        }
-    }
-
-    // MARK: - AWS S3 storage for profile image
+//    func removeImageWithUrlInLocalFileDirectory(fileName: String){
+//        let fileType = fileName.components(separatedBy: ".").first!
+//        if fileType == ImageTypeOfID.profile.rawValue { return }
+//
+//        let fileManager = FileManager.default
+//        let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+//        if let filePath = documentUrl.path {
+//            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+//            do {
+//                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
+//                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+//            } catch let err {
+//                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+//            }
+//        }
+//    }
     
-    private func uploadProfileImageToAws(assetUrl: URL, image: UIImage){
-        
-        guard let userId = ProfileManager.shared.getCurrentUser()?.id else { return }
-
-        let assets = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil)
-        let fileName = PHAssetResource.assetResources(for: assets.firstObject!).first!.originalFilename
-        // Configure aws cognito credentials:
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2, identityPoolId: awsIdentityPoolId)
-        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
-        AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
-        // setup AWS Transfer Manager Request:
-        guard let uploadRequest = AWSS3TransferManagerUploadRequest() else { return }
-        uploadRequest.acl = .publicReadWrite
-        uploadRequest.key = fileName // MUST NOT change this!!
-        uploadRequest.body = userInfoMenuView.userProfileView.saveProfileImageToLocalFile(image: image)
-        uploadRequest.bucket = "\(awsPublicBucketName)/userProfileImages/\(userId)" // no / at the end of bucket
-        uploadRequest.contentType = "image/jpeg"
-        
-        let transferManager = AWSS3TransferManager.default()
-        transferManager.upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
-            
-            if let err = task.error {
-                print("performFileUpload(): task.error = \(err)")
-                //self.activityIndicator.stopAnimating()
-                self.displayAlert(title: "⛔️上传失败", message: "出现错误：\(err)， 请稍后重试。", action: "换个姿势再来一次")
-                return nil
+    private func saveImageCloudUrl(url: URL){
+        ProfileManager.shared.updateUserInfo(.imageUrl, value: url.absoluteString, completion: { (success) in
+            if success {
+                self.activityIndicator.stopAnimating()
             }
-            if task.result != nil {
-                let url = AWSS3.default().configuration.endpoint.url
-                
-                if let bucket = uploadRequest.bucket,
-                    let key = uploadRequest.key,
-                    let publicURL = url?.appendingPathComponent(bucket).appendingPathComponent(key) {
-                    ProfileManager.shared.updateUserInfo(.imageUrl, value: publicURL.absoluteString, completion: nil)
-                }
-            }else{
-                print("errrorrr!!! task.result is nil, !!!! did not upload")
-            }
-            
-            //DispatchQueue.main.async {
-            //self.activityIndicator.stopAnimating()
-            //let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
-            //self.displayAlert(title: "✅上传完成", message: msg, action: "朕知道了")
-            //}
-            return nil
-        }
-        
+        })
     }
-    
     
 }
 

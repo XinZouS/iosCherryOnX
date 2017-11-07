@@ -8,16 +8,14 @@
 
 import UIKit
 
-
-
 class ItemTypeListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     /// class ItemCategory(), for UI display use ONLY!
     var itemCategoryList : [ItemCategory]! = []
     
     var request = Request()
+    var trip: Trip?
     
-     
     let cellId = "ItemTypeListCellId"
     
     lazy var submitButton : UIButton = {
@@ -29,17 +27,14 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
         return b
     }()
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         addItemTypesToList()
         setupCollectionView()        
         setupSubmitButton() 
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         request.numberOfItem.removeAll() // reset NumOfItems in the current Request
@@ -67,27 +62,27 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
         view.addSubview(submitButton)
         submitButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
     }
-
-    
     
     /// collectionView delegate
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return itemCategoryList.count
     }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ItemTypeListCell
         cell.itemCategory = itemCategoryList[indexPath.item]
         cell.itemTypeListController = self // for item add and sub action
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 40, height: 56)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
-    }  
+    }
     
 }
 
