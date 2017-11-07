@@ -18,6 +18,9 @@ import AWSS3
 import ALCameraViewController
 import Kingfisher
 
+import BraintreeDropIn
+import Braintree
+
 
 /**
  for textField and keyboard control;
@@ -209,12 +212,37 @@ extension HomePageController {
 //        let waitingListView = UINavigationController(rootViewController: waitingListCtl)
 //        self.present(waitingListView, animated: true, completion: nil)
         // replaced by OrdersLogController() ---------------------------
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
-        let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
-        ordersNav.title = "我的游箱"
-        self.present(ordersNav, animated: true)
+        
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
+//        let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
+//        ordersNav.title = "我的游箱"
+//        self.present(ordersNav, animated: true)
+        //      for test ===================================
+        let clientTokenOrTokenizationKey = "sandbox_29yqtgvt_jj626h3ph2ywgc97"
+        let request =  BTDropInRequest()
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
+        { (controller, result, error) in
+            if (error != nil) {
+                print("ERROR")
+            } else if (result?.isCancelled == true) {
+                print("CANCELLED")
+            } else if let result = result {
+                // Use the BTDropInResult properties to update your UI
+                // result.paymentOptionType = .payPal
+                // result.paymentMethod
+                // result.paymentIcon
+                // result.paymentDescription
+            }
+            controller.apiClient.fetchOrReturnRemoteConfiguration({ (<#BTConfiguration?#>, <#Error?#>) in
+                <#code#>
+            })
+            controller.dismiss(animated: true, completion: nil)
+        }
+        
+        self.present(dropIn!, animated: true, completion: nil)
+        
     }
     
     private func flipPageHorizontally(){
