@@ -414,6 +414,11 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
             if !reachabilityObject.isReachable {
                 let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
                 strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
+            } else {
+                if let strongSelf = self {
+                    strongSelf.appDidLaunch = false
+                    strongSelf.isItHaveLogIn()
+                }
             }
         }
     }
