@@ -32,7 +32,7 @@ extension OrdersSenderPageCell {
         
 
         ///TODO: remove these fake data before launch, now keep it for empty cell testing;
-        if true { return } // 不想用注释来换功能了，用这个来决定是否使用fake data - Xin
+        return // 不想用注释来换功能了，用这个来决定是否使用fake data - Xin
         let r0 = Request.fakeRequestDemo()
         r0.cost = 300.65
 

@@ -19,11 +19,7 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
     
     var isFetching = false {
         didSet{
-            if isFetching {
-                activityIndicator.startAnimating()
-            }else{
-                activityIndicator.stopAnimating()
-            }
+            isFetching ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
         }
     }
 
