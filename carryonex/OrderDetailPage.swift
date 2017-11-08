@@ -10,8 +10,7 @@ import UIKit
 
 class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
-    
-    var request = Request()
+    var request: Request?
     
     let DetailUserNameCellId = "DetailUserNameCellId"
     let DetailCreditLevelCellId = "DetailCreditLevelCellId"

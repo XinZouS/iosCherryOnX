@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import Alamofire
 
 class OrderDetailCommentPageController: UICollectionViewController, UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate{
     
@@ -55,7 +55,8 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
     var forLongIndex = 0
     var forNameIndex = 0
     
-    var request = Request()
+    var request: Request?
+    
     let orderDetailCommentTitleCellId = "commentDetailCommentTitleCellId"
     let orderDetailCommentInfoCellId = "commentDetailCommentInfoCellId"
     
@@ -133,6 +134,10 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
             orderDetailCommentInfoCell?.commentTextView.text = infoDict[keys[indexPath.item-1]]!["comment"] as! String
             orderDetailCommentInfoCell?.senderImgBtn.kf.setImage(with: URL(string:infoDict[keys[indexPath.item-1]]!["imageUrl"] as! String), for: .normal)
             orderDetailCommentInfoCell?.timeLabel.text = infoDict[keys[indexPath.item-1]]!["date"] as! String+"天前"
+            
+            orderDetailCommentInfoCell?.senderImgBtn.kf.setImage(with: URL(string:infoDict[keys[indexPath.item-1]]!["imageUrl"] as! String), for: .normal)
+            
+            
         }
         cell.orderDetailCommentPageCtl = self
         return cell

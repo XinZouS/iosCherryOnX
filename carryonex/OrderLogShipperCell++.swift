@@ -39,7 +39,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
             
         default:
-            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(rq.statusId)")
+            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(rq.status)")
         }
         
         detailButton.setAttributedTitle(attributeString, for: .normal)

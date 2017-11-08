@@ -20,39 +20,38 @@ extension OrdersShipperPageCell {
             self.dataSource = tripOrders
         }
         
-        
-        let r1 = Request.fakeRequestDemo()
-        r1.cost = 30.25
-        
-        let r2 = Request.fakeRequestDemo()
-        r2.statusId = RequestStatus.shipping.rawValue
-        r2.cost = 60.88
-        
-        let r3 = Request.fakeRequestDemo()
-        r3.statusId = RequestStatus.finished.rawValue
-        r3.cost = 160.55
-        
-        let r4 = Request.fakeRequestDemo()
-        r4.cost = 9.8
-        
-        let a1 = Address(country: .UnitedStates, state: "NY", city: "New York", detailAddress: "bala bala~~", zipCode: "10001", recipient: "ZhangSan", phoneNum: "012345688")
-        let a2 = Address(country: .China, state: "GuangDong", city: "GuangZhou", detailAddress: "Ke cun", zipCode: "510006", recipient: "Micle", phoneNum: "0987655432")
-        
-        let p1 = Trip()
-        p1.tripCode = "66888"
-        p1.startAddress = a1
-        p1.endAddress = a2
-        
-        let p2 = Trip()
-        p2.tripCode = "23333"
-        p2.startAddress = a2
-        p2.endAddress = a1
-        
-        let t1 = TripOrder(trip: p1, requests: [])
-        let t2 = TripOrder(trip: p2, requests: [r1])
-        let t3 = TripOrder(trip: Trip(), requests: [r2, r3, r4])
-
-        self.dataSource = [t1, t2, t3]
+//        let r1 = Request.fakeRequestDemo()
+//        r1.cost = 30.25
+//
+//        let r2 = Request.fakeRequestDemo()
+//        r2.statusId = RequestStatus.shipping.rawValue
+//        r2.cost = 60.88
+//
+//        let r3 = Request.fakeRequestDemo()
+//        r3.statusId = RequestStatus.finished.rawValue
+//        r3.cost = 160.55
+//
+//        let r4 = Request.fakeRequestDemo()
+//        r4.cost = 9.8
+//
+//        let a1 = Address(country: .UnitedStates, state: "NY", city: "New York", detailAddress: "bala bala~~", zipCode: "10001", recipient: "ZhangSan", phoneNum: "012345688")
+//        let a2 = Address(country: .China, state: "GuangDong", city: "GuangZhou", detailAddress: "Ke cun", zipCode: "510006", recipient: "Micle", phoneNum: "0987655432")
+//
+//        let p1 = Trip()
+//        p1.tripCode = "66888"
+//        p1.startAddress = a1
+//        p1.endAddress = a2
+//
+//        let p2 = Trip()
+//        p2.tripCode = "23333"
+//        p2.startAddress = a2
+//        p2.endAddress = a1
+//
+//        let t1 = TripOrder(trip: p1, requests: [])
+//        let t2 = TripOrder(trip: p2, requests: [r1])
+//        let t3 = TripOrder(trip: Trip(), requests: [r2, r3, r4])
+//
+//        self.dataSource = [t1, t2, t3]
 //        self.dataSource = []
  
     }

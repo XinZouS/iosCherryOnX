@@ -13,7 +13,7 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
     /// class ItemCategory(), for UI display use ONLY!
     var itemCategoryList : [ItemCategory]! = []
     
-    var request = Request()
+    var request: Request?
     var trip: Trip?
     
     let cellId = "ItemTypeListCellId"

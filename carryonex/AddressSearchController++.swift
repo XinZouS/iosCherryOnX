@@ -275,14 +275,14 @@ extension AddressSearchController {
         
         switch currType {
             case AddressSearchType.requestStarting:
-                if let currAdd = request?.departureAddress {
+                if let currAdd = request?.startAddress {
                     setupCurrentAddress(currAdd)
                     // }else{ // connect reference when address annotation OK button tapped
                     // self.request?.destinationAddress = self.address
                 }
             
             case AddressSearchType.requestDestination:
-                if let currAdd = request?.destinationAddress {
+                if let currAdd = request?.endAddress {
                     setupCurrentAddress(currAdd)
                 }
             

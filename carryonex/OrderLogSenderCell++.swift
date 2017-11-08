@@ -17,6 +17,7 @@ extension OrderLogSenderCell {
     
     
     func updateUIContentsForRequest(){
+        
         guard let rq = self.request else { return }
         
         switch rq.statusId{
@@ -52,7 +53,7 @@ extension OrderLogSenderCell {
             contactButton.setAttributedTitle(attributeString, for: .normal)
             contactButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
         default:
-            print("error::: get undefine status of Request: \(rq.statusId)")
+            print("error::: get undefine status of Request: \(rq.status?.id): \(rq.status?.description)")
         }
         
         updateCellStatusAndButtons()
@@ -63,8 +64,8 @@ extension OrderLogSenderCell {
         
         costLabel.text = "$\(rq.cost)"
         
-        let addA = "\(rq.departureAddress!.country!),\(rq.departureAddress!.city!)"
-        let addB = "\(rq.destinationAddress!.country!),\(rq.destinationAddress!.city!)"
+        let addA = "\(rq.startAddress?.country), \(rq.startAddress?.city)"
+        let addB = "\(rq.endAddress?.country!), \(rq.endAddress?.city)"
         addressLabel.text = "\(addA)-->\(addB)"
     }
     
@@ -84,32 +85,34 @@ extension OrderLogSenderCell {
     
     
     func updateCellStatusAndButtons(){
-        guard let rq = self.request else { return }
         
-        let attributes : [String:Any] = [
-            NSFontAttributeName: UIFont.systemFont(ofSize: 14),
-            NSForegroundColorAttributeName: UIColor.black
-        ]
-        var attributeString = NSAttributedString()
-        
-        switch rq.statusId{
-        case RequestStatus.waiting.rawValue:
-            statusLabel.text = "等待接单"
-            attributeString = NSAttributedString(string: "详情", attributes: attributes)
-
-        case RequestStatus.shipping.rawValue:
-            statusLabel.text = "正在派送"
-            attributeString = NSAttributedString(string: "追踪", attributes: attributes)
+        if let statusId = rq?.status?.id {
             
-        case RequestStatus.finished.rawValue:
-            statusLabel.text = "已经完成"
-            attributeString = NSAttributedString(string: "详情", attributes: attributes)
+            let attributes : [String:Any] = [
+                NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+                NSForegroundColorAttributeName: UIColor.black
+            ]
+            var attributeString = NSAttributedString()
             
-        default:
-            print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(rq.statusId)")
+            switch statusId {
+            case RequestStatus.waiting.rawValue:
+                statusLabel.text = "等待接单"
+                attributeString = NSAttributedString(string: "详情", attributes: attributes)
+                
+            case RequestStatus.shipping.rawValue:
+                statusLabel.text = "正在派送"
+                attributeString = NSAttributedString(string: "追踪", attributes: attributes)
+                
+            case RequestStatus.finished.rawValue:
+                statusLabel.text = "已经完成"
+                attributeString = NSAttributedString(string: "详情", attributes: attributes)
+                
+            default:
+                print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(statusId) | \(rq.status?.description)")
+            }
+            
+            detailButton.setAttributedTitle(attributeString, for: .normal)
         }
-        
-        detailButton.setAttributedTitle(attributeString, for: .normal)
     }
     
     
