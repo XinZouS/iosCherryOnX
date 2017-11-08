@@ -224,20 +224,34 @@ extension HomePageController {
         let request =  BTDropInRequest()
         request.amount = "19"
         request.currencyCode = "USD"
-        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
-        { (controller, result, error) in
-            if (error != nil) {
-                print("ERROR")
-            } else if (result?.isCancelled == true) {
-                print("CANCELLED")
-            } else if let result = result {
-                let selectedPaymentMethod = result.paymentMethod!
-                ApiServers.shared.postNonceToServer(paymentMethodNonce: selectedPaymentMethod.nonce)
+        
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request) { (controller, result, error) in
+            
+            if let error = error {
+                print("BTDropInController error: \(error.localizedDescription)")
+            }
+            
+            if let result = result {
+                
+                if (result.isCancelled) {
+                    print("BTDropInController cancelled")
+                }
+                
+                if let selectedPaymentMethod = result.paymentMethod {
+                    ApiServers.shared.postNonceToServer(paymentMethodNonce: selectedPaymentMethod.nonce)
+                } else {
+                    print("BTDropInController: Unable to get payment method.")
+                }
             }
             controller.dismiss(animated: true, completion: nil)
         }
-        self.present(dropIn!, animated: true, completion: nil)
         
+        if let dropIn = dropIn {
+            self.present(dropIn, animated: true, completion: nil)
+        
+        } else {
+            print("BTDropInController: Unable initialize controller.")
+        }
     }
     
     private func flipPageHorizontally(){

@@ -182,7 +182,7 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     private func updateNextButton(){
         guard let num = phoneNumberTextField.text else { return }
-        isPhoneNumValid = (num.characters.count >= 6)
+        isPhoneNumValid = (num.count >= 6)
         isUserAgree = agreeCheckbox.checkState == .checked
         if isPhoneNumValid == true{
             nextButton.isEnabled = isUserAgree && isPhoneNumValid

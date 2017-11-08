@@ -16,7 +16,7 @@ extension VerificationController: UITextFieldDelegate {
     
     func resendButtonTapped(){
         print("should resend verification...")
-        guard verificationCode.characters.count == 4 else { return }
+        guard verificationCode.count == 4 else { return }
         commitVerificationCode()
         resetResendButtonTo60s()
     }
@@ -40,27 +40,27 @@ extension VerificationController: UITextFieldDelegate {
     
     func textFieldDidChange(_ textField: UITextField){
         verificationCode = textField.text ?? ""
-        let cnt = verificationCode.characters.count
+        let cnt = verificationCode.count
         if cnt == 0 {
             verifiCodeLabel1?.text = ""
         }else
         if cnt == 1 {
-            verifiCodeLabel1?.text = String(describing: verificationCode.characters.last!)
+            verifiCodeLabel1?.text = String(describing: verificationCode.last!)
             verifiCodeLabel2?.text = ""
             verifiCodeLabel3?.text = ""
             verifiCodeLabel4?.text = ""
         }else
         if cnt == 2 {
-            verifiCodeLabel2?.text = String(describing: verificationCode.characters.last!)
+            verifiCodeLabel2?.text = String(describing: verificationCode.last!)
             verifiCodeLabel3?.text = ""
             verifiCodeLabel4?.text = ""
         }else
         if cnt == 3 {
-            verifiCodeLabel3?.text = String(describing: verificationCode.characters.last!)
+            verifiCodeLabel3?.text = String(describing: verificationCode.last!)
             verifiCodeLabel4?.text = ""
         }else
         if cnt == 4 {
-            verifiCodeLabel4?.text = String(describing: verificationCode.characters.last!)
+            verifiCodeLabel4?.text = String(describing: verificationCode.last!)
             if resetTime == 0 {
                 commitVerificationCode()
                 resetResendButtonTo60s()

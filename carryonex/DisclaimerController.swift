@@ -83,24 +83,25 @@ class DisclaimerController: UIViewController {
     private func setupTextContent(){
         
         textString.append(attributeString(text: "Disclaimer of CarryonEx \r\n", size: 14, weight: 1, textColor: .black))
-        currStringLen = textString.string.characters.count
+        currStringLen = textString.string.count
         
         let title1Style = NSMutableParagraphStyle()
         title1Style.lineSpacing = 3
         title1Style.alignment = .center
         let title1Range = NSMakeRange(lastStringLen, currStringLen)
         textString.addAttribute(NSParagraphStyleAttributeName, value: title1Style, range: title1Range)
-        lastStringLen = textString.string.characters.count
+        lastStringLen = textString.string.count
         
         let t2 = "游箱服务协议 \r\n"
-        currStringLen = t2.characters.count
+        currStringLen = t2
+            .count
         textString.append(attributeString(text: t2, size: 16, weight: 1, textColor: .black))
         let title2Style = NSMutableParagraphStyle()
         title2Style.lineSpacing = 10
         title2Style.alignment = .center
         let title2Range = NSMakeRange(lastStringLen, currStringLen)
         textString.addAttribute(NSParagraphStyleAttributeName, value: title2Style, range: title2Range)
-        lastStringLen = textString.string.characters.count
+        lastStringLen = textString.string.count
 
         let p1 = "1. When you register your account in our system, you have to submit your information correctly; our system will receive your personal information put it into our server. The data from you will include IP address, Cookie and so on. \r\n 1. 您注册游箱时，必须根据要求提供准确的个人信息； 在您使用带货或者寄货服务、或访问网页时，软件自动接收并记录服务器数据，包括但不限于IP地址、网站Cookie中的资料及您要求取用的网页记录 \r\n"
         
@@ -118,14 +119,14 @@ class DisclaimerController: UIViewController {
         }
         
         let t3 = "Your personal information will be disclosed in part or in all of the following circumstances \r\n 您的个人信息将在下述情况下部分或全部被披露：\r\n"
-        currStringLen = t3.characters.count
+        currStringLen = t3.count
         textString.append(attributeString(text: t3, size: 16, weight: 1, textColor: .black))
         let title3Style = NSMutableParagraphStyle()
         title3Style.lineSpacing = 3
         title3Style.paragraphSpacing = 10
         let title3Range = NSMakeRange(lastStringLen, currStringLen)
         textString.addAttribute(NSParagraphStyleAttributeName, value: title3Style, range: title3Range)
-        lastStringLen = textString.string.characters.count
+        lastStringLen = textString.string.count
         
         let p6 = "1. To a third party with your consent. \r\n 1. 经您同意，向第三方披露；"
         
@@ -157,14 +158,14 @@ class DisclaimerController: UIViewController {
     }
     
     private func addParagraph(p: String, withLineSpacing ls: CGFloat){
-        currStringLen = p.characters.count
+        currStringLen = p.count
         textString.append(attributeString(text: p, size: 12, weight: 0, textColor: .black))
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineSpacing = ls
         pStyle.paragraphSpacing = 5
         let pRange = NSMakeRange(lastStringLen, currStringLen)
         textString.addAttribute(NSParagraphStyleAttributeName, value: pStyle, range: pRange)
-        lastStringLen = textString.string.characters.count
+        lastStringLen = textString.string.count
     }
 
     
