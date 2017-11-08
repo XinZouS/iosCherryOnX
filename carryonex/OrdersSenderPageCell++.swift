@@ -12,15 +12,17 @@ extension OrdersSenderPageCell {
         
     func fetchRequests() {
         
-//        ApiServers.shared.getUsersTrips(userType: .sender, offset: 0, pageCount: 4) { (tripOrders, error) in
-//            if let error = error {
-//                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            self.dataSource = tripOrders
-//        }
+        ApiServers.shared.getUsersTrips(userType: .sender, offset: 0, pageCount: 4) { (tripOrders, error) in
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
+
+            self.dataSource = tripOrders
+        }
         
+/*
+        ///TODO: remove these fake data before launch, now keep it for empty cell testing;
         let r0 = Request.fakeRequestDemo()
         r0.cost = 300.65
 
@@ -51,7 +53,7 @@ extension OrdersSenderPageCell {
         let t5 = TripOrder(trip: Trip(), requests: [r5])
 
         self.dataSource = [t0, t1, t2, t3, t4, t5]
-        
+        */
     }
     
     public func setupCollectionViewHidden(){

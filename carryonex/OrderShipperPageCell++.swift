@@ -12,15 +12,16 @@ extension OrdersShipperPageCell {
     
     func fetchRequests() {
         
-        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
-            self.dataSource = tripOrders
-        }
+//        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
+//            if let error = error {
+//                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+//                return
+//            }
+//            self.dataSource = tripOrders
+//        }
         
         
+        ///TODO: remove these fake data before launch, now keep it for empty cell testing;
         let r1 = Request.fakeRequestDemo()
         r1.cost = 30.25
         
