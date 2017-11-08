@@ -229,13 +229,13 @@ extension HomePageController {
             
             if let error = error {
                 print("BTDropInController error: \(error.localizedDescription)")
-            }
             
-            if let result = result {
+            } else if (result?.isCancelled == true) {
+                print("BTDropInController cancelled")
+            
+            } else if let result = result {
                 
-                if (result.isCancelled) {
-                    print("BTDropInController cancelled")
-                }
+                print("Result type: \(result.paymentOptionType.rawValue)")
                 
                 if let selectedPaymentMethod = result.paymentMethod {
                     ApiServers.shared.postNonceToServer(paymentMethodNonce: selectedPaymentMethod.nonce)
