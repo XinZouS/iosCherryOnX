@@ -49,25 +49,6 @@ class OrderDetailCommentTitleCell : OrderDetailCommentBaseCell {
     }
     
     private func setupStarCommentView(){
-//        let w : CGFloat = 46, h : CGFloat = 46, l : CGFloat = 0
-//        let v1 = UIView(), v2 = UIView(), v3 = UIView(), v4 = UIView(),v5 = UIView()
-//        v1.addSubview(StarCommentBtn1)
-//        v2.addSubview(StarCommentBtn2)
-//        v3.addSubview(StarCommentBtn3)
-//        v4.addSubview(StarCommentBtn4)
-//        v5.addSubview(StarCommentBtn5)
-//        StarCommentBtn1.addConstraints(left: nil, top: v1.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//        StarCommentBtn2.addConstraints(left: nil, top: v2.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//        StarCommentBtn3.addConstraints(left: nil, top: v3.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//        StarCommentBtn4.addConstraints(left: nil, top: v4.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//        StarCommentBtn5.addConstraints(left: nil, top: v5.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-//
-//        StarCommentBtn1.centerXAnchor.constraint(equalTo: v1.centerXAnchor).isActive = true
-//        StarCommentBtn2.centerXAnchor.constraint(equalTo: v2.centerXAnchor).isActive = true
-//        StarCommentBtn3.centerXAnchor.constraint(equalTo: v3.centerXAnchor).isActive = true
-//        StarCommentBtn4.centerXAnchor.constraint(equalTo: v4.centerXAnchor).isActive = true
-//        StarCommentBtn5.centerXAnchor.constraint(equalTo: v5.centerXAnchor).isActive = true
-        
         starCommentView = UIStackView(arrangedSubviews: starCommentBtns)
         starCommentView?.axis = .horizontal
         starCommentView?.distribution = .fillEqually

@@ -16,12 +16,10 @@ import AWSCore
 import AWSS3
 
 import ALCameraViewController
-import Kingfisher
-
 import BraintreeDropIn
 import Braintree
 
-
+import AlamofireImage
 /**
  for textField and keyboard control;
  */
@@ -509,10 +507,8 @@ extension HomePageController : UINavigationControllerDelegate, UIImagePickerCont
             print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
             ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
                 if success {
-                    let cache = KingfisherManager.shared.cache
-                    cache.clearDiskCache()
-                    cache.clearMemoryCache()
-                    cache.cleanExpiredDiskCache()
+                    let cache = AutoPurgingImageCache()
+                    cache.removeAllImages()
                     self.userInfoMenuView.userProfileView.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
                     self.activityIndicator.stopAnimating()
