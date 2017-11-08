@@ -102,9 +102,7 @@ extension PaymentController {
         let waitingCtl = WaitingController()
         waitingCtl.isForShipper = false
         
-        // TODO: how to dismiss current page and present the new waitingCtl ????
-//        present(waitingCtl, animated: true)
-        
+        // paging transition animation for waitingController
         let transition: CATransition = CATransition()
         transition.duration = 0.5
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

@@ -13,12 +13,7 @@ class OrdersSenderPageCell: OrdersBasePageCell {
     
     let cellIdOrderLogSenderCell = "cellIdOrderLogSenderCell"
     
-    var dataSource: [TripOrder]? {
-        didSet{
-            setupCollectionViewHidden()
-        }
-    }
-    
+    var dataSource: [TripOrder]?
 
     
     override init(frame: CGRect) {
@@ -84,7 +79,7 @@ extension OrdersSenderPageCell: UICollectionViewDataSource {
             isFetching == false else { return }
         
         let section = indexPath.section
-        if section == currPage - 1, indexPath.item == currItm - 1 {
+        if section == currPage - 1, (indexPath.item == 0 || indexPath.item == currItm - 1) {
             fetchRequests()
         }
     }
