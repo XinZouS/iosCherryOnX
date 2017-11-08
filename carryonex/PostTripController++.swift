@@ -28,21 +28,6 @@ extension PostTripController {
         uploadTripToServer()
     }
     
-//    private func uploadAddressToServer(_ addr1 : Address, _ addr2 : Address, completion: @escaping(Bool, String) -> Void){
-//        ApiServers.shared.postAddressInfo(address: addr1) { (success1, msg1, addrId1) in
-//            if success1 {
-//                ApiServers.shared.postAddressInfo(address: addr2) { (success2, msg2, addrId2) in
-//                    if success2 {
-//                        completion(true, msg2) // OK 2 address upload
-//                    }else{
-//                        completion(false, msg2)
-//                    }
-//                }
-//            }else{
-//                completion(false, msg1)
-//            }
-//        }
-//    }
     
     private func uploadTripToServer(){
         guard let start = self.addressStarting, let destination = self.addressDestinat else {
@@ -61,11 +46,12 @@ extension PostTripController {
                 if let msg = msg, let id = id {
                     print("get callback after uploadTripToServer(), success = \(success), msg = \(msg), tripID: \(id)")
                 }
-                
-                let waitingCtl = WaitingController()
-                waitingCtl.isForShipper = true
-                self.present(waitingCtl, animated: true, completion: nil)
-                
+                // today: remove this if not workinig:
+//                let waitingCtl = WaitingController()
+//                waitingCtl.isForShipper = true
+//                self.present(waitingCtl, animated: true, completion: nil)
+                self.showWaitingPageWithTransition()
+
             } else {
                 if let msg = msg {
                     let m = "抱歉给您带来的不便，请保持网络连接，稍后再试一次吧！错误信息：\(msg)"
@@ -74,6 +60,22 @@ extension PostTripController {
             }
             self.activityIndicator.stopAnimating()
         }
+    }
+    
+    private func showWaitingPageWithTransition(){
+        let waitingCtl = WaitingController()
+        waitingCtl.isForShipper = false
+        
+        let transition: CATransition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromBottom
+        self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.pushViewController(waitingCtl, animated: false)
     }
     
     func startAddressButtonTapped(){
@@ -125,12 +127,7 @@ extension PostTripController {
         startTimeCell?.infoLabel.text = dateFormatter.string(from: date)
         okButtonValidateCheck()
     }
-//    func setupPickupTimeSlice(dateStart: Date, dateEnd: Date){
-//        pickUpTimeCell?.infoLabel.textColor = .black
-//        let d1 = dateFormatter.string(from: dateStart)
-//        let d2 = dateFormatter.string(from: dateEnd)
-//        pickUpTimeCell?.infoLabel.text = "\(d1) -- \(d2)"
-//    }
+    
     private func okButtonValidateCheck(){
         let isOk = isStartAddressSetted && isEndAddressSetted
         okButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray

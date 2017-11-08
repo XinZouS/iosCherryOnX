@@ -89,7 +89,7 @@ class OrdersShipperHeaderCell : UICollectionViewCell {
     }
     
     private func setupLabels(){
-        let w : CGFloat = (self.bounds.width - 60) / 3
+        let w : CGFloat = (self.bounds.width - 60) / 4
         addSubview(youxiangCodeLabel) // left
         youxiangCodeLabel.addConstraints(left: colorBar.leftAnchor, top: colorBar.topAnchor, right: nil, bottom: colorBar.bottomAnchor, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: 0)
         
