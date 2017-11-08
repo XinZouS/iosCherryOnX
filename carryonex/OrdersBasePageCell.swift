@@ -85,6 +85,15 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
     
     
     func setupCollectionViewPage(){
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 5
+        }
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0) // top, left, bottom, right
+        collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+
         addSubview(collectionView)
         collectionView.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 60, width: 0, height: 0)
     }
