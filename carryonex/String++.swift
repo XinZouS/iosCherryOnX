@@ -12,7 +12,7 @@ extension String {
     
     func formatToPhoneNum(countryCode: String) -> String {
         var phone = self
-        let len = self.characters.count
+        let len = self.count
         let strIdx = self.startIndex
         
         if len < 10 {

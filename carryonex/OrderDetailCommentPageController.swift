@@ -123,31 +123,10 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
             orderDetailCommentTitleCell?.CommentNumLabel.text = "\(infoDict.count)个评价"
             orderDetailCommentTitleCell?.CommentNumLabel.textAlignment = .left
             orderDetailCommentTitleCell?.CommentNumLabel.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 20 : 24) // i5 < 400 < i6,7
+            
             let commentLevel = 4
-            switch commentLevel {
-            case 1:
-                orderDetailCommentTitleCell?.StarCommentBtn1.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-            case 2:
-                orderDetailCommentTitleCell?.StarCommentBtn1.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn2.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-            case 3:
-                orderDetailCommentTitleCell?.StarCommentBtn1.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn2.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn3.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-            case 4:
-                orderDetailCommentTitleCell?.StarCommentBtn1.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn2.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn3.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn4.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-            case 5:
-                orderDetailCommentTitleCell?.StarCommentBtn1.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn2.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn3.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn4.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-                orderDetailCommentTitleCell?.StarCommentBtn5.setImage(#imageLiteral(resourceName: "carryonex_star"), for: .normal)
-            default:
-                break
-            }
+            orderDetailCommentTitleCell?.commentLevel = commentLevel
+            
         default:
             orderDetailCommentInfoCell = cell as? OrderDetailCommentInfoCell
             orderDetailCommentInfoCell?.nameLabel.text = keys[indexPath.item-1]
