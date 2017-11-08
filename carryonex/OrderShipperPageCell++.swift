@@ -12,16 +12,23 @@ extension OrdersShipperPageCell {
     
     func fetchRequests() {
         
-//        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
-//            if let error = error {
-//                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-//                return
-//            }
-//            self.dataSource = tripOrders
-//        }
+        guard isFetching == false else { return }
+        
+        isFetching = true
+        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
+            self.isFetching = false
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
+            if let tripOrders = tripOrders {
+                self.dataSource?.append(contentsOf: tripOrders as [TripOrder])
+            }
+        }
         
         
         ///TODO: remove these fake data before launch, now keep it for empty cell testing;
+        if true { return } // 不想用注释来换功能了，用这个来决定是否使用fake data - Xin
         let r1 = Request.fakeRequestDemo()
         r1.cost = 30.25
         
@@ -53,7 +60,7 @@ extension OrdersShipperPageCell {
         let t2 = TripOrder(trip: p2, requests: [r1])
         let t3 = TripOrder(trip: Trip(), requests: [r2, r3, r4])
 
-        self.dataSource = [t1, t2, t3]
+        self.dataSource = [t1, t2, t3, t1, t2, t3]
 //        self.dataSource = []
  
     }

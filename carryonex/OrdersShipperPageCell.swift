@@ -15,7 +15,6 @@ class OrdersShipperPageCell : OrdersBasePageCell {
     let cellIdOrderLogShipperCell   = "cellIdOrderLogShipperCell"
     let cellIdOrderLogShipperEmtpyCell = "cellIdOrderLogShipperEmtpyCell"
     
-    
     var dataSource: [TripOrder]? {
         didSet{
             setupCollectionViewHidden()
@@ -30,6 +29,7 @@ class OrdersShipperPageCell : OrdersBasePageCell {
         setupBackgroundButton()
         
         fetchRequests()
+        setupCollectionViewHidden()
     }
     
     private func registerCollectionView(){
@@ -96,6 +96,17 @@ extension OrdersShipperPageCell: UICollectionViewDataSource {
             return header
         }else{
             return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let currPage = dataSource?.count,
+            let currItm = dataSource?[currPage - 1].requests?.count,
+            isFetching == false else { return }
+        
+        let section = indexPath.section
+        if section == currPage - 1, indexPath.item == currItm - 1 {
+            fetchRequests()
         }
     }
     
