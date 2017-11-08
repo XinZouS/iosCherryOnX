@@ -27,6 +27,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _ = youxiangField.becomeFirstResponder()
+        okButton.isEnabled = true
     }
     override func viewDidLoad() {
         super.viewDidLoad()
