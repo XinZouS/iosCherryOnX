@@ -10,10 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--寄件-->
         <scene sceneID="cS5-mD-3bM">
             <objects>
                 <navigationController id="QGo-l0-xmq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="寄件" id="36M-Q4-he1"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aVe-vH-UOi">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

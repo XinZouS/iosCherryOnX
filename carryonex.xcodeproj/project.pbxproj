@@ -1110,10 +1110,10 @@
 			children = (
 				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
-				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
-				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
+				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
+				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
