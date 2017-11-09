@@ -36,27 +36,25 @@ enum RequestKeyInDB : String {
     case images = "images"
 }
 
-struct Request {
-    let id: String?
-    let name: String?
-    let length: Int
-    let width : Int
-    let height: Int
-    let weight: Double
-    let cost: Double
-    let ownerId: String?
-    let ownerUsername: String?
-    let tripId: String?
+class Request: Unboxable {
+    var id: String?
+    var name: String?
+    var length: Int
+    var width : Int
+    var height: Int
+    var weight: Double
+    var cost: Double
+    var ownerId: String?
+    var ownerUsername: String?
+    var tripId: String?
     
-    let startAddress: Address?
-    let endAddress: Address? // change to Address ID when uploading to server
-    let items: [RequestCategoryItem]?
-    let images: [RequestImage]?
-    let status: RequestStatusDetail?
-}
-
-extension Request: Unboxable {
-    init(unboxer: Unboxer) throws {
+    var startAddress: Address?
+    var endAddress: Address? // change to Address ID when uploading to server
+    var items: [RequestCategoryItem]?
+    var images: [RequestImage]?
+    var status: RequestStatusDetail?
+    
+    required init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.name = try? unboxer.unbox(key: RequestKeyInDB.name.rawValue)
         self.length = try unboxer.unbox(key: RequestKeyInDB.length.rawValue)
@@ -92,7 +90,7 @@ extension RequestImage: Unboxable {
 }
 
 struct RequestStatusDetail {
-    let id: String?
+    let id: Int?
     let description: String?
 }
 

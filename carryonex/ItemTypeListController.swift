@@ -35,11 +35,6 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
         setupSubmitButton() 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
-    }
-    
     private func setupCollectionView(){
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical

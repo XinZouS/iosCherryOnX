@@ -20,73 +20,74 @@ extension OrderLogSenderCell {
         
         guard let rq = self.request else { return }
         
-        switch rq.statusId{
-        case RequestStatus.waiting.rawValue:
-            statusLabel.layer.borderColor = buttonThemeColor.cgColor
-            statusLabel.textColor = buttonThemeColor
-            statusLabel.backgroundColor = .white
-            contactButton.isHidden = false
-            let attributes : [String:Any] = [
-                NSFontAttributeName: UIFont.systemFont(ofSize: 14),
-                NSForegroundColorAttributeName: UIColor.black
-            ]
-            let attributeString = NSAttributedString(string: "联系", attributes: attributes)
-            contactButton.setAttributedTitle(attributeString, for: .normal)
-            contactButton.addTarget(self, action: #selector(contactInfoButtonTapped), for: .touchUpInside)
-            
-        case RequestStatus.shipping.rawValue:
-            statusLabel.layer.borderColor = UIColor.lightGray.cgColor
-            statusLabel.textColor = .white
-            statusLabel.backgroundColor = buttonThemeColor
-            contactButton.isHidden = true
-            
-        case RequestStatus.finished.rawValue:
-            statusLabel.layer.borderColor = UIColor.lightGray.cgColor
-            statusLabel.textColor = .lightGray
-            statusLabel.backgroundColor = pickerColorLightGray
-            contactButton.isHidden = false
-            let attributes : [String:Any] = [
-                NSFontAttributeName: UIFont.systemFont(ofSize: 14),
-                NSForegroundColorAttributeName: UIColor.black
-            ]
-            let attributeString = NSAttributedString(string: "评价", attributes: attributes)
-            contactButton.setAttributedTitle(attributeString, for: .normal)
-            contactButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
-        default:
-            print("error::: get undefine status of Request: \(rq.status?.id): \(rq.status?.description)")
+        if let statusId = rq.status?.id {
+            switch statusId {
+            case RequestStatus.waiting.rawValue:
+                statusLabel.layer.borderColor = buttonThemeColor.cgColor
+                statusLabel.textColor = buttonThemeColor
+                statusLabel.backgroundColor = .white
+                contactButton.isHidden = false
+                let attributes : [String:Any] = [
+                    NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+                    NSForegroundColorAttributeName: UIColor.black
+                ]
+                let attributeString = NSAttributedString(string: "联系", attributes: attributes)
+                contactButton.setAttributedTitle(attributeString, for: .normal)
+                contactButton.addTarget(self, action: #selector(contactInfoButtonTapped), for: .touchUpInside)
+                
+            case RequestStatus.shipping.rawValue:
+                statusLabel.layer.borderColor = UIColor.lightGray.cgColor
+                statusLabel.textColor = .white
+                statusLabel.backgroundColor = buttonThemeColor
+                contactButton.isHidden = true
+                
+            case RequestStatus.finished.rawValue:
+                statusLabel.layer.borderColor = UIColor.lightGray.cgColor
+                statusLabel.textColor = .lightGray
+                statusLabel.backgroundColor = pickerColorLightGray
+                contactButton.isHidden = false
+                let attributes : [String:Any] = [
+                    NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+                    NSForegroundColorAttributeName: UIColor.black
+                ]
+                let attributeString = NSAttributedString(string: "评价", attributes: attributes)
+                contactButton.setAttributedTitle(attributeString, for: .normal)
+                contactButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
+            default:
+                if let id = rq.status?.id, let description = rq.status?.description {
+                    print("error::: get undefine status of Request: \(id): \(description)")
+                }
+            }
+            updateCellStatusAndButtons()
         }
         
-        updateCellStatusAndButtons()
-        
         requestIdLabel.text = "\(rq.id ?? "")"
-        
         itemsTextView.text = getStringFromRequest(rq)
-        
         costLabel.text = "$\(rq.cost)"
-        
-        let addA = "\(rq.startAddress?.country), \(rq.startAddress?.city)"
-        let addB = "\(rq.endAddress?.country!), \(rq.endAddress?.city)"
-        addressLabel.text = "\(addA)-->\(addB)"
+        if let scountry = rq.startAddress?.country, let scity = rq.startAddress?.city,
+            let ecountry = rq.endAddress?.country, let ecity = rq.endAddress?.city {
+            addressLabel.text = "\(scountry), \(scity)-->\(ecountry), \(ecity)"
+        }
     }
     
     
     private func getStringFromRequest(_ rq: Request) -> String {
         let mutableStr = NSMutableString()
-        print("\(rq.numberOfItem)")
-        for item in rq.numberOfItem {
-            let name = item.key
-            let num = "\(item.value)"
-            print("\(name)*\(num), ")
-            mutableStr.append("\(name)*\(num), ")
+        if let items = rq.items {
+            for item in items {
+                if let name = item.category?.description {
+                    mutableStr.append("\(name)*\(item.itemAmount), ")
+                    print("get mutableString = \(mutableStr)")
+                }
+            }
         }
-        print("get mutableString = \(mutableStr)")
         return String(mutableStr)
     }
     
     
     func updateCellStatusAndButtons(){
         
-        if let statusId = rq?.status?.id {
+        if let statusId = request?.status?.id {
             
             let attributes : [String:Any] = [
                 NSFontAttributeName: UIFont.systemFont(ofSize: 14),
@@ -108,7 +109,9 @@ extension OrderLogSenderCell {
                 attributeString = NSAttributedString(string: "详情", attributes: attributes)
                 
             default:
-                print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(statusId) | \(rq.status?.description)")
+                if let description = request?.status?.description {
+                    print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(statusId) | \(description)")
+                }
             }
             
             detailButton.setAttributedTitle(attributeString, for: .normal)

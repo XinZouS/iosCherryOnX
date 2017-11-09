@@ -14,7 +14,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
     
     override func updateCellStatusAndButtons() {
         
-        guard let rq = self.request else { return }
+        guard let statusId = self.request?.status?.id else { return }
         
         let attributes : [String:Any] = [
             NSFontAttributeName: UIFont.systemFont(ofSize: 14),
@@ -22,7 +22,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
         ]
         var attributeString = NSAttributedString()
         
-        switch rq.statusId{
+        switch statusId {
         case RequestStatus.waiting.rawValue:
             statusLabel.text = "等待出发"
             detailButtonWidthConstraint.constant = buttonWidthShort
@@ -39,7 +39,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
             
         default:
-            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(rq.status)")
+            print("error::: get undefine status of Request in OrderLogShipperCell::updateCellStatusAndButtons(): \(statusId)")
         }
         
         detailButton.setAttributedTitle(attributeString, for: .normal)

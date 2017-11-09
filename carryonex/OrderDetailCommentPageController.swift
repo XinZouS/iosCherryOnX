@@ -71,11 +71,11 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
         setupCollectionView()
         
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
+        request?.items?.removeAll()
     }
-    
     
     private func setupNavigationBar(){
         title = "来自他人的评价"
