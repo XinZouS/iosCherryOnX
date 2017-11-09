@@ -46,15 +46,15 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
             print("nextButtonTapped error: Profile has no current user")
             return
         }
-        let phoneNum = profileUser.phone ?? ""
-        let zoneNum = profileUser.phoneCountryCode ?? ""
+        phoneInput = profileUser.phone ?? ""
+        zoneCodeInput = profileUser.phoneCountryCode ?? ""
         
         self.isLoading = true
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneNum, result: { (err) in
+        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
             self.isLoading = false
             if err == nil {
                 print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                self.goToVerificationPageWith(zoneCode: zoneNum, phoneNum: phoneNum)
+                self.goToVerificationPage()
             } else {
                 print("PhoneNumberController: mdfPhone有错误: \(String(describing: err))")
                 let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
@@ -65,7 +65,10 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
     
     private func loginByPasswordInput(){
         let pwVC = InputPasswordLoginController()
-        pwVC.username = phoneInput
+        pwVC.username = self.phoneInput
+        pwVC.zoneCodeInput = self.zoneCodeInput
+        pwVC.phoneInput = self.phoneInput
+        
         self.navigationController?.pushViewController(pwVC, animated: true)
     }
     
@@ -80,13 +83,13 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
                 self.showAlertWith(title: "验证失败", message: msg)
                 return
             }
-            self.goToVerificationPageWith(zoneCode: zoneCodeInput, phoneNum: phoneInput)
+            self.goToVerificationPage()
         })
 
     }
     
     @objc private func nextButtonEnable(){
-        nextButton.isEnabled = false
+        nextButton.isEnabled = true
         nextButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
     }
     private func showAlertWith(title:String, message:String){
@@ -115,9 +118,12 @@ extension PhoneNumberController: UITextFieldDelegate, PhoneNumberDelegate {
         self.navigationController?.pushViewController(disCtrlView, animated: true)
     }
     
-    func goToVerificationPageWith(zoneCode: String, phoneNum: String){
+    func goToVerificationPage(){
         let verifiCtl = VerificationController()
-        verifiCtl.isRegister = true
+        verifiCtl.isModifyPhoneNumber = false
+        verifiCtl.zoneCodeInput = self.zoneCodeInput
+        verifiCtl.phoneInput = self.phoneInput
+        
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
 

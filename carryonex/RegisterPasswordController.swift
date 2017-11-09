@@ -14,6 +14,10 @@ class RegisterPasswordController: UIViewController {
     
     var isRegister = true
         
+    var zoneCodeInput = ""
+    var phoneInput = ""
+    var emailInput = ""
+
     var passwordField: TextField!
     var passwordConfirmField: TextField!
     var passwordCorrect : Bool = false

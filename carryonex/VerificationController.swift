@@ -12,8 +12,10 @@ import UIKit
 class VerificationController: UIViewController {
     
     var isModifyPhoneNumber = false
-    var isRegister = false
     
+    var zoneCodeInput = ""
+    var phoneInput = ""
+
     var verificationCode = "1234"
     
     var resetTime: Int = 0

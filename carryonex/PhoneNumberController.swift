@@ -15,6 +15,9 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     var isModifyPhoneNumber = false
     
+    var zoneCodeInput = "1"
+    var phoneInput = ""
+    
     var phoneNumberTextField: TextField!
     var isPhoneNumValid: Bool = false
     var isLoading: Bool = false {

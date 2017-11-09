@@ -9,10 +9,7 @@
 import UIKit
 
 
-
 extension VerificationController: UITextFieldDelegate {
-    
-    
     
     func resendButtonTapped(){
         print("should resend verification...")
@@ -101,27 +98,24 @@ extension VerificationController: UITextFieldDelegate {
     }
 
     private func verifySuccess(){
-        if isRegister {
-            let registEmailCtl = RegisterEmailController()
-            self.navigationController?.pushViewController(registEmailCtl, animated: true)
+        if isModifyPhoneNumber {
+            let newPhone = zoneCodeInput + "-" + phoneInput
+            ApiServers.shared.postUpdateUserInfo(.phone, value: newPhone, completion: { (success, err) in
+                if success, let currUser = ProfileManager.shared.getCurrentUser() {
+                    currUser.phoneCountryCode = self.zoneCodeInput
+                    currUser.phone = self.phoneInput
+                    self.confirmInServer()
+                } else if let err = err {
+                    print("failed in VerificationController++, verifySuccess(), msg = ", err)
+                    self.verifyFaildAlert(err.localizedDescription)
+                }
+            })
         } else {
-            if isModifyPhoneNumber {
-                let newPhone = zoneCodeInput + "-" + phoneInput
-                ApiServers.shared.postUpdateUserInfo(.phone, value: newPhone, completion: { (success, err) in
-                    if success, let currUser = ProfileManager.shared.getCurrentUser() {
-                        currUser.phoneCountryCode = zoneCodeInput
-                        currUser.phone = phoneInput
-                        self.confirmInServer()
-                    } else if let err = err {
-                        print("failed in VerificationController++, verifySuccess(), msg = ", err)
-                        self.verifyFaildAlert(err.localizedDescription)
-                    }
-                })
-            } else {
-                let regPswdCtl = RegisterPasswordController()
-                regPswdCtl.isRegister = true
-                self.navigationController?.pushViewController(regPswdCtl, animated: true)
-            }
+            let regPswdCtl = RegisterPasswordController()
+            regPswdCtl.isRegister = true
+            regPswdCtl.zoneCodeInput = self.zoneCodeInput
+            regPswdCtl.phoneInput = self.phoneInput
+            self.navigationController?.pushViewController(regPswdCtl, animated: true)
         }
     }
     

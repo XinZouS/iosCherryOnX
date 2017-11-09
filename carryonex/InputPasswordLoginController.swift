@@ -11,6 +11,10 @@ import Material
 
 class InputPasswordLoginController: UIViewController {
     
+    var zoneCodeInput = ""
+    var phoneInput = ""
+    var emailInput = ""
+
     var username: String?
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32

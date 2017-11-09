@@ -919,12 +919,12 @@
 		66C975741F3E139700450F37 /* VerificationPages */ = {
 			isa = PBXGroup;
 			children = (
+				FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */,
 				66C975761F3E141600450F37 /* PhoneNumberController.swift */,
 				66C9757E1F3E167C00450F37 /* DisclaimerController.swift */,
 				660704E31F3CF3E8000C09FD /* VerificationController.swift */,
 				FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */,
 				FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */,
-				FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */,
 				FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */,
 			);
 			name = VerificationPages;
@@ -933,12 +933,12 @@
 		66C975751F3E13B100450F37 /* VerificationPages */ = {
 			isa = PBXGroup;
 			children = (
+				FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */,
 				66C9757A1F3E159400450F37 /* PhoneNumberController++.swift */,
 				66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */,
 				66C975781F3E149700450F37 /* VerificationController++.swift */,
 				FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */,
 				FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */,
-				FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */,
 				FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */,
 			);
 			name = VerificationPages;

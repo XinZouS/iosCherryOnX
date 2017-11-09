@@ -11,6 +11,9 @@ import Material
 
 class RegisterEmailController: UIViewController {
 
+    var zoneCodeInput = ""
+    var phoneInput = ""
+
     var emailField: TextField!
     fileprivate let constant: CGFloat = 32
     
