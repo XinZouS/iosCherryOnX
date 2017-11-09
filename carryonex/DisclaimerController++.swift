@@ -8,12 +8,7 @@
 
 import UIKit
 
-
 extension DisclaimerController {
-    
-    
-    
-    
-    
+
 }
 

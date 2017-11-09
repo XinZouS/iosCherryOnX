@@ -25,13 +25,14 @@ extension OrdersSenderPageCell {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
+            
             if let tripOrders = tripOrders {
                 self.dataSource == nil ? self.dataSource = tripOrders : self.dataSource?.append(contentsOf: tripOrders as [TripOrder])
                 DispatchQueue.main.async(execute: {
                     self.collectionView.reloadData()
                 })
             }
-        }        
+        }
     }
     
     public func setupCollectionViewHidden(){

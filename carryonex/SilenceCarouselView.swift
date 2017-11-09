@@ -8,7 +8,7 @@
 //  Reference: https://github.com/SilenceL/SilenceCarouselView
 
 import UIKit
-
+import AlamofireImage
 
 /// 点击事件回调
 public typealias SilenceCarouselViewTapBlock = ((_ carouselView: SilenceCarouselView, _ index:Int) -> ())
@@ -212,11 +212,11 @@ public class SilenceCarouselView: UIView,UIScrollViewDelegate {
         let imgData = self.imageArray![index]
         // 如果是字符串类型，就去拼接URL
         if let url = imgData as? String {
-            imgView.yy_setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "CarryonEx_Logo")) //此处可以换成别的网络图片加载逻辑
+            imgView.af_setImage(withURL: URL(string: url)!, placeholderImage: #imageLiteral(resourceName: "CarryonEx_Logo"))
         }
         // 如果是URL类型则直接去加载
         else if let url = imgData as? URL {
-            imgView.yy_setImage(with: url, placeholder: #imageLiteral(resourceName: "CarryonEx_Logo")) // 此处可以换成别的网络图片加载逻辑
+            imgView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "CarryonEx_Logo")) // 此处可以换成别的网络图片加载逻辑
         }
         // 图片类型
         else if imgData is UIImage {

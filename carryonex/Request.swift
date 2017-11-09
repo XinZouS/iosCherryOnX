@@ -18,170 +18,99 @@ enum RequestStatus: Int {
 
 enum RequestKeyInDB : String {
     case id = "id"
-    case numberOfItem = "name"
-    case youxiangId = "youxiang_id"
-    case statusId = "status_id"
-    
-    case departureAddressId = "start_address_id"
-    case destinationAddressId = "end_address_id"
-    
+    case name = "name"
     case length = "length"
     case width = "width"
-    case height = "height" // volum = l * w * h
+    case height = "height"
     case weight = "weight"
-    case imageUrls = "image_urls"
-    
-    //case sendingTimes = "" // date: [start, end, start, end, ...]
-    //case expectDeliveryTime = "request_eta"
-    //case realDeliveryTime = "" in trip, with
-    
-    case cost = ""
-    
-    case owner = "owner_id" // sender id
-    //case shipper = "" // carrier id, will get from tripId;
+    case pubDate =  "pub_date"
+    case timestamp = "timestamp"
+    case ownerId = "owner_id"
+    case ownerUsername = "owner_username"
     case tripId = "trip_id"
-    case startShippingTimeStamp = "TODO:std"
-    case endShippingTimeStamp = "TODO:etd"
+    
+    case startAddress = "start_address"
+    case endAddress = "end_address"
+    case items = "items"
+    case status = "status"
+    case images = "images"
 }
 
-
-class Request: NSObject, Unboxable {
-    
-    var id:         String?
-    var numberOfItem: [String : Int] = [:] // [ItemIdEnum : num]
-    
-    var youxiangId: String?
-    var statusId: Int = RequestStatus.waiting.rawValue
-    
-    var departureAddressId: String?
-    var departureAddress:   Address? // change to Address ID when uploading to server
-    var destinationAddressId: String?
-    var destinationAddress: Address? // change to Address ID when uploading to server
-    
-    var length: Int = 0
-    var width : Int = 0
-    var height: Int = 0 // volum = l * w * h
-    var weight: Double = 0.0
-    var imageUrls = [String]()
-    
-    var cost: Double = 0.0
-    
-    var owner : String? // sender id
+class Request: Unboxable {
+    var id: String?
+    var name: String?
+    var length: Int
+    var width : Int
+    var height: Int
+    var weight: Double
+    var cost: Double
+    var ownerId: String?
+    var ownerUsername: String?
     var tripId: String?
-    var startShippingTimeStamp: Double?
-    var endShippingTimeStamp:   Double?
     
+    var startAddress: Address?
+    var endAddress: Address? // change to Address ID when uploading to server
+    var items: [RequestCategoryItem]?
+    var images: [RequestImage]?
+    var status: RequestStatusDetail?
     
-    
-    override init(){
-        super.init()
-        
-    }
-    
-    required init(unboxer: Unboxer) {
+    required init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
-        self.numberOfItem = [:] // [ItemIdEnum : num]
+        self.name = try? unboxer.unbox(key: RequestKeyInDB.name.rawValue)
+        self.length = try unboxer.unbox(key: RequestKeyInDB.length.rawValue)
+        self.width = try unboxer.unbox(key: RequestKeyInDB.width.rawValue)
+        self.height = try unboxer.unbox(key: RequestKeyInDB.height.rawValue)
+        self.weight = try unboxer.unbox(key: RequestKeyInDB.weight.rawValue)
+        self.cost = 0.0
         
-        self.youxiangId = try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
-        self.statusId = (try? unboxer.unbox(key: RequestKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
-        
-        self.departureAddressId = try? unboxer.unbox(key: RequestKeyInDB.departureAddressId.rawValue)
-        self.departureAddress   = nil // change to Address ID when uploading to server
-        self.destinationAddressId = try? unboxer.unbox(key: RequestKeyInDB.destinationAddressId.rawValue)
-        self.destinationAddress = nil // change to Address ID when uploading to server
-        
-        self.length = (try? unboxer.unbox(key: RequestKeyInDB.length.rawValue)) ?? 0
-        self.width = (try? unboxer.unbox(key: RequestKeyInDB.width.rawValue)) ?? 0
-        self.height = (try? unboxer.unbox(key: RequestKeyInDB.height.rawValue)) ?? 0
-        self.weight = (try? unboxer.unbox(key: RequestKeyInDB.weight.rawValue)) ?? 0
-        self.imageUrls = (try? unboxer.unbox(key: RequestKeyInDB.imageUrls.rawValue)) ?? []
-        
-        self.cost = 0.0 //try? unboxer.unbox(key: RequestKeyInDB.cost.rawValue)
-        
-        self.owner = try? unboxer.unbox(key: RequestKeyInDB.owner.rawValue)
+        self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
+        self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
-        self.startShippingTimeStamp = Date().timeIntervalSinceNow //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
-        self.endShippingTimeStamp = Date().timeIntervalSinceNow //try? unboxer.unbox(key: RequestKeyInDB.youxiangId.rawValue)
+        
+        self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
+        self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
+        self.items = try? unboxer.unbox(key: RequestKeyInDB.items.rawValue)
+        self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
+        self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
     }
-    
-    
-    
-    static func fakeRequestDemo() -> Request {
-        let add1 = Address(country: Country.UnitedStates, state: "NY", city: "New York", detailAddress: "424 Broadway", zipCode: "10013", recipient: "carryonex", phoneNum: "8886668888")
-        let add2 = Address(country: Country.China, state: "北京", city: "北京", detailAddress: "三里屯胡同88号", zipCode: "100006", recipient: "马云", phoneNum: "13866668888")
-        let r = Request()
-        r.id = "requestID666"
-        r.numberOfItem = ["Mail":3, "Electronics":1]
-        r.youxiangId = "123"
-        r.statusId = RequestStatus.waiting.rawValue
-        
-        r.departureAddress = add1
-        r.destinationAddress = add2
-        r.length = 2
-        r.width = 3
-        r.height = 4
-        r.weight = 3.6
-        r.imageUrls = []
-        
-        r.cost = 88.8
-        
-        r.owner = "123"
-        r.tripId = "888"
-        r.startShippingTimeStamp = Date().timeIntervalSince1970
-        r.endShippingTimeStamp = Date().timeIntervalSince1970
-        
-        return r
-    }
-    
-    func setupByDictionaryFromDB(_ json: [String:Any]){
-        id = json[RequestKeyInDB.id.rawValue] as? String ?? ""
-        numberOfItem = json[RequestKeyInDB.numberOfItem.rawValue] as? [String:Int] ?? [:]
-        youxiangId = json[RequestKeyInDB.youxiangId.rawValue] as? String ?? ""
-        statusId = json[RequestKeyInDB.statusId.rawValue] as? Int ?? 0
-        departureAddressId = json[RequestKeyInDB.departureAddressId.rawValue] as? String ?? ""
-        destinationAddressId = json[RequestKeyInDB.destinationAddressId.rawValue] as? String ?? ""
-        length = json[RequestKeyInDB.length.rawValue] as? Int ?? 0
-        width = json[RequestKeyInDB.weight.rawValue] as? Int ?? 0
-        height = json[RequestKeyInDB.height.rawValue] as? Int ?? 0
-        weight = json[RequestKeyInDB.weight.rawValue] as? Double ?? 0.0
-        //imageUrls = json[RequestKeyInDB.imageUrls.rawValue] as? [String] ?? []
-        //cost = json[RequestKeyInDB.cost.rawValue] as? Float ?? 0
-        owner = json[RequestKeyInDB.owner.rawValue] as? String ?? ""
-        //shipper = json[RequestKeyInDB.shipper.rawValue] as? String ?? ""
-        tripId = json[RequestKeyInDB.tripId.rawValue] as? String ?? ""
-        //startShippingTimeStamp = json[RequestKeyInDB.startShippingTimeStamp.rawValue] as? Date
-        //endShippingTimeStamp = json[RequestKeyInDB.endShippingTimeStamp.rawValue] as? Date
-    }
-
-    
-    func printAll(){
-        print("-------------")
-        print("Current Request : ")
-        print("id = ", id ?? "")
-        print("numberOfItem = ", numberOfItem)
-        print("youxiangId = ", youxiangId ?? "")
-        print("statusId = ", statusId)
-        print("departure address = ", departureAddress ?? "")
-        print("destination address = ", destinationAddress ?? "")
-        print("length = \(length), width = \(width), height = \(height)")
-        print("weight = \(weight)")
-        print("imageUrls = \(imageUrls)")
-
-        print("cost = ", cost)
-        
-        print("owner = ", owner ?? "")
-        print("tripId = \(tripId ?? "")")
-        print("startShippingTimeStamp = ", startShippingTimeStamp ?? "")
-        print("endShippingTimeStamp = ", endShippingTimeStamp ?? "")
-        print(" ---------- ")
-    }
-    
-
-    
 }
 
+struct RequestImage {
+    let id: String?
+    let requestId: String?
+    let imageUrl: String?
+}
 
+extension RequestImage: Unboxable {
+    init(unboxer: Unboxer) throws {
+        id = try? unboxer.unbox(key: "id")
+        requestId = try? unboxer.unbox(key: "request_id")
+        imageUrl = try? unboxer.unbox(key: "image_url")
+    }
+}
 
+struct RequestStatusDetail {
+    let id: Int?
+    let description: String?
+}
 
+extension RequestStatusDetail: Unboxable {
+    init(unboxer: Unboxer) throws {
+        id = try? unboxer.unbox(key: "id")
+        description = try? unboxer.unbox(key: "description")
+    }
+}
 
+struct RequestCategoryItem {
+    let requestId: String?
+    let category: ItemCategory?
+    let itemAmount: Int
+}
 
+extension RequestCategoryItem: Unboxable {
+    init(unboxer: Unboxer) throws {
+        requestId = try? unboxer.unbox(key: "request_id")
+        category = try? unboxer.unbox(key: "category")
+        itemAmount = try unboxer.unbox(key: "item_amount")
+    }
+}
