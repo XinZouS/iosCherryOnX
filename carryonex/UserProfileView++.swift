@@ -9,7 +9,6 @@
 import UIKit
 import AlamofireImage
 
-
 extension UserProfileView {
     
         
@@ -87,8 +86,11 @@ extension UserProfileView {
     }
     
     internal func setupProfileImageFromAws(){
-        let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
-        profileImgButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+        if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
+            let urlRequst = URLRequest.init(url: imgUrl)
+            _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
+            profileImgButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+        }
     }
     
     internal func setupProfileImage(_ img: UIImage){
