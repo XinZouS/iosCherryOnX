@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import ZendeskSDK
 
 extension CustomerServersController {
     
     func onlineCustomerServersButtonTapped(){
+        let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+        ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
     }
     
     func backButtonTapped(){

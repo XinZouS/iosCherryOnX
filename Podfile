@@ -91,6 +91,9 @@ target 'carryonex' do
   pod 'Braintree/Venmo'
   pod 'Braintree/Apple-Pay'
   pod 'Braintree/3D-Secure'
+  # Zendesk SDK
+  pod 'ZendeskSDK'
+  
 
 end
 

@@ -13,6 +13,7 @@ import Fabric
 import Crashlytics
 import AWSCognito
 import Braintree
+import ZendeskSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -50,6 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         //setup BrainTree
         BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")
+        //setup Zendesk
+        ZDKConfig.instance()
+            .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
+                        zendeskUrl: "https://carryonex.zendesk.com",
+                        clientId: "mobile_sdk_client_fe7793872b8aa3992ec1")
+        
+        let identity = ZDKAnonymousIdentity()
+        ZDKConfig.instance().userIdentity = identity
         
         return true
     }
