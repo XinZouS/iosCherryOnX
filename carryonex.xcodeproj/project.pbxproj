@@ -170,6 +170,13 @@
 		E53791E41FAB731E009647CD /* Notifications++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E31FAB731E009647CD /* Notifications++.swift */; };
 		E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */; };
 		E542F2591FB3B3790072BB31 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2581FB3B3790072BB31 /* CategoryItem.swift */; };
+		E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25B1FB4B49E0072BB31 /* Main.storyboard */; };
+		E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25D1FB4B5220072BB31 /* Home.storyboard */; };
+		E542F2671FB4B6AF0072BB31 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */; };
+		E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F2681FB4B7930072BB31 /* Sender.storyboard */; };
+		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
+		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
+		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
@@ -398,6 +405,13 @@
 		E53791E31FAB731E009647CD /* Notifications++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications++.swift"; sourceTree = "<group>"; };
 		E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		E542F2581FB3B3790072BB31 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
+		E542F25B1FB4B49E0072BB31 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E542F25D1FB4B5220072BB31 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E542F2681FB4B7930072BB31 /* Sender.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sender.storyboard; sourceTree = "<group>"; };
+		E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Carrier.storyboard; sourceTree = "<group>"; };
+		E542F26C1FB4B7B40072BB31 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		E542F26E1FB4B7C00072BB31 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		E5791E531FABC60E006B4F68 /* UserDefaults++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults++.swift"; sourceTree = "<group>"; };
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -593,6 +607,8 @@
 		665DE4EB1F3A0B70004DDB88 /* carryonex */ = {
 			isa = PBXGroup;
 			children = (
+				E542F25F1FB4B58C0072BB31 /* ViewControllers */,
+				E542F25A1FB4B4720072BB31 /* Storyboards */,
 				FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */,
 				FF009A681F7C44C8008EA215 /* addressCN.plist */,
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
@@ -1089,6 +1105,75 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		E542F25A1FB4B4720072BB31 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
+				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
+				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
+				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
+				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
+				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E542F25F1FB4B58C0072BB31 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E542F2651FB4B6710072BB31 /* Login */,
+				E542F2601FB4B6100072BB31 /* Home */,
+				E542F2611FB4B61B0072BB31 /* Sender */,
+				E542F2621FB4B6420072BB31 /* Carrier */,
+				E542F2641FB4B6590072BB31 /* Orders */,
+				E542F2631FB4B6480072BB31 /* Settings */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E542F2601FB4B6100072BB31 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E542F2611FB4B61B0072BB31 /* Sender */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sender;
+			sourceTree = "<group>";
+		};
+		E542F2621FB4B6420072BB31 /* Carrier */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Carrier;
+			sourceTree = "<group>";
+		};
+		E542F2631FB4B6480072BB31 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E542F2641FB4B6590072BB31 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Orders;
+			sourceTree = "<group>";
+		};
+		E542F2651FB4B6710072BB31 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		E58FDC991FA5A202000C126E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1282,9 +1367,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */,
+				E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */,
+				E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */,
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
+				E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */,
 				FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */,
+				E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */,
+				E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,
+				E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1388,6 +1479,7 @@
 				66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */,
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
+				E542F2671FB4B6AF0072BB31 /* HomeViewController.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
 				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
