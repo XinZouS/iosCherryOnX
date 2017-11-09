@@ -70,6 +70,7 @@ extension RequestController: UITextFieldDelegate {
         cell04Weight?.textField.resignFirstResponder()
         cell07Cost?.textField.resignFirstResponder()
     }
+    
     private func isWeightValidatedIn(_ textField: UITextField) {
         if textField.tag == 3 {
             is04WeightSet = (textField.text != nil && textField.text != "" && textField.text != "0")
@@ -133,16 +134,12 @@ extension RequestController: UITextFieldDelegate {
     }
     
     private func destinationTextFieldTapped(){
-        // detail address collectionView:
-//        let addressCtl = AddressController() // for detail address to fill up
-//        self.request.destinationAddress = addressCtl.address
-//        navigationController?.pushViewController(addressCtl, animated: true)
-        // addressSearch by map:
         let addressSearchCtl = AddressSearchController()
         addressSearchCtl.searchType = AddressSearchType.requestDestination
         addressSearchCtl.requestCtl = self
         navigationController?.pushViewController(addressSearchCtl, animated: true)
     }
+    
     func setupDestinationAddress(string: String){
         is02DestinationSet = true
         cell02Destination?.textField.text = string
@@ -178,8 +175,8 @@ extension RequestController: UITextFieldDelegate {
 
     internal func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
-        is01DepartureSet = request.departureAddress != nil
-        is02DestinationSet = request.destinationAddress != nil
+        is01DepartureSet = request.startAddress != nil
+        is02DestinationSet = request.endAddress != nil
         is04WeightSet = request.width != 0
         is07takePicture = imageUploadSequence.count > 0
         let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet && is07takePicture//&& is05SendingTimeSet && is06ExpectDeliverySet
@@ -189,12 +186,7 @@ extension RequestController: UITextFieldDelegate {
     }
     
     private func setupRequestInfo(){
-//        request.youxiangId = cell00Youxiang?.textField.text ?? ""
-        //request.destinationAddress = 在AddressController里设置好后回传引用
-        request.weight = Double(cell04Weight?.textField.text ?? "0") ?? 0.0
         computePrice()
-
-        request.printAll()
     }
 
     /// OK button at bottom of page
@@ -228,10 +220,6 @@ extension RequestController: UITextFieldDelegate {
         let paymentController = PaymentController()
         paymentController.request = self.request
         paymentController.requestCtl = self
-//        request.youxiangId = cell00Youxiang?.textField.text
-//        request.departureAddress = (cell01Departure?.textField.text as! Address)
-//        request.destinationAddress = (cell02Destination?.textField.text as! Address)
-//        request.weight = (cell04Weight?.textField.text as! Float)
         navigationController?.pushViewController(paymentController, animated: true)
     }
     
@@ -266,6 +254,9 @@ extension RequestController {
     }
     
     internal func uploadImagesToAwsAndGetUrls(){
+        
+        var urls = [String]()
+        
         for pair in imageUploadSequence {
             let imageName = pair.key
             
@@ -276,15 +267,13 @@ extension RequestController {
                         return
                     }
                     if let getUrl = getUrl {
-                        self.request.imageUrls.append(getUrl.absoluteString)
+                        urls.append(getUrl.absoluteString)
                         
-                        if self.request.imageUrls.count == self.imageUploadSequence.count {
-                            self.request.imageUrls.sort(by: { (s1: String, s2: String) -> Bool in
-                                return s1 < s2
-                            })
+                        if urls.count == self.imageUploadSequence.count {
+                            urls.sort {$0 < $1}
                             var imageUrlsDictionary: [Int: String] = [:] // order and urlString: {"0":"img0", "1":"img1", ...}
-                            for i in 0..<self.request.imageUrls.count {
-                                imageUrlsDictionary[i] = self.request.imageUrls[i]
+                            for i in 0..<urls.count {
+                                imageUrlsDictionary[i] = urls[i]
                             }
                             // TODO: upload urls dictionary to our Server;
                             print("\n\n search this senten to locate in code to get dictionary - Xin")

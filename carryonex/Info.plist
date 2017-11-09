@@ -135,16 +135,20 @@
 	<string>你可以用相机拍摄照片</string>
 	<key>NSContactsUsageDescription</key>
 	<string>你可以从手机通讯录邀请好友。</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To Show Your Current Location.</string>
+	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSLocationUsageDescription</key>
-	<string>To Show Your Current Location.</string>
+	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To Show Your Current Location.</string>
+	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>你可以从手机相册选择照片</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

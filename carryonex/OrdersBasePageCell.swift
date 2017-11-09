@@ -17,6 +17,12 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
         }
     }
     
+    var isFetching = false {
+        didSet{
+            isFetching ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+        }
+    }
+
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -48,7 +54,8 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
         return b
     }()
     
-    
+    var activityIndicator: UIActivityIndicatorCustomizeView!
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,7 +63,7 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
         
         setupBackgroundHintView()
         setupCollectionViewPage()
-        
+        setupActivityIndicator()
     }
     
     private func setupBackgroundHintView(){
@@ -78,9 +85,27 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
     
     
     func setupCollectionViewPage(){
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 5
+        }
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0) // top, left, bottom, right
+        collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+
         addSubview(collectionView)
         collectionView.addConstraints(left: leftAnchor, top: topAnchor, right: rightAnchor, bottom: bottomAnchor, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 60, width: 0, height: 0)
     }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator.center = self.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        self.addSubview(activityIndicator)
+    }
+    
+
     
     public func setupBackgroundButton(){}
     

@@ -14,7 +14,7 @@ class OrderLogSenderCell : UICollectionViewCell {
     
     var ordersLogCtl : OrdersLogController?
     
-    var request : Request! {
+    var request : Request? {
         didSet{
             updateUIContentsForRequest()
         }

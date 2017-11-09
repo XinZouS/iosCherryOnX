@@ -13,7 +13,7 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
     /// class ItemCategory(), for UI display use ONLY!
     var itemCategoryList : [ItemCategory]! = []
     
-    var request = Request()
+    var request: Request?
     var trip: Trip?
     
     let cellId = "ItemTypeListCellId"
@@ -33,11 +33,6 @@ class ItemTypeListController: UICollectionViewController, UICollectionViewDelega
         addItemTypesToList()
         setupCollectionView()        
         setupSubmitButton() 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
     }
     
     private func setupCollectionView(){

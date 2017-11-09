@@ -55,7 +55,8 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
     var forLongIndex = 0
     var forNameIndex = 0
     
-    var request = Request()
+    var request: Request?
+    
     let orderDetailCommentTitleCellId = "commentDetailCommentTitleCellId"
     let orderDetailCommentInfoCellId = "commentDetailCommentInfoCellId"
     
@@ -70,11 +71,11 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
         setupCollectionView()
         
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
+        request?.items?.removeAll()
     }
-    
     
     private func setupNavigationBar(){
         title = "来自他人的评价"
@@ -137,6 +138,10 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
                 orderDetailCommentInfoCell?.senderImgBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
             }
             orderDetailCommentInfoCell?.timeLabel.text = infoDict[keys[indexPath.item-1]]!["date"] as! String+"天前"
+            
+            orderDetailCommentInfoCell?.senderImgBtn.kf.setImage(with: URL(string:infoDict[keys[indexPath.item-1]]!["imageUrl"] as! String), for: .normal)
+            
+            
         }
         cell.orderDetailCommentPageCtl = self
         return cell

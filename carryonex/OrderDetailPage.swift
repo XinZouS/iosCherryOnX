@@ -10,8 +10,7 @@ import UIKit
 
 class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
-    
-    var request = Request()
+    var request: Request?
     
     let DetailUserNameCellId = "DetailUserNameCellId"
     let DetailCreditLevelCellId = "DetailCreditLevelCellId"
@@ -38,11 +37,11 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         setupNavigationBar()
         setupCollectionView()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
+        request?.items?.removeAll()
     }
-    
     
     private func setupNavigationBar(){
         title = "订单详情"

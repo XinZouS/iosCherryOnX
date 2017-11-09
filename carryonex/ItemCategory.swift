@@ -44,8 +44,6 @@ class ItemCategory: Unboxable {
     var count : Int = 0 // for category page display and selection
     var price : Double = 1.0 // parse to Int when upload to server
     
-    
-    
     private init() {
         nameCN = "类别？"
         nameEN = "category?"

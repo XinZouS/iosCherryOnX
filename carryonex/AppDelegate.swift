@@ -30,10 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //UINavigationBar.appearance().isTranslucent = true
         UIApplication.shared.statusBarStyle = .lightContent
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
+        //window = UIWindow(frame: UIScreen.main.bounds)
+        //window?.makeKeyAndVisible()
         //window?.rootViewController = PageContainer()
-        window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
+        //window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
         
         //Set up reachability
         ReachabilityManager.shared.startObserving()

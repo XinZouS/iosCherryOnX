@@ -38,9 +38,6 @@ class UserSettingController: UIViewController {
         return b
     }()
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,15 +50,16 @@ class UserSettingController: UIViewController {
         title = "设置"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
-        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.setLeftBarButton(backBtn, animated: false)
     }
     
     private func setupTableView(){
         tableView.register(UserSettingCell.self, forCellReuseIdentifier: userSettingCellId)
         view.addSubview(tableView)
-        tableView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 0)
+        if #available(iOS 11.0, *) {
+            tableView.addConstraints(left: view.leftAnchor, top: view.safeAreaLayoutGuide.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 0)
+        } else {
+            tableView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 0)
+        }
     }
     
     private func setupLogoutButton(){
