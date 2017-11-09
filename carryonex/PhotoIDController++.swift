@@ -291,8 +291,17 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         UIApplication.shared.endIgnoringInteractionEvents()
         
         DispatchQueue.main.async {
-            ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: nil)
+            ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: { (success) in
+                if success {
+                    self.confirmIdUpload()
+                } else {
+                    self.displayAlertForUploadFailed(error: nil)
+                }
+            })
         }
+    }
+
+    private func confirmIdUpload(){
         let layer = navigationController?.viewControllers.count ?? 1
         if layer == 1 {
             self.dismiss(animated: false, completion: nil)
