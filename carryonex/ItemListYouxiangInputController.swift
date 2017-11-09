@@ -73,7 +73,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         view.layout(youxiangField).center(offsetY: -80).left(60).right(60)
     }
     private func setupNavigationBar(){
-        title = "填写游箱"
+        title = "寄件"
         UINavigationBar.appearance().tintColor = buttonColorWhite
         navigationController?.navigationBar.tintColor = buttonColorWhite
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]

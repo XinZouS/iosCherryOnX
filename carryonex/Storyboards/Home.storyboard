@@ -27,22 +27,13 @@
             </objects>
             <point key="canvasLocation" x="-215" y="170"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home Page Controller-->
         <scene sceneID="t4n-B8-n3F">
             <objects>
-                <viewController id="V1Q-cB-PhT" customClass="HomeViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V1Q-cB-PhT" customClass="HomePageController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="puL-wa-enc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nW2-DS-ySY">
-                                <rect key="frame" x="164" y="323" width="46" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="akL-Sf-um5"/>
                     </view>

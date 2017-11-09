@@ -172,7 +172,6 @@
 		E542F2591FB3B3790072BB31 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2581FB3B3790072BB31 /* CategoryItem.swift */; };
 		E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25B1FB4B49E0072BB31 /* Main.storyboard */; };
 		E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25D1FB4B5220072BB31 /* Home.storyboard */; };
-		E542F2671FB4B6AF0072BB31 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */; };
 		E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F2681FB4B7930072BB31 /* Sender.storyboard */; };
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
@@ -407,7 +406,6 @@
 		E542F2581FB3B3790072BB31 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		E542F25B1FB4B49E0072BB31 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E542F25D1FB4B5220072BB31 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E542F2681FB4B7930072BB31 /* Sender.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sender.storyboard; sourceTree = "<group>"; };
 		E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Carrier.storyboard; sourceTree = "<group>"; };
 		E542F26C1FB4B7B40072BB31 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -1134,7 +1132,6 @@
 		E542F2601FB4B6100072BB31 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E542F2661FB4B6AF0072BB31 /* HomeViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1479,7 +1476,6 @@
 				66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */,
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
-				E542F2671FB4B6AF0072BB31 /* HomeViewController.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
 				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,

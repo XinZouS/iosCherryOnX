@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,37 +20,38 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="7z5-d7-gWv" kind="relationship" relationship="rootViewController" id="n3j-jh-RyQ"/>
+                        <segue destination="r5y-e7-DYP" kind="relationship" relationship="rootViewController" id="Fvm-1L-rWo"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BTU-L9-MJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-215" y="170"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="aoK-CG-sz8">
+        <!--Post Trip Controller-->
+        <scene sceneID="cyg-a4-ECY">
             <objects>
-                <viewController id="7z5-d7-gWv" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ijb-3i-1PV">
+                <collectionViewController id="r5y-e7-DYP" customClass="PostTripController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="EyI-9S-b1U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v0p-v6-Qoe">
-                                <rect key="frame" x="160" y="323" width="55" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="vCh-j9-cRg"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="YMp-AO-5zt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Djz-wf-1YF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Jld-ib-0yo">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="r5y-e7-DYP" id="Tim-X4-w45"/>
+                            <outlet property="delegate" destination="r5y-e7-DYP" id="N5C-6g-ZN1"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="pNt-Gk-ZPP"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JY2-VL-Wl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501.60000000000002" y="167.76611694152925"/>
+            <point key="canvasLocation" x="541" y="173"/>
         </scene>
     </scenes>
 </document>
