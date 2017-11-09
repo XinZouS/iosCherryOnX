@@ -23,10 +23,7 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         _ = passwordField.resignFirstResponder()
         
         ProfileManager.shared.login(username: username, password: password) { (success) in
-            if (success) {
-                phoneInput = ""
-                zoneCodeInput = "1"
-                emailInput = ""
+            if success {
                 self.dismiss(animated: true, completion: nil)
                 
             } else {
@@ -40,16 +37,16 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     }
     
     func forgetButtonTapped(){
-        
+
         if let profileUser = ProfileManager.shared.getCurrentUser() {
-            let phoneNum = profileUser.phone
-            let zoneCode = profileUser.phoneCountryCode
+            phoneInput = profileUser.phone ?? ""
+            zoneCodeInput = profileUser.phoneCountryCode ?? ""
             
             print("get : okButtonTapped, api send text msg and go to next page!!!")
-            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
                 if err == nil {
                     print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                    self.goToVerificationPage()
+                    self.goToVerificationPage(isModifyPhone: true)
                 } else {
                     print("PhoneNumberController: 有错误: \(String(describing: err))")
                     let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
@@ -59,8 +56,9 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         }
     }
     
-    func goToVerificationPage(){
+    func goToVerificationPage(isModifyPhone: Bool){
         let verifiCtl = VerificationController()
+        verifiCtl.isModifyPhoneNumber = isModifyPhone
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
     

@@ -182,7 +182,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func getIsUserExisted(completion: @escaping (Bool, Error?) -> Void){
+    func getIsUserExisted(phoneInput: String, completion: @escaping (Bool, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/exist"
         let headers:[String: Any] = [

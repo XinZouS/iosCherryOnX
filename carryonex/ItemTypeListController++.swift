@@ -14,7 +14,7 @@ extension ItemTypeListController {
     
     
     func submitButtonTapped(){
-        guard submitButton.isEnabled == true else {
+        guard submitButton.isEnabled else {
             showAlertFromItemTypeListController()
             return
         }

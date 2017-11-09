@@ -12,10 +12,9 @@ import UIKit
 extension RegisterEmailController: UITextFieldDelegate {
     
      func okButtonTapped(){
-        let registerPasswordCtl = RegisterPasswordController()
-        navigationController?.pushViewController(registerPasswordCtl, animated: true)
-        let newEmail = self.emailField.text ?? ""
-        emailInput = newEmail
+        emailInput = self.emailField.text ?? ""
+        let regPwCtl = RegisterPasswordController()
+        navigationController?.pushViewController(regPwCtl, animated: true)
     }
     
     func checkEmail(){

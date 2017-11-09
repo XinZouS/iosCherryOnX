@@ -10,10 +10,12 @@ import UIKit
 import Material
 
 class RegisterEmailController: UIViewController {
+
     var emailField: TextField!
     fileprivate let constant: CGFloat = 32
     
     let textFieldH : CGFloat = 30
+    
     lazy var  okButton : UIButton = {
         let b = UIButton()
         b.setTitle("→", for: .normal)
@@ -23,10 +25,12 @@ class RegisterEmailController: UIViewController {
         b.isEnabled = false
         return b
     }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _ = emailField.becomeFirstResponder()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +40,7 @@ class RegisterEmailController: UIViewController {
         
         setupOkButton()
     }
-    /// Prepares the resign responder button.
+
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
@@ -44,7 +48,6 @@ class RegisterEmailController: UIViewController {
         view.layout(btn).width(100).height(constant).top(40).right(20)
     }
     
-    /// Handle the resign responder button.
     @objc
     internal func handleResignResponderButton(button: UIButton) {
         emailField?.resignFirstResponder()

@@ -224,7 +224,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         if (!ProfileManager.shared.isLoggedIn()){
             let registerMainCtl = RegisterMainController()
-            isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
             
@@ -419,7 +418,8 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     private func showPhoneNumberPage() {
-        let phoneNumberViewContainer = UINavigationController.init(rootViewController: PhoneNumberController())
+        let newPhoneCtl = PhoneNumberController()
+        let phoneNumberViewContainer = UINavigationController.init(rootViewController: newPhoneCtl)
         present(phoneNumberViewContainer, animated: true, completion: nil)
     }
     

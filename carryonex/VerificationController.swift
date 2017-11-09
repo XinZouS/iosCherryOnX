@@ -11,10 +11,12 @@ import UIKit
 
 class VerificationController: UIViewController {
     
+    var isModifyPhoneNumber = false
+    var isRegister = false
+    
     var verificationCode = "1234"
     
     var resetTime: Int = 0
-
     var resetTimer : Timer?
     
     weak var phoneNumberCtrlDelegate : PhoneNumberDelegate?
@@ -109,8 +111,6 @@ class VerificationController: UIViewController {
     private func setupVerifiCodeViews(){
         let w : CGFloat = 46, h : CGFloat = 46, l : CGFloat = 0
         let v1 = UIView(), v2 = UIView(), v3 = UIView(), v4 = UIView()
-        //v1.backgroundColor = .green
-        //v2.backgroundColor = .yellow
         verifiCodeLabel1 = UILabel()
         verifiCodeLabel2 = UILabel()
         verifiCodeLabel3 = UILabel()
@@ -124,10 +124,6 @@ class VerificationController: UIViewController {
             labe?.layer.borderWidth = 1
             labe?.layer.cornerRadius = 2
         }
-//        verifiCodeLabel1?.backgroundColor = .yellow
-//        verifiCodeLabel2?.backgroundColor = .cyan
-//        verifiCodeLabel3?.backgroundColor = .green
-//        verifiCodeLabel4?.backgroundColor = .yellow
         v1.addSubview(verifiCodeLabel1!)
         v2.addSubview(verifiCodeLabel2!)
         v3.addSubview(verifiCodeLabel3!)
@@ -155,19 +151,7 @@ class VerificationController: UIViewController {
     private func setupHintLabels(){
         view.addSubview(hintLabel2)
         hintLabel2.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: verifiCodeContainer?.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 20, width: 0, height: 15)
-        var zoneCode = "0"
-        var phone = "000"
-        if (isModifyPhoneNumber) {
-            if let profileUser = ProfileManager.shared.getCurrentUser() {
-                zoneCode = profileUser.phoneCountryCode ?? "0"
-                phone = profileUser.phone ?? "000"
-            }
-        } else {
-            zoneCode = zoneCodeInput
-            phone = phoneInput
-        }
-        
-        hintLabel2.text = "验证码已发送到 \(zoneCode) \(phone)"
+        hintLabel2.text = "验证码已发送到 \(zoneCodeInput) \(phoneInput)"
         
         view.addSubview(hintLabel)
         hintLabel.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: verifiCodeContainer?.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 26)

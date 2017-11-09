@@ -12,7 +12,10 @@ import M13Checkbox
 import Material
 
 class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    var phoneNumberTextField : TextField!
+    
+    var isModifyPhoneNumber = false
+    
+    var phoneNumberTextField: TextField!
     var isPhoneNumValid: Bool = false
     var isLoading: Bool = false {
         didSet{
@@ -127,17 +130,17 @@ class PhoneNumberController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        zoneCodeInput = "1"
         
         view.backgroundColor = .white
         setupNavigationBar()
-//        setupOkButton() // the order of this 3 is NOT allow to change!
+        // the order of this 3 is NOT allow to change!
         setupPhoneNumTextField()
         setupFlagButton()
         setupFlagPicker()
-        if isModifyPhoneNumber == false {
+        if !isModifyPhoneNumber {
             setupAgreeItems()
         }
-//        setupDevelopButton()
         setupnextButton()
         setupLoadingIndicator()
     }

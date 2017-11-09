@@ -11,9 +11,13 @@ import Material
 
 
 class RegisterPasswordController: UIViewController {
+    
+    var isRegister = true
+        
     var passwordField: TextField!
     var passwordConfirmField: TextField!
     var passwordCorrect : Bool = false
+    
     fileprivate let constant: CGFloat = 32
     
     lazy var okButton: UIButton = {
@@ -25,36 +29,22 @@ class RegisterPasswordController: UIViewController {
         b.isEnabled = false
         return b
     }()
-    fileprivate func prepareResignResponderButton() {
-        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
-        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
-        
-        view.layout(btn).width(100).height(constant).top(40).right(20)
-    }
     
-    /// Handle the resign responder button.
-    @objc
-    internal func handleResignResponderButton(button: UIButton) {
-        passwordField?.resignFirstResponder()
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _ = passwordField.becomeFirstResponder()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
         
         setupPasswordTextField()
-        
-        
         setupPasswordConfirmTextField()
-        
-        
         setupOkButton()
-        
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         passwordField.resignFirstResponder()
@@ -77,7 +67,6 @@ class RegisterPasswordController: UIViewController {
         passwordField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(passwordField).top(200).left(60).right(60)
     }
-    
     
     private func setupPasswordConfirmTextField(){
         passwordConfirmField = TextField()
@@ -118,4 +107,17 @@ class RegisterPasswordController: UIViewController {
         okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: CGFloat(w)).isActive = true
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
     }
+    
+    fileprivate func prepareResignResponderButton() {
+        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
+        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
+        
+        view.layout(btn).width(100).height(constant).top(40).right(20)
+    }
+
+    @objc
+    internal func handleResignResponderButton(button: UIButton) {
+        passwordField?.resignFirstResponder()
+    }
+    
 }
