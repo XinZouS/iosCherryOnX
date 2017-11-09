@@ -166,7 +166,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         setupMapView()
         setupSearchContents()
-        setupCallShipperButton()
         setupSideButtonView()
         setupTargetCurrentLocationButton()
         setupTopButtons()

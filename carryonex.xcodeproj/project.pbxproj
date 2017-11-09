@@ -605,8 +605,11 @@
 		665DE4EB1F3A0B70004DDB88 /* carryonex */ = {
 			isa = PBXGroup;
 			children = (
+				E542F2701FB4DD650072BB31 /* Models */,
 				E542F25F1FB4B58C0072BB31 /* ViewControllers */,
 				E542F25A1FB4B4720072BB31 /* Storyboards */,
+				E58FDC991FA5A202000C126E /* Managers */,
+				E53791E61FABC047009647CD /* Vendor */,
 				FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */,
 				FF009A681F7C44C8008EA215 /* addressCN.plist */,
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
@@ -617,8 +620,6 @@
 				665DE5021F3A59E4004DDB88 /* View */,
 				665DE5031F3A59E9004DDB88 /* Controller */,
 				66A16AF01F3A5DC000B32AD3 /* Helpers */,
-				E58FDC991FA5A202000C126E /* Managers */,
-				E53791E61FABC047009647CD /* Vendor */,
 				663F1C931F44ABEB00E866C2 /* README.md */,
 				665DE4F61F3A0B70004DDB88 /* Assets.xcassets */,
 				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
@@ -1169,6 +1170,13 @@
 			children = (
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		E542F2701FB4DD650072BB31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E58FDC991FA5A202000C126E /* Managers */ = {

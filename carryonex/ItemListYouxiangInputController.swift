@@ -9,7 +9,7 @@
 import UIKit
 import Material
 
-class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegateFlowLayout{
+class ItemListYouxiangInputController: UIViewController, UICollectionViewDelegateFlowLayout{
     var youxiangField: ErrorTextField!
     fileprivate let constant: CGFloat = 32
     
@@ -57,6 +57,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
     internal func handleResignResponderButton(button: UIButton) {
         youxiangField?.resignFirstResponder()
     }
+    
     fileprivate func setupEmailTextField(){
         youxiangField = ErrorTextField()
         youxiangField.placeholder = "游箱号码"
@@ -64,6 +65,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         youxiangField.isClearIconButtonEnabled = true
         youxiangField.keyboardType = .phonePad
         youxiangField.isPlaceholderUppercasedWhenEditing = true
+        youxiangField.delegate = self
         _ = youxiangField.becomeFirstResponder()
         youxiangField.keyboardAppearance = .dark
         let leftView = UIImageView()
@@ -72,6 +74,7 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         
         view.layout(youxiangField).center(offsetY: -80).left(60).right(60)
     }
+    
     private func setupNavigationBar(){
         title = "寄件"
         UINavigationBar.appearance().tintColor = buttonColorWhite
@@ -87,5 +90,14 @@ class ItemListYouxiangInputController: UIViewController,UICollectionViewDelegate
         okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
         okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
+    }
+}
+
+extension ItemListYouxiangInputController: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField.text?.isEmpty == true {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
