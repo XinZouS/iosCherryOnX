@@ -12,9 +12,8 @@ import Photos
 import AWSCognito
 import AWSCore
 import AWSS3
-
+import Alamofire
 import ALCameraViewController
-import Kingfisher
 
 
 
@@ -208,6 +207,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         if let realName = self.nameTextField.text, !realName.isEmpty {
             ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: { (success) in
                 if !success {
+                    URLCache.shared.removeAllCachedResponses()
                     self.displayAlertForUploadFailed(error: nil)
                     return
                 }
@@ -265,10 +265,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         case ImageTypeOfID.profile.rawValue:
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
                 if success {
-                    let cache = KingfisherManager.shared.cache
-                    cache.clearDiskCache()
-                    cache.clearMemoryCache()
-                    cache.cleanExpiredDiskCache()
+                    URLCache.shared.removeAllCachedResponses()
                     self.homePageController?.userInfoMenuView.userProfileView.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
                 }

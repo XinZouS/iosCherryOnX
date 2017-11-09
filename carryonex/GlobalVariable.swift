@@ -17,6 +17,7 @@ var isModifyPhoneNumber : Bool = false
 var isUserAgree: Bool = false
 var isRegister : Bool = false
 var isOrderList:Bool = false
+var appDidLaunch:Bool = false
 
 //注册使用
 var modifyPhone: String = ""

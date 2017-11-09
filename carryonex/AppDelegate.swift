@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
-import UdeskSDK
 import Fabric
 import Crashlytics
 import AWSCognito
@@ -38,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //Set up reachability
         ReachabilityManager.shared.startObserving()
         
-        //set up Udesk
         setupMobSharingSDK()
         
         // setupFacebookSharingSDK
@@ -120,7 +118,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        UdeskManager.setupCustomerOnline()
         application.applicationIconBadgeNumber = 0
     }
 
@@ -130,8 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        UdeskManager.registerDeviceToken(deviceToken)
-        UdeskManager.startUdeskPush()
+
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

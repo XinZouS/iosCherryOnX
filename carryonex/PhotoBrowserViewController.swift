@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import AlamofireImage
 import JXPhotoBrowser
 
 class PhotoBrowserViewController: UIViewController{
@@ -92,7 +92,7 @@ extension PhotoBrowserViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId, for: indexPath) as! PhotoBrowserCollectionViewCell
-        cell.imageView.kf.setImage(with: URL(string: thumbnailImageUrls[indexPath.row]))
+        cell.imageView.af_setImage(withURL: URL(string: thumbnailImageUrls[indexPath.row])!)
         return cell
     }
 }
