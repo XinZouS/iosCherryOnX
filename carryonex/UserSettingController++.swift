@@ -17,7 +17,7 @@ extension UserSettingController {
             switch indexPath.item {
             case 0:
                 let phoneNumberCtl = PhoneNumberController()
-                isModifyPhoneNumber = true
+                phoneNumberCtl.isModifyPhoneNumber = true
                 navigationController?.pushViewController(phoneNumberCtl, animated: true)
                 
             case 1:
@@ -66,9 +66,7 @@ extension UserSettingController {
     }
     
     func logoutButtonTapped(){
-        appDidLaunch = false
-        isModifyPhoneNumber = false
-        isRegister = false
+        homePageCtl?.appDidLaunch = false
         ProfileManager.shared.logoutUser()
         userProfileView?.removeProfileImageFromLocalFile()
         dismiss(animated: true, completion: nil)

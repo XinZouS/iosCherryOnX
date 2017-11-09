@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+// TODO: what is the difference between this controller and RegisterPasswordController? Do we need both??? - Xin
 extension InputPasswordLoginController: UITextFieldDelegate {
     
     func okButtonTapped(){
@@ -23,10 +23,7 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         _ = passwordField.resignFirstResponder()
         
         ProfileManager.shared.login(username: username, password: password) { (success) in
-            if (success) {
-                phoneInput = ""
-                zoneCodeInput = "1"
-                emailInput = ""
+            if success {
                 self.dismiss(animated: true, completion: nil)
                 
             } else {
@@ -40,27 +37,31 @@ extension InputPasswordLoginController: UITextFieldDelegate {
     }
     
     func forgetButtonTapped(){
-        
+
         if let profileUser = ProfileManager.shared.getCurrentUser() {
-            let phoneNum = profileUser.phone
-            let zoneCode = profileUser.phoneCountryCode
+            phoneInput = profileUser.phone ?? ""
+            zoneCodeInput = profileUser.phoneCountryCode ?? ""
             
             print("get : okButtonTapped, api send text msg and go to next page!!!")
-            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
+            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
                 if err == nil {
                     print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                    self.goToVerificationPage()
+                    self.goToVerificationPage(isModifyPhone: true)
                 } else {
                     print("PhoneNumberController: 有错误: \(String(describing: err))")
                     let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                    self.showAlertWith(title: "获取验证码失败", message: msg)
+                    self.showAlertWith(title: "验证失败", message: msg)
                 }
             })
         }
     }
     
-    func goToVerificationPage(){
+    func goToVerificationPage(isModifyPhone: Bool){
         let verifiCtl = VerificationController()
+        verifiCtl.isModifyPhoneNumber = isModifyPhone
+        verifiCtl.zoneCodeInput = self.zoneCodeInput
+        verifiCtl.phoneInput = self.phoneInput
+        
         self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
     
@@ -81,21 +82,15 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
         let maybePassword = passwordField.text
-        if matcher.match(input: maybePassword!) {
-            print("密码正确")
-            passwordField.leftViewActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-            passwordField.dividerActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-            passwordField.placeholderActiveColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-            okButton.isEnabled = true
-            okButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-        }
-        else{
-            passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-            passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-            passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-            print("密码错误")
-            okButton.isEnabled = false
-            okButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        }
+        
+        let isMatch = matcher.match(input: maybePassword!)
+        passwordField.leftViewActiveColor    = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+        passwordField.dividerActiveColor     = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+        passwordField.placeholderActiveColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+        okButton.isEnabled = isMatch
+        okButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+
+        let msg = isMatch ? "密码正确" : "密码错误"
+        print(msg)
     }
 }

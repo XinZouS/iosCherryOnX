@@ -12,19 +12,7 @@ import Foundation
 // *** the order of flags in flagsTitle should NOT be change!!!
 let codeOfFlag : [String:String] = ["🇺🇸  +1":"1", "🇨🇳 +86":"86", "🇭🇰 852":"852", "🇹🇼 886":"886", "🇦🇺 +61":"61", "🇬🇧 +44":"44", "🇩🇪 +49":"49"]
 var flagsTitle : [String] = ["🇺🇸  +1", "🇨🇳 +86", "🇭🇰 852", "🇹🇼 886", "🇦🇺 +61", "🇬🇧 +44", "🇩🇪 +49"]
-// save key from above
-var isModifyPhoneNumber : Bool = false
-var isUserAgree: Bool = false
-var isRegister : Bool = false
-var isOrderList:Bool = false
-var appDidLaunch:Bool = false
 
-//注册使用
-var modifyPhone: String = ""
-var modifyCode: String = "1"
-var phoneInput: String = ""
-var zoneCodeInput: String = "1"
-var emailInput = ""
 
 //正则校验
 struct MyRegex {

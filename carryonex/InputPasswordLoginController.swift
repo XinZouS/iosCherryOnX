@@ -11,6 +11,10 @@ import Material
 
 class InputPasswordLoginController: UIViewController {
     
+    var zoneCodeInput = ""
+    var phoneInput = ""
+    var emailInput = ""
+
     var username: String?
     var passwordField: TextField!
     fileprivate let constant: CGFloat = 32
@@ -24,6 +28,7 @@ class InputPasswordLoginController: UIViewController {
         b.isEnabled = false
         return b
     }()
+    
     lazy var forgetButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .clear // buttonColorBlue
@@ -33,19 +38,6 @@ class InputPasswordLoginController: UIViewController {
         b.addTarget(self, action: #selector(forgetButtonTapped), for: .touchUpInside)
         return b
     }()
-    
-    fileprivate func prepareResignResponderButton() {
-        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
-        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
-        
-        view.layout(btn).width(100).height(constant).top(40).right(20)
-    }
-    
-    /// Handle the resign responder button.
-    @objc
-    internal func handleResignResponderButton(button: UIButton) {
-        passwordField?.resignFirstResponder()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -116,4 +108,19 @@ class InputPasswordLoginController: UIViewController {
         okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: CGFloat(w)).isActive = true
         okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
     }
+    
+    
+    fileprivate func prepareResignResponderButton() {
+        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
+        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
+        
+        view.layout(btn).width(100).height(constant).top(40).right(20)
+    }
+    
+    /// Handle the resign responder button.
+    @objc
+    internal func handleResignResponderButton(button: UIButton) {
+        passwordField?.resignFirstResponder()
+    }
+    
 }
