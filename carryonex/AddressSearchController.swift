@@ -26,8 +26,8 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     
     var address = Address()
     
-    weak var request: Request?
-    weak var trip   : Trip?
+    var request: Request?
+    var trip   : Trip?
     
     weak var requestCtl : RequestController? {
         didSet{

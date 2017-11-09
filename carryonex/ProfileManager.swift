@@ -132,7 +132,6 @@ class ProfileManager: NSObject {
     func logoutUser() {
         self.currentUser = nil
         deleteUserTokenFromKeychain()
-        ServiceManager.shared.logoutUdesk()
     }
     
     
@@ -186,7 +185,6 @@ class ProfileManager: NSObject {
     
     private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
         self.currentUser = user
-        ServiceManager.shared.setupUDeskWithUser(user: user)
         
         Crashlytics.sharedInstance().setUserEmail(user.email)
         Crashlytics.sharedInstance().setUserIdentifier(user.id)

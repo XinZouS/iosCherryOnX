@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
-import UdeskSDK
 import Fabric
 import Crashlytics
 import AWSCognito
 import Braintree
+import ZendeskSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -30,15 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //UINavigationBar.appearance().isTranslucent = true
         UIApplication.shared.statusBarStyle = .lightContent
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
+        //window = UIWindow(frame: UIScreen.main.bounds)
+        //window?.makeKeyAndVisible()
         //window?.rootViewController = PageContainer()
-        window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
+        //window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
         
         //Set up reachability
         ReachabilityManager.shared.startObserving()
         
-        //set up Udesk
         setupMobSharingSDK()
         
         // setupFacebookSharingSDK
@@ -52,6 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         //setup BrainTree
         BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")
+        //setup Zendesk
+        ZDKConfig.instance()
+            .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
+                        zendeskUrl: "https://carryonex.zendesk.com",
+                        clientId: "mobile_sdk_client_fe7793872b8aa3992ec1")
+        
+        let identity = ZDKAnonymousIdentity()
+        ZDKConfig.instance().userIdentity = identity
         
         return true
     }
@@ -120,7 +127,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        UdeskManager.setupCustomerOnline()
         application.applicationIconBadgeNumber = 0
     }
 
@@ -130,8 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        UdeskManager.registerDeviceToken(deviceToken)
-        UdeskManager.startUdeskPush()
+
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

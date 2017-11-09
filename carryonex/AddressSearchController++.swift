@@ -33,7 +33,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         mapView.setRegion(viewRegion, animated: false)
         
         // not yet setup any address, then show current GPS location
-        if request?.departureAddress == nil && request?.destinationAddress == nil &&
+        if request?.startAddress == nil && request?.endAddress == nil &&
             postTripCtl?.addressStarting == nil && postTripCtl?.addressDestinat == nil {
             DispatchQueue.main.async {
                 self.locationManager.startUpdatingLocation()
@@ -247,11 +247,11 @@ extension AddressSearchController : MKMapViewDelegate {
         //let add = UIDevice.current.userInterfaceIdiom == .phone ? addShort : addLong
         switch currType {
         case AddressSearchType.requestStarting:
-            requestCtl?.request.departureAddress = self.address
+            requestCtl?.request.startAddress = self.address
             requestCtl?.setupStartingAddress(string: add)
         
         case AddressSearchType.requestDestination:
-            requestCtl?.request.destinationAddress = self.address
+            requestCtl?.request.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
             
         case AddressSearchType.tripStarting:
@@ -275,14 +275,14 @@ extension AddressSearchController {
         
         switch currType {
             case AddressSearchType.requestStarting:
-                if let currAdd = request?.departureAddress {
+                if let currAdd = request?.startAddress {
                     setupCurrentAddress(currAdd)
                     // }else{ // connect reference when address annotation OK button tapped
                     // self.request?.destinationAddress = self.address
                 }
             
             case AddressSearchType.requestDestination:
-                if let currAdd = request?.destinationAddress {
+                if let currAdd = request?.endAddress {
                     setupCurrentAddress(currAdd)
                 }
             

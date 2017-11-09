@@ -19,11 +19,9 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     let tabTitleMenuBarHeight : CGFloat = 40
     let tabTitleMenuBar = TabTitleMenuBar()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "我的游箱"
+        title = "订单"
         
         setupNavigationBar()
         setupTabMenuBar()
@@ -36,9 +34,6 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
     private func setupNavigationBar(){
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-
-        let cancelBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "CarryonEx_Back"), style: .plain, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.setLeftBarButton(cancelBtn, animated: true)
     }
     
     private func setupTabMenuBar(){

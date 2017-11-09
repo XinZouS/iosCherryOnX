@@ -11,7 +11,7 @@ import UIKit
 extension ItemListYouxiangInputController {
     
     func cancelButtonTapped(){
-        self.dismiss(animated: true, completion: nil)
+        _ = youxiangField.resignFirstResponder()
     }
     
     func okButtonTapped(){

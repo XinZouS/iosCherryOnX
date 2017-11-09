@@ -15,7 +15,11 @@ class OrdersShipperPageCell : OrdersBasePageCell {
     let cellIdOrderLogShipperCell   = "cellIdOrderLogShipperCell"
     let cellIdOrderLogShipperEmtpyCell = "cellIdOrderLogShipperEmtpyCell"
     
-    var dataSource: [TripOrder]? 
+    var dataSource: [TripOrder]? {
+        didSet{ // do NOT remove this, it will trigger at the first time load data, then need to show collectionView - Xin
+            setupCollectionViewHidden()
+        }
+    }
     
 
     override init(frame: CGRect) {

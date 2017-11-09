@@ -51,41 +51,49 @@ extension PaymentController {
             cell.checkbox.setCheckState(.unchecked, animated: true)
         }
     }
+    
     func putItemCategoryInfo(){
-        for (key,value) in request.numberOfItem{
-            let showContent = UILabel()
-            switch key{
-            case "Mail":
-                showContent.text = "邮件 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Clothes":
-                showContent.text = "衣服 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Shoes":
-                showContent.text = "鞋子 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Handbag":
-                showContent.text = "手包 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Food":
-                showContent.text = "食物 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Health Care":
-                showContent.text = "药品 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Electronics":
-                showContent.text = "电子产品 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Cosmetics":
-                showContent.text = "化妆品 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            case "Jewelry":
-                showContent.text = "首饰 X \(value)"
-                contentStackView.addArrangedSubview(showContent)
-            default:
-                break;
+        
+        if let items = request.items {
+            for item in items {
+                let showContent = UILabel()
+                let value = item.itemAmount
+                if let name = item.category?.nameEN {
+                    switch name {
+                    case "Mail":
+                        showContent.text = "邮件 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Clothes":
+                        showContent.text = "衣服 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Shoes":
+                        showContent.text = "鞋子 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Handbag":
+                        showContent.text = "手包 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Food":
+                        showContent.text = "食物 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Health Care":
+                        showContent.text = "药品 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Electronics":
+                        showContent.text = "电子产品 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Cosmetics":
+                        showContent.text = "化妆品 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    case "Jewelry":
+                        showContent.text = "首饰 X \(value)"
+                        contentStackView.addArrangedSubview(showContent)
+                    default:
+                        break;
+                    }
+                }
             }
         }
+        
     }
 }
 
@@ -98,7 +106,11 @@ extension PaymentController {
     
     func okButtonTapped(){
         print("okButtonTapped!!!!")
-        ApiServers.shared.sentOrderInformation(address: request.destinationAddress!)
+        
+        if let endAddress = request.endAddress {
+            ApiServers.shared.sentOrderInformation(address: endAddress)
+        }
+        
         let waitingCtl = WaitingController()
         waitingCtl.isForShipper = false
         

@@ -21,7 +21,6 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
     var forLongIndex = 0
     var forNameIndex = 0
     
-    var request = Request()
     let commentUserNameCellId = "commentUserNameCellId"
     let commentViewCellId = "commentViewCellId"
     let commentTextviewAndSubmitCellId = "commentTextviewAndSubmitCellId"
@@ -39,11 +38,6 @@ class OrderCommentPage: UICollectionViewController, UICollectionViewDelegateFlow
         setupNavigationBar()
         setupCollectionView()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
-    }
-    
     
     private func setupNavigationBar(){
         title = "评价"

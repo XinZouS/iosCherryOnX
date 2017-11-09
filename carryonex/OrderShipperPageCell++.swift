@@ -30,7 +30,7 @@ extension OrdersShipperPageCell {
                     self.collectionView.reloadData()
                 })
             }
-        }        
+        }
     }
     
     public func setupCollectionViewHidden(){

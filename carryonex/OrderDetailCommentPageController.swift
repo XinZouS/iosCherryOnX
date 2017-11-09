@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import AlamofireImage
 
 class OrderDetailCommentPageController: UICollectionViewController, UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate{
     
@@ -55,7 +55,8 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
     var forLongIndex = 0
     var forNameIndex = 0
     
-    var request = Request()
+    var request: Request?
+    
     let orderDetailCommentTitleCellId = "commentDetailCommentTitleCellId"
     let orderDetailCommentInfoCellId = "commentDetailCommentInfoCellId"
     
@@ -70,11 +71,11 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
         setupCollectionView()
         
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        request.numberOfItem.removeAll() // reset NumOfItems in the current Request
+        request?.items?.removeAll()
     }
-    
     
     private func setupNavigationBar(){
         title = "来自他人的评价"
@@ -131,8 +132,16 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
             orderDetailCommentInfoCell = cell as? OrderDetailCommentInfoCell
             orderDetailCommentInfoCell?.nameLabel.text = keys[indexPath.item-1]
             orderDetailCommentInfoCell?.commentTextView.text = infoDict[keys[indexPath.item-1]]!["comment"] as! String
-            orderDetailCommentInfoCell?.senderImgBtn.kf.setImage(with: URL(string:infoDict[keys[indexPath.item-1]]!["imageUrl"] as! String), for: .normal)
+            if let imageUrl = infoDict[keys[indexPath.item-1]]!["imageUrl"] as? String{
+                orderDetailCommentInfoCell?.senderImgBtn.af_setImage(for: .normal, url: URL(string: imageUrl)!)
+            }else{
+                orderDetailCommentInfoCell?.senderImgBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+            }
             orderDetailCommentInfoCell?.timeLabel.text = infoDict[keys[indexPath.item-1]]!["date"] as! String+"天前"
+            
+            orderDetailCommentInfoCell?.senderImgBtn.kf.setImage(with: URL(string:infoDict[keys[indexPath.item-1]]!["imageUrl"] as! String), for: .normal)
+            
+            
         }
         cell.orderDetailCommentPageCtl = self
         return cell

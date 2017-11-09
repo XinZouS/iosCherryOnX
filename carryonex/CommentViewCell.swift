@@ -20,35 +20,16 @@ class CommentViewCell : CommentBaseCell,UITextViewDelegate {
     
     var starCommentView: UIStackView?
     
-    lazy var StarCommentBtn1 :UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton1Tapped), for: .touchUpInside)
-        return b
-    }()
-   lazy var StarCommentBtn2 :UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton2Tapped), for: .touchUpInside)
-        return b
-    }()
-   lazy var StarCommentBtn3 :UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton3Tapped), for: .touchUpInside)
-        return b
-    }()
-    lazy var StarCommentBtn4 :UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton4Tapped), for: .touchUpInside)
-        return b
-    }()
-    lazy var StarCommentBtn5 :UIButton = {
-        let b = UIButton()
-        b.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
-        b.addTarget(self, action: #selector(starButton5Tapped), for: .touchUpInside)
-        return b
+    lazy var starCommentBtns: [UIButton] = {
+        var buttons = [UIButton]()
+        for i in 0..<5 {
+            let button = UIButton(type: .custom)
+            button.setImage(#imageLiteral(resourceName: "carryonex_unselectstar"), for: .normal)
+            button.tag = i
+            button.addTarget(self, action: #selector(handleStarButton(sender:)), for: .touchUpInside)
+            buttons.append(button)
+        }
+        return buttons
     }()
     
     
@@ -70,31 +51,21 @@ class CommentViewCell : CommentBaseCell,UITextViewDelegate {
         titleLabelWidthConstraint?.isActive = true
     }
     private func setupStarCommentView(){
-        let w : CGFloat = 46, h : CGFloat = 46, l : CGFloat = 0
-        let v1 = UIView(), v2 = UIView(), v3 = UIView(), v4 = UIView(),v5 = UIView()
-        v1.addSubview(StarCommentBtn1)
-        v2.addSubview(StarCommentBtn2)
-        v3.addSubview(StarCommentBtn3)
-        v4.addSubview(StarCommentBtn4)
-        v5.addSubview(StarCommentBtn5)
-        StarCommentBtn1.addConstraints(left: nil, top: v1.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-        StarCommentBtn2.addConstraints(left: nil, top: v2.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-        StarCommentBtn3.addConstraints(left: nil, top: v3.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-        StarCommentBtn4.addConstraints(left: nil, top: v4.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-        StarCommentBtn5.addConstraints(left: nil, top: v5.topAnchor, right: nil, bottom: nil, leftConstent: l, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: w, height: h)
-        StarCommentBtn1.centerXAnchor.constraint(equalTo: v1.centerXAnchor).isActive = true
-        StarCommentBtn2.centerXAnchor.constraint(equalTo: v2.centerXAnchor).isActive = true
-        StarCommentBtn3.centerXAnchor.constraint(equalTo: v3.centerXAnchor).isActive = true
-        StarCommentBtn4.centerXAnchor.constraint(equalTo: v4.centerXAnchor).isActive = true
-        StarCommentBtn5.centerXAnchor.constraint(equalTo: v5.centerXAnchor).isActive = true
         
-        
-        starCommentView = UIStackView(arrangedSubviews: [v1, v2, v3, v4,v5])
+        starCommentView = UIStackView(arrangedSubviews: starCommentBtns)
         starCommentView?.axis = .horizontal
         starCommentView?.distribution = .fillEqually
         
         addSubview(starCommentView!)
-        starCommentView?.addConstraints(left: leftAnchor, top: commentStateLabel.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 20, topConstent: 20, rightConstent: 20, bottomConstent: 0, width: 0, height: h)
+        starCommentView?.addConstraints(left: leftAnchor, top: commentStateLabel.bottomAnchor, right: rightAnchor, bottom: nil, leftConstent: 20, topConstent: 20, rightConstent: 20, bottomConstent: 0, width: 0, height: 30)
+    }
+    
+    @objc private func handleStarButton(sender: UIButton) {
+        for i in 0..<5{
+            let button = starCommentBtns[i]
+            let starImage = (i<=sender.tag) ?#imageLiteral(resourceName: "carryonex_star") : #imageLiteral(resourceName: "carryonex_unselectstar")
+            button.setImage(starImage, for: .normal)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

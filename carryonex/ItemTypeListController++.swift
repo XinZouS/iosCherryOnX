@@ -12,7 +12,6 @@ import UIKit
 
 extension ItemTypeListController {
     
-    
     func submitButtonTapped(){
         guard submitButton.isEnabled else {
             showAlertFromItemTypeListController()
@@ -23,8 +22,6 @@ extension ItemTypeListController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 1
         
-        
-
         updateRequestItemNumber() /// count by ItemIdEnums
 
         let requestCtl = RequestController(collectionViewLayout: layout)
@@ -35,10 +32,16 @@ extension ItemTypeListController {
     
     private func updateRequestItemNumber(){
         for item in itemCategoryList {
-            guard item.count > 0, let nameEn = item.nameEN else { continue }
-            self.request.numberOfItem[nameEn] = item.count
+            guard item.count > 0 else { continue }
+            
+            if self.request?.items == nil {
+                self.request?.items = [RequestCategoryItem]()
+            }
+            
+            let newItem = RequestCategoryItem.init(requestId: request?.id, category: item, itemAmount: item.count)
+            self.request?.items?.append(newItem)
         }
-        print("now get items: ", self.request.numberOfItem)
+//        print("now get items: ", self.request.numberOfItem)
     }
     
     func cancelButtonTapped(){

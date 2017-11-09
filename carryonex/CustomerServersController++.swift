@@ -7,20 +7,13 @@
 //
 
 import UIKit
-import UdeskSDK
+import ZendeskSDK
 
 extension CustomerServersController {
     
     func onlineCustomerServersButtonTapped(){
-        let dict : NSDictionary = [
-            "productImageUrl":"http://img.club.pchome.net/kdsarticle/2013/11small/21/,fd548da909d64a988da20fa0ec124ef3_1000x750.jpg",
-            "productTitle":"测试测试测试测你测试测试测你测试测试测你测试测试测你测试测",
-            "productDetail":"¥88888.088888.088888.0",
-            "productURL":"http://www.baidu.com"
-        ]
-        let chatViewManager = UdeskSDKManager()
-        chatViewManager.setProductMessage(dict as! [AnyHashable : Any])
-        chatViewManager.pushUdesk(in: self, completion: nil)
+        let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+        ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
     }
     
     func backButtonTapped(){
