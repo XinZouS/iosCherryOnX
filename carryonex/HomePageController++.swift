@@ -109,60 +109,6 @@ extension HomePageController {
         //navigationController?.pushViewController(ConfirmBaseController(), animated: true)
         self.present(ConfirmBaseController(), animated: true, completion: nil)
     }
-    func showNewRequestAlert(){
-        let request = Request.fakeRequestDemo() // new Request from server,
-        /// -TODO: setup new request info and present to shipper:
-        print("TODO: setup new request info and present to shipper")
-        
-        let itemString: NSMutableString = ""
-        for m in request.numberOfItem {
-            let name = m.key
-            let num = m.value
-            itemString.append("\(name)x\(num), ")
-        }
-        request.departureAddress = Address()   //TODO: for test only
-        request.destinationAddress = Address() //TODO: for test only
-        
-        if let departAddr = request.departureAddress, let destinationAddr = request.destinationAddress {
-            if let dptCountry = departAddr.country,
-                let dptSate = departAddr.state,
-                let dptCity = departAddr.city,
-                let destinCountry = destinationAddr.country,
-                let destinSate = destinationAddr.state,
-                let destinCity = destinationAddr.city,
-                let dptDetailAddr = departAddr.detailAddress
-            {
-                let dpt = "\(dptCountry.rawValue), \(dptSate), \(dptCity)"
-                let des = "\(destinCountry.rawValue), \(destinSate), \(destinCity)"
-                let pic = "\(dptCity), \(dptDetailAddr)"
-                let msg = "运费：$66，货物（\(itemString)）从 \(dpt) 出发到 \(des) ，取货地点 \(pic)" //, 期望到达时间：\(exp)"
-                let alertCtl = UIAlertController(title: "订单编号666666", message: msg, preferredStyle: .alert)
-                
-                let actionCancel = UIAlertAction(title: "取消", style: .cancel) { (action) in
-                    print("TODO: !!!!! shipper pass this request, send to server and find next!")
-                    self.dismiss(animated: true, completion: nil)
-                }
-                let actionConfirmTime = UIAlertAction(title: "确认时间", style: .default) { (action) in
-                    print("TODO: !!!!! shipper take this request, go to confirmTime controller!")
-                    self.dismiss(animated: true, completion: nil)
-                    
-                    let timeAvailableController = TimeAvailableController()
-                    timeAvailableController.request = request
-                    //self.navigationController?.pushViewController(timeAvailableController, animated: true)
-                    self.present(timeAvailableController, animated: true, completion: nil)
-                }
-                alertCtl.addAction(actionCancel)
-                alertCtl.addAction(actionConfirmTime)
-                
-                present(alertCtl, animated: true, completion: nil)
-            }
-        }
-    }
-    
-//    private func showOnboardingPage(){
-//        UserDefaults.standard.set(false, forKey: "OnboardingFinished")
-//        self.present(OnboardingController(), animated: true, completion: nil)
-//    }
     
     func showUserInfoSideMenu(){
         
