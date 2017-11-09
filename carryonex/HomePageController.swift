@@ -151,7 +151,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }()
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
-    var appDidLaunch = false
     
     deinit {
         NotificationCenter.default.removeObserver(self)

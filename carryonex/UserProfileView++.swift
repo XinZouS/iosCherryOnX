@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
-
+import AlamofireImage
 
 extension UserProfileView {
     
@@ -67,8 +66,8 @@ extension UserProfileView {
         }
         
         let imgUrl = URL(string: currUser.imageUrl ?? "")
-        profileImgButton.kf.setImage(with:imgUrl, for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
-        
+        URLCache.shared.removeAllCachedResponses()
+        profileImgButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "CarryonEx_UploadProfile"), filter: nil, progress: nil, completion: nil)
         if !nameButton.isEnabled && !phoneButton.isEnabled {
             verifiedMarkerImage.image = #imageLiteral(resourceName: "carryonex_verifiedTrue")
         }else{
@@ -87,9 +86,11 @@ extension UserProfileView {
     }
     
     internal func setupProfileImageFromAws(){
-        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
-        print("setup profile image from aws url = \(imgUrl)")
-        profileImgButton.kf.setImage(with: URL(string: imgUrl), for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
+        if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
+            let urlRequst = URLRequest.init(url: imgUrl)
+            _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
+            profileImgButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+        }
     }
     
     internal func setupProfileImage(_ img: UIImage){
@@ -97,8 +98,8 @@ extension UserProfileView {
     }
     
     internal func setupWechatImg(){
-        let imgUrl = ProfileManager.shared.getCurrentUser()?.imageUrl ?? ""
-        profileImgButton.kf.setImage(with: URL(string: imgUrl), for: .normal, placeholder: #imageLiteral(resourceName: "CarryonEx_User"), options: nil, progressBlock: nil, completionHandler: nil)
+        let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
+        profileImgButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "CarryonEx_UploadProfile"), filter: nil, progress: nil, completion: nil)        
     }
     
     internal func setupWechatRealName(){

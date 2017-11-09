@@ -66,6 +66,7 @@ extension UserSettingController {
     }
     
     func logoutButtonTapped(){
+        appDidLaunch = false
         isModifyPhoneNumber = false
         isRegister = false
         ProfileManager.shared.logoutUser()
