@@ -31,30 +31,21 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     var trip: Trip?
     
     var imageUploadingSet: Set<String> = []
-    var imageUploadSequence: [String : URL] = [:] // imageName(tripId) : url
+    var imageUploadSequence: [String : URL] = [:]
 
-    let labelNames = [ "收货地址:", "货物清晰照:", "运货费用:"]
-    let placeholders = ["请选择货物送达位置"]
+    let labelNames = [ "收货地址:", "货物价值", "货物清晰照:", "运货费用:"]
+    let placeholders = ["请选择货物送达位置", "输入货物价格"]
 
-    let basicCellId = "basicCellId"         // 1 - 3
+    let basicCellId = "basicCellId"
     let imageCellId = "imageCellId"
-    let costCellId = "costCellId"           // 7
     
-    var cell02Destination:  RequestBaseCell?
-    var cell08Image:        ImageCell?
-    var cell07Cost :        CostCell?
+    var cell02Destination: RequestBaseCell?
+    var cell08Image: ImageCell?
+    var cell07Cost: RequestBaseCell?
+    var cellTotalValue: RequestBaseCell?
     
     /// for paymentButton.isEnable condictions
     var is02DestinationSet = false, is07takePicture = false
-    
-    let costSumLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = textThemeColor
-        l.font = UIFont.boldSystemFont(ofSize: 24)
-        l.textAlignment = .right
-        l.text = "0"
-        return l
-    }()
     
     let costCurrencyMarker: UILabel = {
         let l = UILabel()
@@ -65,22 +56,9 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         return l
     }()
     
-    lazy var paymentButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = .lightGray
-        //b.isEnabled = false
-        b.setTitle("支付方式", for: .normal)
-        b.addTarget(self, action: #selector(paymentButtonTapped), for: .touchUpInside)
-        return b
-    }()
-    
     
     //MARK: - Methods Start Here
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setPaymentIsEnable()
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,7 +66,6 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         setUpTransparentView()
         setupNavigationBar()
         setupCollectionView()
-        setupPaymentButton()
         setupActivityIndicator()
     }
     
@@ -99,7 +76,6 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         
         collectionView?.register(RequestBaseCell.self, forCellWithReuseIdentifier: basicCellId)
         collectionView?.register(ImageCell.self, forCellWithReuseIdentifier: imageCellId)
-        collectionView?.register(CostCell.self, forCellWithReuseIdentifier: costCellId)
         
         let w : CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 10 : 36
         collectionView?.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: w, topConstent: 0, rightConstent: w, bottomConstent: 40, width: 0, height: 0)
@@ -113,7 +89,8 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     
     private func setupNavigationBar(){
         title = "发货请求"
-        let rightItemButton = UIBarButtonItem(title: "支付方式", style: .plain, target: self, action: #selector(paymentButtonTapped))
+        //let rightItemButton = UIBarButtonItem(title: "支付方式", style: .plain, target: self, action: #selector(paymentButtonTapped))
+        let rightItemButton = UIBarButtonItem(title: "提交", style: .done, target: self, action: #selector(handleSubmissionButton))
         navigationItem.rightBarButtonItem = rightItemButton
     }
     
@@ -123,11 +100,6 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         l.textAlignment = .center
         l.font = UIFont.systemFont(ofSize: 18)
         return l
-    }
-    
-    private func setupPaymentButton(){
-        view.addSubview(paymentButton)
-        paymentButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
     }
     
     private func setupActivityIndicator(){
@@ -148,10 +120,8 @@ extension RequestController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cellId : String = basicCellId
         switch indexPath.item {
-        case 1 :
-            cellId = imageCellId
         case 2 :
-            cellId = costCellId
+            cellId = imageCellId
         default:
             cellId = basicCellId
         }
@@ -163,12 +133,15 @@ extension RequestController: UICollectionViewDelegateFlowLayout {
         cell.titleLabel.text = labelNames[indexPath.item]
         
         switch indexPath.item {
-        case 1 :
-            cell08Image = cell as? ImageCell
+        case 1:
+            cellTotalValue = cell
+            cellTotalValue?.textField.placeholder = placeholders[indexPath.item]
+            cellTotalValue?.textField.keyboardType = .numbersAndPunctuation
         case 2 :
-            cell07Cost = cell as? CostCell
-            cell07Cost?.addExtraContentToRight(costSumLabel, constent: 40)
-            cell07Cost?.addExtraContentToRight(costCurrencyMarker, constent: 0)
+            cell08Image = cell as? ImageCell
+        case 3 :
+            cell07Cost = cell
+            cell07Cost?.textField.keyboardType = .numbersAndPunctuation
         default:
             cell02Destination = cell
             cell02Destination?.textField.placeholder = placeholders[indexPath.item]
@@ -181,7 +154,7 @@ extension RequestController: UICollectionViewDelegateFlowLayout {
         let h : CGFloat = 50
         
         switch indexPath.item {
-        case 1:
+        case 2:
             return CGSize(width: w, height: UIDevice.current.userInterfaceIdiom == .phone ? 180 : 260)
         default:
             return CGSize(width: w, height: h)
@@ -197,14 +170,13 @@ extension RequestController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         view.endEditing(true)
-        setPaymentIsEnable()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         switch textField.tag {
-        case 1: // destination address 收货地址
+        case 0:
             view.endEditing(true)
             destinationTextFieldTapped()
         default:
@@ -215,19 +187,12 @@ extension RequestController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        setPaymentIsEnable()
     }
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
         cell02Destination?.textField.resignFirstResponder()
         cell07Cost?.textField.resignFirstResponder()
-    }
-    
-    private func computePrice(){
-        let price = 100
-        request?.totalValue = price
-        costSumLabel.text = "\(price)"
     }
     
     func getTripInfoBy(youxiangCode: String){
@@ -252,27 +217,33 @@ extension RequestController: UITextFieldDelegate {
         guard touches.first != nil else { return }
         
         textFieldsInAllCellResignFirstResponder()
-        
-        setPaymentIsEnable()
-    }
-    
-    internal func setPaymentIsEnable(){
-        print("check payment is enable: \(paymentButton.isEnabled)")
-        is02DestinationSet = request?.endAddress != nil
-        is07takePicture = imageUploadSequence.count > 0
-        let isOk = is02DestinationSet && is07takePicture//&
-        paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
-        setupRequestInfo()
-    }
-    
-    private func setupRequestInfo(){
-        computePrice()
     }
     
     /// OK button at bottom of page
-    func paymentButtonTapped(){
-        uploadImagesToAwsAndGetUrls()
+    func paymentButtonTapped() {
+        
         print("TODO: upload Request() to server")
+        
+        let t = "‼️您还没填完信息"
+        let ok = "朕知道了"
+        if !is02DestinationSet {
+            displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
+            return
+        }
+        if imageUploadingSet.count == 0 {
+            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            return
+        }
+        
+        //uploadImagesToAwsAndGetUrls()
+        
+        let paymentController = PaymentController()
+        paymentController.request = self.request
+        paymentController.requestCtl = self
+        navigationController?.pushViewController(paymentController, animated: true)
+    }
+    
+    @objc fileprivate func handleSubmissionButton() {
         
         let t = "‼️您还没填完信息"
         let ok = "朕知道了"
@@ -284,13 +255,14 @@ extension RequestController: UITextFieldDelegate {
             displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
             return
         }
-        setupRequestInfo()
-        let paymentController = PaymentController()
-        paymentController.request = self.request
-        paymentController.requestCtl = self
-        navigationController?.pushViewController(paymentController, animated: true)
+        
+        uploadImagesToAwsAndGetUrls { (urlsTuple, error) in
+            if let urlsTuple = urlsTuple {
+                let mappedUrls = urlsTuple.map({$0.1})
+                print(mappedUrls)
+            }
+        }
     }
-    
 }
 
 
@@ -321,7 +293,7 @@ extension RequestController {
         self.cell08Image?.images.append(ImageNamePair(name: imageName, image: image))
     }
     
-    internal func uploadImagesToAwsAndGetUrls(){
+    internal func uploadImagesToAwsAndGetUrls(completion: @escaping([Int: String]?, Error?) -> Void) {
         
         var urls = [String]()
         
@@ -330,10 +302,13 @@ extension RequestController {
             
             if let url = imageUploadSequence[imageName] {
                 AwsServerManager.shared.uploadFile(fileName: imageName, imgIdType: .requestImages, localUrl: url, completion: { (err, getUrl) in
+                    
                     if let err = err {
                         print("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
+                        completion(nil, err)
                         return
                     }
+                    
                     if let getUrl = getUrl {
                         urls.append(getUrl.absoluteString)
                         
@@ -350,14 +325,19 @@ extension RequestController {
                                 print("key = \(pair.key), val = \(pair.value)")
                             }
                             
+                            completion(imageUrlsDictionary, nil)
                             // then remove the images from cache
                             self.removeAllImageFromLocal()
                         }
+                        
+                    } else {
+                        completion(nil, nil)
                     }
                 })
                 
             } else {
                 print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
+                completion(nil, nil)
             }
         }
     }
@@ -371,6 +351,7 @@ extension RequestController {
             imageUploadingSet.removeAll()
         }
     }
+    
     func removeImageWithUrlInLocalFileDirectory(fileName: String){
         let fileType = fileName.components(separatedBy: ".").first!
         if fileType == ImageTypeOfID.profile.rawValue { return }
