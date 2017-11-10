@@ -38,9 +38,14 @@ extension ItemListYouxiangInputController {
             
             if trip != nil {
                 self.okButton.isEnabled = false
-                let itemTypeListCtl = ItemTypeListController(collectionViewLayout: UICollectionViewFlowLayout())
-                itemTypeListCtl.trip = trip
-                self.navigationController?.pushViewController(itemTypeListCtl, animated: true)
+                
+                let layout = UICollectionViewFlowLayout()
+                layout.scrollDirection = .vertical
+                layout.minimumLineSpacing = 1
+                
+                let requestCtl = RequestController(collectionViewLayout: layout)
+                requestCtl.trip = trip
+                self.navigationController?.pushViewController(requestCtl, animated: true)
             }
         }
         

@@ -62,7 +62,7 @@ extension OrderLogSenderCell {
         
         requestIdLabel.text = "\(rq.id ?? "")"
         itemsTextView.text = "<物品列表?>"
-        costLabel.text = "$\(rq.totalValue)"
+        costLabel.text = "$\(rq.totalValue ?? 0)"
         if let ecountry = rq.endAddress?.country, let ecity = rq.endAddress?.city {
             addressLabel.text = "往 \(ecountry), \(ecity)"
         }

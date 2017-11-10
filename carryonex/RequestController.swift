@@ -23,9 +23,10 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
 
-    let labelW : CGFloat = 90
+    let labelW: CGFloat = 90
     
-    var request : Request!
+    var request: Request?
+    var trip: Trip?
     
     // for picker range:
     let maxLen : Int = 30 // inch
@@ -54,7 +55,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
     var cell04Weight :      WeightCell?
     var cell08Image:        ImageCell?
     var cell07Cost :        CostCell?
-    
     
     /// for paymentButton.isEnable condictions
     var is01DepartureSet = false, is02DestinationSet = false, is03VolumSet = false

@@ -249,7 +249,7 @@ extension AddressSearchController : MKMapViewDelegate {
             requestCtl?.setupStartingAddress(string: add)
         
         case AddressSearchType.requestDestination:
-            requestCtl?.request.endAddress = self.address
+            requestCtl?.request?.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
             
         case AddressSearchType.tripStarting:

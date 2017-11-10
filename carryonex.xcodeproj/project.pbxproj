@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
-		6602D3761F795C86005FFE05 /* ItemTypeListCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6602D3751F795C86005FFE05 /* ItemTypeListCell++.swift */; };
 		660460361F4F1E4B00E5DC4C /* RequestBaseCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460351F4F1E4B00E5DC4C /* RequestBaseCell++.swift */; };
 		660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460551F4F6B7500E5DC4C /* SendingTimeController.swift */; };
 		660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460571F506D6600E5DC4C /* SendingTimeController++.swift */; };
@@ -129,10 +128,7 @@
 		66B31C081F71CBFF005A4382 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31C071F71CBFF005A4382 /* FBSDKShareKit.framework */; };
 		66B31C0E1F72A60A005A4382 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31C0D1F72A60A005A4382 /* FBSDKLoginKit.framework */; };
 		66B31C1F1F743843005A4382 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B31C1E1F743843005A4382 /* LocationSearchTableController.swift */; };
-		66BB08301F487E3E00935950 /* ItemTypeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB082F1F487E3E00935950 /* ItemTypeListController.swift */; };
-		66BB08321F487E5000935950 /* ItemTypeListController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08311F487E5000935950 /* ItemTypeListController++.swift */; };
 		66BB08341F48967600935950 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08331F48967600935950 /* ItemCategory.swift */; };
-		66BB08361F489DEA00935950 /* ItemTypeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08351F489DEA00935950 /* ItemTypeListCell.swift */; };
 		66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C11FABA36500755754 /* OrdersBasePageCell.swift */; };
 		66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C31FACBB4300755754 /* ReachabilityManager.swift */; };
 		66C9756F1F3DF15200450F37 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9756E1F3DF15200450F37 /* UserProfileView.swift */; };
@@ -237,7 +233,6 @@
 /* Begin PBXFileReference section */
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
-		6602D3751F795C86005FFE05 /* ItemTypeListCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemTypeListCell++.swift"; sourceTree = "<group>"; };
 		660460351F4F1E4B00E5DC4C /* RequestBaseCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestBaseCell++.swift"; sourceTree = "<group>"; };
 		660460551F4F6B7500E5DC4C /* SendingTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeController.swift; sourceTree = "<group>"; };
 		660460571F506D6600E5DC4C /* SendingTimeController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SendingTimeController++.swift"; sourceTree = "<group>"; };
@@ -363,10 +358,7 @@
 		66B31C0D1F72A60A005A4382 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		66B31C171F72B5CC005A4382 /* carryonex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = carryonex.entitlements; sourceTree = "<group>"; };
 		66B31C1E1F743843005A4382 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
-		66BB082F1F487E3E00935950 /* ItemTypeListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTypeListController.swift; sourceTree = "<group>"; };
-		66BB08311F487E5000935950 /* ItemTypeListController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemTypeListController++.swift"; sourceTree = "<group>"; };
 		66BB08331F48967600935950 /* ItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
-		66BB08351F489DEA00935950 /* ItemTypeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTypeListCell.swift; sourceTree = "<group>"; };
 		66C138C11FABA36500755754 /* OrdersBasePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersBasePageCell.swift; sourceTree = "<group>"; };
 		66C138C31FACBB4300755754 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		66C9756E1F3DF15200450F37 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
@@ -866,8 +858,6 @@
 			isa = PBXGroup;
 			children = (
 				FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */,
-				66BB082F1F487E3E00935950 /* ItemTypeListController.swift */,
-				66BB08351F489DEA00935950 /* ItemTypeListCell.swift */,
 				66E520411F4B6D9B008E521D /* RequestController */,
 				66AC944D1F4E076900967693 /* UIPickerMenuView.swift */,
 				660460551F4F6B7500E5DC4C /* SendingTimeController.swift */,
@@ -882,8 +872,6 @@
 			isa = PBXGroup;
 			children = (
 				FF7C8DA01FA3A02300879165 /* ItemListYouxiangInputController++.swift */,
-				66BB08311F487E5000935950 /* ItemTypeListController++.swift */,
-				6602D3751F795C86005FFE05 /* ItemTypeListCell++.swift */,
 				66E520501F4C81CC008E521D /* RequestController */,
 				660460571F506D6600E5DC4C /* SendingTimeController++.swift */,
 				663121E81F534B8F000F7ACB /* PaymentController++.swift */,
@@ -1544,7 +1532,6 @@
 				FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */,
 				664C64941F55CD6700AA8FFE /* PostBaseCell.swift in Sources */,
 				66E650171F5F129300DA90DE /* ApiServers.swift in Sources */,
-				66BB08321F487E5000935950 /* ItemTypeListController++.swift in Sources */,
 				668609691F604FCF00740A92 /* WalletController.swift in Sources */,
 				66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */,
 				667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */,
@@ -1558,7 +1545,6 @@
 				66C9757B1F3E159400450F37 /* PhoneNumberController++.swift in Sources */,
 				6633DC8F1F5CE42C00B2FFAC /* AddressSearchController++.swift in Sources */,
 				667E8F951FA7CC6A007B1C51 /* GiftPrizeCell.swift in Sources */,
-				66BB08361F489DEA00935950 /* ItemTypeListCell.swift in Sources */,
 				E52FFBAA1FAA2C4800E79CDF /* UIViewController++.swift in Sources */,
 				FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */,
 				6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */,
@@ -1596,7 +1582,6 @@
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
-				66BB08301F487E3E00935950 /* ItemTypeListController.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,
 				FF4896EF1F992381009B3EE5 /* DetailGetLocationCell.swift in Sources */,
@@ -1622,7 +1607,6 @@
 				66AC4E071FAA2174005A797F /* OrdersLogShipperEmptyCell.swift in Sources */,
 				FF4A5B551F7D466C001D86D0 /* ProvinceAndCityCell.swift in Sources */,
 				663121ED1F537CDE000F7ACB /* PaymentCell++.swift in Sources */,
-				6602D3761F795C86005FFE05 /* ItemTypeListCell++.swift in Sources */,
 				66A9FAE01F897D4200BDC36F /* ImageCell++.swift in Sources */,
 				FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */,
 				664C648F1F5580A300AA8FFE /* UserProfileView++.swift in Sources */,

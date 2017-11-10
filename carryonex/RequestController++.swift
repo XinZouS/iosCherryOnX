@@ -8,13 +8,10 @@
 
 import UIKit
 import Photos
-
 import AWSCognito
 import AWSCore
 import AWSS3
-
 import ALCameraViewController
-
 
 extension RequestController: UITextFieldDelegate {
     
@@ -64,7 +61,7 @@ extension RequestController: UITextFieldDelegate {
     
     private func computePrice(){
         let price = 100
-        request.totalValue = price
+        request?.totalValue = price
         costSumLabel.text = "\(price)"
     }
     
@@ -148,7 +145,7 @@ extension RequestController: UITextFieldDelegate {
 
     internal func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
-        is02DestinationSet = request.endAddress != nil
+        is02DestinationSet = request?.endAddress != nil
         is07takePicture = imageUploadSequence.count > 0
         let isOk = is02DestinationSet && is07takePicture//&
         paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
