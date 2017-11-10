@@ -210,8 +210,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
         
         setUpTransparentView()
         
-        setupVolumLenWidthHighValues()
-        
         setupNavigationBar()
         
         setupCollectionView()
@@ -317,9 +315,6 @@ class RequestController: UICollectionViewController, UICollectionViewDelegateFlo
 
     
     private func setupPickers(){
-
-        setupVolumLenWidthHighValues()
-        
         volumPickerMenu = UIPickerMenuView(frame: .zero)
         volumPickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: volumePicker, leftBtn: volumePickerCancelButton, rightBtn: volumeMenuOKButton)
         

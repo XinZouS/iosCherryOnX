@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 extension ItemTypeListController {
     
     func submitButtonTapped(){
@@ -21,8 +19,6 @@ extension ItemTypeListController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 1
-        
-        updateRequestItemNumber() /// count by ItemIdEnums
 
         let requestCtl = RequestController(collectionViewLayout: layout)
         requestCtl.costByItem = 16.66
@@ -30,34 +26,15 @@ extension ItemTypeListController {
         navigationController?.pushViewController(requestCtl, animated: true)
     }
     
-    private func updateRequestItemNumber(){
-        for item in itemCategoryList {
-            guard item.count > 0 else { continue }
-            
-            if self.request?.items == nil {
-                self.request?.items = [RequestCategoryItem]()
-            }
-            
-            let newItem = RequestCategoryItem.init(requestId: request?.id, category: item, itemAmount: item.count)
-            self.request?.items?.append(newItem)
-        }
-//        print("now get items: ", self.request.numberOfItem)
-    }
-    
     func cancelButtonTapped(){
         self.dismiss(animated: true, completion: nil)
     }
-    
-
     
     // do this in viewDidLoad()
     internal func addItemTypesToList(){
         print("TODO: addItemTypesToList from Server, now use fake data.")
         self.itemCategoryList = CategoryManager.shared.getFullList()
     }
-    
-    
-    
 }
 
 

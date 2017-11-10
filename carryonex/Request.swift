@@ -6,7 +6,6 @@
 //  Copyright © 2017 Xin Zou. All rights reserved.
 //
 
-import MapKit
 import Unbox
 
 enum RequestStatus: Int {
@@ -18,60 +17,40 @@ enum RequestStatus: Int {
 
 enum RequestKeyInDB : String {
     case id = "id"
-    case name = "name"
-    case length = "length"
-    case width = "width"
-    case height = "height"
-    case weight = "weight"
-    case pubDate =  "pub_date"
     case timestamp = "timestamp"
     case ownerId = "owner_id"
     case ownerUsername = "owner_username"
     case tripId = "trip_id"
-    
-    case startAddress = "start_address"
     case endAddress = "end_address"
-    case items = "items"
     case status = "status"
     case images = "images"
+    case priceBySender = "price_by_sender"
+    case totalValue = "total_value"
+    case description = "description"
 }
 
 class Request: Unboxable {
     var id: String?
-    var name: String?
-    var length: Int
-    var width : Int
-    var height: Int
-    var weight: Double
-    var cost: Double
     var ownerId: String?
     var ownerUsername: String?
     var tripId: String?
-    
-    var startAddress: Address?
-    var endAddress: Address? // change to Address ID when uploading to server
-    var items: [RequestCategoryItem]?
+    var priceBySender: Int?
+    var totalValue: Int?
+    var description: String?
+    var endAddress: Address?
     var images: [RequestImage]?
     var status: RequestStatusDetail?
     
     required init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
-        self.name = try? unboxer.unbox(key: RequestKeyInDB.name.rawValue)
-        self.length = try unboxer.unbox(key: RequestKeyInDB.length.rawValue)
-        self.width = try unboxer.unbox(key: RequestKeyInDB.width.rawValue)
-        self.height = try unboxer.unbox(key: RequestKeyInDB.height.rawValue)
-        self.weight = try unboxer.unbox(key: RequestKeyInDB.weight.rawValue)
-        self.cost = 0.0
-        
+        self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
         self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
-        
-        self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
-        self.items = try? unboxer.unbox(key: RequestKeyInDB.items.rawValue)
         self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
+        self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
     }
 }
 

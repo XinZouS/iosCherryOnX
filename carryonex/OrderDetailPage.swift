@@ -38,11 +38,6 @@ class OrderDetailPage: UICollectionViewController, UICollectionViewDelegateFlowL
         setupCollectionView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        request?.items?.removeAll()
-    }
-    
     private func setupNavigationBar(){
         title = "订单详情"
         UINavigationBar.appearance().tintColor = buttonColorWhite

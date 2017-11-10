@@ -21,7 +21,6 @@ extension RequestController: UITextFieldDelegate {
     // dismiss keyboard with done button tapped
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        isWeightValidatedIn(textField)
         textField.resignFirstResponder()
         view.endEditing(true)
         setPaymentIsEnable()
@@ -49,15 +48,7 @@ extension RequestController: UITextFieldDelegate {
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        isVolumValidatedIn(textField)
-        isWeightValidatedIn(textField)
-        return true
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        isVolumValidatedIn(textField)
-        isWeightValidatedIn(textField)
         textField.resignFirstResponder()
         setPaymentIsEnable()
     }
@@ -71,26 +62,10 @@ extension RequestController: UITextFieldDelegate {
         cell07Cost?.textField.resignFirstResponder()
     }
     
-    private func isWeightValidatedIn(_ textField: UITextField) {
-        if textField.tag == 3 {
-            is04WeightSet = (textField.text != nil && textField.text != "" && textField.text != "0")
-            if is04WeightSet {
-                request.weight = Double(textField.text ?? "0") ?? 0
-            }
-        }
-    }
-    private func isVolumValidatedIn(_ textField: UITextField) {
-        if textField.tag == 2 {
-            is03VolumSet = (textField.text != nil && textField.text != "")
-        }
-    }
-    
     private func computePrice(){
-        // TODO: should get price from server, now using fake price:
-        let v = request.length * request.width * request.height
-        let prz: Double = 5 * (Double(v) + request.weight)
-        request.cost = prz
-        costSumLabel.text = "\(prz)"
+        let price = 100
+        request.totalValue = price
+        costSumLabel.text = "\(price)"
     }
     
 
@@ -111,8 +86,6 @@ extension RequestController: UITextFieldDelegate {
         print("pickersCancelButtonTapped")
         computePrice()
         volumPickerMenu?.dismissAnimation()
-        isVolumValidatedIn((cell03Volum?.textField)!)
-        isWeightValidatedIn((cell04Weight?.textField)!)
         expectDeliveryTimePickerMenu?.dismissAnimation()
     }
     
@@ -175,12 +148,9 @@ extension RequestController: UITextFieldDelegate {
 
     internal func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
-        is01DepartureSet = request.startAddress != nil
         is02DestinationSet = request.endAddress != nil
-        is04WeightSet = request.width != 0
         is07takePicture = imageUploadSequence.count > 0
-        let isOk = is01DepartureSet && is02DestinationSet && is03VolumSet && is04WeightSet && is07takePicture//&& is05SendingTimeSet && is06ExpectDeliverySet
-//        paymentButton.isEnabled = isOk
+        let isOk = is02DestinationSet && is07takePicture//&
         paymentButton.backgroundColor = isOk ? buttonThemeColor : UIColor.lightGray
         setupRequestInfo()
     }
@@ -196,20 +166,8 @@ extension RequestController: UITextFieldDelegate {
 
         let t = "‼️您还没填完信息"
         let ok = "朕知道了"
-        if is01DepartureSet == false {
-            displayAlert(title: t, message: "请从地图上选择您的【发件地址】，我们将为您找到帮您送件的客户。", action: ok)
-            return
-        }
         if is02DestinationSet == false {
             displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
-            return
-        }
-        if is03VolumSet == false {
-            displayAlert(title: t, message: "请选择您的包裹尺寸【货物总体积】，\n以英寸(inch)为单位。\r(1 inch = 2.54 cm)", action: ok)
-            return
-        }
-        if is04WeightSet == false {
-            displayAlert(title: t, message: "请填写【货物总重量】，\n以磅(lb)为单位。\n(1 kg = 2.2 lb) \n(1 市斤[500g] = 1.1 lb)", action: ok)
             return
         }
         if imageUploadingSet.count == 0 {
@@ -336,22 +294,6 @@ extension RequestController {
 
 
 extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func setupVolumLenWidthHighValues(){
-        for l in 1...maxLen {
-            volumLen.append(l)
-            request.length = volumLen[0]
-        }
-        for w in 1...maxWidth {
-            volumWidth.append(w)
-            request.width = volumWidth[0]
-        }
-        for h in 1...maxHigh {
-            volumHigh.append(h)
-            request.height = volumHigh[0]
-        }
-    }
-    
 
     // MARK: pickerView delegate
     
@@ -406,59 +348,6 @@ extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
             return "\(expectDeliveryTimes[row])"  //"选择期望送达日期"
         }
         return "unknow pickerView"
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == 3 {
-            switch component {
-            case 0:
-                request?.length = volumLen[row]
-            case 1:
-                request?.width  = volumWidth[row]
-            case 2:
-                request?.height  = volumHigh[row]
-            default:
-                print("--- Warning: selecing unknow data for item volum... in RequestController++.swift: 100")
-                return
-            }
-            if let l = request?.length, let w = request?.width, let h = request?.height {
-                let volum = l * w * h
-                print("handle volum after user setup l,w,h !!!")
-                request.length = l
-                request.width = w
-                request.height = h
-                cell03Volum?.textField.text = "长:\(l) x 宽:\(w) x 高:\(h) = \(volum)"
-            }
-        }else
-        if pickerView.tag == 6 {
-            // remove the button placeholder
-            let attributes: [String:Any] = [ NSForegroundColorAttributeName: UIColor.white ]
-            let attTitleStr = NSAttributedString(string: " ", attributes: attributes)
-            expectDeliveryTimeButton.setAttributedTitle(attTitleStr, for: .normal)
-            
-            // expectDeliveryTimes = ["三天内送达", "一周内送达", "二周内送达"]
-            /*
-            var expDateStr = "三天内送达"
-            var delta : TimeInterval = 0
-            let day : TimeInterval = 3600 * 24
-            switch row {
-            case 0: //"三天内送达"
-                expDateStr = "三天内送达"
-                delta = 3 * day
-            case 1: //"一周内送达"
-                expDateStr = "一周内送达"
-                delta = 7 * day
-            case 2: //"二周内送达"
-                expDateStr = "二周内送达"
-                delta = 14 * day
-            default:
-                delta = 0
-            }
-            */
-            //request.expectDeliveryTime = Date(timeIntervalSinceNow: delta).timeIntervalSince1970
-            //let dateString = request.expectDeliveryTime!.description
-            //cell06ExpectDelivery?.textField.text = expDateStr
-            //print("set the request.expectDeliveryTime = \(dateString), timeNow=\(Date())")
-        }
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
