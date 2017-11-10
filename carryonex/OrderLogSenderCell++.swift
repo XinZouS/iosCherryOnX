@@ -60,7 +60,7 @@ extension OrderLogSenderCell {
             updateCellStatusAndButtons()
         }
         
-        requestIdLabel.text = "\(rq.id ?? "")"
+        requestIdLabel.text = "\(rq.id ?? -999)"
         itemsTextView.text = "<物品列表?>"
         costLabel.text = "$\(rq.totalValue ?? 0)"
         if let ecountry = rq.endAddress?.country, let ecity = rq.endAddress?.city {

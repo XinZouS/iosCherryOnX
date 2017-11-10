@@ -11,7 +11,7 @@ import Foundation
  
 class CheckingAccount : NSObject {
     
-    var id: String = "checkingOrCreditAccountID"
+    var id: Int?
     
     var accountNumber: String = "1234567890"
     var typeString : String = "Chase Checking"

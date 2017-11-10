@@ -11,7 +11,7 @@ import UIKit
 extension RequestInfoView {
     
     func setupLabelTextInfoFromRequest() {
-        idLabel.text = labelTextList[0] + "\(request?.id ?? " ")"
+        idLabel.text = labelTextList[0] + "\(request?.id ?? -999)"
         ownerLabel.text = labelTextList[1] + "\(request?.ownerUsername ?? " ")"
         costLabel.text = labelTextList[2] + "\(request?.totalValue ?? 0)"
 

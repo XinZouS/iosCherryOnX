@@ -31,7 +31,7 @@ enum ProfileUserKey: String {
 
 class ProfileUser: Unboxable  {
     
-    var id: String?
+    var id: Int?
     var username: String?
     var token: String?
     var realName: String?
@@ -50,20 +50,9 @@ class ProfileUser: Unboxable  {
         //Initialization
     }
     
-//    private func setupPhoneAndCountryCode() {
-//        guard let phone = phone else { return }
-//        if phone.contains("-") {
-//            let arr = phone.components(separatedBy: "-")
-//            self.phone = arr.last
-//            if let characterCount = arr.first?.characters.count, characterCount < 5 {
-//                self.phoneCountryCode = arr.first
-//            }
-//        }
-//    }
-//
     func printAllData(){
         let allData = """
-        id = \(id ?? "")
+        id = \(id ?? 0)
         username = \(username ?? "")
         token = \(token ?? "")
         realName = \(realName ?? "")
@@ -94,7 +83,7 @@ class ProfileUser: Unboxable  {
         self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
         
-        //TODO: Zian: NEED FROM MENGDI
+        //TODO: ZIAN - MENGDI NEEDS TO FIX IT
         //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
         //self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
     }

@@ -14,6 +14,7 @@ import Crashlytics
 import AWSCognito
 import Braintree
 import ZendeskSDK
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -51,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         //setup BrainTree
         BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")
+        
         //setup Zendesk
         ZDKConfig.instance()
             .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
@@ -59,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         let identity = ZDKAnonymousIdentity()
         ZDKConfig.instance().userIdentity = identity
+        
+        //Setup push notifications
+        registerForPushNotifications()
         
         return true
     }
@@ -136,8 +141,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+        
+        UserDefaults.setDeviceToken(token)
     }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for push notification: \(error.localizedDescription)")
+    }
+    
+    
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -163,6 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
         }
         return true
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Remote notification: \(userInfo)")
     }
     
     // WXApiDelegate: [3] 现在，你的程序要实现和微信终端交互的具体请求与回应，因此需要实现WXApiDelegate协议的两个方法, 具体在此两方法中所要完成的内容由你定义.
@@ -215,6 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         return container
     }()
 
+    
     // MARK: - Core Data Saving support
 
     func saveContext () {
@@ -231,6 +253,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         }
     }
     
-
+    //MARK: - Push Notifications
+    
+    func registerForPushNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+            (granted, error) in
+            if let error = error {
+                print("APNS Permission Error: \(error.localizedDescription)")
+            }
+            print("APNS Permission granted: \(granted)")
+            self.getNotificationSettings()
+        }
+    }
+    
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else {
+                print("Bad Notification settings status: \(settings.authorizationStatus)")
+                return
+            }
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
 }
 
