@@ -105,6 +105,7 @@ class ApiServers : NSObject {
         case pageCount = "page_count"
         case offset = "offset"
         case userType = "user_type"
+        case deviceToken = "device_token"
     }
     
     
@@ -127,13 +128,15 @@ class ApiServers : NSObject {
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
     func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
+        let deviceToken = UserDefaults.getDeviceToken() ?? ""
         let route = hostVersion + "/users"
         let postData = [
             ServerKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
             ServerKey.countryCode.rawValue: countryCode,
             ServerKey.phone.rawValue: phone,
-            ServerKey.email.rawValue: email
+            ServerKey.email.rawValue: email,
+            ServerKey.deviceToken.rawValue: deviceToken
         ]
         let parameters:[String:Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
@@ -218,13 +221,16 @@ class ApiServers : NSObject {
 
     func postLoginUser(username: String, password: String, completion: @escaping (String?, Error?) -> Void) {
         
+        let deviceToken = UserDefaults.getDeviceToken() ?? ""
+        
         let route = hostVersion + "/users/login"
         let parameter:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue     : [
                 ServerKey.username.rawValue: username,
-                ServerKey.password.rawValue: password
+                ServerKey.password.rawValue: password,
+                ServerKey.deviceToken.rawValue: deviceToken
             ]
         ]
         
@@ -244,6 +250,7 @@ class ApiServers : NSObject {
                     print("postLoginUser - Unable to find token from user data")
                     completion(nil, nil)
                 }
+                
             } else {
                 print("postLoginUser - Unable to find user data")
                 completion(nil, nil)
