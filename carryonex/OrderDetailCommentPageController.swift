@@ -72,11 +72,6 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
         
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        request?.items?.removeAll()
-    }
-    
     private func setupNavigationBar(){
         title = "来自他人的评价"
         UINavigationBar.appearance().tintColor = buttonColorWhite

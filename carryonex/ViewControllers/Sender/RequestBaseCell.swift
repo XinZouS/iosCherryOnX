@@ -13,13 +13,12 @@ class RequestBaseCell : UICollectionViewCell {
     
     var requestController : RequestController?
     
-    var titleLabelWidthConstraint   : NSLayoutConstraint?
-    var titleLabelCenterYConstraint : NSLayoutConstraint?
-    var underlineViewBottomConstraint:NSLayoutConstraint?
+    var titleLabelWidthConstraint: NSLayoutConstraint?
+    var titleLabelCenterYConstraint: NSLayoutConstraint?
+    var underlineViewBottomConstraint: NSLayoutConstraint?
     
     let titleLabel : UILabel = {
         let l = UILabel()
-//        l.backgroundColor = .cyan
         l.text = "cell demo"
         l.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16) // i5 < 400 < i6,7
         return l
@@ -27,8 +26,6 @@ class RequestBaseCell : UICollectionViewCell {
     
     let textField : UITextField = {
         let t = UITextField()
-//        t.backgroundColor = .yellow
-//        t.placeholder = " "
         t.textAlignment = .right
         t.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width < 325 ? 14 : 16)
         t.returnKeyType = .done
@@ -37,19 +34,12 @@ class RequestBaseCell : UICollectionViewCell {
 
     let underlineView = UIView()
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         backgroundColor = .white
-        
         setupTitleLabel()
-        
         setupTextField()
-        
         setupUnderlineView()
-        
     }
     
     func setupTitleLabel(){
@@ -75,8 +65,6 @@ class RequestBaseCell : UICollectionViewCell {
         underlineViewBottomConstraint?.isActive = true
     }
     
-    
-    
     func addExtraContentToRight(_ content: UIView, constent: CGFloat){
         addSubview(content)
         content.addConstraints(left: titleLabel.rightAnchor, top: nil, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: constent, bottomConstent: 0, width: 0, height: 30)
@@ -94,4 +82,21 @@ class RequestBaseCell : UICollectionViewCell {
     
 }
 
+extension RequestBaseCell : UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.count > 0 {
+            textField.resignFirstResponder()
+        }
+    }
+}
 

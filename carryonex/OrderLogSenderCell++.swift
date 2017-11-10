@@ -15,7 +15,6 @@ protocol OrderLogSenderCellDelegate {
 
 extension OrderLogSenderCell {
     
-    
     func updateUIContentsForRequest(){
         
         guard let rq = self.request else { return }
@@ -62,26 +61,11 @@ extension OrderLogSenderCell {
         }
         
         requestIdLabel.text = "\(rq.id ?? "")"
-        itemsTextView.text = getStringFromRequest(rq)
-        costLabel.text = "$\(rq.cost)"
-        if let scountry = rq.startAddress?.country, let scity = rq.startAddress?.city,
-            let ecountry = rq.endAddress?.country, let ecity = rq.endAddress?.city {
-            addressLabel.text = "\(scountry), \(scity)-->\(ecountry), \(ecity)"
+        itemsTextView.text = "<物品列表?>"
+        costLabel.text = "$\(rq.totalValue ?? 0)"
+        if let ecountry = rq.endAddress?.country, let ecity = rq.endAddress?.city {
+            addressLabel.text = "往 \(ecountry), \(ecity)"
         }
-    }
-    
-    
-    private func getStringFromRequest(_ rq: Request) -> String {
-        let mutableStr = NSMutableString()
-        if let items = rq.items {
-            for item in items {
-                if let name = item.category?.description {
-                    mutableStr.append("\(name)*\(item.itemAmount), ")
-                    print("get mutableString = \(mutableStr)")
-                }
-            }
-        }
-        return String(mutableStr)
     }
     
     
@@ -118,7 +102,6 @@ extension OrderLogSenderCell {
         }
     }
     
-    
     func contactInfoButtonTapped(){
         print("TODO: contactInfoButtonTapped()...")
     }
@@ -133,7 +116,5 @@ extension OrderLogSenderCell {
     func detailButtonTapped(){
         print("TODO: detailButtonTapped()...")
     }
-    
-    
     
 }

@@ -141,13 +141,12 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
     private func setupDetailInformation(){
         view.addSubview(detailInformation)
         detailInformation.addConstraints(left: view.leftAnchor, top: contentLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 40)
-        detailInformation.text = "物品体积:\(request.length*request.width*request.height)"+"          物品重量:\(request.weight)"
+        detailInformation.text = request.description
     }
     
     private func setupContentStackView(){
         view.addSubview(contentStackView)
         contentStackView.addConstraints(left: view.leftAnchor, top: detailInformation.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 100)
-        putItemCategoryInfo()
     }
     
     private func setupCostLabelAndUnderlineView(){
