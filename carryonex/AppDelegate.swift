@@ -153,6 +153,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register for push notification: \(error.localizedDescription)")
     }
+    
+    
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -178,6 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
         }
         return true
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Remote notification: \(userInfo)")
     }
     
     // WXApiDelegate: [3] 现在，你的程序要实现和微信终端交互的具体请求与回应，因此需要实现WXApiDelegate协议的两个方法, 具体在此两方法中所要完成的内容由你定义.
