@@ -31,7 +31,7 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     
     weak var requestCtl : RequestController? {
         didSet{
-            self.request = requestCtl?.request
+            //self.request = requestCtl?.request
         }
     }
     weak var postTripCtl : PostTripController? {

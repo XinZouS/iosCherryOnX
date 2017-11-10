@@ -164,24 +164,6 @@ class ApiServers : NSObject {
                 print("postRegisterUser - Unable to find user data")
                 completion(nil, nil)
             }
-            
-            /*
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                do {
-                    let profileUser: ProfileUser = try unbox(dictionary: data)
-                    profileUser.printAllData()
-                    completion(profileUser, nil)
-                    
-                } catch let error as NSError {
-                    print("postRegisterUser unbox error: \(error.localizedDescription)")
-                    completion(nil, error)
-                }
-                
-            } else {
-                let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
-                print("postRegisterUser - Data package not found. Response message: \(msg)")
-                completion(nil, nil)
-            }*/
         }
     }
     
@@ -734,6 +716,67 @@ class ApiServers : NSObject {
     
     
     // MARK: - Request APIs
+    
+    func postRequest(totalValue: Double,
+                     destination: Address,
+                     trip: Trip,
+                     imageUrls:[String],
+                     completion: @escaping (Bool, Error?) -> Void) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("postRequest: Unable to find profile user")
+            completion(false, nil)
+            return
+        }
+        
+        guard let tripId = trip.id else {
+            print("postRequest: Unable to find trip id")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/request/create"
+        var requestDict: [String: Any] = [
+            RequestKeyInDB.endAddress.rawValue: destination.packAsDictionaryForDB(),
+            RequestKeyInDB.tripId.rawValue: tripId,
+            RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100)
+        ]
+        
+        if imageUrls.count > 0 {
+            var requestImages = [[:]]
+            for url in imageUrls {
+                let item = ["url": url]
+                requestImages.append(item)
+            }
+            requestDict[RequestKeyInDB.images.rawValue] = requestImages
+        }
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postRequest response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                completion(true, nil)
+                
+            } else {
+                print("postRequest - Unable to post request data")
+                completion(false, nil)
+            }
+        }
+    }
     
     //TODO: sentOrderInformation
     func sentOrderInformation(address:Address){

@@ -27,8 +27,8 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
 
     let labelW: CGFloat = 90
     
-    var request: Request?
     var trip: Trip?
+    var endAddress: Address?
     
     var imageUploadingSet: Set<String> = []
     var imageUploadSequence: [String : URL] = [:]
@@ -237,10 +237,10 @@ extension RequestController: UITextFieldDelegate {
         
         //uploadImagesToAwsAndGetUrls()
         
-        let paymentController = PaymentController()
-        paymentController.request = self.request
-        paymentController.requestCtl = self
-        navigationController?.pushViewController(paymentController, animated: true)
+        //let paymentController = PaymentController()
+        //paymentController.request = self.request
+        //paymentController.requestCtl = self
+        //navigationController?.pushViewController(paymentController, animated: true)
     }
     
     @objc fileprivate func handleSubmissionButton() {
@@ -260,7 +260,26 @@ extension RequestController: UITextFieldDelegate {
             if let urlsTuple = urlsTuple {
                 let mappedUrls = urlsTuple.map({$0.1})
                 print(mappedUrls)
+                
+                if let totalValueString = self.cell07Cost?.textField.text,
+                    let totalValue = Double(totalValueString),
+                    let endAddress = self.endAddress,
+                    let trip = self.trip {
+                    ApiServers.shared.postRequest(totalValue: totalValue,
+                                                  destination: endAddress,
+                                                  trip: trip,
+                                                  imageUrls: mappedUrls,
+                                                  completion: { (success, error) in
+                        if let error = error {
+                            print("Post Request Error: \(error.localizedDescription)")
+                            return
+                        }
+                        print("Post request success!")
+                    })
+                }
             }
+            
+            
         }
     }
 }

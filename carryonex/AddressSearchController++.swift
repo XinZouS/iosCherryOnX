@@ -248,7 +248,7 @@ extension AddressSearchController : MKMapViewDelegate {
         case AddressSearchType.requestStarting:
             print("Request starting NOT USED")
         case AddressSearchType.requestDestination:
-            requestCtl?.request?.endAddress = self.address
+            requestCtl?.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
         case AddressSearchType.tripStarting:
             postTripCtl?.addressStarting = self.address
