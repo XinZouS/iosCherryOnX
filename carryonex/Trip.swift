@@ -48,7 +48,7 @@ enum TripKeyInDB : String {
 
 class Trip : NSObject, Unboxable {
     
-    var id: String?
+    var id: Int?
     var tripCode: String?
     var transportation: Transportation = .trunk
     
@@ -73,7 +73,7 @@ class Trip : NSObject, Unboxable {
     override init() {
         super.init()
         
-        self.id = "id"
+        self.id = 0
         self.tripCode = "tripCode"
         self.transportation = .trunk
         

@@ -27,12 +27,11 @@ enum ProfileUserKey: String {
     case walletId    = "wallet_id"
     case isIdVerified = "id_verified"
     case isPhoneVerified = "phone_verified"
-    case deviceToken = "device_token"
 }
 
 class ProfileUser: Unboxable  {
     
-    var id: String?
+    var id: Int?
     var username: String?
     var token: String?
     var realName: String?
@@ -46,7 +45,6 @@ class ProfileUser: Unboxable  {
     var isIdVerified: Bool = false
     var isPhoneVerified: Bool = false
     var status: Status?
-    var deviceToken: String?
     
     init() {
         //Initialization
@@ -54,7 +52,7 @@ class ProfileUser: Unboxable  {
     
     func printAllData(){
         let allData = """
-        id = \(id ?? "")
+        id = \(id ?? 0)
         username = \(username ?? "")
         token = \(token ?? "")
         realName = \(realName ?? "")
@@ -66,7 +64,6 @@ class ProfileUser: Unboxable  {
         passportUrl = \(passportUrl ?? "")
         isIdVerified = \(isIdVerified)
         isPhoneVerified = \(isPhoneVerified)
-        deviceToken = \(deviceToken ?? "")
         """
         print(allData)
     }
@@ -86,9 +83,9 @@ class ProfileUser: Unboxable  {
         self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
         
-        self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
-        self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
-        self.deviceToken = try? unboxer.unbox(key: ProfileUserKey.deviceToken.rawValue)
+        //TODO: ZIAN - MENGDI NEEDS TO FIX IT
+        //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        //self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
     }
 }
 

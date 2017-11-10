@@ -30,7 +30,7 @@ enum RequestKeyInDB : String {
 }
 
 class Request: Unboxable {
-    var id: String?
+    var id: Int?
     var ownerId: String?
     var ownerUsername: String?
     var tripId: String?
