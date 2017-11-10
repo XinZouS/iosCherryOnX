@@ -1,5 +1,5 @@
 //
-//  RequestController++.swift
+//  RequestController.swift
 //  carryonex
 //
 //  Created by Xin Zou on 8/20/17.
@@ -13,6 +13,183 @@ import AWSCore
 import AWSS3
 import ALCameraViewController
 
+class RequestController: UICollectionViewController, UIGestureRecognizerDelegate {
+    
+    var transparentView : UIView = {
+        let v = UIView()
+        v.isHidden = true
+        v.backgroundColor = .clear
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
+        return v
+    }()
+    
+    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+
+    let labelW: CGFloat = 90
+    
+    var request: Request?
+    var trip: Trip?
+    
+    var imageUploadingSet: Set<String> = []
+    var imageUploadSequence: [String : URL] = [:] // imageName(tripId) : url
+
+    let labelNames = [ "收货地址:", "货物清晰照:", "运货费用:"]
+    let placeholders = ["请选择货物送达位置"]
+
+    let basicCellId = "basicCellId"         // 1 - 3
+    let imageCellId = "imageCellId"
+    let costCellId = "costCellId"           // 7
+    
+    var cell02Destination:  RequestBaseCell?
+    var cell08Image:        ImageCell?
+    var cell07Cost :        CostCell?
+    
+    /// for paymentButton.isEnable condictions
+    var is02DestinationSet = false, is07takePicture = false
+    
+    let costSumLabel: UILabel = {
+        let l = UILabel()
+        l.textColor = textThemeColor
+        l.font = UIFont.boldSystemFont(ofSize: 24)
+        l.textAlignment = .right
+        l.text = "0"
+        return l
+    }()
+    
+    let costCurrencyMarker: UILabel = {
+        let l = UILabel()
+        l.textColor = textThemeColor
+        l.font = UIFont.boldSystemFont(ofSize: 24)
+        l.textAlignment = .right
+        l.text = "元"
+        return l
+    }()
+    
+    lazy var paymentButton: UIButton = {
+        let b = UIButton()
+        b.backgroundColor = .lightGray
+        //b.isEnabled = false
+        b.setTitle("支付方式", for: .normal)
+        b.addTarget(self, action: #selector(paymentButtonTapped), for: .touchUpInside)
+        return b
+    }()
+    
+    
+    //MARK: - Methods Start Here
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setPaymentIsEnable()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        setUpTransparentView()
+        setupNavigationBar()
+        setupCollectionView()
+        setupPaymentButton()
+        setupActivityIndicator()
+    }
+    
+    private func setupCollectionView(){
+        collectionView?.backgroundColor = .white
+        collectionView?.isPagingEnabled = false
+        collectionView?.keyboardDismissMode = .interactive
+        
+        collectionView?.register(RequestBaseCell.self, forCellWithReuseIdentifier: basicCellId)
+        collectionView?.register(ImageCell.self, forCellWithReuseIdentifier: imageCellId)
+        collectionView?.register(CostCell.self, forCellWithReuseIdentifier: costCellId)
+        
+        let w : CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 10 : 36
+        collectionView?.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: w, topConstent: 0, rightConstent: w, bottomConstent: 40, width: 0, height: 0)
+        
+    }
+    
+    private func setUpTransparentView(){
+        view.addSubview(transparentView)
+        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+    }
+    
+    private func setupNavigationBar(){
+        title = "发货请求"
+        let rightItemButton = UIBarButtonItem(title: "支付方式", style: .plain, target: self, action: #selector(paymentButtonTapped))
+        navigationItem.rightBarButtonItem = rightItemButton
+    }
+    
+    private func subtitleCellLabel(_ str: String) -> UILabel {
+        let l = UILabel()
+        l.text = str
+        l.textAlignment = .center
+        l.font = UIFont.systemFont(ofSize: 18)
+        return l
+    }
+    
+    private func setupPaymentButton(){
+        view.addSubview(paymentButton)
+        paymentButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
+    }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+    }
+    
+}
+
+extension RequestController: UICollectionViewDelegateFlowLayout {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return labelNames.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cellId : String = basicCellId
+        switch indexPath.item {
+        case 1 :
+            cellId = imageCellId
+        case 2 :
+            cellId = costCellId
+        default:
+            cellId = basicCellId
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! RequestBaseCell
+        cell.requestController = self
+        cell.textField.delegate = self
+        cell.textField.tag = indexPath.item
+        cell.titleLabel.text = labelNames[indexPath.item]
+        
+        switch indexPath.item {
+        case 1 :
+            cell08Image = cell as? ImageCell
+        case 2 :
+            cell07Cost = cell as? CostCell
+            cell07Cost?.addExtraContentToRight(costSumLabel, constent: 40)
+            cell07Cost?.addExtraContentToRight(costCurrencyMarker, constent: 0)
+        default:
+            cell02Destination = cell
+            cell02Destination?.textField.placeholder = placeholders[indexPath.item]
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let w: CGFloat = collectionView.bounds.width
+        let h : CGFloat = 50
+        
+        switch indexPath.item {
+        case 1:
+            return CGSize(width: w, height: UIDevice.current.userInterfaceIdiom == .phone ? 180 : 260)
+        default:
+            return CGSize(width: w, height: h)
+        }
+    }
+}
+
+
 extension RequestController: UITextFieldDelegate {
     
     // dismiss keyboard with done button tapped
@@ -25,20 +202,11 @@ extension RequestController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-
+        
         switch textField.tag {
-            
-        case 0: // starting address 取货地址
-            view.endEditing(true)
-            startingTextFieldTapped()
-            
         case 1: // destination address 收货地址
             view.endEditing(true)
             destinationTextFieldTapped()
-
-        case 2: // volume
-            volumPickerMenu?.showUpAnimation(withTitle: "包裹长，宽，高(inch)")
-            view.endEditing(true)
         default:
             transparentView.isHidden = false
             textField.becomeFirstResponder()
@@ -52,10 +220,7 @@ extension RequestController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
         transparentView.isHidden = true
-        cell01Departure?.textField.resignFirstResponder()
         cell02Destination?.textField.resignFirstResponder()
-        cell03Volum?.textField.resignFirstResponder()
-        cell04Weight?.textField.resignFirstResponder()
         cell07Cost?.textField.resignFirstResponder()
     }
     
@@ -65,42 +230,8 @@ extension RequestController: UITextFieldDelegate {
         costSumLabel.text = "\(price)"
     }
     
-
-    func volumeMenuOKButtonTapped(){
-        print("volumeMenuOKButtonTapped")
-        computePrice()
-        is03VolumSet = true
-        volumPickerMenu?.dismissAnimation()
-    }
-    
-    func expectDeliveryTimeMenuOKButtonTapped(){
-        print("expectDeliveryTimeMenuOKButtonTapped")
-        is06ExpectDeliverySet = true
-        expectDeliveryTimePickerMenu?.dismissAnimation()
-    }
-    
-    func pickersCancelButtonTapped(){
-        print("pickersCancelButtonTapped")
-        computePrice()
-        volumPickerMenu?.dismissAnimation()
-        expectDeliveryTimePickerMenu?.dismissAnimation()
-    }
-    
     func getTripInfoBy(youxiangCode: String){
         print("TODO: connect to database, get Trip object by the youxiangCode. Also fillout all info needed!!!!!")
-        
-        
-    }
-
-    private func startingTextFieldTapped(){
-        let addressSearchCtl = AddressSearchController()
-        addressSearchCtl.searchType = AddressSearchType.requestStarting
-        addressSearchCtl.requestCtl = self
-        navigationController?.pushViewController(addressSearchCtl, animated: true)
-    }
-    func setupStartingAddress(string: String){
-        is01DepartureSet = true
-        cell01Departure?.textField.text = string
     }
     
     private func destinationTextFieldTapped(){
@@ -114,24 +245,6 @@ extension RequestController: UITextFieldDelegate {
         is02DestinationSet = true
         cell02Destination?.textField.text = string
     }
-
-
-    func sendingTimeButtonTapped(){
-//        if cell00Youxiang?.textField.text == "666" { // get trip info by this youxiangCode
-//            let timeAvailableController = TimeAvailableController()
-//            timeAvailableController.request = self.request
-//            navigationController?.pushViewController(timeAvailableController, animated: true)
-//        }else{
-//            let sendingTimeCtl = SendingTimeController()
-//            sendingTimeCtl.requestController = self
-//            navigationController?.pushViewController(sendingTimeCtl, animated: true)
-//        }
-    }
-    
-    func expectDeliveryTimeButtonTapped(){
-//        pickerViewAnimateToShow(pickerTag: 6)
-        expectDeliveryTimePickerMenu?.showUpAnimation(withTitle: "期望送达时间")
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -142,7 +255,7 @@ extension RequestController: UITextFieldDelegate {
         
         setPaymentIsEnable()
     }
-
+    
     internal func setPaymentIsEnable(){
         print("check payment is enable: \(paymentButton.isEnabled)")
         is02DestinationSet = request?.endAddress != nil
@@ -155,12 +268,12 @@ extension RequestController: UITextFieldDelegate {
     private func setupRequestInfo(){
         computePrice()
     }
-
+    
     /// OK button at bottom of page
     func paymentButtonTapped(){
         uploadImagesToAwsAndGetUrls()
         print("TODO: upload Request() to server")
-
+        
         let t = "‼️您还没填完信息"
         let ok = "朕知道了"
         if is02DestinationSet == false {
@@ -242,7 +355,7 @@ extension RequestController {
                         }
                     }
                 })
-
+                
             } else {
                 print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
             }
@@ -285,94 +398,5 @@ extension RequestController {
         print("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
-
-
 }
 
-
-extension RequestController: UIPickerViewDelegate, UIPickerViewDataSource {
-
-    // MARK: pickerView delegate
-    
-    func openVolumePicker(){
-        volumePicker.isHidden = !volumePicker.isHidden
-        // will hide when begin to set phoneNum
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        switch pickerView.tag {
-        case 3:
-            return 3 // volume: l,w,h
-        case 6:
-            return 1 // exptDate
-        default:
-            return 0
-        }
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-
-        if pickerView.tag == 3 { // volumePicker
-            switch component {
-            case 0:
-                return volumLen.count
-            case 1:
-                return volumWidth.count
-            case 2:
-                return volumHigh.count
-            default:
-                return 0
-            }
-        }else
-        if pickerView.tag == 6 { // expectDeliveryTimePicker
-            return expectDeliveryTimes.count
-        }
-        return 0
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 3 {
-            switch component {
-            case 0:
-                return row < volumLen.count ? "\(volumLen[row])" : "overflow" //"长"
-            case 1:
-                return row < volumWidth.count ? "\(volumWidth[row])" : "overflow" //"宽"
-            case 2:
-                return row < volumHigh.count ?"\(volumHigh[row])" : "overflow" //"高"
-            default:
-                return "尺寸???"
-            }
-        }else
-        if pickerView.tag == 6, row < expectDeliveryTimes.count {
-            return "\(expectDeliveryTimes[row])"  //"选择期望送达日期"
-        }
-        return "unknow pickerView"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let label = (view as? UILabel) ?? UILabel()
-        label.textColor = .black
-        label.textAlignment = .center
-        
-        
-        if pickerView.tag == 3 {
-            label.font = UIFont.systemFont(ofSize: 18)
-            switch component {
-            case 0:
-                label.text = row < volumLen.count ? "\(volumLen[row])" : "overflow" //"长"
-            case 1:
-                label.text = row < volumWidth.count ? "\(volumWidth[row])" : "overflow" //"宽"
-            case 2:
-                label.text = row < volumHigh.count ?"\(volumHigh[row])" : "overflow" //"高"
-            default:
-                return label
-            }
-            return label
-        }else
-        if pickerView.tag == 6, row < expectDeliveryTimes.count {
-            label.font = UIFont.systemFont(ofSize: 16)
-            label.text = expectDeliveryTimes[row]
-            
-        }
-        
-        return label
-    }
-}

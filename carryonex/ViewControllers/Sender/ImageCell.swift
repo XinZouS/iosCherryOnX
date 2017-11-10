@@ -34,7 +34,6 @@ class ImageCell: RequestBaseCell, UICollectionViewDelegate, UICollectionViewData
         }
     }
     
-    
     let cellId = "ImageCellCollectionCellId"
     let cellAddId = "ImageCellCollectionAddButtonCellId"
 
@@ -51,7 +50,6 @@ class ImageCell: RequestBaseCell, UICollectionViewDelegate, UICollectionViewData
         v.backgroundColor = .white
         return v
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,7 +76,6 @@ class ImageCell: RequestBaseCell, UICollectionViewDelegate, UICollectionViewData
         addSubview(collectionView)
         collectionView.addConstraints(left: leftAnchor, top: titleLabel.bottomAnchor, right: rightAnchor, bottom: underlineView.topAnchor, leftConstent: margin, topConstent: 5, rightConstent: margin, bottomConstent: 15, width: width, height: 0)
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -119,9 +116,27 @@ extension ImageCell {
         let s : CGFloat = (collectionView.bounds.width - 20) / (UIDevice.current.userInterfaceIdiom == .phone ? 3 : 6)
         return CGSize(width: s, height: s)
     }
-    
-
-    
-    
 }
 
+
+extension ImageCell {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == images.count { // adding image cell tapped
+            requestController?.openALCameraController()
+        }
+    }
+    
+    func removeImagePairOfName(imgName: String) {
+        for i in 0..<images.count {
+            print("get imageName = \(images[i].name!), target name = \(imgName), trying to remove it...")
+            if images[i].name! == imgName {
+                images.remove(at: i)
+                requestController?.imageUploadingSet.remove(imgName)
+                requestController?.imageUploadSequence.removeValue(forKey: imgName)
+                print("OK, remove file success: \(imgName)")
+                return
+            }
+        }
+    }
+}

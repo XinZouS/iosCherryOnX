@@ -1,5 +1,5 @@
 //
-//  SendingTimeCell.swift
+//  CostCell.swift
 //  carryonex
 //
 //  Created by Xin Zou on 8/21/17.
@@ -9,25 +9,18 @@
 import UIKit
 
 
-
-
-class SendingTimeCell: RequestBaseCell {
-    
+class CostCell: RequestBaseCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         textField.isHidden = true
-        textField.isEnabled = false
+        textField.allowsEditingTextAttributes = false
+        textField.isUserInteractionEnabled = false
     }
-    
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
 }

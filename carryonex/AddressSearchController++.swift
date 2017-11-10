@@ -246,16 +246,13 @@ extension AddressSearchController : MKMapViewDelegate {
         //let add = UIDevice.current.userInterfaceIdiom == .phone ? addShort : addLong
         switch currType {
         case AddressSearchType.requestStarting:
-            requestCtl?.setupStartingAddress(string: add)
-        
+            print("Request starting NOT USED")
         case AddressSearchType.requestDestination:
             requestCtl?.request?.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
-            
         case AddressSearchType.tripStarting:
             postTripCtl?.addressStarting = self.address
             postTripCtl?.setupStartingAddress(string: add)
-            
         case AddressSearchType.tripDestination:
             postTripCtl?.addressDestinat = self.address
             postTripCtl?.setupEndAddress(string: add)
