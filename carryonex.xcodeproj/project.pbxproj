@@ -232,6 +232,7 @@
 		FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */; };
 		FFEDFD8A1FA3C81100A1511E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CA1FA3BF59009CC1A0 /* WebKit.framework */; };
 		FFEDFD8B1FA3C82600A1511E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CC1FA3BF67009CC1A0 /* libxml2.tbd */; };
+		FFFA83361FB4EC9F00A98381 /* NewHomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -468,6 +469,7 @@
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/WechatOpenSDK/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressDetailCell++.swift"; sourceTree = "<group>"; };
+		FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewHomePageController.swift; path = carryonex/NewHomePageController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1133,6 +1135,7 @@
 		E542F2601FB4B6100072BB31 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1488,6 +1491,7 @@
 				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
 				E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */,
+				FFFA83361FB4EC9F00A98381 /* NewHomePageController.swift in Sources */,
 				669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */,
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
