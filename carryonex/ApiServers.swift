@@ -815,7 +815,7 @@ class ApiServers : NSObject {
             if let urlRequest = response.request?.url {
                 let printText: String = """
                 =========================
-                [ROUTE] \(route)
+                [GET ROUTE] \(route)
                 [REQUEST] \(urlRequest)
                 """
                 print(printText)
@@ -828,7 +828,6 @@ class ApiServers : NSObject {
                     =========================
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
-                    [ROUTE]: \(route)"
                     """
                     print(printText)
                     
@@ -852,7 +851,7 @@ class ApiServers : NSObject {
             if let requestBody = response.request?.httpBody, let body = NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) {
                 let printText: String = """
                 =========================
-                [ROUTE] \(route)
+                [POST ROUTE] \(route)
                 [PARAMETERS] \(parameters)
                 [BODY] \(body))
                  _
@@ -868,7 +867,6 @@ class ApiServers : NSObject {
                     =========================
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
-                    [ROUTE]: \(route)"
                     """
                     print(printText)
                     
@@ -892,6 +890,7 @@ extension ApiServers {
             print("[Status Code] Not handled: \(statusCode)")
         }
     }
+    
     func postNonceToServer(paymentMethodNonce: String) {
         // Update URL with your server
         let paymentURL = URL(string: "https://your-server.example.com/payment-methods")!
@@ -903,4 +902,23 @@ extension ApiServers {
             // TODO: Handle success or failure
             }.resume()
     }
+    
+    func getJsonFromArrayOrDictionary(_ object: Any) -> [String: Any]? {
+        do {
+            //Convert to Data
+            let jsonData = try JSONSerialization.data(withJSONObject: object,
+                                                      options: JSONSerialization.WritingOptions.prettyPrinted)
+            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+                print(JSONString)
+            }
+            let json = try JSONSerialization.jsonObject(with: jsonData,
+                                                        options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
+            return json
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
 }
