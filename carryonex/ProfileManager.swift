@@ -10,6 +10,10 @@ import UIKit
 import Unbox
 import Crashlytics
 
+public extension Notification.Name {
+    public static let UserLoggedOut = Notification.Name(rawValue: "com.carryon.user.logout")
+}
+
 struct KeychainConfiguration {
     static let serviceName = "CarryonEx"
     static let accessGroup: String? = nil
@@ -130,8 +134,12 @@ class ProfileManager: NSObject {
     }
     
     func logoutUser() {
+        ApiServers.shared.postLogoutUser { (success, error) in
+            debugLog("Remote logged out: \(success)")
+        }
         self.currentUser = nil
         deleteUserTokenFromKeychain()
+        NotificationCenter.default.post(name: .UserLoggedOut, object: nil)
     }
     
     

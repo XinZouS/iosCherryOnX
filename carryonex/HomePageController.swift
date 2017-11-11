@@ -221,7 +221,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     private func isItHaveLogIn(){
-        
         if (!ProfileManager.shared.isLoggedIn()){
             let registerMainCtl = RegisterMainController()
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
@@ -241,7 +240,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 appDidLaunch = true
             }
         }
-        
     }
     
     private func setupActivityIndicator(){
@@ -551,21 +549,21 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //            print("postUpdateUser wallet, msg = \(msg)")
 //        }
 
-        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let tripOrders = tripOrders {
-                for order in tripOrders {
-                    print("Trip: \(order.trip)")
-                    print("Requests: \(order.requests!)")
-                }
-            } else {
-                print("Trip order is nil")
-            }
-        }
+//        ApiServers.shared.getUsersTrips(userType: .carrier, offset: 0, pageCount: 4) { (tripOrders, error) in
+//            if let error = error {
+//                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            if let tripOrders = tripOrders {
+//                for order in tripOrders {
+//                    print("Trip: \(order.trip)")
+//                    print("Requests: \(order.requests!)")
+//                }
+//            } else {
+//                print("Trip order is nil")
+//            }
+//        }
 
         
         

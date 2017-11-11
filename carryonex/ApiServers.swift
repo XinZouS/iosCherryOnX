@@ -240,7 +240,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postLogoutUser(completion: @escaping (Bool, String?) -> Void){
+    func postLogoutUser(completion: @escaping (Bool, Error?) -> Void){
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postLogoutUser: Profile user empty, please login in order to logout")
             completion(false, nil)
@@ -262,16 +262,18 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postLogoutUser response error: \(error.localizedDescription)")
                 }
-                completion(false, error?.localizedDescription)
+                completion(false, error)
                 return
             }
             
-            let msg = response[ServerKey.message.rawValue] as? String
+            if let message = response[ServerKey.message.rawValue] as? String {
+                debugLog(message)
+            }
+            
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                ProfileManager.shared.logoutUser()
-                completion(true, msg)
+                completion(true, nil)
             }else{
-                completion(false, msg)
+                completion(false, nil)
             }
         }
     }

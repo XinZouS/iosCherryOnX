@@ -11,14 +11,14 @@
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
 		4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */; };
 		4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */; };
-		4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043CE1FB76A9800F6C3F0 /* Localizable.strings */; };
-		4DC043D11FB76E9800F6C3F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043D31FB76E9800F6C3F0 /* Login.storyboard */; };
-		4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */; };
 		4DC043BC1FB763DB00F6C3F0 /* HomeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B81FB763D800F6C3F0 /* HomeProfileView.swift */; };
 		4DC043BD1FB763DB00F6C3F0 /* HomeOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B91FB763D900F6C3F0 /* HomeOrderCardView.swift */; };
 		4DC043BE1FB763DB00F6C3F0 /* HomeRecentOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043BA1FB763D900F6C3F0 /* HomeRecentOrdersView.swift */; };
 		4DC043BF1FB763DB00F6C3F0 /* HomeStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043BB1FB763DA00F6C3F0 /* HomeStatsView.swift */; };
 		4DC043C31FB7642E00F6C3F0 /* NewHomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043C21FB7642D00F6C3F0 /* NewHomePageController.swift */; };
+		4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043CE1FB76A9800F6C3F0 /* Localizable.strings */; };
+		4DC043D11FB76E9800F6C3F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043D31FB76E9800F6C3F0 /* Login.storyboard */; };
+		4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */; };
 		660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460551F4F6B7500E5DC4C /* SendingTimeController.swift */; };
 		660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460571F506D6600E5DC4C /* SendingTimeController++.swift */; };
 		6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */; };
@@ -177,7 +177,6 @@
 		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E542F2761FB6057E0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E542F2781FB6058D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E542F27A1FB613FC0072BB31 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F2791FB613FC0072BB31 /* Login.storyboard */; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
@@ -241,19 +240,17 @@
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationViewController.swift; sourceTree = "<group>"; };
-		4DC043C41FB768C700F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		4DC043CD1FB76A9800F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		4DC043CF1FB76A9B00F6C3F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4DC043D01FB76D4300F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4DC043D41FB76EAF00F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
-		4DC043D61FB76F1600F6C3F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Login.strings; sourceTree = "<group>"; };
-		4DC043D71FB76F2B00F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Login.strings"; sourceTree = "<group>"; };
-		4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4DC043B81FB763D800F6C3F0 /* HomeProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProfileView.swift; sourceTree = "<group>"; };
 		4DC043B91FB763D900F6C3F0 /* HomeOrderCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeOrderCardView.swift; sourceTree = "<group>"; };
 		4DC043BA1FB763D900F6C3F0 /* HomeRecentOrdersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRecentOrdersView.swift; sourceTree = "<group>"; };
 		4DC043BB1FB763DA00F6C3F0 /* HomeStatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeStatsView.swift; sourceTree = "<group>"; };
 		4DC043C21FB7642D00F6C3F0 /* NewHomePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHomePageController.swift; sourceTree = "<group>"; };
+		4DC043C41FB768C700F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		4DC043CD1FB76A9800F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4DC043CF1FB76A9B00F6C3F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4DC043D01FB76D4300F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4DC043D41FB76EAF00F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		660460551F4F6B7500E5DC4C /* SendingTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeController.swift; sourceTree = "<group>"; };
 		660460571F506D6600E5DC4C /* SendingTimeController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SendingTimeController++.swift"; sourceTree = "<group>"; };
 		660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1327,7 +1324,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0910;
-				ORGANIZATIONNAME = "Xin Zou";
+				ORGANIZATIONNAME = CarryonEx;
 				TargetAttributes = {
 					665DE4E81F3A0B70004DDB88 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1680,8 +1677,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				4DC043D41FB76EAF00F6C3F0 /* Base */,
-				4DC043D61FB76F1600F6C3F0 /* en */,
-				4DC043D71FB76F2B00F6C3F0 /* zh-Hans */,
 			);
 			name = Login.storyboard;
 			sourceTree = "<group>";

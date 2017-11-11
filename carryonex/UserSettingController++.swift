@@ -66,9 +66,7 @@ extension UserSettingController {
     }
     
     func logoutButtonTapped(){
-        homePageCtl?.appDidLaunch = false
         ProfileManager.shared.logoutUser()
         userProfileView?.removeProfileImageFromLocalFile()
-        dismiss(animated: true, completion: nil)
     }
 }

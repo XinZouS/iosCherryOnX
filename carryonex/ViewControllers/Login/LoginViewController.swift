@@ -11,12 +11,8 @@ import Material
 
 class LoginViewController: UIViewController {
 
-    var zoneCodeInput = ""
-    var phoneInput = ""
-    var emailInput = ""
-    
-    var username: String?
     fileprivate let constant: CGFloat = 32
+    var countryCode = "1"
     
     @IBOutlet weak var phoneField: TextField!
     @IBOutlet weak var passwordField: TextField!
@@ -31,18 +27,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPasswordTextField()
-        //setupOkButton()
-        //setupForgetButton()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        _ = passwordField.becomeFirstResponder()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        passwordField.resignFirstResponder()
     }
     
     
@@ -68,42 +52,12 @@ class LoginViewController: UIViewController {
         view.layout(passwordField).center(offsetY: -100).left(60).right(60)
          */
     }
-    
-//    private func setupForgetButton(){
-//        view.addSubview(forgetButton)
-//        forgetButton.translatesAutoresizingMaskIntoConstraints = false
-//        forgetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-//        forgetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-//        forgetButton.widthAnchor.constraint(equalToConstant: 148).isActive = true
-//        forgetButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//    }
-    
-//    private func setupOkButton(){
-//        var h = 0,w = 0
-//        switch UIScreen.main.bounds.width {
-//        case 320:
-//            h = 30
-//            w = 130
-//        case 375:
-//            h = 80
-//            w = 150
-//        case 414:
-//            h = 120
-//            w = 180
-//        default:
-//            h = 120
-//            w = 180
-//        }
-//        view.addSubview(okButton)
-//        okButton.addConstraints(left: nil, top: nil, right: nil, bottom: nil, leftConstent: 0, topConstent: 0, rightConstent: 10, bottomConstent: 30, width: 60, height: 60)
-//        okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: CGFloat(w)).isActive = true
-//        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
-//    }
+
     
     //MARK: - Action Handler
     
     @IBAction func handleLoginButton(sender: UIButton) {
-        guard let username = username else {
+        guard let phone = phoneField.text else {
             displayAlert(title: L("login.error.title.phone"),
                          message: L("login.error.message.phone"),
                          action: L("action.ok")) {
@@ -123,7 +77,7 @@ class LoginViewController: UIViewController {
         
         _ = passwordField.resignFirstResponder()
         
-        ProfileManager.shared.login(username: username, password: password) { (success) in
+        ProfileManager.shared.login(username: phone, password: password) { (success) in
             
             if success {
                 self.dismiss(animated: true, completion: nil)
@@ -140,29 +94,31 @@ class LoginViewController: UIViewController {
     
     @IBAction func handleForgetButton(sender: UIButton) {
         if let profileUser = ProfileManager.shared.getCurrentUser() {
-            phoneInput = profileUser.phone ?? ""
-            zoneCodeInput = profileUser.phoneCountryCode ?? ""
-            
-            print("get : okButtonTapped, api send text msg and go to next page!!!")
-            SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-                if err == nil {
-                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                    self.goToVerificationPage(isModifyPhone: true)
-                } else {
-                    print("PhoneNumberController: 有错误: \(String(describing: err))")
-                    let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                    self.displayAlert(title: "验证失败", message: msg, action: "好")
-                }
-            })
+            if let phone = profileUser.phone {
+                let countryCode = profileUser.phoneCountryCode ?? "1"
+                print("get : okButtonTapped, api send text msg and go to next page!!!")
+                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phone, zone: countryCode, result: { (err) in
+                    if err == nil {
+                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                        self.goToVerificationPage(isModifyPhone: true)
+                    } else {
+                        print("PhoneNumberController: 有错误: \(String(describing: err))")
+                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+                        self.displayAlert(title: "验证失败", message: msg, action: "好")
+                    }
+                })
+            }
         }
     }
     
-    func goToVerificationPage(isModifyPhone: Bool){
-        let verifiCtl = VerificationController()
-        verifiCtl.isModifyPhoneNumber = isModifyPhone
-        verifiCtl.zoneCodeInput = self.zoneCodeInput
-        verifiCtl.phoneInput = self.phoneInput
-        self.navigationController?.pushViewController(verifiCtl, animated: true)
+    func goToVerificationPage(isModifyPhone: Bool) {
+        if let phone = phoneField.text {
+            let verifiCtl = VerificationController()
+            verifiCtl.isModifyPhoneNumber = isModifyPhone
+            verifiCtl.zoneCodeInput = self.countryCode
+            verifiCtl.phoneInput = phone
+            self.navigationController?.pushViewController(verifiCtl, animated: true)
+        }
     }
     
     
