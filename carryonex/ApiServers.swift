@@ -39,21 +39,6 @@ let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
     UsersInfoUpdate.isPhoneVerified : ProfileUserKey.isPhoneVerified
 ]
 
-/*
- let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
- UsersInfoUpdate.salt : ProfileUserKey.salt,
- UsersInfoUpdate.phone : ProfileUserKey.phone,
- UsersInfoUpdate.imageUrl  : ProfileUserKey.imageUrl,
- UsersInfoUpdate.passportUrl:"passport_url",
- UsersInfoUpdate.idAUrl    : "ida_url",
- UsersInfoUpdate.idBUrl    : "idb_url",
- UsersInfoUpdate.email     : "email",
- UsersInfoUpdate.realName  : "real_name",
- UsersInfoUpdate.isExist   : "exist",
- UsersInfoUpdate.wallet    : "wallet"
- ]
- */
-
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -106,6 +91,7 @@ class ApiServers : NSObject {
         case offset = "offset"
         case userType = "user_type"
         case deviceToken = "device_token"
+        case realName = "real_name"
     }
     
     
@@ -126,7 +112,7 @@ class ApiServers : NSObject {
     
     // MARK: - User APIs
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
-    func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
+    func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, name: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
         let deviceToken = UserDefaults.getDeviceToken() ?? ""
         let route = hostVersion + "/users"
@@ -136,9 +122,10 @@ class ApiServers : NSObject {
             ServerKey.countryCode.rawValue: countryCode,
             ServerKey.phone.rawValue: phone,
             ServerKey.email.rawValue: email,
-            ServerKey.deviceToken.rawValue: deviceToken
+            ServerKey.deviceToken.rawValue: deviceToken,
+            ServerKey.realName.rawValue: name
         ]
-        let parameters:[String:Any] = [
+        let parameters:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData

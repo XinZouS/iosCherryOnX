@@ -17,8 +17,8 @@
 		4DC043BF1FB763DB00F6C3F0 /* HomeStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043BB1FB763DA00F6C3F0 /* HomeStatsView.swift */; };
 		4DC043C31FB7642E00F6C3F0 /* NewHomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043C21FB7642D00F6C3F0 /* NewHomePageController.swift */; };
 		4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043CE1FB76A9800F6C3F0 /* Localizable.strings */; };
-		4DC043D11FB76E9800F6C3F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043D31FB76E9800F6C3F0 /* Login.storyboard */; };
 		4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */; };
+		4DC043DD1FB7933400F6C3F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043DC1FB7933400F6C3F0 /* Login.storyboard */; };
 		660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460551F4F6B7500E5DC4C /* SendingTimeController.swift */; };
 		660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460571F506D6600E5DC4C /* SendingTimeController++.swift */; };
 		6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */; };
@@ -249,8 +249,8 @@
 		4DC043CD1FB76A9800F6C3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4DC043CF1FB76A9B00F6C3F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4DC043D01FB76D4300F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4DC043D41FB76EAF00F6C3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		4DC043DC1FB7933400F6C3F0 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		660460551F4F6B7500E5DC4C /* SendingTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeController.swift; sourceTree = "<group>"; };
 		660460571F506D6600E5DC4C /* SendingTimeController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SendingTimeController++.swift"; sourceTree = "<group>"; };
 		660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1098,11 +1098,11 @@
 			children = (
 				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
+				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
 				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
 				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
 				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
-				4DC043D31FB76E9800F6C3F0 /* Login.storyboard */,
 				E5267D141FB63524003ADF14 /* Registration.storyboard */,
 			);
 			path = Storyboards;
@@ -1388,7 +1388,7 @@
 				4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,
 				E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */,
-				4DC043D11FB76E9800F6C3F0 /* Login.storyboard in Resources */,
+				4DC043DD1FB7933400F6C3F0 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1671,14 +1671,6 @@
 				4DC043D01FB76D4300F6C3F0 /* Base */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		4DC043D31FB76E9800F6C3F0 /* Login.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DC043D41FB76EAF00F6C3F0 /* Base */,
-			);
-			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
 		665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */ = {
