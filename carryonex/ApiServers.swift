@@ -745,7 +745,7 @@ class ApiServers : NSObject {
         ]
         
         if imageUrls.count > 0 {
-            var requestImages = [[:]]
+            var requestImages = [Any]()
             for url in imageUrls {
                 let item = ["url": url]
                 requestImages.append(item)
@@ -771,7 +771,15 @@ class ApiServers : NSObject {
             }
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                completion(true, nil)
+                do {
+                    let request: Request = try unbox(dictionary: data, atKey: "request")
+                    request.printAllData()
+                    completion(true, nil)
+                    
+                } catch let error {
+                    completion(false, error)
+                    print("Get error when postRequest. Error = \(error.localizedDescription)")
+                }
                 
             } else {
                 print("postRequest - Unable to post request data")
@@ -853,8 +861,7 @@ class ApiServers : NSObject {
                 =========================
                 [POST ROUTE] \(route)
                 [PARAMETERS] \(parameters)
-                [BODY] \(body))
-                 _
+                [BODY] \(body)
                 """
                 print(printText)
             }

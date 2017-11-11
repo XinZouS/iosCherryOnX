@@ -256,11 +256,8 @@ extension RequestController: UITextFieldDelegate {
             return
         }
         
-        uploadImagesToAwsAndGetUrls { (urlsTuple, error) in
-            if let urlsTuple = urlsTuple {
-                let mappedUrls = urlsTuple.map({$0.1})
-                print(mappedUrls)
-                
+        uploadImagesToAwsAndGetUrls { (urls, error) in
+            if let urls = urls {
                 if let totalValueString = self.cellTotalValue?.textField.text,
                     let totalValue = Double(totalValueString),
                     let costString = self.cell07Cost?.textField.text,
@@ -271,7 +268,7 @@ extension RequestController: UITextFieldDelegate {
                                                   cost: cost,
                                                   destination: endAddress,
                                                   trip: trip,
-                                                  imageUrls: mappedUrls,
+                                                  imageUrls: urls,
                                                   completion: { (success, error) in
                         if let error = error {
                             print("Post Request Error: \(error.localizedDescription)")
@@ -315,7 +312,7 @@ extension RequestController {
         self.cell08Image?.images.append(ImageNamePair(name: imageName, image: image))
     }
     
-    internal func uploadImagesToAwsAndGetUrls(completion: @escaping([Int: String]?, Error?) -> Void) {
+    internal func uploadImagesToAwsAndGetUrls(completion: @escaping([String]?, Error?) -> Void) {
         
         var urls = [String]()
         
@@ -336,18 +333,14 @@ extension RequestController {
                         
                         if urls.count == self.imageUploadSequence.count {
                             urls.sort {$0 < $1}
-                            var imageUrlsDictionary: [Int: String] = [:] // order and urlString: {"0":"img0", "1":"img1", ...}
-                            for i in 0..<urls.count {
-                                imageUrlsDictionary[i] = urls[i]
-                            }
                             // TODO: upload urls dictionary to our Server;
-                            print("\n\n search this senten to locate in code to get dictionary - Xin")
-                            print("get dictionary ready for uploading to Server = ")
-                            for pair in imageUrlsDictionary {
-                                print("key = \(pair.key), val = \(pair.value)")
-                            }
+//                            print("\n\n search this senten to locate in code to get dictionary - Xin")
+//                            print("get dictionary ready for uploading to Server = ")
+//                            for pair in imageUrlsDictionary {
+//                                print("key = \(pair.key), val = \(pair.value)")
+//                            }
                             
-                            completion(imageUrlsDictionary, nil)
+                            completion(urls, nil)
                             // then remove the images from cache
                             self.removeAllImageFromLocal()
                         }
