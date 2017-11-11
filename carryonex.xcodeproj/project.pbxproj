@@ -140,6 +140,7 @@
 		66DA06CD1F5EEC06002C8442 /* TabTitleMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA06CC1F5EEC06002C8442 /* TabTitleMenuCell.swift */; };
 		66DA06D01F5F05B3002C8442 /* OrdersLogController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA06CF1F5F05B3002C8442 /* OrdersLogController++.swift */; };
 		66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA06D11F5F0935002C8442 /* TabTitleMenuBar++.swift */; };
+		66E2C9821FB66755000B250E /* PhoneVerify.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E2C9811FB66755000B250E /* PhoneVerify.storyboard */; };
 		66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */; };
 		66E5204F1F4C76EC008E521D /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E5204E1F4C76EC008E521D /* UILabel++.swift */; };
 		66E520541F4CAA19008E521D /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E520531F4CAA19008E521D /* Request.swift */; };
@@ -360,6 +361,7 @@
 		66DA06CC1F5EEC06002C8442 /* TabTitleMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTitleMenuCell.swift; sourceTree = "<group>"; };
 		66DA06CF1F5F05B3002C8442 /* OrdersLogController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrdersLogController++.swift"; sourceTree = "<group>"; };
 		66DA06D11F5F0935002C8442 /* TabTitleMenuBar++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TabTitleMenuBar++.swift"; sourceTree = "<group>"; };
+		66E2C9811FB66755000B250E /* PhoneVerify.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneVerify.storyboard; sourceTree = "<group>"; };
 		66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBaseCell.swift; sourceTree = "<group>"; };
 		66E5204E1F4C76EC008E521D /* UILabel++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		66E520511F4C81F6008E521D /* YouxiangCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YouxiangCell++.swift"; sourceTree = "<group>"; };
@@ -1068,6 +1070,7 @@
 				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
 				E542F2791FB613FC0072BB31 /* Login.storyboard */,
 				E5267D141FB63524003ADF14 /* Registration.storyboard */,
+				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1338,6 +1341,7 @@
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
 				E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */,
 				FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */,
+				66E2C9821FB66755000B250E /* PhoneVerify.storyboard in Resources */,
 				E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */,
 				E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,
