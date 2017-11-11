@@ -27,7 +27,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var wechatLoginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
     
-    
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,12 +100,22 @@ class LoginViewController: UIViewController {
 //        okButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(h)).isActive = true
 //    }
     
-    
     //MARK: - Action Handler
     
     @IBAction func handleLoginButton(sender: UIButton) {
-        guard let username = username, let password = passwordField.text else {
-            displayAlert(title: "请输入密码", message: "密码不能为空", action: "知道了") {
+        guard let username = username else {
+            displayAlert(title: L("login.error.title.phone"),
+                         message: L("login.error.message.phone"),
+                         action: L("action.ok")) {
+                _ = self.phoneField.becomeFirstResponder()
+            }
+            return
+        }
+        
+        guard let password = passwordField.text else {
+            displayAlert(title: L("login.error.title.password"),
+                         message: L("login.error.message.password"),
+                         action: L("action.ok")) {
                 _ = self.passwordField.becomeFirstResponder()
             }
             return
@@ -115,6 +124,7 @@ class LoginViewController: UIViewController {
         _ = passwordField.resignFirstResponder()
         
         ProfileManager.shared.login(username: username, password: password) { (success) in
+            
             if success {
                 self.dismiss(animated: true, completion: nil)
                 
@@ -123,7 +133,7 @@ class LoginViewController: UIViewController {
                 self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.detailLabel.text = "密码错误请重新输入"
+                self.passwordField.detailLabel.text = L("login.error.message.wrong-password")
             }
         }
     }

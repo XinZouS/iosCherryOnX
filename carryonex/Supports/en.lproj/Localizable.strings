@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  carryonex
+
+  Created by Zian Chen on 11/11/17.
+  Copyright © 2017 Xin Zou. All rights reserved.
+*/
+
+//General action messages
+"action.ok" = "OK";
+
+//Login
+"login.error.title.phone" = "Please enter phone number";
+"login.error.message.phone" = "Phone number is empty.";
+"login.error.title.password" = "Please enter password";
+"login.error.message.password" = "Password cannot be empty.";
+"login.error.message.wrong-password" = "Wrong password, please re-enter.";
