@@ -164,24 +164,6 @@ class ApiServers : NSObject {
                 print("postRegisterUser - Unable to find user data")
                 completion(nil, nil)
             }
-            
-            /*
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                do {
-                    let profileUser: ProfileUser = try unbox(dictionary: data)
-                    profileUser.printAllData()
-                    completion(profileUser, nil)
-                    
-                } catch let error as NSError {
-                    print("postRegisterUser unbox error: \(error.localizedDescription)")
-                    completion(nil, error)
-                }
-                
-            } else {
-                let msg = (response[ServerKey.message.rawValue] as? String) ?? ""
-                print("postRegisterUser - Data package not found. Response message: \(msg)")
-                completion(nil, nil)
-            }*/
         }
     }
     
@@ -735,6 +717,77 @@ class ApiServers : NSObject {
     
     // MARK: - Request APIs
     
+    func postRequest(totalValue: Double,
+                     cost: Double,
+                     destination: Address,
+                     trip: Trip,
+                     imageUrls:[String],
+                     completion: @escaping (Bool, Error?) -> Void) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("postRequest: Unable to find profile user")
+            completion(false, nil)
+            return
+        }
+        
+        guard let tripId = trip.id else {
+            print("postRequest: Unable to find trip id")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/requests/create"
+        var requestDict: [String: Any] = [
+            RequestKeyInDB.endAddress.rawValue: destination.packAsDictionaryForDB(),
+            RequestKeyInDB.tripId.rawValue: tripId,
+            RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
+            RequestKeyInDB.priceBySender.rawValue: Int(cost * 100)
+        ]
+        
+        if imageUrls.count > 0 {
+            var requestImages = [Any]()
+            for url in imageUrls {
+                let item = ["url": url]
+                requestImages.append(item)
+            }
+            requestDict[RequestKeyInDB.images.rawValue] = requestImages
+        }
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postRequest response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let request: Request = try unbox(dictionary: data, atKey: "request")
+                    request.printAllData()
+                    completion(true, nil)
+                    
+                } catch let error {
+                    completion(false, error)
+                    print("Get error when postRequest. Error = \(error.localizedDescription)")
+                }
+                
+            } else {
+                print("postRequest - Unable to post request data")
+                completion(false, nil)
+            }
+        }
+    }
+    
     //TODO: sentOrderInformation
     func sentOrderInformation(address:Address){
         //let userName = "user0"
@@ -770,7 +823,7 @@ class ApiServers : NSObject {
             if let urlRequest = response.request?.url {
                 let printText: String = """
                 =========================
-                [ROUTE] \(route)
+                [GET ROUTE] \(route)
                 [REQUEST] \(urlRequest)
                 """
                 print(printText)
@@ -783,7 +836,6 @@ class ApiServers : NSObject {
                     =========================
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
-                    [ROUTE]: \(route)"
                     """
                     print(printText)
                     
@@ -807,10 +859,9 @@ class ApiServers : NSObject {
             if let requestBody = response.request?.httpBody, let body = NSString(data: requestBody, encoding: String.Encoding.utf8.rawValue) {
                 let printText: String = """
                 =========================
-                [ROUTE] \(route)
+                [POST ROUTE] \(route)
                 [PARAMETERS] \(parameters)
-                [BODY] \(body))
-                 _
+                [BODY] \(body)
                 """
                 print(printText)
             }
@@ -823,7 +874,6 @@ class ApiServers : NSObject {
                     =========================
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
-                    [ROUTE]: \(route)"
                     """
                     print(printText)
                     
@@ -847,6 +897,7 @@ extension ApiServers {
             print("[Status Code] Not handled: \(statusCode)")
         }
     }
+    
     func postNonceToServer(paymentMethodNonce: String) {
         // Update URL with your server
         let paymentURL = URL(string: "https://your-server.example.com/payment-methods")!
@@ -858,4 +909,23 @@ extension ApiServers {
             // TODO: Handle success or failure
             }.resume()
     }
+    
+    func getJsonFromArrayOrDictionary(_ object: Any) -> [String: Any]? {
+        do {
+            //Convert to Data
+            let jsonData = try JSONSerialization.data(withJSONObject: object,
+                                                      options: JSONSerialization.WritingOptions.prettyPrinted)
+            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+                print(JSONString)
+            }
+            let json = try JSONSerialization.jsonObject(with: jsonData,
+                                                        options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
+            return json
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
 }

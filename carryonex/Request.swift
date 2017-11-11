@@ -31,26 +31,44 @@ enum RequestKeyInDB : String {
 
 class Request: Unboxable {
     var id: Int?
-    var ownerId: String?
+    var ownerId: Int?
     var ownerUsername: String?
-    var tripId: String?
+    var tripId: Int?
     var priceBySender: Int?
     var totalValue: Int?
     var description: String?
+    
     var endAddress: Address?
     var images: [RequestImage]?
     var status: RequestStatusDetail?
     
     required init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
-        self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
         self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
+        self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
+        self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
+        self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
+        
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
         self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
-        self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
+    }
+    
+    func printAllData() {
+        let allData = """
+        id = \(id ?? 0)
+        totalValue = \(totalValue ?? 0)
+        ownerId = \(ownerId ?? 0)
+        ownerUsername = \(ownerUsername ?? "")
+        tripId = \(tripId ?? 0),
+        description = \(description ?? "")"
+        """
+        //endAddress = \(endAddress ?? "")
+        //images = \(images ?? "")
+        //status = \(status ?? "")
+        print(allData)
     }
 }
 
