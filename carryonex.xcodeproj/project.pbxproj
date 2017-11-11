@@ -162,6 +162,10 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
+		E542F2721FB605080072BB31 /* HomeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2711FB605080072BB31 /* HomeProfileView.swift */; };
+		E542F2741FB6053D0072BB31 /* HomeStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2731FB6053D0072BB31 /* HomeStatsView.swift */; };
+		E542F2761FB6057E0072BB31 /* HomeRecentOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2751FB6057E0072BB31 /* HomeRecentOrdersView.swift */; };
+		E542F2781FB6058D0072BB31 /* HomeOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2771FB6058D0072BB31 /* HomeOrderCardView.swift */; };
 		E542F27A1FB613FC0072BB31 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F2791FB613FC0072BB31 /* Login.storyboard */; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
@@ -218,6 +222,7 @@
 		FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */; };
 		FFEDFD8A1FA3C81100A1511E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CA1FA3BF59009CC1A0 /* WebKit.framework */; };
 		FFEDFD8B1FA3C82600A1511E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CC1FA3BF67009CC1A0 /* libxml2.tbd */; };
+		FFFA83361FB4EC9F00A98381 /* NewHomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -441,6 +446,7 @@
 		FFE23E2A1F8BCD280043D651 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pods/WechatOpenSDK/OpenSDK1.8.0/libWeChatSDK.a; sourceTree = "<group>"; };
 		FFE750F21F7C1AE7001B5738 /* AddressDetailCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressDetailCell++.swift"; sourceTree = "<group>"; };
+		FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewHomePageController.swift; path = carryonex/NewHomePageController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1088,6 +1094,11 @@
 		E542F2601FB4B6100072BB31 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FFFA83351FB4EC9F00A98381 /* NewHomePageController.swift */,
+				E542F2711FB605080072BB31 /* HomeProfileView.swift */,
+				E542F2731FB6053D0072BB31 /* HomeStatsView.swift */,
+				E542F2751FB6057E0072BB31 /* HomeRecentOrdersView.swift */,
+				E542F2771FB6058D0072BB31 /* HomeOrderCardView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1447,6 +1458,7 @@
 				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
 				E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */,
+				FFFA83361FB4EC9F00A98381 /* NewHomePageController.swift in Sources */,
 				669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */,
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
@@ -1492,6 +1504,7 @@
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
+				E542F2721FB605080072BB31 /* HomeProfileView.swift in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				66F2FF0F1F9D00C200A37881 /* FooterInfoCell.swift in Sources */,
 				FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */,
@@ -1545,6 +1558,7 @@
 				FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
+				E542F2741FB6053D0072BB31 /* HomeStatsView.swift in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
@@ -1560,6 +1574,7 @@
 				668609791F607CC600740A92 /* WalletCheckingCell++.swift in Sources */,
 				665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */,
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,
+				E542F2761FB6057E0072BB31 /* HomeRecentOrdersView.swift in Sources */,
 				66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */,
 				667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */,
 				66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */,
@@ -1587,6 +1602,7 @@
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
 				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
+				E542F2781FB6058D0072BB31 /* HomeOrderCardView.swift in Sources */,
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
 				6642D1201F990DFF00C3AE29 /* CategoryManager.swift in Sources */,
