@@ -187,7 +187,7 @@ class ProfileManager: NSObject {
         self.currentUser = user
         
         Crashlytics.sharedInstance().setUserEmail(user.email)
-        Crashlytics.sharedInstance().setUserIdentifier(user.id)
+        Crashlytics.sharedInstance().setUserIdentifier("\(user.id ?? -999)")
         Crashlytics.sharedInstance().setUserName(user.username)
         
         if writeToKeychain, let username = user.username, let token = user.token {

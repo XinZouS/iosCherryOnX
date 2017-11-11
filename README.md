@@ -140,7 +140,7 @@ class Trip : NSObject {
         case bus = "Bus"
     }
 
-    var id: String!
+    var id: Int!
     var travelerId: String!
     var transportation: Transportation!
     var flightInfo: String?     
@@ -161,7 +161,7 @@ class Trip : NSObject {
 ~~~swift
 class Request: NSObject {
 
-    var id: String!
+    var id: Int!
     var numberOfItem: [String : Int]! // [ItemIdEnum : num]
 
     var youxiangId: String?

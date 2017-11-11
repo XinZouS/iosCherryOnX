@@ -9,10 +9,7 @@
 import UIKit
 
 
-
 extension VerificationController: UITextFieldDelegate {
-    
-    
     
     func resendButtonTapped(){
         print("should resend verification...")
@@ -84,67 +81,64 @@ extension VerificationController: UITextFieldDelegate {
     // setup limit of textField input size
     
     private func commitVerificationCode(){
-//        var zoneCode = ""
-//        var phoneNum = ""
-//        if (isModifyPhoneNumber){
-//            if let profileUser = ProfileManager.shared.getCurrentUser() {
-//                zoneCode = profileUser.phoneCountryCode
-//                phoneNum = profileUser.phone
-//            }
-//        }else{
-//            zoneCode = ZoneCodeInput
-//            phoneNum = phoneInput
-//        }
-        let registEmailCtl = RegisterEmailController()
-        //let registPasswordCtl = RegisterPasswordController()
-//        print("get 4 code: will commitVerificationCode: \(verificationCode), and my phone: \(String(describing: phoneNum)), zoneCode: \(String(describing: zoneCode))")
-//            guard zoneCode != "", phoneNum != "", zoneCode != "0", phoneNum != "0" else { return }
-//            SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneNum, zone: zoneCode, result: { (err) in
-//                print(zoneCode ?? "1",phoneNum ?? "")
-//               if err == nil {
-//                if(isRegister == true){
-                    self.navigationController?.pushViewController(registEmailCtl, animated: true)
-//                }else{
-//                    if(isModifyPhoneNumber==true){
-//                        let phoneNumber = ModifyCode+"-"+ModifyPhone
-//                        ApiServers.shared.postUpdateUserInfo(.phone, newInfo: phoneNumber, completion: { (success, msg) in
-//                            if success {
-//                                print(msg)
-//                                isModifyPhoneNumber = false
-//                                ProfileManager.shared.currentUser?.phoneCountryCode = ModifyCode
-//                                ProfileManager.shared.currentUser?.phone = ModifyPhone
-//                                ModifyPhone = ""
-//                                ModifyCode = "1"
-//                                let userSettingCtl = UserSettingController()
-//                                self.navigationController?.pushViewController(userSettingCtl, animated: true)
-//                            }else{
-//                                print(msg)
-//                            }
-//                        })
-//                    }else{
-//                        self.navigationController?.pushViewController(registPasswordCtl, animated: true)
-//                    }
-//                }
-//               } else {
-//                    self.verifyFaild(err)
-//               }
-//            })
+        if isModifyPhoneNumber, let profileUser = ProfileManager.shared.getCurrentUser() {
+            zoneCodeInput = profileUser.phoneCountryCode ?? ""
+            phoneInput = profileUser.phone ?? ""
         }
+        
+        guard zoneCodeInput != "", phoneInput != "", zoneCodeInput != "0", phoneInput != "0" else { return }
+        
+        SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
+            if err == nil {
+                self.verifySuccess()
+            } else {
+                self.verifyFaildAlert(err?.localizedDescription)
+            }
+        })
+    }
 
-    private func verifyFaild(_ err: Error?){
-        print("验证失败，error: \(err!)")
-        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因: \(err!)"
-        showAlertWith(title: "验证失败", message: errMsg)
+    private func verifySuccess(){
+        if isModifyPhoneNumber {
+            let newPhone = zoneCodeInput + "-" + phoneInput
+            ApiServers.shared.postUpdateUserInfo(.phone, value: newPhone, completion: { (success, err) in
+                if success, let currUser = ProfileManager.shared.getCurrentUser() {
+                    currUser.phoneCountryCode = self.zoneCodeInput
+                    currUser.phone = self.phoneInput
+                    self.confirmInServer()
+                } else if let err = err {
+                    print("failed in VerificationController++, verifySuccess(), msg = ", err)
+                    self.verifyFaildAlert(err.localizedDescription)
+                }
+            })
+        } else {
+            let regPswdCtl = RegisterPasswordController()
+            regPswdCtl.isRegister = true
+            regPswdCtl.zoneCodeInput = self.zoneCodeInput
+            regPswdCtl.phoneInput = self.phoneInput
+            self.navigationController?.pushViewController(regPswdCtl, animated: true)
+        }
     }
     
-    private func showAlertWith(title:String, message:String){
-        let alertCtl = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertCtl.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            alertCtl.dismiss(animated: true, completion: nil)
-            let phoneNumberCtl = PhoneNumberController()
-            self.navigationController?.pushViewController(phoneNumberCtl, animated: true)
-        }))
-        self.present(alertCtl, animated: true, completion: nil)
+    private func confirmInServer(){
+        ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, err) in
+            if let err = err {
+                print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(err.localizedDescription)")
+                self.verifyFaildAlert(err.localizedDescription)
+                return
+            }
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+
+    private func verifyFaildAlert(_ msg: String?){
+        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因:" + (msg ?? "验证失败")
+        print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
+        
+        displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     
 }

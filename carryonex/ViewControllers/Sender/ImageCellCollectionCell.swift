@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /// MARK: - the cell for single image presen and selection
 class ImageCellCollectionCell : UICollectionViewCell {
     
@@ -33,7 +32,6 @@ class ImageCellCollectionCell : UICollectionViewCell {
         return b
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -54,8 +52,6 @@ class ImageCellCollectionCell : UICollectionViewCell {
         addSubview(cancelButton)
         cancelButton.addConstraints(left: nil, top: topAnchor, right: rightAnchor, bottom: nil, leftConstent: 0, topConstent: margin, rightConstent: margin, bottomConstent: 0, width: sz, height: sz)
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -81,6 +77,19 @@ class ImageCellCollectionAddButtonCell : ImageCellCollectionCell {
     
 }
 
-
-
-
+extension ImageCellCollectionCell {
+    
+    func cancelButtonTapped(){
+        print("TODO: image cancelButtonTapped...")
+        removeLocalImageWithFileName()
+        removeLocalImageInCollectionView()
+    }
+    
+    private func removeLocalImageWithFileName(){
+        requestCtl?.removeImageWithUrlInLocalFileDirectory(fileName: imageFileName)
+    }
+    
+    private func removeLocalImageInCollectionView(){
+        requestCtl?.cell08Image?.removeImagePairOfName(imgName: imageFileName)
+    }
+}

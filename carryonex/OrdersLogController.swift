@@ -24,16 +24,11 @@ class OrdersLogController: UICollectionViewController, UICollectionViewDelegateF
         title = "订单"
         
         setupNavigationBar()
-        
-        if(isOrderList == false){
-            setupTabMenuBar()
-        }
-        
+        setupTabMenuBar()
         setupCollectonView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        isOrderList = false
     }
     
     private func setupNavigationBar(){

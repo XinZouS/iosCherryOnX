@@ -84,7 +84,7 @@ class AddressController: UIViewController, UITableViewDelegate,UICollectionViewD
 
     var requestCtl  : RequestController? {
         didSet{
-            request = requestCtl?.request
+            //request = requestCtl?.request
         }
     }
     var postTripCtl : PostTripController? {

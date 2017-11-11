@@ -28,7 +28,7 @@ enum UserKeyInDB: String {
 }
 
 class User: Unboxable {
-    var id:         String? = "demoUser"
+    var id: Int?
     var username:   String? = ""
     var token:      String? = ""
     var realName:   String? = ""
@@ -46,7 +46,7 @@ class User: Unboxable {
     }
     
     func setupUserByLocal(dictionary: [String : Any]) {
-        id          = dictionary["id"] as? String ?? "demoUser"
+        id          = dictionary["id"] as? Int ?? 0
         username    = dictionary["username"] as? String ?? ""
         token       = dictionary["token"] as? String ?? ""
         realName    = dictionary["realName"] as? String ?? ""
@@ -57,7 +57,7 @@ class User: Unboxable {
     }
     
     func setupByDictionaryFromDB(_ dictionary: [String : Any]) {
-        id          = dictionary[UserKeyInDB.id.rawValue] as? String ?? "demoUser"
+        id          = dictionary[UserKeyInDB.id.rawValue] as? Int ?? -999
         username    = dictionary[UserKeyInDB.username.rawValue] as? String ?? ""
         token       = dictionary[UserKeyInDB.token.rawValue] as? String ?? ""
         realName    = dictionary[UserKeyInDB.realName.rawValue] as? String ?? ""
@@ -76,7 +76,7 @@ class User: Unboxable {
     }
     
     open func printAllData(){
-        print("id = \(id!)")
+        print("id = \(id ?? -999)")
         print("username = \(username!)")
         print("token = \(token!)")
         print("realName = \(realName!)")

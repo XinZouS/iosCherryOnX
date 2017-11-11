@@ -19,6 +19,8 @@ import Crashlytics
 
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
     
+    var appDidLaunch = false
+    
     let items: [(icon: UIImage, color: UIColor)] = [
         ( #imageLiteral(resourceName: "button_youxiang") , UIColor(red:1, green:0.87, blue: 0.7, alpha:0.8)),
         ( #imageLiteral(resourceName: "button_request") , UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
@@ -222,7 +224,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         
         if (!ProfileManager.shared.isLoggedIn()){
             let registerMainCtl = RegisterMainController()
-            isModifyPhoneNumber = false
             let registerRootCtl = UINavigationController(rootViewController: registerMainCtl)
             self.present(registerRootCtl, animated: false, completion: nil)
             
@@ -413,14 +414,15 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
                 let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
                 strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
             } else {
-                appDidLaunch = false
+                strongSelf.appDidLaunch = false
                 strongSelf.isItHaveLogIn()
             }
         }
     }
     
     private func showPhoneNumberPage() {
-        let phoneNumberViewContainer = UINavigationController.init(rootViewController: PhoneNumberController())
+        let newPhoneCtl = PhoneNumberController()
+        let phoneNumberViewContainer = UINavigationController.init(rootViewController: newPhoneCtl)
         present(phoneNumberViewContainer, animated: true, completion: nil)
     }
     

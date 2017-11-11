@@ -10,11 +10,9 @@ import UIKit
 import Material
 
 class ItemListYouxiangInputController: UIViewController, UICollectionViewDelegateFlowLayout{
+    
     var youxiangField: ErrorTextField!
     fileprivate let constant: CGFloat = 32
-    
-    let textFieldH : CGFloat = 30
-
     lazy var  okButton : UIButton = {
         let b = UIButton()
         b.setTitle("→", for: .normal)
@@ -24,37 +22,39 @@ class ItemListYouxiangInputController: UIViewController, UICollectionViewDelegat
         b.isEnabled = true
         return b
     }()
+    
+    
+    //MARK: - View Cycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _ = youxiangField.becomeFirstResponder()
         okButton.isEnabled = true
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         setupEmailTextField()
-        
         setupOkButton()
-        
         setupNavigationBar()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         youxiangField.resignFirstResponder()
     }
+    
     /// Prepares the resign responder button.
     fileprivate func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
-        
         view.layout(btn).width(100).height(constant).top(40).right(20)
     }
     
     /// Handle the resign responder button.
-    @objc
-    internal func handleResignResponderButton(button: UIButton) {
+    @objc internal func handleResignResponderButton(button: UIButton) {
         youxiangField?.resignFirstResponder()
     }
     
@@ -93,11 +93,57 @@ class ItemListYouxiangInputController: UIViewController, UICollectionViewDelegat
     }
 }
 
+
 extension ItemListYouxiangInputController: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField.text?.isEmpty == true {
             textField.resignFirstResponder()
         }
         return true
+    }
+}
+
+
+extension ItemListYouxiangInputController {
+    
+    func cancelButtonTapped() {
+        _ = youxiangField.resignFirstResponder()
+    }
+    
+    func okButtonTapped() {
+        
+        guard let youxiangNumber = youxiangField.text else {
+            displayAlert(title: "游箱号为空", message: "请输入游箱号", action: "好")
+            return
+        }
+        
+        okButton.isEnabled = false // not allow user tap too much
+        
+        ApiServers.shared.getTripInfo(id: youxiangNumber) { (success, trip, error) in
+            
+            if !success && error == nil {
+                self.displayAlert(title: "查无此邮箱", message: "请输入游箱号", action: "好")
+                self.okButton.isEnabled = true
+                return
+            }
+            
+            if let error = error {
+                self.displayAlert(title: "获取游箱错误", message: "错误: \(error.localizedDescription)", action: "好")
+                self.okButton.isEnabled = true
+                return
+            }
+            
+            if trip != nil {
+                self.okButton.isEnabled = false
+                
+                let layout = UICollectionViewFlowLayout()
+                layout.scrollDirection = .vertical
+                layout.minimumLineSpacing = 1
+                
+                let requestCtl = RequestController(collectionViewLayout: layout)
+                requestCtl.trip = trip
+                self.navigationController?.pushViewController(requestCtl, animated: true)
+            }
+        }
     }
 }
