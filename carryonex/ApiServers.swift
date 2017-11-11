@@ -718,6 +718,7 @@ class ApiServers : NSObject {
     // MARK: - Request APIs
     
     func postRequest(totalValue: Double,
+                     cost: Double,
                      destination: Address,
                      trip: Trip,
                      imageUrls:[String],
@@ -735,11 +736,12 @@ class ApiServers : NSObject {
             return
         }
         
-        let route = hostVersion + "/request/create"
+        let route = hostVersion + "/requests/create"
         var requestDict: [String: Any] = [
             RequestKeyInDB.endAddress.rawValue: destination.packAsDictionaryForDB(),
             RequestKeyInDB.tripId.rawValue: tripId,
-            RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100)
+            RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
+            RequestKeyInDB.priceBySender.rawValue: Int(cost * 100)
         ]
         
         if imageUrls.count > 0 {

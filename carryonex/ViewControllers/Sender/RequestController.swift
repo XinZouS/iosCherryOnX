@@ -261,11 +261,14 @@ extension RequestController: UITextFieldDelegate {
                 let mappedUrls = urlsTuple.map({$0.1})
                 print(mappedUrls)
                 
-                if let totalValueString = self.cell07Cost?.textField.text,
+                if let totalValueString = self.cellTotalValue?.textField.text,
                     let totalValue = Double(totalValueString),
+                    let costString = self.cell07Cost?.textField.text,
+                    let cost = Double(costString),
                     let endAddress = self.endAddress,
                     let trip = self.trip {
                     ApiServers.shared.postRequest(totalValue: totalValue,
+                                                  cost: cost,
                                                   destination: endAddress,
                                                   trip: trip,
                                                   imageUrls: mappedUrls,
