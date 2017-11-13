@@ -15,7 +15,7 @@ class UserSettingController: UIViewController {
     
     var homePageCtl: HomePageController?
     
-    let titles: [[String]] = [["账号与安全", "上传实名验证信息", "语言"], ["用户指南", "给游箱评价", "法律条款与隐私政策", "关于游箱"]]
+    let titles: [[String]] = [["账号与安全", "上传实名验证信息", "语言"], ["用户指南", "给游箱评价"]] //, "法律条款与隐私政策", "关于游箱"]]
     
     let userSettingCellId = "userSettingCellId"
     
