@@ -61,9 +61,6 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="dividerColor">
-                                        <color key="value" red="1" green="0.94643269729619173" blue="0.89068319784026539" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_grey" translatesAutoresizingMaskIntoConstraints="NO" id="LLc-ya-YRW">
