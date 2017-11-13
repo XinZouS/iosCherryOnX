@@ -11,12 +11,6 @@ import AlamofireImage
 
 class NewHomePageController :UIViewController{
     
-    @IBOutlet weak var userInfoButton: UIButton!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userLocationLabel: UILabel!
-    @IBOutlet weak var shipperButton: UIButton!
-    @IBOutlet weak var senderButton: UIButton!
-    @IBOutlet weak var DetailInfoScrollerView: UIScrollView!
     
     override func viewDidLoad() {
         setupUserInfoButton()
