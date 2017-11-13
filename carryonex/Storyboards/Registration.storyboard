@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mDl-U5-fKM">
-    <device id="retina3_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mDl-U5-fKM">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="mDl-U5-fKM" customClass="RegistrationViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rok-2Q-5Ns">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZt-aq-yVm" customClass="TextField" customModule="Material">
-                                <rect key="frame" x="25" y="149" width="270" height="30"/>
+                                <rect key="frame" x="52.5" y="238" width="270" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="q0A-6k-9wx"/>
                                 </constraints>
@@ -28,7 +28,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glM-43-SDX" customClass="Button" customModule="Material">
-                                <rect key="frame" x="25" y="199.5" width="40" height="30"/>
+                                <rect key="frame" x="52.5" y="288.5" width="40" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5pr-zc-eXK"/>
                                     <constraint firstAttribute="width" constant="40" id="oNG-j6-z5i"/>
@@ -36,19 +36,19 @@
                                 <state key="normal" title="+1"/>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7PV-Zp-EMn" customClass="TextField" customModule="Material">
-                                <rect key="frame" x="25" y="249" width="270" height="30"/>
+                                <rect key="frame" x="52.5" y="338" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APd-hq-mgP" customClass="TextField" customModule="Material">
-                                <rect key="frame" x="73" y="199" width="222" height="30"/>
+                                <rect key="frame" x="100.5" y="288" width="222" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-uB-tpP" customClass="Button" customModule="Material">
-                                <rect key="frame" x="25" y="348.5" width="270" height="30"/>
+                                <rect key="frame" x="52.5" y="437.5" width="270" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="dyO-nI-BKJ"/>
                                 </constraints>
@@ -56,13 +56,13 @@
                                 <state key="normal" title="我已阅读并同意用户协议"/>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nf8-CN-Kny" customClass="TextField" customModule="Material">
-                                <rect key="frame" x="25" y="298.5" width="270" height="30"/>
+                                <rect key="frame" x="52.5" y="387.5" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="CarryonEx_Icon300" translatesAutoresizingMaskIntoConstraints="NO" id="U8G-nb-RGM">
-                                <rect key="frame" x="105.5" y="20" width="109" height="109"/>
+                                <rect key="frame" x="133" y="109" width="109" height="109"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="3Eo-X5-V4h"/>
                                     <constraint firstAttribute="height" constant="109" id="aoe-0h-32p"/>
@@ -78,7 +78,7 @@
                                 <state key="normal" title="&lt;"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHQ-KY-uMK" customClass="Button" customModule="Material">
-                                <rect key="frame" x="20" y="398.5" width="280" height="44"/>
+                                <rect key="frame" x="47.5" y="487.5" width="280" height="44"/>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="5mo-5V-azg"/>
