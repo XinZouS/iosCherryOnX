@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var phoneField: TextField!
     @IBOutlet weak var passwordField: TextField!
+    @IBOutlet weak var textFieldsContainerView: UIView!
     
     @IBOutlet weak var countryCodeButton: UIButton!
     @IBOutlet weak var forgetButton: UIButton!
@@ -27,6 +28,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPasswordTextField()
+        setupTextFieldContainerView()
     }
     
     
@@ -51,6 +53,15 @@ class LoginViewController: UIViewController {
         passwordField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
         view.layout(passwordField).center(offsetY: -100).left(60).right(60)
          */
+    }
+
+    private func setupTextFieldContainerView(){
+        let x = textFieldsContainerView.bounds.width
+        let y = textFieldsContainerView.bounds.height / 2
+        let cl = UIColor(white: 0.9, alpha: 1)
+        let startP = CGPoint(x: 0, y: y)
+        let endP = CGPoint(x: x, y: y)
+        textFieldsContainerView.drawStroke(startPoint: startP, endPoint: endP, color: cl, lineWidth: 1)
     }
 
     
