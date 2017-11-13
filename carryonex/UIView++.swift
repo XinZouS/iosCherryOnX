@@ -44,6 +44,23 @@ extension UIView{
         }
     }
     
+    
+    func drawStroke(startPoint: CGPoint, endPoint: CGPoint, color: UIColor, lineWidth: CGFloat) {
+        let aPath = UIBezierPath()
+        aPath.move(to: startPoint)
+        aPath.addLine(to: endPoint)
+        
+        let lineLayer = CAShapeLayer()
+        lineLayer.path = aPath.cgPath
+        lineLayer.strokeColor = color.cgColor
+        lineLayer.lineWidth = lineWidth
+        lineLayer.lineJoin = kCALineJoinRound
+        
+        layer.addSublayer(lineLayer)
+    }
+    
+    
+    
 }
 
 

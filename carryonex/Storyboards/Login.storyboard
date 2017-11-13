@@ -249,6 +249,7 @@
                         <outlet property="passwordField" destination="woj-xs-lls" id="BBj-In-laa"/>
                         <outlet property="phoneField" destination="hgu-IH-Ro0" id="GA0-P0-kwZ"/>
                         <outlet property="registrationButton" destination="VfD-Gu-RpJ" id="LpC-ny-Cdx"/>
+                        <outlet property="textFieldsContainerView" destination="FvG-Qb-kd7" id="a5H-HL-fQA"/>
                         <outlet property="wechatLoginButton" destination="oaT-uk-PVx" id="Em4-fL-b7q"/>
                     </connections>
                 </viewController>
