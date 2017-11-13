@@ -110,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="500.625" y="166.90140845070422"/>
         </scene>
-        <!--Home Profile View Controller-->
+        <!--User Profile Controller-->
         <scene sceneID="diu-eb-fOk">
             <objects>
-                <viewController id="Bgg-oL-7YG" customClass="HomeProfileViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Bgg-oL-7YG" customClass="UserProfileController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SRE-fg-JA1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,7 +141,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="shiperButtonTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="mcK-vD-Hy0"/>
+                                            <action selector="shiperButtonTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="Ona-9V-bzV"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="早上好" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJv-B2-3wy">
@@ -183,7 +183,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="senderButtonTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="BKG-WA-6x3"/>
+                                            <action selector="senderButtonTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="Qip-8I-G4r"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -218,9 +218,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="userProfileImageBtn:" destination="dRv-KB-9TV" eventType="touchUpInside" id="Wci-iW-UYT"/>
-                                    <action selector="userProfileImageBtnTapped:" destination="dRv-KB-9TV" eventType="touchUpInside" id="6Mf-Z9-G9d"/>
-                                    <action selector="userProfileImageBtnTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="C2w-xu-43O"/>
+                                    <action selector="userProfileImageBtnTapped:" destination="Bgg-oL-7YG" eventType="touchUpInside" id="C8t-wX-K1X"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -238,23 +236,21 @@
                         <viewLayoutGuide key="safeArea" id="Mbm-pr-m7m"/>
                     </view>
                     <connections>
-                        <outlet property="helloLabel" destination="pJv-B2-3wy" id="om2-Um-nmw"/>
-                        <outlet property="locationLabel" destination="3r3-B9-8g2" id="b2v-Vw-eCx"/>
-                        <outlet property="senderButton" destination="4Nd-XC-aRn" id="FdC-G2-9wB"/>
-                        <outlet property="shiperButton" destination="b7T-Yf-SiJ" id="XxC-JZ-OCD"/>
-                        <outlet property="userProfileImageBtn" destination="wiR-qC-WaP" id="L9E-1l-jqd"/>
-                        <outlet property="userProfileImageBtnTapped" destination="wiR-qC-WaP" id="Uzq-Wa-g0V"/>
+                        <outlet property="helloLabel" destination="pJv-B2-3wy" id="DLl-lV-Wib"/>
+                        <outlet property="locationLabel" destination="3r3-B9-8g2" id="hYQ-0M-rak"/>
+                        <outlet property="senderButton" destination="4Nd-XC-aRn" id="90P-FX-2ow"/>
+                        <outlet property="shiperButton" destination="b7T-Yf-SiJ" id="WBD-IB-ljV"/>
+                        <outlet property="userProfileImageBtn" destination="wiR-qC-WaP" id="Q6W-r0-2zl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SsY-Ed-YGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="dRv-KB-9TV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1368.75" y="-97.183098591549296"/>
         </scene>
-        <!--View Controller-->
+        <!--User Recent Info Controller-->
         <scene sceneID="Zc5-fk-ude">
             <objects>
-                <viewController id="dPL-aA-D4f" sceneMemberID="viewController">
+                <viewController id="dPL-aA-D4f" customClass="UserRecentInfoController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="II3-H0-AbJ">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="96.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -339,6 +335,9 @@
                         <viewLayoutGuide key="safeArea" id="0Th-0O-Te6"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="generalCommentBtn" destination="7wy-UK-KZZ" id="pw0-IE-nAT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ML7-5F-wfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -560,27 +559,14 @@
             </objects>
             <point key="canvasLocation" x="1980.9375" y="439.43661971830988"/>
         </scene>
-        <!--View Controller-->
+        <!--User Star Controller-->
         <scene sceneID="O8X-6f-zUO">
             <objects>
-                <viewController id="wOI-1Y-TLl" sceneMemberID="viewController">
+                <viewController id="wOI-1Y-TLl" customClass="UserStarController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zBg-5S-i9V">
                         <rect key="frame" x="0.0" y="0.0" width="60" height="15"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carryonex_star" translatesAutoresizingMaskIntoConstraints="NO" id="XeN-V0-siY">
-                                <rect key="frame" x="25" y="2.5" width="10" height="10"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="10" id="ZCZ-Fz-85Q"/>
-                                    <constraint firstAttribute="height" constant="10" id="dug-f0-4pH"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="XeN-V0-siY" firstAttribute="centerY" secondItem="Vm2-4h-bY8" secondAttribute="centerY" id="1xF-IK-7V1"/>
-                            <constraint firstItem="XeN-V0-siY" firstAttribute="centerX" secondItem="Vm2-4h-bY8" secondAttribute="centerX" id="Kdy-tk-pXg"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Vm2-4h-bY8"/>
                     </view>
                 </viewController>
@@ -591,7 +577,6 @@
     </scenes>
     <resources>
         <image name="CarryonEx_User" width="100" height="100"/>
-        <image name="carryonex_star" width="137" height="130"/>
         <image name="location_grey" width="4" height="6"/>
         <image name="senderLcationIcon" width="10" height="13"/>
     </resources>
