@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZendeskSDK
 
 class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -29,14 +30,28 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
         segment.tintColor = buttonThemeColor
         return segment
     }()
+    
+    lazy var onlineCustomerServersButton : UIButton = {
+        let b = UIButton()
+        b.addTarget(self, action: #selector(onlineCustomerServersButtonTapped), for: .touchUpInside)
+        b.backgroundColor = buttonThemeColor
+        let atts = [NSFontAttributeName: UIFont.systemFont(ofSize: 20),
+                    NSForegroundColorAttributeName: UIColor.white]
+        let attStr = NSAttributedString(string: "在线客服", attributes: atts)
+        b.setAttributedTitle(attStr, for: .normal)
+        return b
+    }()
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = UIColor.white
+        //TODO: for test only, should move under guard let;
+        setupBottomButton()
+
         //If config not found, do nothing
         guard let config = ApiServers.shared.config else { return }
-        
-        view.backgroundColor = UIColor.white
         
         //Setup the datasource
         topDataSource = config.problems
@@ -79,6 +94,20 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
                                  bottomConstent: 0,
                                  width: 0,
                                  height: 0)
+    }
+
+    private func setupBottomButton(){
+        view.addSubview(onlineCustomerServersButton)
+        onlineCustomerServersButton.addConstraints(left: view.leftAnchor,
+                                                   top: nil,
+                                                   right: view.rightAnchor,
+                                                   bottom: view.bottomAnchor,
+                                                   leftConstent: 0,
+                                                   topConstent: 0,
+                                                   rightConstent: 0,
+                                                   bottomConstent: 44,
+                                                   width: 0,
+                                                   height: 44)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -128,5 +157,17 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0
     }
+}
+
+
+
+extension UserGuideController {
+    
+    func onlineCustomerServersButtonTapped(){
+        let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+        ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+    }
+    
+
 }
 
