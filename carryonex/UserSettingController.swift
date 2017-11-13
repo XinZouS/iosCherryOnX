@@ -55,19 +55,25 @@ class UserSettingController: UIViewController {
     private func setupTableView(){
         tableView.register(UserSettingCell.self, forCellReuseIdentifier: userSettingCellId)
         view.addSubview(tableView)
-        if #available(iOS 11.0, *) {
-            tableView.addConstraints(left: view.leftAnchor, top: view.safeAreaLayoutGuide.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 0)
-        } else {
-            tableView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 40, width: 0, height: 0)
-        }
+        tableView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 50, width: 0, height: 0)
     }
     
     private func setupLogoutButton(){
         view.addSubview(logoutButton)
-        logoutButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
+        var safeViewInset = UIEdgeInsets.zero
+        if #available(iOS 11.0, *) {
+            safeViewInset = view.safeAreaInsets
+        }
+        logoutButton.addConstraints(left: view.leftAnchor,
+                                    top: nil,
+                                    right: view.rightAnchor,
+                                    bottom: view.bottomAnchor,
+                                    leftConstent: safeViewInset.left,
+                                    topConstent: safeViewInset.top,
+                                    rightConstent: safeViewInset.right,
+                                    bottomConstent: safeViewInset.bottom + 40,
+                                    width: 0, height: 40)
     }
-    
-    
 }
 
 

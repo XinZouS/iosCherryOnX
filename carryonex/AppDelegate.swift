@@ -258,21 +258,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             (granted, error) in
             if let error = error {
-                print("APNS Permission Error: \(error.localizedDescription)")
+                debugLog("APNS Permission Error: \(error.localizedDescription)")
             }
-            print("APNS Permission granted: \(granted)")
+            //print("APNS Permission granted: \(granted)")
             self.getNotificationSettings()
         }
     }
     
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            print("Notification settings: \(settings)")
+            //print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else {
-                print("Bad Notification settings status: \(settings.authorizationStatus)")
+                debugLog("Bad Notification settings status: \(settings.authorizationStatus)")
                 return
             }
-            UIApplication.shared.registerForRemoteNotifications()
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
         }
     }
 }

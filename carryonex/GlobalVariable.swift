@@ -13,7 +13,6 @@ import Foundation
 let codeOfFlag : [String:String] = ["🇺🇸  +1":"1", "🇨🇳 +86":"86", "🇭🇰 852":"852", "🇹🇼 886":"886", "🇦🇺 +61":"61", "🇬🇧 +44":"44", "🇩🇪 +49":"49"]
 var flagsTitle : [String] = ["🇺🇸  +1", "🇨🇳 +86", "🇭🇰 852", "🇹🇼 886", "🇦🇺 +61", "🇬🇧 +44", "🇩🇪 +49"]
 
-
 //正则校验
 struct MyRegex {
     let regex: NSRegularExpression?
@@ -98,4 +97,18 @@ let imageCompress: CGFloat = 0.1
 
 /// for more info display in MenuController
 let userGuideWebHoster = "http://54.245.216.35:5000"
+
+
+//MARK: - Helper Methods
+
+func debugLog(_ message: String,
+              function: String = #function,
+              file: String = #file,
+              line: Int = #line) {
+    print("Message \"\(message)\" (File: \(file), Function: \(function), Line: \(line))")
+}
+
+func L(_ key: String) -> String {
+    return NSLocalizedString(key, comment: "")
+}
 

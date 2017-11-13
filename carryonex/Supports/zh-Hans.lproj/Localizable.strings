@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  carryonex
+
+  Created by Zian Chen on 11/11/17.
+  Copyright © 2017 Xin Zou. All rights reserved.
+*/
+
+//General action messages
+"action.ok" = "好";
+
+//Login
+"login.error.title.phone" = "请输入电话号码";
+"login.error.message.phone" = "电话号码不能为空。";
+"login.error.title.password" = "请输入密码";
+"login.error.message.password" = "密码不能为空";
+"login.error.message.wrong-password" = "密码错误，请重新输入。";
+"register.error.title.password" = "密码错误";
+"register.error.message.password" = "密码错误，请检查密码与验证密码";
+

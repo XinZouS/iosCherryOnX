@@ -39,21 +39,6 @@ let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
     UsersInfoUpdate.isPhoneVerified : ProfileUserKey.isPhoneVerified
 ]
 
-/*
- let UsersInfoUpdateKey : [UsersInfoUpdate: ProfileUserKey] = [
- UsersInfoUpdate.salt : ProfileUserKey.salt,
- UsersInfoUpdate.phone : ProfileUserKey.phone,
- UsersInfoUpdate.imageUrl  : ProfileUserKey.imageUrl,
- UsersInfoUpdate.passportUrl:"passport_url",
- UsersInfoUpdate.idAUrl    : "ida_url",
- UsersInfoUpdate.idBUrl    : "idb_url",
- UsersInfoUpdate.email     : "email",
- UsersInfoUpdate.realName  : "real_name",
- UsersInfoUpdate.isExist   : "exist",
- UsersInfoUpdate.wallet    : "wallet"
- ]
- */
-
 enum ServerUserLogUrl : String {
     case myCarries = "requests"
     case myTrips = "trips"
@@ -106,6 +91,7 @@ class ApiServers : NSObject {
         case offset = "offset"
         case userType = "user_type"
         case deviceToken = "device_token"
+        case realName = "real_name"
     }
     
     
@@ -126,7 +112,7 @@ class ApiServers : NSObject {
     
     // MARK: - User APIs
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
-    func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, completion: @escaping(String?, Error?) -> Swift.Void) {
+    func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, name: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
         let deviceToken = UserDefaults.getDeviceToken() ?? ""
         let route = hostVersion + "/users"
@@ -136,9 +122,10 @@ class ApiServers : NSObject {
             ServerKey.countryCode.rawValue: countryCode,
             ServerKey.phone.rawValue: phone,
             ServerKey.email.rawValue: email,
-            ServerKey.deviceToken.rawValue: deviceToken
+            ServerKey.deviceToken.rawValue: deviceToken,
+            ServerKey.realName.rawValue: name
         ]
-        let parameters:[String:Any] = [
+        let parameters:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
             ServerKey.data.rawValue : postData
@@ -240,7 +227,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postLogoutUser(completion: @escaping (Bool, String?) -> Void){
+    func postLogoutUser(completion: @escaping (Bool, Error?) -> Void){
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postLogoutUser: Profile user empty, please login in order to logout")
             completion(false, nil)
@@ -262,16 +249,18 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postLogoutUser response error: \(error.localizedDescription)")
                 }
-                completion(false, error?.localizedDescription)
+                completion(false, error)
                 return
             }
             
-            let msg = response[ServerKey.message.rawValue] as? String
+            if let message = response[ServerKey.message.rawValue] as? String {
+                debugLog(message)
+            }
+            
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                ProfileManager.shared.logoutUser()
-                completion(true, msg)
+                completion(true, nil)
             }else{
-                completion(false, msg)
+                completion(false, nil)
             }
         }
     }

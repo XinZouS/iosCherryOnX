@@ -5,20 +5,20 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="E23-h1-2Ot">
             <objects>
-                <viewController id="mDl-U5-fKM" sceneMemberID="viewController">
+                <viewController id="mDl-U5-fKM" customClass="RegistrationViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rok-2Q-5Ns">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZt-aq-yVm">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZt-aq-yVm" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="25" y="149" width="270" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="q0A-6k-9wx"/>
@@ -27,40 +27,39 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glM-43-SDX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glM-43-SDX" customClass="Button" customModule="Material">
                                 <rect key="frame" x="25" y="199.5" width="40" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5pr-zc-eXK"/>
                                     <constraint firstAttribute="width" constant="40" id="oNG-j6-z5i"/>
                                 </constraints>
-                                <state key="normal" title="+86"/>
+                                <state key="normal" title="+1"/>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7PV-Zp-EMn">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7PV-Zp-EMn" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="25" y="249" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APd-hq-mgP">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APd-hq-mgP" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="73" y="199" width="222" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-uB-tpP">
-                                <rect key="frame" x="90" y="348.5" width="140" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-uB-tpP" customClass="Button" customModule="Material">
+                                <rect key="frame" x="25" y="348.5" width="270" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="8zp-HK-5qx"/>
                                     <constraint firstAttribute="height" constant="30" id="dyO-nI-BKJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="我已阅读并同意用户协议"/>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nf8-CN-Kny">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nf8-CN-Kny" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="25" y="298.5" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="CarryonEx_Icon300" translatesAutoresizingMaskIntoConstraints="NO" id="U8G-nb-RGM">
                                 <rect key="frame" x="105.5" y="20" width="109" height="109"/>
@@ -69,7 +68,7 @@
                                     <constraint firstAttribute="height" constant="109" id="aoe-0h-32p"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7DX-h4-FSk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7DX-h4-FSk" customClass="Button" customModule="Material">
                                 <rect key="frame" x="20" y="20" width="46" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="9ab-42-xDH"/>
@@ -78,8 +77,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt;"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHQ-KY-uMK">
-                                <rect key="frame" x="20" y="386" width="280" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHQ-KY-uMK" customClass="Button" customModule="Material">
+                                <rect key="frame" x="20" y="398.5" width="280" height="44"/>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="5mo-5V-azg"/>
@@ -94,6 +93,7 @@
                             <constraint firstItem="dZt-aq-yVm" firstAttribute="centerX" secondItem="Rok-2Q-5Ns" secondAttribute="centerX" id="1k9-VG-RQ9"/>
                             <constraint firstItem="U8G-nb-RGM" firstAttribute="centerY" secondItem="psg-kF-wZU" secondAttribute="centerY" priority="900" constant="-180" id="3vb-F3-hlS"/>
                             <constraint firstItem="BQV-uB-tpP" firstAttribute="top" secondItem="Nf8-CN-Kny" secondAttribute="bottom" constant="20" id="6Cq-yT-eS9"/>
+                            <constraint firstItem="BQV-uB-tpP" firstAttribute="width" secondItem="Nf8-CN-Kny" secondAttribute="width" id="AZ5-kS-XSb"/>
                             <constraint firstItem="Nf8-CN-Kny" firstAttribute="trailing" secondItem="dZt-aq-yVm" secondAttribute="trailing" id="GUW-2i-BYw"/>
                             <constraint firstItem="APd-hq-mgP" firstAttribute="leading" secondItem="glM-43-SDX" secondAttribute="trailing" constant="8" id="Gng-62-0iJ"/>
                             <constraint firstItem="Nf8-CN-Kny" firstAttribute="leading" secondItem="dZt-aq-yVm" secondAttribute="leading" id="GwH-4m-0UV"/>
@@ -104,7 +104,7 @@
                             <constraint firstItem="U8G-nb-RGM" firstAttribute="centerX" secondItem="Rok-2Q-5Ns" secondAttribute="centerX" id="T8W-7r-7ah"/>
                             <constraint firstItem="BQV-uB-tpP" firstAttribute="centerX" secondItem="Rok-2Q-5Ns" secondAttribute="centerX" id="V7x-fs-mFl"/>
                             <constraint firstItem="7DX-h4-FSk" firstAttribute="top" secondItem="psg-kF-wZU" secondAttribute="top" id="YXg-VI-bXn"/>
-                            <constraint firstItem="DHQ-KY-uMK" firstAttribute="top" secondItem="BQV-uB-tpP" secondAttribute="bottom" constant="7.5" id="ZmO-GB-0aJ"/>
+                            <constraint firstItem="DHQ-KY-uMK" firstAttribute="top" secondItem="BQV-uB-tpP" secondAttribute="bottom" constant="20" id="ZmO-GB-0aJ"/>
                             <constraint firstItem="APd-hq-mgP" firstAttribute="top" secondItem="dZt-aq-yVm" secondAttribute="bottom" constant="20" id="aLv-6h-5pg"/>
                             <constraint firstItem="U8G-nb-RGM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7DX-h4-FSk" secondAttribute="top" id="aMv-kQ-PyS"/>
                             <constraint firstItem="7PV-Zp-EMn" firstAttribute="leading" secondItem="dZt-aq-yVm" secondAttribute="leading" id="c66-4V-2B4"/>
@@ -115,10 +115,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="psg-kF-wZU"/>
                     </view>
+                    <connections>
+                        <outlet property="agreeButton" destination="BQV-uB-tpP" id="x5G-5c-mKG"/>
+                        <outlet property="backButton" destination="7DX-h4-FSk" id="pgS-dP-pqb"/>
+                        <outlet property="confirmPasswordField" destination="Nf8-CN-Kny" id="lbu-TR-iq3"/>
+                        <outlet property="countryCodeButton" destination="glM-43-SDX" id="Mjb-pm-DpL"/>
+                        <outlet property="nameField" destination="dZt-aq-yVm" id="hI7-qG-rTN"/>
+                        <outlet property="passwordField" destination="7PV-Zp-EMn" id="PJW-iG-NnP"/>
+                        <outlet property="phoneField" destination="APd-hq-mgP" id="DEk-Jh-LV4"/>
+                        <outlet property="registerButton" destination="DHQ-KY-uMK" id="5tc-IT-M4t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZ7-bp-Skm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-186.40000000000001" y="71.514242878560722"/>
+            <point key="canvasLocation" x="-187.5" y="71.25"/>
         </scene>
     </scenes>
     <resources>
