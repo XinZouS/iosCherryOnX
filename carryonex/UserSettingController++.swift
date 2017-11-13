@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZendeskSDK
 
 
 extension UserSettingController {
@@ -36,9 +37,11 @@ extension UserSettingController {
             
             switch indexPath.item {
             case 0:
-                let userGuide = UserGuideController()
-                userGuide.title = titles[indexPath.section][indexPath.item]
-                navigationController?.pushViewController(userGuide, animated: true)
+//                let userGuide = UserGuideController()
+//                userGuide.title = titles[indexPath.section][indexPath.item]
+//                navigationController?.pushViewController(userGuide, animated: true)
+                let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+                ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
                 
             case 1:
                 print("TODO: open 给游箱评价 page...")
