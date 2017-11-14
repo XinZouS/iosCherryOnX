@@ -45,10 +45,10 @@ extension InputPasswordLoginController: UITextFieldDelegate {
             print("get : okButtonTapped, api send text msg and go to next page!!!")
             SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
                 if err == nil {
-                    print("PhoneNumberController: 获取验证码成功, go next page!!!")
+                    print("PhoneNumViewController: 获取验证码成功, go next page!!!")
                     self.goToVerificationPage(isModifyPhone: true)
                 } else {
-                    print("PhoneNumberController: 有错误: \(String(describing: err))")
+                    print("PhoneNumViewController: 有错误: \(String(describing: err))")
                     let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
                     self.showAlertWith(title: "验证失败", message: msg)
                 }

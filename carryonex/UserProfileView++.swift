@@ -21,7 +21,7 @@ extension UserProfileView {
         homePageCtl?.present(navPhoto, animated: true, completion: nil)
     }
     internal func phoneButtonTapped(){
-        let mdfPhoneCtl = PhoneNumberController()
+        let mdfPhoneCtl = PhoneNumViewController()
         mdfPhoneCtl.isModifyPhoneNumber = true
         let navPhone = UINavigationController(rootViewController: mdfPhoneCtl)
         homePageCtl?.present(navPhone, animated: true, completion: nil)

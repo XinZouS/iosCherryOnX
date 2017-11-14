@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Phone Num View Controller-->
         <scene sceneID="vlf-E4-vEo">
             <objects>
-                <viewController id="eRT-V6-pbO" sceneMemberID="viewController">
+                <viewController id="eRT-V6-pbO" customClass="PhoneNumViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o8R-xM-HgU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,6 +82,9 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isShadowPathAutoSizing" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="eRT-V6-pbO" eventType="touchUpInside" id="Fvw-G0-HOX"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_grey" translatesAutoresizingMaskIntoConstraints="NO" id="nzc-eN-7XS">
                                 <rect key="frame" x="132.5" y="100" width="110" height="46"/>
@@ -90,7 +93,7 @@
                                     <constraint firstAttribute="height" constant="46" id="8YK-4f-feR"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="88" y="273.5" width="217" height="30"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -115,6 +118,9 @@
                                 <state key="normal" title="+86">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="countryCodeButtonTapped:" destination="eRT-V6-pbO" eventType="touchUpInside" id="K35-QJ-agj"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机验证" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd3-fA-05w">
                                 <rect key="frame" x="30" y="213.5" width="315" height="25"/>
@@ -130,13 +136,16 @@
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad9-B4-fjH">
-                                <rect key="frame" x="0.0" y="0.0" width="46" height="36"/>
+                                <rect key="frame" x="0.0" y="20" width="46" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="6eC-ja-y8l"/>
                                     <constraint firstAttribute="height" constant="36" id="8X1-i3-sly"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="eRT-V6-pbO" eventType="touchUpInside" id="crv-6K-Kg0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94386500634517767" green="0.94386500634517767" blue="0.94386500634517767" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -165,7 +174,7 @@
                             <constraint firstItem="nzc-eN-7XS" firstAttribute="centerX" secondItem="o8R-xM-HgU" secondAttribute="centerX" id="clM-qr-abc"/>
                             <constraint firstItem="v12-N4-fq0" firstAttribute="trailing" secondItem="LMn-Tc-Oa8" secondAttribute="trailing" id="eZL-sa-Wqw"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="leading" secondItem="9gA-WK-kAU" secondAttribute="trailing" constant="8" id="iSj-Oq-4Ym"/>
-                            <constraint firstItem="ad9-B4-fjH" firstAttribute="top" secondItem="o8R-xM-HgU" secondAttribute="top" id="ncB-RR-RLI"/>
+                            <constraint firstItem="ad9-B4-fjH" firstAttribute="top" secondItem="o8R-xM-HgU" secondAttribute="top" constant="20" id="ncB-RR-RLI"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="bottom" secondItem="9gA-WK-kAU" secondAttribute="bottom" id="oNZ-rl-VdB"/>
                             <constraint firstItem="9gA-WK-kAU" firstAttribute="centerY" secondItem="0ql-dn-o2I" secondAttribute="centerY" id="p2I-nl-XQR"/>
                             <constraint firstItem="fLe-7o-RX7" firstAttribute="centerY" secondItem="o8R-xM-HgU" secondAttribute="centerY" priority="800" constant="30" id="rPL-d2-toF"/>
@@ -178,6 +187,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LMn-Tc-Oa8"/>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="ad9-B4-fjH" id="hGE-NN-lul"/>
+                        <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
+                        <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
+                        <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9n-E7-JFu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

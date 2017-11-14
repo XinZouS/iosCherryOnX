@@ -17,7 +17,7 @@ extension UserSettingController {
         if indexPath.section == 0 {
             switch indexPath.item {
             case 0:
-                let phoneNumberCtl = PhoneNumberController()
+                let phoneNumberCtl = PhoneNumViewController()
                 phoneNumberCtl.isModifyPhoneNumber = true
                 navigationController?.pushViewController(phoneNumberCtl, animated: true)
                 
