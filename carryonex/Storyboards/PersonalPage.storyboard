@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmT-DD-0vi">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController id="xmT-DD-0vi" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M3b-E2-V5m">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGo-iA-8po">
-                                <rect key="frame" x="16" y="10" width="288" height="32"/>
+                                <rect key="frame" x="16" y="10" width="343" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="lT8-ac-xpm"/>
@@ -32,8 +32,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="carryonex_profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="5uE-DP-Byf">
-                                <rect key="frame" x="217" y="50" width="87" height="87"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="yadianwenqing" translatesAutoresizingMaskIntoConstraints="NO" id="5uE-DP-Byf">
+                                <rect key="frame" x="272" y="50" width="87" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="87" id="W4t-sf-i1O"/>
                                     <constraint firstAttribute="width" constant="87" id="in5-4l-3Wi"/>
@@ -50,14 +50,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyu-NV-fZB">
-                                <rect key="frame" x="22" y="183" width="282" height="2"/>
+                                <rect key="frame" x="22" y="183" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="XPQ-r9-Lt3"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Nx-8O-tak">
-                                <rect key="frame" x="22" y="234" width="282" height="2"/>
+                                <rect key="frame" x="22" y="234" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="BlQ-zZ-yBv"/>
@@ -73,7 +73,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meZ-vO-Csf">
-                                <rect key="frame" x="22" y="282" width="282" height="2"/>
+                                <rect key="frame" x="22" y="282" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="gvl-bW-obw"/>
@@ -99,7 +99,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKc-8i-kKD">
-                                <rect key="frame" x="22" y="332" width="282" height="2"/>
+                                <rect key="frame" x="22" y="332" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="4S1-Ke-DTr"/>
@@ -118,7 +118,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9P-pC-KsK">
-                                <rect key="frame" x="22" y="388" width="282" height="2"/>
+                                <rect key="frame" x="22" y="388" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="2" id="Dhy-xi-AJP"/>
@@ -128,7 +128,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6i-il-5F9">
-                                <rect key="frame" x="22" y="443" width="282" height="2"/>
+                                <rect key="frame" x="22" y="443" width="337" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="2" id="LaY-fZ-lJB"/>
@@ -162,38 +162,38 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cashin" translatesAutoresizingMaskIntoConstraints="NO" id="a4f-cY-nZM">
-                                <rect key="frame" x="252" y="242" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cashin" translatesAutoresizingMaskIntoConstraints="NO" id="a4f-cY-nZM">
+                                <rect key="frame" x="307" y="242" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="oee-II-ahk"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cashout23-1" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-Wa-Fi4">
-                                <rect key="frame" x="252" y="193" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cashout999" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-Wa-Fi4">
+                                <rect key="frame" x="307" y="186" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="yQF-xf-RQ7"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet" translatesAutoresizingMaskIntoConstraints="NO" id="bfV-qV-zeS">
-                                <rect key="frame" x="252" y="290" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet999" translatesAutoresizingMaskIntoConstraints="NO" id="bfV-qV-zeS">
+                                <rect key="frame" x="307" y="290" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="ta5-Zu-CRz"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="z0x-bB-mht">
-                                <rect key="frame" x="252" y="344" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help9999" translatesAutoresizingMaskIntoConstraints="NO" id="z0x-bB-mht">
+                                <rect key="frame" x="307" y="344" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="uDC-MO-VTD"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting" translatesAutoresizingMaskIntoConstraints="NO" id="LLb-Am-GxS">
-                                <rect key="frame" x="252" y="399" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting999" translatesAutoresizingMaskIntoConstraints="NO" id="LLb-Am-GxS">
+                                <rect key="frame" x="307" y="399" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="gEm-ax-NWW"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feedback" translatesAutoresizingMaskIntoConstraints="NO" id="lq5-Nv-TMC">
-                                <rect key="frame" x="252" y="453" width="50" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="opinion999" translatesAutoresizingMaskIntoConstraints="NO" id="lq5-Nv-TMC">
+                                <rect key="frame" x="307" y="453" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="DEN-SW-1pX"/>
                                     <constraint firstAttribute="width" constant="50" id="fjk-id-gmq"/>
@@ -217,7 +217,7 @@
                             <constraint firstItem="PKV-4R-3mK" firstAttribute="leading" secondItem="Nkr-JM-2HD" secondAttribute="trailing" constant="-74" id="5Ic-0R-Kk4"/>
                             <constraint firstItem="meZ-vO-Csf" firstAttribute="top" secondItem="aBQ-aU-fce" secondAttribute="bottom" constant="12" id="5ZX-uv-Xaa"/>
                             <constraint firstItem="meZ-vO-Csf" firstAttribute="leading" secondItem="M3b-E2-V5m" secondAttribute="leadingMargin" constant="6" id="8YD-H8-lXl"/>
-                            <constraint firstItem="0I7-Wa-Fi4" firstAttribute="top" secondItem="Dyu-NV-fZB" secondAttribute="bottom" constant="8" id="B8n-3I-Fkq"/>
+                            <constraint firstItem="0I7-Wa-Fi4" firstAttribute="top" secondItem="Dyu-NV-fZB" secondAttribute="bottom" constant="1" id="B8n-3I-Fkq"/>
                             <constraint firstItem="qd5-y0-vuC" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" constant="22" id="ByS-U9-7sC"/>
                             <constraint firstItem="H9P-pC-KsK" firstAttribute="top" secondItem="gJS-pH-Evy" secondAttribute="bottom" constant="16" id="DB6-Av-R6c"/>
                             <constraint firstItem="PKV-4R-3mK" firstAttribute="top" secondItem="bGo-iA-8po" secondAttribute="bottom" constant="46" id="EE7-bo-exA"/>
@@ -254,7 +254,7 @@
                             <constraint firstItem="c37-tx-rtt" firstAttribute="top" secondItem="H9P-pC-KsK" secondAttribute="bottom" constant="15" id="nSu-R7-QbD"/>
                             <constraint firstItem="aBQ-aU-fce" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" constant="16" id="nzB-49-RRa"/>
                             <constraint firstItem="gJS-pH-Evy" firstAttribute="top" secondItem="JKc-8i-kKD" secondAttribute="bottom" constant="14" id="odq-fh-Nfp"/>
-                            <constraint firstItem="8Nx-8O-tak" firstAttribute="top" secondItem="0I7-Wa-Fi4" secondAttribute="bottom" constant="5" id="ooP-ak-c8O"/>
+                            <constraint firstItem="8Nx-8O-tak" firstAttribute="top" secondItem="0I7-Wa-Fi4" secondAttribute="bottom" constant="12" id="ooP-ak-c8O"/>
                             <constraint firstItem="c37-tx-rtt" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" constant="22" id="rPp-qa-3sz"/>
                             <constraint firstItem="o6i-il-5F9" firstAttribute="trailing" secondItem="M3b-E2-V5m" secondAttribute="trailingMargin" id="sVF-9F-Lee"/>
                             <constraint firstItem="bfV-qV-zeS" firstAttribute="top" secondItem="meZ-vO-Csf" secondAttribute="bottom" constant="6" id="tm7-hJ-0m3"/>
@@ -274,12 +274,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="carryonex_profileImage" width="130" height="130"/>
-        <image name="cashin" width="164" height="134"/>
-        <image name="cashout23-1" width="168" height="132"/>
-        <image name="feedback" width="168" height="130"/>
-        <image name="help" width="150" height="130"/>
-        <image name="setting" width="172" height="140"/>
-        <image name="wallet" width="182" height="140"/>
+        <image name="cashin" width="52" height="44"/>
+        <image name="cashout999" width="51" height="45"/>
+        <image name="help9999" width="45" height="45"/>
+        <image name="opinion999" width="52" height="33"/>
+        <image name="setting999" width="42" height="42"/>
+        <image name="wallet999" width="49" height="46"/>
+        <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>
