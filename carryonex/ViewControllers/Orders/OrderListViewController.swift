@@ -130,4 +130,16 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         return 60
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let currentPage = dataSource?.count,
+            let currentItem = dataSource?[currentPage - 1].requests?.count,
+            !isFetching else {
+            return
+        }
+        
+        let section = indexPath.section
+        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
+            fetchRequests()
+        }
+    }
 }
