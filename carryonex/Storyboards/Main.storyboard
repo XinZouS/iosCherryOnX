@@ -86,10 +86,10 @@
             </objects>
             <point key="canvasLocation" x="920" y="272"/>
         </scene>
-        <!--PersonalPage-->
+        <!--Settings-->
         <scene sceneID="SJl-uo-62R">
             <objects>
-                <viewControllerPlaceholder storyboardName="PersonalPage" id="Zce-Zn-OO4" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Settings" id="Zce-Zn-OO4" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="NMP-aZ-eTs"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rz0-3w-KUx" userLabel="First Responder" sceneMemberID="firstResponder"/>
