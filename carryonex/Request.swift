@@ -39,7 +39,6 @@ class Request: Unboxable {
     var description: String?
     
     var endAddress: Address?
-    var images: [RequestImage]?
     var status: RequestStatusDetail?
     
     required init(unboxer: Unboxer) throws {
@@ -50,9 +49,7 @@ class Request: Unboxable {
         self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
         self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
-        
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
-        self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
     }
     
@@ -60,29 +57,23 @@ class Request: Unboxable {
         let allData = """
         id = \(id ?? 0)
         totalValue = \(totalValue ?? 0)
+        price = \(priceBySender ?? 0)
         ownerId = \(ownerId ?? 0)
         ownerUsername = \(ownerUsername ?? "")
         tripId = \(tripId ?? 0),
         description = \(description ?? "")"
+        endAddress = \(endAddress?.descriptionString() ?? "")
         """
-        //endAddress = \(endAddress ?? "")
         //images = \(images ?? "")
         //status = \(status ?? "")
         print(allData)
     }
-}
-
-struct RequestImage {
-    let id: String?
-    let requestId: String?
-    let imageUrl: String?
-}
-
-extension RequestImage: Unboxable {
-    init(unboxer: Unboxer) throws {
-        id = try? unboxer.unbox(key: "id")
-        requestId = try? unboxer.unbox(key: "request_id")
-        imageUrl = try? unboxer.unbox(key: "image_url")
+    
+    func priceString() -> String {
+        guard let price = priceBySender else {
+            return "No Price"
+        }
+        return String(format:"%.2f", Double(price) / 100)
     }
 }
 

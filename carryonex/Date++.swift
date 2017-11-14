@@ -68,7 +68,7 @@ extension Date {
     }
     
     static func getTimestampNow() -> Int {
-        return Int(NSDate.timeIntervalSinceReferenceDate)
+        return Int(NSDate().timeIntervalSince1970)
     }
 }
 

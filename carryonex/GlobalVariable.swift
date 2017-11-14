@@ -56,16 +56,16 @@ protocol ZipcodeCellDelegate: class {
     func setupTextField()
 }
 
-//TODO: rename this to more general name
-enum UserGuideTabSection: Int {
-    case sender, carrier
+enum TripCategory: Int {
+    case Carrier
+    case Sender
     
     var stringValue: String {
         switch self {
-        case .sender:
-            return "sender"
-        case .carrier:
+        case .Carrier:
             return "carrier"
+        case .Sender:
+            return "sender"
         }
     }
 }
