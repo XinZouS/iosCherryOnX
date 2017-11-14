@@ -445,9 +445,8 @@ class ApiServers : NSObject {
     }
     
     
-    //Todo: Change UserGuideTabSection
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
-    func getUsersTrips(userType: UserGuideTabSection, offset: Int, pageCount: Int = 4, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
+    func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
             completion(nil, nil)

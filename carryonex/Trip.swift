@@ -191,4 +191,18 @@ class Trip : NSObject, Unboxable {
     func getEndAddress() -> Address {
         return self.endAddress ?? Address()
     }
+    
+    func getDeliveryDateString() -> String {
+        guard let fromTime = pickupTimeStart else {
+            return "No Flight Date"
+        }
+        return getDateString(time: fromTime)
+    }
+    
+    private func getDateString(time: TimeInterval) -> String {
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: Date(timeIntervalSince1970: time))
+    }
 }

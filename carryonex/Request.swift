@@ -70,6 +70,13 @@ class Request: Unboxable {
         //status = \(status ?? "")
         print(allData)
     }
+    
+    func priceString() -> String {
+        guard let price = priceBySender else {
+            return "No Price"
+        }
+        return String(format:"%.2f", Double(price) / 100)
+    }
 }
 
 struct RequestImage {
