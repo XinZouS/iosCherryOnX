@@ -11,7 +11,7 @@ import Unbox
 
 struct TripOrder {
     let trip: Trip
-    let requests: [Request]?
+    let requests: [TripRequest]?
 }
 
 extension TripOrder: Unboxable {

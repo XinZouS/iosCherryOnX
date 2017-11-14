@@ -68,7 +68,7 @@ extension OrdersSenderPageCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogSenderCell, for: indexPath) as! OrderLogSenderCell
         
         cell.ordersLogCtl = self.ordersLogCtl
-        cell.request = reqs[indexPath.item]
+        cell.request = reqs[indexPath.item].request
         
         return cell
     }

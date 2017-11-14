@@ -84,7 +84,7 @@ extension OrdersShipperPageCell: UICollectionViewDataSource {
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdOrderLogShipperCell, for: indexPath) as! OrderLogShipperCell
-            cell.request = reqs[indexPath.row]
+            cell.request = reqs[indexPath.row].request
             return cell
         }
     }
