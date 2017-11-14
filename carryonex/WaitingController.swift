@@ -11,8 +11,6 @@ import FBSDKCoreKit
 import FBSDKShareKit
 import FacebookShare
 
-
-
 class WaitingController: UIViewController {
     
     var isForShipper : Bool = false
@@ -91,63 +89,19 @@ class WaitingController: UIViewController {
         b.addTarget(self, action: #selector(shareToFacebook), for: .touchUpInside)
         return b
     }()
-//    let facebookSharingContent : FBSDKShareLinkContent = {
-//        let content = FBSDKShareLinkContent()
-//        let p3 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), userGenerated: true)
-//        let p1 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-01-1"), userGenerated: true)
-//        let p2 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-02-1"), userGenerated: true)
-//        content.imageURL = URL(string: "https://s3-us-west-2.amazonaws.com/carryoneximage/userIdPhotos/userIdString123/passport-IMG_0005.JPG")
-//        // = [p1, p2, p3]
-//        content.contentURL = URL(string: "https://www.carryonex.com/")
-//        content.contentTitle = "CarryonEx 中秋大促"
-//        content.contentDescription = "中秋大促 中秋大促 中秋大促"
-//        
-//        return content
-//    }()
-//    lazy var facebookButton : FBSDKShareButton = {
-//        let p3 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), userGenerated: true)
-//        let p1 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-01-1"), userGenerated: true)
-//        let p2 = FBSDKSharePhoto(image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-02-1"), userGenerated: true)
-//        content.imageURL = URL(string: "https://s3-us-west-2.amazonaws.com/carryoneximage/userIdPhotos/userIdString123/passport-IMG_0005.JPG")
-//        // = [p1, p2, p3]
-//        content.contentURL = URL(string: "https://www.carryonex.com/")
-//        content.contentTitle = "CarryonEx 中秋大促"
-//        content.contentDescription = "中秋大促 中秋大促 中秋大促"
-//        
-//        let b = FBSDKShareButton()
-//        b.shareContent = content
-//        return b
-//    }()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
+        UIApplication.shared.statusBarStyle = .default
+        title = "安排接单"
         
         setupTitleAndButton()
-        
         setupImageView()
-        
         setupHintTextView()
-        
         setupUnderlineAndSharingLabel()
-        
         setupShareStackView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupStatusBar() // for light background
-    }
-    
-    
-    func setupStatusBar(){
-        UIApplication.shared.statusBarStyle = .default
-    }
-    
-    func setupNavigationBar(){
-        title = "安排接单"
     }
     
     private func setupTitleAndButton(){
@@ -168,6 +122,7 @@ class WaitingController: UIViewController {
         
         imageView.image = isForShipper ? #imageLiteral(resourceName: "CarryonEx_waiting_A") : #imageLiteral(resourceName: "CarryonEx_Waiting_B")
     }
+    
     func setupHintTextView(){
         let sideMargin: CGFloat = 40
         view.addSubview(hintTextView)
@@ -192,8 +147,6 @@ class WaitingController: UIViewController {
         let w : CGFloat = 40, h : CGFloat = 40, l : CGFloat = 0
         let v1 = UIView(), v2 = UIView(), v3 = UIView(), v4 = UIView()
         
-//        facebookButton.shareContent = facebookSharingContent
-        
         v1.addSubview(wechatButton)
         v2.addSubview(momentButton)
         v3.addSubview(weiboButton)
@@ -214,8 +167,140 @@ class WaitingController: UIViewController {
         view.addSubview(shareStackView)
         shareStackView.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 40, topConstent: 0, rightConstent: 40, bottomConstent: 30, width: 0, height: h)
     }
-    
-
-    
 }
 
+
+extension WaitingController: FBSDKSharingDelegate {
+    
+    internal func dismissView() {
+        self.navigationController?.popToRootViewController(animated: false)
+    }
+    
+    func shareToWechat(){
+        let title: String = "CarryonEx 帮你把思念带回家"
+        let msg: String = "关注[游箱]网站获取更多活动信息： https://www.carryonex.com/"
+        // mob.com sdk:
+        //prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeWechat)
+        
+        // wechat offical sdk:
+        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: nil)
+    }
+    
+    func shareToMonent(){
+        let title: String = "CarryonEx 帮你把思念带回家"
+        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
+        //prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeWechat)
+        
+        // wechat offical sdk:
+        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: "CarryonEx_OnBoarding-02-1.png", webUrl: nil)
+    }
+    
+    func shareToWeibo(){
+        let title: String = "CarryonEx 帮你把思念带回家"
+        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
+        prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeSinaWeibo)
+    }
+    
+    func shareToFacebook(){
+        if let token = FBSDKAccessToken.current() {
+            print("\n\rget FBSDKAccessToken: \(token)")
+        }
+        let title: String = "CarryonEx 帮你把思念带回家"
+        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
+        let url = URL(string: "https://www.carryonex.com/download/")
+        //let url = URL(string: "http://www.xingyu-gu.com")
+        let imgUrl = URL(string: "https://static.wixstatic.com/media/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png/v1/fill/w_161,h_66,al_c,usm_0.66_1.00_0.01/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png")
+        
+        let content = LinkShareContent(url: url!, title: title, description: "description!!!", quote: msg, imageURL: imgUrl) //FBSDKShareLinkContent()
+        do {
+            try ShareDialog.show(from: self, content: content)
+        } catch let err {
+            print(err)
+            let msg = "分享好像没发出去，错误信息：\(err)"
+            self.displayAlert(title: "哎呀分享失败啦", message: msg, action: "换个姿势再来一次")
+        }
+    }
+    
+    private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?, webUrl: String?){
+        let req = SendMessageToWXReq()
+        let message = WXMediaMessage()
+        // 1. share Image:
+        if let img = image {
+            //message.setThumbImage(img)  //生成缩略图
+            UIGraphicsBeginImageContext(CGSize(width: 200, height: 200))
+            img.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
+            if let thumbImage = UIGraphicsGetImageFromCurrentImageContext() {
+                UIGraphicsEndImageContext()
+                message.thumbData = UIImagePNGRepresentation(thumbImage)
+            }
+            let imgObj = WXImageObject()
+            if let d = UIImagePNGRepresentation(img) {
+                imgObj.imageData = d
+                message.mediaObject = imgObj
+                message.title=nil
+                message.description=nil
+                message.mediaTagName = "CarryonEx[游箱]"
+            }
+            req.bText = false
+            req.message = message
+            
+        } else if webUrl != nil { // 2. share offical Website:
+            let web =  WXWebpageObject()
+            web.webpageUrl = "https://www.carryonex.com/"
+            message.mediaObject = web
+            message.title = "CarryonEx [游箱]帮你把思念带回家"
+            message.description = "关注[游箱]网站获取更多活动信息：https://www.carryonex.com/"
+            message.setThumbImage(#imageLiteral(resourceName: "CarryonExIcon-29"))
+            
+            req.bText = false
+            req.message = message
+            
+        } else { // 3. share text message:
+            req.bText = true
+            req.text = textMsg
+        }
+        req.scene = Int32(scene.rawValue) //Int32(WXSceneSession.rawValue) //
+        WXApi.send(req)
+    }
+    
+    
+    // MARK: -
+    
+    private func prepareSharing(title: String, msg: String, img: UIImage, type: SSDKPlatformType) {
+        
+        // 1.创建分享参数
+        let shareParames = NSMutableDictionary()
+        shareParames.ssdkSetupShareParams(
+            byText: msg,
+            images : img, //UIImage(named: "shareImg.png"),
+            url : NSURL(string:"http://mob.com") as URL!,
+            title : title,
+            type : SSDKContentType.image)
+        
+        //2.进行分享
+        ShareSDK.share(type, parameters: shareParames) {
+            (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+            switch state{
+            case SSDKResponseState.success: print("分享成功")
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error?.localizedDescription ?? "get err in ")")
+            case SSDKResponseState.cancel:  print("操作取消")
+            default:
+                break
+            }
+        }
+    }
+    
+    // MARK: - FBSDKSharingDelegate
+    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+        print("share err: \(error)")
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print("did complete with result = \(results)")
+    }
+    
+    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+        print("sharerDidCancel....")
+    }
+    
+}

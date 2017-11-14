@@ -53,7 +53,6 @@
 		663121EB1F53651A000F7ACB /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121EA1F53651A000F7ACB /* PaymentCell.swift */; };
 		663121ED1F537CDE000F7ACB /* PaymentCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121EC1F537CDE000F7ACB /* PaymentCell++.swift */; };
 		663121EF1F539E04000F7ACB /* WaitingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121EE1F539E04000F7ACB /* WaitingController.swift */; };
-		663121F11F53C129000F7ACB /* WaitingController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121F01F53C129000F7ACB /* WaitingController++.swift */; };
 		663121F31F545B3C000F7ACB /* ConfirmBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121F21F545B3C000F7ACB /* ConfirmBaseController.swift */; };
 		663121F51F546185000F7ACB /* ConfirmBaseController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663121F41F546185000F7ACB /* ConfirmBaseController++.swift */; };
 		663121F71F548C6F000F7ACB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663121F61F548C6F000F7ACB /* MapKit.framework */; };
@@ -289,7 +288,6 @@
 		663121EA1F53651A000F7ACB /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
 		663121EC1F537CDE000F7ACB /* PaymentCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PaymentCell++.swift"; sourceTree = "<group>"; };
 		663121EE1F539E04000F7ACB /* WaitingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingController.swift; sourceTree = "<group>"; };
-		663121F01F53C129000F7ACB /* WaitingController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WaitingController++.swift"; sourceTree = "<group>"; };
 		663121F21F545B3C000F7ACB /* ConfirmBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBaseController.swift; sourceTree = "<group>"; };
 		663121F41F546185000F7ACB /* ConfirmBaseController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConfirmBaseController++.swift"; sourceTree = "<group>"; };
 		663121F61F548C6F000F7ACB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -397,7 +395,6 @@
 		66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneNum.storyboard; sourceTree = "<group>"; };
 		66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBaseCell.swift; sourceTree = "<group>"; };
 		66E5204E1F4C76EC008E521D /* UILabel++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
-		66E520511F4C81F6008E521D /* YouxiangCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "YouxiangCell++.swift"; sourceTree = "<group>"; };
 		66E520531F4CAA19008E521D /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		66E650161F5F129300DA90DE /* ApiServers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServers.swift; sourceTree = "<group>"; };
 		66E650181F5F231200DA90DE /* OrdersSenderPageCell++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrdersSenderPageCell++.swift"; sourceTree = "<group>"; };
@@ -704,7 +701,6 @@
 				660F4F751F57188F00F4820D /* AddressController */,
 				6664C9881F59A5D80088A9F5 /* TimeAvailableController */,
 				66CDBC6C1F7BF99F008DCB6B /* MapSearch */,
-				663121F01F53C129000F7ACB /* WaitingController++.swift */,
 				663121F41F546185000F7ACB /* ConfirmBaseController++.swift */,
 			);
 			name = Controller;
@@ -1036,7 +1032,6 @@
 		66E520501F4C81CC008E521D /* RequestController */ = {
 			isa = PBXGroup;
 			children = (
-				66E520511F4C81F6008E521D /* YouxiangCell++.swift */,
 			);
 			name = RequestController;
 			sourceTree = "<group>";
@@ -1454,7 +1449,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1610,7 +1605,6 @@
 				FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */,
 				6686097B1F608D6F00740A92 /* WalletCreditCell++.swift in Sources */,
 				668131171F94163C0022AEED /* UserSettingController++.swift in Sources */,
-				663121F11F53C129000F7ACB /* WaitingController++.swift in Sources */,
 				FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */,
 				E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
