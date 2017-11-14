@@ -193,11 +193,20 @@
                         <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
                         <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>
+                        <segue destination="qaU-hD-NgY" kind="show" identifier="gotoPhoneVerifyVC" id="FDD-m6-Or8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9n-E7-JFu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-127.2" y="152.47376311844079"/>
+        </scene>
+        <!--PhoneVerify-->
+        <scene sceneID="ziy-Bj-04u">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhoneVerify" id="qaU-hD-NgY" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mix-CD-Av9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="465" y="152"/>
         </scene>
     </scenes>
     <resources>

@@ -14,11 +14,12 @@ extension RegisterPasswordController: UITextFieldDelegate {
     func okButtonTapped(){
         if isRegister {
             let newPassword = passwordField.text ?? "123456"
-            ProfileManager.shared.register(username: phoneInput, countryCode: zoneCodeInput, phone: phoneInput, password: newPassword, email: emailInput, completion: { (success) in
+            ProfileManager.shared.register(username: phoneInput, countryCode: zoneCodeInput, phone: phoneInput, password: newPassword, email: emailInput, completion: { (success, msg, tag) in
                 if success {
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    self.displayAlert(title: "不能注册", message: "注册出现错误，请再试一次。", action: "好")
+                    let m = "注册出现错误，请再试一次。\(msg)"
+                    self.displayAlert(title: "不能注册", message: m, action: "好")
                 }
             })
         } else {

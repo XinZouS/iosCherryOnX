@@ -76,6 +76,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="mDl-U5-fKM" eventType="touchUpInside" id="cER-8p-7kM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHQ-KY-uMK" customClass="Button" customModule="Material">
                                 <rect key="frame" x="47.5" y="487.5" width="280" height="44"/>
@@ -85,6 +88,9 @@
                                     <constraint firstAttribute="height" constant="44" id="Whf-6c-umU"/>
                                 </constraints>
                                 <state key="normal" title="注册"/>
+                                <connections>
+                                    <action selector="handleRegisterButtonWithSender:" destination="mDl-U5-fKM" eventType="touchUpInside" id="8Nf-G2-4kc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -124,11 +130,20 @@
                         <outlet property="passwordField" destination="7PV-Zp-EMn" id="PJW-iG-NnP"/>
                         <outlet property="phoneField" destination="APd-hq-mgP" id="DEk-Jh-LV4"/>
                         <outlet property="registerButton" destination="DHQ-KY-uMK" id="5tc-IT-M4t"/>
+                        <segue destination="ugn-CI-uCU" kind="show" identifier="gotoPhoneVerifyVC" id="6SO-NU-Tsn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZ7-bp-Skm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-187.5" y="71.25"/>
+        </scene>
+        <!--PhoneVerify-->
+        <scene sceneID="yew-EK-UqQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhoneVerify" id="ugn-CI-uCU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MZu-3I-g44" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="457" y="70"/>
         </scene>
     </scenes>
     <resources>
