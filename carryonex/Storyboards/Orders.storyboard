@@ -48,7 +48,7 @@
                                     <action selector="handleDataSourceChangedWithSender:" destination="lgk-n5-ovN" eventType="valueChanged" id="2eH-aG-mWt"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
                                 <rect key="frame" x="0.0" y="57" width="375" height="561"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -77,18 +77,28 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwd-NJ-7aa">
+                                                    <rect key="frame" x="331" y="8" width="29" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.96068984879999997" green="1" blue="0.9568771063" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="rI2-eG-V5N" firstAttribute="top" secondItem="AuG-K5-YjB" secondAttribute="top" constant="8" id="0Io-7Y-Xkx"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gkC-3v-nmj" secondAttribute="trailing" constant="10" id="DiM-Po-kYS"/>
                                                 <constraint firstItem="rI2-eG-V5N" firstAttribute="leading" secondItem="AuG-K5-YjB" secondAttribute="leading" constant="15" id="KZ7-J2-9th"/>
                                                 <constraint firstItem="gkC-3v-nmj" firstAttribute="top" secondItem="rI2-eG-V5N" secondAttribute="bottom" constant="5" id="Ru3-lh-vFm"/>
+                                                <constraint firstItem="Mwd-NJ-7aa" firstAttribute="top" secondItem="rI2-eG-V5N" secondAttribute="top" id="WwR-fp-a4K"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mwd-NJ-7aa" secondAttribute="trailing" constant="15" id="YNm-dA-0Cx"/>
                                                 <constraint firstItem="gkC-3v-nmj" firstAttribute="leading" secondItem="rI2-eG-V5N" secondAttribute="leading" id="fC3-MR-tzm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="rI2-eG-V5N" id="dAY-Kx-6GK"/>
                                             <outlet property="locationLabel" destination="gkC-3v-nmj" id="SpH-vD-YGP"/>
+                                            <outlet property="tripLabel" destination="Mwd-NJ-7aa" id="g7q-tM-LCg"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCell" rowHeight="200" id="cOu-cX-J2R" customClass="OrderListCell" customModule="carryonex" customModuleProvider="target">
@@ -182,6 +192,15 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dividerThickness">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="lgk-n5-ovN" id="c6v-6N-Fri"/>
+                                    <outlet property="delegate" destination="lgk-n5-ovN" id="yvd-hT-vLV"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

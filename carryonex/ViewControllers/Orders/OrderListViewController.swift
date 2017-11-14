@@ -37,6 +37,8 @@ class OrderListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        listType = .Carrier
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,7 +47,9 @@ class OrderListViewController: UIViewController {
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
-        //listType = TripCategory
+        if let category = TripCategory(rawValue: sender.selectedSegmentIndex) {
+            listType = category
+        }
     }
     
     func fetchRequests() {
@@ -86,7 +90,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "OrderListCell", for: indexPath) as? OrderListCell {
-            cell.request = requests[indexPath.row]
+            let request = requests[indexPath.row].request
+            cell.request = request
+            cell.cellType = listType
+            request.printAllData()
             return cell
         }
         

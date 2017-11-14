@@ -12,6 +12,7 @@ class OrderListHeaderCell: UITableViewCell {
     
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var tripLabel: UILabel!
     
     var trip: Trip? {
         didSet {
@@ -24,6 +25,10 @@ class OrderListHeaderCell: UITableViewCell {
             
             if let date = trip?.getDeliveryDateString() {
                 self.dateLabel.text = date
+            }
+            
+            if let tripId = trip?.id {
+                self.tripLabel.text = "\(tripId)"
             }
         }
     }

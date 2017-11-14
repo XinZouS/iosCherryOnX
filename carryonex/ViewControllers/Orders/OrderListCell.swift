@@ -19,7 +19,12 @@ class OrderListCell: UITableViewCell {
     @IBOutlet var cellTypeLabel: UILabel!
     @IBOutlet var statusButton: UIButton!
     
-    var cellType: TripCategory = .Carrier
+    var cellType: TripCategory = .Carrier {
+        didSet {
+            cellTypeLabel.text = (cellType == .Carrier) ? "收件" : "寄件"
+        }
+    }
+    
     var request: Request? {
         didSet {
             tripLabel.text = "\(request?.tripId ?? -999)"
@@ -39,10 +44,12 @@ class OrderListCell: UITableViewCell {
                 priceLabel.text = price
             }
             
-            cellTypeLabel.text = (cellType == .Carrier) ? "收件" : "寄件"
-            
             //TODO: Update button
             statusButton.setTitle("更改状态", for: .normal)
+            
+            if let statusDescription = request?.status?.description {
+                statusLabel.text = statusDescription
+            }
         }
     }
     
