@@ -115,7 +115,7 @@
                                     <constraint firstAttribute="width" constant="40" id="ORb-ik-EOs"/>
                                     <constraint firstAttribute="height" constant="30" id="wlS-T5-r0t"/>
                                 </constraints>
-                                <state key="normal" title="+86">
+                                <state key="normal" title="+1">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -189,6 +189,7 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="ad9-B4-fjH" id="hGE-NN-lul"/>
+                        <outlet property="bottomImgeView" destination="v12-N4-fq0" id="3UJ-Hz-qZ0"/>
                         <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
                         <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>

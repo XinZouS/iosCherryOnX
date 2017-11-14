@@ -35,6 +35,7 @@ class PhoneNumViewController: UIViewController {
     @IBOutlet weak var phoneNumTextField: TextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var bottomImgeView: UIImageView!
     
     
     var transparentView : UIView = {
@@ -47,7 +48,7 @@ class PhoneNumViewController: UIViewController {
     
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
-        //p.backgroundColor = .yellow
+        p.backgroundColor = pickerColorLightGray
         p.dataSource = self
         p.delegate = self
         p.isHidden = false
@@ -62,8 +63,10 @@ class PhoneNumViewController: UIViewController {
         super.viewDidLoad()
         zoneCodeInput = "1"
 
+        setupTextField()
         setupFlagPicker()
         setupLoadingIndicator()
+        checkPhone()
     }
     
     // for keyboard notification:
@@ -86,9 +89,14 @@ class PhoneNumViewController: UIViewController {
     
     //MARK: - View custom set up
 
+    private func setupTextField(){
+        phoneNumTextField.delegate = self
+        phoneNumTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
+    }
+    
     private func setupFlagPicker(){
         view.addSubview(flagPicker)
-        flagPicker.addConstraints(left: view.leftAnchor, top: sendButton.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 20, topConstent: 0, rightConstent: 20, bottomConstent: 0, width: 0, height: 160)
+        flagPicker.addConstraints(left: bottomImgeView.leftAnchor, top: bottomImgeView.topAnchor, right: bottomImgeView.rightAnchor, bottom: bottomImgeView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
     }
  
     private func setupLoadingIndicator() {
@@ -97,7 +105,7 @@ class PhoneNumViewController: UIViewController {
         loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-
+    
     
     //MARK: - Action Handler
     
@@ -106,6 +114,7 @@ class PhoneNumViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {
+        verifyPhoneNum()
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -121,7 +130,7 @@ class PhoneNumViewController: UIViewController {
 
 extension PhoneNumViewController: PhoneNumberDelegate {
     
-    func nextButtonTapped() {
+    func verifyPhoneNum() {
         guard let newPhone = phoneNumTextField.text else {
             let m = "您还没填写电话号码呢！"
             displayGlobalAlert(title: "❓缺少信息", message: m, action: "朕知道了", completion: nil)
@@ -254,7 +263,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
 }
 
 
-// MARK: textField and keyboard
+// MARK: - textField and keyboard
 extension PhoneNumViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -263,6 +272,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        checkPhone()
         phoneNumTextField.resignFirstResponder()
     }
     
@@ -289,7 +299,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         sendButton.backgroundColor = sendButton.isEnabled ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
         let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
-        print(msg)
+        print(msg + ": \(zoneCodeInput) \(phoneInput)")
     }
     
     private func updateNextButton(){
@@ -345,7 +355,7 @@ extension PhoneNumViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 
 
-// MARK: for ALL country code use
+// MARK: - for ALL country code use
 extension PhoneNumViewController {
     
     class CountryPhoneCodeAndName: NSObject {
