@@ -419,7 +419,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     }
     
     private func showPhoneNumberPage() {
-        let newPhoneCtl = PhoneNumberController()
+        let newPhoneCtl = PhoneNumViewController()
         let phoneNumberViewContainer = UINavigationController.init(rootViewController: newPhoneCtl)
         present(phoneNumberViewContainer, animated: true, completion: nil)
     }

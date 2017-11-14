@@ -48,6 +48,10 @@ protocol PickerMenuViewDelegate: class {
     func dismissAnimation()
 }
 
+protocol PhoneNumberDelegate: class {
+    func dismissAndReturnToHomePage()
+}
+
 enum Payment {
     case applePay, paypal, creditCard, wechatPay
 }

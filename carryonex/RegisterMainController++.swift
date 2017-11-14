@@ -11,7 +11,7 @@ import UIKit
 extension RegisterMainController: UITextFieldDelegate {
     
     func textFieldsInAllCellResignFirstResponder(){
-        let phoneNumberCtl = PhoneNumberController()
+        let phoneNumberCtl = PhoneNumViewController()
         navigationController?.pushViewController(phoneNumberCtl, animated: true)
         
     }
