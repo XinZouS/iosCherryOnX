@@ -21,9 +21,20 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ql-dn-o2I">
                                 <rect key="frame" x="30" y="258.5" width="315" height="60"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Phone" translatesAutoresizingMaskIntoConstraints="NO" id="Bzc-xz-rPP">
+                                        <rect key="frame" x="279" y="17" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="IK0-AG-69p"/>
+                                            <constraint firstAttribute="width" secondItem="Bzc-xz-rPP" secondAttribute="height" multiplier="1:1" id="auY-pz-owK"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Bzc-xz-rPP" secondAttribute="trailing" constant="10" id="LCv-C2-hVo"/>
                                     <constraint firstAttribute="height" constant="60" id="jyr-uB-ViI"/>
+                                    <constraint firstItem="Bzc-xz-rPP" firstAttribute="centerY" secondItem="0ql-dn-o2I" secondAttribute="centerY" id="v8Y-vy-f9m"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -79,8 +90,8 @@
                                     <constraint firstAttribute="height" constant="46" id="8YK-4f-feR"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6" customClass="UIDesignableTextField">
-                                <rect key="frame" x="88" y="273.5" width="252" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6">
+                                <rect key="frame" x="88" y="273.5" width="217" height="30"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uaA-Qb-xuc"/>
@@ -150,15 +161,15 @@
                             </constraint>
                             <constraint firstItem="9gA-WK-kAU" firstAttribute="leading" secondItem="0ql-dn-o2I" secondAttribute="leading" constant="10" id="VJR-Bu-Nc3"/>
                             <constraint firstItem="Yd3-fA-05w" firstAttribute="trailing" secondItem="0ql-dn-o2I" secondAttribute="trailing" id="Vqc-Rd-wMY"/>
+                            <constraint firstItem="Bzc-xz-rPP" firstAttribute="leading" secondItem="iNn-t6-JK6" secondAttribute="trailing" constant="4" id="b2T-XH-VW4"/>
                             <constraint firstItem="nzc-eN-7XS" firstAttribute="centerX" secondItem="o8R-xM-HgU" secondAttribute="centerX" id="clM-qr-abc"/>
                             <constraint firstItem="v12-N4-fq0" firstAttribute="trailing" secondItem="LMn-Tc-Oa8" secondAttribute="trailing" id="eZL-sa-Wqw"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="leading" secondItem="9gA-WK-kAU" secondAttribute="trailing" constant="8" id="iSj-Oq-4Ym"/>
                             <constraint firstItem="ad9-B4-fjH" firstAttribute="top" secondItem="o8R-xM-HgU" secondAttribute="top" id="ncB-RR-RLI"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="bottom" secondItem="9gA-WK-kAU" secondAttribute="bottom" id="oNZ-rl-VdB"/>
                             <constraint firstItem="9gA-WK-kAU" firstAttribute="centerY" secondItem="0ql-dn-o2I" secondAttribute="centerY" id="p2I-nl-XQR"/>
-                            <constraint firstItem="iNn-t6-JK6" firstAttribute="trailing" secondItem="0ql-dn-o2I" secondAttribute="trailing" constant="-5" id="p51-RW-2fw"/>
                             <constraint firstItem="fLe-7o-RX7" firstAttribute="centerY" secondItem="o8R-xM-HgU" secondAttribute="centerY" priority="800" constant="30" id="rPL-d2-toF"/>
-                            <constraint firstItem="Yd3-fA-05w" firstAttribute="top" secondItem="nzc-eN-7XS" secondAttribute="bottom" priority="500" constant="40" id="rQM-BI-O2c">
+                            <constraint firstItem="Yd3-fA-05w" firstAttribute="top" secondItem="nzc-eN-7XS" secondAttribute="bottom" priority="500" constant="67.5" id="rQM-BI-O2c">
                                 <variation key="heightClass=regular-widthClass=regular" constant="200"/>
                             </constraint>
                             <constraint firstItem="v12-N4-fq0" firstAttribute="leading" secondItem="LMn-Tc-Oa8" secondAttribute="leading" id="udC-OH-zgz"/>
