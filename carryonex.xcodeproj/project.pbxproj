@@ -195,6 +195,7 @@
 		FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */; };
 		FF32AF701F97E42A00E67036 /* DetailUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */; };
 		FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */; };
+		FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */; };
 		FF45CE241FA8D0CB00B59E88 /* CommentTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF45CE231FA8D0CB00B59E88 /* CommentTagCell.swift */; };
 		FF45CE261FA8D44F00B59E88 /* CommentTextviewAndSubmitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF45CE251FA8D44F00B59E88 /* CommentTextviewAndSubmitCell.swift */; };
 		FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4896E61F98F3AC009B3EE5 /* DetailCreditLevelCell.swift */; };
@@ -435,6 +436,7 @@
 		FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterMainController++.swift"; sourceTree = "<group>"; };
 		FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserNameCell.swift; sourceTree = "<group>"; };
 		FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderDetailPage++.swift"; sourceTree = "<group>"; };
+		FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardViewController.swift; sourceTree = "<group>"; };
 		FF45CE231FA8D0CB00B59E88 /* CommentTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTagCell.swift; sourceTree = "<group>"; };
 		FF45CE251FA8D44F00B59E88 /* CommentTextviewAndSubmitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextviewAndSubmitCell.swift; sourceTree = "<group>"; };
 		FF4896E61F98F3AC009B3EE5 /* DetailCreditLevelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCreditLevelCell.swift; sourceTree = "<group>"; };
@@ -1144,6 +1146,7 @@
 				FF13217F1FBA36C200B2FE9D /* UserProfileController.swift */,
 				FF1321811FBA3D0C00B2FE9D /* UserStarController.swift */,
 				FFBDB6841FBA42FE00B3B968 /* UserRecentInfoController.swift */,
+				FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1340,6 +1343,10 @@
 		665DE4E11F3A0B70004DDB88 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					1,
+					2,
+				);
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = CarryonEx;
@@ -1623,6 +1630,7 @@
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
+				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,

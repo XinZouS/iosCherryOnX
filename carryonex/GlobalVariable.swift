@@ -32,6 +32,9 @@ struct MyRegex {
         }
     }
 }
+//cardView
+var viewTag :Int = 0
+
 enum ImageTypeOfID : String {
     case passport = "passport"
     case idCardA = "idCardA"
