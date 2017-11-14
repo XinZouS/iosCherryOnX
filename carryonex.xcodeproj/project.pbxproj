@@ -83,6 +83,7 @@
 		6664C98A1F59A71B0088A9F5 /* RequestInfoView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */; };
 		667266661F6715700010FDEC /* CheckingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266651F6715700010FDEC /* CheckingAccount.swift */; };
 		667266681F67158F0010FDEC /* CreditAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266671F67158F0010FDEC /* CreditAccount.swift */; };
+		667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667810641FBB48F100E1880E /* PhoneNumViewController.swift */; };
 		667DBD721F953FC500DF3800 /* LicensesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD711F953FC500DF3800 /* LicensesController.swift */; };
 		667DBD741F95460800DF3800 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD731F95460800DF3800 /* WebController.swift */; };
 		667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DBD761F954FA300DF3800 /* LicensesController++.swift */; };
@@ -139,9 +140,7 @@
 		66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C11FABA36500755754 /* OrdersBasePageCell.swift */; };
 		66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C31FACBB4300755754 /* ReachabilityManager.swift */; };
 		66C9756F1F3DF15200450F37 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9756E1F3DF15200450F37 /* UserProfileView.swift */; };
-		66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C975761F3E141600450F37 /* PhoneNumberController.swift */; };
 		66C975791F3E149700450F37 /* VerificationController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C975781F3E149700450F37 /* VerificationController++.swift */; };
-		66C9757B1F3E159400450F37 /* PhoneNumberController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9757A1F3E159400450F37 /* PhoneNumberController++.swift */; };
 		66C9757D1F3E165A00450F37 /* DisclaimerController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */; };
 		66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9757E1F3E167C00450F37 /* DisclaimerController.swift */; };
 		66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */; };
@@ -325,6 +324,7 @@
 		6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestInfoView++.swift"; sourceTree = "<group>"; };
 		667266651F6715700010FDEC /* CheckingAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckingAccount.swift; sourceTree = "<group>"; };
 		667266671F67158F0010FDEC /* CreditAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditAccount.swift; sourceTree = "<group>"; };
+		667810641FBB48F100E1880E /* PhoneNumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumViewController.swift; sourceTree = "<group>"; };
 		667DBD711F953FC500DF3800 /* LicensesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesController.swift; sourceTree = "<group>"; };
 		667DBD731F95460800DF3800 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 		667DBD761F954FA300DF3800 /* LicensesController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LicensesController++.swift"; sourceTree = "<group>"; };
@@ -382,9 +382,7 @@
 		66C138C11FABA36500755754 /* OrdersBasePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersBasePageCell.swift; sourceTree = "<group>"; };
 		66C138C31FACBB4300755754 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		66C9756E1F3DF15200450F37 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
-		66C975761F3E141600450F37 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberController.swift; sourceTree = "<group>"; };
 		66C975781F3E149700450F37 /* VerificationController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VerificationController++.swift"; sourceTree = "<group>"; };
-		66C9757A1F3E159400450F37 /* PhoneNumberController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhoneNumberController++.swift"; sourceTree = "<group>"; };
 		66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisclaimerController++.swift"; sourceTree = "<group>"; };
 		66C9757E1F3E167C00450F37 /* DisclaimerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerController.swift; sourceTree = "<group>"; };
 		66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationSearchTableController++.swift"; sourceTree = "<group>"; };
@@ -955,7 +953,6 @@
 			isa = PBXGroup;
 			children = (
 				FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */,
-				66C975761F3E141600450F37 /* PhoneNumberController.swift */,
 				66C9757E1F3E167C00450F37 /* DisclaimerController.swift */,
 				660704E31F3CF3E8000C09FD /* VerificationController.swift */,
 				FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */,
@@ -969,7 +966,6 @@
 			isa = PBXGroup;
 			children = (
 				FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */,
-				66C9757A1F3E159400450F37 /* PhoneNumberController++.swift */,
 				66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */,
 				66C975781F3E149700450F37 /* VerificationController++.swift */,
 				FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */,
@@ -1122,6 +1118,7 @@
 				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
+				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1192,6 +1189,7 @@
 			children = (
 				4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */,
 				4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */,
+				667810641FBB48F100E1880E /* PhoneNumViewController.swift */,
 				4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */,
 			);
 			path = Login;
@@ -1498,6 +1496,7 @@
 				664C64981F5602E800AA8FFE /* PostTripController++.swift in Sources */,
 				66C9756F1F3DF15200450F37 /* UserProfileView.swift in Sources */,
 				6695181B1F60A32A00BFC37B /* CreditController.swift in Sources */,
+				667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */,
 				66E6501F1F5F85B800DA90DE /* OrderLogShipperCell.swift in Sources */,
 				FF66FE291FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift in Sources */,
 				660F4F701F570D9B00F4820D /* AddressDetailCell.swift in Sources */,
@@ -1511,7 +1510,6 @@
 				FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */,
 				6681310F1F940F250022AEED /* UserSettingController.swift in Sources */,
 				663121E51F5232FD000F7ACB /* ShipperAvailableCell.swift in Sources */,
-				66C975771F3E141600450F37 /* PhoneNumberController.swift in Sources */,
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
@@ -1588,7 +1586,6 @@
 				66A16AF41F3B56B500B32AD3 /* User.swift in Sources */,
 				66A16AFA1F3B704A00B32AD3 /* HomePageController++.swift in Sources */,
 				660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */,
-				66C9757B1F3E159400450F37 /* PhoneNumberController++.swift in Sources */,
 				6633DC8F1F5CE42C00B2FFAC /* AddressSearchController++.swift in Sources */,
 				667E8F951FA7CC6A007B1C51 /* GiftPrizeCell.swift in Sources */,
 				E52FFBAA1FAA2C4800E79CDF /* UIViewController++.swift in Sources */,
