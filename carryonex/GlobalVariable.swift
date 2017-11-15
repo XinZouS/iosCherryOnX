@@ -119,3 +119,11 @@ func L(_ key: String) -> String {
     return NSLocalizedString(key, comment: "")
 }
 
+enum ErrorType: Int {
+    case noError = 0
+    case userRegisterErr = 1
+    case userAlreadyExist = 2
+    case userLoadLocalFail = 3
+    case userInfoNull = 4
+    
+}
