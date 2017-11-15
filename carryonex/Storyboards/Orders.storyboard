@@ -84,7 +84,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96068984879999997" green="1" blue="0.9568771063" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.92473399639129639" green="0.95613807439804077" blue="0.97606128454208374" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="rI2-eG-V5N" firstAttribute="top" secondItem="AuG-K5-YjB" secondAttribute="top" constant="8" id="0Io-7Y-Xkx"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gkC-3v-nmj" secondAttribute="trailing" constant="10" id="DiM-Po-kYS"/>
@@ -139,11 +139,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVS-1t-ag0">
-                                                    <rect key="frame" x="266" y="80" width="94" height="40"/>
+                                                    <rect key="frame" x="280" y="80" width="80" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="2kF-Gp-x9W"/>
+                                                        <constraint firstAttribute="width" constant="80" id="niE-yJ-mXO"/>
                                                     </constraints>
-                                                    <state key="normal" title="Status Button"/>
+                                                    <state key="normal" title="Status"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKk-rd-uqH">
                                                     <rect key="frame" x="15" y="87.5" width="134" height="21"/>
@@ -158,6 +159,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.95872360467910767" green="0.95645493268966675" blue="0.8379136323928833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="cm1-5Y-aPQ" secondAttribute="trailing" constant="15" id="4Hp-o6-Eqm"/>
                                                 <constraint firstItem="xVS-1t-ag0" firstAttribute="trailing" secondItem="cm1-5Y-aPQ" secondAttribute="trailing" id="4oo-Te-Eka"/>
@@ -205,6 +207,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.95872360467910767" green="0.95645493268966675" blue="0.8379136323928833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="2J0-0S-fco" firstAttribute="centerY" secondItem="a0G-VM-6gh" secondAttribute="centerY" id="3nR-Wt-R5E"/>
                                                 <constraint firstItem="2J0-0S-fco" firstAttribute="centerX" secondItem="a0G-VM-6gh" secondAttribute="centerX" id="fSu-Ms-nND"/>

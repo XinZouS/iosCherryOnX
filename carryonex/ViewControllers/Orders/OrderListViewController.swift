@@ -121,10 +121,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let requests = dataSource?[section].requests else {
-            return 1    //Empty cell
+        if let requests = dataSource?[section].requests {
+            return (requests.count > 0) ? requests.count : 1    //Empty cell
         }
-        return requests.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
