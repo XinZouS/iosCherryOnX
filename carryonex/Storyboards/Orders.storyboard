@@ -191,6 +191,29 @@
                                             <outlet property="tripLabel" destination="8A2-Ho-5BK" id="sDI-o9-6Jx"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListEmptyCell" rowHeight="44" id="gzD-pL-Mhi" customClass="OrderListEmptyCell" customModule="carryonex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="288" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gzD-pL-Mhi" id="a0G-VM-6gh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2J0-0S-fco">
+                                                    <rect key="frame" x="166" y="12" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2J0-0S-fco" firstAttribute="centerY" secondItem="a0G-VM-6gh" secondAttribute="centerY" id="3nR-Wt-R5E"/>
+                                                <constraint firstItem="2J0-0S-fco" firstAttribute="centerX" secondItem="a0G-VM-6gh" secondAttribute="centerX" id="fSu-Ms-nND"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="emptyLabel" destination="2J0-0S-fco" id="lE1-tS-QbQ"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="dividerThickness">

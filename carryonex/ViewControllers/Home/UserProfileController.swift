@@ -25,7 +25,7 @@ class UserProfileController: UIViewController {
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         let imgUrl = URL(string: currUser.imageUrl ?? "")
         URLCache.shared.removeAllCachedResponses()
-        userProfileImageBtn.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+        //userProfileImageBtn.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
