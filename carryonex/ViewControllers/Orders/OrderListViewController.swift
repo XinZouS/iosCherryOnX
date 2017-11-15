@@ -37,8 +37,18 @@ class OrderListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchRequests()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        listType = .Carrier
+        carrierDataSource.removeAll()
+        senderDataSource.removeAll()
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,6 +99,13 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        if requests.count == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "OrderListEmptyCell", for: indexPath) as? OrderListEmptyCell {
+                return cell
+            }
+            return UITableViewCell()
+        }
+        
         if let cell = tableView.dequeueReusableCell(withIdentifier: "OrderListCell", for: indexPath) as? OrderListCell {
             let request = requests[indexPath.row].request
             cell.request = request
@@ -96,11 +113,13 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             request.printAllData()
             return cell
         }
-        
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let requests = dataSource?[indexPath.section].requests {
+            return requests.count > 0 ? 200 : 44
+        }
         return 200
     }
     
@@ -112,10 +131,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let requests = dataSource?[section].requests else {
-            return 0
+        if let requests = dataSource?[section].requests {
+            return (requests.count > 0) ? requests.count : 1    //Empty cell
         }
-        return requests.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

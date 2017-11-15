@@ -63,19 +63,7 @@ extension PostTripController {
     }
     
     private func showWaitingPageWithTransition(){
-        let waitingCtl = WaitingController()
-        waitingCtl.isForShipper = false
-        
-        let transition: CATransition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromBottom
-        self.navigationController?.view.layer.add(transition, forKey: kCATransition)
-        
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.navigationController?.pushViewController(waitingCtl, animated: false)
+        self.navigationController?.pushViewController(WaitingController(), animated: false)
     }
     
     func startAddressButtonTapped(){

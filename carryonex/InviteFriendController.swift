@@ -8,25 +8,11 @@
 
 import UIKit
 
-
-
 class InviteFriendController: WaitingController {
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         imageView.image = #imageLiteral(resourceName: "yadianwenqing")
-        
-        self.setupNavigationBar()
-    }
-    
-    override func setupStatusBar() {
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    override func setupNavigationBar(){
-        self.title = "邀请好友"
     }
     
     override func setupImageView(){
@@ -46,5 +32,4 @@ class InviteFriendController: WaitingController {
     }
     
 }
-
 
