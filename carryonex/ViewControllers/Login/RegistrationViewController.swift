@@ -66,24 +66,33 @@ class RegistrationViewController: UIViewController {
             nameField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             nameField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             nameField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            AudioManager.shared.playSond(named: .failed)
             return
         }
-        
+                
         guard let phone = phoneField.text else {
             phoneField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             phoneField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             phoneField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             isPhoneNumValid = false
+            AudioManager.shared.playSond(named: .failed)
             return
         }
         
         if !isPasswordValidate() {
+            AudioManager.shared.playSond(named: .failed)
             return
         }
         
-        guard isPasswordValid && isPhoneNumValid else { return }
+        guard isPasswordValid && isPhoneNumValid else { 
+            AudioManager.shared.playSond(named: .failed)
+            return 
+        }
         
-        guard let password = passwordField.text else { return }
+        guard let password = passwordField.text else { 
+            AudioManager.shared.playSond(named: .failed)
+            return 
+        }
         
         ApiServers.shared.getIsUserExisted(phoneInput: phone) { (isExist, error) in
             if let error = error {
@@ -147,6 +156,7 @@ class RegistrationViewController: UIViewController {
             confirmPasswordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             confirmPasswordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
             confirmPasswordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+            AudioManager.shared.playSond(named: .failed)
             isPasswordValid = false
             return false
         }
