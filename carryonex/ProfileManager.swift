@@ -70,27 +70,21 @@ class ProfileManager: NSObject {
     }
     
     /**
-     completion(isSuccess:Bool, msg:String, tag:Int),
-     tag[
-     0 : regisiter error,
-     1 : unable to retrive token, usually user already exist,
-     2 : loadLocalUser error,
-     3 : return user info is nil
-     ]
+     completion(isSuccess:Bool, msg:String, type:ErrorType),
      */
-    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool, String, Int) -> Swift.Void) {
+    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
         ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email, name: name) { (userToken, error) in
             if let error = error {
                 let msg = "Register Error: \(error.localizedDescription)"
                 print(msg)
-                completion(false, msg, 0)
+                completion(false, error, .userRegisterErr)
                 return
             }
             
             guard let userToken = userToken else {
                 let msg = "Unable to retrieve token"
                 print(msg)
-                completion(false, msg, 1)
+                completion(false, error, .userAlreadyExist)
                 return
             }
             
@@ -98,17 +92,17 @@ class ProfileManager: NSObject {
                 if let error = error {
                     let msg = "loadLocalUser Error: \(error.localizedDescription)"
                     print(msg)
-                    completion(false, msg, 2)
+                    completion(false, error, .userLoadLocalFail)
                     return
                 }
                 
                 if let user = user {
                     self.updateCurrentUser(user, writeToKeychain: true)
-                    completion(true, "Register Success!", 9)
+                    completion(true, error, .noError)
                 } else {
                     let msg = "return user info is nil"
                     print(msg)
-                    completion(false, msg, 3)
+                    completion(false, error, .userInfoNull)
                 }
             })
         }

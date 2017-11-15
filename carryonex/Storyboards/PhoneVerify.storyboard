@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Phone Validation View Controller-->
         <scene sceneID="tRY-80-hrR">
             <objects>
-                <viewController id="EVF-5t-OYk" sceneMemberID="viewController">
+                <viewController id="EVF-5t-OYk" customClass="PhoneValidationViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n6Z-ct-2zi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,6 +34,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="EVF-5t-OYk" eventType="touchUpInside" id="BZg-fm-g8W"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="短信验证码已发送至(123)-456-7890，请在此输入" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCT-vt-Prp">
                                 <rect key="frame" x="26.5" y="175" width="267" height="46"/>
@@ -146,6 +149,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="没有收到验证码？重新发送"/>
+                                <connections>
+                                    <action selector="resendButtonTapped:" destination="EVF-5t-OYk" eventType="touchUpInside" id="F89-RM-a2O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -167,6 +173,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HB9-Ck-JkU"/>
                     </view>
+                    <connections>
+                        <outlet property="hintLabel" destination="lCT-vt-Prp" id="510-Hm-hJF"/>
+                        <outlet property="resendButton" destination="vrY-Df-ZXQ" id="TfI-RV-qYa"/>
+                        <outlet property="verifyCodeLabel01" destination="W07-kC-9mZ" id="gz3-X5-Rw0"/>
+                        <outlet property="verifyCodeLabel02" destination="y2J-Kq-oXw" id="pSY-ic-WZG"/>
+                        <outlet property="verifyCodeLabel03" destination="SEs-pd-g79" id="7lJ-sS-FXi"/>
+                        <outlet property="verifyCodeLabel04" destination="Y6e-cn-Zgo" id="wHB-gl-cYr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZT-rb-csK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

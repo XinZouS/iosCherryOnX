@@ -40,23 +40,18 @@ class RegistrationViewController: UIViewController {
         setupTextFields()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     private func setupTextFields() {
+        nameField.delegate = self
+        phoneField.delegate = self
+        passwordField.delegate = self
+        confirmPasswordField.delegate = self
+        
+        nameField.keyboardType = .default
+        phoneField.keyboardType = .numberPad
+        passwordField.keyboardType = .default
+        confirmPasswordField.keyboardType = .default
+        
         nameField.addTarget(self, action: #selector(checkRegistrationButtonReady), for: .editingChanged)
         phoneField.addTarget(self, action: #selector(checkPhoneNumFormat), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
@@ -89,25 +84,50 @@ class RegistrationViewController: UIViewController {
         guard isPasswordValid && isPhoneNumValid else { return }
         
         guard let password = passwordField.text else { return }
-        ProfileManager.shared.register(username: phone,
-                                       countryCode: countryCode,
-                                       phone: phone,
-                                       password: password,
-                                       name: name,
-                                       completion: { (success, m, tag) in
-            if success {
-                self.performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: self)
-            } else {
-                let e1 = "您所使用的手机号已注册，请使用密码登陆即可。"
-                let e2 = "注册出现错误，请确保所填信息正确，稍后再试一次。\n错误: \(m)"
-                let msg = tag == 1 ? e1 : e2
-                self.displayGlobalAlert(title: "⚠️不能注册", message: msg, action: "好", completion: { () in
-                    if tag == 1 { // user already exist, go back to login
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                })
+        
+        ApiServers.shared.getIsUserExisted(phoneInput: phone) { (isExist, error) in
+            if let error = error {
+                let e = "注册出现错误，请稍后再试一次。\n错误: \(error.localizedDescription)"
+                self.displayGlobalAlert(title: "⚠️不能注册", message: e, action: "好", completion: nil)
+                return
             }
-        })
+            if isExist {
+                let m = "您所使用的手机号 \(phone) 已注册，请使用密码登陆即可。"
+                self.displayGlobalAlert(title: "💡用户已存在", message: m, action: "去登陆", completion: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+                
+            } else {
+                let info: [String:String] = [
+                    "realName" : name,
+                    "countryCode" : self.countryCode,
+                    "phone" : phone,
+                    "password" : password,
+                ]
+                self.performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: info)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destVC = segue.destination as? PhoneValidationViewController {
+            if let info = sender as? [String:String] {
+                destVC.registerUserInfo = info
+            }
+        } else {
+            print("get error: RegistrationVC: prepare for segue get nil at destVC...")
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismissKeyboards()
+    }
+    
+    fileprivate func dismissKeyboards(){
+        nameField.resignFirstResponder()
+        phoneField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        confirmPasswordField.resignFirstResponder()
     }
     
     private func isPasswordPatternValidate(textField: TextField) -> Bool {
@@ -171,4 +191,23 @@ class RegistrationViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension RegistrationViewController: TextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboards()
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        dismissKeyboards()
+        return true
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
