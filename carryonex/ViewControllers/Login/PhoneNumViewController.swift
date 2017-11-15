@@ -235,12 +235,14 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     }
     
     func goToVerificationPage(){
-        let verifiCtl = VerificationController()
-        verifiCtl.isModifyPhoneNumber = false
-        verifiCtl.zoneCodeInput = self.zoneCodeInput
-        verifiCtl.phoneInput = self.phoneInput
+        performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: self)
         
-        self.navigationController?.pushViewController(verifiCtl, animated: true)
+//        let verifiCtl = VerificationController()
+//        verifiCtl.isModifyPhoneNumber = false
+//        verifiCtl.zoneCodeInput = self.zoneCodeInput
+//        verifiCtl.phoneInput = self.phoneInput
+//
+//        self.navigationController?.pushViewController(verifiCtl, animated: true)
     }
     
     // MARK: delegate: go back to home page

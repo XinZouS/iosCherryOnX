@@ -16,7 +16,7 @@ import AWSS3
 
 import ALCameraViewController
 
-class UserProfileController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class UserProfileController: NewHomePageController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
@@ -82,6 +82,12 @@ class UserProfileController: UIViewController, UINavigationControllerDelegate, U
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
         userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.height)*3/5)
+        switch timeStatus {
+        case "night":
+            helloLabel.textColor = .white
+        default:
+            helloLabel.textColor = .black
+        }
     }
     
     func loadUserProfile(){
@@ -93,28 +99,17 @@ class UserProfileController: UIViewController, UINavigationControllerDelegate, U
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         }
         if let currUserName  = currUser.username,currUserName != ""{
-            let date = Date()
-            let timeFormatter = DateFormatter()
-            timeFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-            let strNowTime = timeFormatter.string(from: date) as String
-            let StartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 8)
-            let endIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 9)
-            let nowHour = String(strNowTime[StartIndex]) + String(strNowTime[endIndex])
             var greeting = "你好"
-            if let nowHourInt = Int(nowHour){
-                if (nowHourInt >= 6 && nowHourInt < 12){
-                    greeting = "早上好，"
-                }else{
-                    if (nowHourInt >= 12 && nowHourInt < 14){
-                        greeting = "中午好，"
-                    }else
-                        if (nowHourInt >= 14 && nowHourInt < 18){
-                            greeting = "下午好，"
-                        }else{
-                            greeting = "晚上好，"
-                        }
-                    }
-                }
+            switch timeStatus {
+            case "night":
+                greeting = "晚上好，"
+            case "afternoon":
+                greeting = "下午好，"
+            case "noon":
+                greeting = "中午好，"
+            default:
+                greeting = "早上好，"
+            }
             let labelDisplay = greeting+currUserName
             helloLabel.text = labelDisplay
             }

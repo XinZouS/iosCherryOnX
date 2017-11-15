@@ -69,32 +69,40 @@ class ProfileManager: NSObject {
         }
     }
     
-    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool) -> Swift.Void) {
+    /**
+     completion(isSuccess:Bool, msg:String, type:ErrorType),
+     */
+    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
         ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email, name: name) { (userToken, error) in
             if let error = error {
-                print("Register Error: \(error.localizedDescription)")
-                completion(false)
+                let msg = "Register Error: \(error.localizedDescription)"
+                print(msg)
+                completion(false, error, .userRegisterErr)
                 return
             }
             
             guard let userToken = userToken else {
-                print("Unable to retrieve token")
+                let msg = "Unable to retrieve token"
+                print(msg)
+                completion(false, error, .userAlreadyExist)
                 return
             }
             
             ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
                 if let error = error {
-                    print("loadLocalUser Error: \(error.localizedDescription)")
-                    completion(false)
+                    let msg = "loadLocalUser Error: \(error.localizedDescription)"
+                    print(msg)
+                    completion(false, error, .userLoadLocalFail)
                     return
                 }
                 
                 if let user = user {
                     self.updateCurrentUser(user, writeToKeychain: true)
-                    completion(true)
+                    completion(true, error, .noError)
                 } else {
-                    print("return user info is nil")
-                    completion(false)
+                    let msg = "return user info is nil"
+                    print(msg)
+                    completion(false, error, .userInfoNull)
                 }
             })
         }

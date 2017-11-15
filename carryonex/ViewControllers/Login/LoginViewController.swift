@@ -74,6 +74,7 @@ class LoginViewController: UIViewController {
                          action: L("action.ok")) {
                 _ = self.phoneField.becomeFirstResponder()
             }
+            AudioManager.shared.playSond(named: .failed)
             return
         }
         
@@ -83,6 +84,7 @@ class LoginViewController: UIViewController {
                          action: L("action.ok")) {
                 _ = self.passwordField.becomeFirstResponder()
             }
+            AudioManager.shared.playSond(named: .failed)
             return
         }
         
@@ -91,14 +93,16 @@ class LoginViewController: UIViewController {
         ProfileManager.shared.login(username: phone, password: password) { (success) in
             
             if success {
+                AudioManager.shared.playSond(named: .success)
                 self.dismiss(animated: true, completion: nil)
-                
+
             } else {
                 self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
                 self.passwordField.detailLabel.text = L("login.error.message.wrong-password")
+                AudioManager.shared.playSond(named: .failed)
             }
         }
     }
