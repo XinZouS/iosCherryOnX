@@ -37,8 +37,18 @@ class OrderListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchRequests()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        listType = .Carrier
+        carrierDataSource.removeAll()
+        senderDataSource.removeAll()
     }
 
     override func didReceiveMemoryWarning() {
