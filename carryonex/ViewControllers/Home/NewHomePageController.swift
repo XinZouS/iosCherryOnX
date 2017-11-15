@@ -9,26 +9,12 @@
 import UIKit
 
 class NewHomePageController :UIViewController{
-    
-    
+    var userProfileCtl = UserProfileController()
     override func viewDidLoad() {
-        setupUserInfoButton()
-        setupShipperButton()
-        setupSenderButton()
+        super.viewDidLoad()
     }
-    
-    private func setupUserInfoButton(){
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 
-    }
-    
-    private func setupShipperButton(){
-
-    }
-    
-    private func setupSenderButton(){
-
-    }
-    
-    @IBAction func userInfoButtonTapped(_ sender: Any) {
-    }
 }

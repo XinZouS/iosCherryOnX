@@ -364,7 +364,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HG6-Gj-nCT" kind="embed" id="nTT-3o-8po"/>
+                                    <segue destination="HG6-Gj-nCT" kind="embed" identifier="shipper" id="nTT-3o-8po"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efh-rZ-8OS">
@@ -383,7 +383,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HG6-Gj-nCT" kind="embed" id="Jgb-4Y-Lap"/>
+                                    <segue destination="HG6-Gj-nCT" kind="embed" identifier="sender" id="Jgb-4Y-Lap"/>
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最新订单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbw-Jb-n6t">
@@ -414,10 +414,10 @@
             </objects>
             <point key="canvasLocation" x="1369" y="440"/>
         </scene>
-        <!--View Controller-->
+        <!--User Card View Controller-->
         <scene sceneID="RJ3-bT-yGT">
             <objects>
-                <viewController id="HG6-Gj-nCT" sceneMemberID="viewController">
+                <viewController id="HG6-Gj-nCT" customClass="UserCardViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="sH9-pa-dKR">
                         <rect key="frame" x="0.0" y="0.0" width="125" height="249"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -431,7 +431,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是出行人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="SdW-0A-pDb">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是寄件人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="SdW-0A-pDb">
                                         <rect key="frame" x="33" y="10" width="60" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="jtJ-en-3oJ"/>
@@ -554,6 +554,16 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <connections>
+                        <outlet property="BeginIconImage" destination="l0A-fk-OVx" id="7Hw-5u-l7c"/>
+                        <outlet property="ItemDetailBtn" destination="cvw-Lq-mZv" id="VzM-zz-Erk"/>
+                        <outlet property="ItemStatusBtn" destination="hNm-h6-Twn" id="rgq-p4-nY2"/>
+                        <outlet property="UserStatus" destination="SdW-0A-pDb" id="jjy-v3-n08"/>
+                        <outlet property="beginLocationLabel" destination="k1i-YZ-eRO" id="nJK-W9-dMw"/>
+                        <outlet property="endIconImage" destination="Vbf-W8-rpX" id="3IH-Nh-0IY"/>
+                        <outlet property="endLocationLabel" destination="IA6-lq-H5N" id="3yO-9F-KbR"/>
+                        <outlet property="timeLabel" destination="2MO-JA-Zff" id="A8h-Wz-Boj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HZ-Jy-qSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
