@@ -34,6 +34,8 @@ struct MyRegex {
 }
 //cardView
 var viewTag :Int = 0
+// wechat login judge
+var wxloginStatus :String = ""
 
 enum ImageTypeOfID : String {
     case passport = "passport"

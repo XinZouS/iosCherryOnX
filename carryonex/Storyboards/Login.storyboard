@@ -134,6 +134,9 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isShadowPathAutoSizing" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="wechatButtonTapped:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="g71-rV-YBI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J80-6R-1fK">
                                 <rect key="frame" x="49" y="213.66666666666666" width="40" height="30"/>

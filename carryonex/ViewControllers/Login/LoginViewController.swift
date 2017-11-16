@@ -147,6 +147,74 @@ class LoginViewController: UIViewController {
     
     //MARK - Helper Method
     
+    @IBAction func wechatButtonTapped(_ sender: Any) {
+        wxloginStatus = "WXregister"
+        let urlStr = "weixin://"
+        if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
+            let red = SendAuthReq.init()
+            red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
+            red.state = "\(arc4random()%100)"
+            WXApi.send(red)
+        }else{
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!)
+            }
+        }
+    }
+    
+    func makeUserRegister(openid:String,access_token:String){
+        let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
+        
+        DispatchQueue.global().async {
+            
+            let requestURL: URL = URL.init(string: requestUrl)!
+            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+            
+            DispatchQueue.main.async {
+                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                print(jsonResult)
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String{
+                    // check wechat account existed?
+                    ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
+                        if success{
+                            // if exist log in
+                            ProfileManager.shared.login(username: username, password: username,completion: { (success) in
+                                if success{
+                                    // if log in success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print("errorelse")
+                                }
+                            })
+                        }else{
+                            //if doesn't exist then register
+                            ProfileManager.shared.WXregister(username: username, password: username,                                       completion: { (success, err, errType) in
+                                if success{
+                                    //if register success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print(errType)
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+    }
     func checkPassword(){
         passwordField.leftViewNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         passwordField.dividerNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)

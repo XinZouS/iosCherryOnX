@@ -154,6 +154,45 @@ class ApiServers : NSObject {
         }
     }
     
+    func postWXRegisterUser(username: String, password: String,  name: String, completion: @escaping(String?, Error?) -> Swift.Void) {
+        
+        let deviceToken = UserDefaults.getDeviceToken() ?? ""
+        let route = hostVersion + "/users"
+        let postData = [
+            ServerKey.username.rawValue: username,
+            ServerKey.password.rawValue: password,
+            ServerKey.deviceToken.rawValue: deviceToken,
+            ServerKey.realName.rawValue: name
+        ]
+        let parameters:[String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.data.rawValue : postData
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postRegisterUser response error: \(error.localizedDescription)")
+                }
+                completion(nil, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                if let token = data[ServerKey.userToken.rawValue] as? String {
+                    completion(token, nil)
+                } else {
+                    print("postRegisterUser - Unable to find token from user data")
+                    completion(nil, nil)
+                }
+            } else {
+                print("postRegisterUser - Unable to find user data")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     func getIsUserExisted(phoneInput: String, completion: @escaping (Bool, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/exist"

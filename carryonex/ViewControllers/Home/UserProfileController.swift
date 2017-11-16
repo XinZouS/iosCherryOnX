@@ -17,7 +17,6 @@ import AWSS3
 import ALCameraViewController
 
 class UserProfileController: NewHomePageController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
     @IBOutlet weak var senderButton: UIButton!
@@ -25,6 +24,7 @@ class UserProfileController: NewHomePageController, UINavigationControllerDelega
     @IBOutlet weak var locationLabel: UILabel!
     var appDidLaunch = false
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var loginViewCtl = LoginViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,12 @@ class UserProfileController: NewHomePageController, UINavigationControllerDelega
                     let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                     let openid: String = jsonResult["openid"] as! String
                     let access_token: String = jsonResult["access_token"] as! String
-                    self?.getUserInfo(openid: openid, access_token: access_token)
+                    switch wxloginStatus{
+                    case "WXregister":
+                        self?.loginViewCtl.makeUserRegister(openid: openid, access_token: access_token)
+                    default:
+                        self?.getUserInfo(openid: openid, access_token: access_token)
+                    }
                 }
             }
         }
@@ -245,6 +250,7 @@ class UserProfileController: NewHomePageController, UINavigationControllerDelega
 extension UserProfileController {
     
     func wechatButtonTapped(){
+        wxloginStatus = "fillProfile"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
             let red = SendAuthReq.init()

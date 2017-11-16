@@ -108,6 +108,42 @@ class ProfileManager: NSObject {
         }
     }
     
+    func WXregister(username: String, password: String, name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
+        ApiServers.shared.postWXRegisterUser(username: username, password: password,name: name) { (userToken, error) in
+            if let error = error {
+                let msg = "Register Error: \(error.localizedDescription)"
+                print(msg)
+                completion(false, error, .userRegisterErr)
+                return
+            }
+            
+            guard let userToken = userToken else {
+                let msg = "Unable to retrieve token"
+                print(msg)
+                completion(false, error, .userAlreadyExist)
+                return
+            }
+            
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+                if let error = error {
+                    let msg = "loadLocalUser Error: \(error.localizedDescription)"
+                    print(msg)
+                    completion(false, error, .userLoadLocalFail)
+                    return
+                }
+                
+                if let user = user {
+                    self.updateCurrentUser(user, writeToKeychain: true)
+                    completion(true, error, .noError)
+                } else {
+                    let msg = "return user info is nil"
+                    print(msg)
+                    completion(false, error, .userInfoNull)
+                }
+            })
+        }
+    }
+    
     func login(username: String, password: String, completion: @escaping(Bool) -> Swift.Void) {
         
         ApiServers.shared.postLoginUser(username: username, password: password) { (userToken, error) in
