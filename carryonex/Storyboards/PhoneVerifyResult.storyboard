@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="R2U-tF-6vM">
+            <objects>
+                <viewController id="VRc-Tp-qWH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eq6-S5-gHC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_grey" translatesAutoresizingMaskIntoConstraints="NO" id="qFC-RB-cPd">
+                                <rect key="frame" x="105" y="83" width="110" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="PBe-J1-Ywa"/>
+                                    <constraint firstAttribute="width" constant="110" id="eiY-rA-GbA"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机验证成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-Fk-idC">
+                                <rect key="frame" x="100" y="139" width="120" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="4ko-YD-LQk"/>
+                                    <constraint firstAttribute="width" constant="120" id="w6r-Uc-AVS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Soj-fZ-OAx">
+                                <rect key="frame" x="0.0" y="445" width="320" height="123"/>
+                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="b2B-M9-b4I"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Verification_sucess" translatesAutoresizingMaskIntoConstraints="NO" id="eTu-CJ-UpT">
+                                <rect key="frame" x="76" y="184" width="168" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="1M0-rf-7xW"/>
+                                    <constraint firstAttribute="width" secondItem="eTu-CJ-UpT" secondAttribute="height" multiplier="7:5" id="A5h-qM-xJv"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Mx-Og-epF">
+                                <rect key="frame" x="30" y="344" width="260" height="50"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="t8f-pS-zbv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isShadowPathAutoSizing" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="bottom" secondItem="z25-m4-kEL" secondAttribute="bottom" id="1uj-V1-0ea"/>
+                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="top" secondItem="Yks-Fk-idC" secondAttribute="bottom" constant="20" id="2Dn-U5-aGg">
+                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                            </constraint>
+                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Mx-Og-epF" secondAttribute="bottom" constant="20" id="2e3-Xp-iFt"/>
+                            <constraint firstItem="5Mx-Og-epF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eTu-CJ-UpT" secondAttribute="bottom" constant="10" id="3Er-VJ-B3k"/>
+                            <constraint firstItem="Yks-Fk-idC" firstAttribute="top" secondItem="qFC-RB-cPd" secondAttribute="bottom" priority="500" constant="67.5" id="42K-G2-7qF"/>
+                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="centerY" secondItem="eq6-S5-gHC" secondAttribute="centerY" constant="-40" id="75z-c2-pxJ"/>
+                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="width" secondItem="Soj-fZ-OAx" secondAttribute="height" multiplier="26:10" id="7T1-uR-IzV"/>
+                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="trailing" secondItem="z25-m4-kEL" secondAttribute="trailing" id="8yg-iC-6vS"/>
+                            <constraint firstItem="5Mx-Og-epF" firstAttribute="leading" secondItem="z25-m4-kEL" secondAttribute="leading" constant="30" id="9o7-Gw-yXe">
+                                <variation key="heightClass=regular-widthClass=regular" constant="180"/>
+                            </constraint>
+                            <constraint firstItem="qFC-RB-cPd" firstAttribute="top" secondItem="z25-m4-kEL" secondAttribute="top" priority="800" constant="180" id="9oM-7b-Ss0"/>
+                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="leading" secondItem="z25-m4-kEL" secondAttribute="leading" id="DyZ-uZ-fEd"/>
+                            <constraint firstItem="qFC-RB-cPd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="z25-m4-kEL" secondAttribute="top" priority="900" constant="10" id="GDL-Pm-MTb"/>
+                            <constraint firstItem="Yks-Fk-idC" firstAttribute="centerX" secondItem="eTu-CJ-UpT" secondAttribute="centerX" id="Kzf-tl-G26"/>
+                            <constraint firstItem="z25-m4-kEL" firstAttribute="trailing" secondItem="5Mx-Og-epF" secondAttribute="trailing" constant="30" id="OdL-YW-Zmx">
+                                <variation key="heightClass=regular-widthClass=regular" constant="180"/>
+                            </constraint>
+                            <constraint firstItem="5Mx-Og-epF" firstAttribute="top" secondItem="eTu-CJ-UpT" secondAttribute="bottom" priority="800" constant="40" id="TLi-hy-Ujl"/>
+                            <constraint firstItem="qFC-RB-cPd" firstAttribute="centerX" secondItem="eTu-CJ-UpT" secondAttribute="centerX" id="hy2-kk-vzK"/>
+                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="centerX" secondItem="eq6-S5-gHC" secondAttribute="centerX" id="rXN-k3-crc"/>
+                            <constraint firstItem="Yks-Fk-idC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qFC-RB-cPd" secondAttribute="bottom" constant="10" id="xNm-T8-2Kf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="z25-m4-kEL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N6v-yy-6Lw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="100"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Verification_sucess" width="288" height="208"/>
+        <image name="logo_grey" width="206" height="86"/>
+    </resources>
+</document>

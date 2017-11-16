@@ -7,11 +7,21 @@
 //
 
 import UIKit
-
+import ZendeskSDK
 
 class PersonalPageViewController: UIViewController {
     
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.isNavigationBarHidden = true
+    }
     
     @IBAction func paymentButtonTapped(_ sender: Any) {
     }
@@ -23,14 +33,14 @@ class PersonalPageViewController: UIViewController {
     }
     
     @IBAction func helpMeButtonTapped(_ sender: Any) {
+        navigationController?.isNavigationBarHidden = false
+        let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+        ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
-//        let settingVC = SettingPageViewController()
-//        navigationController?.pushViewController(settingVC, animated: true)
-        
         if let settingVC = UIStoryboard(name: "SettingPage", bundle: nil).instantiateViewController(withIdentifier: "SettingPageVCID") as? SettingPageViewController {
-            settingVC.navigationController?.navigationBar.isHidden = false
+            navigationController?.isNavigationBarHidden = false
             navigationController?.pushViewController(settingVC, animated: true)
         }
     }

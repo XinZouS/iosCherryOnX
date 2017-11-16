@@ -149,6 +149,7 @@
 		66CC1E3B1FBCCBD40080C80B /* failed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 66CC1E391FBCCBD40080C80B /* failed.mp3 */; };
 		66CC1E3C1FBCCBD40080C80B /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 66CC1E3A1FBCCBD40080C80B /* success.mp3 */; };
 		66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */; };
+		66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */; };
 		66D67FF31F95161C002646F0 /* UserGuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D67FF21F95161C002646F0 /* UserGuideController.swift */; };
 		66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A2511F81E0D5007216A5 /* Date++.swift */; };
 		66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */; };
@@ -398,6 +399,7 @@
 		66CC1E391FBCCBD40080C80B /* failed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = failed.mp3; sourceTree = "<group>"; };
 		66CC1E3A1FBCCBD40080C80B /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationSearchTableController++.swift"; sourceTree = "<group>"; };
+		66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneVerifyResult.storyboard; sourceTree = "<group>"; };
 		66D67FF21F95161C002646F0 /* UserGuideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuideController.swift; sourceTree = "<group>"; };
 		66D9A2511F81E0D5007216A5 /* Date++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++.swift"; sourceTree = "<group>"; };
 		66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersShipperPageCell.swift; sourceTree = "<group>"; };
@@ -1141,6 +1143,7 @@
 				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
 				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
+				66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */,
 				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
 				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
@@ -1434,6 +1437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */,
+				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
 				E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */,

@@ -362,14 +362,6 @@
             </objects>
             <point key="canvasLocation" x="64.799999999999997" y="91.304347826086968"/>
         </scene>
-        <!--SettingPage-->
-        <scene sceneID="kbm-bs-buA">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SettingPage" id="EgS-Z0-Caa" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9fY-xw-cog" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="815" y="166"/>
-        </scene>
     </scenes>
     <resources>
         <image name="cashin" width="52" height="44"/>

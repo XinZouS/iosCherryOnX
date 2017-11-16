@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 
 class SettingPageViewController: UIViewController {
@@ -14,12 +15,31 @@ class SettingPageViewController: UIViewController {
     
     
     
+    private func openSystemSetting(){
+        if let sysUrl = URL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.shared.open(sysUrl, options: [:], completionHandler: nil)
+        } else {
+            print("unable to openSystemSetting")
+        }
+    }
     
+    private func openSystemGpsSetting(){
+        if !CLLocationManager.locationServicesEnabled() {
+            if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION") {
+                // If general location settings are disabled then open general location settings
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            openSystemSetting()
+        }
+    }
     
     @IBAction func notificationButtonTapped(_ sender: Any) {
+        openSystemSetting()
     }
     
     @IBAction func gpsAccessButtonTapped(_ sender: Any) {
+        openSystemGpsSetting()
     }
     
     @IBAction func accountInfoButtonTapped(_ sender: Any) {

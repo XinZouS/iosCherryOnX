@@ -19,7 +19,14 @@ class AudioManager {
     
     private var player = AVAudioPlayer()
     
-    private init(){}
+    private init(){
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error {
+            print("get error when init AVAudioSession.shared.setCategory, err = \(error)")
+        }
+    }
     
     
     
@@ -27,7 +34,7 @@ class AudioManager {
         guard let audioPath = Bundle.main.path(forResource: n.rawValue, ofType: "mp3") else { return }
         do{
             player = try AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath) as URL)
-            player.prepareToPlay() //BUG: do i need this????
+            player.prepareToPlay() // load .mp3 into buffer
             player.play()
             
         } catch let error {
