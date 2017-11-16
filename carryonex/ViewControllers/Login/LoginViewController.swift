@@ -27,6 +27,7 @@ class LoginViewController: UIViewController {
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupPhoneTextField()
         setupPasswordTextField()
         setupTextFieldContainerView()
     }
@@ -34,8 +35,16 @@ class LoginViewController: UIViewController {
     
     //MARK: - View custom set up
     
+    private func setupPhoneTextField(){
+        phoneField.keyboardType = .numberPad
+        phoneField.delegate = self
+    }
+
     private func setupPasswordTextField(){
+        passwordField.keyboardType = .asciiCapable
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
+        passwordField.delegate = self
+        
         let leftView = UIImageView()
         leftView.image = Icon.settings
         passwordField.leftView = leftView
@@ -93,7 +102,6 @@ class LoginViewController: UIViewController {
         ProfileManager.shared.login(username: phone, password: password) { (success) in
             
             if success {
-                AudioManager.shared.playSond(named: .success)
                 self.dismiss(animated: true, completion: nil)
 
             } else {
@@ -159,5 +167,18 @@ class LoginViewController: UIViewController {
         
         let msg = isMatch ? "密码正确" : "密码错误"
         print(msg)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        dismissKeyboard()
+    }
+    
+    private func dismissKeyboard(){
+        phoneField.resignFirstResponder()
+        passwordField.resignFirstResponder()
     }
 }
