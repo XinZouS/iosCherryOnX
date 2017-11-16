@@ -12,6 +12,7 @@ import Crashlytics
 
 public extension Notification.Name {
     public static let UserLoggedOut = Notification.Name(rawValue: "com.carryon.user.logout")
+    public static let UserDidUpdate = Notification.Name(rawValue: "com.carryon.user.didUpdate")
 }
 
 struct KeychainConfiguration {
@@ -190,6 +191,7 @@ class ProfileManager: NSObject {
     //MARK: - Update Methods
     
     func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
+        
         guard isLoggedIn() else {
             print("User is not logged in, unable to update \(type.rawValue) value")
             completion?(false)
@@ -231,6 +233,8 @@ class ProfileManager: NSObject {
         default:
             print("Not handling update type \(type.rawValue) yet.")
         }
+        
+        NotificationCenter.default.post(name: .UserDidUpdate, object: nil)
     }
     
     //MARK: - Keychain Management
@@ -245,6 +249,8 @@ class ProfileManager: NSObject {
         if writeToKeychain, let username = user.username, let token = user.token {
             self.saveUserTokenToKeychain(username: username, userToken: token)
         }
+        
+        NotificationCenter.default.post(name: .UserDidUpdate, object: nil)
     }
     
     private func saveUserTokenToKeychain(username: String, userToken: String) {
