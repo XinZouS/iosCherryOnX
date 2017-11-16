@@ -25,6 +25,8 @@
 		660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460571F506D6600E5DC4C /* SendingTimeController++.swift */; };
 		6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */; };
 		6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604605B1F50976F00E5DC4C /* UIButton++.swift */; };
+		660463231FBD22EE00BF623C /* PersonalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660463221FBD22EE00BF623C /* PersonalPage.swift */; };
+		660463251FBD26D300BF623C /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660463241FBD26D300BF623C /* SettingPage.swift */; };
 		660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704DF1F3CBD42000C09FD /* SideMenuUserInfoView.swift */; };
 		660704E21F3CDDC5000C09FD /* SlideMenuLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704E11F3CDDC5000C09FD /* SlideMenuLeftCell.swift */; };
 		660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704E31F3CF3E8000C09FD /* VerificationController.swift */; };
@@ -267,6 +269,8 @@
 		660460571F506D6600E5DC4C /* SendingTimeController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SendingTimeController++.swift"; sourceTree = "<group>"; };
 		660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeTableViewCell.swift; sourceTree = "<group>"; };
 		6604605B1F50976F00E5DC4C /* UIButton++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
+		660463221FBD22EE00BF623C /* PersonalPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPage.swift; sourceTree = "<group>"; };
+		660463241FBD26D300BF623C /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
 		660704DF1F3CBD42000C09FD /* SideMenuUserInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuUserInfoView.swift; sourceTree = "<group>"; };
 		660704E11F3CDDC5000C09FD /* SlideMenuLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuLeftCell.swift; sourceTree = "<group>"; };
 		660704E31F3CF3E8000C09FD /* VerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationController.swift; sourceTree = "<group>"; };
@@ -523,6 +527,14 @@
 				4DC043CE1FB76A9800F6C3F0 /* Localizable.strings */,
 			);
 			path = Supports;
+			sourceTree = "<group>";
+		};
+		660463211FBD227700BF623C /* Personal */ = {
+			isa = PBXGroup;
+			children = (
+				660463221FBD22EE00BF623C /* PersonalPage.swift */,
+			);
+			path = Personal;
 			sourceTree = "<group>";
 		};
 		660F4F6C1F570BE400F4820D /* AddressController */ = {
@@ -1127,14 +1139,14 @@
 				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
 				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
+				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
+				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
 				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
 				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
 				E5267D141FB63524003ADF14 /* Registration.storyboard */,
 				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
-				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
-				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 				CF360F551FBCC451000F6ECC /* SettingPage.storyboard */,
 			);
 			path = Storyboards;
@@ -1150,6 +1162,7 @@
 				E542F2621FB4B6420072BB31 /* Carrier */,
 				E542F2641FB4B6590072BB31 /* Orders */,
 				E542F2631FB4B6480072BB31 /* Settings */,
+				660463211FBD227700BF623C /* Personal */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1188,6 +1201,7 @@
 		E542F2631FB4B6480072BB31 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				660463241FBD26D300BF623C /* SettingPage.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1547,6 +1561,7 @@
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
 				665DE4F51F3A0B70004DDB88 /* carryonex.xcdatamodeld in Sources */,
+				660463231FBD22EE00BF623C /* PersonalPage.swift in Sources */,
 				66421C721F65E7AD0034D9DC /* OnboardingPage++.swift in Sources */,
 				FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */,
 				669518231F60D79100BFC37B /* CreditController++.swift in Sources */,
@@ -1603,6 +1618,7 @@
 				FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */,
 				664C64941F55CD6700AA8FFE /* PostBaseCell.swift in Sources */,
 				66E650171F5F129300DA90DE /* ApiServers.swift in Sources */,
+				660463251FBD26D300BF623C /* SettingPage.swift in Sources */,
 				4DE6BDDC1FBA929B00900DF8 /* OrderListViewController.swift in Sources */,
 				668609691F604FCF00740A92 /* WalletController.swift in Sources */,
 				66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */,
