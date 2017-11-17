@@ -748,7 +748,8 @@ class ApiServers : NSObject {
                      cost: Double,
                      destination: Address,
                      trip: Trip,
-                     imageUrls:[String],
+                     imageUrls: [String],
+                     description: String,
                      completion: @escaping (Bool, Error?) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
@@ -768,7 +769,8 @@ class ApiServers : NSObject {
             RequestKeyInDB.endAddress.rawValue: destination.packAsDictionaryForDB(),
             RequestKeyInDB.tripId.rawValue: tripId,
             RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
-            RequestKeyInDB.priceBySender.rawValue: Int(cost * 100)
+            RequestKeyInDB.priceBySender.rawValue: Int(cost * 100),
+            RequestKeyInDB.description.rawValue: description
         ]
         
         if imageUrls.count > 0 {
@@ -815,26 +817,58 @@ class ApiServers : NSObject {
         }
     }
     
-    //TODO: sentOrderInformation
-    func sentOrderInformation(address:Address){
-        //let userName = "user0"
-        //let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-        //let sessionStr = "/api/1.0/addresses/addresses/"
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //let dataPackage = address.packAllPropertiesAsData()
-        //print(dataPackage)
-        //        postDataWithUrlString(urlStr,dataPackage)
-    }
-    
-    //TODO: sentRequestImageUrls
-    func sentRequestImageUrls(){
-//        let userName = "user0"
-//        let userToken = "ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2"
-//        let sessionStr = "/api/1.0/addresses/addresses/"
-        //let urlStr = "\(baseUrl)\(sessionStr)?app_token=\(appToken)&timestamp=\(timeStamp)&username=\(userName)&user_token=\(userToken)"
-        //curl -F data='{"image_urls":[{"image_url":"http://1"}, {"image_url":"http://2"}, {"image_url":"http://3"}], "request_id":"2"}' -F app_token='0123456789012345678901234567890123456789012345678901234567890123' -F timestamp=`date -u +%s` -F username='user0' -F user_token='ade1214f40dbb8b35563b1416beca94f4a69eac6167ec0d8ef3eed27a64fd5a2' -X POST
-        //let urlStr = "http://0.0.0.0:5000/api/1.0/requests/postimages/"
-        //postDataToUrlString(<#T##urlStr: String##String#>, postData: Data)
+    //TODO: DON'T USE IT YET, NEED UPDATE FROM BACKEND!!
+    func postRequestUpdateStatus(requestId: Int,
+                                 actionId: RequestAction,
+                                 tripType: TripCategory,
+                                 completion: @escaping (Bool, Error?) -> Void) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("postRequest: Unable to find profile user")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/requests/update"
+        let requestDict: [String: Any] = [
+            RequestKeyInDB.id.rawValue: requestId,
+            RequestKeyInDB.action.rawValue: actionId.rawValue,
+            RequestKeyInDB.userType.rawValue: tripType.stringValue
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postRequest update response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let request: Request = try unbox(dictionary: data, atKey: "request")
+                    request.printAllData()
+                    completion(true, nil)
+                    
+                } catch let error {
+                    completion(false, error)
+                    print("Get error when postRequest update. Error = \(error.localizedDescription)")
+                }
+                
+            } else {
+                print("postRequest - Unable to post request update data")
+                completion(false, nil)
+            }
+        }
     }
     
     

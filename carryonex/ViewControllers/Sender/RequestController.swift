@@ -264,11 +264,14 @@ extension RequestController: UITextFieldDelegate {
                     let cost = Double(costString),
                     let endAddress = self.endAddress,
                     let trip = self.trip {
+                    
+                    //TODO: Put in description.
                     ApiServers.shared.postRequest(totalValue: totalValue,
                                                   cost: cost,
                                                   destination: endAddress,
                                                   trip: trip,
                                                   imageUrls: urls,
+                                                  description: "",
                                                   completion: { (success, error) in
                         if let error = error {
                             print("Post Request Error: \(error.localizedDescription)")
@@ -276,6 +279,7 @@ extension RequestController: UITextFieldDelegate {
                         }
                         print("Post request success!")
                     })
+                    
                 }
             }
             

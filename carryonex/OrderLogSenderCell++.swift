@@ -34,13 +34,13 @@ extension OrderLogSenderCell {
                 contactButton.setAttributedTitle(attributeString, for: .normal)
                 contactButton.addTarget(self, action: #selector(contactInfoButtonTapped), for: .touchUpInside)
                 
-            case RequestStatus.shipping.rawValue:
+            case RequestStatus.inDelivery.rawValue:
                 statusLabel.layer.borderColor = UIColor.lightGray.cgColor
                 statusLabel.textColor = .white
                 statusLabel.backgroundColor = buttonThemeColor
                 contactButton.isHidden = true
                 
-            case RequestStatus.finished.rawValue:
+            case RequestStatus.delivered.rawValue:
                 statusLabel.layer.borderColor = UIColor.lightGray.cgColor
                 statusLabel.textColor = .lightGray
                 statusLabel.backgroundColor = pickerColorLightGray
@@ -84,11 +84,11 @@ extension OrderLogSenderCell {
                 statusLabel.text = "等待接单"
                 attributeString = NSAttributedString(string: "详情", attributes: attributes)
                 
-            case RequestStatus.shipping.rawValue:
+            case RequestStatus.inDelivery.rawValue:
                 statusLabel.text = "正在派送"
                 attributeString = NSAttributedString(string: "追踪", attributes: attributes)
                 
-            case RequestStatus.finished.rawValue:
+            case RequestStatus.delivered.rawValue:
                 statusLabel.text = "已经完成"
                 attributeString = NSAttributedString(string: "详情", attributes: attributes)
                 
