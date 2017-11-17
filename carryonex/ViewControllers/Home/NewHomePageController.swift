@@ -18,14 +18,54 @@ class NewHomePageController :UIViewController{
     var nowHour :String = ""
     var timeStatus :String = ""
     var gradientLayer: CAGradientLayer!
+    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    // paramter to send to other field
+    var imageurl = ""
+    var realname = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNowHour()
         setupBackGroundColor()
+        setupActivityIndicator()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadingDisplay()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "shiper"){
+            if let destVC = segue.destination as? UserCardViewController {
+                destVC.viewTag = 0
+            }
+        }
+        if (segue.identifier == "sender"){
+            if let destVC = segue.destination as? UserCardViewController {
+                destVC.viewTag = 1
+            }
+        }
+    }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+    }
+    
+    private func loadingDisplay(){
+        if !appDidLaunch {
+            self.activityIndicator.startAnimating()
+            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+                if isSuccess {
+                    self.activityIndicator.stopAnimating()
+                }
+            })
+            appDidLaunch = true
+        }
+    }
+    
     private func setupNowHour(){
         let date = Date()
         let timeFormatter = DateFormatter()
@@ -46,6 +86,7 @@ class NewHomePageController :UIViewController{
             }
         }
     }
+    
     private func setupBackGroundColor(){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds

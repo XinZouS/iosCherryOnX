@@ -11,28 +11,34 @@ import UIKit
 class UserStarController: UIViewController{
     let userRecentInfoCtl = UserRecentInfoController()
     var starCommentView: UIStackView?
-    lazy var starCommentBtns: [UIButton] = {
-        var buttons = [UIButton]()
-        var creditLevel = 4.5
+    var starCommentBtns = [UIButton]()
+    
+    override func viewDidLoad() {
+        addUserUpdateNotificationObservers()
+    }
+    private func addUserUpdateNotificationObservers(){
+        NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            self?.loadStar()
+        }
+    }
+    private func loadStar(){
+        guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
+        let creditLevel = currUser.rating
         let creditIntLevel = Int(creditLevel)
         for i in 0..<creditIntLevel {
             let button = UIButton(type: .custom)
             button.setImage(#imageLiteral(resourceName: "homePageStar"), for: .normal)
             button.tag = i
             button.isEnabled = false
-            buttons.append(button)
+            starCommentBtns.append(button)
         }
-        if (creditLevel-Double(creditIntLevel) != 0 ){
+        if (creditLevel-Float(creditIntLevel) != 0 ){
             let button = UIButton(type: .custom)
             button.setImage(#imageLiteral(resourceName: "starHalf"), for: .normal)
             button.tag = creditIntLevel+1
             button.isEnabled = false
-            buttons.append(button)
+            starCommentBtns.append(button)
         }
-        return buttons
-    }()
-    
-    override func viewDidLoad() {
         setupStarCommentView()
     }
     

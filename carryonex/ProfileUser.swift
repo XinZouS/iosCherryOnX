@@ -27,6 +27,9 @@ enum ProfileUserKey: String {
     case walletId    = "wallet_id"
     case isIdVerified = "id_verified"
     case isPhoneVerified = "phone_verified"
+    case tripCount = "trip_count"
+    case requestCount = "request_count"
+    case rating = "rating"
 }
 
 class ProfileUser: Unboxable  {
@@ -45,7 +48,9 @@ class ProfileUser: Unboxable  {
     var isIdVerified: Bool = false
     var isPhoneVerified: Bool = false
     var status: Status?
-    
+    var tripCount:Int = 1
+    var requestCount:Int = 2
+    var rating:Float = 1.1
     init() {
         //Initialization
     }

@@ -32,10 +32,10 @@ struct MyRegex {
         }
     }
 }
-//cardView
-var viewTag :Int = 0
 // wechat login judge
 var wxloginStatus :String = ""
+// appDidLaunch judge
+var appDidLaunch = false
 
 enum ImageTypeOfID : String {
     case passport = "passport"

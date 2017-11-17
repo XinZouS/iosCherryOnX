@@ -15,7 +15,7 @@
         <scene sceneID="kkn-h2-Yet">
             <objects>
                 <navigationController navigationBarHidden="YES" id="WZm-XB-p46" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" id="ylg-MR-dVa"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="userSettingIcon" id="ylg-MR-dVa"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c3E-LO-Me0">
                         <autoresizingMask key="autoresizingMask"/>
@@ -369,6 +369,7 @@
         <image name="help9999" width="45" height="45"/>
         <image name="opinion999" width="52" height="33"/>
         <image name="setting999" width="42" height="42"/>
+        <image name="userSettingIcon" width="19" height="19"/>
         <image name="wallet999" width="49" height="46"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>

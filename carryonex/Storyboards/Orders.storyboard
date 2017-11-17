@@ -14,7 +14,7 @@
         <scene sceneID="GoH-pk-Xp7">
             <objects>
                 <navigationController navigationBarHidden="YES" id="jOn-km-Alh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="订单" id="pr2-j8-IZ6"/>
+                    <tabBarItem key="tabBarItem" title="订单" image="orderIcon" id="pr2-j8-IZ6"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yln-HP-UEk">
                         <autoresizingMask key="autoresizingMask"/>
@@ -252,4 +252,7 @@
             <point key="canvasLocation" x="484" y="169.56521739130437"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="orderIcon" width="19" height="19"/>
+    </resources>
 </document>

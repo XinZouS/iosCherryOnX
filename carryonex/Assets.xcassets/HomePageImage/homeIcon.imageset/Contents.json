@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Trip_light.png",
+      "filename" : "Home.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Trip_light-1.png",
+      "filename" : "Home-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Trip_light-2.png",
+      "filename" : "Home-2.png",
       "scale" : "3x"
     }
   ],
