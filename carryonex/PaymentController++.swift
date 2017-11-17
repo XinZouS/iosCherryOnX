@@ -68,9 +68,9 @@ extension PaymentController {
     func okButtonTapped(){
         print("okButtonTapped!!!!")
         
-        if let endAddress = request.endAddress {
-            ApiServers.shared.sentOrderInformation(address: endAddress)
-        }
+        //if let endAddress = request.endAddress {
+            //ApiServers.shared.sentOrderInformation(address: endAddress)
+        //}
         
         let waitingCtl = WaitingController()
         waitingCtl.isForShipper = false

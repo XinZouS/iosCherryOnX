@@ -28,12 +28,12 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
             detailButtonWidthConstraint.constant = buttonWidthShort
             attributeString = NSAttributedString(string: "导航", attributes: attributes)
             
-        case RequestStatus.shipping.rawValue:
+        case RequestStatus.inDelivery.rawValue:
             statusLabel.text = "正在途中"
             detailButtonWidthConstraint.constant = buttonWidthLong
             attributeString = NSAttributedString(string: "快递单号", attributes: attributes)
             
-        case RequestStatus.finished.rawValue:
+        case RequestStatus.delivered.rawValue:
             statusLabel.text = "已经完成"
             detailButtonWidthConstraint.constant = buttonWidthShort
             attributeString = NSAttributedString(string: "详情", attributes: attributes)
