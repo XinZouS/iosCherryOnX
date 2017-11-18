@@ -703,45 +703,6 @@ class ApiServers : NSObject {
     }
     
     
-    // MARK: - Address APIs
-    func postAddressInfo(address: Address, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success, msg, id)
-        
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            completion(false, "postAddressInfo: Profile user empty, pleaes login to get the address info", "")
-            return
-        }
-        
-        let route = hostVersion + "/addresses/addresses"
-        var addDict = address.packAsDictionaryForDB()
-        addDict.removeValue(forKey: "id")
-        
-        let parameter:[String : Any] = [
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.data.rawValue: addDict,
-            ServerKey.username.rawValue: profileUser.username ?? ""
-        ]
-        
-        postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("postAddressInfo response error: \(error.localizedDescription)")
-                }
-                completion(false, error?.localizedDescription, nil)
-                return
-            }
-            
-            if response.count > 0 {
-                //TODO:postAddressInfo
-                completion(true, "TODO: testing...", "get id,,,")
-            } else {
-                completion(false, "TODO: testing...", "get id,,,")
-            }
-        }
-    }
-    
-    
     // MARK: - Request APIs
     
     func postRequest(totalValue: Double,
@@ -855,6 +816,7 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
+                    //TODO: UPDATE THIS ****
                     let request: Request = try unbox(dictionary: data, atKey: "request")
                     request.printAllData()
                     completion(true, nil)
@@ -870,6 +832,105 @@ class ApiServers : NSObject {
             }
         }
     }
+    
+    
+    //MARK: - Comments
+    func postComment(comment: String,
+                     commenteeId: Int,
+                     commenterId: Int,
+                     rank: Float,
+                     completion: @escaping (Bool, Error?) -> Void) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("postRequest: Unable to find profile user")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/comments/comments"
+        let requestDict: [String: Any] = [
+            CommentKey.comment.rawValue: comment,
+            CommentKey.commenteeId.rawValue: commenteeId,
+            CommentKey.commenterId.rawValue: commenterId,
+            CommentKey.rank.rawValue: rank
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postComment update response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                
+                //TODO: update this after server update
+                if data["comment_id"] != nil || data["id"] != nil {
+                    completion(true, nil)
+                } else {
+                    completion(false, nil)
+                }
+                
+            } else {
+                debugLog("Unable to get data")
+                completion(false, nil)
+            }
+        }
+    }
+    
+    // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
+    func getUserComments(commenteeId: Int, offset: Int, pageCount: Int = 4, completion: @escaping((UserComments?, Error?) -> Void)) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("getUsersTrips: Profile user empty, pleaes login to get user's comments")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/comments/comments"
+        let parameters : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.offset.rawValue: offset,
+            ServerKey.pageCount.rawValue: pageCount,
+            CommentKey.commenteeId.rawValue: commenteeId
+        ]
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getUserComments response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response["data"] as? [String: Any] {
+                do {
+                    let userComments : UserComments = try unbox(dictionary: data, atKey:"comments")
+                    completion(userComments, nil)
+                    
+                } catch let error as NSError {
+                    print("getUserComments error: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+            } else {
+                print("getUserComments: Empty data field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     
     
     // MARK: - basic GET and POST by url
