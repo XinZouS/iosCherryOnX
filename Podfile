@@ -18,7 +18,7 @@ target 'carryonex' do
   pod 'FSCalendar', '2.7.9'
   pod 'paper-onboarding', '2.0.1'
   pod 'ALCameraViewController', '2.0.3'
-  
+
   # AWS S3 for image storage
   pod 'AWSCore', '2.6.4'
   pod 'AWSS3', '2.6.4'
@@ -71,9 +71,8 @@ target 'carryonex' do
   pod 'FBSDKCoreKit', '4.22.1'
   pod 'FBSDKLoginKit', '4.22.1'
   pod 'FBSDKShareKit', '4.22.1'
-  
+
   #UI design
-  pod 'CircleMenu', '3.0.0'
   pod 'Material', '2.10.2'
   pod 'JXPhotoBrowser', '0.3.7'
 
@@ -84,16 +83,9 @@ target 'carryonex' do
   use_frameworks!
   pod 'Fabric'
   pod 'Crashlytics'
-
-  # brainTree payment method
-  pod 'BraintreeDropIn'
-  pod 'Braintree/PayPal'
-  pod 'Braintree/Venmo'
-  pod 'Braintree/Apple-Pay'
-  pod 'Braintree/3D-Secure'
   # Zendesk SDK
   pod 'ZendeskSDK'
-  
+  # stripe
+  pod 'Stripe'
 
 end
-

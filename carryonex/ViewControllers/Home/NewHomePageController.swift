@@ -8,6 +8,17 @@
 
 import UIKit
 
+extension UIColor {
+    struct MyTheme {
+        static var darkGreen: UIColor  { return UIColor(red: 0.1549919546, green: 0.2931276262, blue: 0.3640816808, alpha: 1) }
+        static var purple: UIColor { return UIColor(red: 0.8728510737, green: 0.758017838, blue: 0.8775048256, alpha: 1) }
+        static var grey : UIColor{ return UIColor(red: 0.7805191875, green: 0.7680291533, blue: 0.8010284305, alpha: 1)}
+        static var littleGreen : UIColor{ return UIColor(red: 0.7296996117, green: 0.8510946035, blue: 0.8725016713, alpha: 1)}
+        static var mediumGreen : UIColor{ return UIColor(red: 0.2490211129, green: 0.277058661, blue: 0.4886234403, alpha: 1)}
+        static var cyan : UIColor{ return UIColor(red: 0.261000365, green: 0.6704152226, blue: 0.7383304834, alpha: 1)}
+    }
+}
+
 class NewHomePageController :UIViewController{
     enum timeEnum: Int{
     case morning = 6
@@ -15,6 +26,7 @@ class NewHomePageController :UIViewController{
     case afternoon = 14
     case night = 18
     }
+    
     var nowHour :String = ""
     var timeStatus :String = ""
     var gradientLayer: CAGradientLayer!
@@ -53,19 +65,6 @@ class NewHomePageController :UIViewController{
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
     }
-    
-    private func loadingDisplay(){
-        if !appDidLaunch {
-            self.activityIndicator.startAnimating()
-            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-                if isSuccess {
-                    self.activityIndicator.stopAnimating()
-                }
-            })
-            appDidLaunch = true
-        }
-    }
-    
     private func setupNowHour(){
         let date = Date()
         let timeFormatter = DateFormatter()
@@ -90,16 +89,16 @@ class NewHomePageController :UIViewController{
     private func setupBackGroundColor(){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         switch timeStatus {
         case "night":
-            let beginColor :UIColor = UIColor(red: 0.1592482924, green: 0.1658681333, blue: 0.3862371445, alpha: 1)
-            let endColor :UIColor = UIColor(red: 0.2750508785, green: 0.3392701447, blue: 0.5798990726, alpha: 1)
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            let beginColor :UIColor = UIColor.MyTheme.darkGreen
+            let endColor :UIColor = UIColor.MyTheme.purple
             gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         default:
-            let beginColor :UIColor = UIColor(red: 0.1592482924, green: 0.1658681333, blue: 0.3862371445, alpha: 1)
-            let endColor :UIColor = UIColor(red: 0.2750508785, green: 0.3392701447, blue: 0.5798990726, alpha: 1)
+            let beginColor :UIColor = UIColor.MyTheme.grey
+            let endColor :UIColor = UIColor.MyTheme.littleGreen
             gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         }
         self.view.layer.insertSublayer(gradientLayer, at: 0)

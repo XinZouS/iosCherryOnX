@@ -448,7 +448,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nml-Q9-J3X">
                                 <rect key="frame" x="0.0" y="168.5" width="132.5" height="72"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="senderLcationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="l0A-fk-OVx">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_grey" translatesAutoresizingMaskIntoConstraints="NO" id="l0A-fk-OVx">
                                         <rect key="frame" x="10" y="8.5" width="10" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="b5a-Dp-L7M"/>
@@ -467,7 +467,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="senderLcationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-W8-rpX">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-W8-rpX">
                                         <rect key="frame" x="10" y="38.5" width="10" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="UGq-iC-rkm"/>
@@ -584,7 +584,6 @@
         <image name="CarryonEx_User" width="100" height="100"/>
         <image name="homeIcon" width="19" height="20"/>
         <image name="location_grey" width="4" height="6"/>
-        <image name="senderLcationIcon" width="10" height="13"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>
     <inferredMetricsTieBreakers>

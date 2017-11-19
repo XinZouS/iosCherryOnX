@@ -13,20 +13,12 @@
 import UIKit
 import MapKit
 import paper_onboarding
-import CircleMenu
 import Reachability
 import Crashlytics
 
 class HomePageController: UIViewController, UISearchResultsUpdating,UICollectionViewDelegateFlowLayout {
     
     var appDidLaunch = false
-    
-    let items: [(icon: UIImage, color: UIColor)] = [
-        ( #imageLiteral(resourceName: "button_youxiang") , UIColor(red:1, green:0.87, blue: 0.7, alpha:0.8)),
-        ( #imageLiteral(resourceName: "button_request") , UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
-        ( #imageLiteral(resourceName: "button_trip") , UIColor(red:1, green:0.87, blue:0.7, alpha:0.8)),
-        ]
-    
     let mapView : MKMapView = {
         let m = MKMapView()
         m.translatesAutoresizingMaskIntoConstraints = false
@@ -98,28 +90,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
 //        b.addTarget(self, action: #selector(switchUserType), for: .touchUpInside)
         return b
     }()
-    
-    lazy var callShipperButton : CircleMenu = {
-        let b = CircleMenu(
-            frame: CGRect(x: 200, y: 200, width: 50, height: 50),
-            normalIcon:"CarryonEx_Logo",
-            selectedIcon:"CarryonEx_Close",
-            buttonsCount: 3,
-            duration: 1,
-            distance: 100)
-            b.layer.cornerRadius = 30
-            b.layer.masksToBounds = true
-          b.backgroundColor = buttonColorWhite
-          b.layer.borderColor = borderColorLightGray.cgColor
-          b.layer.borderWidth = 1
-          b.layer.shadowColor = UIColor(red:0,green:0,blue:0,alpha:0.3).cgColor
-          b.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-          b.layer.shadowOpacity = 1.0
-          b.layer.shadowRadius = 1.0
-          b.layer.masksToBounds = false;
-        return b
-    }()
-    
     lazy var userInfoBarButtonView : UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "carryonex_menu"), for: .normal)
@@ -290,44 +260,13 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         zoomToUserLocation()
     }
     
-    private func setupCallShipperButton(){
-        let sz : CGFloat = 60
-        view.addSubview(callShipperButton)
-        callShipperButton.addConstraints(left: nil, top: nil, right: nil, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 80, width: sz, height: sz)
-        callShipperButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        callShipperButton.delegate = self
-    }
-    func circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
-        button.backgroundColor = items[atIndex].color
-        
-        button.setImage(items[atIndex].icon, for: .normal)
-        
-        // set highlited image
-        let highlightedImage  = items[atIndex].icon.withRenderingMode(.alwaysTemplate)
-        button.setImage(highlightedImage, for: .highlighted)
-        button.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-    }
-    func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int) {
-        //print("button will selected: \(atIndex)")
-    }
-    
-    func circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int) {
-        //print("button did selected: \(atIndex)")
-        switch atIndex{
-        case 0:
-            showUserInfoSideMenu()
-            
-        case 1:
-            gotoItemTypePage()
-            
-        case 2:
-            gotoTripPage()
-            
-        default:
-            break;
-        }
-    }
-    
+//    private func setupCallShipperButton(){
+//        let sz : CGFloat = 60
+//        view.addSubview(callShipperButton)
+//        callShipperButton.addConstraints(left: nil, top: nil, right: nil, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 80, width: sz, height: sz)
+//        callShipperButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        callShipperButton.delegate = self
+//    }
 
 
     private func setupSideButtonView(){

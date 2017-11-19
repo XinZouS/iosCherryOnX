@@ -14,10 +14,7 @@ import Photos
 import AWSCognito
 import AWSCore
 import AWSS3
-
 import ALCameraViewController
-import BraintreeDropIn
-import Braintree
 
 import AlamofireImage
 /**
@@ -152,50 +149,12 @@ extension HomePageController {
     }
     
     func pullSideButtonTapped(){
-//        let waitingListCtl = WaitingListController(collectionViewLayout: UICollectionViewFlowLayout())
-//        let waitingListView = UINavigationController(rootViewController: waitingListCtl)
-//        self.present(waitingListView, animated: true, completion: nil)
-        // replaced by OrdersLogController() ---------------------------
-        
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
-//        let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
-//        ordersNav.title = "我的游箱"
-//        self.present(ordersNav, animated: true)
-        //      for test ===================================
-        let clientTokenOrTokenizationKey = "sandbox_29yqtgvt_jj626h3ph2ywgc97"
-        let request =  BTDropInRequest()
-        request.amount = "19"
-        request.currencyCode = "USD"
-        
-        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request) { (controller, result, error) in
-            
-            if let error = error {
-                print("BTDropInController error: \(error.localizedDescription)")
-            
-            } else if (result?.isCancelled == true) {
-                print("BTDropInController cancelled")
-            
-            } else if let result = result {
-                
-                print("Result type: \(result.paymentOptionType.rawValue)")
-                
-                if let selectedPaymentMethod = result.paymentMethod {
-                    ApiServers.shared.postNonceToServer(paymentMethodNonce: selectedPaymentMethod.nonce)
-                } else {
-                    print("BTDropInController: Unable to get payment method.")
-                }
-            }
-            controller.dismiss(animated: true, completion: nil)
-        }
-        
-        if let dropIn = dropIn {
-            self.present(dropIn, animated: true, completion: nil)
-        
-        } else {
-            print("BTDropInController: Unable initialize controller.")
-        }
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let ordersLogCtl = OrdersLogController(collectionViewLayout: layout)
+        let ordersNav = UINavigationController(rootViewController: ordersLogCtl)
+        ordersNav.title = "我的游箱"
+        self.present(ordersNav, animated: true)
     }
     
     private func flipPageHorizontally(){

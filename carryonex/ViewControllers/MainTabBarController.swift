@@ -13,18 +13,19 @@ class MainTabBarController: UITabBarController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addObservers()
-        
+        setupActivityIndicator()
         debugLog("Tab Bar is loaded!!!")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
+        loadingDisplay()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,11 +46,28 @@ class MainTabBarController: UITabBarController {
 
     
     //MARK: - Helpers
-    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+    }
     
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
             showLogin()
+        }
+    }
+    
+    private func loadingDisplay(){
+        if !appDidLaunch {
+            self.activityIndicator.startAnimating()
+            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+                if isSuccess {
+                    self.activityIndicator.stopAnimating()
+                }
+            })
+            appDidLaunch = true
         }
     }
     

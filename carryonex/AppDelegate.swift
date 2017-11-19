@@ -12,17 +12,40 @@ import FBSDKCoreKit
 import Fabric
 import Crashlytics
 import AWSCognito
-import Braintree
 import ZendeskSDK
 import UserNotifications
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
-   
     static var appToken : String? // singleton for app to login server
     static var timestamp: String?
+    private let publishableKey: String = "pk_live_MRIB2doVh5Npf12pPgQHUMb7"
+    private let baseURLString: String = "https://rocketrides.io"
+    private let appleMerchantIdentifier: String = "merchant.com.carryontech"
+    
+    override init() {
+        super.init()
+        // Stripe payment configuration
+        STPPaymentConfiguration.shared().companyName = "Carryon Technologies Inc"
+        
+        if !publishableKey.isEmpty {
+            STPPaymentConfiguration.shared().publishableKey = publishableKey
+        }
+        
+        STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
+        
+        // Stripe theme configuration
+        STPTheme.default().primaryBackgroundColor = UIColor.MyTheme.darkGreen
+        STPTheme.default().primaryForegroundColor = UIColor.MyTheme.mediumGreen
+        STPTheme.default().secondaryForegroundColor = UIColor.MyTheme.littleGreen
+        STPTheme.default().accentColor = .black
+        
+        // Main API client configuration
+        MainAPIClient.shared.baseURLString = baseURLString
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
          
@@ -30,11 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         UINavigationBar.appearance().barTintColor = barColorGray.withAlphaComponent(0.1)
         //UINavigationBar.appearance().isTranslucent = true
         UIApplication.shared.statusBarStyle = .lightContent
-        
-        //window = UIWindow(frame: UIScreen.main.bounds)
-        //window?.makeKeyAndVisible()
-        //window?.rootViewController = PageContainer()
-        //window?.rootViewController = HomePageController() //UINavigationController(rootViewController: HomePageController())
         
         //Set up reachability
         ReachabilityManager.shared.startObserving()
@@ -49,9 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         // setup Fabric
         Fabric.with([Crashlytics.self, AWSCognito.self])
-        
-        //setup BrainTree
-        BTAppSwitch.setReturnURLScheme("com.carryontech.carryonex.payment")
+
         //setup Zendesk
         ZDKConfig.instance()
             .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
@@ -60,9 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         let identity = ZDKAnonymousIdentity()
         ZDKConfig.instance().userIdentity = identity
-        
-        //Setup push notifications
-        registerForPushNotifications()
         
         return true
     }
@@ -165,19 +178,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         WXApi.handleOpen(url, delegate: self)
-        
-        if url.scheme?.localizedCaseInsensitiveCompare("com.your-company.Your-App.payments") == .orderedSame {
-            return BTAppSwitch.handleOpen(url, options: options)
-        }
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         WXApi.handleOpen(url, delegate: self)
-        if url.scheme?.localizedCaseInsensitiveCompare("com.your-company.Your-App.payments") == .orderedSame {
-            return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
-        }
+
         return true
     }
     

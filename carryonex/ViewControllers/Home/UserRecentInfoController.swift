@@ -19,11 +19,6 @@ class UserRecentInfoController: UIViewController{
         super.viewDidLoad()
         addUserUpdateNotificationObservers()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     private func addUserUpdateNotificationObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.getUserRecentInfo()

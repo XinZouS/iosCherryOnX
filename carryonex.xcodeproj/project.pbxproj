@@ -27,7 +27,7 @@
 		660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460571F506D6600E5DC4C /* SendingTimeController++.swift */; };
 		6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */; };
 		6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604605B1F50976F00E5DC4C /* UIButton++.swift */; };
-		660463231FBD22EE00BF623C /* PersonalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660463221FBD22EE00BF623C /* PersonalPage.swift */; };
+		660463231FBD22EE00BF623C /* PersonalPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660463221FBD22EE00BF623C /* PersonalPageView.swift */; };
 		660463251FBD26D300BF623C /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660463241FBD26D300BF623C /* SettingPage.swift */; };
 		660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704DF1F3CBD42000C09FD /* SideMenuUserInfoView.swift */; };
 		660704E21F3CDDC5000C09FD /* SlideMenuLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660704E11F3CDDC5000C09FD /* SlideMenuLeftCell.swift */; };
@@ -222,6 +222,7 @@
 		FF4D14CF1FA3BF7D009CC1A0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
+		FF5F20931FBF7B910080AA12 /* MainAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5F20921FBF7B910080AA12 /* MainAPIClient.swift */; };
 		FF62245B1FB0F24900280FDA /* OrderDetailCommentPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */; };
 		FF62245D1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245C1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift */; };
 		FF62245F1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245E1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift */; };
@@ -274,7 +275,7 @@
 		660460571F506D6600E5DC4C /* SendingTimeController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SendingTimeController++.swift"; sourceTree = "<group>"; };
 		660460591F507C6300E5DC4C /* SendingTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingTimeTableViewCell.swift; sourceTree = "<group>"; };
 		6604605B1F50976F00E5DC4C /* UIButton++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
-		660463221FBD22EE00BF623C /* PersonalPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPage.swift; sourceTree = "<group>"; };
+		660463221FBD22EE00BF623C /* PersonalPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageView.swift; sourceTree = "<group>"; };
 		660463241FBD26D300BF623C /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
 		660704DF1F3CBD42000C09FD /* SideMenuUserInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuUserInfoView.swift; sourceTree = "<group>"; };
 		660704E11F3CDDC5000C09FD /* SlideMenuLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuLeftCell.swift; sourceTree = "<group>"; };
@@ -473,6 +474,7 @@
 		FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterEmailController++.swift"; sourceTree = "<group>"; };
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
+		FF5F20921FBF7B910080AA12 /* MainAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPIClient.swift; sourceTree = "<group>"; };
 		FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentPageController.swift; sourceTree = "<group>"; };
 		FF62245C1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentBaseCell.swift; sourceTree = "<group>"; };
 		FF62245E1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentTitleCell.swift; sourceTree = "<group>"; };
@@ -538,7 +540,7 @@
 		660463211FBD227700BF623C /* Personal */ = {
 			isa = PBXGroup;
 			children = (
-				660463221FBD22EE00BF623C /* PersonalPage.swift */,
+				660463221FBD22EE00BF623C /* PersonalPageView.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -906,6 +908,7 @@
 				E53791E31FAB731E009647CD /* Notifications++.swift */,
 				E5791E531FABC60E006B4F68 /* UserDefaults++.swift */,
 				66E2C9891FBA07D3000B250E /* UIDesignableTextField.swift */,
+				FF5F20921FBF7B910080AA12 /* MainAPIClient.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1398,7 +1401,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -1572,7 +1575,7 @@
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
 				665DE4F51F3A0B70004DDB88 /* carryonex.xcdatamodeld in Sources */,
-				660463231FBD22EE00BF623C /* PersonalPage.swift in Sources */,
+				660463231FBD22EE00BF623C /* PersonalPageView.swift in Sources */,
 				66421C721F65E7AD0034D9DC /* OnboardingPage++.swift in Sources */,
 				FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */,
 				669518231F60D79100BFC37B /* CreditController++.swift in Sources */,
@@ -1619,6 +1622,7 @@
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				E542F2721FB605080072BB31 /* (null) in Sources */,
+				FF5F20931FBF7B910080AA12 /* MainAPIClient.swift in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
 				66F2FF0F1F9D00C200A37881 /* FooterInfoCell.swift in Sources */,
@@ -1924,8 +1928,6 @@
 					"-framework",
 					"\"Bolts\"",
 					"-framework",
-					"\"CircleMenu\"",
-					"-framework",
 					"\"CoreTelephony\"",
 					"-framework",
 					"\"FBSDKCoreKit\"",
@@ -2042,8 +2044,6 @@
 					"\"Alamofire\"",
 					"-framework",
 					"\"Bolts\"",
-					"-framework",
-					"\"CircleMenu\"",
 					"-framework",
 					"\"CoreTelephony\"",
 					"-framework",
