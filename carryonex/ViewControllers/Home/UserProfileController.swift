@@ -12,6 +12,7 @@ import CoreLocation
 import Stripe
 
 class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STPPaymentContextDelegate{
+    
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
     @IBOutlet weak var senderButton: UIButton!
@@ -30,7 +31,7 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
     }
     private var rideRequestState: RideRequestState = .none {
         didSet {
-//            reloadRequestRideButton()
+            //            reloadRequestRideButton()
         }
     }
     
@@ -55,7 +56,6 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
         super.viewDidLoad()
         addUserUpdateNotificationObservers()
         setupLocation()
-        setupActivityIndicator()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -64,7 +64,9 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
     private func addUserUpdateNotificationObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.loadUserProfile()
+        }
     }
+    
     func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
@@ -87,30 +89,6 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
             }
             let labelDisplay = greeting+currUserName
             helloLabel.text = labelDisplay
-        }
-    private func addNotificationObservers() {
-        
-        /**  微信通知  */
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
-            
-            let code = notification.object as! String
-            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
-            
-            DispatchQueue.global().async {
-                let requestURL: URL = URL.init(string: requestUrl)!
-                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-                DispatchQueue.main.async {
-                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                    let openid: String = jsonResult["openid"] as! String
-                    let access_token: String = jsonResult["access_token"] as! String
-                    switch wxloginStatus{
-                    case "WXregister":
-                        self?.loginViewCtl.makeUserRegister(openid: openid, access_token: access_token)
-                    default:
-                        self?.getUserInfo(openid: openid, access_token: access_token)
-                    }
-                }
-            }
         }
     }
     
@@ -159,7 +137,7 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
                 let city: String = (mark.addressDictionary! as NSDictionary).value(forKey: "City") as! String
                 //国家
                 let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
-
+                
                 let State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
                 self.locationLabel.text = (country as String)+" "+State+" "+city
             }
@@ -179,7 +157,7 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
         let version = NSString(string:  versionCode).doubleValue
         return version >= 8.0
     }
-
+    
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
         userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.height)/2)
@@ -227,13 +205,13 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
         }
     }
     private func reloadPaymentButtonContent() {
-//                guard let selectedPaymentMethod = paymentContext.selectedPaymentMethod else {
-                    // Show default image, text, and color
-//                    paymentButton.setImage(#imageLiteral(resourceName: "Payment"), for: .normal)
-//                    paymentButton.setTitle("Payment", for: .normal)
-//                    paymentButton.setTitleColor(.riderGrayColor, for: .normal)
-//                    return
-//                }
+        //                guard let selectedPaymentMethod = paymentContext.selectedPaymentMethod else {
+        // Show default image, text, and color
+        //                    paymentButton.setImage(#imageLiteral(resourceName: "Payment"), for: .normal)
+        //                    paymentButton.setTitle("Payment", for: .normal)
+        //                    paymentButton.setTitleColor(.riderGrayColor, for: .normal)
+        //                    return
+        //                }
         //
         //        // Show selected payment method image, label, and darker color
         //        paymentButton.setImage(selectedPaymentMethod.image, for: .normal)
@@ -272,7 +250,7 @@ class UserProfileController: NewHomePageController,CLLocationManagerDelegate,STP
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         // Reload related components
         reloadPaymentButtonContent()
-//        reloadRequestRideButton()
+        //        reloadRequestRideButton()
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
@@ -355,3 +333,4 @@ extension UIAlertController {
     }
     
 }
+

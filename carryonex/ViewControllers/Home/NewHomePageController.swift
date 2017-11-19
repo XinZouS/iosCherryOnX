@@ -21,10 +21,10 @@ extension UIColor {
 
 class NewHomePageController :UIViewController{
     enum timeEnum: Int{
-    case morning = 6
-    case noon = 12
-    case afternoon = 14
-    case night = 18
+        case morning = 6
+        case noon = 12
+        case afternoon = 14
+        case night = 18
     }
     
     var nowHour :String = ""
@@ -43,7 +43,6 @@ class NewHomePageController :UIViewController{
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadingDisplay()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,6 +64,7 @@ class NewHomePageController :UIViewController{
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
     }
+    
     private func setupNowHour(){
         let date = Date()
         let timeFormatter = DateFormatter()
@@ -104,3 +104,4 @@ class NewHomePageController :UIViewController{
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
+
