@@ -65,6 +65,7 @@
 		6633DC911F5DA63800B2FFAC /* OrdersLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633DC901F5DA63800B2FFAC /* OrdersLogController.swift */; };
 		6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633DC931F5DE7E500B2FFAC /* OrdersSenderPageCell.swift */; };
 		6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633DC951F5DF02900B2FFAC /* OrderLogSenderCell.swift */; };
+		6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */; };
 		663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */; };
 		663F1C961F44DBD000E866C2 /* HomePageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663F1C951F44DBD000E866C2 /* HomePageTableCell.swift */; };
 		66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66421C6F1F65E3E50034D9DC /* OnboardingPage.swift */; };
@@ -152,6 +153,8 @@
 		66CC1E3C1FBCCBD40080C80B /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 66CC1E3A1FBCCBD40080C80B /* success.mp3 */; };
 		66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */; };
 		66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */; };
+		66CE22561FBE246300DCC274 /* OrderListCardShiperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE22551FBE246300DCC274 /* OrderListCardShiperCell.swift */; };
+		66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE22571FBE602200DCC274 /* FlickrImageManager.swift */; };
 		66D67FF31F95161C002646F0 /* UserGuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D67FF21F95161C002646F0 /* UserGuideController.swift */; };
 		66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A2511F81E0D5007216A5 /* Date++.swift */; };
 		66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */; };
@@ -313,6 +316,7 @@
 		6633DC901F5DA63800B2FFAC /* OrdersLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLogController.swift; sourceTree = "<group>"; };
 		6633DC931F5DE7E500B2FFAC /* OrdersSenderPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersSenderPageCell.swift; sourceTree = "<group>"; };
 		6633DC951F5DF02900B2FFAC /* OrderLogSenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderLogSenderCell.swift; sourceTree = "<group>"; };
+		6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardSenderCell.swift; sourceTree = "<group>"; };
 		663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellCollectionCell.swift; sourceTree = "<group>"; };
 		663F1C931F44ABEB00E866C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		663F1C951F44DBD000E866C2 /* HomePageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageTableCell.swift; sourceTree = "<group>"; };
@@ -405,6 +409,8 @@
 		66CC1E3A1FBCCBD40080C80B /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		66CDBC6A1F7BF94B008DCB6B /* LocationSearchTableController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationSearchTableController++.swift"; sourceTree = "<group>"; };
 		66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneVerifyResult.storyboard; sourceTree = "<group>"; };
+		66CE22551FBE246300DCC274 /* OrderListCardShiperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardShiperCell.swift; sourceTree = "<group>"; };
+		66CE22571FBE602200DCC274 /* FlickrImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImageManager.swift; sourceTree = "<group>"; };
 		66D67FF21F95161C002646F0 /* UserGuideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuideController.swift; sourceTree = "<group>"; };
 		66D9A2511F81E0D5007216A5 /* Date++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date++.swift"; sourceTree = "<group>"; };
 		66DA06C51F5DF5B1002C8442 /* OrdersShipperPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersShipperPageCell.swift; sourceTree = "<group>"; };
@@ -1223,6 +1229,8 @@
 				4DE6BDDD1FBA951000900DF8 /* OrderListHeaderCell.swift */,
 				4DE6BDDF1FBA952000900DF8 /* OrderListCell.swift */,
 				06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */,
+				66CE22551FBE246300DCC274 /* OrderListCardShiperCell.swift */,
+				6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1255,6 +1263,7 @@
 				66C138C31FACBB4300755754 /* ReachabilityManager.swift */,
 				662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */,
 				66CC1E361FBCC6D50080C80B /* AudioManager.swift */,
+				66CE22571FBE602200DCC274 /* FlickrImageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1477,9 +1486,17 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-carryonex/Pods-carryonex-resources.sh",
+				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/Required/ShareSDK.bundle",
+				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/Optional/ShareSDKConfigFile.bundle",
+				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle",
+				"${PODS_ROOT}/ShareSDK3/SDK/ShareSDK/Support/Optional/ShareSDKUI.bundle",
+				"${PODS_ROOT}/ZendeskSDK/ZendeskSDK.bundle",
+				"${PODS_ROOT}/ZendeskSDK/ZendeskSDKStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1492,9 +1509,60 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-carryonex/Pods-carryonex-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ALCameraViewController/ALCameraViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Braintree/Braintree.framework",
+				"${BUILT_PRODUCTS_DIR}/BraintreeDropIn/BraintreeDropIn.framework",
+				"${BUILT_PRODUCTS_DIR}/CircleMenu/CircleMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/FlickrKit/FlickrKit.framework",
+				"${BUILT_PRODUCTS_DIR}/JXPhotoBrowser/JXPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
+				"${BUILT_PRODUCTS_DIR}/paper-onboarding/paper_onboarding.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ALCameraViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Braintree.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BraintreeDropIn.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlickrKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXPhotoBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/paper_onboarding.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1507,13 +1575,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-carryonex-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1536,6 +1607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */,
 				66C9757D1F3E165A00450F37 /* DisclaimerController++.swift in Sources */,
 				4DE6BDE21FBABB9800900DF8 /* TripRequest.swift in Sources */,
 				660BFEE31F979BDF0066F9E9 /* ProfileManager.swift in Sources */,
@@ -1592,6 +1664,7 @@
 				665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */,
 				663121F31F545B3C000F7ACB /* ConfirmBaseController.swift in Sources */,
 				4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */,
+				66CE22561FBE246300DCC274 /* OrderListCardShiperCell.swift in Sources */,
 				FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */,
 				FF45CE261FA8D44F00B59E88 /* CommentTextviewAndSubmitCell.swift in Sources */,
 				E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */,
@@ -1618,6 +1691,7 @@
 				FF62245D1FB0F2CE00280FDA /* OrderDetailCommentBaseCell.swift in Sources */,
 				6686097D1F609B6900740A92 /* WalletBaseCell++.swift in Sources */,
 				FF1321801FBA36C200B2FE9D /* UserProfileController.swift in Sources */,
+				66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */,
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,

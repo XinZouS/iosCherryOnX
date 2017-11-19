@@ -13,6 +13,7 @@ import Fabric
 import Crashlytics
 import AWSCognito
 import ZendeskSDK
+import FlickrKit
 import UserNotifications
 import Stripe
 
@@ -76,6 +77,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         let identity = ZDKAnonymousIdentity()
         ZDKConfig.instance().userIdentity = identity
+        
+        //setup Flickr SDK
+        FlickrKit.shared().initialize(withAPIKey: "de264bf38194171ee76392fba833bbab", sharedSecret: "2410000e87f5a329")
+        
+        //Setup push notifications
+        registerForPushNotifications()
         
         return true
     }

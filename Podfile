@@ -83,9 +83,15 @@ target 'carryonex' do
   use_frameworks!
   pod 'Fabric'
   pod 'Crashlytics'
+
   # Zendesk SDK
   pod 'ZendeskSDK'
+  
+  # Flickr SDK: get image based on location
+  pod 'FlickrKit', '1.0.9'
+
   # stripe
   pod 'Stripe'
+
 
 end
