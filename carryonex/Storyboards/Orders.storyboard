@@ -1178,6 +1178,7 @@
         <image name="addressDotDash" width="42" height="108"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="imgViewTopWave" width="528" height="55"/>
+        <image name="orderIcon" width="12" height="12"/>
         <image name="shareButton" width="92" height="100"/>
         <image name="starts5Mask" width="827" height="165"/>
         <image name="yadianwenqing" width="313" height="308"/>

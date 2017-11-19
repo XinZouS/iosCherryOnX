@@ -87,7 +87,7 @@ enum UserDefaultKey : String {
 
 /// weixin SDK keys
 let WX_APPID = "wx9dc6e6f4fe161a4f"
-let WX_APPSecret = "360d1facd22ebe58ec58908728633432"
+let WX_APPSecret = "7cdd2641573ef06d5d7c435d119dae14"
 
 /// QQ SDK keys
 let QQ_APPID = "100371282"

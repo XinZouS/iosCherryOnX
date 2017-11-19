@@ -13,13 +13,25 @@ class MainTabBarController: UITabBarController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var homeViewController: NewHomePageController?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addObservers()
         setupActivityIndicator()
         debugLog("Tab Bar is loaded!!!")
+        
+        if let viewControllers = self.viewControllers as? [UINavigationController] {
+            for navigationController in viewControllers {
+                if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
+                    homeViewController = homeController
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

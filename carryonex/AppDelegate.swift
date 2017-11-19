@@ -26,27 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     private let publishableKey: String = "pk_live_MRIB2doVh5Npf12pPgQHUMb7"
     private let baseURLString: String = "https://rocketrides.io"
     private let appleMerchantIdentifier: String = "merchant.com.carryontech"
-    
-    override init() {
-        super.init()
-        // Stripe payment configuration
-        STPPaymentConfiguration.shared().companyName = "Carryon Technologies Inc"
-        
-        if !publishableKey.isEmpty {
-            STPPaymentConfiguration.shared().publishableKey = publishableKey
-        }
-        
-        STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
-        
-        // Stripe theme configuration
-        STPTheme.default().primaryBackgroundColor = UIColor.MyTheme.darkGreen
-        STPTheme.default().primaryForegroundColor = UIColor.MyTheme.mediumGreen
-        STPTheme.default().secondaryForegroundColor = UIColor.MyTheme.littleGreen
-        STPTheme.default().accentColor = .black
-        
-        // Main API client configuration
-        MainAPIClient.shared.baseURLString = baseURLString
-    }
+    var mainTabViewController: MainTabBarController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
          
@@ -83,6 +63,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
         //Setup push notifications
         registerForPushNotifications()
+        
+        // Stripe payment configuration
+        STPPaymentConfiguration.shared().companyName = "Carryon Technologies Inc"
+        
+        if !publishableKey.isEmpty {
+            STPPaymentConfiguration.shared().publishableKey = publishableKey
+        }
+        
+        STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
+        
+        // Stripe theme configuration
+        STPTheme.default().primaryBackgroundColor = UIColor.MyTheme.darkGreen
+        STPTheme.default().primaryForegroundColor = UIColor.MyTheme.mediumGreen
+        STPTheme.default().secondaryForegroundColor = UIColor.MyTheme.littleGreen
+        STPTheme.default().accentColor = .black
+        
+        // Main API client configuration
+        MainAPIClient.shared.baseURLString = baseURLString
+        
+        if let mainNavigationController = self.window?.rootViewController {
+            self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
+        }
         
         return true
     }
@@ -290,6 +292,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
+    }
+    
+    static func shared() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
     }
 }
 
