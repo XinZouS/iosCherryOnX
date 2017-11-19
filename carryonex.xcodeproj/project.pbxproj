@@ -239,6 +239,7 @@
 		FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */; };
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
+		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */; };
 		FFCB0F1D1FA79FC100180BDB /* OrderCommentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1C1FA79FC100180BDB /* OrderCommentPage.swift */; };
 		FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1E1FA7A14500180BDB /* CommentUserNameCell.swift */; };
@@ -496,6 +497,7 @@
 		FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListYouxiangInputController.swift; sourceTree = "<group>"; };
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
+		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FFBDB6841FBA42FE00B3B968 /* UserRecentInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecentInfoController.swift; sourceTree = "<group>"; };
 		FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderCommentPage++.swift"; sourceTree = "<group>"; };
 		FFCB0F1C1FA79FC100180BDB /* OrderCommentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentPage.swift; sourceTree = "<group>"; };
@@ -1216,6 +1218,7 @@
 		E542F2621FB4B6420072BB31 /* Carrier */ = {
 			isa = PBXGroup;
 			children = (
+				FF9108521FC238FA00558A2B /* TripController.swift */,
 			);
 			path = Carrier;
 			sourceTree = "<group>";
@@ -1785,6 +1788,7 @@
 				FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */,
 				6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */,
 				FF32AF701F97E42A00E67036 /* DetailUserNameCell.swift in Sources */,
+				FF9108531FC238FA00558A2B /* TripController.swift in Sources */,
 				4DC043C31FB7642E00F6C3F0 /* NewHomePageController.swift in Sources */,
 				66B31C1F1F743843005A4382 /* LocationSearchTableController.swift in Sources */,
 				66AC4E071FAA2174005A797F /* OrdersLogShipperEmptyCell.swift in Sources */,

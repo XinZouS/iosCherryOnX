@@ -321,6 +321,12 @@ extension PersonalPageViewController{
 //            }
             _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
             self.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+            
+            self.view.setNeedsLayout()
+            
+            if let homeController = AppDelegate.shared().mainTabViewController?.homeViewController {
+//                homeController.userProfileController
+            }
         }
     }
     

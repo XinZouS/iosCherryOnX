@@ -16,10 +16,12 @@ extension UIColor {
         static var littleGreen : UIColor{ return UIColor(red: 0.7296996117, green: 0.8510946035, blue: 0.8725016713, alpha: 1)}
         static var mediumGreen : UIColor{ return UIColor(red: 0.2490211129, green: 0.277058661, blue: 0.4886234403, alpha: 1)}
         static var cyan : UIColor{ return UIColor(red: 0.261000365, green: 0.6704152226, blue: 0.7383304834, alpha: 1)}
+        static var darkBlue : UIColor{ return UIColor(red: 0.2614160776, green: 0.2736201882, blue: 0.4685304761, alpha: 1)}
     }
 }
 
-class NewHomePageController :UIViewController{
+class NewHomePageController: UIViewController {
+    
     enum timeEnum: Int{
         case morning = 6
         case noon = 12
@@ -35,6 +37,9 @@ class NewHomePageController :UIViewController{
     var imageurl = ""
     var realname = ""
     
+    let userProfileSegue = "UserProfileSegue"
+    var userProfileController: UserProfileController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNowHour()
@@ -44,6 +49,8 @@ class NewHomePageController :UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "shiper"){
@@ -56,7 +63,15 @@ class NewHomePageController :UIViewController{
                 destVC.viewTag = 1
             }
         }
+        
+        if (segue.identifier == userProfileSegue) {
+            if let destVC = segue.destination as? UserProfileController {
+                userProfileController = destVC
+            }
+        }
     }
+    
+    
     
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
