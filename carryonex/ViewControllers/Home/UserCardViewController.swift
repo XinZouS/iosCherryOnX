@@ -19,7 +19,6 @@ class UserCardViewController: NewHomePageController {
     @IBOutlet weak var endIconImage: UIImageView!
     var viewTag:Int = 0
     override func viewDidLoad() {
-        super.viewDidLoad()
         addUserUpdateNotificationObservers()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -70,9 +69,10 @@ class UserCardViewController: NewHomePageController {
         self.ItemStatusBtn.layer.insertSublayer(gradientLayer, at: 0)
     }
     private func loadRecentTrip(){
-
+        
     }
     private func loadRecentRequest(){
         
     }
 }
+

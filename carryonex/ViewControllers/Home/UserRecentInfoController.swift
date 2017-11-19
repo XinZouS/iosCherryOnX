@@ -19,6 +19,7 @@ class UserRecentInfoController: UIViewController{
         super.viewDidLoad()
         addUserUpdateNotificationObservers()
     }
+    
     private func addUserUpdateNotificationObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.getUserRecentInfo()
@@ -26,9 +27,10 @@ class UserRecentInfoController: UIViewController{
     }
     
     func getUserRecentInfo(){
-         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
+        guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         shipTime.setTitle(String(describing: currUser.tripCount), for: .normal)
         sendTime.setTitle(String(describing: currUser.requestCount), for: .normal)
         generalCommentBtn.setTitle(String(describing: currUser.rating), for: .normal)
     }
 }
+
