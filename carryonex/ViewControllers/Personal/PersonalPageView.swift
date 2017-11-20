@@ -19,7 +19,7 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
 
 
     @IBOutlet weak var userProfileImage: UIButton!
-    @IBOutlet weak var userProfileName: UILabel!
+    @IBOutlet weak var userProfileNameLabel: UILabel!
     var loginViewCtl = LoginViewController()
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
             userProfileImage.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         }
         if let currUserName  = currUser.realName,currUserName != ""{
-            userProfileName.text = currUserName
+            userProfileNameLabel.text = currUserName
         }
     }
     
