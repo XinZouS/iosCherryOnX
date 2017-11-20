@@ -10,17 +10,8 @@ import UIKit
 
 class TripController: UIViewController{
     
-    @IBOutlet weak var beginCountryTextField: UITextField!
-    @IBOutlet weak var beginStateTextField: UITextField!
-    @IBOutlet weak var beginCityTextField: UITextField!
-    @IBOutlet weak var beginDistrictTextField: UITextField!
-    @IBOutlet weak var endCountryTextField: UITextField!
-    @IBOutlet weak var endStateTextField: UITextField!
-    @IBOutlet weak var endCityTextField: UITextField!
-    @IBOutlet weak var endDistrictTextField: UITextField!
-    @IBOutlet weak var beginTimeTextField: UITextField!
-    @IBOutlet weak var confirmTripButton: UIButton!    
-    @IBOutlet weak var locationPicker: UIPickerView!
+
+    @IBOutlet weak var confirmTripButton: UIButton!
     @IBOutlet weak var tripScroller: UIScrollView!
     
     var gradientLayer: CAGradientLayer!
@@ -51,4 +42,5 @@ class TripController: UIViewController{
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
 }
