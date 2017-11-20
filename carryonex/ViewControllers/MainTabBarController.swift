@@ -87,6 +87,7 @@ class MainTabBarController: UITabBarController {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
             self.present(loginViewContainer, animated: true) { [weak self]_ in
                 self?.selectedIndex = 0
+                self?.activityIndicator.stopAnimating()
             }
         } else {
             debugLog("Something is wrong with the Login storyboard, please check.")

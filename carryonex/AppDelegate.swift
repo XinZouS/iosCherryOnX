@@ -15,7 +15,6 @@ import AWSCognito
 import ZendeskSDK
 import FlickrKit
 import UserNotifications
-import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -23,11 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     var window: UIWindow?
     static var appToken : String? // singleton for app to login server
     static var timestamp: String?
-    private let publishableKey: String = "pk_live_MRIB2doVh5Npf12pPgQHUMb7"
-    private let baseURLString: String = "https://rocketrides.io"
-    private let appleMerchantIdentifier: String = "merchant.com.carryontech"
     var mainTabViewController: MainTabBarController?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
          
          //change navigation bar color
@@ -61,26 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //setup Flickr SDK
         FlickrKit.shared().initialize(withAPIKey: "de264bf38194171ee76392fba833bbab", sharedSecret: "2410000e87f5a329")
         
+        //Setup Stripe
+        WalletManager.shared.initializeStripe()
+        
         //Setup push notifications
         registerForPushNotifications()
-        
-        // Stripe payment configuration
-        STPPaymentConfiguration.shared().companyName = "Carryon Technologies Inc"
-        
-        if !publishableKey.isEmpty {
-            STPPaymentConfiguration.shared().publishableKey = publishableKey
-        }
-        
-        STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
-        
-        // Stripe theme configuration
-        STPTheme.default().primaryBackgroundColor = UIColor.MyTheme.darkGreen
-        STPTheme.default().primaryForegroundColor = UIColor.MyTheme.mediumGreen
-        STPTheme.default().secondaryForegroundColor = UIColor.MyTheme.littleGreen
-        STPTheme.default().accentColor = .black
-        
-        // Main API client configuration
-        MainAPIClient.shared.baseURLString = baseURLString
         
         if let mainNavigationController = self.window?.rootViewController {
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController

@@ -18,8 +18,10 @@ extension RegisterPasswordController: UITextFieldDelegate {
                 if success {
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    let m = "注册出现错误，请再试一次。\(msg)"
-                    self.displayAlert(title: "不能注册", message: m, action: "好")
+                    if let msg = msg {
+                        let m = "注册出现错误，请再试一次。\(msg)"
+                        self.displayAlert(title: "不能注册", message: m, action: "好")
+                    }
                 }
             })
         } else {

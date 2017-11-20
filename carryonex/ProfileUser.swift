@@ -51,13 +51,15 @@ class ProfileUser: Unboxable  {
     var tripCount:Int = 1
     var requestCount:Int = 2
     var rating:Float = 1.1
+    var walletId: Int?
+    
     init() {
         //Initialization
     }
     
     func printAllData(){
         let allData = """
-        id = \(id ?? 0)
+        id = \(id ?? -999)
         username = \(username ?? "")
         token = \(token ?? "")
         realName = \(realName ?? "")
@@ -69,6 +71,7 @@ class ProfileUser: Unboxable  {
         passportUrl = \(passportUrl ?? "")
         isIdVerified = \(isIdVerified)
         isPhoneVerified = \(isPhoneVerified)
+        walletId = \(walletId ?? -999)
         """
         print(allData)
     }
@@ -87,6 +90,8 @@ class ProfileUser: Unboxable  {
         self.idAUrl = try? unboxer.unbox(key: ProfileUserKey.idAUrl.rawValue)
         self.idBUrl = try? unboxer.unbox(key: ProfileUserKey.idBUrl.rawValue)
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
+        
+        self.walletId = try? unboxer.unbox(key: ProfileUserKey.walletId.rawValue)
         
         //TODO: ZIAN - MENGDI NEEDS TO FIX IT
         //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)

@@ -13,8 +13,11 @@ enum WalletKeyInDB: String {
     case nounce = "nounce"
     case creditAvailable = "available_credit"
     case creditPending   = "pending_credit"
+    case apiVersion = "api_version"
+    case userId = "user_id"
+    case ephemeralKey = "ephemeralkey"
+    case currency = "currency"
 }
-
 
 class Wallet : NSObject, Unboxable {
     
@@ -22,7 +25,6 @@ class Wallet : NSObject, Unboxable {
     
     var creditAvailable : Float = 0.00
     var creditPending :   Float = 0.00
-    
     
     var checkingAccounts = [CheckingAccount]()
     var creditAccounts = [CreditAccount]()

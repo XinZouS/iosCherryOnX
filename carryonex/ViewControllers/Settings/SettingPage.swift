@@ -43,9 +43,11 @@ class SettingPageViewController: UIViewController {
     }
     
     @IBAction func accountInfoButtonTapped(_ sender: Any) {
+        //WalletManager.shared.pay(price: 100, hostViewController: self)
     }
     
     @IBAction func versionButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {

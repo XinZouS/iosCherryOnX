@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import Unbox
+import Stripe
 
 enum UsersInfoUpdate : String {
     case salt       = "salt"
@@ -875,7 +876,7 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 
                 //TODO: update this after server update
-                if data["comment_id"] != nil || data["id"] != nil {
+                if data[CommentKey.commentId.rawValue] != nil || data[CommentKey.id.rawValue] != nil {
                     completion(true, nil)
                 } else {
                     completion(false, nil)
@@ -915,7 +916,7 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response["data"] as? [String: Any] {
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let userComments : UserComments = try unbox(dictionary: data, atKey:"comments")
                     completion(userComments, nil)
@@ -931,6 +932,92 @@ class ApiServers : NSObject {
         }
     }
     
+    
+    //MARK: - Wallet API
+    func getWalletStripeEphemeralKey(apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's stripe id")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/stripe/ephemeralkey"
+        let parameters : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            WalletKeyInDB.userId.rawValue: profileUser.id ?? "",
+            ProfileUserKey.walletId.rawValue: profileUser.walletId ?? "",
+            WalletKeyInDB.apiVersion.rawValue: apiVersion
+        ]
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    debugLog("Response error: \(error.localizedDescription)")
+                }
+                completion(nil, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                let keyPayload = data[WalletKeyInDB.ephemeralKey.rawValue] as? [String: Any] {
+                //debugPrint("Payload: \(keyPayload)")
+                completion(keyPayload, nil)
+            } else {
+                debugPrint("Unable to find key payload at ephemeralkey")
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func postWalletStripeCompleteCharge(_ result: STPPaymentResult,
+                                        amount: Int,
+                                        currency: String,
+                                        completion: @escaping STPErrorBlock) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's stripe id")
+            completion(nil)
+            return
+        }
+        
+        guard amount >= 50 else {
+            debugLog("Amount at least 50 cents")
+            return
+        }
+        
+        let route = hostVersion + "/wallets/stripe/charge"
+        
+        let requestDict: [String: Any] = [
+            "source": "tok_visa",
+            "amount": amount,
+            WalletKeyInDB.userId.rawValue: profileUser.id ?? -999,
+            WalletKeyInDB.currency.rawValue: currency,
+            ProfileUserKey.walletId.rawValue: profileUser.walletId ?? -999
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            if let error = error {
+                print("postWalletStripeCompleteCharge update response error: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            
+            //Zian: Is it good enough??
+            completion(nil)
+        }
+    }
     
     
     // MARK: - basic GET and POST by url

@@ -46,9 +46,6 @@ class NewHomePageController: UIViewController {
         setupBackGroundColor()
         setupActivityIndicator()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
     
     
     

@@ -16,6 +16,7 @@ enum CommentKey: String {
     case rank = "rank"
     case imageUrl = "image_url"
     case timestamp = "timestamp"
+    case commentId = "comment_id"
     
     //POST ONLY
     case commenteeId = "commentee_id"

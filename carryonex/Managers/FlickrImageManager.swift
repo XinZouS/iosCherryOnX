@@ -30,6 +30,7 @@ class FlickrImageManager {
 //    }
     
     public func getPhotoUrl(){
+        /*
         FlickrKit.shared().call(flickrInterestingList) { (resopnse, error) in
             DispatchQueue.main.async(execute: {
                 if let response = resopnse {
@@ -41,6 +42,7 @@ class FlickrImageManager {
                 }
             })
         }
+         */
     }
     
 }
