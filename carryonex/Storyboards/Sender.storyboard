@@ -14,7 +14,6 @@
         <!--寄件-->
         <scene sceneID="cS5-mD-3bM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3wL-Te-Uaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="QGo-l0-xmq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="寄件" image="requestIcon" id="36M-Q4-he1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -26,13 +25,14 @@
                         <segue destination="6aY-yC-FGU" kind="relationship" relationship="rootViewController" id="xJD-N5-Hzi"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3wL-Te-Uaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-297" y="167"/>
         </scene>
-        <!--Item List Youxiang Input Controller-->
+        <!--View Controller-->
         <scene sceneID="bOO-pl-Oyu">
             <objects>
-                <viewController id="6aY-yC-FGU" customClass="ItemListYouxiangInputController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6aY-yC-FGU" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qOP-M1-Utm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
