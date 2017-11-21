@@ -50,7 +50,7 @@ class ProfileUser: Unboxable  {
     var status: Status?
     var tripCount:Int = 1
     var requestCount:Int = 2
-    var rating:Float = 1.1
+    var rating:Float = 4.5
     var walletId: Int?
     
     init() {

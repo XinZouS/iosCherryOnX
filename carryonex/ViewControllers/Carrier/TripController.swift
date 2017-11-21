@@ -13,6 +13,7 @@ import FSCalendar
 class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,CLLocationManagerDelegate{
     @IBOutlet weak var confirmTripButton: UIButton!
     @IBOutlet weak var otherTextField: UITextField!
+    @IBOutlet weak var tripScrollView: UIScrollView!
     let timePicker:UIDatePicker = UIDatePicker()
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
@@ -26,13 +27,13 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     var citiesIndex = 0
     var indexOfTextField : Int = 0
     var areaPickerMenu : UIPickerMenuView?
-    var transparentView : UIView = {
-        let v = UIView()
-        v.isHidden = true
-        v.backgroundColor = .clear
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
-        return v
-    }()
+//    var transparentView : UIView = {
+//        let v = UIView()
+//        v.isHidden = true
+//        v.backgroundColor = .clear
+//        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
+//        return v
+//    }()
     lazy var pickerView : UIPickerView = {
         let p = UIPickerView()
         p.dataSource = self
@@ -73,13 +74,38 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
         setUpPicker()
         setupLocation()
-        setUpTransparentView()
+
+//        setUpTransparentView()
+        self.addDoneButtonOnKeyboard()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    private func setUpTransparentView(){
-        view.addSubview(transparentView)
-        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+    func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(TripController.doneButtonAction))
+        
+        let items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as? [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        self.timeTextField.inputAccessoryView = doneToolbar
+        self.otherTextField.inputAccessoryView = doneToolbar
     }
+    
+    func doneButtonAction()
+    {
+        self.timeTextField.resignFirstResponder()
+        self.otherTextField.resignFirstResponder()
+    }
+//    private func setUpTransparentView(){
+//        view.addSubview(transparentView)
+//        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+//    }
+
     override func viewWillAppear(_ animated: Bool) {
         setupBackgroundColor()
         setupTimePicker()
@@ -87,10 +113,11 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "tripComplete") {
-            if let destVC = segue.destination as? tripCompleteController {
+            if let destVC = segue.destination as? tripCompleteController{
                 destVC.beginLocationString = beginLocation.text
                 destVC.endLocationString = endLocation.text
                 destVC.dateString = timeTextField.text
+                destVC.descriptionString = otherTextField.text
             }
         }
     }
@@ -235,9 +262,12 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         judgeButtonState()
     }
     @IBAction func timeTextFieldTapped(_ sender: Any) {
-        transparentView.isHidden = false
+//        transparentView.isHidden = false
+        var offset = tripScrollView.contentOffset
+        offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
+        tripScrollView.setContentOffset(offset, animated: true)
         timeTextField.inputView = timePicker
-        judgeButtonState()
+        
     }
     
     @IBAction func endLocationTapped(_ sender: Any) {
@@ -248,6 +278,9 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     }
     
     @IBAction func otherTextFieldTapped(_ sender: Any) {
+        var offset = tripScrollView.contentOffset
+        offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
+        tripScrollView.setContentOffset(offset, animated: true)
         transparentView.isHidden = false
     }
     @objc private func datePickerValueChanged(){
@@ -258,20 +291,20 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         timeTextField.text = dateText
     }
     
-    func textFieldsInAllCellResignFirstResponder(){
-        transparentView.isHidden = true
-        beginLocation.resignFirstResponder()
-        endLocation.resignFirstResponder()
-        timeTextField.resignFirstResponder()
-        otherTextField.resignFirstResponder()
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        if touches.count > 0 {
-            textFieldsInAllCellResignFirstResponder()
-        }
-    }
+//    func textFieldsInAllCellResignFirstResponder(){
+//        transparentView.isHidden = true
+//        beginLocation.resignFirstResponder()
+//        endLocation.resignFirstResponder()
+//        timeTextField.resignFirstResponder()
+//        otherTextField.resignFirstResponder()
+//    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//
+//        if touches.count > 0 {
+//            textFieldsInAllCellResignFirstResponder()
+//        }
+//    }
     private func setupLocation(){
         //初始化位置管理器
         locationManager = CLLocationManager()
@@ -338,7 +371,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     }
     private func judgeButtonState(){
         if beginLocation.text != nil && endLocation.text != nil && timeTextField.text != nil{
-            confirmTripButton.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            confirmTripButton.backgroundColor = #colorLiteral(red: 1, green: 0.4189302325, blue: 0.4186580479, alpha: 1)
             confirmTripButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
             confirmTripButton.isEnabled = true
         }

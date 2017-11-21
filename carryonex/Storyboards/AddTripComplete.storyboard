@@ -163,6 +163,7 @@
                     <connections>
                         <outlet property="beginLocationLabel" destination="Rqq-Aa-E5I" id="EzK-nO-RrW"/>
                         <outlet property="dayLabel" destination="ewO-3W-fpj" id="fkj-t3-bdd"/>
+                        <outlet property="descriptionLabel" destination="717-tM-T8i" id="aTW-vz-uM4"/>
                         <outlet property="endLocationLabel" destination="LBp-Qq-hGn" id="1IC-aj-z0a"/>
                         <outlet property="monthLabel" destination="aUL-Ch-uno" id="PiW-Fl-isq"/>
                     </connections>
