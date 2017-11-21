@@ -14,9 +14,11 @@ class tripCompleteController:UIViewController{
     @IBOutlet weak var endLocationLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     var dateString :String!
     var beginLocationString:String!
     var endLocationString:String!
+    var descriptionString: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,5 +67,6 @@ class tripCompleteController:UIViewController{
         }
         monthLabel.text = monthString
         dayLabel.text = day
+        descriptionLabel.text = descriptionString
     }
 }
