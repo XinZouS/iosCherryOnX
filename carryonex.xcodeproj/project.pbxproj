@@ -1170,8 +1170,8 @@
 		E542F25A1FB4B4720072BB31 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */,
 				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
+				660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
 				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
@@ -1616,7 +1616,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1728,7 +1728,6 @@
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				E542F2721FB605080072BB31 /* (null) in Sources */,
-				FF5F20931FBF7B910080AA12 /* MainAPIClient.swift in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
 				665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */,
