@@ -20,7 +20,7 @@ class UserProfileController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var circle: UIImageView!
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
-    
+    var newHomeCtl: NewHomePageController!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -48,6 +48,23 @@ class UserProfileController: UIViewController, CLLocationManagerDelegate {
             userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
         } else {
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+        }
+        if let currUserName  = currUser.realName,currUserName != ""{
+            var greeting = "你好"
+            if let timeState = AppDelegate.shared().mainTabViewController?.homeViewController?.timeStatus{
+                switch timeState {
+                case "night":
+                    greeting = "晚上好，"
+                case "afternoon":
+                    greeting = "下午好，"
+                case "noon":
+                    greeting = "中午好，"
+                default:
+                    greeting = "早上好，"
+                }
+            }
+            let labelDisplay = greeting+currUserName
+            helloLabel.text = labelDisplay
         }
     }
     
