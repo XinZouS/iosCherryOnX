@@ -74,6 +74,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
         setUpPicker()
         setupLocation()
+
 //        setUpTransparentView()
         self.addDoneButtonOnKeyboard()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -104,6 +105,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
 //        view.addSubview(transparentView)
 //        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
 //    }
+
     override func viewWillAppear(_ animated: Bool) {
         setupBackgroundColor()
         setupTimePicker()
@@ -279,6 +281,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         var offset = tripScrollView.contentOffset
         offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
         tripScrollView.setContentOffset(offset, animated: true)
+        transparentView.isHidden = false
     }
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()

@@ -9,9 +9,7 @@
 		<string>applinks:54.245.216.35:5000</string>
 	</array>
 	<key>com.apple.developer.in-app-payments</key>
-	<array>
-		<string>merchant.com.carryontech</string>
-	</array>
+	<array/>
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)com.carryontech.carryonex</string>
