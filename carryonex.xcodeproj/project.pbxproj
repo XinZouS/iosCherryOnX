@@ -206,7 +206,6 @@
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
-		FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF009A681F7C44C8008EA215 /* addressCN.plist */; };
 		FF1321801FBA36C200B2FE9D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF13217F1FBA36C200B2FE9D /* UserProfileController.swift */; };
 		FF1321821FBA3D0C00B2FE9D /* UserStarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1321811FBA3D0C00B2FE9D /* UserStarController.swift */; };
 		FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */; };
@@ -230,7 +229,7 @@
 		FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */; };
 		FF4A5B551F7D466C001D86D0 /* ProvinceAndCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */; };
 		FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */; };
-		FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */; };
+		FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* address.plist */; };
 		FF4D14CF1FA3BF7D009CC1A0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
@@ -243,6 +242,7 @@
 		FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */; };
 		FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */; };
 		FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */; };
+		FF850CBC1FC37B46003DBD9D /* tripCompleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF850CBB1FC37B46003DBD9D /* tripCompleteController.swift */; };
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
@@ -468,7 +468,6 @@
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
-		FF009A681F7C44C8008EA215 /* addressCN.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressCN.plist; sourceTree = "<group>"; };
 		FF13217F1FBA36C200B2FE9D /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		FF1321811FBA3D0C00B2FE9D /* UserStarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStarController.swift; sourceTree = "<group>"; };
 		FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailController.swift; sourceTree = "<group>"; };
@@ -492,7 +491,7 @@
 		FF48C3211F968B8C0030BD94 /* OrderDetailPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailPage.swift; sourceTree = "<group>"; };
 		FF4A5B541F7D466C001D86D0 /* ProvinceAndCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceAndCityCell.swift; sourceTree = "<group>"; };
 		FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProvinceAndCityCell++.swift"; sourceTree = "<group>"; };
-		FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressUS.plist; sourceTree = "<group>"; };
+		FF4A5B581F7D9AEE001D86D0 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		FF4D14CA1FA3BF59009CC1A0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FF4D14CC1FA3BF67009CC1A0 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -507,6 +506,7 @@
 		FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommentViewCell++.swift"; sourceTree = "<group>"; };
 		FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListYouxiangInputController.swift; sourceTree = "<group>"; };
+		FF850CBB1FC37B46003DBD9D /* tripCompleteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tripCompleteController.swift; sourceTree = "<group>"; };
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
@@ -684,8 +684,7 @@
 				E58FDC991FA5A202000C126E /* Managers */,
 				E53791E61FABC047009647CD /* Vendor */,
 				4DC043C51FB769EF00F6C3F0 /* Supports */,
-				FF4A5B581F7D9AEE001D86D0 /* addressUS.plist */,
-				FF009A681F7C44C8008EA215 /* addressCN.plist */,
+				FF4A5B581F7D9AEE001D86D0 /* address.plist */,
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
 				665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */,
 				665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */,
@@ -1236,6 +1235,7 @@
 			isa = PBXGroup;
 			children = (
 				FF9108521FC238FA00558A2B /* TripController.swift */,
+				FF850CBB1FC37B46003DBD9D /* tripCompleteController.swift */,
 			);
 			path = Carrier;
 			sourceTree = "<group>";
@@ -1481,7 +1481,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF4A5B591F7D9AF0001D86D0 /* addressUS.plist in Resources */,
+				FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */,
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
@@ -1491,7 +1491,6 @@
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
 				E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */,
 				CFA277BC1FC1411D0008FC63 /* Request.storyboard in Resources */,
-				FF009A691F7C44C9008EA215 /* addressCN.plist in Resources */,
 				66E2C9821FB66755000B250E /* PhoneVerify.storyboard in Resources */,
 				CF24D93D1FC353EA0036FB4E /* PostRate.storyboard in Resources */,
 				E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */,
@@ -1821,6 +1820,7 @@
 				FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */,
 				664C648F1F5580A300AA8FFE /* UserProfileView++.swift in Sources */,
 				66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */,
+				FF850CBC1FC37B46003DBD9D /* tripCompleteController.swift in Sources */,
 				E53791E41FAB731E009647CD /* Notifications++.swift in Sources */,
 				660F4F811F57559400F4820D /* ButtonCell.swift in Sources */,
 				6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */,
