@@ -20,14 +20,36 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
 
     @IBOutlet weak var userProfileImage: UIButton!
     @IBOutlet weak var userProfileNameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewAllCommentsButton: UIButton!
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    let titles = ["钱包","帮助","设置"]
+    let subTitles = ["收付款，查看余额，提现", "", ""]
+    let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray")]
+    let cellId = "PersonalPageTableCell"
+    
     var loginViewCtl = LoginViewController()
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "我的"
+        setupTableView()
+        setupNavigationBar()
         addUserUpdateNotificationObservers()
         loadUserProfile()
         addNotificationObservers()
         setupActivityIndicator()
+    }
+    private func setupTableView(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView() // remove empty rows;
+        tableView.isScrollEnabled = false
     }
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
@@ -38,10 +60,8 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        navigationController?.isNavigationBarHidden = true
         setupUserImageView()
+        setupNavigationBar()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,6 +70,15 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
                 userProfileCtl.helloLabel.text = "你不好"
             }
         }
+    }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func addNotificationObservers() {
@@ -124,34 +153,74 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        
+        // TODO: navigate to edit profile button;
     }
-    @IBAction func paymentButtonTapped(_ sender: Any) {
-    }
-    
-    @IBAction func getPayButtonTapped(_ sender: Any) {
+    @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
+        // TODO: navigate to see comments page;
     }
     
-    @IBAction func walletButtonTapped(_ sender: Any) {
-    }
     
-    @IBAction func helpMeButtonTapped(_ sender: Any) {
-        navigationController?.isNavigationBarHidden = false
-        let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
-        ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
-    }
     
-    @IBAction func settingButtonTapped(_ sender: Any) {
-        if let settingVC = UIStoryboard(name: "SettingPage", bundle: nil).instantiateViewController(withIdentifier: "SettingPageVCID") as? SettingPageViewController {
-            navigationController?.isNavigationBarHidden = false
-            navigationController?.pushViewController(settingVC, animated: true)
+}
+
+extension PersonalPageViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            print("TODO: show wallet page")
+            
+        case 1:
+            let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+
+        case 2:
+            performSegue(withIdentifier: "pushSettingPageSegue", sender: self)
+            
+        default:
+            print("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")
         }
     }
-
     
-    @IBAction func feedbackButtonTapped(_ sender: Any) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 50
+        case 1:
+            return 40
+        case 2:
+            return 40
+        default:
+            return 40
+        }
+    }
+    
+}
+
+extension PersonalPageViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? PersonalPageTableCell {
+            cell.titleLabel.text = titles[indexPath.row]
+            cell.subTitleLabel.text = subTitles[indexPath.row]
+            cell.imageIconView.image = titleImgs[indexPath.row]
+            cell.selectionStyle = .none
+            return cell
+        }
+        return UITableViewCell()
     }
 }
+
+
+
 /// MARK: - ALCameraView or ImagePicker setup
 extension PersonalPageViewController{
     func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool){
