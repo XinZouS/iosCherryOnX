@@ -12,6 +12,7 @@ import FSCalendar
 
 class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,CLLocationManagerDelegate{
     @IBOutlet weak var confirmTripButton: UIButton!
+    @IBOutlet weak var otherTextField: UITextField!
     let timePicker:UIDatePicker = UIDatePicker()
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
@@ -72,9 +73,13 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
         setUpPicker()
         setupLocation()
+        setUpTransparentView()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
+    private func setUpTransparentView(){
+        view.addSubview(transparentView)
+        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+    }
     override func viewWillAppear(_ animated: Bool) {
         setupBackgroundColor()
         setupTimePicker()
@@ -229,16 +234,21 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         areaPickerMenu?.showUpAnimation(withTitle: "选择地区")
         judgeButtonState()
     }
-    
     @IBAction func timeTextFieldTapped(_ sender: Any) {
+        transparentView.isHidden = false
         timeTextField.inputView = timePicker
         judgeButtonState()
     }
+    
     @IBAction func endLocationTapped(_ sender: Any) {
         indexOfTextField = 1
         endLocation.inputView = areaPickerMenu
         areaPickerMenu?.showUpAnimation(withTitle: "选择地区")
         judgeButtonState()
+    }
+    
+    @IBAction func otherTextFieldTapped(_ sender: Any) {
+        transparentView.isHidden = false
     }
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()
@@ -253,6 +263,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         beginLocation.resignFirstResponder()
         endLocation.resignFirstResponder()
         timeTextField.resignFirstResponder()
+        otherTextField.resignFirstResponder()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
