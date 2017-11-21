@@ -281,7 +281,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         var offset = tripScrollView.contentOffset
         offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
         tripScrollView.setContentOffset(offset, animated: true)
-        transparentView.isHidden = false
+//        transparentView.isHidden = false
     }
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()

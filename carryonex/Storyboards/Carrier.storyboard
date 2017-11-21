@@ -121,12 +121,6 @@
                                                     <segue destination="EUc-9c-gHj" kind="show" identifier="tripComplete" id="tkt-y3-xsW"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kq2-B6-zGo">
-                                                <rect key="frame" x="10" y="320" width="51" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4N7-B0-peX">
 
                                                 <rect key="frame" x="10" y="121.5" width="315" height="1"/>
