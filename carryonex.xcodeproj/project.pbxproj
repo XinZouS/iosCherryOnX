@@ -83,6 +83,7 @@
 		664C64981F5602E800AA8FFE /* PostTripController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664C64971F5602E800AA8FFE /* PostTripController++.swift */; };
 		6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6657E94A1F435BEF00755443 /* PhotoIDController.swift */; };
 		6657E94D1F435C1F00755443 /* PhotoIDController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6657E94C1F435C1F00755443 /* PhotoIDController++.swift */; };
+		665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */; };
 		665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */; };
 		665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665DE4EE1F3A0B70004DDB88 /* HomePageController.swift */; };
 		665DE4F51F3A0B70004DDB88 /* carryonex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 665DE4F31F3A0B70004DDB88 /* carryonex.xcdatamodeld */; };
@@ -344,6 +345,7 @@
 		665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "carryonex-Bridging-Header.h"; sourceTree = "<group>"; };
 		6657E94A1F435BEF00755443 /* PhotoIDController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoIDController.swift; sourceTree = "<group>"; };
 		6657E94C1F435C1F00755443 /* PhotoIDController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoIDController++.swift"; sourceTree = "<group>"; };
+		665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShiperInfo.storyboard; sourceTree = "<group>"; };
 		665DE4E91F3A0B70004DDB88 /* carryonex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carryonex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		665DE4EE1F3A0B70004DDB88 /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
@@ -1185,6 +1187,7 @@
 				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
 				CF24D93C1FC353EA0036FB4E /* PostRate.storyboard */,
 				CF360F551FBCC451000F6ECC /* SettingPage.storyboard */,
+				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1500,6 +1503,7 @@
 				4DC043DD1FB7933400F6C3F0 /* Login.storyboard in Resources */,
 				66E2C98E1FBA4DEA000B250E /* PhoneNum.storyboard in Resources */,
 				CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */,
+				665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */,
 				CF24D9411FC36A100036FB4E /* ChangePersonalProfile.storyboard in Resources */,
 				660ABC611FC35CC000B81076 /* SenderDetailInfo.storyboard in Resources */,
 				CF3CC2801FC210810098A4C9 /* AddTripComplete.storyboard in Resources */,
