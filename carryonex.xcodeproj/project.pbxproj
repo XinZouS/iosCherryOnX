@@ -199,10 +199,10 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
-		E542F2721FB605080072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E542F2761FB6057E0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E542F2781FB6058D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E542F2721FB605080072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2741FB6053D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2761FB6057E0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2781FB6058D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
@@ -1616,7 +1616,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1727,8 +1727,7 @@
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
-				E542F2721FB605080072BB31 /* (null) in Sources */,
-				FF5F20931FBF7B910080AA12 /* MainAPIClient.swift in Sources */,
+				E542F2721FB605080072BB31 /* BuildFile in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
 				665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */,
@@ -1790,7 +1789,7 @@
 				FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
-				E542F2741FB6053D0072BB31 /* (null) in Sources */,
+				E542F2741FB6053D0072BB31 /* BuildFile in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
@@ -1808,7 +1807,7 @@
 				668609791F607CC600740A92 /* WalletCheckingCell++.swift in Sources */,
 				665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */,
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,
-				E542F2761FB6057E0072BB31 /* (null) in Sources */,
+				E542F2761FB6057E0072BB31 /* BuildFile in Sources */,
 				66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */,
 				667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */,
 				66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */,
@@ -1840,7 +1839,7 @@
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
 				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
-				E542F2781FB6058D0072BB31 /* (null) in Sources */,
+				E542F2781FB6058D0072BB31 /* BuildFile in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
