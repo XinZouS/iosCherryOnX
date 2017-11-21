@@ -185,13 +185,9 @@ extension PersonalPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 50
-        case 1:
-            return 40
-        case 2:
-            return 40
+            return 60
         default:
-            return 40
+            return 50
         }
     }
     
