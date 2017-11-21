@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 
 class SettingsViewController: UIViewController {
     
@@ -58,31 +58,57 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // title: 0,    1,        2,       3,      4,     5
+        // ["消息设置","定位权限","账号信息","服务条款","版本","退出"]
         switch indexPath.row {
         case 0:
-            print("selection...")
+            openSystemSetting()
             
-        case 0:
-            print("selection...")
+        case 1:
+            openSystemGpsSetting()
             
-        case 0:
-            print("selection...")
+        case 2:
+            // TODO:
+            print("TODO: selection 账号信息")
             
-        case 0:
-            print("selection...")
+        case 3:
+            // TODO:
+            print("TODO: selection 服务条款")
             
-        case 0:
-            print("selection...")
+        case 4:
+            // TODO:
+            print("TODO: selection 版本: API for version")
             
-        case 0:
-            print("selection...")
+        case 5:
+            ProfileManager.shared.logoutUser()
+            // TODO: after homepage done, get reference and do this:
+            //userProfileView?.removeProfileImageFromLocalFile()
+            navigationController?.popToRootViewController(animated: false)
             
         default:
             print("Error: invalidate selection in SettingsViewController tableView;")
         }
     }
 
+    private func openSystemSetting(){
+        if let sysUrl = URL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.shared.open(sysUrl, options: [:], completionHandler: nil)
+        } else {
+            print("unable to openSystemSetting")
+        }
+    }
     
+    private func openSystemGpsSetting(){
+        if !CLLocationManager.locationServicesEnabled() {
+            if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION") {
+                // If general location settings are disabled then open general location settings
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            openSystemSetting()
+        }
+    }
+
     
 }
 
