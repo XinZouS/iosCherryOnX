@@ -34,6 +34,7 @@ class PersonalInfoEditingViewController: UIViewController {
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView() // remove empty rows;
     }
     
     private func setupUser(){
