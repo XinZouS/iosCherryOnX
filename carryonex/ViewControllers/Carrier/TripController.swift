@@ -12,9 +12,7 @@ import FSCalendar
 
 class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,CLLocationManagerDelegate{
     @IBOutlet weak var confirmTripButton: UIButton!
-    @IBOutlet weak var tripScroller: UIScrollView!
-    @IBOutlet weak var timePicker: UIDatePicker!
-    @IBOutlet weak var hiddenButton: UIButton!
+    let timePicker:UIDatePicker = UIDatePicker()
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
     let address = Address()
@@ -53,7 +51,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         b.addTarget(self, action: #selector(areaMenuOKButtonTapped), for: .touchUpInside)
         return b
     }()
-    
     lazy var areaPickerCancelButton: UIButton = {
         let b = UIButton()
         let attributes:[String:Any] = [
@@ -118,10 +115,12 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         minComponents.year = nowYear
         let minDate: Date = calendar.date(from: minComponents)!
         let maxDate: Date = calendar.date(from: maxComponents)!
+        timePicker.datePickerMode = UIDatePickerMode.date
         timePicker.minimumDate = minDate
         timePicker.maximumDate = maxDate
-        timePicker.isHidden = true
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
+        timeTextField.text = strNowTime[YearStartIndex...YearEndIndex]+"年"+strNowTime[MonthStartIndex...MonthendIndex]+"月"+strNowTime[DayStartIndex...DayendIndex]+"日"
     }
     
     func areaMenuOKButtonTapped(){
@@ -142,7 +141,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         }
         areaPickerMenu?.dismissAnimation()
     }
-    
     func setUpPicker(){
         areaPickerMenu = UIPickerMenuView(frame: .zero)
         areaPickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: pickerView, leftBtn: areaPickerCancelButton, rightBtn: areaMenuOKButton)
@@ -225,8 +223,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 3
     }
-    
-    
     @IBAction func beginLocationTapped(_ sender: Any) {
         indexOfTextField = 0
         beginLocation.inputView = areaPickerMenu
@@ -234,24 +230,22 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         judgeButtonState()
     }
     
+    @IBAction func timeTextFieldTapped(_ sender: Any) {
+        timeTextField.inputView = timePicker
+        judgeButtonState()
+    }
     @IBAction func endLocationTapped(_ sender: Any) {
         indexOfTextField = 1
         endLocation.inputView = areaPickerMenu
         areaPickerMenu?.showUpAnimation(withTitle: "选择地区")
         judgeButtonState()
     }
-    @IBAction func hiddenButtonTapped(_ sender: Any) {
-        timePicker.isHidden = false
-        judgeButtonState()
-    }
-    
-    @IBAction func timePickerChange(_ sender: Any) {
+    @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月dd日"
         let date = timePicker.date
         let dateText = formatter.string(from: date)
         timeTextField.text = dateText
-        timePicker.isHidden = true
     }
     
     func textFieldsInAllCellResignFirstResponder(){
@@ -259,7 +253,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         beginLocation.resignFirstResponder()
         endLocation.resignFirstResponder()
         timeTextField.resignFirstResponder()
-        timePicker.isHidden = true
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -323,7 +316,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
             }
         }
     }
-    
     //FIXME:  获取位置信息失败
     private func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print(error)

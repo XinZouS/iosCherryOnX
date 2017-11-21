@@ -94,11 +94,14 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QCC-5x-Os6">
-                                                <rect key="frame" x="10" y="370" width="315" height="30"/>
+                                                <rect key="frame" x="10" y="370" width="315" height="24"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="timeTextFieldTapped:" destination="u23-3M-RHB" eventType="editingDidBegin" id="d2k-h3-6hf"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-a0-Ih8">
                                                 <rect key="frame" x="10" y="370" width="315" height="30"/>
@@ -200,9 +203,7 @@
                             <constraint firstItem="oAy-7w-v9z" firstAttribute="trailing" secondItem="LTg-9z-fn1" secondAttribute="trailing" id="VwY-S8-AqX"/>
                             <constraint firstItem="oAy-7w-v9z" firstAttribute="bottom" secondItem="vnw-ST-DVC" secondAttribute="bottom" constant="30" id="a6R-ae-4nG"/>
                             <constraint firstItem="QB5-Xv-YVy" firstAttribute="top" secondItem="oAy-7w-v9z" secondAttribute="top" constant="30" id="dvJ-bv-Ne4"/>
-                            <constraint firstItem="LTg-9z-fn1" firstAttribute="leading" secondItem="oAy-7w-v9z" secondAttribute="leading" id="lhl-dd-Jss"/>
                             <constraint firstItem="vnw-ST-DVC" firstAttribute="top" secondItem="oAy-7w-v9z" secondAttribute="top" constant="30" id="ppx-wY-Lba"/>
-                            <constraint firstItem="oAy-7w-v9z" firstAttribute="bottom" secondItem="LTg-9z-fn1" secondAttribute="bottom" id="pwg-1C-Nef"/>
                             <constraint firstItem="oAy-7w-v9z" firstAttribute="trailing" secondItem="vnw-ST-DVC" secondAttribute="trailing" constant="20" id="vg1-Cm-ab9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oAy-7w-v9z"/>
@@ -212,8 +213,6 @@
                         <outlet property="beginLocation" destination="Xn2-2a-RLX" id="lz2-mU-1V9"/>
                         <outlet property="confirmTripButton" destination="r6l-HC-x6A" id="9D6-Xw-mPN"/>
                         <outlet property="endLocation" destination="MUa-B9-Upx" id="mNu-KP-DlO"/>
-                        <outlet property="hiddenButton" destination="GVd-a0-Ih8" id="Equ-JI-5Rx"/>
-                        <outlet property="timePicker" destination="LTg-9z-fn1" id="aO4-lz-uQL"/>
                         <outlet property="timeTextField" destination="QCC-5x-Os6" id="i3Y-r4-DMX"/>
                         <outlet property="tripScroller" destination="vnw-ST-DVC" id="6SL-Ny-DGO"/>
                     </connections>
@@ -221,6 +220,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCR-w9-Pv8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="500.00000000000006" y="166.30434782608697"/>
+        </scene>
+        <!--AddTripComplete-->
+        <scene sceneID="eP5-Zz-PNI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddTripComplete" id="EUc-9c-gHj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="amY-G6-Io1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1162" y="166"/>
         </scene>
         <!--AddTripComplete-->
         <scene sceneID="eP5-Zz-PNI">

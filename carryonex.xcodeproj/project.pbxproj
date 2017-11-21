@@ -1728,6 +1728,7 @@
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				E542F2721FB605080072BB31 /* (null) in Sources */,
+				FF5F20931FBF7B910080AA12 /* MainAPIClient.swift in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
 				665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */,
