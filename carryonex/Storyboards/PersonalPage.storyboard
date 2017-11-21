@@ -253,10 +253,10 @@
             </objects>
             <point key="canvasLocation" x="794" y="-103"/>
         </scene>
-        <!--SettingPage-->
+        <!--Settings-->
         <scene sceneID="gtZ-xg-STa">
             <objects>
-                <viewControllerPlaceholder storyboardName="SettingPage" id="8e3-v7-MZQ" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Settings" id="8e3-v7-MZQ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEb-hl-sx3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="748" y="262"/>
