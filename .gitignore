@@ -18,7 +18,8 @@ DerivedData
 *.xccheckout
 *.xcworkspace
 *.xcbkptlist
-
+[core]
+  ignorecase = false
 UserInterfaceState.xcuserstate
 Breakpoints_v2.xcbkptlist
 
