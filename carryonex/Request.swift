@@ -16,6 +16,7 @@ class Request: Unboxable {
     var priceBySender: Int?
     var totalValue: Int?
     var description: String?
+    var note: String?
     
     var endAddress: Address?
     var status: RequestStatusDetail?
@@ -30,6 +31,7 @@ class Request: Unboxable {
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
         self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
+        self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
     }
     
     func printAllData() {
@@ -42,6 +44,7 @@ class Request: Unboxable {
         tripId = \(tripId ?? 0),
         description = \(description ?? "")"
         endAddress = \(endAddress?.descriptionString() ?? "")
+        note = \(note ?? "")"
         """
         //images = \(images ?? "")
         //status = \(status ?? "")
@@ -168,33 +171,25 @@ extension RequestCategoryItem: Unboxable {
  # user_type:
  #   0: carrier
  #   1: sender
- 
- (carrier) 状态:等待接受(1) -> 拒绝匹配(1) -> 状态:已拒绝(2)
- (carrier) 状态:等待接受(1) -> 接受匹配(2) -> 状态:已接收，等待付款(3)
- (carrier) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
- (carrier) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
- (carrier) 状态:正在派送(7) -> 退款(5) -> 状态:等待退款(6)
- (carrier) 状态:已付款(5) -> 接受物品(6) -> 状态:正在派送(7)
- (carrier) 状态:正在派送(7) -> 当面交付(7) -> 状态:完成派送(8)
- (carrier) 状态:完成派送(8) -> 当面交付(7) -> 状态:完成派送(8)
- (carrier) 状态:正在派送(7) -> 快递交付(8) -> 状态:完成派送(8)
  */
 
 enum RequestStatus: Int {
-    case initiate = 0
-    case waiting = 1
-    case rejected = 2
-    case accepted = 3
-    case cancelled = 4
-    case paid = 5
-    case pendingRefund = 6
-    case inDelivery = 7
-    case delivered = 8
-    case deliveryConfirmed = 9
-    case refundCompleted = 10
+    case badId = -1
+    case initiate = 20
+    case waiting = 21
+    case rejected = 22
+    case accepted = 23
+    case cancelled = 24
+    case paid = 25
+    case pendingRefund = 26
+    case inDelivery = 27
+    case delivered = 28
+    case deliveryConfirmed = 29
+    case refundCompleted = 30
 }
 
 enum RequestAction: Int {
+    case invalid = -1
     case pairing = 0
     case reject = 1
     case accept = 2
@@ -207,56 +202,17 @@ enum RequestAction: Int {
     case confirm = 9
 }
 
-enum CarrierTransaction {
-    case reject
-    case accept
-    case cancel
-    case refund
-    case receive
-    case deliver
-    case ship
-    
-    func transaction() -> (RequestAction, TripCategory) {
-        switch self {
-        case .reject:
-            return (.reject, .carrier)
-        case .accept:
-            return (.accept, .carrier)
-        case .cancel:
-            return (.cancel, .carrier)
-        case .refund:
-            return (.refund, .carrier)
-        case .receive:
-            return (.receive, .carrier)
-        case .deliver:
-            return (.deliver, .carrier)
-        case .ship:
-            return (.ship, .carrier)
-        }
-    }
-    
-    func isValid(for status: RequestStatus) -> Bool {
-        switch self {
-        case .reject:
-            return (status == .waiting)
-        case .accept:
-            return (status == .waiting)
-        case .cancel:
-            return (status == .accepted)
-        case .refund:
-            return (status == .paid || status == .inDelivery)
-        case .receive:
-            return (status == .paid)
-        case .deliver:
-            return (status == .inDelivery || status == .delivered)
-        case .ship:
-            return (status == .inDelivery)
-        }
-    }
-}
-
 /*
- (sender) 状态:发送请求(0) -> 请求匹配(0) -> 状态:等待接受(1)
+ (carrier) 状态:等待接受(1) -> 拒绝匹配(1) -> 状态:已拒绝(2)
+ (carrier) 状态:等待接受(1) -> 接受匹配(2) -> 状态:已接收，等待付款(3)
+ (carrier) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
+ (carrier) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:正在派送(7) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:已付款(5) -> 接受物品(6) -> 状态:正在派送(7)
+ (carrier) 状态:正在派送(7) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:完成派送(8) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:正在派送(7) -> 快递交付(8) -> 状态:完成派送(8)
+
  (sender) 状态:等待接受(1) -> 请求匹配(0) -> 状态:等待接受(1)
  (sender) 状态:等待接受(1) -> 取消订单(3) -> 状态:已取消(4)
  (sender) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
@@ -264,42 +220,90 @@ enum CarrierTransaction {
  (sender) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
  (sender) 状态:完成派送(8) -> 确认送达(9) -> 状态:确认派送(9)
  */
-
-enum ShipperTransaction {
-    case pairing
-    case cancel
-    case pay
-    case refund
-    case confirm
+enum RequestTransaction {
+    case invalid
+    
+    case carrierReject
+    case carrierAccept
+    case carrierCancel
+    case carrierRefund
+    case carrierReceive
+    case carrierDeliver
+    case carrierShip
+    
+    case shipperPairing
+    case shipperCancel
+    case shipperPay
+    case shipperRefund
+    case shipperConfirm
+    
+    func validatedTransaction(for status: RequestStatus) -> (RequestAction, TripCategory) {
+        if !isValid(for: status) {
+            debugPrint("Invalid Combo: Status - \(status) and Action \(self)")
+            return (.invalid, .carrier)
+        }
+        return transaction()
+    }
     
     func transaction() -> (RequestAction, TripCategory) {
         switch self {
-        case .pairing:
+        case .carrierReject:
+            return (.reject, .carrier)
+        case .carrierAccept:
+            return (.accept, .carrier)
+        case .carrierCancel:
+            return (.cancel, .carrier)
+        case .carrierRefund:
+            return (.refund, .carrier)
+        case .carrierReceive:
+            return (.receive, .carrier)
+        case .carrierDeliver:
+            return (.deliver, .carrier)
+        case .carrierShip:
+            return (.ship, .carrier)
+        case .shipperPairing:
             return (.pairing, .sender)
-        case .cancel:
+        case .shipperCancel:
             return (.cancel, .sender)
-        case .pay:
+        case .shipperPay:
             return (.pay, .sender)
-        case .refund:
+        case .shipperRefund:
             return (.refund, .sender)
-        case .confirm:
+        case .shipperConfirm:
             return (.confirm, .sender)
+        default:
+            return (.invalid, .carrier) //.carrier here is just a filler
         }
     }
     
     func isValid(for status: RequestStatus) -> Bool {
         switch self {
-        case .pairing:
-            return (status == .initiate || status == .waiting)
-        case .cancel:
-            return (status == .waiting || status == .accepted)
-        case .pay:
+        case .carrierReject:
+            return (status == .waiting)
+        case .carrierAccept:
+            return (status == .waiting)
+        case .carrierCancel:
             return (status == .accepted)
-        case .refund:
+        case .carrierRefund:
+            return (status == .paid || status == .inDelivery)
+        case .carrierReceive:
             return (status == .paid)
-        case .confirm:
+        case .carrierDeliver:
+            return (status == .inDelivery || status == .delivered)
+        case .carrierShip:
+            return (status == .inDelivery)
+        case .shipperPairing:
+            return (status == .initiate || status == .waiting)
+        case .shipperCancel:
+            return (status == .waiting || status == .accepted)
+        case .shipperPay:
+            return (status == .accepted)
+        case .shipperRefund:
+            return (status == .paid)
+        case .shipperConfirm:
             return (status == .delivered)
+        default:
+            return false
         }
     }
 }
-

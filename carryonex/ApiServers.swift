@@ -778,16 +778,24 @@ class ApiServers : NSObject {
             }
         }
     }
-    
-    func postRequestUpdateStatus(requestId: Int,
-                                 actionId: RequestAction,
-                                 tripId: Int,
-                                 tripType: TripCategory,
-                                 completion: @escaping (Bool, Error?) -> Void) {
+
+    func postShipperRequestTransaction(requestId: Int,
+                                       tripId: Int,
+                                       transaction: RequestTransaction,
+                                       completion: @escaping (Bool, Error?, Int?) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postRequest: Unable to find profile user")
-            completion(false, nil)
+            completion(false, nil, nil)
+            return
+        }
+        
+        let actionId = transaction.transaction().0
+        let tripType = transaction.transaction().1
+        
+        if actionId == .invalid {
+            debugLog("Invalid Transaction")
+            completion(false, nil, nil)
             return
         }
         
@@ -812,25 +820,42 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postRequest update response error: \(error.localizedDescription)")
                 }
-                completion(false, error)
+                completion(false, error, nil)
                 return
             }
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                do {
-                    //TODO: UPDATE THIS ****
-                    let request: Request = try unbox(dictionary: data, atKey: "request")
-                    request.printAllData()
-                    completion(true, nil)
+            if let code = response[ServerKey.statusCode.rawValue] as? Int {
+                if code == 200 {
+                    print("Code 200, update successful")
+                    if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                        do {
+                            let request: Request = try unbox(dictionary: data, atKey: "request")
+                            request.printAllData()
+                            completion(true, nil, request.status?.id)
+                            
+                        } catch let error {
+                            completion(false, error, nil)
+                            debugPrint("Get error when postRequest update. Error = \(error.localizedDescription)")
+                        }
+                        
+                    } else {
+                        debugPrint("Transmission successful but missing data...")
+                        completion(true, nil, nil)
+                    }
                     
-                } catch let error {
-                    completion(false, error)
-                    print("Get error when postRequest update. Error = \(error.localizedDescription)")
+                } else {
+                    if let data = response[ServerKey.data.rawValue] as? [String: Any], let statusCode = data[RequestKeyInDB.status.rawValue] as? Int {
+                        completion(false, nil, statusCode)
+                        
+                    } else {
+                        debugPrint("Transmission \(code) and missing data...")
+                        completion(false, nil, nil)
+                    }
                 }
                 
             } else {
-                print("postRequest - Unable to post request update data")
-                completion(false, nil)
+                print("Code is missing, update failed")
+                completion(false, nil, nil)
             }
         }
     }
