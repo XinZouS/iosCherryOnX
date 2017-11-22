@@ -70,17 +70,6 @@
                                             <constraint firstAttribute="width" secondItem="O5h-HS-WaM" secondAttribute="height" multiplier="1:1" id="tuN-Zy-Ehg"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-Qc-oj0">
-                                        <rect key="frame" x="35" y="184" width="218" height="35"/>
-                                        <color key="backgroundColor" red="1" green="0.41885420680046082" blue="0.42289164662361145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="dtD-F7-Y4w"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="完成">
-                                            <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享是一种美德；快将您的游箱号分享到社交圈吧！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="717-tM-T8i">
                                         <rect key="frame" x="10.5" y="152" width="267.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -94,6 +83,17 @@
                                             <constraint firstAttribute="width" constant="20" id="uew-nW-sHe"/>
                                         </constraints>
                                         <state key="normal" image="shareButton"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-Qc-oj0">
+                                        <rect key="frame" x="35" y="183.5" width="218" height="35"/>
+                                        <color key="backgroundColor" red="1" green="0.41885420680046082" blue="0.42289164662361145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="dtD-F7-Y4w"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="完成">
+                                            <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

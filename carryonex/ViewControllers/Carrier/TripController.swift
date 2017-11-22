@@ -17,9 +17,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     let timePicker:UIDatePicker = UIDatePicker()
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
-    let trip = Trip()
     var addressArray = [[String: AnyObject]]()
-    var pickUpDate: Double = 0
     //选择的国家索引
     var countryIndex = 0
     //选择的省索引
@@ -28,6 +26,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     var citiesIndex = 0
     var indexOfTextField : Int = 0
     var areaPickerMenu : UIPickerMenuView?
+    var pickUpDate :Double = 0
 //    var transparentView : UIView = {
 //        let v = UIView()
 //        v.isHidden = true
@@ -81,42 +80,19 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     func addDoneButtonOnKeyboard(){
-        let timedoneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        timedoneToolbar.barStyle = UIBarStyle.blackTranslucent
-        
+        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+            doneToolbar.barStyle = UIBarStyle.blackTranslucent
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let timedone: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(TripController.timeDoneButtonAction))
-        
-        let timeitems = NSMutableArray()
-        timeitems.add(flexSpace)
-        timeitems.add(timedone)
-        
-        timedoneToolbar.items = timeitems as? [UIBarButtonItem]
-        timedoneToolbar.sizeToFit()
-        self.timeTextField.inputAccessoryView = timedoneToolbar
-        
-        let descriptdoneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        descriptdoneToolbar.barStyle = UIBarStyle.blackTranslucent
-        let descriptdone: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(TripController.descriptdoneButtonAction))
-        
-        let descriptitems = NSMutableArray()
-        descriptitems.add(flexSpace)
-        descriptitems.add(descriptdone)
-        
-        descriptdoneToolbar.items = descriptitems as? [UIBarButtonItem]
-        descriptdoneToolbar.sizeToFit()
-        
-        self.otherTextField.inputAccessoryView = descriptdoneToolbar
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+            doneToolbar.items = [flexSpace,done]
+            doneToolbar.sizeToFit()
+        self.timeTextField.inputAccessoryView = doneToolbar
+        self.otherTextField.inputAccessoryView = doneToolbar
     }
     
-    func timeDoneButtonAction()
+    func doneButtonAction()
     {
-        trip.pickupDate = pickUpDate
         self.timeTextField.resignFirstResponder()
-    }
-    
-    func descriptdoneButtonAction()
-    {
         self.otherTextField.resignFirstResponder()
     }
 //    private func setUpTransparentView(){
@@ -136,6 +112,9 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 destVC.endLocationString = endLocation.text
                 destVC.dateString = timeTextField.text
                 destVC.descriptionString = otherTextField.text
+                if let tripId = sender as? String {
+                    destVC.tripId = tripId
+                }
             }
         }
     }
@@ -171,6 +150,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
         timeTextField.text = strNowTime[YearStartIndex...YearEndIndex]+"年"+strNowTime[MonthStartIndex...MonthendIndex]+"月"+strNowTime[DayStartIndex...DayendIndex]+"日"
+        pickUpDate = date.timeIntervalSince1970
     }
     
     func areaMenuOKButtonTapped(){
@@ -181,15 +161,9 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 as! [String: AnyObject]
         if let countryStr = self.addressArray[countryIndex]["country"] as? String,let stateStr = state["state"] as? String,let cityStr = city["city"] as? String {
             if indexOfTextField == 0 {
-                beginLocation.text = countryStr + " " + stateStr + " " + cityStr
-                trip.startAddress?.state = state["state"] as? String
-                trip.startAddress?.city = city["city"] as? String
-                trip.startAddress?.country = Country(rawValue: String(countryStr))
+                beginLocation.text = countryStr + "  " + stateStr + "  " + cityStr
             }else{
-                endLocation.text = countryStr + " " + stateStr + " " + cityStr
-                trip.endAddress?.state = state["state"] as? String
-                trip.endAddress?.city = city["city"] as? String
-                trip.endAddress?.country = Country(rawValue: String(countryStr))
+                endLocation.text = countryStr + "  " + stateStr + "  " + cityStr
             }
         }
         areaPickerMenu?.dismissAnimation()
@@ -302,15 +276,27 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         var offset = tripScrollView.contentOffset
         offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
         tripScrollView.setContentOffset(offset, animated: true)
-//        transparentView.isHidden = false
     }
     
     
     @IBAction func commitTripInfo(_ sender: Any) {
+        let trip = Trip()
+        if let endLocationString = endLocation.text,let beginLocationString = beginLocation.text{
+            let beginArray = endLocationString.components(separatedBy: "  ")
+            let endArray = beginLocationString.components(separatedBy: "  ")
+            trip.endAddress?.state = endArray[1]
+            trip.endAddress?.city = endArray[2]
+            trip.endAddress?.country = Country(rawValue: String(endArray[0]))
+            trip.startAddress?.state = beginArray[1]
+            trip.startAddress?.city = beginArray[2]
+            trip.startAddress?.country = Country(rawValue: String(beginArray[0]))
+            trip.pickupDate = pickUpDate
+        }
         ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
             if success{
-                self.performSegue(withIdentifier: "tripComplete", sender: nil)
+                self.performSegue(withIdentifier: "tripComplete", sender: tripId)
             }else{
+                print(msg ?? "")
             }
         }
     }
@@ -385,10 +371,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
                 
                 let State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
-                self.beginLocation.text = (country as String)+" "+State+" "+city
-                self.trip.startAddress?.state = State
-                self.trip.startAddress?.city = city
-                self.trip.startAddress?.country = Country(rawValue: String(country))
+                self.beginLocation.text = (country as String)+"  "+State+"  "+city
             }
             else
             {
