@@ -19,6 +19,7 @@ class tripCompleteController:UIViewController{
     var beginLocationString:String!
     var endLocationString:String!
     var descriptionString: String!
+    var tripId:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
