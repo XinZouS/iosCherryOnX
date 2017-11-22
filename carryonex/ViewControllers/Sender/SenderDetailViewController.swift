@@ -16,7 +16,10 @@ import ALCameraViewController
 
 class SenderDetailViewController: UIViewController {
     
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     // master info card
+    @IBOutlet weak var shiperInfoCardView: UIView!
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
@@ -24,13 +27,16 @@ class SenderDetailViewController: UIViewController {
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     // detail info card
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var senderInfoCardView: UIView!
+    @IBOutlet weak var nameTextField: UITextField!      // 0
+    @IBOutlet weak var phoneTextField: UITextField!     // 1
+    @IBOutlet weak var addressTextField: UITextField!   // 2
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var messageTextField: UITextField!
+    @IBOutlet weak var messageTextField: UITextField!   // 3
     // price contents
-    @IBOutlet weak var priceValueTextField: UITextField!
+    @IBOutlet weak var priceValueTitleLabel: UILabel!
+    @IBOutlet weak var priceValueTextField: UITextField! // 4
+    @IBOutlet weak var priceValueTextFieldLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var currencyTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var priceMinLabel: UILabel!
     @IBOutlet weak var priceMidLabel: UILabel!
@@ -44,12 +50,16 @@ class SenderDetailViewController: UIViewController {
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
+        //TODO:
     }
     
     @IBAction func currencyTypeSegmentValueChanged(_ sender: Any) {
+        currencyType = currencyTypeSegmentControl.selectedSegmentIndex == 0 ? .USD : .CNY
+        updatePriceContentsFor(newPrice: priceFinal)
     }
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
+        priceFinal = Double(priceSlider.value)
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
@@ -82,11 +92,24 @@ class SenderDetailViewController: UIViewController {
             self.name = name
             self.image = image
         }
-        
+    }
+
+    var currencyType: CurrencyType = .USD
+    var priceFinal: Double = 0 {
+        didSet {
+            priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
+        }
+    }
+    enum textFieldTag: Int {
+        case name = 0
+        case phone = 1
+        case address = 2
+        case message = 3
+        case price = 4
     }
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
-
+    var keyboardHeight: CGFloat = 160
     
     //MARK: - Methods Start Here
     
@@ -94,6 +117,7 @@ class SenderDetailViewController: UIViewController {
         super.viewDidLoad()
         title = "寄件"
         setupCollectionView()
+        setupTextFields()
         setupActivityIndicator()
     }
     
@@ -109,6 +133,17 @@ class SenderDetailViewController: UIViewController {
         collectionView.backgroundColor = .white
     }
     
+    private func setupTextFields(){
+        nameTextField.delegate = self
+        phoneTextField.delegate = self
+        addressTextField.delegate = self
+        messageTextField.delegate = self
+        priceValueTextField.delegate = self
+        priceValueTextField.addTarget(self, action: #selector(priceValueTextFieldDidChange), for: .editingChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.center = view.center
@@ -344,6 +379,79 @@ extension SenderDetailViewController {
     }
 
     
+    
+}
+
+
+extension SenderDetailViewController: UITextFieldDelegate {
+    
+    public func priceValueTextFieldDidChange(){
+        if let v = priceValueTextField.text {
+            let d = Double(v) ?? 5
+            updatePriceContentsFor(newPrice: d)
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == textFieldTag.price.rawValue {
+            //scrollViewAnimateToBottom()
+            priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
+            animateUIifNeeded()
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (priceValueTextField.text == nil || priceValueTextField.text == ""), textField.tag == textFieldTag.price.rawValue {
+            priceValueTextFieldLeftConstraint.constant = 0
+            animateUIifNeeded()
+        }
+    }
+    
+    fileprivate func updatePriceContentsFor(newPrice: Double) {
+        priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
+        let r: Double = 1.1
+        let pMin: Double = newPrice < 5.0 ? 5 : newPrice
+        let pMax: Double = newPrice < 5.0 ? pMin * r : newPrice * r
+        let pMid: Double = (pMax + pMin) / 2.0
+        priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
+        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", pMid)
+        priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
+        
+        priceSlider.minimumValue = Float(pMin)
+        priceSlider.value = Float(pMid)
+        priceSlider.maximumValue = Float(pMax)
+        priceFinal = Double(priceSlider.value)
+    }
+    
+    private func scrollViewAnimateToBottom(){
+        var offset = scrollView.contentOffset
+        let expOffset = scrollView.bounds.height - view.bounds.height
+        if offset.y < expOffset {
+            offset.y = expOffset
+        }
+        offset.y += keyboardHeight
+        scrollView.setContentOffset(offset, animated: true)
+    }
+    
+    public func keyboardWillShow(_ notification: Notification) {
+        guard let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
+        keyboardHeight = frame.cgRectValue.height
+    }
+    
+    public func keyboardWillHide(_ notification: Notification) {
+//        var offset = scrollView.contentOffset
+//        if offset.y < 40 {
+//            return
+//        }
+//        offset.y -= keyboardHeight
+//        scrollView.setContentOffset(offset, animated: true)
+    }
+
+    fileprivate func animateUIifNeeded(){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
 }
 
