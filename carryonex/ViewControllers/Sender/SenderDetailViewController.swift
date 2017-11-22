@@ -95,7 +95,7 @@ class SenderDetailViewController: UIViewController {
     }
 
     var currencyType: CurrencyType = .USD
-    var priceFinal: Double = 0 {
+    var priceFinal: Double = 5 {
         didSet {
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
         }
@@ -116,6 +116,7 @@ class SenderDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "寄件"
+        scrollView.delegate = self
         setupCollectionView()
         setupTextFields()
         setupActivityIndicator()
@@ -207,7 +208,7 @@ class SenderDetailViewController: UIViewController {
     
 }
 
-
+// MARK: -
 extension SenderDetailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -228,6 +229,8 @@ extension SenderDetailViewController: UICollectionViewDataSource, UICollectionVi
         if indexPath.item < images.count || (images.count == 6) {
             cell.imageFileName = images[indexPath.item].name!
             cell.imageView.image = images[indexPath.item].image!
+            cell.cancelButton.isHidden = false
+            cell.cancelButton.isEnabled = true
         } else {
             cell.cancelButton.isHidden = true
             cell.cancelButton.isEnabled = false
@@ -383,6 +386,7 @@ extension SenderDetailViewController {
 }
 
 
+// MARK: -
 extension SenderDetailViewController: UITextFieldDelegate {
     
     public func priceValueTextFieldDidChange(){
@@ -446,6 +450,11 @@ extension SenderDetailViewController: UITextFieldDelegate {
 //        offset.y -= keyboardHeight
 //        scrollView.setContentOffset(offset, animated: true)
     }
+    
+    fileprivate func keyboardDismiss(){
+        addressTextField.resignFirstResponder()
+        priceValueTextField.resignFirstResponder()
+    }
 
     fileprivate func animateUIifNeeded(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
@@ -455,8 +464,16 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
 }
 
+extension SenderDetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        keyboardDismiss()
+    }
+}
 
 
+
+// MARK: -
 class ItemImageCollectionCell: UICollectionViewCell {
     
     var parentVC: SenderDetailViewController?
