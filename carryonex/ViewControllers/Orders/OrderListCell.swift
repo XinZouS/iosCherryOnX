@@ -19,9 +19,9 @@ class OrderListCell: UITableViewCell {
     @IBOutlet var cellTypeLabel: UILabel!
     @IBOutlet var statusButton: UIButton!
     
-    var cellType: TripCategory = .Carrier {
+    var cellType: TripCategory = .carrier {
         didSet {
-            cellTypeLabel.text = (cellType == .Carrier) ? "收件" : "寄件"
+            cellTypeLabel.text = (cellType == .carrier) ? "收件" : "寄件"
         }
     }
     

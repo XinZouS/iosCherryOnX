@@ -55,7 +55,7 @@ extension AddressController: UITextFieldDelegate {
         address.country =  countryCell.selectedLabel.text.map { Country(rawValue: $0) }!
         address.state = provinceCell.textField.text
         address.city = cityCell.textField.text
-        address.detailAddress = addressDetailCell.textView.text
+        address.street = addressDetailCell.textView.text
         address.zipcode = zipcodeCell.textField.text
         address.recipientName = recipientNameCell.textField.text
         address.phoneNumber = recipientPhoneCell.textField.text

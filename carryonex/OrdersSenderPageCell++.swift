@@ -18,7 +18,7 @@ extension OrdersSenderPageCell {
         let requPage = 4
         
         isFetching = true
-        ApiServers.shared.getUsersTrips(userType: .Sender, offset: currPage, pageCount: requPage) { (tripOrders, error) in
+        ApiServers.shared.getUsersTrips(userType: .sender, offset: currPage, pageCount: requPage) { (tripOrders, error) in
             
             self.isFetching = false
             if let error = error {

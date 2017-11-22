@@ -10,7 +10,7 @@ import UIKit
 
 class OrderListViewController: UIViewController {
     
-    var listType: TripCategory = .Carrier {
+    var listType: TripCategory = .carrier {
         didSet {
             if dataSourceShiper.count == 0 || dataSourceSender.count == 0 {
                 fetchRequests()
@@ -35,7 +35,7 @@ class OrderListViewController: UIViewController {
     
     var selectedRowIndex: IndexPath = IndexPath(row: -1, section: 0) {
         didSet{
-            if listType == .Sender {
+            if listType == .sender {
                 self.tableViewShiper.beginUpdates()
                 self.tableViewShiper.endUpdates()
             }else{
@@ -152,7 +152,7 @@ class OrderListViewController: UIViewController {
         if tableViewLeftConstraint.constant < 0 {
             tableViewLeftConstraint.constant = 0
             sliderBarCenterConstraint.constant = 0
-            listType = .Sender
+            listType = .sender
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
@@ -163,7 +163,7 @@ class OrderListViewController: UIViewController {
         if tableViewLeftConstraint.constant == 0 {
             tableViewLeftConstraint.constant = -(self.view.bounds.width)
             sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
-            listType = .Carrier
+            listType = .carrier
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
@@ -175,7 +175,7 @@ class OrderListViewController: UIViewController {
         
         guard isFetching == false else { return }
         
-        let offset = (listType == .Carrier) ? dataSourceShiper.count : dataSourceSender.count
+        let offset = (listType == .carrier) ? dataSourceShiper.count : dataSourceSender.count
         let page = 4
         
         isFetching = true
@@ -196,7 +196,7 @@ class OrderListViewController: UIViewController {
             }
             
             if let tripOrders = tripOrders {
-                if self.listType == .Carrier {
+                if self.listType == .carrier {
                     self.dataSourceShiper.append(contentsOf: tripOrders)
                     //self.dataSource = self.dataSourceShiper
                 } else {
@@ -243,7 +243,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let dataSource = listType == .Carrier ? dataSourceShiper : dataSourceSender
+        let dataSource = listType == .carrier ? dataSourceShiper : dataSourceSender
         let currentPage = dataSource.count
         guard let currentItem = dataSource[currentPage - 1].requests?.count,
             !isFetching else {

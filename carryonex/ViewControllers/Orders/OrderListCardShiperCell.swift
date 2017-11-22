@@ -36,9 +36,9 @@ class OrderListCardShiperCell: UITableViewCell {
     
 
     
-    var cellType: TripCategory = .Carrier {
+    var cellType: TripCategory = .carrier {
         didSet {
-            //TODO:change this: cellTypeLabel.text = (cellType == .Carrier) ? "收件" : "寄件"
+            //TODO:change this: cellTypeLabel.text = (cellType == .carrier) ? "收件" : "寄件"
         }
     }
     
