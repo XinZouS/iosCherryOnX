@@ -779,9 +779,9 @@ class ApiServers : NSObject {
         }
     }
     
-    //TODO: DON'T USE IT YET, NEED UPDATE FROM BACKEND!!
     func postRequestUpdateStatus(requestId: Int,
                                  actionId: RequestAction,
+                                 tripId: Int,
                                  tripType: TripCategory,
                                  completion: @escaping (Bool, Error?) -> Void) {
         
@@ -793,9 +793,10 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/requests/update"
         let requestDict: [String: Any] = [
-            RequestKeyInDB.id.rawValue: requestId,
+            RequestKeyInDB.requestId.rawValue: requestId,
             RequestKeyInDB.action.rawValue: actionId.rawValue,
-            RequestKeyInDB.userType.rawValue: tripType.stringValue
+            RequestKeyInDB.userType.rawValue: tripType.stringValue,
+            RequestKeyInDB.tripId.rawValue: tripId
         ]
         
         let parameters: [String: Any] = [

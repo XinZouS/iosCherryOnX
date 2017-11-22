@@ -73,9 +73,28 @@ import Unbox
  #   0: carrier
  #   1: sender
  
+ (carrier) 状态:等待接受(1) -> 拒绝匹配(1) -> 状态:已拒绝(2)
+ (carrier) 状态:等待接受(1) -> 接受匹配(2) -> 状态:已接收，等待付款(3)
+ (carrier) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
+ (carrier) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:正在派送(7) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:已付款(5) -> 接受物品(6) -> 状态:正在派送(7)
+ (carrier) 状态:正在派送(7) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:完成派送(8) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:正在派送(7) -> 快递交付(8) -> 状态:完成派送(8)
+ (sender) 状态:发送请求(0) -> 请求匹配(0) -> 状态:等待接受(1)
+ (sender) 状态:等待接受(1) -> 请求匹配(0) -> 状态:等待接受(1)
+ (sender) 状态:等待接受(1) -> 取消订单(3) -> 状态:已取消(4)
+ (sender) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
+ (sender) 状态:已接收，等待付款(3) -> 付款(4) -> 状态:已付款(5)
+ (sender) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
+ (sender) 状态:已付款(5) -> 接受物品(6) -> 状态:正在派送(7)
+ (sender) 状态:完成派送(8) -> 确认送达(9) -> 状态:确认派送(9)
+ 
  */
 
 enum RequestStatus: Int {
+    case invalid = -1
     case initiate = 0
     case waiting = 1
     case rejected = 2
@@ -90,16 +109,71 @@ enum RequestStatus: Int {
 }
 
 enum RequestAction: Int {
+    case invalid = -1
     case waitForAccept = 0
     case reject = 1
     case accept = 2
     case cancel = 3
     case pay = 4
     case refund = 5
-    case received = 6
-    case delivered = 7
-    case shipped = 8
+    case receive = 6
+    case deliver = 7
+    case ship = 8
     case confirm = 9
+}
+
+/*
+ (carrier) 状态:等待接受(1) -> 拒绝匹配(1) -> 状态:已拒绝(2)
+ (carrier) 状态:等待接受(1) -> 接受匹配(2) -> 状态:已接收，等待付款(3)
+ (carrier) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
+ (carrier) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:正在派送(7) -> 退款(5) -> 状态:等待退款(6)
+ (carrier) 状态:已付款(5) -> 接受物品(6) -> 状态:正在派送(7)
+ (carrier) 状态:正在派送(7) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:完成派送(8) -> 当面交付(7) -> 状态:完成派送(8)
+ (carrier) 状态:正在派送(7) -> 快递交付(8) -> 状态:完成派送(8)
+ */
+
+enum CarrierTransaction {
+    case invalid
+    case reject
+    case accept
+    case cancel
+    case refund
+    case receive
+    case deliver
+    case ship
+    
+    func transaction(for status: RequestStatus) -> (RequestAction, TripCategory) {
+        
+        if !isValid(for: status) {
+            debugPrint("Invalid")
+            return (.invalid, .carrier)
+        }
+        
+        switch self {
+        case .reject:
+            return (.reject, .carrier)
+        case .accept:
+            return (.accept, .carrier)
+        case .cancel:
+            return (.cancel, .carrier)
+        case .refund:
+            return (.refund, .carrier)
+        case .receive:
+            return (.receive, .carrier)
+        case .deliver:
+            return (.deliver, .carrier)
+        case .ship:
+            return (.ship, .carrier)
+        case .invalid:
+            return (.invalid, .carrier)
+        }
+    }
+
+    func isValid(for status: RequestStatus) -> Bool {
+        return false
+    }
 }
 
 enum RequestKeyInDB : String {
@@ -116,6 +190,9 @@ enum RequestKeyInDB : String {
     case description = "description"
     case action = "action"
     case userType = "user_type"
+    
+    //update call
+    case requestId = "request_id"
 }
 
 class Request: Unboxable {
