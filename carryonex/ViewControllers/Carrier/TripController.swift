@@ -280,17 +280,13 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     
     
     @IBAction func commitTripInfo(_ sender: Any) {
-        let startAddress = Address()
-        let endAddress = Address()
-        endAddress.state = endState
-        endAddress.city = endCity
-        endAddress.country = Country(rawValue:endCountry)
-        startAddress.state = startState
-        startAddress.city = startCity
-        startAddress.country = Country(rawValue: startCountry)
         let trip = Trip()
-        trip.startAddress = startAddress
-        trip.endAddress = endAddress
+        trip.endAddress?.state = endState
+        trip.endAddress?.city = endCity
+        trip.endAddress?.country = Country(rawValue:endCountry)
+        trip.startAddress?.state = startState
+        trip.startAddress?.city = startCity
+        trip.startAddress?.country = Country(rawValue: startCountry)
         trip.pickupDate = pickUpDate
         ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
             if success{
@@ -356,12 +352,12 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 //国家
                 let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
                 
-                let State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
+                let state: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
                 
-                self.startState = State
+                self.startState = state
                 self.startCity = city
                 self.startCountry = country as String
-                self.beginLocation.text = (country as String)+"  "+State+"  "+city
+                self.beginLocation.text = (country as String)+"  "+state+"  "+city
             }
             else
             {
