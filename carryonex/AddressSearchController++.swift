@@ -112,7 +112,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         address.country = (addressDictionary["CountryCode"] as! String) == "US" ? Country.UnitedStates : Country.China
         address.state = addressDictionary["State"] as? String
         address.city = addressDictionary["City"] as? String
-        address.detailAddress = addressDictionary["Street"] as? String
+        address.street = addressDictionary["Street"] as? String
         address.zipcode = addressDictionary["ZIP"] as? String
         address.recipientName = ""
         address.phoneNumber = ""
@@ -151,11 +151,10 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
             self.address.state = st
             self.address.city = ct
             self.address.zipcode = zp
-            self.address.detailAddress = dt
+            self.address.street = dt
 
             if let locationName = placeMark.addressDictionary?["Name"] as? String {
-                self.address.detailAddress = locationName
-                //print("get locationName = \(locationName), address.detailAddress = \(self.address.detailAddress)")
+                self.address.street = locationName
                 annotation.title = (country == "US") ? locationName : dt // dt: detailAdd for China only
             }
             annotation.subtitle = (country == "US") ? "\(st) \(ct)" : "\(ct) \(st)"
@@ -237,7 +236,7 @@ extension AddressSearchController : MKMapViewDelegate {
         guard let currType = self.searchType else { return }
         
         let st = address.state!, ct = address.city!
-        var dt = address.detailAddress ?? ""
+        var dt = address.street ?? ""
         let placeNames = dt.components(separatedBy: ",")
         dt = placeNames.first ?? ""
         
