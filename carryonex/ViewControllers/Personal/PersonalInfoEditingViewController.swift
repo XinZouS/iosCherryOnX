@@ -26,9 +26,9 @@ class PersonalInfoEditingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        title = "编辑个人资料"
         setupTableView()
         setupUser()
+        setupNavigationBar()
     }
     
     private func setupTableView(){
@@ -46,6 +46,16 @@ class PersonalInfoEditingViewController: UIViewController {
                 print("TODO: handle error when GET user failed in PersonalInfoEditingViewController;")
             })
         }
+    }
+    
+    private func setupNavigationBar(){
+        title = "编辑个人资料"
+        let save = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = save
+    }
+    
+    @objc private func saveButtonTapped(){
+        
     }
     
     

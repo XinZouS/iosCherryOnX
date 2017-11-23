@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
         
         addObservers()
         setupActivityIndicator()
-        
+        addNotificationObservers()
         if let viewControllers = self.viewControllers as? [UINavigationController] {
             for navigationController in viewControllers {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
@@ -41,7 +41,6 @@ class MainTabBarController: UITabBarController {
         isItHaveLogIn()
         loadingDisplay()
     }
-    
     //MARK: - Helpers
     
     private func setupActivityIndicator(){

@@ -7,16 +7,13 @@
 //
 
 import UIKit
-import CoreLocation
 import FSCalendar
 
-class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate,CLLocationManagerDelegate{
+class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIGestureRecognizerDelegate{
     @IBOutlet weak var confirmTripButton: UIButton!
     @IBOutlet weak var otherTextField: UITextField!
     @IBOutlet weak var tripScrollView: UIScrollView!
     let timePicker:UIDatePicker = UIDatePicker()
-    var locationManager : CLLocationManager!
-    var currLocation : CLLocation!
     var addressArray = [[String: AnyObject]]()
     //选择的国家索引
     var countryIndex = 0
@@ -73,10 +70,21 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         let path = Bundle.main.path(forResource: "address", ofType:"plist")
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
         setUpPicker()
-        setupLocation()
         self.addDoneButtonOnKeyboard()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        setupNavigationBar()
     }
+    
+    private func setupNavigationBar(){
+        title = "出行"
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
             doneToolbar.barStyle = UIBarStyle.blackTranslucent
@@ -166,6 +174,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 endLocation.text = countryStr + " " + stateStr + " " + cityStr
             }
         }
+        textFieldsInAllCellResignFirstResponder()
         areaPickerMenu?.dismissAnimation()
     }
     func setUpPicker(){
@@ -278,6 +287,17 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         tripScrollView.setContentOffset(offset, animated: true)
     }
     
+    @IBAction func tobeginTextField(_ sender: Any) {
+        beginLocation.becomeFirstResponder()
+    }
+    
+    @IBAction func toEndTextField(_ sender: Any) {
+        endLocation.becomeFirstResponder()
+    }
+    
+    @IBAction func toTimeTextField(_ sender: Any) {
+        timeTextField.becomeFirstResponder()
+    }
     
     @IBAction func commitTripInfo(_ sender: Any) {
         let trip = Trip()
@@ -305,80 +325,25 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         timeTextField.text = dateText
         pickUpDate = date.timeIntervalSince1970
     }
-    
-    private func setupLocation(){
-        //初始化位置管理器
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        //设备使用电池供电时最高的精度
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //精确到1000米,距离过滤器，定义了设备移动后获得位置信息的最小距离
-        locationManager.distanceFilter = kCLLocationAccuracyKilometer
-        if ios8() {
-            //如果是IOS8及以上版本需调用这个方法
-            locationManager.requestAlwaysAuthorization()
-            //使用应用程序期间允许访问位置数据
-            locationManager.requestWhenInUseAuthorization();
-            //启动定位
-            locationManager.startUpdatingLocation()
-        }
-    }
-    //FIXME: CoreLocationManagerDelegate 中获取到位置信息的处理函数
-    func  locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //取得locations数组的最后一个
-        let location:CLLocation = locations[locations.count-1]
-        currLocation = locations.last!
-        //判断是否为空
-        if(location.horizontalAccuracy > 0){
-            let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            print("纬度:\(long!)")
-            print("经度:\(lat!)")
-            LonLatToCity()
-            //停止定位
-            locationManager.stopUpdatingLocation()
-        }
-    }
-    
-    func LonLatToCity() {
-        let geocoder: CLGeocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(currLocation) { (placemark, error) -> Void in
-            if(error == nil)
-            {
-                let array = placemark! as NSArray
-                let mark = array.firstObject as! CLPlacemark
-                //城市
-                let city: String = (mark.addressDictionary! as NSDictionary).value(forKey: "City") as! String
-                //国家
-                let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
-                
-                let state: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
-                
-                self.startState = state
-                self.startCity = city
-                self.startCountry = country as String
-                self.beginLocation.text = (country as String)+"  "+state+"  "+city
-            }
-            else
-            {
-                print(error ?? "")
-            }
-        }
-    }
-    //FIXME:  获取位置信息失败
-    private func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
-    }
-    func ios8() -> Bool {
-        let versionCode:String = UIDevice.current.systemVersion
-        let version = NSString(string:  versionCode).doubleValue
-        return version >= 8.0
-    }
     private func judgeButtonState(){
         if beginLocation.text != nil && endLocation.text != nil && timeTextField.text != nil{
             confirmTripButton.backgroundColor = #colorLiteral(red: 1, green: 0.4189302325, blue: 0.4186580479, alpha: 1)
             confirmTripButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
             confirmTripButton.isEnabled = true
+        }
+    }
+    func textFieldsInAllCellResignFirstResponder(){
+        beginLocation.resignFirstResponder()
+        endLocation.resignFirstResponder()
+        timeTextField.resignFirstResponder()
+        otherTextField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if touches.count > 0 {
+            textFieldsInAllCellResignFirstResponder()
         }
     }
 }

@@ -133,7 +133,8 @@ class TripCompletedController:UIViewController{
     @IBAction func shareButtonTapped(_ sender: Any) {
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let margin:CGFloat = 10.0
-        let rect = CGRect(x: margin, y: margin, width: alertController.view.bounds.size.width - margin * 4.0, height: 120)
+        let viewWidth:CGFloat = alertController.view.bounds.size.width - margin * 4.0
+        let rect = CGRect(x: margin, y: margin, width: viewWidth ,height: 120)
         let shareView = UIView(frame: rect)
         alertController.view.addSubview(shareView)
         
@@ -143,10 +144,10 @@ class TripCompletedController:UIViewController{
         shareView.addSubview(weiboButton)
         shareView.addSubview(facebookButton)
         
-        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: 20, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 50, height: 50)
-        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 50, height: 50)
-        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 50, height: 50)
-        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 50, height: 50)
+        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
+        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
+        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
+        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: shareView.rightAnchor, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 30, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
         
         wechatButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
         momentButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
