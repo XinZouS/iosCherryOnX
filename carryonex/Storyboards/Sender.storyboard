@@ -19,9 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIbackground" translatesAutoresizingMaskIntoConstraints="NO" id="Agi-kn-3dV">
-                                <rect key="frame" x="0.0" y="10" width="414" height="736"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-IG-2gI">
                                 <rect key="frame" x="366" y="95" width="32" height="77"/>
                                 <constraints>
@@ -65,12 +62,8 @@
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" constant="100" id="GEY-zN-FY9"/>
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
-                            <constraint firstItem="Agi-kn-3dV" firstAttribute="height" secondItem="qOP-M1-Utm" secondAttribute="height" id="a8f-mg-dkY"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="leading" secondItem="qOP-M1-Utm" secondAttribute="leadingMargin" id="bUi-Ci-3rK"/>
-                            <constraint firstItem="Agi-kn-3dV" firstAttribute="centerY" secondItem="pAC-CP-FJo" secondAttribute="centerY" id="iSh-ot-KMK"/>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
-                            <constraint firstItem="Agi-kn-3dV" firstAttribute="centerX" secondItem="pAC-CP-FJo" secondAttribute="centerX" id="pB5-Gj-rfM"/>
-                            <constraint firstItem="Agi-kn-3dV" firstAttribute="width" secondItem="qOP-M1-Utm" secondAttribute="width" id="zYP-D6-mHK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pAC-CP-FJo"/>
                     </view>
@@ -90,7 +83,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UIbackground" width="210" height="373"/>
         <image name="向右箭头-1" width="53" height="59"/>
         <image name="搜索icon" width="51" height="53"/>
         <image name="游箱号输入横线" width="297" height="2"/>

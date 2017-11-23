@@ -19,9 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIbackground" translatesAutoresizingMaskIntoConstraints="NO" id="O6c-tm-9nq">
-                                <rect key="frame" x="0.0" y="32" width="375" height="667"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-hd-BTC">
                                 <rect key="frame" x="16" y="124.5" width="343" height="234"/>
                                 <subviews>
@@ -150,13 +147,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="O6c-tm-9nq" firstAttribute="centerX" secondItem="Y4L-fA-wAr" secondAttribute="centerX" id="0Fd-Qh-9RN"/>
                             <constraint firstItem="Y4L-fA-wAr" firstAttribute="trailing" secondItem="ezQ-hd-BTC" secondAttribute="trailing" constant="16" id="0kK-sh-7sF"/>
                             <constraint firstItem="wfW-oV-ZC4" firstAttribute="centerX" secondItem="ezQ-hd-BTC" secondAttribute="centerX" id="9hn-CF-MRq"/>
                             <constraint firstItem="ezQ-hd-BTC" firstAttribute="top" secondItem="wfW-oV-ZC4" secondAttribute="bottom" constant="20" id="M9V-Kn-5jN"/>
-                            <constraint firstItem="O6c-tm-9nq" firstAttribute="height" secondItem="EQx-Dz-64W" secondAttribute="height" id="NeR-YX-vda"/>
-                            <constraint firstItem="O6c-tm-9nq" firstAttribute="width" secondItem="EQx-Dz-64W" secondAttribute="width" id="Zb7-WZ-CDn"/>
-                            <constraint firstItem="O6c-tm-9nq" firstAttribute="centerY" secondItem="Y4L-fA-wAr" secondAttribute="centerY" id="mFR-au-N1B"/>
                             <constraint firstItem="Y4L-fA-wAr" firstAttribute="top" secondItem="wfW-oV-ZC4" secondAttribute="top" constant="-20" id="mOU-Vv-Sfh"/>
                             <constraint firstItem="ezQ-hd-BTC" firstAttribute="leading" secondItem="Y4L-fA-wAr" secondAttribute="leading" constant="16" id="wCr-K0-WSo"/>
                         </constraints>
@@ -179,7 +172,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UIbackground" width="210" height="373"/>
         <image name="shareButton" width="20" height="20"/>
         <image name="串串" width="12" height="35"/>
         <image name="小头像" width="45" height="43"/>

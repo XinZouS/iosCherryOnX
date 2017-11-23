@@ -30,6 +30,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     var startCity: String = ""
     var startState: String = ""
     var startCountry: String = ""
+    var gradientLayer: CAGradientLayer!
     
     lazy var pickerView : UIPickerView = {
         let p = UIPickerView()
@@ -62,7 +63,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var endLocation: UITextField!
     @IBOutlet weak var beginLocation: UITextField!
-    var gradientLayer: CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -265,7 +265,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         indexOfTextField = 0
         beginLocation.inputView = areaPickerMenu
         areaPickerMenu?.showUpAnimation(withTitle: "选择地区")
-        judgeButtonState()
     }
     @IBAction func timeTextFieldTapped(_ sender: Any) {
 //        transparentView.isHidden = false
@@ -280,7 +279,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         indexOfTextField = 1
         endLocation.inputView = areaPickerMenu
         areaPickerMenu?.showUpAnimation(withTitle: "选择地区")
-        judgeButtonState()
     }
     
     @IBAction func otherTextFieldTapped(_ sender: Any) {
@@ -319,6 +317,17 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         }
     }
     
+    private func setupBackGroundColor(){
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        let beginColor :UIColor = UIColor.MyTheme.darkBlue
+        let endColor :UIColor = UIColor.MyTheme.cyan
+        gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月dd日"
@@ -328,13 +337,14 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         pickUpDate = date.timeIntervalSince1970
     }
     private func judgeButtonState(){
-        if beginLocation.text != nil && endLocation.text != nil && timeTextField.text != nil{
+        if (beginLocation.text != "" && (endLocation.text != "" && timeTextField.text != "")){
             confirmTripButton.backgroundColor = #colorLiteral(red: 1, green: 0.4189302325, blue: 0.4186580479, alpha: 1)
             confirmTripButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
             confirmTripButton.isEnabled = true
         }
     }
     func textFieldsInAllCellResignFirstResponder(){
+        judgeButtonState()
         beginLocation.resignFirstResponder()
         endLocation.resignFirstResponder()
         timeTextField.resignFirstResponder()
