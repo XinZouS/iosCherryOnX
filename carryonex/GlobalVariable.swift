@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum CurrencyType: String {
+    case CNY = "￥"
+    case USD = "$"
+}
+
 // if changes the key in this map, MUST change also in the flagsTitle array
 // *** the order of flags in flagsTitle should NOT be change!!!
 let codeOfFlag : [String:String] = ["🇺🇸  +1":"1", "🇨🇳 +86":"86", "🇭🇰 852":"852", "🇹🇼 886":"886", "🇦🇺 +61":"61", "🇬🇧 +44":"44", "🇩🇪 +49":"49"]
@@ -113,6 +118,8 @@ let imageCompress: CGFloat = 0.1
 /// for more info display in MenuController
 let userGuideWebHoster = "http://54.245.216.35:5000"
 
+//Secrets
+let carryonSalt = "MkzpN2J4GnoaiQsCOE23"
 
 //MARK: - Helper Methods
 
@@ -133,5 +140,4 @@ enum ErrorType: Int {
     case userAlreadyExist = 2
     case userLoadLocalFail = 3
     case userInfoNull = 4
-    
 }

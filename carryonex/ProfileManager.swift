@@ -73,44 +73,15 @@ class ProfileManager: NSObject {
     /**
      completion(isSuccess:Bool, msg:String, type:ErrorType),
      */
-    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
+    func register(username: String,
+                  countryCode: String = "1",
+                  phone: String = "",
+                  password: String,
+                  email: String = "",
+                  name: String = "",
+                  completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
+        
         ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email, name: name) { (userToken, error) in
-            if let error = error {
-                let msg = "Register Error: \(error.localizedDescription)"
-                print(msg)
-                completion(false, error, .userRegisterErr)
-                return
-            }
-            
-            guard let userToken = userToken else {
-                let msg = "Unable to retrieve token"
-                print(msg)
-                completion(false, error, .userAlreadyExist)
-                return
-            }
-            
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
-                if let error = error {
-                    let msg = "loadLocalUser Error: \(error.localizedDescription)"
-                    print(msg)
-                    completion(false, error, .userLoadLocalFail)
-                    return
-                }
-                
-                if let user = user {
-                    self.updateCurrentUser(user, writeToKeychain: true)
-                    completion(true, error, .noError)
-                } else {
-                    let msg = "return user info is nil"
-                    print(msg)
-                    completion(false, error, .userInfoNull)
-                }
-            })
-        }
-    }
-    
-    func WXregister(username: String, password: String, name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
-        ApiServers.shared.postWXRegisterUser(username: username, password: password,name: name) { (userToken, error) in
             if let error = error {
                 let msg = "Register Error: \(error.localizedDescription)"
                 print(msg)

@@ -13,7 +13,8 @@ class MainTabBarController: UITabBarController {
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
-    
+    var personInfoController: PersonalPageViewController?
+    var loginViewController: LoginViewController?
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -29,21 +30,17 @@ class MainTabBarController: UITabBarController {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
                     homeViewController = homeController
                 }
+                if let personController = navigationController.childViewControllers.last as? PersonalPageViewController {
+                    personInfoController = personController
+                }
             }
         }
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
         loadingDisplay()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     //MARK: - Helpers
     
@@ -74,6 +71,7 @@ class MainTabBarController: UITabBarController {
     
     private func showLogin() {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
+            loginViewController = loginViewContainer as? LoginViewController
             self.present(loginViewContainer, animated: true) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.activityIndicator.stopAnimating()

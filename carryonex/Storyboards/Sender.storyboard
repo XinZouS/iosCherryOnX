@@ -55,20 +55,35 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2B-5k-5Oh">
+                                <rect key="frame" x="10" y="285" width="404" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="uYn-cR-yst"/>
+                                </constraints>
+                                <state key="normal" title="Test Button: go to Detail page">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="oMI-QC-oIz" kind="show" id="fYa-v6-fOX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.37423938512802124" green="0.51635491847991943" blue="0.76537007093429565" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="bwx-eX-FB1" secondAttribute="bottom" constant="12" id="5jG-q1-uCW"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" id="77x-a1-v0j"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="trailing" secondItem="qOP-M1-Utm" secondAttribute="trailingMargin" id="7oV-vA-ihP"/>
-                            <constraint firstItem="bwx-eX-FB1" firstAttribute="leading" secondItem="Zib-B4-JcO" secondAttribute="trailing" constant="5" id="9Kv-PY-ufF"/>
+                            <constraint firstItem="bwx-eX-FB1" firstAttribute="leading" secondItem="Zib-B4-JcO" secondAttribute="trailing" constant="25" id="8Co-aI-naO"/>
+                            <constraint firstItem="o2B-5k-5Oh" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="10" id="BMb-J3-bDa"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="Zib-B4-JcO" secondAttribute="bottom" constant="17" id="Dx8-hJ-T2C"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="XXV-IG-2gI" secondAttribute="bottom" constant="-9" id="Fff-Xc-MxK"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" constant="31" id="GEY-zN-FY9"/>
+                            <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="o2B-5k-5Oh" secondAttribute="trailing" id="SAa-Fe-pZu"/>
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="leading" secondItem="qOP-M1-Utm" secondAttribute="leadingMargin" id="bUi-Ci-3rK"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="trailing" secondItem="pAC-CP-FJo" secondAttribute="trailing" id="esp-RT-fGs"/>
+                            <constraint firstItem="o2B-5k-5Oh" firstAttribute="top" secondItem="gsT-sD-MQa" secondAttribute="bottom" constant="144" id="f4g-Um-4vC"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="bottom" secondItem="pAC-CP-FJo" secondAttribute="bottom" id="llO-qI-oc8"/>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" id="oLy-P0-QiU"/>
@@ -88,6 +103,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PG4-7I-CI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1097" y="167"/>
+        </scene>
+        <!--SenderDetailInfo-->
+        <scene sceneID="8Sp-jx-Bth">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SenderDetailInfo" id="oMI-QC-oIz" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sL1-7h-Cnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983" y="283"/>
         </scene>
     </scenes>
     <resources>
