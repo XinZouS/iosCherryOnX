@@ -19,13 +19,11 @@ class OrderListCardSenderCell: UITableViewCell {
     @IBOutlet weak var dateDayLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
-    @IBOutlet weak var statusButton1: UIButton!
-    @IBOutlet weak var statusButton1WidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var statusButton2: UIButton!
-    @IBOutlet weak var statusButton2WidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
     // card expand
-    @IBOutlet weak var ShiperProfileImageButton: UIButton!
+    @IBOutlet weak var cardDetailView: UIView!
+    @IBOutlet weak var shiperProfileImageButton: UIButton!
     @IBOutlet weak var shiperNameLabel: UILabel!
     @IBOutlet weak var shiperPhoneCallButton: UIButton!
     @IBOutlet weak var shiperScoreTitleLabel: UILabel!
@@ -36,25 +34,22 @@ class OrderListCardSenderCell: UITableViewCell {
     @IBOutlet weak var shippingCostLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
     
-    @IBOutlet weak var trackingButton: UIButton!
+    // bottom buttons
+    @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var finishButton2: UIButton!
     
-    
-    
-    @IBAction func statusButton1Tapped(_ sender: Any) {
-    }
-    
-    @IBAction func statusButton2Tapped(_ sender: Any) {
-    }
-    
-    var isStatusButton2Enable: Bool = true {
+        
+    var finishButton2isEnable = false {
         didSet{
-            statusButton2setup()
+            finishButton2.isEnabled = finishButton2isEnable
+            finishButton2.isHidden = !finishButton2isEnable
         }
     }
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        isStatusButton2Enable = true // NOTE: change this value to hide btn
+        finishButton2isEnable = false // NOTE: change this value to hide btn
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -63,13 +58,6 @@ class OrderListCardSenderCell: UITableViewCell {
         sepratorImageView.isHidden = !selected
     }
     
-
-
-    private func statusButton2setup(){
-        statusButton1WidthConstraint.constant = isStatusButton2Enable ? statusButton2WidthConstraint.constant : 100
-        statusButton2.isEnabled = isStatusButton2Enable
-        statusButton2.isHidden = !isStatusButton2Enable
-    }
 
     
 }

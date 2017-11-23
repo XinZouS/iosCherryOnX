@@ -16,15 +16,13 @@ class OrderListCardShiperCell: UITableViewCell {
     // order card
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
-    @IBOutlet weak var statusButton1: UIButton!
-    @IBOutlet weak var statusButton1WidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var statusButton2: UIButton!
-    @IBOutlet weak var statusButton2WidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var orderCreditLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
     // card expand
+    @IBOutlet weak var cardDetailView: UIView!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderStarColorView: UIView!
     @IBOutlet weak var senderStarViewWidthConstraint: NSLayoutConstraint!
@@ -35,14 +33,9 @@ class OrderListCardShiperCell: UITableViewCell {
     @IBOutlet weak var itemListImageMoreButton: UIButton!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var youxiangCodeShareButton: UIButton!
+    // bottom buttons
     @IBOutlet weak var finishButton: UIButton!
-    
-
-    @IBAction func statusButton1Tapped(_ sender: Any) {
-    }
-    
-    @IBAction func statusButton2Tapped(_ sender: Any) {
-    }
+    @IBOutlet weak var finishButton2: UIButton!
     
     
     var cellType: TripCategory = .carrier {
@@ -57,29 +50,23 @@ class OrderListCardShiperCell: UITableViewCell {
         }
     }
     
-    var isStatusButton2Enable: Bool = true {
+    var finishButton2isEnable = true {
         didSet{
-            statusButton2setup()
+            finishButton2.isEnabled = finishButton2isEnable
+            finishButton2.isHidden = !finishButton2isEnable
         }
     }
-    
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        isStatusButton2Enable = true // NOTE: change this value to hide btn
+        finishButton2isEnable = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         sepratorImageView.isHidden = !selected
-    }
-    
-    private func statusButton2setup(){
-        statusButton1WidthConstraint.constant = isStatusButton2Enable ? statusButton2WidthConstraint.constant : 100
-        statusButton2.isEnabled = isStatusButton2Enable
-        statusButton2.isHidden = !isStatusButton2Enable
     }
     
     

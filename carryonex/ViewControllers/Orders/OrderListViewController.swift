@@ -24,7 +24,6 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
     @IBOutlet weak var tableViewLeftConstraint: NSLayoutConstraint!
-    @IBOutlet var segmentedControl: UISegmentedControl!
     
     @IBOutlet weak var listButtonShiper: UIButton!
     @IBOutlet weak var listButtonSender: UIButton!
@@ -80,6 +79,7 @@ class OrderListViewController: UIViewController {
         //setupNavigationBar()
         setuptableViews()
         setupSwipeGestureRecognizer()
+        listType = .carrier
     }
     
     override func viewWillAppear(_ animated: Bool) {
