@@ -155,7 +155,7 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 print(jsonResult)
-                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"]{
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"] as? String{
                     // check wechat account existed?
                     ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
                         if success{
@@ -175,7 +175,7 @@ class LoginViewController: UIViewController {
                             })
                         }else{
                             //if doesn't exist then register
-                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "", name: realName,completion: { (success, err, errType) in
+                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "",name: realName,completion: { (success, err, errType) in
                                 if success{
                                     //if register success update image
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
