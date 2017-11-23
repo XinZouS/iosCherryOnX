@@ -257,9 +257,6 @@ class TripCompletedController:UIViewController{
         WXApi.send(req)
     }
     
-    
-    // MARK: -
-    
     private func prepareSharing(title: String, msg: String, img: UIImage, type: SSDKPlatformType) {
         
         // 1.创建分享参数
@@ -286,7 +283,6 @@ class TripCompletedController:UIViewController{
         }
     }
     
-    // MARK: - FBSDKSharingDelegate
     func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
         print("share err: \(error)")
     }

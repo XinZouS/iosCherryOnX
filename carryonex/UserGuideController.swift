@@ -70,9 +70,9 @@ class UserGuideController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func handleSegmentValueChanged() {
         guard let config = ApiServers.shared.config else { return }
-        if segmentControl.selectedSegmentIndex == TripCategory.Sender.rawValue {
+        if segmentControl.selectedSegmentIndex == TripCategory.sender.rawValue {
             bottomDataSource = config.sender
-        } else if segmentControl.selectedSegmentIndex == TripCategory.Carrier.rawValue {
+        } else if segmentControl.selectedSegmentIndex == TripCategory.carrier.rawValue {
             bottomDataSource = config.carrier
         }
         tableView.setContentOffset(CGPoint.zero, animated: false)   //Bring table view back to the top
