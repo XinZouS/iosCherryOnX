@@ -30,6 +30,17 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
+    }
     
     //MARK: - View custom set up
     
@@ -42,20 +53,6 @@ class LoginViewController: UIViewController {
         passwordField.keyboardType = .asciiCapable
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         passwordField.delegate = self
-        
-        /*
-        passwordField = TextField()
-        passwordField.placeholder = "密码"
-        passwordField.detail = "请输入6位以上密码"
-        passwordField.clearButtonMode = .whileEditing
-        passwordField.isVisibilityIconButtonEnabled = true
-        passwordField.keyboardAppearance = .dark
-        // Setting the visibilityIconButton color.
-        passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
-        _ = passwordField.becomeFirstResponder()
-        passwordField.placeholderLabel.font = UIFont.systemFont(ofSize: 20)
-        view.layout(passwordField).center(offsetY: -100).left(60).right(60)
-         */
     }
     
     //MARK: - Action Handler
@@ -203,11 +200,22 @@ class LoginViewController: UIViewController {
 
         
         loginButton.isEnabled = isMatch
-        loginButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
         
         let msg = isMatch ? "密码正确" : "密码错误"
         print(msg)
     }
+    
+    
+    @IBAction func handleRegistrationButton(_ sender: Any) {
+        
+    }
+    
+    @IBAction func handleUserAgreementButton(_ sender: Any) {
+        let disCtrlView = DisclaimerController()
+        self.navigationController?.pushViewController(disCtrlView, animated: true)
+    }
+    
 }
 
 extension LoginViewController: UITextFieldDelegate {

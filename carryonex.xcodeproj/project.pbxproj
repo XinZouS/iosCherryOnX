@@ -1178,10 +1178,10 @@
 				660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
 				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
-				E5267D141FB63524003ADF14 /* Registration.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
 				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 				66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */,
+				E5267D141FB63524003ADF14 /* Registration.storyboard */,
 				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
 				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
@@ -1271,9 +1271,9 @@
 			isa = PBXGroup;
 			children = (
 				4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */,
-				4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */,
 				667810641FBB48F100E1880E /* PhoneNumViewController.swift */,
 				4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */,
+				4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";

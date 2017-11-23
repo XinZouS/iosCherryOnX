@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EVF-5t-OYk">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,30 +16,18 @@
             <objects>
                 <viewController id="EVF-5t-OYk" customClass="PhoneValidationViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n6Z-ct-2zi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="CarryonEx_Icon300" translatesAutoresizingMaskIntoConstraints="NO" id="8uh-HT-Yz0">
-                                <rect key="frame" x="110" y="60" width="100" height="100"/>
+                                <rect key="frame" x="137.5" y="109.5" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="900" constant="100" id="7cg-mx-Cqe"/>
                                     <constraint firstAttribute="width" secondItem="8uh-HT-Yz0" secondAttribute="height" multiplier="1:1" id="8r9-g2-rWa"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="io8-Aw-0Lf">
-                                <rect key="frame" x="0.0" y="20" width="46" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="ebT-Q6-S73"/>
-                                    <constraint firstAttribute="width" constant="46" id="uox-GW-fr8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="EVF-5t-OYk" eventType="touchUpInside" id="BZg-fm-g8W"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="短信验证码已发送至(123)-456-7890，请在此输入" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCT-vt-Prp">
-                                <rect key="frame" x="26.5" y="175" width="267" height="46"/>
+                                <rect key="frame" x="54" y="224.5" width="267" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="267" id="9Wf-CS-txq"/>
                                     <constraint firstAttribute="height" constant="46" id="f3i-NZ-qcq"/>
@@ -49,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="itB-f5-oqo">
-                                <rect key="frame" x="70" y="241" width="180" height="46"/>
+                                <rect key="frame" x="97.5" y="290.5" width="180" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W07-kC-9mZ">
                                         <rect key="frame" x="0.0" y="0.0" width="36" height="46"/>
@@ -142,7 +130,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrY-Df-ZXQ">
-                                <rect key="frame" x="68" y="317" width="184" height="30"/>
+                                <rect key="frame" x="95.5" y="366.5" width="184" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="JW2-Fq-EbR"/>
                                     <constraint firstAttribute="height" constant="30" id="M6P-mn-8dj"/>
@@ -156,19 +144,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8uh-HT-Yz0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="io8-Aw-0Lf" secondAttribute="bottom" id="0Un-zS-YhJ"/>
                             <constraint firstItem="vrY-Df-ZXQ" firstAttribute="top" secondItem="itB-f5-oqo" secondAttribute="bottom" constant="30" id="5Yo-YA-J12"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="centerY" secondItem="n6Z-ct-2zi" secondAttribute="centerY" constant="-20" id="7a2-6P-HSC"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="top" secondItem="lCT-vt-Prp" secondAttribute="bottom" priority="800" constant="20" id="IEX-GG-Rz4"/>
-                            <constraint firstItem="io8-Aw-0Lf" firstAttribute="top" secondItem="HB9-Ck-JkU" secondAttribute="top" id="STZ-gz-Aj5"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="top" secondItem="8uh-HT-Yz0" secondAttribute="bottom" priority="800" constant="15" id="SwB-7i-L3j"/>
-                            <constraint firstItem="io8-Aw-0Lf" firstAttribute="leading" secondItem="HB9-Ck-JkU" secondAttribute="leading" id="UHU-Ij-fkr"/>
                             <constraint firstItem="vrY-Df-ZXQ" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="eej-Xe-p4U"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8uh-HT-Yz0" secondAttribute="bottom" constant="10" id="fCG-Yd-uOB"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="icp-yt-bpB"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="jZm-Yy-sa6"/>
                             <constraint firstItem="8uh-HT-Yz0" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="jve-AV-vkW"/>
-                            <constraint firstItem="8uh-HT-Yz0" firstAttribute="top" secondItem="io8-Aw-0Lf" secondAttribute="bottom" priority="600" constant="30" id="l0f-GW-ume"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lCT-vt-Prp" secondAttribute="bottom" constant="10" id="lvS-Ok-utc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HB9-Ck-JkU"/>
@@ -180,7 +164,7 @@
                         <outlet property="verifyCodeLabel02" destination="y2J-Kq-oXw" id="pSY-ic-WZG"/>
                         <outlet property="verifyCodeLabel03" destination="SEs-pd-g79" id="7lJ-sS-FXi"/>
                         <outlet property="verifyCodeLabel04" destination="Y6e-cn-Zgo" id="wHB-gl-cYr"/>
-                        <segue destination="1YA-15-dDf" kind="show" id="Sb9-Qy-3JL"/>
+                        <segue destination="1YA-15-dDf" kind="show" identifier="gotoRegistrationVC" id="Sb9-Qy-3JL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZT-rb-csK" userLabel="First Responder" sceneMemberID="firstResponder"/>
