@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController {
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
-    
+    var personInfoController: PersonalPageViewController?
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -28,6 +28,9 @@ class MainTabBarController: UITabBarController {
             for navigationController in viewControllers {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
                     homeViewController = homeController
+                }
+                if let personController = navigationController.childViewControllers.last as? PersonalPageViewController {
+                    personInfoController = personController
                 }
             }
         }
