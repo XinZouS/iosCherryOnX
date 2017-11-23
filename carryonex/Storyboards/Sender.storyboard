@@ -96,13 +96,13 @@
             </objects>
             <point key="canvasLocation" x="501.44927536231887" y="167.11956521739131"/>
         </scene>
-        <!--Request-->
+        <!--Registration-->
         <scene sceneID="mpY-cZ-1dh">
             <objects>
-                <viewControllerPlaceholder storyboardName="Request" id="rlu-Ce-B9L" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Registration" id="rlu-Ce-B9L" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PG4-7I-CI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245" y="150"/>
+            <point key="canvasLocation" x="1097" y="167"/>
         </scene>
         <!--SenderDetailInfo-->
         <scene sceneID="8Sp-jx-Bth">

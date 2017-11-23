@@ -32,6 +32,18 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     //MARK: - View custom set up
     
     private func setupPhoneTextField(){
@@ -198,6 +210,39 @@ extension LoginViewController {
                 })
             }
         }
+    }
+    func checkPassword(){
+        let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
+        let matcher = MyRegex(passwordPattern)
+        let maybePassword = passwordField.text
+        
+        let isMatch = matcher.match(input: maybePassword!)
+
+        
+        loginButton.isEnabled = isMatch
+        loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
+        
+        let msg = isMatch ? "密码正确" : "密码错误"
+        print(msg)
+    }
+    
+    
+    @IBAction func handleRegistrationButton(_ sender: Any) {
+        
+    }
+    
+    @IBAction func handleUserAgreementButton(_ sender: Any) {
+        let disCtrlView = DisclaimerController()
+        self.navigationController?.pushViewController(disCtrlView, animated: true)
+    }
+    
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        dismissKeyboard()
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
             if let response = notification.object as? SendAuthResp {

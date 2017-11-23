@@ -22,20 +22,20 @@ class PhoneNumViewController: UIViewController {
             if isLoading {
                 loadingIndicator.startAnimating()
                 flagPicker.isHidden = true
-                countryCodeButton.isEnabled = false
-                phoneNumTextField.isEnabled = false
             } else {
                 loadingIndicator.stopAnimating()
             }
+            countryCodeButton.isEnabled = !isLoading
+            phoneNumTextField.isEnabled = !isLoading
         }
     }
     
     
     @IBOutlet weak var countryCodeButton: UIButton!
-    @IBOutlet weak var phoneNumTextField: TextField!
+    @IBOutlet weak var phoneNumTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var bottomImgeView: UIImageView!
+    var loadingIndicator: UIActivityIndicatorCustomizeView!
     
     
     var transparentView : UIView = {
@@ -55,8 +55,6 @@ class PhoneNumViewController: UIViewController {
         return p
     }()
     
-    let loadingIndicator = UIActivityIndicatorCustomizeView()
-
     
     //MARK: - View Cycle
     override func viewDidLoad() {
@@ -65,8 +63,10 @@ class PhoneNumViewController: UIViewController {
 
         setupTextField()
         setupFlagPicker()
-        setupLoadingIndicator()
         checkPhone()
+        setupActivityIndicator()
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
     }
     
     // for keyboard notification:
@@ -74,7 +74,7 @@ class PhoneNumViewController: UIViewController {
         super.viewWillAppear(animated)
         setupKeyboardObserver()
         _ = phoneNumTextField.becomeFirstResponder()
-        navigationController?.isNavigationBarHidden = !isModifyPhoneNumber
+        navigationController?.isNavigationBarHidden = isModifyPhoneNumber
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,14 +98,14 @@ class PhoneNumViewController: UIViewController {
         view.addSubview(flagPicker)
         flagPicker.addConstraints(left: bottomImgeView.leftAnchor, top: bottomImgeView.topAnchor, right: bottomImgeView.rightAnchor, bottom: bottomImgeView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
     }
- 
-    private func setupLoadingIndicator() {
-        view.addSubview(loadingIndicator)
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
     
+    private func setupActivityIndicator(){
+        loadingIndicator = UIActivityIndicatorCustomizeView()
+        loadingIndicator.center = view.center
+        loadingIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(loadingIndicator)
+    }
+
     
     //MARK: - Action Handler
     
@@ -114,11 +114,7 @@ class PhoneNumViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {
-        verifyPhoneNum()
-    }
-    
-    @IBAction func backButtonTapped(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        prepareVerifyPhoneNum()
     }
     
 
@@ -130,7 +126,7 @@ class PhoneNumViewController: UIViewController {
 
 extension PhoneNumViewController: PhoneNumberDelegate {
     
-    func verifyPhoneNum() {
+    func prepareVerifyPhoneNum() {
         guard let newPhone = phoneNumTextField.text else {
             let m = "您还没填写电话号码呢！"
             displayGlobalAlert(title: "❓缺少信息", message: m, action: "朕知道了", completion: nil)
@@ -152,7 +148,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
                     self.loginByPasswordInput()
                 }
             } else {
-                self.verifyUserPhoneNum()
+                self.verifyUserNewPhoneNum()
             }
         }
     }
@@ -166,29 +162,17 @@ extension PhoneNumViewController: PhoneNumberDelegate {
         zoneCodeInput = profileUser.phoneCountryCode ?? ""
         
         self.isLoading = true
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-            self.isLoading = false
-            if err == nil {
-                print("PhoneNumViewController: 获取验证码成功, go next page!!!")
-                self.goToVerificationPage()
-            } else {
-                print("PhoneNumViewController: mdfPhone有错误: \(String(describing: err))")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.showAlertWith(title: "获取验证码失败", message: msg)
-            }
-        })
+        verifyUserNewPhoneNum()
     }
     
     private func loginByPasswordInput(){
-        let pwVC = InputPasswordLoginController()
-        pwVC.username = self.phoneInput
-        pwVC.zoneCodeInput = self.zoneCodeInput
-        pwVC.phoneInput = self.phoneInput
-        
-        self.navigationController?.pushViewController(pwVC, animated: true)
+        let m = "您所使用的手机号已注册，请使用密码登陆即可。"
+        displayGlobalAlert(title: "⚠️不能注册", message: m, action: "去登陆") {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
-    private func verifyUserPhoneNum(){
+    private func verifyUserNewPhoneNum(){
         self.isLoading = true
         
         SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
@@ -196,24 +180,16 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             if let err = err {
                 print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
                 let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.showAlertWith(title: "验证失败", message: msg)
+                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: "OK", completion: nil)
                 return
             }
             self.goToVerificationPage()
         })
-        
     }
     
     @objc private func nextButtonEnable(){
         sendButton.isEnabled = true
-        sendButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-    }
-    private func showAlertWith(title:String, message:String){
-        let alertCtl = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertCtl.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            alertCtl.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alertCtl, animated: true, completion: nil)
+        sendButton.backgroundColor = colorOkgreen
     }
     
     func textFieldsInAllCellResignFirstResponder(){
@@ -235,15 +211,20 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     }
     
     func goToVerificationPage(){
-        performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: self)
-        
-//        let verifiCtl = VerificationController()
-//        verifiCtl.isModifyPhoneNumber = false
-//        verifiCtl.zoneCodeInput = self.zoneCodeInput
-//        verifiCtl.phoneInput = self.phoneInput
-//
-//        self.navigationController?.pushViewController(verifiCtl, animated: true)
+        let info: [String:String] = [
+            "countryCode" : zoneCodeInput,
+            "phone" : phoneInput,
+            ]
+        performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: info)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vldVC = segue.destination as? PhoneValidationViewController,
+            let info = sender as? [String:String] {
+            vldVC.registerUserInfo = info
+        }
+    }
+
     
     // MARK: delegate: go back to home page
     
@@ -293,12 +274,9 @@ extension PhoneNumViewController: UITextFieldDelegate {
         
         let isFormatOK = matcher.match(input: phoneInput)
         
-        phoneNumTextField.leftViewActiveColor    = isFormatOK ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-        phoneNumTextField.dividerActiveColor     = isFormatOK ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-        phoneNumTextField.placeholderActiveColor = isFormatOK ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
         isPhoneNumValid = isFormatOK
         sendButton.isEnabled = isFormatOK
-        sendButton.backgroundColor = sendButton.isEnabled ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        sendButton.backgroundColor = sendButton.isEnabled ? colorOkgreen : colorErrGray
         
         let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
         print(msg + ": \(zoneCodeInput) \(phoneInput)")

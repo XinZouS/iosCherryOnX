@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eRT-V6-pbO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eRT-V6-pbO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -77,7 +77,7 @@
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="25"/>
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isShadowPathAutoSizing" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
@@ -93,7 +93,7 @@
                                     <constraint firstAttribute="height" constant="46" id="8YK-4f-feR"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6" customClass="TextField" customModule="Material">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6">
                                 <rect key="frame" x="88" y="273.5" width="217" height="30"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -135,18 +135,6 @@
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad9-B4-fjH">
-                                <rect key="frame" x="0.0" y="20" width="46" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="6eC-ja-y8l"/>
-                                    <constraint firstAttribute="height" constant="36" id="8X1-i3-sly"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="eRT-V6-pbO" eventType="touchUpInside" id="crv-6K-Kg0"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94386500634517767" green="0.94386500634517767" blue="0.94386500634517767" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -174,7 +162,6 @@
                             <constraint firstItem="nzc-eN-7XS" firstAttribute="centerX" secondItem="o8R-xM-HgU" secondAttribute="centerX" id="clM-qr-abc"/>
                             <constraint firstItem="v12-N4-fq0" firstAttribute="trailing" secondItem="LMn-Tc-Oa8" secondAttribute="trailing" id="eZL-sa-Wqw"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="leading" secondItem="9gA-WK-kAU" secondAttribute="trailing" constant="8" id="iSj-Oq-4Ym"/>
-                            <constraint firstItem="ad9-B4-fjH" firstAttribute="top" secondItem="o8R-xM-HgU" secondAttribute="top" constant="20" id="ncB-RR-RLI"/>
                             <constraint firstItem="iNn-t6-JK6" firstAttribute="bottom" secondItem="9gA-WK-kAU" secondAttribute="bottom" id="oNZ-rl-VdB"/>
                             <constraint firstItem="9gA-WK-kAU" firstAttribute="centerY" secondItem="0ql-dn-o2I" secondAttribute="centerY" id="p2I-nl-XQR"/>
                             <constraint firstItem="fLe-7o-RX7" firstAttribute="centerY" secondItem="o8R-xM-HgU" secondAttribute="centerY" priority="800" constant="30" id="rPL-d2-toF"/>
@@ -183,12 +170,10 @@
                             </constraint>
                             <constraint firstItem="v12-N4-fq0" firstAttribute="leading" secondItem="LMn-Tc-Oa8" secondAttribute="leading" id="udC-OH-zgz"/>
                             <constraint firstItem="0ql-dn-o2I" firstAttribute="top" secondItem="Yd3-fA-05w" secondAttribute="bottom" priority="900" constant="20" id="vTm-zq-m9T"/>
-                            <constraint firstItem="ad9-B4-fjH" firstAttribute="leading" secondItem="LMn-Tc-Oa8" secondAttribute="leading" id="y3h-Dj-eDx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LMn-Tc-Oa8"/>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="ad9-B4-fjH" id="hGE-NN-lul"/>
                         <outlet property="bottomImgeView" destination="v12-N4-fq0" id="3UJ-Hz-qZ0"/>
                         <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>

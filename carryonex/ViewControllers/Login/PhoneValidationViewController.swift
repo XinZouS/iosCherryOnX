@@ -10,18 +10,6 @@ import UIKit
 
 class PhoneValidationViewController: UIViewController {
 
-    var registerUserInfo : [String:String]? {
-        didSet{
-            zoneCodeInput = registerUserInfo?["countryCode"] ?? ""
-            phoneInput = registerUserInfo?["phone"] ?? ""
-            verifyCodeLabel01.text = ""
-            verifyCodeLabel02.text = ""
-            verifyCodeLabel03.text = ""
-            verifyCodeLabel04.text = ""
-            getVerificationCode()
-        }
-    }
-    
     var isModifyPhoneNumber = false
     
     var zoneCodeInput: String = "1"
@@ -51,10 +39,19 @@ class PhoneValidationViewController: UIViewController {
         return f
     }()
 
+    var registerUserInfo : [String:String]?
     
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        zoneCodeInput = registerUserInfo?["countryCode"] ?? ""
+        phoneInput = registerUserInfo?["phone"] ?? ""
+        verifyCodeLabel01.text = ""
+        verifyCodeLabel02.text = ""
+        verifyCodeLabel03.text = ""
+        verifyCodeLabel04.text = ""
+
         verifiTextField.becomeFirstResponder()
     }
 
@@ -77,12 +74,7 @@ class PhoneValidationViewController: UIViewController {
         commitVerificationCode()
         resetResendButtonTo60s()
     }
-    
-    @IBAction func backButtonTapped(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    
+        
     fileprivate func resetResendButtonTo60s(){
         resetTime = 60
         resetTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown1sec), userInfo: nil, repeats: resetTime != 0)
@@ -100,19 +92,6 @@ class PhoneValidationViewController: UIViewController {
     }
     
     
-    fileprivate func getVerificationCode(){
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-            if err == nil {
-                print("PhoneNumViewController: 获取验证码成功!!")
-            } else {
-                print("PhoneNumViewController: mdfPhone有错误: \(String(describing: err))")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: "OK", completion: nil)
-            }
-        })
-
-    }
-
     fileprivate func commitVerificationCode(){
         if isModifyPhoneNumber, let profileUser = ProfileManager.shared.getCurrentUser() {
             zoneCodeInput = profileUser.phoneCountryCode ?? ""
@@ -144,45 +123,18 @@ class PhoneValidationViewController: UIViewController {
                 }
             })
         } else {
-            registerUser()
-            //let regPswdCtl = RegisterPasswordController()
-            //regPswdCtl.isRegister = true
-            //regPswdCtl.zoneCodeInput = self.zoneCodeInput
-            //regPswdCtl.phoneInput = self.phoneInput
-            //self.navigationController?.pushViewController(regPswdCtl, animated: true)
+            self.performSegue(withIdentifier: "gotoRegistrationVC", sender: registerUserInfo)
         }
     }
     
-    // TODO: do this after phone verified:
-    private func registerUser(){
-        guard let info = registerUserInfo else { return }
-        
-        ProfileManager.shared.register(username:    phoneInput,
-                                       countryCode: zoneCodeInput,
-                                       phone:       phoneInput,
-                                       password:    info["password"] ?? "",
-                                       name:        info["realName"] ?? "",
-                                       completion: { (success, err, errType) in
-                                        
-                                        if success {
-                                            self.confirmPhoneInServer()
-                                            
-                                        } else {
-                                            let e1 = "您所使用的手机号已注册，请使用密码登陆即可。"
-                                            let e2 = "注册出现错误，请确保所填信息正确，稍后再试一次。\n错误: \(err.debugDescription)"
-                                            let msg = (errType == ErrorType.userAlreadyExist ? e1 : e2)
-                                            self.displayGlobalAlert(title: "⚠️不能注册", message: msg, action: "好", completion: {
-                                                if errType == .userAlreadyExist {
-                                                    self.navigationController?.popViewController(animated: true)
-                                                }
-                                            })
-                                        }
-                                        
-        })
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let regVC = segue.destination as? RegistrationViewController,
+            let info = sender as? [String:String] {
+            regVC.registerUserInfo = info
+        }
     }
     
-
+    
     private func confirmPhoneInServer(){
         ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, err) in
             if let err = err {
@@ -195,16 +147,16 @@ class PhoneValidationViewController: UIViewController {
             }
         }
     }
-    
+
     private func verifyFaildAlert(_ msg: String?){
         let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因:" + (msg ?? "验证失败")
         print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
-        
+
         displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
             self.navigationController?.popViewController(animated: true)
         })
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
