@@ -52,6 +52,10 @@ extension String {
         }
         return true
     }
+    
+    func quickTossPassword() -> String {
+        return String(self.reversed()) + carryonSalt
+    }
 }
 
 // 

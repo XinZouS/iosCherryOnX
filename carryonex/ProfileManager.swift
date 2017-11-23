@@ -73,7 +73,14 @@ class ProfileManager: NSObject {
     /**
      completion(isSuccess:Bool, msg:String, type:ErrorType),
      */
-    func register(username: String, countryCode: String, phone: String, password: String, email: String="", name: String="", completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
+    func register(username: String,
+                  countryCode: String = "1",
+                  phone: String = "no_phone",
+                  password: String,
+                  email: String = "",
+                  name: String = "",
+                  completion: @escaping(Bool, Error?, ErrorType) -> Swift.Void) {
+        
         ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email, name: name) { (userToken, error) in
             if let error = error {
                 let msg = "Register Error: \(error.localizedDescription)"

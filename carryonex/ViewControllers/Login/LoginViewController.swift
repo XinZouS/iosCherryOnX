@@ -144,7 +144,8 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func makeUserRegister(openid:String,access_token:String){
+    func makeUserRegister(openid: String, access_token: String) {
+        
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
         
         DispatchQueue.global().async {
@@ -154,59 +155,76 @@ class LoginViewController: UIViewController {
             
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                print(jsonResult)
-                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"]{
-                    // check wechat account existed?
-                    ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
+                if let username = jsonResult["openid"] as? String,
+                    let imgUrl = jsonResult["headimgurl"] as? String,
+                    let realName = jsonResult["nickname"] as? String {
+                    
+                    ApiServers.shared.getIsUserExisted(phoneInput: username,
+                                                       completion: { (success, err) in
                         if success{
-                            // if exist log in
-                            ProfileManager.shared.login(username: username, password: username,completion: { (success) in
-                                if success{
-                                    // if log in success update image
+                            ProfileManager.shared.login(username: username,
+                                                        password: username.quickTossPassword(),
+                                                        completion: { (success) in
+                                if success {
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
                                         if success {
                                             //if update success close
                                             self.dismiss(animated: true, completion: nil)
                                         }
                                     })
-                                }else{
-                                    print("errorelse")
+                                } else {
+                                    debugPrint("User exists login failed")
                                 }
                             })
-                        }else{
-                            //if doesn't exist then register
-                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "", name: realName,completion: { (success, err, errType) in
-                                if success{
-                                    //if register success update image
-                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
-                                        if success {
-                                            //if update success close
+                            
+                        } else {
+                            ProfileManager.shared.register(username: username,
+                                                           password: username.quickTossPassword(),
+                                                           name: realName,
+                                                           completion: { (success, err, errType) in
+                                if success {
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl,
+                                                                         completion: { (updateSuccess) in
+                                        if updateSuccess {
                                             self.dismiss(animated: true, completion: nil)
+                                            
+                                        } else {
+                                            debugPrint("Wechat registration update user info failed")
                                         }
                                     })
-                                }else{
-                                    print(errType)
+                                    
+                                } else {
+                                    if let error = err {
+                                        debugPrint("Wechat registration error: \(error.localizedDescription). Error Type: \(errType)")
+                                    } else {
+                                        debugPrint("Wechat registration error")
+                                    }
                                 }
                             })
                         }
                     })
+                    
+                } else {
+                    debugPrint("Invalid JSON result: \(jsonResult)")
                 }
             }
         }
     }
-    func checkPassword(){
+    
+    func checkPassword() {
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
-        let maybePassword = passwordField.text
         
-        let isMatch = matcher.match(input: maybePassword!)
-
-        
-        loginButton.isEnabled = isMatch
-        loginButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        
-        let msg = isMatch ? "密码正确" : "密码错误"
-        print(msg)
+        if let maybePassword = passwordField.text {
+            let isMatch = matcher.match(input: maybePassword)
+            loginButton.isEnabled = isMatch
+            loginButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            let msg = isMatch ? "密码正确" : "密码错误"
+            print(msg)
+        } else {
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        }
     }
 }
 
