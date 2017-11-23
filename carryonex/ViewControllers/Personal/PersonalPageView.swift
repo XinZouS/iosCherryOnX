@@ -24,15 +24,13 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
     
-    
+    var loginViewController = LoginViewController()
     @IBOutlet weak var tableView: UITableView!
     
     let titles = ["钱包","帮助","设置"]
     let subTitles = ["收付款，查看余额，提现", "", ""]
     let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray")]
     let cellId = "PersonalPageTableCell"
-    
-    var loginViewCtl = LoginViewController()
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
 
     override func viewDidLoad() {
@@ -42,7 +40,6 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
         setupNavigationBar()
         addUserUpdateNotificationObservers()
         loadUserProfile()
-        addNotificationObservers()
         setupActivityIndicator()
     }
     private func setupTableView(){
@@ -79,32 +76,6 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = false
-    }
-    
-    private func addNotificationObservers() {
-        
-        /**  微信通知  */
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
-            
-            let code = notification.object as! String
-            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
-            
-            DispatchQueue.global().async {
-                let requestURL: URL = URL.init(string: requestUrl)!
-                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-                DispatchQueue.main.async {
-                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                    let openid: String = jsonResult["openid"] as! String
-                    let access_token: String = jsonResult["access_token"] as! String
-                    switch wxloginStatus{
-                    case "WXregister":
-                        self?.loginViewCtl.makeUserRegister(openid: openid, access_token: access_token)
-                    default:
-                        self?.getUserInfo(openid: openid, access_token: access_token)
-                    }
-                }
-            }
-        }
     }
     
     private func addUserUpdateNotificationObservers(){
@@ -381,9 +352,6 @@ extension PersonalPageViewController{
     internal func setupProfileImageFromAws(){
         if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
             let urlRequst = URLRequest.init(url: imgUrl)
-//            DispatchQueue.main.async(){
-//                self.performSegue(withIdentifier:"imageChange" , sender: nil)
-//            }
             _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
             self.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
             

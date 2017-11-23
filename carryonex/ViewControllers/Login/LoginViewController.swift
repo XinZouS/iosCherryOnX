@@ -123,7 +123,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
     //MARK - Helper Method
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
