@@ -183,7 +183,6 @@ extension LoginViewController {
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    debugPrint("Invalid response state")
                     self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
                     return
                 }

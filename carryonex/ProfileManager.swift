@@ -75,7 +75,7 @@ class ProfileManager: NSObject {
      */
     func register(username: String,
                   countryCode: String = "1",
-                  phone: String = "no_phone",
+                  phone: String = "",
                   password: String,
                   email: String = "",
                   name: String = "",
