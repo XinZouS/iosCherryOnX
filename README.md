@@ -205,7 +205,7 @@ class Address : NSObject {
     var state : String!
     var city  : String!
 
-    var detailAddress: String!
+    var street: String!
 
     var zipcode: String!
 

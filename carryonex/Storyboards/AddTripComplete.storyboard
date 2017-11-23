@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hxZ-DM-DN1">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -11,19 +11,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Trip Complete Controller-->
+        <!--Trip Completed Controller-->
         <scene sceneID="dOD-KM-q7G">
             <objects>
-                <viewController id="hxZ-DM-DN1" customClass="tripCompleteController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hxZ-DM-DN1" customClass="TripCompletedController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EQx-Dz-64W">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIbackground" translatesAutoresizingMaskIntoConstraints="NO" id="O6c-tm-9nq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezQ-hd-BTC">
-                                <rect key="frame" x="16" y="124.5" width="288" height="234"/>
+                                <rect key="frame" x="16" y="124.5" width="343" height="234"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUL-Ch-uno">
                                         <rect key="frame" x="30" y="14" width="34.5" height="38"/>
@@ -65,24 +65,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="小头像" translatesAutoresizingMaskIntoConstraints="NO" id="O5h-HS-WaM">
-                                        <rect key="frame" x="235" y="10" width="45" height="45"/>
+                                        <rect key="frame" x="290" y="10" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="O5h-HS-WaM" secondAttribute="height" multiplier="1:1" id="tuN-Zy-Ehg"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-Qc-oj0">
-                                        <rect key="frame" x="35" y="184" width="218" height="35"/>
-                                        <color key="backgroundColor" red="1" green="0.41885420680046082" blue="0.42289164662361145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="dtD-F7-Y4w"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="完成">
-                                            <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享是一种美德；快将您的游箱号分享到社交圈吧！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="717-tM-T8i">
-                                        <rect key="frame" x="10.5" y="152" width="267.5" height="17"/>
+                                        <rect key="frame" x="10.5" y="152" width="322.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -94,6 +83,20 @@
                                             <constraint firstAttribute="width" constant="20" id="uew-nW-sHe"/>
                                         </constraints>
                                         <state key="normal" image="shareButton"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-Qc-oj0">
+                                        <rect key="frame" x="35" y="183.5" width="273" height="35"/>
+                                        <color key="backgroundColor" red="1" green="0.41885420680046082" blue="0.42289164662361145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="dtD-F7-Y4w"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="分享">
+                                            <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shareButtonTapped:" destination="hxZ-DM-DN1" eventType="touchUpInside" id="9hN-Xs-ctK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -139,7 +142,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发布成功！这是你的出行信息：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfW-oV-ZC4">
-                                <rect key="frame" x="39" y="84" width="243" height="20.5"/>
+                                <rect key="frame" x="66.5" y="84" width="243" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -166,11 +169,13 @@
                         <outlet property="descriptionLabel" destination="717-tM-T8i" id="aTW-vz-uM4"/>
                         <outlet property="endLocationLabel" destination="LBp-Qq-hGn" id="1IC-aj-z0a"/>
                         <outlet property="monthLabel" destination="aUL-Ch-uno" id="PiW-Fl-isq"/>
+                        <outlet property="shareButton" destination="4qe-Qc-oj0" id="LKO-I4-HB9"/>
+                        <outlet property="youxiangLabel" destination="L6f-sn-a6w" id="nYm-M7-PY0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLw-8N-HHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="509.60000000000002" y="-99.400299850074973"/>
+            <point key="canvasLocation" x="508" y="-101.19940029985008"/>
         </scene>
     </scenes>
     <resources>

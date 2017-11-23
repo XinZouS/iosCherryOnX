@@ -17,7 +17,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     let timePicker:UIDatePicker = UIDatePicker()
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
-    let address = Address()
     var addressArray = [[String: AnyObject]]()
     //选择的国家索引
     var countryIndex = 0
@@ -27,19 +26,20 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     var citiesIndex = 0
     var indexOfTextField : Int = 0
     var areaPickerMenu : UIPickerMenuView?
-//    var transparentView : UIView = {
-//        let v = UIView()
-//        v.isHidden = true
-//        v.backgroundColor = .clear
-//        v.addGestureRecognizer(UITapGestureRecognizer(target: self,action:#selector(textFieldsInAllCellResignFirstResponder)))
-//        return v
-//    }()
+    var pickUpDate :Double = 0
+    var endCity: String = ""
+    var endState: String  = ""
+    var endCountry: String = ""
+    var startCity: String = ""
+    var startState: String = ""
+    var startCountry: String = ""
+    
     lazy var pickerView : UIPickerView = {
         let p = UIPickerView()
         p.dataSource = self
         p.delegate = self
         p.isHidden = false
-        p.tag = 3 // the id of this picker
+        p.tag = 3
         return p
     }()
     
@@ -74,24 +74,16 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
         setUpPicker()
         setupLocation()
-
-//        setUpTransparentView()
         self.addDoneButtonOnKeyboard()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        doneToolbar.barStyle = UIBarStyle.blackTranslucent
-        
+            doneToolbar.barStyle = UIBarStyle.blackTranslucent
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(TripController.doneButtonAction))
-        
-        let items = NSMutableArray()
-        items.add(flexSpace)
-        items.add(done)
-        
-        doneToolbar.items = items as? [UIBarButtonItem]
-        doneToolbar.sizeToFit()
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+            doneToolbar.items = [flexSpace,done]
+            doneToolbar.sizeToFit()
         self.timeTextField.inputAccessoryView = doneToolbar
         self.otherTextField.inputAccessoryView = doneToolbar
     }
@@ -101,10 +93,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         self.timeTextField.resignFirstResponder()
         self.otherTextField.resignFirstResponder()
     }
-//    private func setUpTransparentView(){
-//        view.addSubview(transparentView)
-//        transparentView.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-//    }
 
     override func viewWillAppear(_ animated: Bool) {
         setupBackgroundColor()
@@ -113,11 +101,14 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "tripComplete") {
-            if let destVC = segue.destination as? tripCompleteController{
+            if let destVC = segue.destination as? TripCompletedController{
                 destVC.beginLocationString = beginLocation.text
                 destVC.endLocationString = endLocation.text
                 destVC.dateString = timeTextField.text
                 destVC.descriptionString = otherTextField.text
+                if let tripId = sender {
+                    destVC.tripId = tripId as! Int
+                }
             }
         }
     }
@@ -153,21 +144,25 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
         timeTextField.text = strNowTime[YearStartIndex...YearEndIndex]+"年"+strNowTime[MonthStartIndex...MonthendIndex]+"月"+strNowTime[DayStartIndex...DayendIndex]+"日"
+        pickUpDate = date.timeIntervalSince1970
     }
     
     func areaMenuOKButtonTapped(){
-            address.country = (self.addressArray[countryIndex]["country"] as? String).map { Country(rawValue: $0) }!
             let country = self.addressArray[countryIndex]
             let state = (country["states"] as! NSArray)[stateIndex]
                 as! [String: AnyObject]
-            address.state = state["state"] as? String
             let city = (state["cities"] as! NSArray)[citiesIndex]
                 as! [String: AnyObject]
-            address.city = city["city"] as? String
         if let countryStr = self.addressArray[countryIndex]["country"] as? String,let stateStr = state["state"] as? String,let cityStr = city["city"] as? String {
             if indexOfTextField == 0 {
+                startState = stateStr
+                startCity = cityStr
+                startCountry = countryStr
                 beginLocation.text = countryStr + " " + stateStr + " " + cityStr
             }else{
+                endState = stateStr
+                endCity = cityStr
+                endCountry = countryStr
                 endLocation.text = countryStr + " " + stateStr + " " + cityStr
             }
         }
@@ -281,30 +276,36 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         var offset = tripScrollView.contentOffset
         offset.y = tripScrollView.contentSize.height + tripScrollView.contentInset.bottom - tripScrollView.bounds.size.height
         tripScrollView.setContentOffset(offset, animated: true)
-//        transparentView.isHidden = false
     }
+    
+    
+    @IBAction func commitTripInfo(_ sender: Any) {
+        let trip = Trip()
+        trip.endAddress?.state = endState
+        trip.endAddress?.city = endCity
+        trip.endAddress?.country = Country(rawValue:endCountry)
+        trip.startAddress?.state = startState
+        trip.startAddress?.city = startCity
+        trip.startAddress?.country = Country(rawValue: startCountry)
+        trip.pickupDate = pickUpDate
+        ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
+            if success{
+                self.performSegue(withIdentifier: "tripComplete", sender: tripId)
+            }else{
+                print(msg ?? "")
+            }
+        }
+    }
+    
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月dd日"
         let date = timePicker.date
         let dateText = formatter.string(from: date)
         timeTextField.text = dateText
+        pickUpDate = date.timeIntervalSince1970
     }
     
-//    func textFieldsInAllCellResignFirstResponder(){
-//        transparentView.isHidden = true
-//        beginLocation.resignFirstResponder()
-//        endLocation.resignFirstResponder()
-//        timeTextField.resignFirstResponder()
-//        otherTextField.resignFirstResponder()
-//    }
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-//
-//        if touches.count > 0 {
-//            textFieldsInAllCellResignFirstResponder()
-//        }
-//    }
     private func setupLocation(){
         //初始化位置管理器
         locationManager = CLLocationManager()
@@ -351,8 +352,12 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 //国家
                 let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
                 
-                let State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
-                self.beginLocation.text = (country as String)+" "+State+" "+city
+                let state: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
+                
+                self.startState = state
+                self.startCity = city
+                self.startCountry = country as String
+                self.beginLocation.text = (country as String)+"  "+state+"  "+city
             }
             else
             {

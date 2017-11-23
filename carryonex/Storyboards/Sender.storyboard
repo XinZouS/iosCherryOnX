@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QGo-l0-xmq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6aY-yC-FGU">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,24 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--寄件-->
-        <scene sceneID="cS5-mD-3bM">
-            <objects>
-                <navigationController id="QGo-l0-xmq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="寄件" image="requestIcon" id="36M-Q4-he1"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aVe-vH-UOi">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="6aY-yC-FGU" kind="relationship" relationship="rootViewController" id="xJD-N5-Hzi"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3wL-Te-Uaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-297" y="167"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="bOO-pl-Oyu">
             <objects>
@@ -38,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIbackground" translatesAutoresizingMaskIntoConstraints="NO" id="Agi-kn-3dV">
-                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-IG-2gI">
-                                <rect key="frame" x="366" y="70" width="32" height="77"/>
+                                <rect key="frame" x="366" y="26" width="32" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="2e1-Ak-fIv"/>
                                     <constraint firstAttribute="width" constant="32" id="D6q-nN-7y7"/>
@@ -52,20 +34,20 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="游箱号输入横线" translatesAutoresizingMaskIntoConstraints="NO" id="gsT-sD-MQa">
-                                <rect key="frame" x="20" y="138" width="374" height="3"/>
+                                <rect key="frame" x="20" y="94" width="374" height="1"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="QPU-Wn-Ga8"/>
+                                    <constraint firstAttribute="height" constant="1" id="QPU-Wn-Ga8"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索icon" translatesAutoresizingMaskIntoConstraints="NO" id="Zib-B4-JcO">
-                                <rect key="frame" x="16" y="95" width="26" height="26"/>
+                                <rect key="frame" x="16" y="51" width="26" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="26" id="0xt-Qb-BOH"/>
                                     <constraint firstAttribute="height" constant="26" id="4Aj-yp-mSc"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
-                                <rect key="frame" x="67" y="91" width="55" height="35"/>
+                                <rect key="frame" x="47" y="47" width="309" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hag-b1-6NK"/>
                                 </constraints>
@@ -103,8 +85,8 @@
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="trailing" secondItem="pAC-CP-FJo" secondAttribute="trailing" id="esp-RT-fGs"/>
                             <constraint firstItem="o2B-5k-5Oh" firstAttribute="top" secondItem="gsT-sD-MQa" secondAttribute="bottom" constant="144" id="f4g-Um-4vC"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="bottom" secondItem="pAC-CP-FJo" secondAttribute="bottom" id="llO-qI-oc8"/>
+                            <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
                             <constraint firstItem="Agi-kn-3dV" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" id="oLy-P0-QiU"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="bwx-eX-FB1" secondAttribute="bottom" constant="12" id="vrJ-QR-eN8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pAC-CP-FJo"/>
                     </view>
@@ -133,7 +115,6 @@
     </scenes>
     <resources>
         <image name="UIbackground" width="210" height="373"/>
-        <image name="requestIcon" width="12" height="12"/>
         <image name="向右箭头-1" width="53" height="59"/>
         <image name="搜索icon" width="51" height="53"/>
         <image name="游箱号输入横线" width="297" height="2"/>

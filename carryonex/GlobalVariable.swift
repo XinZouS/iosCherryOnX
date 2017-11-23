@@ -71,14 +71,14 @@ protocol ZipcodeCellDelegate: class {
 }
 
 enum TripCategory: Int {
-    case Carrier
-    case Sender
+    case carrier
+    case sender
     
     var stringValue: String {
         switch self {
-        case .Carrier:
+        case .carrier:
             return "carrier"
-        case .Sender:
+        case .sender:
             return "sender"
         }
     }

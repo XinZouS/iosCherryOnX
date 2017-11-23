@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import Material
 
 class LoginViewController: UIViewController {
 
     fileprivate let constant: CGFloat = 32
     var countryCode = "1"
     
-    @IBOutlet weak var phoneField: TextField!
-    @IBOutlet weak var passwordField: TextField!
+    @IBOutlet weak var phoneField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var textFieldsContainerView: UIView!
     
     @IBOutlet weak var countryCodeButton: UIButton!
@@ -29,7 +28,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setupPhoneTextField()
         setupPasswordTextField()
-        setupTextFieldContainerView()
     }
     
     
@@ -45,10 +43,6 @@ class LoginViewController: UIViewController {
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         passwordField.delegate = self
         
-        let leftView = UIImageView()
-        leftView.image = Icon.settings
-        passwordField.leftView = leftView
-        
         /*
         passwordField = TextField()
         passwordField.placeholder = "密码"
@@ -63,16 +57,6 @@ class LoginViewController: UIViewController {
         view.layout(passwordField).center(offsetY: -100).left(60).right(60)
          */
     }
-
-    private func setupTextFieldContainerView(){
-        let x = textFieldsContainerView.bounds.width
-        let y = textFieldsContainerView.bounds.height / 2
-        let cl = UIColor(white: 0.9, alpha: 1)
-        let startP = CGPoint(x: 0, y: y)
-        let endP = CGPoint(x: x, y: y)
-        textFieldsContainerView.drawStroke(startPoint: startP, endPoint: endP, color: cl, lineWidth: 1)
-    }
-
     
     //MARK: - Action Handler
     
@@ -105,11 +89,6 @@ class LoginViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
 
             } else {
-                self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.detailLabel.text = L("login.error.message.wrong-password")
                 AudioManager.shared.playSond(named: .failed)
             }
         }
@@ -176,7 +155,7 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 print(jsonResult)
-                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String{
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"]{
                     // check wechat account existed?
                     ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
                         if success{
@@ -196,7 +175,7 @@ class LoginViewController: UIViewController {
                             })
                         }else{
                             //if doesn't exist then register
-                            ProfileManager.shared.WXregister(username: username, password: username,                                       completion: { (success, err, errType) in
+                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "", name: realName,completion: { (success, err, errType) in
                                 if success{
                                     //if register success update image
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
@@ -216,19 +195,12 @@ class LoginViewController: UIViewController {
         }
     }
     func checkPassword(){
-        passwordField.leftViewNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        passwordField.dividerNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        passwordField.placeholderNormalColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        passwordField.detailLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        passwordField.detailLabel.text = "请输入6位以上密码"
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
         let maybePassword = passwordField.text
         
         let isMatch = matcher.match(input: maybePassword!)
-        passwordField.leftViewActiveColor    = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-        passwordField.dividerActiveColor     = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-        passwordField.placeholderActiveColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+
         
         loginButton.isEnabled = isMatch
         loginButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
