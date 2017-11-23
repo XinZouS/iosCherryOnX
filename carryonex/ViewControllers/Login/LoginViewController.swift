@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setupPhoneTextField()
         setupPasswordTextField()
+        addNotificationObservers()
     }
     
     
@@ -123,7 +124,31 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
+    private func addNotificationObservers() {
+        
+        /**  微信通知  */
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
+            
+            let code = notification.object as! String
+            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
+            
+            DispatchQueue.global().async {
+                let requestURL: URL = URL.init(string: requestUrl)!
+                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+                DispatchQueue.main.async {
+                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                    let openid: String = jsonResult["openid"] as! String
+                    let access_token: String = jsonResult["access_token"] as! String
+                    switch wxloginStatus{
+                    case "WXregister":
+                        self?.makeUserRegister(openid: openid, access_token: access_token)
+                    default:
+                        AppDelegate.shared().mainTabViewController?.personInfoController?.getUserInfo(openid: openid, access_token: access_token)
+                    }
+                }
+            }
+        }
+    }
     //MARK - Helper Method
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
@@ -155,7 +180,7 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 print(jsonResult)
-                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"]{
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"] as? String{
                     // check wechat account existed?
                     ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
                         if success{
@@ -175,7 +200,7 @@ class LoginViewController: UIViewController {
                             })
                         }else{
                             //if doesn't exist then register
-                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "", name: realName,completion: { (success, err, errType) in
+                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "",name: realName,completion: { (success, err, errType) in
                                 if success{
                                     //if register success update image
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
