@@ -30,7 +30,7 @@
                                 </constraints>
                                 <state key="normal" image="向右箭头-1"/>
                                 <connections>
-                                    <segue destination="rlu-Ce-B9L" kind="show" id="EVB-LU-Hiv"/>
+                                    <segue destination="oMI-QC-oIz" kind="show" id="0TP-Vc-FB8"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="游箱号输入横线" translatesAutoresizingMaskIntoConstraints="NO" id="gsT-sD-MQa">
@@ -80,21 +80,13 @@
             </objects>
             <point key="canvasLocation" x="501.44927536231887" y="167.11956521739131"/>
         </scene>
-        <!--Registration-->
-        <scene sceneID="mpY-cZ-1dh">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Registration" id="rlu-Ce-B9L" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PG4-7I-CI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1097" y="167"/>
-        </scene>
         <!--SenderDetailInfo-->
         <scene sceneID="8Sp-jx-Bth">
             <objects>
                 <viewControllerPlaceholder storyboardName="SenderDetailInfo" id="oMI-QC-oIz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sL1-7h-Cnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="983" y="283"/>
+            <point key="canvasLocation" x="1159" y="223"/>
         </scene>
     </scenes>
     <resources>
