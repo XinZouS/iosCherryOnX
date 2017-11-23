@@ -14,7 +14,7 @@ class MainTabBarController: UITabBarController {
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
-    
+    var loginViewController: LoginViewController?
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -41,39 +41,6 @@ class MainTabBarController: UITabBarController {
         isItHaveLogIn()
         loadingDisplay()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func addNotificationObservers() {
-        
-        /**  微信通知  */
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
-            let code = notification.object as! String
-            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
-            
-            DispatchQueue.global().async {
-                let loginViewController = LoginViewController()
-                let requestURL: URL = URL.init(string: requestUrl)!
-                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
-                DispatchQueue.main.async {
-                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                    let openid: String = jsonResult["openid"] as! String
-                    let access_token: String = jsonResult["access_token"] as! String
-                    switch wxloginStatus{
-                    case "WXregister":
-                        loginViewController.makeUserRegister(openid: openid, access_token: access_token)
-                    default:
-                        self?.personInfoController?.getUserInfo(openid: openid, access_token: access_token)
-                    }
-                }
-            }
-        }
-    }
-    
-    
     //MARK: - Helpers
     
     private func setupActivityIndicator(){
@@ -103,6 +70,7 @@ class MainTabBarController: UITabBarController {
     
     private func showLogin() {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
+            loginViewController = loginViewContainer as? LoginViewController
             self.present(loginViewContainer, animated: true) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.activityIndicator.stopAnimating()
