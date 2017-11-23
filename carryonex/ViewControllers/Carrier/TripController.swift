@@ -101,7 +101,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "tripComplete") {
-            if let destVC = segue.destination as? TripCompleteController{
+            if let destVC = segue.destination as? TripCompletedController{
                 destVC.beginLocationString = beginLocation.text
                 destVC.endLocationString = endLocation.text
                 destVC.dateString = timeTextField.text
