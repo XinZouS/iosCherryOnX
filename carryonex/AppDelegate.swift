@@ -182,6 +182,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         print("Remote notification: \(userInfo)")
     }
     
+    
+    // MARK: - WeChat Authentication Support
+    
     // WXApiDelegate: [3] 现在，你的程序要实现和微信终端交互的具体请求与回应，因此需要实现WXApiDelegate协议的两个方法, 具体在此两方法中所要完成的内容由你定义.
     // from: https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=1417694084&token=&lang=zh_CN
     func onReq(_ req: BaseReq!) {
@@ -189,14 +192,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     
     func onResp(_ resp: BaseResp!) {
-        if resp.errCode == 0 && resp.type == 0 {//授权成功
-            if let response = resp as? SendAuthResp {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WXLoginSuccessNotification"), object: response.code)
+        if resp.errCode == 0  {
+            if let resp = resp as? SendAuthResp {
+                NotificationCenter.default.post(name: Notification.Name.WeChat.Authenticated, object: resp)
             }
+        } else {
+            NotificationCenter.default.post(name: Notification.Name.WeChat.AuthenticationFailed, object: resp)
         }
     }
 
-    
     // MARK: - facebook sdk support
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey:Any] = [:]) -> Bool {
 //        // get reference from https://developers.facebook.com/docs/facebook-login/ios, then do it in swift:

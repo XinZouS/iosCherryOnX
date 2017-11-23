@@ -13,4 +13,10 @@ extension Notification.Name {
     public struct Network {
         public static let Invalid = Notification.Name(rawValue: "com.carryonex.notification.name.network.invalid")
     }
+    
+    public struct WeChat {
+        public static let Authenticated = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.authenticated")
+        public static let AuthenticationFailed = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.authentication-failed")
+        public static let LoginCompleted = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.login-completed")
+    }
 }
