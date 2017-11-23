@@ -14,6 +14,7 @@ class MainTabBarController: UITabBarController {
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
+    var loginViewController: LoginViewController?
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -23,7 +24,7 @@ class MainTabBarController: UITabBarController {
         
         addObservers()
         setupActivityIndicator()
-        
+        addNotificationObservers()
         if let viewControllers = self.viewControllers as? [UINavigationController] {
             for navigationController in viewControllers {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
@@ -35,7 +36,6 @@ class MainTabBarController: UITabBarController {
             }
         }
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
@@ -47,6 +47,82 @@ class MainTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func addNotificationObservers() {
+        
+        /**  微信通知  */
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in
+            
+            let code = notification.object as! String
+            let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
+            
+            DispatchQueue.global().async {
+                let requestURL: URL = URL.init(string: requestUrl)!
+                let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+                DispatchQueue.main.async {
+                    let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                    let openid: String = jsonResult["openid"] as! String
+                    let access_token: String = jsonResult["access_token"] as! String
+                    switch wxloginStatus{
+                    case "WXregister":
+                        self?.makeUserRegister(openid: openid, access_token: access_token)
+                    default:
+                        self?.personInfoController?.getUserInfo(openid: openid, access_token: access_token)
+                    }
+                }
+            }
+        }
+    }
+    
+    func makeUserRegister(openid:String,access_token:String){
+        let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
+        
+        DispatchQueue.global().async {
+            
+            let requestURL: URL = URL.init(string: requestUrl)!
+            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+            
+            DispatchQueue.main.async {
+                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                print(jsonResult)
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"] as? String{
+                    // check wechat account existed?
+                    ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
+                        if success{
+                            // if exist log in
+                            ProfileManager.shared.login(username: username, password: username,completion: { (success) in
+                                if success{
+                                    // if log in success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print("errorelse")
+                                }
+                            })
+                        }else{
+                            //if doesn't exist then register
+                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "",name: realName,completion: { (success, err, errType) in
+                                if success{
+                                    //if register success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print(errType)
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+    }
     
     //MARK: - Helpers
     
@@ -77,6 +153,7 @@ class MainTabBarController: UITabBarController {
     
     private func showLogin() {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
+            loginViewController = loginViewContainer as? LoginViewController
             self.present(loginViewContainer, animated: true) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.activityIndicator.stopAnimating()

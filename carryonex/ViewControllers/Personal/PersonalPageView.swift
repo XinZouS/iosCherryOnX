@@ -352,9 +352,6 @@ extension PersonalPageViewController{
     internal func setupProfileImageFromAws(){
         if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
             let urlRequst = URLRequest.init(url: imgUrl)
-//            DispatchQueue.main.async(){
-//                self.performSegue(withIdentifier:"imageChange" , sender: nil)
-//            }
             _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
             self.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
             
