@@ -142,6 +142,57 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    func makeUserRegister(openid:String,access_token:String){
+        let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(access_token)&openid=\(openid)"
+        
+        DispatchQueue.global().async {
+            
+            let requestURL: URL = URL.init(string: requestUrl)!
+            let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+            
+            DispatchQueue.main.async {
+                let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                print(jsonResult)
+                if let username = jsonResult["openid"] as? String,let imgUrl = jsonResult["headimgurl"] as? String,let realName = jsonResult["nickname"] as? String{
+                    // check wechat account existed?
+                    ApiServers.shared.getIsUserExisted(phoneInput: username,completion: { (success, err) in
+                        if success{
+                            // if exist log in
+                            ProfileManager.shared.login(username: username, password: username,completion: { (success) in
+                                if success{
+                                    // if log in success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print("errorelse")
+                                }
+                            })
+                        }else{
+                            //if doesn't exist then register
+                            ProfileManager.shared.register(username: username, countryCode: "86", phone: "no_phone", password:username,email: "",name: realName,completion: { (success, err, errType) in
+                                if success{
+                                    //if register success update image
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                        if success {
+                                            //if update success close
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
+                                    })
+                                }else{
+                                    print(errType)
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+    }
     func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)

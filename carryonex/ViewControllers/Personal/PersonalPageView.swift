@@ -62,11 +62,7 @@ class PersonalPageViewController: UIViewController,UINavigationControllerDelegat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "imageChange"{
-            if let userProfileCtl = segue.destination as? UserProfileController{
-                userProfileCtl.helloLabel.text = "你不好"
-            }
-        }
+        
     }
     
     private func setupNavigationBar(){
@@ -356,7 +352,7 @@ extension PersonalPageViewController{
             self.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
             
             if let homeController = AppDelegate.shared().mainTabViewController?.homeViewController {
-                homeController.userProfileController?.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+                homeController.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
             }
         }
     }
