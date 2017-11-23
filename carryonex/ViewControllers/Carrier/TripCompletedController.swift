@@ -19,13 +19,11 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
-    
-    var dateString: String?
-    var beginLocationString: String?
-    var endLocationString: String?
-    var descriptionString: String?
-    var tripId: Int?
-    
+    var dateString :String!
+    var beginLocationString:String!
+    var endLocationString:String!
+    var descriptionString: String!
+    var tripId:Int!
     lazy var wechatButton : UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "wechatIcon"), for: .normal)
@@ -86,61 +84,52 @@ class TripCompletedController:UIViewController{
         super.viewDidLoad()
         setupCardInformation()
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
     private func setupCardInformation(){
         beginLocationLabel.text = beginLocationString
         endLocationLabel.text = endLocationString
-        
-        if let dateString = dateString {
-            let monthStartIndex = dateString.index(dateString.startIndex, offsetBy: 5)
-            let monthEndIndex = dateString.index(dateString.startIndex, offsetBy: 6)
-            let dayStartIndex = dateString.index(dateString.startIndex, offsetBy: 8)
-            let dayEndIndex = dateString.index(dateString.startIndex, offsetBy: 9)
-            let month = dateString[monthStartIndex...monthEndIndex]
-            let day = dateString[dayStartIndex...dayEndIndex]
-            var monthString = ""
-            switch month{
-            case "01":
-                monthString = "JAN"
-            case "02":
-                monthString = "FEB"
-            case "03":
-                monthString = "MAR"
-            case "04":
-                monthString = "APR"
-            case "05":
-                monthString = "MAY"
-            case "06":
-                monthString = "JUN"
-            case "07":
-                monthString = "JULY"
-            case "08":
-                monthString = "AUG"
-            case "09":
-                monthString = "SEP"
-            case "10":
-                monthString = "OCT"
-            case "11":
-                monthString = "NOV"
-            case "12":
-                monthString = "DEC"
-            default:
-                break
-            }
-            monthLabel.text = monthString
-            dayLabel.text = day
+        let MonthStartIndex = dateString.index(dateString.startIndex, offsetBy: 5)
+        let MonthEndIndex = dateString.index(dateString.startIndex, offsetBy: 6)
+        let DayStartIndex = dateString.index(dateString.startIndex, offsetBy: 8)
+        let DayEndIndex = dateString.index(dateString.startIndex, offsetBy: 9)
+        let month = dateString[MonthStartIndex...MonthEndIndex]
+        let day = dateString[DayStartIndex...DayEndIndex]
+        var monthString = ""
+        switch month{
+        case "01":
+            monthString = "JAN"
+        case "02":
+            monthString = "FEB"
+        case "03":
+            monthString = "MAR"
+        case "04":
+            monthString = "APR"
+        case "05":
+            monthString = "MAY"
+        case "06":
+            monthString = "JUN"
+        case "07":
+            monthString = "JULY"
+        case "08":
+            monthString = "AUG"
+        case "09":
+            monthString = "SEP"
+        case "10":
+            monthString = "OCT"
+        case "11":
+            monthString = "NOV"
+        case "12":
+            monthString = "DEC"
+        default:
+            break
         }
+        monthLabel.text = monthString
+        dayLabel.text = day
         descriptionLabel.text = descriptionString
-        
-        if let tripId = tripId {
-            youxiangLabel.text = "\(tripId)"
-        }
+        youxiangLabel.text = String(tripId)
     }
-    
     @IBAction func shareButtonTapped(_ sender: Any) {
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let margin:CGFloat = 10.0
@@ -293,9 +282,6 @@ class TripCompletedController:UIViewController{
             }
         }
     }
-    
-    
-    // MARK: - FBSDKSharingDelegate
     
     func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
         print("share err: \(error)")
