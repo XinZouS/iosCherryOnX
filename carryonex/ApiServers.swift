@@ -117,15 +117,24 @@ class ApiServers : NSObject {
         
         let deviceToken = UserDefaults.getDeviceToken() ?? ""
         let route = hostVersion + "/users"
-        let postData = [
-            ServerKey.username.rawValue: username,
+        var postData = [
+            ProfileUserKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
-            ServerKey.countryCode.rawValue: countryCode,
-            ServerKey.phone.rawValue: phone,
-            ServerKey.email.rawValue: email,
+            ProfileUserKey.countryCode.rawValue: countryCode,
             ServerKey.deviceToken.rawValue: deviceToken,
-            ServerKey.realName.rawValue: name
+            ProfileUserKey.realName.rawValue: name
         ]
+        
+        if phone.isEmpty {
+            postData[ProfileUserKey.noPhone.rawValue] = ""
+        } else {
+            postData[ProfileUserKey.phone.rawValue] = phone
+        }
+        
+        if !email.isEmpty {
+            postData[ProfileUserKey.email.rawValue] = email
+        }
+        
         let parameters:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,

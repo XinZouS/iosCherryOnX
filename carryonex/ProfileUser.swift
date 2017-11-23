@@ -14,6 +14,7 @@ enum ProfileUserKey: String {
     case email       = "email"
     case username    = "username"
     case phone       = "phone"
+    case noPhone     = "no_phone"
     case realName    = "real_name"
     case status      = "status"
     case token       = "token"
@@ -30,6 +31,7 @@ enum ProfileUserKey: String {
     case tripCount = "trip_count"
     case requestCount = "request_count"
     case rating = "rating"
+    case countryCode = "country_code"
 }
 
 class ProfileUser: Unboxable  {
