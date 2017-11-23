@@ -244,6 +244,7 @@
 		FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */; };
 		FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */; };
 		FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */; };
+		FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF855FCC1FC7778600210F1C /* changePassword.storyboard */; };
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
@@ -509,6 +510,7 @@
 		FF66FE2A1FAA417700B4FA41 /* CommentViewCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommentViewCell++.swift"; sourceTree = "<group>"; };
 		FF76373C1F97C3CA00F44A48 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListYouxiangInputController.swift; sourceTree = "<group>"; };
+		FF855FCC1FC7778600210F1C /* changePassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = changePassword.storyboard; sourceTree = "<group>"; };
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
@@ -1192,6 +1194,7 @@
 				CF24D93C1FC353EA0036FB4E /* PostRate.storyboard */,
 				CF360F551FBCC451000F6ECC /* SettingPage.storyboard */,
 				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
+				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1484,6 +1487,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */,
 				FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */,
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,

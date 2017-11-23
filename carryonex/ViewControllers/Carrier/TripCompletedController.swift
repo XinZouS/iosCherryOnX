@@ -19,6 +19,7 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
+    var gradientLayer: CAGradientLayer!
     var dateString :String!
     var beginLocationString:String!
     var endLocationString:String!
@@ -83,6 +84,7 @@ class TripCompletedController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCardInformation()
+        setupBackGroundColor()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -130,6 +132,18 @@ class TripCompletedController:UIViewController{
         descriptionLabel.text = descriptionString
         youxiangLabel.text = String(tripId)
     }
+    
+    private func setupBackGroundColor(){
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        let beginColor :UIColor = UIColor.MyTheme.darkBlue
+        let endColor :UIColor = UIColor.MyTheme.cyan
+        gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     @IBAction func shareButtonTapped(_ sender: Any) {
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let margin:CGFloat = 10.0
@@ -144,10 +158,10 @@ class TripCompletedController:UIViewController{
         shareView.addSubview(weiboButton)
         shareView.addSubview(facebookButton)
         
-        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
-        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
-        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
-        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: shareView.rightAnchor, bottom: nil, leftConstent: 30, topConstent: 0, rightConstent: 30, bottomConstent: 0, width: (viewWidth-150)/4, height: (viewWidth-150)/4)
+        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
+        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
+        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
+        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
         
         wechatButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
         momentButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
