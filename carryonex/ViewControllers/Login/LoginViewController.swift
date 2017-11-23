@@ -131,15 +131,15 @@ class LoginViewController: UIViewController {
         if let maybePassword = passwordField.text {
             let isMatch = matcher.match(input: maybePassword)
             loginButton.isEnabled = isMatch
-            loginButton.backgroundColor = isMatch ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
             let msg = isMatch ? "密码正确" : "密码错误"
             print(msg)
         } else {
             loginButton.isEnabled = false
-            loginButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            loginButton.backgroundColor = colorErrGray
         }
-    }
-    
+    }    
+
     func quickDataFromUrl(url: String, completion: @escaping(([String : Any]?) -> Void)) {
         guard let requestURL: URL = URL.init(string: url) else {
             completion(nil)
@@ -156,6 +156,11 @@ extension LoginViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         dismissKeyboard()
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
+            if let response = notification.object as? SendAuthResp {
+                self?.displayAlert(title: "WeChat 登入失败", message: "错误号码：\(response.errCode)\n，错误信息：\(response.errStr)", action: "好")
+            }
+        }
     }
     
     private func dismissKeyboard(){
@@ -211,21 +216,6 @@ extension LoginViewController {
             }
         }
     }
-    func checkPassword(){
-        let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
-        let matcher = MyRegex(passwordPattern)
-        let maybePassword = passwordField.text
-        
-        let isMatch = matcher.match(input: maybePassword!)
-
-        
-        loginButton.isEnabled = isMatch
-        loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
-        
-        let msg = isMatch ? "密码正确" : "密码错误"
-        print(msg)
-    }
-    
     
     @IBAction func handleRegistrationButton(_ sender: Any) {
         
@@ -234,21 +224,6 @@ extension LoginViewController {
     @IBAction func handleUserAgreementButton(_ sender: Any) {
         let disCtrlView = DisclaimerController()
         self.navigationController?.pushViewController(disCtrlView, animated: true)
-    }
-    
-}
-
-extension LoginViewController: UITextFieldDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        dismissKeyboard()
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
-            if let response = notification.object as? SendAuthResp {
-                self?.displayAlert(title: "WeChat 登入失败", message: "错误号码：\(response.errCode)\n，错误信息：\(response.errStr)", action: "好")
-            }
-        }
     }
     
     private func registerWeChatUser(openId: String, accessToken: String) {
