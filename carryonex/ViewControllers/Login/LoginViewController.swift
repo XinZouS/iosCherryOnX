@@ -151,7 +151,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: UITextFieldDelegate {
+extension LoginViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -211,20 +211,6 @@ extension LoginViewController {
             }
         }
     }
-    func checkPassword(){
-        let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
-        let matcher = MyRegex(passwordPattern)
-        let maybePassword = passwordField.text
-        
-        let isMatch = matcher.match(input: maybePassword!)
-
-        
-        loginButton.isEnabled = isMatch
-        loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
-        
-        let msg = isMatch ? "密码正确" : "密码错误"
-        print(msg)
-    }
     
     
     @IBAction func handleRegistrationButton(_ sender: Any) {
@@ -239,19 +225,7 @@ extension LoginViewController {
 }
 
 extension LoginViewController: UITextFieldDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        dismissKeyboard()
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
-            if let response = notification.object as? SendAuthResp {
-                self?.displayAlert(title: "WeChat 登入失败", message: "错误号码：\(response.errCode)\n，错误信息：\(response.errStr)", action: "好")
-            }
-        }
-    }
-    
-    private func registerWeChatUser(openId: String, accessToken: String) {
+     func registerWeChatUser(openId: String, accessToken: String) {
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
         self.quickDataFromUrl(url: requestUrl) { [weak self] jsonResult in
             guard let jsonResult = jsonResult else { return }
