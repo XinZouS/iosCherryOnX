@@ -151,7 +151,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: UITextFieldDelegate {
+extension LoginViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -216,6 +216,7 @@ extension LoginViewController {
             }
         }
     }
+
     
     @IBAction func handleRegistrationButton(_ sender: Any) {
         
@@ -225,8 +226,10 @@ extension LoginViewController {
         let disCtrlView = DisclaimerController()
         self.navigationController?.pushViewController(disCtrlView, animated: true)
     }
-    
-    private func registerWeChatUser(openId: String, accessToken: String) {
+}
+
+extension LoginViewController: UITextFieldDelegate {
+     func registerWeChatUser(openId: String, accessToken: String) {
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
         self.quickDataFromUrl(url: requestUrl) { [weak self] jsonResult in
             guard let jsonResult = jsonResult else { return }

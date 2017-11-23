@@ -81,8 +81,10 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func addDoneButtonOnKeyboard(){

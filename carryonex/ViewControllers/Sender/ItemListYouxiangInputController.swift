@@ -22,5 +22,7 @@ class ItemListYouxiangInputController: UIViewController{
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
 }
