@@ -37,6 +37,8 @@ enum TripKeyInDB : String {
     case pickupDate     = "pickup_date"
     case pickupTimeStart = "pickup_start_time"
     case pickupTimeEnd  = "pickup_end_time"
+    
+    case note = "note"
 }
 
 
@@ -63,6 +65,7 @@ class Trip : NSObject, Unboxable {
     var pickupDate:      Double? // travel starts
     var pickupTimeStart: Double?
     var pickupTimeEnd:   Double?
+    var note: String?
     
     override init() {
         super.init()
@@ -90,9 +93,11 @@ class Trip : NSObject, Unboxable {
 
         self.statusId = (try? unboxer.unbox(key: TripKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
         
-        self.pickupDate     = try?  unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
+        self.pickupDate     = try? unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
         self.pickupTimeStart = try? unboxer.unbox(key: TripKeyInDB.pickupTimeStart.rawValue)
-        self.pickupTimeEnd  = try?  unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
+        self.pickupTimeEnd  = try? unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
+        
+        self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
     }
     
     func packAsDictionaryForDB() -> [String: Any] {
@@ -111,6 +116,8 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
         
+        json[TripKeyInDB.note.rawValue] = note ?? ""
+        
         return json
     }
     
@@ -127,6 +134,8 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.pickupDate.rawValue]       = Int(pickupDate ?? 0)
         json[TripKeyInDB.pickupTimeStart.rawValue]  = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue]    = Int(pickupTimeEnd ?? 0)
+        
+        json[TripKeyInDB.note.rawValue] = note ?? ""
         
         return json
     }
