@@ -15,7 +15,7 @@ enum OrderButtonToShow {
 }
 
 protocol OrderListCellDelegate: class {
-    func orderCellButtonTapped(request: Request, transaction: RequestTransaction, indexPath: NSIndexPath)
+    func orderCellButtonTapped(request: Request, category: TripCategory, transaction: RequestTransaction, indexPath: IndexPath)
 }
 
 protocol OrderListCardCellProtocol {
@@ -30,7 +30,8 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     
     weak var delegate: OrderListCellDelegate?
-    var indexPath: NSIndexPath?
+    var indexPath: IndexPath?
+    var cellCategory: TripCategory = .carrier
     
     private var status: RequestStatus = .invalid {
         didSet {
@@ -80,7 +81,6 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     
     //MARK: - Reset Buttons
     func resetButtons() {
-        buttonsToShow = .noButtons
         finishButton.reset()
         finishButton2.reset()
     }
@@ -90,6 +90,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
             let indexPath = indexPath,
             button.transaction.isValid(for: status) {
             delegate?.orderCellButtonTapped(request: request,
+                                            category: cellCategory,
                                             transaction: button.transaction,
                                             indexPath: indexPath)
         }

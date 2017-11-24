@@ -187,6 +187,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             let tripOrder = dataSourceCarrier[indexPath.section]
             if let tripRequest = tripOrder.requests?[indexPath.row] {
                 cell.request = tripRequest.request
+                cell.indexPath = indexPath
+                cell.delegate = self
+                cell.carrierDelegate = self
                 return cell
             } else {
                 return UITableViewCell()
@@ -197,6 +200,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             let tripOrder = dataSourceSender[indexPath.section]
             if let tripRequest = tripOrder.requests?[indexPath.row] {
                 cell.request = tripRequest.request
+                cell.indexPath = indexPath
+                cell.delegate = self
+                cell.senderDelegate = self
                 return cell
             } else {
                 return UITableViewCell()
@@ -279,3 +285,47 @@ extension OrderListViewController: UIScrollViewDelegate {
         }, completion: nil)
     }
 }
+
+extension OrderListViewController: OrderListCellDelegate {
+    
+    func orderCellButtonTapped(request: Request, category: TripCategory, transaction: RequestTransaction, indexPath: IndexPath) {
+        //let tableView = (category == .carrier) ? tableViewShiper : tableViewSender
+        print("Transaction tapped: \(transaction.displayString())")
+    }
+    
+}
+
+extension OrderListViewController: OrderListCarrierCellDelegate {
+    
+    func orderListCarrierSenderProfileTapped() {
+        print("Carrier Sender Profile Tapped")
+    }
+    
+    func orderListCarrierSenderPhoneTapped() {
+        print("Carrier Sender Phone Tapped")
+    }
+    
+    func orderListCarrierMoreImagesTapped() {
+        print("Carrier More Images Tapped")
+    }
+    
+    func orderListCarrierCodeShareTapped() {
+        print("Carrier Share Tapped")
+    }
+}
+
+extension OrderListViewController: OrderListSenderCellDelegate {
+    
+    func orderListSenderItemImageTapped() {
+        print("Sender Item Image Tapped")
+    }
+    
+    func orderListSenderCarrierProfileImageTapped() {
+        print("Sender Carrier Profile Image Tapped")
+    }
+    
+    func orderListSenderCarrierPhoneTapped() {
+        print("Sender Carrier Phone Tapped")
+    }
+}
+
