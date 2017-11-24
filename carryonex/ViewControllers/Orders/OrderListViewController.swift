@@ -30,17 +30,8 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
-    var selectedRowIndex: IndexPath = IndexPath(row: -1, section: 0) {
-        didSet{
-            if listType == .sender {
-                self.tableViewShiper.beginUpdates()
-                self.tableViewShiper.endUpdates()
-            }else{
-                self.tableViewSender.beginUpdates()
-                self.tableViewSender.endUpdates()
-            }
-        }
-    }
+    var selectedIndexPath: IndexPath?
+    
     enum tableViewRowHeight: CGFloat {
         case mainCard = 160
         case detailCard = 300
@@ -48,23 +39,18 @@ class OrderListViewController: UIViewController {
     
     var dataSourceCarrier = [TripOrder]() {
         didSet {
-            DispatchQueue.main.async(execute: {
-                self.tableViewShiper.reloadData()
-            })
+            self.tableViewShiper.reloadData()
         }
     }
     
     var dataSourceSender = [TripOrder]() {
         didSet {
-            DispatchQueue.main.async(execute: {
-                self.tableViewSender.reloadData()
-            })
+            self.tableViewSender.reloadData()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //setupNavigationBar()
         setupTableViews()
         setupSwipeGestureRecognizer()
@@ -251,30 +237,36 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if selectedRowIndex.row == indexPath.row {
+        if selectedIndexPath == indexPath {
             return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
         }
         return tableViewRowHeight.mainCard.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRowIndex = (selectedRowIndex.row == indexPath.row) ? IndexPath(row: -1, section: 0) : indexPath
+        if selectedIndexPath != indexPath {
+            selectedIndexPath = indexPath
+        } else {
+            selectedIndexPath = nil
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 
 extension OrderListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let tableViewDefaultHeigh: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 400 : 600
+        let tableViewDefaultHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 400 : 600
         let offsetY = scrollView.contentOffset.y
 
         if offsetY > 0 { // moving up
             if tableViewHeightConstraint.constant < (view.bounds.height - 30) {
-                tableViewHeightConstraint.constant = tableViewDefaultHeigh + offsetY
+                tableViewHeightConstraint.constant = tableViewDefaultHeight + offsetY
                 animateImageForTableScrolling()
             }
         } else { // moving down
-            if tableViewHeightConstraint.constant > tableViewDefaultHeigh {
+            if tableViewHeightConstraint.constant > tableViewDefaultHeight {
                 tableViewHeightConstraint.constant = tableViewHeightConstraint.constant + offsetY
                 animateImageForTableScrolling()
             }
