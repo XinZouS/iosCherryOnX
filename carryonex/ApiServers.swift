@@ -93,6 +93,7 @@ class ApiServers : NSObject {
         case userType = "user_type"
         case deviceToken = "device_token"
         case realName = "real_name"
+        case tripId = "trip_id"
     }
     
     
@@ -631,7 +632,7 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            "id": id
+            ServerKey.tripId.rawValue: id
         ]
         
         getDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in

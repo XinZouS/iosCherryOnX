@@ -9,24 +9,47 @@
 import UIKit
 import Material
 
-class ItemListYouxiangInputController: UIViewController{
+class ItemListYouxiangInputController: UIViewController {
     
-    var gradientLayer: CAGradientLayer!
+    @IBOutlet weak var youxiangcodeTextField: UITextField!
+    @IBOutlet weak var goDetailButton: UIButton!
     
-    override func viewDidLoad() {
-        setupNavigationBar()
-        setupBackGroundColor()
+    @IBAction func goDetailPage(_ sender: Any) {
+        guard let code = youxiangcodeTextField.text, code.count >= 2 else { // TODO: change to ==6 before launch!!!!!!!
+            let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
+            displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+                self.youxiangcodeTextField.becomeFirstResponder()
+            })
+            return
+        }
+        fetchTripByYouxiangcode(code)
     }
     
-    private func setupBackGroundColor(){
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        let beginColor :UIColor = UIColor.MyTheme.darkBlue
-        let endColor :UIColor = UIColor.MyTheme.cyan
-        gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    
+    
+    var activityIndicator: UIActivityIndicatorCustomizeView!
+    var isLoading: Bool = false {
+        didSet{
+            if isLoading {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+            goDetailButton.isEnabled = !isLoading
+        }
+    }
+    
+
+    override func viewDidLoad() {
+        setupNavigationBar()
+        setupActivityIndicator()
+        youxiangcodeTextField.delegate = self
+        youxiangcodeTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        youxiangcodeTextField.becomeFirstResponder()
     }
     
     private func setupNavigationBar(){
@@ -40,4 +63,61 @@ class ItemListYouxiangInputController: UIViewController{
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+    }
+    
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "goToSenderDetailInfoPage" {
+            return sender != nil
+        }
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let infoVC = segue.destination as? SenderDetailViewController,
+            let tp = sender as? Trip {
+            infoVC.trip = tp
+        }
+    }
+    
+    fileprivate func fetchTripByYouxiangcode(_ code: String){
+        if isLoading {
+            return
+        }
+        isLoading = true
+        ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
+            self.isLoading = false
+            if let err = error, getTrip == nil {
+                let m = "无法查询此行程，请确保您所填写的游箱号正确。错误信息：\(err.localizedDescription)"
+                self.displayGlobalAlert(title: "⚠️获取失败", message: m, action: "换个姿势再试一次", completion: {
+                    self.youxiangcodeTextField.becomeFirstResponder()
+                })
+                return
+            }
+            if success {
+                if let trip = getTrip {
+                    self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
+                }
+            }
+        })
+    }
+    
+
+}
+
+extension ItemListYouxiangInputController: UITextFieldDelegate {
+    
+    func textFieldDidChanged(){
+        guard let code = youxiangcodeTextField.text, code.count == 6 else {
+            return
+        }
+        fetchTripByYouxiangcode(code)
+    }
+    
 }

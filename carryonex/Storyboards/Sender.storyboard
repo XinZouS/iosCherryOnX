@@ -19,6 +19,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background_Blue_Long" translatesAutoresizingMaskIntoConstraints="NO" id="poo-GA-ALk">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-IG-2gI">
                                 <rect key="frame" x="366" y="95" width="32" height="77"/>
                                 <constraints>
@@ -27,7 +30,7 @@
                                 </constraints>
                                 <state key="normal" image="向右箭头-1"/>
                                 <connections>
-                                    <segue destination="oMI-QC-oIz" kind="show" id="0TP-Vc-FB8"/>
+                                    <action selector="goDetailPage:" destination="6aY-yC-FGU" eventType="touchUpInside" id="6hb-dG-qdu"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="游箱号输入横线" translatesAutoresizingMaskIntoConstraints="NO" id="gsT-sD-MQa">
@@ -43,14 +46,14 @@
                                     <constraint firstAttribute="height" constant="26" id="4Aj-yp-mSc"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入6位游箱号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
                                 <rect key="frame" x="67" y="116" width="289" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hag-b1-6NK"/>
                                 </constraints>
                                 <color key="textColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="go" smartDashesType="no"/>
                             </textField>
                         </subviews>
                         <constraints>
@@ -63,11 +66,20 @@
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="leading" secondItem="qOP-M1-Utm" secondAttribute="leadingMargin" id="bUi-Ci-3rK"/>
+                            <constraint firstItem="poo-GA-ALk" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" id="fpf-Ja-DgK"/>
+                            <constraint firstItem="poo-GA-ALk" firstAttribute="top" secondItem="qOP-M1-Utm" secondAttribute="top" id="gzQ-wn-Nj4"/>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
+                            <constraint firstItem="poo-GA-ALk" firstAttribute="bottom" secondItem="pAC-CP-FJo" secondAttribute="bottom" id="oYh-6E-vjZ"/>
+                            <constraint firstItem="poo-GA-ALk" firstAttribute="trailing" secondItem="pAC-CP-FJo" secondAttribute="trailing" id="r1b-2p-Q3r"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pAC-CP-FJo"/>
                     </view>
                     <navigationItem key="navigationItem" id="fBd-s8-K2Y"/>
+                    <connections>
+                        <outlet property="goDetailButton" destination="XXV-IG-2gI" id="lhn-Bf-kX6"/>
+                        <outlet property="youxiangcodeTextField" destination="bwx-eX-FB1" id="dfc-kq-GYP"/>
+                        <segue destination="oMI-QC-oIz" kind="show" identifier="goToSenderDetailInfoPage" id="7rd-4A-EhO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3QA-4S-1pf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -79,10 +91,11 @@
                 <viewControllerPlaceholder storyboardName="SenderDetailInfo" id="oMI-QC-oIz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sL1-7h-Cnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="223"/>
+            <point key="canvasLocation" x="1068" y="167"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Background_Blue_Long" width="375" height="950"/>
         <image name="向右箭头-1" width="53" height="59"/>
         <image name="搜索icon" width="51" height="53"/>
         <image name="游箱号输入横线" width="297" height="2"/>
