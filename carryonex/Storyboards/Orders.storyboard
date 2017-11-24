@@ -334,11 +334,11 @@
                                                                     </constraints>
                                                                     <state key="normal" image="shareButton"/>
                                                                 </button>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CNF-PK-uj2">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CNF-PK-uj2">
                                                                     <rect key="frame" x="23" y="231" width="338" height="44"/>
                                                                     <subviews>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eni-Zu-scV">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="44"/>
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eni-Zu-scV" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="164" height="44"/>
                                                                             <color key="backgroundColor" red="1" green="0.4149920642375946" blue="0.40575286746025085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="44" id="AEk-e8-jmb"/>
@@ -353,8 +353,8 @@
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </button>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-NO-zpo">
-                                                                            <rect key="frame" x="169" y="0.0" width="169" height="44"/>
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-NO-zpo" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
+                                                                            <rect key="frame" x="174" y="0.0" width="164" height="44"/>
                                                                             <color key="backgroundColor" red="0.99581614847715738" green="0.69876002137720139" blue="0.35090438614321429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="44" id="ixj-M7-V2A"/>
@@ -961,7 +961,7 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ExB-mb-qSL">
                                                                     <rect key="frame" x="23" y="231" width="338" height="44"/>
                                                                     <subviews>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylr-HJ-AE0">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylr-HJ-AE0" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="169" height="44"/>
                                                                             <color key="backgroundColor" red="1" green="0.41499206420000001" blue="0.4057528675" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -977,7 +977,7 @@
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </button>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIS-1k-8EW">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIS-1k-8EW" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
                                                                             <rect key="frame" x="169" y="0.0" width="169" height="44"/>
                                                                             <color key="backgroundColor" red="1" green="0.63705277304540053" blue="0.22962544017867748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -1225,7 +1225,7 @@
         <image name="dashline_gray" width="978" height="21"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="imgViewTopWave" width="528" height="55"/>
-        <image name="orderIcon" width="12" height="12"/>
+        <image name="orderIcon" width="19" height="19"/>
         <image name="shareButton" width="20" height="20"/>
         <image name="starts5Mask" width="827" height="165"/>
         <image name="yadianwenqing" width="313" height="308"/>

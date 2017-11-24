@@ -8,10 +8,7 @@
 
 import UIKit
 
-
-
-class OrderListCardShiperCell: UITableViewCell {
-    
+class OrderListCardShiperCell: OrderListCardCell {
     
     // order card
     @IBOutlet weak var dateMonthLabel: UILabel!
@@ -33,41 +30,48 @@ class OrderListCardShiperCell: UITableViewCell {
     @IBOutlet weak var itemListImageMoreButton: UIButton!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var youxiangCodeShareButton: UIButton!
-    // bottom buttons
-    @IBOutlet weak var finishButton: UIButton!
-    @IBOutlet weak var finishButton2: UIButton!
     
+    private var cellType: TripCategory = .carrier
     
-    var cellType: TripCategory = .carrier {
-        didSet {
-            //TODO:change this: cellTypeLabel.text = (cellType == .carrier) ? "收件" : "寄件"
-        }
+    override func updateRequestInfoAppearance(request: Request) {
+        super.updateRequestInfoAppearance(request: request)
     }
     
-    var request: Request? {
-        didSet{
-            //TODO: setup cell info
+    override func updateButtonAppearance(status: RequestStatus) {
+        //Carrier
+        switch status {
+        case .waiting, .paid, .pendingRefund, .inDelivery:
+            buttonsToShow = .twoButtons
+        case .accepted, .delivered:
+            buttonsToShow = .oneButton
+        default:
+            buttonsToShow = .noButtons
         }
-    }
-    
-    var finishButton2isEnable = true {
-        didSet{
-            finishButton2.isEnabled = finishButton2isEnable
-            finishButton2.isHidden = !finishButton2isEnable
+        
+        switch status {
+        case .waiting:
+            finishButton.transaction = .carrierAccept
+            finishButton2.transaction = .carrierReject
+        case .accepted:
+            finishButton.transaction = .carrierCancel
+        case .paid:
+            finishButton.transaction = .carrierReceive
+            finishButton2.transaction = .carrierRefund
+        case .pendingRefund:
+            finishButton.transaction = .carrierRefund
+            finishButton2.transaction = .carrierDeliver  //TODO: ASK.
+        case .inDelivery:
+            finishButton.transaction = .carrierShip
+            finishButton2.transaction = .carrierRefund
+        case .delivered:
+            finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+        default:
+            print("No actions attached")
         }
-    }
-
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        finishButton2isEnable = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         sepratorImageView.isHidden = !selected
     }
-    
-    
 }

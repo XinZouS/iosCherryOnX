@@ -12,7 +12,7 @@ class OrderListViewController: UIViewController {
     
     var listType: TripCategory = .carrier {
         didSet {
-            if dataSourceShiper.count == 0 || dataSourceSender.count == 0 {
+            if dataSourceCarrier.count == 0 || dataSourceSender.count == 0 {
                 fetchRequests()
             }
         }
@@ -30,8 +30,6 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
-    
-    
     var selectedRowIndex: IndexPath = IndexPath(row: -1, section: 0) {
         didSet{
             if listType == .sender {
@@ -43,27 +41,19 @@ class OrderListViewController: UIViewController {
             }
         }
     }
-    enum tableViewRowHeigh: CGFloat {
+    enum tableViewRowHeight: CGFloat {
         case mainCard = 160
         case detailCard = 300
     }
     
-//    var dataSource: [TripOrder]? {
-//        didSet {
-//            DispatchQueue.main.async(execute: {
-//                self.tableViewShiper.reloadData()
-//            })
-//        }
-//    }
-    
-    var dataSourceShiper = [TripOrder]() {
+    var dataSourceCarrier = [TripOrder]() {
         didSet {
-            dataSourceSender = dataSourceShiper // BUG: rmeove this line, for testing only
             DispatchQueue.main.async(execute: {
                 self.tableViewShiper.reloadData()
             })
         }
     }
+    
     var dataSourceSender = [TripOrder]() {
         didSet {
             DispatchQueue.main.async(execute: {
@@ -72,12 +62,11 @@ class OrderListViewController: UIViewController {
         }
     }
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //setupNavigationBar()
-        setuptableViews()
+        setupTableViews()
         setupSwipeGestureRecognizer()
         listType = .carrier
     }
@@ -89,14 +78,8 @@ class OrderListViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        dataSourceShiper.removeAll()
+        dataSourceCarrier.removeAll()
         dataSourceSender.removeAll()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -110,30 +93,29 @@ class OrderListViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
-    private func setuptableViews(){
+    
+    private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
     }
     
     private func setupSwipeGestureRecognizer(){
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(responToSwipe))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipe))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(swipeRight)
         
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(responToSwipe))
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipe))
         swipeRight.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
     }
 
-    func responToSwipe(_ gesture: UIGestureRecognizer){
+    func respondToSwipe(_ gesture: UIGestureRecognizer){
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case .right:
                 animateListMoveRight()
-                
             case .left:
                 animateListMoveLeft()
-                
             default:
                 break
             }
@@ -175,7 +157,7 @@ class OrderListViewController: UIViewController {
         
         guard isFetching == false else { return }
         
-        let offset = (listType == .carrier) ? dataSourceShiper.count : dataSourceSender.count
+        let offset = (listType == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
         let page = 4
         
         isFetching = true
@@ -197,8 +179,8 @@ class OrderListViewController: UIViewController {
             
             if let tripOrders = tripOrders {
                 if self.listType == .carrier {
-                    self.dataSourceShiper.append(contentsOf: tripOrders)
-                    //self.dataSource = self.dataSourceShiper
+                    self.dataSourceCarrier.append(contentsOf: tripOrders)
+                    //self.dataSource = self.dataSourceCarrier
                 } else {
                     self.dataSourceSender.append(contentsOf: tripOrders)
                     //self.dataSource = self.dataSourceSender
@@ -213,37 +195,49 @@ class OrderListViewController: UIViewController {
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == 0, let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell {
-//            let request = requests[indexPath.row].request
-//            cell.request = request
-//            cell.cellType = listType
-//            request.printAllData()
+        if tableView.tag == TripCategory.carrier.rawValue {
+            guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            return cell
-        }
-        if tableView.tag == 1, let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell {
+            let tripOrder = dataSourceCarrier[indexPath.section]
+            if let tripRequest = tripOrder.requests?[indexPath.row] {
+                cell.request = tripRequest.request
+                return cell
+            } else {
+                return UITableViewCell()
+            }
+        } else {
+            guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            return cell
+            let tripOrder = dataSourceSender[indexPath.section]
+            if let tripRequest = tripOrder.requests?[indexPath.row] {
+                cell.request = tripRequest.request
+                return cell
+            } else {
+                return UITableViewCell()
+            }
         }
-        return UITableViewCell()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if tableView.tag == TripCategory.carrier.rawValue {
+            return self.dataSourceCarrier.count
+        } else {
+            return self.dataSourceSender.count
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 0 {
-            return dataSourceShiper.count
+        if tableView.tag == TripCategory.carrier.rawValue {
+            let tripOrder = dataSourceCarrier[section]
+            return tripOrder.requests?.count ?? 0
+        } else {
+            let tripOrder = dataSourceSender[section]
+            return tripOrder.requests?.count ?? 0
         }
-        if tableView.tag == 1 {
-            return dataSourceSender.count
-        }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let dataSource = listType == .carrier ? dataSourceShiper : dataSourceSender
+        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
         let currentPage = dataSource.count
         guard let currentItem = dataSource[currentPage - 1].requests?.count,
             !isFetching else {
@@ -258,16 +252,14 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedRowIndex.row == indexPath.row {
-            return tableViewRowHeigh.mainCard.rawValue + tableViewRowHeigh.detailCard.rawValue
+            return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
         }
-        return tableViewRowHeigh.mainCard.rawValue
+        return tableViewRowHeight.mainCard.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRowIndex = (selectedRowIndex.row == indexPath.row) ? IndexPath(row: -1, section: 0) : indexPath
     }
-    
-    
 }
 
 extension OrderListViewController: UIScrollViewDelegate {

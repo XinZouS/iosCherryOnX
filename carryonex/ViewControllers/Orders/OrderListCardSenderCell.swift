@@ -8,8 +8,7 @@
 
 import UIKit
 
-
-class OrderListCardSenderCell: UITableViewCell {
+class OrderListCardSenderCell: OrderListCardCell {
     
     @IBOutlet weak var itemImageFrame2: UIImageView!
     @IBOutlet weak var itemImageButton: UIButton!
@@ -34,31 +33,67 @@ class OrderListCardSenderCell: UITableViewCell {
     @IBOutlet weak var shippingCostLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
     
-    // bottom buttons
-    @IBOutlet weak var finishButton: UIButton!
-    @IBOutlet weak var finishButton2: UIButton!
+    private var cellType: TripCategory = .sender
     
-        
-    var finishButton2isEnable = false {
-        didSet{
-            finishButton2.isEnabled = finishButton2isEnable
-            finishButton2.isHidden = !finishButton2isEnable
-        }
+    override func updateRequestInfoAppearance(request: Request) {
+        super.updateRequestInfoAppearance(request: request)
     }
     
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        finishButton2isEnable = false // NOTE: change this value to hide btn
+    /*
+     sender
+     (sender) 状态:等待接受(1) -> 请求匹配(0) -> 状态:等待接受(1)
+     (sender) 状态:等待接受(1) -> 取消订单(3) -> 状态:已取消(4)
+     (sender) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
+     (sender) 状态:已接收，等待付款(3) -> 付款(4) -> 状态:已付款(5)
+     (sender) 状态:已付款(5) -> 退款(5) -> 状态:等待退款(6)
+     (sender) 状态:完成派送(8) -> 确认送达(9) -> 状态:确认派送(9)
+     
+     //Shipper
+     1. 等待接受：请求匹配，取消订单
+     3. 已接受：订单付款，取消订单
+     5. 已付款：退款
+     8. 完成派送：确认送达
+     9. 已確認送达：给与评价
+     
+     下面的状态没有按钮
+     2. 已拒绝
+     4. 已取消
+     6. 已退款
+     10. 已退款
+     */
+    
+    override func updateButtonAppearance(status: RequestStatus) {
+        //Carrier
+        switch status {
+        case .waiting, .accepted:
+            buttonsToShow = .twoButtons
+        case .paid, .delivered, .deliveryConfirmed:
+            buttonsToShow = .oneButton
+        default:
+            buttonsToShow = .noButtons
+        }
+        
+        switch status {
+        case .waiting:
+            finishButton.transaction = .shipperCancel
+            finishButton2.transaction = .shipperPairing
+        case .accepted:
+            finishButton.transaction = .shipperPay
+            finishButton2.transaction = .shipperCancel
+        case .paid:
+            finishButton.transaction = .shipperRefund
+        case .delivered:
+            finishButton.transaction = .shipperConfirm
+        case .deliveryConfirmed:
+            finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+        default:
+            print("No actions attached")
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         sepratorImageView.isHidden = !selected
     }
-    
-
-    
 }
 
