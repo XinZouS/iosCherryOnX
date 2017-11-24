@@ -89,18 +89,28 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-vM-Liu">
+                                                    <rect key="frame" x="125" y="15.5" width="230" height="17"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="dhk-vM-Liu" firstAttribute="centerY" secondItem="qji-b9-jAR" secondAttribute="centerY" id="0k4-zb-1Ja"/>
                                                 <constraint firstItem="qji-b9-jAR" firstAttribute="leading" secondItem="yGv-4a-6wF" secondAttribute="leadingMargin" constant="10" id="5dB-hE-CYe"/>
                                                 <constraint firstItem="qji-b9-jAR" firstAttribute="centerY" secondItem="yGv-4a-6wF" secondAttribute="centerY" id="Exf-dM-lUC"/>
                                                 <constraint firstItem="dUX-Ax-uAb" firstAttribute="bottom" secondItem="qji-b9-jAR" secondAttribute="bottom" id="FXW-wc-UpF"/>
+                                                <constraint firstItem="dhk-vM-Liu" firstAttribute="leading" secondItem="qji-b9-jAR" secondAttribute="trailing" id="Js6-cN-oJ9"/>
                                                 <constraint firstAttribute="trailing" secondItem="dUX-Ax-uAb" secondAttribute="trailing" id="Qm4-aO-pcw"/>
                                                 <constraint firstItem="dUX-Ax-uAb" firstAttribute="leading" secondItem="qji-b9-jAR" secondAttribute="trailing" id="ZOE-yW-M7J"/>
+                                                <constraint firstItem="dhk-vM-Liu" firstAttribute="width" secondItem="dUX-Ax-uAb" secondAttribute="width" id="gzH-M3-AFP"/>
                                                 <constraint firstItem="dUX-Ax-uAb" firstAttribute="top" secondItem="qji-b9-jAR" secondAttribute="top" id="kKi-30-sKo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="detailLabel" destination="dUX-Ax-uAb" id="8oc-Iu-nLo"/>
+                                            <outlet property="inputTextField" destination="dhk-vM-Liu" id="QXc-2E-R0b"/>
                                             <outlet property="titleLabel" destination="qji-b9-jAR" id="AYI-H5-iY2"/>
                                         </connections>
                                     </tableViewCell>
@@ -134,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPu-ud-8Ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="163.125" y="145.77464788732394"/>
+            <point key="canvasLocation" x="162.40000000000001" y="145.27736131934034"/>
         </scene>
     </scenes>
     <resources>

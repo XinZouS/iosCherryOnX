@@ -9,13 +9,14 @@
 import UIKit
 
 
-class PersonalInfoEditingViewController: UIViewController {
+class PersonalInfoEditingViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource{
     
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
-    
+    let genderPickerView = UIPickerView()
+    var pickerData: [String] = [String]()
     let titles = ["性别","电子邮件","身份证件"]
     var user: ProfileUser? {
         didSet{
@@ -24,11 +25,33 @@ class PersonalInfoEditingViewController: UIViewController {
             }
         }
     }
+    var genderCell : PersonalInfoEditingCell?
+    var emailCell : PersonalInfoEditingCell?
     
     override func viewDidLoad() {
         setupTableView()
         setupUser()
         setupNavigationBar()
+        pickerData = ["男", "女", "其他"]
+        self.genderPickerView.delegate = self
+        self.genderPickerView.dataSource = self
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        genderCell?.inputTextField.text = pickerData[genderPickerView.selectedRow(inComponent: 0)]
     }
     
     private func setupTableView(){
@@ -65,7 +88,7 @@ class PersonalInfoEditingViewController: UIViewController {
     
 }
 
-extension PersonalInfoEditingViewController: UITableViewDataSource {
+extension PersonalInfoEditingViewController: UITableViewDataSource,UITextFieldDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -76,16 +99,32 @@ extension PersonalInfoEditingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalInfoEditingCell", for: indexPath) as? PersonalInfoEditingCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalInfoEditingCell", for: indexPath) as? PersonalInfoEditingCell{
             cell.titleLabel.text = titles[indexPath.row]
             var info = "detail info"
+            let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+            doneToolbar.barStyle = UIBarStyle.blackTranslucent
+            let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+            let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+            doneToolbar.items = [flexSpace,done]
+            doneToolbar.sizeToFit()
+            cell.inputTextField.inputAccessoryView = doneToolbar
             switch indexPath.row {
             case 0:
+                genderCell = cell
                 info = "Profile user: add Gender" // TODO
+                cell.detailLabel.isHidden = true
+                cell.inputTextField.placeholder = "性别"
+                cell.inputTextField.inputView = genderPickerView
             case 1:
+                emailCell = cell
+                cell.detailLabel.isHidden = true
                 info = user?.email ?? "我的E-mail"
+                cell.inputTextField.placeholder = "邮箱"
+                cell.inputTextField.delegate = self
             case 2:
                 info = "提交"
+                cell.inputTextField.isHidden = true
                 cell.detailLabel.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             default:
                 print("err: PersonalInfoEditingViewController: invalidate info row...")
@@ -95,25 +134,30 @@ extension PersonalInfoEditingViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     
+    func doneButtonAction()
+    {
+        genderCell?.inputTextField.resignFirstResponder()
+        emailCell?.inputTextField.resignFirstResponder()
+    }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
 }
 
-
 extension PersonalInfoEditingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            print("TODO: open picker for gender")
+            genderCell?.inputTextField.becomeFirstResponder()
         case 1:
-            print("TODO: open keyboard for email")
+            emailCell?.inputTextField.becomeFirstResponder()
         case 2:
             let idCV = PhotoIDController()
             self.navigationController?.pushViewController(idCV, animated: true)
-            
         default:
             print("err: PersonalInfoEditingViewController: invalidate info row...")
         }
@@ -128,6 +172,5 @@ class PersonalInfoEditingCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var detailLabelRightConstraint: NSLayoutConstraint!
-    
-    
+    @IBOutlet weak var inputTextField: UITextField!
 }

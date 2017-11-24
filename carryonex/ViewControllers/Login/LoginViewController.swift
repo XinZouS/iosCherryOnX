@@ -44,6 +44,15 @@ class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "changePassword"{
+            if let regVC = segue.destination as? PhoneNumViewController,
+                let status = sender as? String {
+                regVC.status = status
+            }
+        }
+    }
     //MARK: - View custom set up
     
     private func setupPhoneTextField(){
@@ -93,22 +102,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func handleForgetButton(sender: UIButton) {
-        if let profileUser = ProfileManager.shared.getCurrentUser() {
-            if let phone = profileUser.phone {
-                let countryCode = profileUser.phoneCountryCode ?? "1"
-                print("get : okButtonTapped, api send text msg and go to next page!!!")
-                SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phone, zone: countryCode, result: { (err) in
-                    if err == nil {
-                        print("PhoneNumberController: 获取验证码成功, go next page!!!")
-                        self.goToVerificationPage(isModifyPhone: true)
-                    } else {
-                        print("PhoneNumberController: 有错误: \(String(describing: err))")
-                        let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                        self.displayAlert(title: "验证失败", message: msg, action: "好")
-                    }
-                })
-            }
-        }
+        let status :String = "changePassword"
+        performSegue(withIdentifier: "changePassword", sender: status)
     }
     
     func goToVerificationPage(isModifyPhone: Bool) {

@@ -251,6 +251,8 @@
 		FF8A4B681F951AD300A75C7E /* InputPasswordLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */; };
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
+		FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */; };
+		FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */; };
 		FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */; };
 		FFCB0F1D1FA79FC100180BDB /* OrderCommentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1C1FA79FC100180BDB /* OrderCommentPage.swift */; };
 		FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1E1FA7A14500180BDB /* CommentUserNameCell.swift */; };
@@ -520,6 +522,8 @@
 		FF8A4B671F951AD300A75C7E /* InputPasswordLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordLoginController.swift; sourceTree = "<group>"; };
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
+		FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
+		FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentRateController.swift; sourceTree = "<group>"; };
 		FFBDB6841FBA42FE00B3B968 /* UserRecentInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecentInfoController.swift; sourceTree = "<group>"; };
 		FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderCommentPage++.swift"; sourceTree = "<group>"; };
 		FFCB0F1C1FA79FC100180BDB /* OrderCommentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentPage.swift; sourceTree = "<group>"; };
@@ -1272,6 +1276,7 @@
 				66CE22551FBE246300DCC274 /* OrderListCardShiperCell.swift */,
 				6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */,
 				4DC23FA01FC66E69002181B5 /* RequestTransactionButton.swift */,
+				FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1283,6 +1288,7 @@
 				667810641FBB48F100E1880E /* PhoneNumViewController.swift */,
 				4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */,
 				4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */,
+				FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1657,6 +1663,7 @@
 				4DE6BDE21FBABB9800900DF8 /* TripRequest.swift in Sources */,
 				660BFEE31F979BDF0066F9E9 /* ProfileManager.swift in Sources */,
 				6633DC961F5DF02900B2FFAC /* OrderLogSenderCell.swift in Sources */,
+				FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */,
 				6681310B1F92F2810022AEED /* UIColor++.swift in Sources */,
 				FFDC0E5F1F9E90A10011A425 /* WaitingListController++.swift in Sources */,
 				66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */,
@@ -1856,6 +1863,7 @@
 				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
 				E542F2781FB6058D0072BB31 /* (null) in Sources */,
+				FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,

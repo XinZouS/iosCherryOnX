@@ -165,6 +165,7 @@
                         <outlet property="verifyCodeLabel03" destination="SEs-pd-g79" id="7lJ-sS-FXi"/>
                         <outlet property="verifyCodeLabel04" destination="Y6e-cn-Zgo" id="wHB-gl-cYr"/>
                         <segue destination="1YA-15-dDf" kind="show" identifier="gotoRegistrationVC" id="Sb9-Qy-3JL"/>
+                        <segue destination="FPC-Ay-Wl4" kind="show" identifier="gotoChangePassword" id="yQS-bc-uL9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZT-rb-csK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -178,6 +179,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thQ-Uj-9v3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="862" y="354"/>
+        </scene>
+        <!--changePassword-->
+        <scene sceneID="f9a-ZW-B2o">
+            <objects>
+                <viewControllerPlaceholder storyboardName="changePassword" id="FPC-Ay-Wl4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="90H-9b-hbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884" y="422"/>
         </scene>
     </scenes>
     <resources>

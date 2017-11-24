@@ -179,6 +179,7 @@
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
                         <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>
                         <segue destination="qaU-hD-NgY" kind="show" identifier="gotoPhoneVerifyVC" id="FDD-m6-Or8"/>
+                        <segue destination="qaU-hD-NgY" kind="show" identifier="changePassword" id="BgH-EX-Oqe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9n-E7-JFu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,4 +199,7 @@
         <image name="Phone" width="34" height="34"/>
         <image name="logo_grey" width="206" height="86"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="BgH-EX-Oqe"/>
+    </inferredMetricsTieBreakers>
 </document>

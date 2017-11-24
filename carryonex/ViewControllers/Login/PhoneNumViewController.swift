@@ -12,7 +12,7 @@ import Material
 class PhoneNumViewController: UIViewController {
     
     var isModifyPhoneNumber = false
-    
+    var status  = ""
     var zoneCodeInput = "1"
     var phoneInput = ""
 
@@ -116,9 +116,6 @@ class PhoneNumViewController: UIViewController {
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         prepareVerifyPhoneNum()
     }
-    
-
-    
 }
 
 
@@ -142,10 +139,11 @@ extension PhoneNumViewController: PhoneNumberDelegate {
                 return
             }
             if isExist {
-                if self.isModifyPhoneNumber {
+                switch self.status{
+                case "modifyPhoneNumber":
                     self.modifyUserPhoneNum(newPhone)
-                } else {
-                    self.loginByPasswordInput()
+                default:
+                    self.verifyUserNewPhoneNum()
                 }
             } else {
                 self.verifyUserNewPhoneNum()
@@ -215,13 +213,27 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             "countryCode" : zoneCodeInput,
             "phone" : phoneInput,
             ]
-        performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: info)
+        switch status {
+        case "changePassword":
+            performSegue(withIdentifier: "changePassword", sender: info)
+        default:
+            performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: info)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vldVC = segue.destination as? PhoneValidationViewController,
-            let info = sender as? [String:String] {
-            vldVC.registerUserInfo = info
+        if segue.identifier == "gotoPhoneVerifyVC" {
+            if let vldVC = segue.destination as? PhoneValidationViewController,
+                let info = sender as? [String:String] {
+                vldVC.registerUserInfo = info
+            }
+        }
+        if segue.identifier == "changePassword" {
+            if let vldVC = segue.destination as? PhoneValidationViewController,
+                let info = sender as? [String:String] {
+                vldVC.registerUserInfo = info
+                vldVC.status = "changePassword"
+            }
         }
     }
 

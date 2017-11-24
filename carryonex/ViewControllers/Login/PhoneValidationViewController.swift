@@ -11,7 +11,7 @@ import UIKit
 class PhoneValidationViewController: UIViewController {
 
     var isModifyPhoneNumber = false
-    
+    var status = "registeration"
     var zoneCodeInput: String = "1"
     var phoneInput: String = ""
     var verificationCode = "1234"
@@ -47,6 +47,8 @@ class PhoneValidationViewController: UIViewController {
         super.viewDidAppear(animated)
         zoneCodeInput = registerUserInfo?["countryCode"] ?? ""
         phoneInput = registerUserInfo?["phone"] ?? ""
+        print(zoneCodeInput)
+        print(phoneInput)
         verifyCodeLabel01.text = ""
         verifyCodeLabel02.text = ""
         verifyCodeLabel03.text = ""
@@ -123,14 +125,31 @@ class PhoneValidationViewController: UIViewController {
                 }
             })
         } else {
-            self.performSegue(withIdentifier: "gotoRegistrationVC", sender: registerUserInfo)
+            switch status {
+            case "registeration":
+                self.performSegue(withIdentifier: "gotoRegistrationVC", sender: registerUserInfo)
+            case "changePassword":
+                self.performSegue(withIdentifier: "gotoChangePassword", sender: registerUserInfo)
+            default:
+//                self.performSegue(withIdentifier: "", sender: self)
+//              useForChangePhoneNumber.
+                break
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let regVC = segue.destination as? RegistrationViewController,
-            let info = sender as? [String:String] {
-            regVC.registerUserInfo = info
+        if segue.identifier == "gotoRegistrationVC" {
+            if let regVC = segue.destination as? RegistrationViewController,
+                let info = sender as? [String:String] {
+                regVC.registerUserInfo = info
+            }
+        }
+        if segue.identifier == "gotoChangePassword" {
+            if let regVC = segue.destination as? ChangePasswordController,
+                let info = sender as? [String:String] {
+                regVC.registerUserInfo = info
+            }
         }
     }
     

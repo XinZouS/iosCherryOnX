@@ -302,6 +302,7 @@
                         <outlet property="registrationButton" destination="VfD-Gu-RpJ" id="LpC-ny-Cdx"/>
                         <outlet property="textFieldsContainerView" destination="FvG-Qb-kd7" id="a5H-HL-fQA"/>
                         <outlet property="wechatLoginButton" destination="oaT-uk-PVx" id="Em4-fL-b7q"/>
+                        <segue destination="ZP0-kR-7bM" kind="show" identifier="changePassword" id="vqK-Qm-Ecg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJc-px-FrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -323,4 +324,7 @@
         <image name="backgroundImage" width="421" height="162"/>
         <image name="logo_grey" width="206" height="86"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="vqK-Qm-Ecg"/>
+    </inferredMetricsTieBreakers>
 </document>
