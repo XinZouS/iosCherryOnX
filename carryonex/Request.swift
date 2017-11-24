@@ -174,6 +174,7 @@ extension RequestCategoryItem: Unboxable {
  */
 
 enum RequestStatus: Int {
+    case invalid = -2
     case badId = -1
     case initiate = 20
     case waiting = 21
@@ -236,6 +237,37 @@ enum RequestTransaction {
     case shipperPay
     case shipperRefund
     case shipperConfirm
+    
+    func displayString() -> String {
+        switch self {
+        case .carrierReject:
+            return "拒绝订单"
+        case .carrierAccept:
+            return "接受订单"
+        case .carrierCancel:
+            return "取消订单"
+        case .carrierRefund:
+            return "订单退款"
+        case .carrierReceive:
+            return "接收物品"
+        case .carrierDeliver:
+            return "交付物品"
+        case .carrierShip:
+            return "快递交付"
+        case .shipperPairing:
+            return "请求匹配"
+        case .shipperCancel:
+            return "取消订单"
+        case .shipperPay:
+            return "订单付款"
+        case .shipperRefund:
+            return "订单退款"
+        case .shipperConfirm:
+            return "确认送达"
+        default:
+            return "错误行动"
+        }
+    }
     
     func validatedTransaction(for status: RequestStatus) -> (RequestAction, TripCategory) {
         if !isValid(for: status) {
