@@ -238,7 +238,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postLogoutUser(completion: @escaping (Bool, Error?) -> Void){
+    func postLogoutUser(completion: @escaping (Bool, Error?) -> Void) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postLogoutUser: Profile user empty, please login in order to logout")
             completion(false, nil)
@@ -376,7 +376,6 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/users/" + updateType.rawValue
         
-        
         var data: [String: String] = [:]
         if let profileKey = UsersInfoUpdateKey[updateType]?.rawValue {
             data[profileKey] = value
@@ -458,6 +457,42 @@ class ApiServers : NSObject {
             } else {
                 print("getUsersTrips: Empty data field")
                 completion(nil, nil)
+            }
+        }
+    }
+    
+    func postUserForgetPassword(phone: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
+        let route = hostVersion + "/users/sos"
+        
+        let params : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue : [
+                ServerKey.phone.rawValue: phone,
+                ServerKey.password.rawValue: password
+            ]
+        ]
+        
+        postDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postUserForgetPassword response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let message = response[ServerKey.message.rawValue] as? String {
+                print("Reset password server message: \(message)")
+            }
+            
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                print("Reset password success")
+                completion(true, nil)
+                
+            } else{
+                print("Bad Status, reset password failed")
+                completion(false, nil)
             }
         }
     }
