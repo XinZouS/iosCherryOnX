@@ -223,16 +223,23 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                if let token = data[ServerKey.userToken.rawValue] as? String {
-                    completion(token, nil)
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                    if let token = data[ServerKey.userToken.rawValue] as? String {
+                        completion(token, nil)
+                        
+                    } else {
+                        print("postLoginUser - Unable to find token from user data")
+                        completion(nil, nil)
+                    }
+                    
                 } else {
-                    print("postLoginUser - Unable to find token from user data")
+                    print("postLoginUser - Unable to find user data")
                     completion(nil, nil)
                 }
-                
-            } else {
-                print("postLoginUser - Unable to find user data")
+            
+            } else{
+                print("Invalid credential")
                 completion(nil, nil)
             }
         }
