@@ -169,6 +169,7 @@ extension LoginViewController {
 extension LoginViewController {
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
+        wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
             let req = SendAuthReq.init()

@@ -191,7 +191,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     func onResp(_ resp: BaseResp!) {
         if resp.errCode == 0  {
             if let resp = resp as? SendAuthResp {
-                NotificationCenter.default.post(name: Notification.Name.WeChat.Authenticated, object: resp)
+                if wxloginStatus == "fillProfile"{
+                    NotificationCenter.default.post(name: Notification.Name.WeChat.changeHeadImg, object: resp)
+                }else{
+                    NotificationCenter.default.post(name: Notification.Name.WeChat.Authenticated, object: resp)
+                }
             }
         } else {
             NotificationCenter.default.post(name: Notification.Name.WeChat.AuthenticationFailed, object: resp)

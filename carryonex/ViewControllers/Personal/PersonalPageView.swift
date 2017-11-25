@@ -20,7 +20,7 @@ class PersonalPageViewController: UIViewController{
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
-    
+    var personInfoEditCtl: PersonalInfoEditingViewController!
     var loginViewController = LoginViewController()
     @IBOutlet weak var tableView: UITableView!
     
@@ -51,7 +51,11 @@ class PersonalPageViewController: UIViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "editProfile"{
+            if let destVC = segue.destination as? PersonalInfoEditingViewController {
+                personInfoEditCtl = destVC
+            }
+        }
     }
     
     private func setupNavigationBar(){
@@ -91,7 +95,7 @@ class PersonalPageViewController: UIViewController{
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        // TODO: navigate to edit profile button;
+        performSegue(withIdentifier: "editProfile", sender: self)
     }
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
         // TODO: navigate to see comments page;

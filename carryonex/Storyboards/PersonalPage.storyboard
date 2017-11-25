@@ -64,7 +64,7 @@
                                 <state key="normal" title="编辑个人资料"/>
                                 <connections>
                                     <action selector="editProfileButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="e0C-57-4eM"/>
-                                    <segue destination="d0Q-Mq-eMb" kind="show" id="8g0-hQ-FEH"/>
+                                    <segue destination="d0Q-Mq-eMb" kind="show" identifier="editProfile" id="8g0-hQ-FEH"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W84-E3-MmT">
@@ -263,7 +263,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="person" width="10" height="9"/>
+        <image name="person" width="20" height="19"/>
         <image name="setting_gray" width="96" height="96"/>
         <image name="starts5Mask" width="827" height="165"/>
         <image name="yadianwenqing" width="313" height="308"/>

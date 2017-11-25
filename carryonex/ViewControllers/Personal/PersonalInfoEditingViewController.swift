@@ -21,12 +21,46 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var nameTextField: UITextField!
     var user: ProfileUser?
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var wechatAuthorizationState: String = ""
     override func viewDidLoad() {
         setupUser()
         setupNavigationBar()
         setupActivityIndicator()
+        addWeChatObservers()
     }
     
+    fileprivate func addWeChatObservers() {
+        /**  微信通知  */
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.changeHeadImg, object: nil, queue: nil) { [weak self] notification in
+            
+            if let response = notification.object as? SendAuthResp {
+                guard let state = response.state, state == self?.wechatAuthorizationState else {
+                    self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
+                    return
+                }
+                
+                guard let code = response.code else { return }
+                
+                let request = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
+                self?.quickDataFromUrl(url: request, completion: { [weak self] jsonResult in
+                    guard let jsonResult = jsonResult else { return }
+                    if let openId = jsonResult["openid"] as? String, let acccessToken = jsonResult["access_token"] as? String {
+                        self?.getUserInfo(openid: openId, access_token: acccessToken)
+                    }
+                })
+            }
+        }
+    }
+    
+    func quickDataFromUrl(url: String, completion: @escaping(([String : Any]?) -> Void)) {
+        guard let requestURL: URL = URL.init(string: url) else {
+            completion(nil)
+            return
+        }
+        let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
+        let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String : Any]
+        completion(jsonResult)
+    }
     
     private func setupUser(){
         if let getUser = ProfileManager.shared.getCurrentUser() {
@@ -187,18 +221,21 @@ extension PersonalInfoEditingViewController{
         }
     }
 }
-
 // WECHAT lOGIN
 extension PersonalInfoEditingViewController{
     func wechatButtonTapped(){
         wxloginStatus = "fillProfile"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
-            let red = SendAuthReq.init()
-            red.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
-            red.state = "\(arc4random()%100)"
-            WXApi.send(red)
-        }else{
+            let req = SendAuthReq.init()
+            req.scope = "snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
+            
+            wechatAuthorizationState = "\((Int(arc4random()) + Date.getTimestampNow()) % 1000)"
+            req.state = wechatAuthorizationState
+            
+            WXApi.send(req)
+            
+        } else {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL.init(string: "http://weixin.qq.com/r/qUQVDfDEVK0rrbRu9xG7")!, options: [:], completionHandler: nil)
             } else {
@@ -236,6 +273,7 @@ extension PersonalInfoEditingViewController{
     private func getDocumentUrl() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
+    
     public func removeProfileImageFromLocalFile(){
         let documentUrl = getDocumentUrl()
         let fileUrl = documentUrl.appendingPathComponent(ImageTypeOfID.profile.rawValue + ".JPG")
@@ -262,6 +300,7 @@ extension PersonalInfoEditingViewController{
         }
     }
     
+
     internal func setupProfileImage(_ img: UIImage){
         imageButton.setImage(img, for: .normal)
     }

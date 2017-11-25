@@ -51,7 +51,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-            showLogin()
+//            showLogin()
         }
     }
     
