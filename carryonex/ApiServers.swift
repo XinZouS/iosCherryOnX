@@ -165,45 +165,6 @@ class ApiServers : NSObject {
         }
     }
     
-    func postWXRegisterUser(username: String, password: String,  name: String, completion: @escaping(String?, Error?) -> Swift.Void) {
-        
-        let deviceToken = UserDefaults.getDeviceToken() ?? ""
-        let route = hostVersion + "/users"
-        let postData = [
-            ServerKey.username.rawValue: username,
-            ServerKey.password.rawValue: password,
-            ServerKey.deviceToken.rawValue: deviceToken,
-            ServerKey.realName.rawValue: name
-        ]
-        let parameters:[String: Any] = [
-            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.data.rawValue : postData
-        ]
-        
-        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("postRegisterUser response error: \(error.localizedDescription)")
-                }
-                completion(nil, error)
-                return
-            }
-            
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                if let token = data[ServerKey.userToken.rawValue] as? String {
-                    completion(token, nil)
-                } else {
-                    print("postRegisterUser - Unable to find token from user data")
-                    completion(nil, nil)
-                }
-            } else {
-                print("postRegisterUser - Unable to find user data")
-                completion(nil, nil)
-            }
-        }
-    }
-    
     func getIsUserExisted(phoneInput: String, completion: @escaping (Bool, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/exist"
@@ -458,42 +419,6 @@ class ApiServers : NSObject {
         }
     }
     
-    func getAllUsers(completion: @escaping(([User]?) -> Void)) {
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getAllUsers: Profile user empty, pleaes login to get all users list")
-            completion(nil)
-            return
-        }
-        
-        let route = hostVersion + "/users/allusers"
-        let parameters : [String: Any] = [
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.timestamp.rawValue: Date.getTimestampNow()
-        ]
-        
-        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("getAllUsers response error: \(error.localizedDescription)")
-                }
-                return
-            }
-            
-            if let data = response["data"] as? [String: Any] {
-                do {
-                    let users : [User] = try unbox(dictionary: data, atKey:"users")
-                    completion(users)
-                } catch let error as NSError {
-                    print("getAllUsers error: \(error.localizedDescription)")
-                }
-            } else {
-                print("getAllUsers: Empty data field")
-                completion(nil)
-            }
-        }
-    }
-    
     
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
     func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
@@ -562,61 +487,7 @@ class ApiServers : NSObject {
     }
     
     
-    // MARK: - ItemCategory APIs
-    // TODO: get full list from server, then setup and present here
-    func getFullItemCategoryListInDB() -> [ItemCategory] {
-        return []
-    }
-    
-    
     // MARK: - Trip APIs
-    func getTrips(queryRoute: ServerTripUrl, query: String, query2: String?, completion: @escaping (String, [Trip]?) -> Void){
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getTrips: Profile user empty, pleaes login to get trips")
-            completion("", nil)
-            return
-        }
-        
-        let route = hostVersion + "/trips/\(queryRoute.rawValue)"
-        var headers: [String: Any] = [
-            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.username.rawValue : profileUser.username ?? ""
-        ]
-        
-        if query2 == nil, let route = ServerTripPropKey[queryRoute] {
-            headers[route] = query
-            
-        } else if let q2 = query2 {
-            headers["start"] = query
-            headers["end"] = q2
-        }
-        
-        getDataWithUrlRoute(route, parameters: headers) { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("getTrips response error: \(error.localizedDescription)")
-                }
-                return
-            }
-            
-            //TODO: REDO THIS CHECK
-            let msg = response["message"] as! String
-            if let data = response["data"] as? [String:Any] {
-                do {
-                    let trips : [Trip] = try unbox(dictionary: data, atKey: "trip")
-                    completion(msg, trips)
-                    
-                } catch let err {
-                    print("getTrips = \(err.localizedDescription)")
-                }
-                
-            } else{
-                completion(msg, nil)
-            }
-        }
-    }
     
     func getTripInfo(id: String, completion: @escaping (Bool, Trip?, Error?) -> Void) { //callback(success, trip object, error)
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
@@ -1142,35 +1013,4 @@ extension ApiServers {
             print("[Status Code] Not handled: \(statusCode)")
         }
     }
-    
-    func postNonceToServer(paymentMethodNonce: String) {
-        // Update URL with your server
-        let paymentURL = URL(string: "https://your-server.example.com/payment-methods")!
-        var request = URLRequest(url: paymentURL)
-        request.httpBody = "payment_method_nonce=\(paymentMethodNonce)".data(using: String.Encoding.utf8)
-        request.httpMethod = "POST"
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            // TODO: Handle success or failure
-            }.resume()
-    }
-    
-    func getJsonFromArrayOrDictionary(_ object: Any) -> [String: Any]? {
-        do {
-            //Convert to Data
-            let jsonData = try JSONSerialization.data(withJSONObject: object,
-                                                      options: JSONSerialization.WritingOptions.prettyPrinted)
-            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                print(JSONString)
-            }
-            let json = try JSONSerialization.jsonObject(with: jsonData,
-                                                        options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-            return json
-            
-        } catch {
-            print(error.localizedDescription)
-        }
-        return nil
-    }
-    
 }
