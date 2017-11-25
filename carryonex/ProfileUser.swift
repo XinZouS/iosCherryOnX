@@ -34,6 +34,9 @@ enum ProfileUserKey: String {
     case countryCode = "country_code"
     case gender = "gender"
     case otherInfo = "other_info"
+    
+    //Updatge user info
+    case userId = "user_id"
 }
 
 enum ProfileGender: String {

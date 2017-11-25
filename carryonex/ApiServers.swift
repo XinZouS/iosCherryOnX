@@ -425,6 +425,56 @@ class ApiServers : NSObject {
         }
     }
     
+    func postUserUpdateInfo(info: [String: Any], completion:@escaping (ProfileUser?, Error?) -> Void) {
+        guard ProfileManager.shared.isLoggedIn() else {
+            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            completion(nil, nil)
+            return
+        }
+        
+        guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
+            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/info"
+        
+        let parms:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : username,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue : info
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parms) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postUpdateUserInfo response error: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
+                    user.printAllData()
+                    completion(user, nil)
+                    
+                } catch let error {
+                    completion(nil, error)
+                    print("Get error when postUserUpdateInfo. Error = \(error.localizedDescription)")
+                }
+                
+            } else {
+                print("postUserUpdateInfo empty data")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
     func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
@@ -487,10 +537,6 @@ class ApiServers : NSObject {
                 }
                 completion(false, error)
                 return
-            }
-            
-            if let message = response[ServerKey.message.rawValue] as? String {
-                print("Reset password server message: \(message)")
             }
             
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
