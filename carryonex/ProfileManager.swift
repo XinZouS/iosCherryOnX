@@ -161,6 +161,39 @@ class ProfileManager: NSObject {
     
     //MARK: - Update Methods
     
+    //PACKAGE UPDATE
+    //TODO: MENGDI NEEDS TO FIX IT, NOT UPDATING PROPERLY
+    func updateUserInfo(info: [String: Any], completion: ((Bool) -> Void)?) {
+        guard isLoggedIn() else {
+            debugPrint("User is not logged in, unable to update user info")
+            completion?(false)
+            return
+        }
+        
+        guard let userId = currentUser?.id else {
+            debugPrint("Unable to find user id")
+            completion?(false)
+            return
+        }
+        
+        var userInfo = info
+        userInfo[ProfileUserKey.userId.rawValue] = userId
+        ApiServers.shared.postUserUpdateInfo(info: userInfo) { (user, error) in
+            if let error = error {
+                print("User update error: \(error.localizedDescription)")
+            }
+            
+            if let user = user {
+                self.updateCurrentUser(user, writeToKeychain: false)
+                completion?(true)
+            } else {
+                print("return user info is nil")
+                completion?(false)
+            }
+        }
+    }
+    
+    //SINGLE ITEM UPDATE
     func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
         
         guard isLoggedIn() else {
