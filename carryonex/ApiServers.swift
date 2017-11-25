@@ -367,7 +367,49 @@ class ApiServers : NSObject {
         }
     }
     
-    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void){
+    func getUserInfo(_ infoType: UsersInfoUpdate, completion: @escaping (Any?, Error?) -> Void) {
+        guard ProfileManager.shared.isLoggedIn() else {
+            print("getUserInfo (single) \(infoType.rawValue), please login to post update on user info")
+            completion(false, nil)
+            return
+        }
+        
+        guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
+            print("getUserInfo (single) \(infoType.rawValue): Profile user empty, please login to post update on user info")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/" + infoType.rawValue
+        
+        let params:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : username,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow()
+        ]
+        
+        getDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getUserInfo (single) \(infoType.rawValue) response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                let profileKey = UsersInfoUpdateKey[infoType]?.rawValue,
+                let infoValue = data[profileKey] as Any? {
+                completion(infoValue, nil)
+                
+            } else {
+                print("getUserInfo (single) \(infoType.rawValue): No Data Field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void) {
         
         guard ProfileManager.shared.isLoggedIn() else {
             print("postUpdateUserInfo: Profile user empty, please login to post update on user info")

@@ -165,7 +165,16 @@ class ProfileManager: NSObject {
         }
     }
     
-    //MARK: - Update Methods
+    //MARK: - User Info Method
+    func getUserInfo(_ infoType: UsersInfoUpdate, completion: @escaping (Any?, Error?) -> Void) {
+        guard isLoggedIn() else {
+            debugPrint("User is not logged in, unable to get user info (single)")
+            completion(nil, nil)
+            return
+        }
+        
+        ApiServers.shared.getUserInfo(infoType, completion: completion)
+    }
     
     //PACKAGE UPDATE
     //TODO: MENGDI NEEDS TO FIX IT, NOT UPDATING PROPERLY

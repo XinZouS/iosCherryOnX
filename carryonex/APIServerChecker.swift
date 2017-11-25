@@ -15,6 +15,7 @@ class APIServerChecker: NSObject {
         //self.testPostUserInfo()
         //testPostTripActive(isActive: true)  //Test get also
         //testGetTripActive()
+//        testGetUserInfo(info: .imageUrl)
     }
     
     static func testPostUserSos() {
@@ -60,6 +61,14 @@ class APIServerChecker: NSObject {
             
             if let isActive = isActive {
                 print("Trip is active: \(isActive)")
+            }
+        }
+    }
+    
+    static func testGetUserInfo(info: UsersInfoUpdate) {
+        ApiServers.shared.getUserInfo(info) { (value, error) in
+            if let value = value {
+                print("Get user info \(info.rawValue): \(value)")
             }
         }
     }
