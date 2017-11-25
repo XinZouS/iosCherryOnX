@@ -55,8 +55,6 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         setupActivityIndicator()
         addUserUpdateNotificationObservers()
         setupLocation()
-        
-        APIServerChecker.testAPIServers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
