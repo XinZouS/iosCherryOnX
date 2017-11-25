@@ -60,6 +60,8 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        //APIServerChecker.testAPIServers()
     }
     
     override func viewDidAppear(_ animated: Bool) {

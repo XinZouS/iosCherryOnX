@@ -13,6 +13,7 @@
 		06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */; };
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
+		4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */; };
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
 		4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */; };
 		4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */; };
@@ -278,6 +279,7 @@
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
 		4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardCell.swift; sourceTree = "<group>"; };
+		4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerChecker.swift; sourceTree = "<group>"; };
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationViewController.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 			isa = PBXGroup;
 			children = (
 				66E650161F5F129300DA90DE /* ApiServers.swift */,
+				4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */,
 				660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */,
 				6642D11F1F990DFF00C3AE29 /* CategoryManager.swift */,
 				6681310A1F92F2810022AEED /* UIColor++.swift */,
@@ -1813,6 +1816,7 @@
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				FF4896F11F992732009B3EE5 /* DetailSendLocationCell.swift in Sources */,
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
+				4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
