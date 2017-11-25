@@ -255,7 +255,6 @@
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */; };
 		FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */; };
-		FFBCB0CB1FC91E9E00DCDD52 /* PersonalTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0CA1FC91E9E00DCDD52 /* PersonalTable.swift */; };
 		FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */; };
 		FFCB0F1D1FA79FC100180BDB /* OrderCommentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1C1FA79FC100180BDB /* OrderCommentPage.swift */; };
 		FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F1E1FA7A14500180BDB /* CommentUserNameCell.swift */; };
@@ -581,6 +580,14 @@
 			path = Supports;
 			sourceTree = "<group>";
 		};
+		4DF856CF1FC9D54D009B2A08 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FFBCB0CA1FC91E9E00DCDD52 /* PersonalTable.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		660463211FBD227700BF623C /* Personal */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,6 +695,7 @@
 				665DE4EA1F3A0B70004DDB88 /* Products */,
 				F9EB5F0D4C24FA38E1E6E2E9 /* Pods */,
 				B74509BA4913B598D9C8BF81 /* Frameworks */,
+				4DF856CF1FC9D54D009B2A08 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1723,7 +1731,6 @@
 				664C648D1F5511C600AA8FFE /* PostTripController.swift in Sources */,
 				6686096B1F6052D400740A92 /* HeaderView.swift in Sources */,
 				665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */,
-				FFBCB0CB1FC91E9E00DCDD52 /* PersonalTable.swift in Sources */,
 				663121F31F545B3C000F7ACB /* ConfirmBaseController.swift in Sources */,
 				4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */,
 				66CE22561FBE246300DCC274 /* OrderListCardShiperCell.swift in Sources */,

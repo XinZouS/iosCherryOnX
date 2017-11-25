@@ -85,10 +85,10 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     @objc private func saveButtonTapped(){
-        if let childVC = self.childViewControllers.first as? PersonalTable {
+        //if let childVC = self.childViewControllers.first as? PersonalTable {
 //            let genderString = childVC.genderTextField.text
 //            let emailString = childVC.emailTextField.text
-        }
+        //}
     }
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)

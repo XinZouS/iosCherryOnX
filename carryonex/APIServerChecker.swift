@@ -11,11 +11,11 @@ import UIKit
 class APIServerChecker: NSObject {
     
     static func testAPIServers() {
-        //self.testPostUserSos()
-        //self.testPostUserInfo()
+        //testPostUserSos()
+        //testPostUserInfo()
         //testPostTripActive(isActive: true)  //Test get also
         //testGetTripActive()
-//        testGetUserInfo(info: .imageUrl)
+        //testGetUserInfo(info: .imageUrl)
     }
     
     static func testPostUserSos() {
