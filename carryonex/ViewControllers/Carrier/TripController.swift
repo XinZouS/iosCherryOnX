@@ -308,6 +308,7 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         trip.startAddress?.city = startCity
         trip.startAddress?.country = Country(rawValue: startCountry)
         trip.pickupDate = pickUpDate
+        trip.note = otherTextField.text
         ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
             if success{
                 self.performSegue(withIdentifier: "tripComplete", sender: tripId)
