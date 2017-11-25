@@ -120,7 +120,7 @@ class ProfileManager: NSObject {
         
         ApiServers.shared.postLoginUser(username: username, password: password) { (userToken, error) in
             if let error = error {
-                print("Register Error: \(error.localizedDescription)")
+                print("Login Error: \(error.localizedDescription)")
                 completion(false)
                 return
             }
