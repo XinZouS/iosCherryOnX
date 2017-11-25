@@ -24,6 +24,14 @@ enum Transportation : String, UnboxableEnum {
     }
 }
 
+enum TripActive {
+    case active
+    case inactive
+    case notExist
+    case error
+}
+
+
 enum TripKeyInDB : String {
     case id             = "id"
     case tripCode       = "trip_code"

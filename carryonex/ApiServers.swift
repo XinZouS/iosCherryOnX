@@ -714,10 +714,10 @@ class ApiServers : NSObject {
         }
     }
     
-    func getTripActive(tripId: String, completion: @escaping (Bool?, Error?) -> Void) {
+    func getTripActive(tripId: String, completion: @escaping (TripActive, Error?) -> Void) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getTripActive: Profile user empty, pleaes login to get trip active")
-            completion(nil, nil)
+            completion(.error, nil)
             return
         }
         
@@ -736,15 +736,24 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("getTripActive response error: \(error.localizedDescription)")
                 }
+                completion(.error, error)
                 return
             }
-            if let data = response[ServerKey.data.rawValue] as? [String: Any],
-                let active = data[TripKeyInDB.active.rawValue] as? Bool {
-                completion(active, nil)
+            
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                    let active = data[TripKeyInDB.active.rawValue] as? Bool {
+                    let isTripActive: TripActive = active ? .active : .inactive
+                    completion(isTripActive, nil)
+                    
+                } else {
+                    print("getTripActive no data from return")
+                    completion(.error, nil)
+                }
                 
             } else {
-                print("getTripActive no data from return")
-                completion(nil, nil)
+                print("Bad Status, no trip found")
+                completion(.notExist, nil)
             }
         }
     }
