@@ -11,11 +11,11 @@ import UIKit
 class APIServerChecker: NSObject {
     
     static func testAPIServers() {
-        //self.testPostUserSos()
-        //self.testPostUserInfo()
+        //testPostUserSos()
+        //testPostUserInfo()
         //testPostTripActive(isActive: true)  //Test get also
         //testGetTripActive()
-//        testGetUserInfo(info: .imageUrl)
+        //testGetUserInfo(info: .imageUrl)
     }
     
     static func testPostUserSos() {
@@ -54,14 +54,12 @@ class APIServerChecker: NSObject {
     }
     
     static func testGetTripActive() {
-        ApiServers.shared.getTripActive(tripId: "42") { (isActive, error) in
+        ApiServers.shared.getTripActive(tripId: "42") { (state, error) in
             if let error = error {
                 print("Get trip error: \(error.localizedDescription)")
             }
             
-            if let isActive = isActive {
-                print("Trip is active: \(isActive)")
-            }
+            print("Trip active state: \(state)")
         }
     }
     
