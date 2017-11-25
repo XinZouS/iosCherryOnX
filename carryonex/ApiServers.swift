@@ -207,7 +207,7 @@ class ApiServers : NSObject {
         let parameter:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.data.rawValue     : [
+            ServerKey.data.rawValue : [
                 ServerKey.username.rawValue: username,
                 ServerKey.password.rawValue: password,
                 ServerKey.deviceToken.rawValue: deviceToken
@@ -367,7 +367,49 @@ class ApiServers : NSObject {
         }
     }
     
-    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void){
+    func getUserInfo(_ infoType: UsersInfoUpdate, completion: @escaping (Any?, Error?) -> Void) {
+        guard ProfileManager.shared.isLoggedIn() else {
+            print("getUserInfo (single) \(infoType.rawValue), please login to post update on user info")
+            completion(false, nil)
+            return
+        }
+        
+        guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
+            print("getUserInfo (single) \(infoType.rawValue): Profile user empty, please login to post update on user info")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/" + infoType.rawValue
+        
+        let params:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : username,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow()
+        ]
+        
+        getDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getUserInfo (single) \(infoType.rawValue) response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                let profileKey = UsersInfoUpdateKey[infoType]?.rawValue,
+                let infoValue = data[profileKey] as Any? {
+                completion(infoValue, nil)
+                
+            } else {
+                print("getUserInfo (single) \(infoType.rawValue): No Data Field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void) {
         
         guard ProfileManager.shared.isLoggedIn() else {
             print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
@@ -668,6 +710,83 @@ class ApiServers : NSObject {
             } else {
                 let msg = response[ServerKey.message.rawValue] as? String
                 completion(false, msg, -999)
+            }
+        }
+    }
+    
+    func getTripActive(tripId: String, completion: @escaping (Bool?, Error?) -> Void) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("getTripActive: Profile user empty, pleaes login to get trip active")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/trips/active"
+        
+        let params:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.tripId.rawValue: tripId
+        ]
+        
+        getDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getTripActive response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                let active = data[TripKeyInDB.active.rawValue] as? Bool {
+                completion(active, nil)
+                
+            } else {
+                print("getTripActive no data from return")
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func postTripActive(tripId: String, isActive: Bool, completion: @escaping (Bool, Error?) -> Void)  {
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("postTripActive: Profile user empty, pleaes login to post trip info")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/trips/active"
+        
+        let data: [String: Any] = [
+            TripKeyInDB.tripId.rawValue: tripId,
+            TripKeyInDB.active.rawValue: isActive.hashValue
+        ]
+        
+        let params : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue : profileUser.token ?? "",
+            ServerKey.username.rawValue : profileUser.username ?? "",
+            ServerKey.timestamp.rawValue : Date.getTimestampNow(),
+            ServerKey.data.rawValue : data
+        ]
+        
+        postDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("Post Trip Active response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                print("Post Trip Active success")
+                completion(true, nil)
+                
+            } else{
+                print("Bad Status, Post Trip Active failed")
+                completion(false, nil)
             }
         }
     }

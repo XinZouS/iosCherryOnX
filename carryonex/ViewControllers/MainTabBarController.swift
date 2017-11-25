@@ -61,6 +61,7 @@ class MainTabBarController: UITabBarController {
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
                     self.activityIndicator.stopAnimating()
+                    APIServerChecker.testAPIServers()
                 }
             })
             appDidLaunch = true

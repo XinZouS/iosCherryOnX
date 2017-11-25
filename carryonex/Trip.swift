@@ -39,6 +39,8 @@ enum TripKeyInDB : String {
     case pickupTimeEnd  = "pickup_end_time"
     
     case note = "note"
+    case tripId = "trip_id"
+    case active = "active"
 }
 
 
