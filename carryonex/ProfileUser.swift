@@ -32,6 +32,15 @@ enum ProfileUserKey: String {
     case requestCount = "request_count"
     case rating = "rating"
     case countryCode = "country_code"
+    case gender = "gender"
+    case otherInfo = "other_info"
+}
+
+enum ProfileGender: String {
+    case male = "M"
+    case female = "F"
+    case other = "O"
+    case undefined = "U"
 }
 
 class ProfileUser: Unboxable  {
@@ -54,6 +63,8 @@ class ProfileUser: Unboxable  {
     var requestCount:Int = 2
     var rating:Float = 4.5
     var walletId: Int?
+    var gender: String?
+    var otherInfo: String?
     
     init() {
         //Initialization
@@ -74,6 +85,8 @@ class ProfileUser: Unboxable  {
         isIdVerified = \(isIdVerified)
         isPhoneVerified = \(isPhoneVerified)
         walletId = \(walletId ?? -999)
+        gender = \(gender ?? "")
+        otherInfo = \(otherInfo ?? "")
         """
         print(allData)
     }
@@ -94,10 +107,11 @@ class ProfileUser: Unboxable  {
         self.passportUrl = try? unboxer.unbox(key: ProfileUserKey.passportUrl.rawValue)
         
         self.walletId = try? unboxer.unbox(key: ProfileUserKey.walletId.rawValue)
+        self.gender = try? unboxer.unbox(key: ProfileUserKey.gender.rawValue)
+        self.otherInfo = try? unboxer.unbox(key: ProfileUserKey.otherInfo.rawValue)
         
-        //TODO: ZIAN - MENGDI NEEDS TO FIX IT
-        //self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
-        //self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
+        self.isPhoneVerified = try unboxer.unbox(key: ProfileUserKey.isPhoneVerified.rawValue)
+        self.isIdVerified = try unboxer.unbox(key: ProfileUserKey.isIdVerified.rawValue)
     }
 }
 
