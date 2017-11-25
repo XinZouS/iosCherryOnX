@@ -539,10 +539,6 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let message = response[ServerKey.message.rawValue] as? String {
-                print("Reset password server message: \(message)")
-            }
-            
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 print("Reset password success")
                 completion(true, nil)

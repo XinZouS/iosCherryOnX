@@ -158,6 +158,12 @@ class ProfileManager: NSObject {
         NotificationCenter.default.post(name: .UserLoggedOut, object: nil)
     }
     
+    //MARK: - Forget Password (Simple Wrapper for the sake of consistency. Send user the to login page if success)
+    func forgetPassword(phone: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
+        ApiServers.shared.postUserForgetPassword(phone: phone, password: password) { (success, error) in
+            completion(success, error)
+        }
+    }
     
     //MARK: - Update Methods
     
