@@ -28,14 +28,14 @@ enum ProfileUserKey: String {
     case walletId    = "wallet_id"
     case isIdVerified = "id_verified"
     case isPhoneVerified = "phone_verified"
-    case tripCount = "trip_count"
-    case requestCount = "request_count"
-    case rating = "rating"
     case countryCode = "country_code"
     case gender = "gender"
     case otherInfo = "other_info"
     
-    //Updatge user info
+    //Update user info
+    case rating = "rating"
+    case tripCount = "trip_count"
+    case requestCount = "request_count"
     case userId = "user_id"
 }
 
@@ -140,3 +140,4 @@ class Status: Unboxable  {
         self.description = try? unboxer.unbox(key: "description")
     }
 }
+

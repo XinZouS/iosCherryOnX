@@ -283,7 +283,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(username: String, userToken: String, completion: @escaping (ProfileUser?, Error?) -> Void){
+    func getUserInfo(username: String, userToken: String, completion: @escaping (HomeProfileInfo?, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/info"
         
@@ -306,9 +306,9 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
-                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
-                    user.printAllData()
-                    completion(user, nil)
+                    let profileInfo: HomeProfileInfo = try unbox(dictionary: data)
+                    profileInfo.user.printAllData()
+                    completion(profileInfo, nil)
                     
                 } catch let error {
                     completion(nil, error)

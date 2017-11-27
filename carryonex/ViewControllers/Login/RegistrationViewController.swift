@@ -68,7 +68,7 @@ class RegistrationViewController: UIViewController {
             return 
         }
         
-        guard let phone = registerUserInfo["phone"], let countryCode = registerUserInfo["countryCode"] else {
+        guard let phone = registerUserInfo?["phone"], let countryCode = registerUserInfo?["countryCode"] else {
             AudioManager.shared.playSond(named: .failed)
             return
         }
