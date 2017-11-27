@@ -102,13 +102,13 @@ class PhoneValidationViewController: UIViewController {
         
         guard zoneCodeInput != "", phoneInput != "", zoneCodeInput != "0", phoneInput != "0" else { return }
         
-//        SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-//            if err == nil {
+        SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
+            if err == nil {
                 self.verifySuccess()
-//            } else {
-//                self.verifyFaildAlert(err?.localizedDescription)
-//            }
-//        })
+            } else {
+                self.verifyFaildAlert(err?.localizedDescription)
+            }
+        })
     }
     
     private func verifySuccess(){
