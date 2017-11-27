@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Unboxer
+import Unbox
 
 struct STBalance {
     //availabe and pending see STBalanceAccount
