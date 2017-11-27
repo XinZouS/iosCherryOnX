@@ -17,10 +17,10 @@ class ChangePasswordController: UIViewController{
     override func viewDidLoad() {
        zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
         phoneInput = registerUserInfo?["phone"] ?? ""
-        checkPassword()
+        passwordTextField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
+        passwordTextField.isSecureTextEntry = true
     }
-    
-    private func checkPassword(){
+    @objc private func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
         
@@ -36,7 +36,13 @@ class ChangePasswordController: UIViewController{
         }
     }
     @IBAction func changePasswordTapped(_ sender: Any) {
-//        let newPassword = passwordTextField.text
-//        
+        let newPassword = passwordTextField.text
+        ProfileManager.shared.forgetPassword(phone: phoneInput, password: newPassword!) { (success, error) in
+            if success {
+                self.navigationController?.popToRootViewController(animated: true)
+            }else{
+                print(error ?? "")
+            }
+        }
     }
 }

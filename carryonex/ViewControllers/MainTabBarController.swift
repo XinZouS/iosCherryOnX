@@ -51,7 +51,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(){
         if (!ProfileManager.shared.isLoggedIn()){
-//            showLogin()
+            showLogin()
         }
     }
     
@@ -78,6 +78,10 @@ class MainTabBarController: UITabBarController {
         } else {
             debugLog("Something is wrong with the Login storyboard, please check.")
         }
+    }
+    
+    func dismissLogin(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     

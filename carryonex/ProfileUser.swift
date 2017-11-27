@@ -44,6 +44,18 @@ enum ProfileGender: String {
     case female = "F"
     case other = "O"
     case undefined = "U"
+    func displayString() -> String {
+        switch self {
+        case .male:
+            return "男"
+        case .female:
+            return "女"
+        case .other:
+            return "其他"
+        case .undefined:
+            return "未知"
+        }
+    }
 }
 
 class ProfileUser: Unboxable  {

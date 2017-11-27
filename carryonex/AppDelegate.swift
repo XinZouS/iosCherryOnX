@@ -225,7 +225,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             }
         }
     }
-    
     static func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }

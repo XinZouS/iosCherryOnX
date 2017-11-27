@@ -28,7 +28,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         setupActivityIndicator()
         addWeChatObservers()
     }
-    
     fileprivate func addWeChatObservers() {
         /**  微信通知  */
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.changeHeadImg, object: nil, queue: nil) { [weak self] notification in
@@ -69,6 +68,19 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             nameTextField.text = user?.realName
             if let childVC = self.childViewControllers.first as? PersonalTable {
                 childVC.emailTextField.text = user?.email
+                if let genderString = user?.gender {
+                    switch genderString{
+                    case ProfileGender.male.rawValue:
+                        childVC.genderTextField.text = ProfileGender.male.displayString()
+                    case ProfileGender.female.rawValue:
+                        childVC.genderTextField.text = ProfileGender.female.displayString()
+                    case ProfileGender.other.rawValue:
+                        childVC.genderTextField.text = ProfileGender.other.displayString()
+                    default:
+                        childVC.genderTextField.text = ProfileGender.undefined.displayString()
+                        
+                    }
+                }
             }
         } else {
             let m = "请保持网络连接，稍后再试一次。"
@@ -85,10 +97,43 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     @objc private func saveButtonTapped(){
-        //if let childVC = self.childViewControllers.first as? PersonalTable {
-//            let genderString = childVC.genderTextField.text
-//            let emailString = childVC.emailTextField.text
-        //}
+        if let childVC = self.childViewControllers.first as? PersonalTable {
+            var genderString = ""
+            let emailString = childVC.emailTextField.text
+            if let gender = childVC.genderTextField.text {
+            switch gender {
+            case ProfileGender.male.displayString() :
+                    genderString = ProfileGender.male.rawValue
+            case ProfileGender.female.displayString():
+                    genderString = ProfileGender.female.rawValue
+            case ProfileGender.other.displayString():
+                    genderString = ProfileGender.other.rawValue
+                default:
+                    genderString = ProfileGender.undefined.rawValue
+                }
+            }
+            let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+            let matcher = MyRegex(emailPattern)
+            if let maybeEmail = emailString {
+                let isMatch = matcher.match(input: maybeEmail)
+                if isMatch {
+                    let profile :[String:Any] = ["realName":nameTextField.text ?? "",
+                                                 "email": emailString ?? "",
+                                                 "gender": genderString ]
+                    ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
+                        if success{
+                            self.navigationController?.popViewController(animated: true)
+                        }else{
+                            debugPrint("change profile error")
+                        }
+                    })
+                }else{
+                    debugPrint("the customer's email wrong")
+                }
+            } else {
+                debugPrint("unwrap failure")
+            }
+        }
     }
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)

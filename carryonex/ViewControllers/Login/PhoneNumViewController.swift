@@ -173,16 +173,16 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     private func verifyUserNewPhoneNum(){
         self.isLoading = true
         
-        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
-            self.isLoading = false
-            if let err = err {
-                print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
-                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: "OK", completion: nil)
-                return
-            }
+//        SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
+//            self.isLoading = false
+//            if let err = err {
+//                print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
+//                let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
+//                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: "OK", completion: nil)
+//                return
+//            }
             self.goToVerificationPage()
-        })
+//        })
     }
     
     @objc private func nextButtonEnable(){

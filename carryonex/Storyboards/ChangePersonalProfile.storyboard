@@ -91,11 +91,20 @@
                         <outlet property="imageButton" destination="WfQ-uM-WJt" id="XXs-S9-fIc"/>
                         <outlet property="nameLabel" destination="e4E-X0-MtB" id="8eo-aL-6ud"/>
                         <outlet property="nameTextField" destination="5Ce-ko-VoG" id="K4a-ew-jLm"/>
+                        <segue destination="an3-L4-NTQ" kind="show" identifier="backToPersonPage" id="z5A-1R-f66"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPu-ud-8Ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="162.40000000000001" y="145.27736131934034"/>
+        </scene>
+        <!--PersonalPage-->
+        <scene sceneID="WRB-Cz-ymE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PersonalPage" id="an3-L4-NTQ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMz-Vo-8nA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="628" y="-121"/>
         </scene>
         <!--Personal Table-->
         <scene sceneID="N8l-Uc-bYU">
