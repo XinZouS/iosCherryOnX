@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Unboxer
+import Unbox
 
 struct STBankAccount {
     //skip metadata

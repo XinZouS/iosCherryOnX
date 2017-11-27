@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Unboxer
+import Unbox
 
 struct STBalanceTransaction {
     //fee_details see STFeedDetail
