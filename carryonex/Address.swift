@@ -97,4 +97,11 @@ class Address: NSObject, Unboxable {
         json[AddressKeyInDB.detailedAddress.rawValue] = detailedAddress
         return json
     }
+    
+    func homeCardDisplayString() -> String {
+        if let city = city, let country = country {
+            return city + ", " + country.rawValue
+        }
+        return "无城市或国家"
+    }
 }
