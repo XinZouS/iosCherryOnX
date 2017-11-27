@@ -121,3 +121,17 @@ class OrderListCardShiperCell: OrderListCardCell {
 10. 已退款
 
 */
+
+
+
+class OrderListLockerCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var lockSwitch: UISwitch!
+    @IBOutlet weak var hintLabel: UILabel!
+    
+    @IBAction func lockerSwitchValueChanged(_ sender: Any) {
+    }
+    
+    
+}

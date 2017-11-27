@@ -182,6 +182,11 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == TripCategory.carrier.rawValue {
+            if indexPath.section == 0 {
+                guard let cell  = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListLockerCell", for: indexPath) as? OrderListLockerCell else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                return cell
+            }
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             let tripOrder = dataSourceCarrier[indexPath.section]
@@ -194,6 +199,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 return UITableViewCell()
             }
+            
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
@@ -212,7 +218,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            return self.dataSourceCarrier.count
+            return self.dataSourceCarrier.count + 1 // for locker cell
         } else {
             return self.dataSourceSender.count
         }
@@ -220,8 +226,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            let tripOrder = dataSourceCarrier[section]
-            return tripOrder.requests?.count ?? 0
+            if section == 0 {
+                return 1 // for locker cell
+            } else {
+                let tripOrder = dataSourceCarrier[section - 1]
+                return tripOrder.requests?.count ?? 0
+            }
         } else {
             let tripOrder = dataSourceSender[section]
             return tripOrder.requests?.count ?? 0
@@ -229,6 +239,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
+            return // for locker cell
+        }
         let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
         let currentPage = dataSource.count
         guard let currentItem = dataSource[currentPage - 1].requests?.count,
@@ -243,6 +256,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
+            return 50 // for locker cell
+        }
         if selectedIndexPath == indexPath {
             return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
         }
@@ -250,6 +266,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
+            return // for locker cell
+        }
         if selectedIndexPath != indexPath {
             selectedIndexPath = indexPath
         } else {

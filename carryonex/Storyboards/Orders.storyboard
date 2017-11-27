@@ -484,8 +484,61 @@
                                             <outlet property="youxiangCodeShareButton" destination="bCY-jE-grT" id="reZ-No-oXQ"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListLockerCell" rowHeight="50" id="b5v-Ci-bmY" customClass="OrderListLockerCell" customModule="carryonex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="495" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b5v-Ci-bmY" id="W4E-c0-XDH">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="锁定游箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDv-hx-3el">
+                                                    <rect key="frame" x="28" y="12.666666666666664" width="100" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="3Ra-kW-LLg"/>
+                                                        <constraint firstAttribute="width" constant="100" id="X6a-cq-1V3"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NMM-Wf-Uen">
+                                                    <rect key="frame" x="347" y="9" width="49" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="G0c-cW-uhR"/>
+                                                        <constraint firstAttribute="width" constant="47" id="flh-9w-hsr"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="lockerSwitchValueChanged:" destination="b5v-Ci-bmY" eventType="valueChanged" id="CdH-RT-pJi"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YyC-QZ-JIL">
+                                                    <rect key="frame" x="128" y="14" width="219" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="Sae-j7-fUg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YyC-QZ-JIL" firstAttribute="centerY" secondItem="W4E-c0-XDH" secondAttribute="centerY" id="7Mj-2N-5Sx"/>
+                                                <constraint firstItem="YyC-QZ-JIL" firstAttribute="leading" secondItem="gDv-hx-3el" secondAttribute="trailing" id="Fg2-ED-xTM"/>
+                                                <constraint firstItem="NMM-Wf-Uen" firstAttribute="leading" secondItem="YyC-QZ-JIL" secondAttribute="trailing" id="KWt-W6-Nhu"/>
+                                                <constraint firstItem="NMM-Wf-Uen" firstAttribute="centerY" secondItem="W4E-c0-XDH" secondAttribute="centerY" id="Y7P-0f-ff7"/>
+                                                <constraint firstItem="gDv-hx-3el" firstAttribute="centerY" secondItem="W4E-c0-XDH" secondAttribute="centerY" id="qjN-0z-l14"/>
+                                                <constraint firstAttribute="trailing" secondItem="NMM-Wf-Uen" secondAttribute="trailing" constant="20" id="rFE-bn-tCV"/>
+                                                <constraint firstItem="gDv-hx-3el" firstAttribute="leading" secondItem="W4E-c0-XDH" secondAttribute="leadingMargin" constant="20" id="vYh-g5-0sB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="hintLabel" destination="YyC-QZ-JIL" id="krT-3D-Rtj"/>
+                                            <outlet property="lockSwitch" destination="NMM-Wf-Uen" id="ecG-5A-eDJ"/>
+                                            <outlet property="titleLabel" destination="gDv-hx-3el" id="2oD-j1-Wy4"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListHeaderCell" rowHeight="60" id="y4H-GA-6eC" customClass="OrderListHeaderCell" customModule="carryonex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="495" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="545" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y4H-GA-6eC" id="AuG-K5-YjB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="59.666666666666664"/>
@@ -529,7 +582,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCell" rowHeight="200" id="cOu-cX-J2R" customClass="OrderListCell" customModule="carryonex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="555" width="414" height="200"/>
+                                        <rect key="frame" x="0.0" y="605" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cOu-cX-J2R" id="iq7-vC-B6t">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="199.66666666666666"/>
@@ -632,7 +685,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListEmptyCell" rowHeight="50" id="gzD-pL-Mhi" customClass="OrderListEmptyCell" customModule="carryonex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="755" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="805" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gzD-pL-Mhi" id="a0G-VM-6gh">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="49.666666666666664"/>
