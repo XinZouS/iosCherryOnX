@@ -45,6 +45,13 @@ struct HomeOrderCardInfo {
     var startAddress: Address
     var endAddress: Address
     var statusId: Int
+    
+    func displayTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd"
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        return formatter.string(from: date)
+    }
 }
 
 extension HomeOrderCardInfo: Unboxable {
