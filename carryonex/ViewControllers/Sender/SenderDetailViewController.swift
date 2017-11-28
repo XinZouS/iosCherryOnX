@@ -133,10 +133,36 @@ class SenderDetailViewController: UIViewController {
         setupSlider()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupCardView()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSubmitButtonStatus()
-        setupMasterCardInfo()
+    }
+    
+    private func setupCardView(){
+        if let endCountry = trip?.endAddress?.country?.rawValue,let endState = trip?.endAddress?.state,let endCity = trip?.endAddress?.city,let startCountry = trip?.startAddress?.country?.rawValue,let startState = trip?.startAddress?.state,let startCity = trip?.startAddress?.city{
+            endAddressLabel.text = endCountry+" "+endState+" "+endCity
+            startAddressLabel.text = startCountry+" "+startState+" "+startCity
+        }
+        if let tripId = trip?.id{
+            youxiangCodeLabel.text = String(tripId)
+        }
+        if let d = trip?.pickupDate {
+            let date = Date(timeIntervalSince1970: d)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM dd YYYY"
+            
+            let userCalendar = Calendar.current
+            let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
+            let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
+            
+            dateMonthLabel.text = formatter.shortMonthSymbols.first
+            dateDayLabel.text = "\(dateComponents.day ?? 0)"
+        }
     }
     
     private func setupCollectionView(){
@@ -245,7 +271,7 @@ class SenderDetailViewController: UIViewController {
                 return
             }
             // TODO BUG: test use fake trip only, remove this before launch!!!
-            self.trip = Trip()
+            
             
             if let urls = urls, let trip = self.trip, let address = trip.endAddress {
                 

@@ -20,6 +20,37 @@ class UserCardViewController: UIViewController {
     @IBOutlet weak var endIconImage: UIImageView!
     
     var viewTag:Int = 0
+
+    var listType: TripCategory = .carrier
+    override func viewDidLoad() {
+        addUserUpdateNotificationObservers()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        switch viewTag{
+        case 0:
+            setupShipperCardView()
+            setupInformation()
+        default:
+            listType = .sender
+            setupSenderCardView()
+            setupInformation()
+        }
+    }
+    private func setupInformation(){
+        ApiServers.shared.getUsersTrips(userType: listType, offset: 1, pageCount: 1) { (tripOrders, error) in
+            
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let tripOrders = tripOrders {
+                if let startCountry = tripOrders[0].trip.startAddress?.country?.rawValue,let startState = tripOrders[0].trip.startAddress?.state,let startCity = tripOrders[0].trip.startAddress?.city,let endCountry = tripOrders[0].trip.endAddress?.country?.rawValue,let endState = tripOrders[0].trip.endAddress?.state,let endCity = tripOrders[0].trip.endAddress?.city{
+                    self.beginLocationLabel.text = startCountry+" "+startState+" "+startCity
+                    self.endLocationLabel.text = endCountry+" "+endState+" "+endCity
+                }
+                
+
     var profileInfo: HomeProfileInfo? {
         didSet {
             switch viewTag{
