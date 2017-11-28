@@ -25,8 +25,6 @@ class ItemListYouxiangInputController: UIViewController {
         fetchTripByYouxiangcode(code)
     }
     
-    
-    
     var activityIndicator: UIActivityIndicatorCustomizeView!
     var isLoading: Bool = false {
         didSet{
@@ -42,9 +40,8 @@ class ItemListYouxiangInputController: UIViewController {
 
     override func viewDidLoad() {
         setupNavigationBar()
+        setupTextFields()
         setupActivityIndicator()
-        youxiangcodeTextField.delegate = self
-        youxiangcodeTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,14 +51,18 @@ class ItemListYouxiangInputController: UIViewController {
     
     private func setupNavigationBar(){
         title = "寄件"
-        UIApplication.shared.statusBarStyle = .default
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    private func setupTextFields(){
+        youxiangcodeTextField.delegate = self
+        youxiangcodeTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
     }
     
     private func setupActivityIndicator(){
