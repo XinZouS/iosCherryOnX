@@ -27,6 +27,7 @@ class ProfileManager: NSObject {
     static var shared = ProfileManager()
     
     private var currentUser: ProfileUser?
+    var homeProfileInfo: HomeProfileInfo?
     
     var username: String? {
         get { return UserDefaults.getUsername() }
@@ -52,15 +53,15 @@ class ProfileManager: NSObject {
     
     func loadLocalUser(completion: @escaping(Bool) -> Void) {
         if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
                     print("loadLocalUser Error: \(error.localizedDescription)")
                     completion(false)
                     return
                 }
                 
-                if let user = user {
-                    self.updateCurrentUser(user, writeToKeychain: false)
+                if let profileInfo = homeProfileInfo {
+                    self.updateHomeProfileInfo(profileInfo, writeToKeychain: false)
                     completion(true)
                 } else {
                     print("error: loadLocalUser: return user info is nil")
@@ -96,7 +97,7 @@ class ProfileManager: NSObject {
                 return
             }
             
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
                     let msg = "loadLocalUser Error: \(error.localizedDescription)"
                     print(msg)
@@ -104,8 +105,8 @@ class ProfileManager: NSObject {
                     return
                 }
                 
-                if let user = user {
-                    self.updateCurrentUser(user, writeToKeychain: true)
+                if let profileInfo = homeProfileInfo {
+                    self.updateHomeProfileInfo(profileInfo, writeToKeychain: true)
                     completion(true, error, .noError)
                 } else {
                     let msg = "return user info is nil"
@@ -131,15 +132,15 @@ class ProfileManager: NSObject {
                 return
             }
             
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (user, error) in
+            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
                     print("loadLocalUser Error: \(error.localizedDescription)")
                     completion(false)
                     return
                 }
                 
-                if let user = user {
-                    self.updateCurrentUser(user, writeToKeychain: true)
+                if let profileInfo = homeProfileInfo {
+                    self.updateHomeProfileInfo(profileInfo, writeToKeychain: true)
                     completion(true)
                 } else {
                     print("return user info is nil")
@@ -257,6 +258,11 @@ class ProfileManager: NSObject {
     }
     
     //MARK: - Keychain Management
+    
+    private func updateHomeProfileInfo(_ profileInfo: HomeProfileInfo, writeToKeychain: Bool) {
+        homeProfileInfo = profileInfo
+        updateCurrentUser(profileInfo.user, writeToKeychain: writeToKeychain)
+    }
     
     private func updateCurrentUser(_ user: ProfileUser, writeToKeychain: Bool) {
         self.currentUser = user

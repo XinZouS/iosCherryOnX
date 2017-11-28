@@ -219,8 +219,11 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        let disCtrlView = DisclaimerController()
-        self.navigationController?.pushViewController(disCtrlView, animated: true)
+        let url = "\(userGuideWebHoster)/doc_agreement"
+        let webVC = WebController()
+        self.navigationController?.pushViewController(webVC, animated: true)
+        webVC.title = "使用协议"
+        webVC.url = URL(string: url)
     }
 }
 

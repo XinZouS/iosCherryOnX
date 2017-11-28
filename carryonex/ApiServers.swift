@@ -94,6 +94,7 @@ class ApiServers : NSObject {
         case deviceToken = "device_token"
         case realName = "real_name"
         case tripId = "trip_id"
+        case userId = "user_id"
     }
     
     
@@ -111,6 +112,15 @@ class ApiServers : NSObject {
         super.init()
     }
     
+    func validationHeader(userToken: String, username: String) -> [String: Any] {
+        let params: [String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.username.rawValue: username
+        ]
+        return params
+    }
     
     // MARK: - User APIs
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
@@ -283,7 +293,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(username: String, userToken: String, completion: @escaping (ProfileUser?, Error?) -> Void){
+    func getUserInfo(username: String, userToken: String, completion: @escaping (HomeProfileInfo?, Error?) -> Void){
         
         let sessionStr = hostVersion + "/users/info"
         
@@ -306,9 +316,9 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
-                    let user: ProfileUser = try unbox(dictionary: data, atKey: "user")
-                    user.printAllData()
-                    completion(user, nil)
+                    let profileInfo: HomeProfileInfo = try unbox(dictionary: data)
+                    profileInfo.user.printAllData()
+                    completion(profileInfo, nil)
                     
                 } catch let error {
                     completion(nil, error)
@@ -876,10 +886,10 @@ class ApiServers : NSObject {
         }
     }
 
-    func postShipperRequestTransaction(requestId: Int,
-                                       tripId: Int,
-                                       transaction: RequestTransaction,
-                                       completion: @escaping (Bool, Error?, Int?) -> Void) {
+    func postRequestTransaction(requestId: Int,
+                                tripId: Int,
+                                transaction: RequestTransaction,
+                                completion: @escaping (Bool, Error?, Int?) -> Void) {   //success, error, status code
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postRequest: Unable to find profile user")
@@ -928,7 +938,7 @@ class ApiServers : NSObject {
                         do {
                             let request: Request = try unbox(dictionary: data, atKey: "request")
                             request.printAllData()
-                            completion(true, nil, request.status?.id)
+                            completion(true, nil, request.statusId)
                             
                         } catch let error {
                             completion(false, error, nil)

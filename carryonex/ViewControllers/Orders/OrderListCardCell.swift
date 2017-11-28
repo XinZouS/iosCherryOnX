@@ -28,6 +28,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     // bottom buttons
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
+    @IBOutlet weak var statusLabel: UILabel!
     
     weak var delegate: OrderListCellDelegate?
     var indexPath: IndexPath?
@@ -36,6 +37,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     private var status: RequestStatus = .invalid {
         didSet {
             updateButtonAppearance(status: status)
+            statusLabel.text = status.displayString()
         }
     }
     
@@ -74,7 +76,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     
     func updateRequestInfoAppearance(request: Request) {
         //Override
-        if let statusId = request.status?.id, let newStatus = RequestStatus(rawValue: statusId) {
+        if let statusId = request.statusId, let newStatus = RequestStatus(rawValue: statusId) {
             status = newStatus
         }
     }

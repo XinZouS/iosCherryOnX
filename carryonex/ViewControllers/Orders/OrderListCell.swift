@@ -55,8 +55,8 @@ class OrderListCell: UITableViewCell {
             //TODO: Update button
             statusButton.setTitle("更改状态", for: .normal)
             
-            if let statusDescription = request?.status?.description {
-                statusLabel.text = statusDescription
+            if let statusId = request?.statusId {
+                statusLabel.text = "Status: \(statusId)"
             }
             
 //            if let statusId = request?.status?.id, let newStatus = RequestStatus(rawValue: statusId) {

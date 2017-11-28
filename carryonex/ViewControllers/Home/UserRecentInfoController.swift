@@ -15,25 +15,25 @@ class UserRecentInfoController: UIViewController{
     @IBOutlet weak var shipTime: UIButton!
     @IBOutlet weak var sendTime: UIButton!
     @IBOutlet weak var levelImage: UIImageView!
-    var info: [String:Any]!
     @IBOutlet weak var starView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addUserUpdateNotificationObservers()
+        addNotificationObservers()
     }
     
-    private func addUserUpdateNotificationObservers(){
+    private func addNotificationObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.getUserRecentInfo()
         }
     }
     
     func getUserRecentInfo(){
-        guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
-        shipTime.setTitle(String(describing: currUser.tripCount), for: .normal)
-        sendTime.setTitle(String(describing: currUser.requestCount), for: .normal)
-        generalCommentBtn.setTitle(String(describing: currUser.rating), for: .normal)
-        starViewWidth.constant = CGFloat(currUser.rating*20)
+        guard let profileInfo = ProfileManager.shared.homeProfileInfo else { return }
+        shipTime.setTitle(String(describing: profileInfo.tripCount), for: .normal)
+        sendTime.setTitle(String(describing: profileInfo.requestCount), for: .normal)
+        generalCommentBtn.setTitle(String(describing: profileInfo.rating), for: .normal)
+        starViewWidth.constant = CGFloat(profileInfo.rating * 20)
     }
 }
 

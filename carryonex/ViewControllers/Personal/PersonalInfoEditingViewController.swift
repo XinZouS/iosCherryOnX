@@ -62,13 +62,16 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     private func setupUser(){
-        if let getUser = ProfileManager.shared.getCurrentUser() {
-            user = getUser
-            imageButton.af_setImage(for: .normal, url: URL(string: (user?.imageUrl)!)!, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
-            nameTextField.text = user?.realName
+        if let currentUser = ProfileManager.shared.getCurrentUser() {
+            user = currentUser
+            if let imageUrlString =  currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
+                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+            }
+            
+            nameTextField.text = currentUser.realName
             if let childVC = self.childViewControllers.first as? PersonalTable {
-                childVC.emailTextField.text = user?.email
-                if let genderString = user?.gender {
+                childVC.emailTextField.text = currentUser.email
+                if let genderString = currentUser.gender {
                     switch genderString{
                     case ProfileGender.male.rawValue:
                         childVC.genderTextField.text = ProfileGender.male.displayString()
@@ -78,7 +81,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         childVC.genderTextField.text = ProfileGender.other.displayString()
                     default:
                         childVC.genderTextField.text = ProfileGender.undefined.displayString()
-                        
                     }
                 }
             }

@@ -84,7 +84,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     
     
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator = UIActivityIndicatorCustomizeView()
         activityIndicator.center = view.center
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)

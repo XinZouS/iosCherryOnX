@@ -10,6 +10,20 @@ import Foundation
 
 extension UIViewController {
     
+    func displayAlertOkCancel(title: String, message: String, completion:((UIAlertActionStyle) -> Void)?) {
+        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "好", style: .default) { (action) in
+            completion?(action.style)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (action) in
+            completion?(action.style)
+        }
+        v.addAction(okAction)
+        v.addAction(cancelAction)
+        
+        present(v, animated: true, completion: nil)
+    }
+    
     func displayAlert(title: String, message: String, action: String) {
         displayAlert(title: title, message: message, action: action, completion: nil)
     }
@@ -19,7 +33,6 @@ extension UIViewController {
         let action = UIAlertAction(title: action, style: .default) { (action) in
             completion?()
         }
-        
         v.addAction(action)
         
         present(v, animated: true, completion: nil)
