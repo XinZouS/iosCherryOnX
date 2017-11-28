@@ -31,7 +31,6 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
     var selectedIndexPath: IndexPath?
-    
     enum tableViewRowHeight: CGFloat {
         case mainCard = 160
         case detailCard = 300
@@ -52,14 +51,15 @@ class OrderListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setupNavigationBar()
-        setupTableViews()
         setupSwipeGestureRecognizer()
         listType = .carrier
+        fetchRequests()
+        setupTableViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchRequests()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -197,6 +197,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.indexPath = indexPath
                 cell.delegate = self
                 cell.carrierDelegate = self
+                if let startCountry = tripOrder.trip.startAddress?.country?.rawValue,let startState = tripOrder.trip.startAddress?.state,let startCity = tripOrder.trip.startAddress?.city{
+                    cell.startAddressLabel.text = startCountry+" "+startState+" "+startCity
+                }
+                if let endCountry = tripOrder.trip.endAddress?.country?.rawValue,let endState = tripOrder.trip.endAddress?.state,let endCity = tripOrder.trip.endAddress?.city{
+                    cell.endAddressLabel.text = endCountry+" "+endState+" "+endCity
+                }
                 return cell
             } else {
                 return UITableViewCell()
@@ -211,6 +217,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.indexPath = indexPath
                 cell.delegate = self
                 cell.senderDelegate = self
+                if let startCountry = tripOrder.trip.startAddress?.country?.rawValue,let startState = tripOrder.trip.startAddress?.state,let startCity = tripOrder.trip.startAddress?.city{
+                    cell.startAddressLabel.text = startCountry+" "+startState+" "+startCity
+                }
+                if let endCountry = tripOrder.trip.endAddress?.country?.rawValue,let endState = tripOrder.trip.endAddress?.state,let endCity = tripOrder.trip.endAddress?.city{
+                    cell.endAddressLabel.text = endCountry+" "+endState+" "+endCity
+                }
                 return cell
             } else {
                 return UITableViewCell()
