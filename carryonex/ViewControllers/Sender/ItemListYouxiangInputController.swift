@@ -15,7 +15,7 @@ class ItemListYouxiangInputController: UIViewController {
     @IBOutlet weak var goDetailButton: UIButton!
     
     @IBAction func goDetailPage(_ sender: Any) {
-        guard let code = youxiangcodeTextField.text, code.count >= 2 else { // TODO: change to ==6 before launch!!!!!!!
+        guard let code = youxiangcodeTextField.text, code.count >= 0 else { // TODO: change to ==6 before launch!!!!!!!
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
             displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
                 self.youxiangcodeTextField.becomeFirstResponder()
@@ -94,9 +94,17 @@ class ItemListYouxiangInputController: UIViewController {
         isLoading = true
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
+            let t = "⚠️获取失败"
+            if !success {
+                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
+                self.displayGlobalAlert(title: t, message: m, action: "好，回主页", completion: {
+                    self.navigationController?.popToRootViewController(animated: true)
+                })
+                return
+            }
             if let err = error, getTrip == nil {
                 let m = "无法查询此行程，请确保您所填写的游箱号正确。错误信息：\(err.localizedDescription)"
-                self.displayGlobalAlert(title: "⚠️获取失败", message: m, action: "换个姿势再试一次", completion: {
+                self.displayGlobalAlert(title: t, message: m, action: "换个姿势再试一次", completion: {
                     self.youxiangcodeTextField.becomeFirstResponder()
                 })
                 return

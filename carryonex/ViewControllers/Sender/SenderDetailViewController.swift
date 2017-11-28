@@ -50,7 +50,7 @@ class SenderDetailViewController: UIViewController {
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
-        //TODO:
+        //TODO: open sender personal page;
     }
     
     @IBAction func currencyTypeSegmentValueChanged(_ sender: Any) {
@@ -60,6 +60,10 @@ class SenderDetailViewController: UIViewController {
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
         priceFinal = Double(priceSlider.value)
+        
+        let pc = (priceFinal - priceMiddl) * 100.0 / priceMiddl
+        let lv = pc < 0 ? "低于" : "高于"
+        priceFinalHintLabel.text = lv + "标准价\(Int(pc))%"
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
@@ -79,7 +83,6 @@ class SenderDetailViewController: UIViewController {
     // MARK: - model properties
     
     var trip: Trip?
-    var priceValue: Double = 5
     
     let cellId = "ItemImageCollectionCell"
     var imageUploadingSet: Set<String> = []
@@ -104,6 +107,8 @@ class SenderDetailViewController: UIViewController {
     }
 
     var currencyType: CurrencyType = .USD
+    var priceValue: Double = 5
+    var priceMiddl: Double = 0
     var priceFinal: Double = 5 {
         didSet {
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
@@ -154,7 +159,13 @@ class SenderDetailViewController: UIViewController {
     }
     
     private func setupCardView(){
-        if let endCountry = trip?.endAddress?.country?.rawValue,let endState = trip?.endAddress?.state,let endCity = trip?.endAddress?.city,let startCountry = trip?.startAddress?.country?.rawValue,let startState = trip?.startAddress?.state,let startCity = trip?.startAddress?.city{
+        if let endCountry = trip?.endAddress?.country?.rawValue,
+            let endState = trip?.endAddress?.state,
+            let endCity = trip?.endAddress?.city,
+            let startCountry = trip?.startAddress?.country?.rawValue,
+            let startState = trip?.startAddress?.state,
+            let startCity = trip?.startAddress?.city {
+            
             endAddressLabel.text = endCountry+" "+endState+" "+endCity
             startAddressLabel.text = startCountry+" "+startState+" "+startCity
         }
@@ -173,6 +184,7 @@ class SenderDetailViewController: UIViewController {
             dateMonthLabel.text = formatter.shortMonthSymbols.first
             dateDayLabel.text = "\(dateComponents.day ?? 0)"
         }
+        // TODO: get shiper image url and setup profile image for trip card;
     }
     
     private func setupCollectionView(){
@@ -286,13 +298,13 @@ class SenderDetailViewController: UIViewController {
             return
         }
         guard let phone = phoneTextField.text, phone.count > 5 else {
-            let m = "请填写收件人【手机号】，方便出行人联系收件人。"
+            let m = "请填写正确的收件人【手机号】，方便出行人联系收件人。"
             displayGlobalAlert(title: t, message: m, action: ok, completion: {
                 self.phoneTextField.becomeFirstResponder()
             })
             return
         }
-        guard let destAddressStr = addressTextField.text, destAddressStr.count > 6 else {
+        guard let destAddressStr = addressTextField.text, destAddressStr.count > 0 else {
             let m = "请填写完整的【收件地址】，方便出行人顺利送达。"
             displayGlobalAlert(title: t, message: m, action: ok, completion: {
                 self.addressTextField.becomeFirstResponder()
@@ -580,7 +592,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func preparePriceIn(_ textField: UITextField){
-        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text {
+        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text, v != "" {
             guard let d = Double(v) else {
                 let m = "物品价值只能输入数字和至多1个小数点哦，请确保您的输入不包含空格或其他字符。"
                 displayGlobalAlert(title: "💡请调整定价输入", message: m, action: "好，再试一次", completion: {
@@ -596,22 +608,19 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
-        let r: Double = 0.1 // set price as [$5, 10% offerPrice]
         let pMin: Double = 5
-        let pMax: Double = (newPrice < 5.0 || newPrice * r < 5.0) ? 10.0 : calculatePrice(type: .linear)
-        let pMid: Double = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
+        let pGet = calculatePrice(type: .linear)
+        let pMax: Double = (newPrice < 5.0 || pGet < 5.0) ? 10.0 : pGet
+        print("get pMin = \(pMin), pMax = \(pMax) with newPrice = \(newPrice)")
+        priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
-        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", pMid)
+        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", priceMiddl)
         priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
         
         priceSlider.minimumValue = Float(pMin)
-        priceSlider.setValue(Float(pMid), animated: true)
+        priceSlider.setValue(Float(priceMiddl), animated: true)
         priceSlider.maximumValue = Float(pMax)
-        priceFinal = pMid
-        
-        let pc = (priceFinal - pMid) * 100.0 / pMid
-        let lv = pc < 0 ? "低于" : "高于"
-        priceFinalHintLabel.text = lv + "标准价\(pc)%"
+        priceFinal = priceMiddl
     }
     
     private func scrollViewAnimateToBottom(){
