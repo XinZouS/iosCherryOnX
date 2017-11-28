@@ -94,6 +94,7 @@ class ApiServers : NSObject {
         case deviceToken = "device_token"
         case realName = "real_name"
         case tripId = "trip_id"
+        case userId = "user_id"
     }
     
     
@@ -111,6 +112,15 @@ class ApiServers : NSObject {
         super.init()
     }
     
+    func validationHeader(userToken: String, username: String) -> [String: Any] {
+        let params: [String: Any] = [
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.username.rawValue: username
+        ]
+        return params
+    }
     
     // MARK: - User APIs
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
