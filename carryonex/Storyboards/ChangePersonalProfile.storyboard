@@ -131,9 +131,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="性别" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="niQ-6i-hDB">
-                                                    <rect key="frame" x="129" y="13.5" width="236" height="17"/>
+                                                    <rect key="frame" x="129" y="12" width="236" height="20"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -165,7 +165,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="电子邮箱" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vz8-hX-VwH">
                                                     <rect key="frame" x="122" y="6" width="243" height="30"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -196,20 +196,28 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaH-oj-Nz6">
-                                                    <rect key="frame" x="270" y="7" width="105" height="30"/>
-                                                    <state key="normal" title="提交"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提交" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-L1-ftb">
+                                                    <rect key="frame" x="330" y="7.5" width="35" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OG-f5-ShA">
+                                                    <rect key="frame" x="330" y="7.5" width="35" height="30"/>
                                                     <connections>
-                                                        <action selector="commitButtonTapped:" destination="X6j-Ou-XEY" eventType="touchUpInside" id="J6V-CK-EGm"/>
+                                                        <action selector="commitButtonTapped:" destination="X6j-Ou-XEY" eventType="touchUpInside" id="L2S-jz-35L"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Ual-IZ-V17" firstAttribute="leading" secondItem="MUg-UA-rV9" secondAttribute="leading" constant="11" id="2wk-Km-wpm"/>
-                                                <constraint firstAttribute="trailing" secondItem="iaH-oj-Nz6" secondAttribute="trailing" id="ecq-kW-sh5"/>
+                                                <constraint firstItem="6OG-f5-ShA" firstAttribute="centerY" secondItem="w1I-L1-ftb" secondAttribute="centerY" id="FtC-Ql-jhx"/>
+                                                <constraint firstAttribute="trailing" secondItem="w1I-L1-ftb" secondAttribute="trailing" constant="10" id="clL-cV-GKr"/>
+                                                <constraint firstItem="6OG-f5-ShA" firstAttribute="width" secondItem="w1I-L1-ftb" secondAttribute="width" id="eSW-VB-Okt"/>
                                                 <constraint firstItem="Ual-IZ-V17" firstAttribute="centerY" secondItem="MUg-UA-rV9" secondAttribute="centerY" id="epM-wi-etv"/>
-                                                <constraint firstItem="iaH-oj-Nz6" firstAttribute="leading" secondItem="Ual-IZ-V17" secondAttribute="trailing" constant="158" id="f0P-cb-J76"/>
-                                                <constraint firstItem="Ual-IZ-V17" firstAttribute="centerY" secondItem="iaH-oj-Nz6" secondAttribute="centerY" id="jxX-dN-CLa"/>
+                                                <constraint firstItem="6OG-f5-ShA" firstAttribute="centerX" secondItem="w1I-L1-ftb" secondAttribute="centerX" id="qPn-m5-SMa"/>
+                                                <constraint firstItem="w1I-L1-ftb" firstAttribute="centerY" secondItem="Ual-IZ-V17" secondAttribute="centerY" id="vZK-Vr-PeA"/>
+                                                <constraint firstItem="6OG-f5-ShA" firstAttribute="height" secondItem="w1I-L1-ftb" secondAttribute="height" id="yYc-VE-o9f"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -224,7 +232,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="vz8-hX-VwH" id="Tdh-T6-pTy"/>
                         <outlet property="genderTextField" destination="niQ-6i-hDB" id="gGW-vN-Fes"/>
-                        <outlet property="submitButton" destination="iaH-oj-Nz6" id="a0m-Mv-Qmm"/>
+                        <outlet property="submitButton" destination="6OG-f5-ShA" id="XJv-c1-Sfs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIp-5g-FOA" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -25,6 +25,8 @@ class TripCompletedController:UIViewController{
     var endLocationString:String!
     var descriptionString: String!
     var tripId:Int!
+    var startState:String!
+    var endState:String!
     lazy var wechatButton : UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "wechatIcon"), for: .normal)
@@ -193,20 +195,28 @@ class TripCompletedController:UIViewController{
     }
     func shareToWechat(){
         let title: String = "CarryonEx 帮你把思念带回家"
-        let msg: String = "关注[游箱]网站获取更多活动信息： https://www.carryonex.com/"
-        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: nil)
+        let msg: String = ""
+        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: "https://www.carryonex.com/")
+        
     }
     
     func shareToMonent(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
-        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: "CarryonEx_OnBoarding-02-1.png", webUrl: nil)
+        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: "https://www.carryonex.com/")
     }
     
     func shareToWeibo(){
-        let title: String = "CarryonEx 帮你把思念带回家"
-        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
-        prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), type: SSDKPlatformType.typeSinaWeibo)
+        if let youxiangId = youxiangLabel.text,let beginLocation = startState,let endLocation = endState,let dateTime = dateString {
+            let startIndex = dateTime.index(dateString.startIndex, offsetBy: 5)
+            let EndIndex = dateTime.index(dateString.startIndex, offsetBy: 10)
+            let monthAnddayString = dateTime[startIndex...EndIndex]
+            let title = ""
+            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"),url:"https://www.carryonex.com/" , type: SSDKPlatformType.typeSinaWeibo)
+        }else{
+            print("信息不完整")
+        }
     }
     
     func shareToFacebook(){
@@ -214,19 +224,26 @@ class TripCompletedController:UIViewController{
         if let token = FBSDKAccessToken.current() {
             print("\n\rget FBSDKAccessToken: \(token)")
         }
-        let title: String = "CarryonEx 帮你把思念带回家"
-        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
-        let url = URL(string: "https://www.carryonex.com/download/")
-        //let url = URL(string: "http://www.xingyu-gu.com")
-        let imgUrl = URL(string: "https://static.wixstatic.com/media/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png/v1/fill/w_161,h_66,al_c,usm_0.66_1.00_0.01/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png")
-        
-        let content = LinkShareContent(url: url!, title: title, description: "description!!!", quote: msg, imageURL: imgUrl) //FBSDKShareLinkContent()
-        do {
-            try ShareDialog.show(from: self, content: content)
-        } catch let err {
-            print(err)
-            let msg = "分享好像没发出去，错误信息：\(err)"
-            self.displayAlert(title: "哎呀分享失败啦", message: msg, action: "换个姿势再来一次")
+        if let youxiangId = youxiangLabel.text,let beginLocation = startState,let endLocation = endState,let dateTime = dateString {
+            let startIndex = dateTime.index(dateString.startIndex, offsetBy: 5)
+            let EndIndex = dateTime.index(dateString.startIndex, offsetBy: 10)
+            let monthAnddayString = dateTime[startIndex...EndIndex]
+            let title: String = ""
+            let msg: String = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            let url = URL(string: "https://www.carryonex.com")
+            //let url = URL(string: "http://www.xingyu-gu.com")
+            let imgUrl = URL(string: "https://static.wixstatic.com/media/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png/v1/fill/w_161,h_66,al_c,usm_0.66_1.00_0.01/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png")
+            
+            let content = LinkShareContent(url: url!, title: title, description: "description!!!", quote: msg, imageURL: imgUrl) //FBSDKShareLinkContent()
+            do {
+                try ShareDialog.show(from: self, content: content)
+            } catch let err {
+                print(err)
+                let msg = "分享好像没发出去，错误信息：\(err)"
+                self.displayAlert(title: "哎呀分享失败啦", message: msg, action: "换个姿势再来一次")
+            }
+        }else{
+            print("信息不完整")
         }
     }
     
@@ -255,10 +272,17 @@ class TripCompletedController:UIViewController{
             
         } else if webUrl != nil { // 2. share offical Website:
             let web =  WXWebpageObject()
-            web.webpageUrl = "https://www.carryonex.com/"
+            web.webpageUrl = webUrl
             message.mediaObject = web
-            message.title = "CarryonEx [游箱]帮你把思念带回家"
-            message.description = "关注[游箱]网站获取更多活动信息：https://www.carryonex.com/"
+            if let youxiangId = youxiangLabel.text,let beginLocation = startState,let endLocation = endState,let dateTime = dateString {
+                let startIndex = dateTime.index(dateString.startIndex, offsetBy: 5)
+                let EndIndex = dateTime.index(dateString.startIndex, offsetBy: 10)
+                let monthAnddayString = dateTime[startIndex...EndIndex]
+                message.title = "我的游箱号:\(youxiangId)"
+                message.description = "【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            }else{
+                print("信息不完整")
+            }
             message.setThumbImage(#imageLiteral(resourceName: "CarryonExIcon-29"))
             
             req.bText = false
@@ -272,14 +296,14 @@ class TripCompletedController:UIViewController{
         WXApi.send(req)
     }
     
-    private func prepareSharing(title: String, msg: String, img: UIImage, type: SSDKPlatformType) {
+    private func prepareSharing(title: String, msg: String, img: UIImage,url:String , type: SSDKPlatformType) {
         
         // 1.创建分享参数
         let shareParames = NSMutableDictionary()
         shareParames.ssdkSetupShareParams(
             byText: msg,
             images : img, //UIImage(named: "shareImg.png"),
-            url : NSURL(string:"http://mob.com") as URL!,
+            url : NSURL(string:url) as URL!,
             title : title,
             type : SSDKContentType.image)
         //2.进行分享

@@ -27,7 +27,23 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         setupNavigationBar()
         setupActivityIndicator()
         addWeChatObservers()
+        setupTextField()
     }
+    
+    private func setupTextField(){
+        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        doneToolbar.items = [flexSpace,done]
+        doneToolbar.sizeToFit()
+        self.nameTextField.inputAccessoryView = doneToolbar
+    }
+    
+    @objc private func doneButtonAction(){
+        nameTextField.resignFirstResponder()
+    }
+    
     fileprivate func addWeChatObservers() {
         /**  微信通知  */
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.changeHeadImg, object: nil, queue: nil) { [weak self] notification in
