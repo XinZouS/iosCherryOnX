@@ -22,6 +22,7 @@ class PersonalTable: UITableViewController,UIPickerViewDelegate,UIPickerViewData
         self.genderPickerView.dataSource = self
         setupTextField()
         self.tableView.tableFooterView = UIView()
+        self.tableView.allowsSelection = false
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
