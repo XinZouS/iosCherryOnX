@@ -13,7 +13,7 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let titles = ["消息设置","定位权限","账号信息","服务条款","版本","退出"]
+    let titles = ["消息设置","定位权限","账号信息","服务条款","Version 1.0","退出"]
     
     
     override func viewDidLoad() {
@@ -45,10 +45,9 @@ extension SettingsViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell {
             cell.titleLabel.text = titles[indexPath.row]
             if indexPath.row == 4 {
-                cell.detailLabel.text = "TODO: API for version"
-            } else {
                 cell.detailLabel.isHidden = true
             }
+            cell.selectionStyle = .none
             return cell
         }
         return UITableViewCell()
@@ -72,17 +71,17 @@ extension SettingsViewController: UITableViewDelegate {
             print("TODO: selection 账号信息")
             
         case 3:
-            // TODO:
-            print("TODO: selection 服务条款")
+            let url = "\(userGuideWebHoster)/doc_license"
+            let webCtl = WebController()
+            webCtl.url = URL(string: url) ?? URL(string: "https://www.carryonex.com/")
+            navigationController?.pushViewController(webCtl, animated: true)
+            webCtl.title = "服务条款"
             
         case 4:
-            // TODO:
-            print("TODO: selection 版本: API for version")
+            print("版本 info, do nothing;")
             
         case 5:
             ProfileManager.shared.logoutUser()
-            // TODO: after homepage done, get reference and do this:
-            //userProfileView?.removeProfileImageFromLocalFile()
             navigationController?.popToRootViewController(animated: false)
             
         default:
