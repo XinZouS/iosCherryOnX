@@ -17,7 +17,7 @@ class PersonalTable: UITableViewController,UIPickerViewDelegate,UIPickerViewData
     var pickerData: [String] = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerData = ["男", "女", "其他"]
+        pickerData = ["未知","男", "女", "其他"]
         self.genderPickerView.delegate = self
         self.genderPickerView.dataSource = self
         setupTextField()

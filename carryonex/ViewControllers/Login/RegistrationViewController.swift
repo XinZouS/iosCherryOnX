@@ -67,17 +67,20 @@ class RegistrationViewController: UIViewController {
             AudioManager.shared.playSond(named: .failed)
             return 
         }
-        registerUser(name: userName, password: password)
+        
+        guard let phone = registerUserInfo?["phone"], let countryCode = registerUserInfo?["countryCode"] else {
+            AudioManager.shared.playSond(named: .failed)
+            return
+        }
+        registerUser(name: userName, password: password, phone: phone, countryCode: countryCode)
     }
     
-    private func registerUser(name: String, password: String){
-        guard let info = registerUserInfo else { return }
-        
-        ProfileManager.shared.register(username:    name,
-                                       countryCode: info["countryCode"] ?? "",
-                                       phone:       info["phone"] ?? "",
-                                       password:    password,
-                                       name:        name,
+    private func registerUser(name: String, password: String, phone: String, countryCode: String){
+        ProfileManager.shared.register(username: phone,
+                                       countryCode: countryCode,
+                                       phone: phone,
+                                       password: password,
+                                       name: name,
                                        completion: { (success, err, errType) in
                                         
                                         if success {
@@ -93,7 +96,6 @@ class RegistrationViewController: UIViewController {
                                                 }
                                             })
                                         }
-                                        
         })
         
     }

@@ -191,11 +191,11 @@
 		CF3CC2801FC210810098A4C9 /* AddTripComplete.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */; };
 		CFA277BC1FC1411D0008FC63 /* Request.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA277BB1FC1411D0008FC63 /* Request.storyboard */; };
 		CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */; };
+		E520F2411FCCB559002CED50 /* HomeProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520F2401FCCB559002CED50 /* HomeProfileInfo.swift */; };
 		E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5267D141FB63524003ADF14 /* Registration.storyboard */; };
 		E52FFBAA1FAA2C4800E79CDF /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */; };
 		E53791E41FAB731E009647CD /* Notifications++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E31FAB731E009647CD /* Notifications++.swift */; };
 		E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */; };
-		E542F2591FB3B3790072BB31 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542F2581FB3B3790072BB31 /* CategoryItem.swift */; };
 		E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25B1FB4B49E0072BB31 /* Main.storyboard */; };
 		E542F25E1FB4B5220072BB31 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25D1FB4B5220072BB31 /* Home.storyboard */; };
 		E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F2681FB4B7930072BB31 /* Sender.storyboard */; };
@@ -206,6 +206,14 @@
 		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E542F2761FB6057E0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E542F2781FB6058D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB011FCC6B5A00B87608 /* STBalance.swift */; };
+		E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */; };
+		E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB051FCC6B8C00B87608 /* STPayout.swift */; };
+		E567BB081FCC6B9A00B87608 /* STRefund.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB071FCC6B9A00B87608 /* STRefund.swift */; };
+		E567BB0C1FCC6D3600B87608 /* STDispute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB0B1FCC6D3600B87608 /* STDispute.swift */; };
+		E567BB0E1FCC6D4E00B87608 /* STCharge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB0D1FCC6D4E00B87608 /* STCharge.swift */; };
+		E567BB101FCC6D5F00B87608 /* STBankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB0F1FCC6D5F00B87608 /* STBankAccount.swift */; };
+		E567BB121FCC6DA600B87608 /* STSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB111FCC6DA600B87608 /* STSource.swift */; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
@@ -465,17 +473,25 @@
 		CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddTripComplete.storyboard; sourceTree = "<group>"; };
 		CFA277BB1FC1411D0008FC63 /* Request.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Request.storyboard; sourceTree = "<group>"; };
 		CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalPage.storyboard; sourceTree = "<group>"; };
+		E520F2401FCCB559002CED50 /* HomeProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileInfo.swift; sourceTree = "<group>"; };
 		E5267D141FB63524003ADF14 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
 		E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		E53791E31FAB731E009647CD /* Notifications++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications++.swift"; sourceTree = "<group>"; };
 		E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
-		E542F2581FB3B3790072BB31 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		E542F25B1FB4B49E0072BB31 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E542F25D1FB4B5220072BB31 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		E542F2681FB4B7930072BB31 /* Sender.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sender.storyboard; sourceTree = "<group>"; };
 		E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Carrier.storyboard; sourceTree = "<group>"; };
 		E542F26C1FB4B7B40072BB31 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		E542F26E1FB4B7C00072BB31 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
+		E567BB011FCC6B5A00B87608 /* STBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBalance.swift; sourceTree = "<group>"; };
+		E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBalanceTransaction.swift; sourceTree = "<group>"; };
+		E567BB051FCC6B8C00B87608 /* STPayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STPayout.swift; sourceTree = "<group>"; };
+		E567BB071FCC6B9A00B87608 /* STRefund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STRefund.swift; sourceTree = "<group>"; };
+		E567BB0B1FCC6D3600B87608 /* STDispute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDispute.swift; sourceTree = "<group>"; };
+		E567BB0D1FCC6D4E00B87608 /* STCharge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCharge.swift; sourceTree = "<group>"; };
+		E567BB0F1FCC6D5F00B87608 /* STBankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STBankAccount.swift; sourceTree = "<group>"; };
+		E567BB111FCC6DA600B87608 /* STSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSource.swift; sourceTree = "<group>"; };
 		E5791E531FABC60E006B4F68 /* UserDefaults++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults++.swift"; sourceTree = "<group>"; };
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -750,7 +766,6 @@
 				E597D94D1F9FD32900B98CAB /* Config.swift */,
 				4D002EE21FA843E300F77553 /* TripOrder.swift */,
 				66E520531F4CAA19008E521D /* Request.swift */,
-				E542F2581FB3B3790072BB31 /* CategoryItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1312,11 +1327,28 @@
 		E542F2701FB4DD650072BB31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E567BB001FCC6B3500B87608 /* Stripe */,
 				4DE6BDE11FBABB9800900DF8 /* TripRequest.swift */,
 				066F82491FBF6CE800269934 /* Comment.swift */,
 				066F824B1FBF826000269934 /* UserComments.swift */,
+				E520F2401FCCB559002CED50 /* HomeProfileInfo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E567BB001FCC6B3500B87608 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				E567BB011FCC6B5A00B87608 /* STBalance.swift */,
+				E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */,
+				E567BB0F1FCC6D5F00B87608 /* STBankAccount.swift */,
+				E567BB0D1FCC6D4E00B87608 /* STCharge.swift */,
+				E567BB0B1FCC6D3600B87608 /* STDispute.swift */,
+				E567BB051FCC6B8C00B87608 /* STPayout.swift */,
+				E567BB071FCC6B9A00B87608 /* STRefund.swift */,
+				E567BB111FCC6DA600B87608 /* STSource.swift */,
+			);
+			path = Stripe;
 			sourceTree = "<group>";
 		};
 		E58FDC991FA5A202000C126E /* Managers */ = {
@@ -1695,7 +1727,6 @@
 				66E6501F1F5F85B800DA90DE /* OrderLogShipperCell.swift in Sources */,
 				FF66FE291FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift in Sources */,
 				660F4F701F570D9B00F4820D /* AddressDetailCell.swift in Sources */,
-				E542F2591FB3B3790072BB31 /* CategoryItem.swift in Sources */,
 				6633DC911F5DA63800B2FFAC /* OrdersLogController.swift in Sources */,
 				FF4896F31F9929F0009B3EE5 /* DetailPriceCell.swift in Sources */,
 				660460581F506D6600E5DC4C /* SendingTimeController++.swift in Sources */,
@@ -1704,6 +1735,7 @@
 				663F1C961F44DBD000E866C2 /* HomePageTableCell.swift in Sources */,
 				FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */,
 				6681310F1F940F250022AEED /* UserSettingController.swift in Sources */,
+				E567BB101FCC6D5F00B87608 /* STBankAccount.swift in Sources */,
 				663121E51F5232FD000F7ACB /* ShipperAvailableCell.swift in Sources */,
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
@@ -1761,6 +1793,7 @@
 				6686097D1F609B6900740A92 /* WalletBaseCell++.swift in Sources */,
 				66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */,
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
+				E567BB0E1FCC6D4E00B87608 /* STCharge.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				66F065C31FC88D280072A42D /* UIImage++.swift in Sources */,
@@ -1781,12 +1814,14 @@
 				668609691F604FCF00740A92 /* WalletController.swift in Sources */,
 				66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */,
 				667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */,
+				E567BB0C1FCC6D3600B87608 /* STDispute.swift in Sources */,
 				0675136E1FC26AD2002ABF2E /* WalletManager.swift in Sources */,
 				661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */,
 				6686096F1F60703800740A92 /* Transaction.swift in Sources */,
 				6602526E1FC48BB300277617 /* ShipperInfoViewController.swift in Sources */,
 				668609751F60779500740A92 /* WalletCreditCell.swift in Sources */,
 				FF45CE241FA8D0CB00B59E88 /* CommentTagCell.swift in Sources */,
+				E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */,
 				66A16AF41F3B56B500B32AD3 /* User.swift in Sources */,
 				66A16AFA1F3B704A00B32AD3 /* HomePageController++.swift in Sources */,
 				660460561F4F6B7500E5DC4C /* SendingTimeController.swift in Sources */,
@@ -1797,6 +1832,7 @@
 				4DC23FA11FC66E69002181B5 /* RequestTransactionButton.swift in Sources */,
 				FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */,
 				6657E94B1F435BEF00755443 /* PhotoIDController.swift in Sources */,
+				E567BB081FCC6B9A00B87608 /* STRefund.swift in Sources */,
 				663121E71F534B17000F7ACB /* PaymentController.swift in Sources */,
 				FF6224631FB0F9CD00280FDA /* DetailUserNameCell++.swift in Sources */,
 				FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */,
@@ -1834,6 +1870,7 @@
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
+				E520F2411FCCB559002CED50 /* HomeProfileInfo.swift in Sources */,
 				660F4F721F570DC200F4820D /* ZipcodeAndNameCell.swift in Sources */,
 				FF4896EF1F992381009B3EE5 /* DetailGetLocationCell.swift in Sources */,
 				660704E21F3CDDC5000C09FD /* SlideMenuLeftCell.swift in Sources */,
@@ -1851,6 +1888,7 @@
 				FF7ECEE01FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift in Sources */,
 				667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */,
 				66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */,
+				E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */,
 				664C64911F55C22C00AA8FFE /* Address.swift in Sources */,
 				FF48C3221F968B8D0030BD94 /* OrderDetailPage.swift in Sources */,
 				6604605A1F507C6300E5DC4C /* SendingTimeTableViewCell.swift in Sources */,
@@ -1869,6 +1907,7 @@
 				660F4F811F57559400F4820D /* ButtonCell.swift in Sources */,
 				6681310D1F93EE070022AEED /* UserInfoMenuView++.swift in Sources */,
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
+				E567BB121FCC6DA600B87608 /* STSource.swift in Sources */,
 				4DE6BDDA1FBA7FB100900DF8 /* UserRecentInfoController.swift in Sources */,
 				668131131F9413F70022AEED /* UserSettingCell.swift in Sources */,
 				FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */,
@@ -1890,6 +1929,7 @@
 				667E8F911FA78C03007B1C51 /* SilenceCarouselView.swift in Sources */,
 				E597D94E1F9FD32900B98CAB /* Config.swift in Sources */,
 				06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */,
+				E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */,
 				FFCB0F1D1FA79FC100180BDB /* OrderCommentPage.swift in Sources */,
 				66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */,
 				660F4F7F1F57227E00F4820D /* PostBaseCell++.swift in Sources */,

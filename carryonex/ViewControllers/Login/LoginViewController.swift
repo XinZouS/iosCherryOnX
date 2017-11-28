@@ -239,7 +239,7 @@ extension LoginViewController: UITextFieldDelegate {
                                 ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
                                     if success {
                                         //if update success close
-                                        self?.dismiss(animated: true, completion: nil)
+                                        AppDelegate.shared().mainTabViewController?.dismissLogin()
                                     } else {
                                         debugPrint("Wechat registration update user info failed at user exists")
                                     }

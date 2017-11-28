@@ -41,7 +41,7 @@ class PersonalPageViewController: UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView() // remove empty rows;
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
