@@ -24,9 +24,9 @@ class PersonalPageViewController: UIViewController{
     var loginViewController = LoginViewController()
     @IBOutlet weak var tableView: UITableView!
     
-    let titles = ["钱包","帮助","设置"]
-    let subTitles = ["收付款，查看余额，提现", "", ""]
-    let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray")]
+    let titles = ["钱包","帮助","设置", "锁定游箱"]
+    let subTitles = ["收付款，查看余额，提现", "", "", ""]
+    let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]
     let cellId = "PersonalPageTableCell"
 
     override func viewDidLoad() {
@@ -118,6 +118,9 @@ extension PersonalPageViewController: UITableViewDelegate {
 
         case 2:
             performSegue(withIdentifier: "pushSettingPageSegue", sender: self)
+            
+        case 3:
+            print("TODO: add youxiang locker page")
             
         default:
             print("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")
