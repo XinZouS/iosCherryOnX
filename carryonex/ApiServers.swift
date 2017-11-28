@@ -967,6 +967,46 @@ class ApiServers : NSObject {
         }
     }
     
+    /// Completion: (success, msg, ["a":0.1,"b":500]), price = a * x + b
+    func getRequestPrice(completion: @escaping (Bool, String?, [String:Double]?) -> Void){
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            let m = "Profile user empty, pleaes login to post request info"
+            print("getRequestPrice: \(m)")
+            completion(false, m, nil)
+            return
+        }
+        
+        let route = hostVersion + "/admin/price"
+        
+        let params : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue : profileUser.token ?? "",
+            ServerKey.username.rawValue : profileUser.username ?? "",
+            ServerKey.timestamp.rawValue : Date.getTimestampNow(),
+        ]
+        
+        getDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    completion(false, error.localizedDescription, nil)
+                    print("getUserComments response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            guard let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 else {
+                completion(false, error?.localizedDescription, nil)
+                return
+            }
+            guard let data = response[ServerKey.data.rawValue] as? [String: Double] else {
+                completion(false, "Unable to wrap data from server.", nil)
+                return
+            }
+            completion(true, "", data)
+        }
+
+
+    }
+    
     
     //MARK: - Comments
     func postComment(comment: String,

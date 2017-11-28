@@ -66,6 +66,15 @@ class SenderDetailViewController: UIViewController {
         handleSubmissionButton()
     }
     
+    enum PriceFunctionType: Int {
+        case linear = 0
+        case exponential = 1
+        case logarithmic = 2
+    }
+    var priceParamA: Double = 1
+    var priceParamB: Double = 1
+    
+
     
     // MARK: - model properties
     
@@ -131,6 +140,7 @@ class SenderDetailViewController: UIViewController {
         setupTextFields()
         setupActivityIndicator()
         setupSlider()
+        getPriceFunctionFromServer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -226,7 +236,43 @@ class SenderDetailViewController: UIViewController {
         }
         
     }
-
+    
+    
+    private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
+        ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
+            let tt = "⚠️服务器数据错误"
+            guard success else {
+                let m = "获取价格参数失败，错误信息：\(msg ?? " 通信错误"), 请再试一次，对此给您带来的不便请谅解。"
+                self.displayGlobalAlert(title: tt, message: m, action: "好，朕知道了", completion: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+                return
+            }
+            if let dic = dictionary {
+                if let a = dic["a"] {
+                    self.priceParamA = a
+                }
+                if let b = dic["b"] {
+                    self.priceParamB = b
+                }
+            }
+        }
+    }
+    
+    fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
+        switch type {
+        case .linear:
+            return priceValue * priceParamA + priceParamB
+        case .logarithmic:
+            print("TODO: logarithmic func for price")
+            return 10
+        case .exponential:
+            print("TODO: exponential func for price")
+            return 10
+        default:
+            return priceValue * priceParamA + priceParamB
+        }
+    }
 
 
     @objc fileprivate func handleSubmissionButton() {
@@ -510,11 +556,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     public func textFieldDidChange(_ textField: UITextField){
         updateSubmitButtonStatus()
-        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text {
-            let d = Double(v) ?? 5.0
-            priceValue = d
-            updatePriceContentsFor(newPrice: d)
-        }
+        preparePriceIn(textField)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -526,9 +568,29 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == textFieldTag.price.rawValue, (priceValueTextField.text == nil || priceValueTextField.text == "") {
-            priceValueTextFieldLeftConstraint.constant = 0
-            animateUIifNeeded()
+        if textField.tag == textFieldTag.price.rawValue {
+            if (priceValueTextField.text == nil || priceValueTextField.text == "") {
+                priceValueTextFieldLeftConstraint.constant = 0
+                animateUIifNeeded()
+            } else {
+                preparePriceIn(textField)
+            }
+        }
+        
+    }
+    
+    fileprivate func preparePriceIn(_ textField: UITextField){
+        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text {
+            guard let d = Double(v) else {
+                let m = "物品价值只能输入数字和至多1个小数点哦，请确保您的输入不包含空格或其他字符。"
+                displayGlobalAlert(title: "💡请调整定价输入", message: m, action: "好，再试一次", completion: {
+                    self.priceValueTextField.text = ""
+                    self.priceValueTextField.becomeFirstResponder()
+                })
+                return
+            }
+            priceValue = d
+            updatePriceContentsFor(newPrice: d)
         }
     }
     
@@ -536,7 +598,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
         priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
         let r: Double = 0.1 // set price as [$5, 10% offerPrice]
         let pMin: Double = 5
-        let pMax: Double = (newPrice < 5.0 || newPrice * r < 5.0) ? 10.0 : newPrice * r
+        let pMax: Double = (newPrice < 5.0 || newPrice * r < 5.0) ? 10.0 : calculatePrice(type: .linear)
         let pMid: Double = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
         priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", pMid)
