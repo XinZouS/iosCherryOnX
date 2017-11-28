@@ -652,7 +652,10 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func keyboardDismiss(){
+        nameTextField.resignFirstResponder()
+        phoneTextField.resignFirstResponder()
         addressTextField.resignFirstResponder()
+        messageTextView.resignFirstResponder()
         priceValueTextField.resignFirstResponder()
     }
 
