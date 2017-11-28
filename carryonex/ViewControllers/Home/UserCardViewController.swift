@@ -22,9 +22,13 @@ class UserCardViewController: UIViewController {
     var viewTag:Int = 0
 
     var listType: TripCategory = .carrier
+
+    
     override func viewDidLoad() {
-        addUserUpdateNotificationObservers()
+        super.viewDidLoad()
+        addNotificationObservers()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         switch viewTag{
         case 0:
@@ -56,7 +60,6 @@ class UserCardViewController: UIViewController {
             }
         }
     }
-                
 
     var profileInfo: HomeProfileInfo? {
         didSet {
@@ -67,11 +70,6 @@ class UserCardViewController: UIViewController {
                 setupSenderCardView()
             }
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addNotificationObservers()
     }
     
     private func setupShipperCardView(){

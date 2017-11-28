@@ -309,5 +309,11 @@ class TripCompletedController:UIViewController{
     func sharerDidCancel(_ sharer: FBSDKSharing!) {
         print("sharerDidCancel....")
     }
+    
+    @IBAction func gobackToFirstPageButtonTapped(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
 }
 

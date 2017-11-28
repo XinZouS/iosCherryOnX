@@ -66,20 +66,17 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupcomfirmTripButton()
-        let path = Bundle.main.path(forResource: "address", ofType:"plist")
-        self.addressArray = NSArray(contentsOfFile: path!) as! Array
-        setUpPicker()
-        self.addDoneButtonOnKeyboard()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         setupNavigationBar()
+        setupcomfirmTripButton()
+        setUpPicker()
+        addDoneButtonOnKeyboard()
     }
     
     private func setupNavigationBar(){
         title = "出行"
-        UIApplication.shared.statusBarStyle = .default
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        //UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.isNavigationBarHidden = false
@@ -87,7 +84,15 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func addDoneButtonOnKeyboard(){
+    private func setUpPicker(){
+        let path = Bundle.main.path(forResource: "address", ofType:"plist")
+        self.addressArray = NSArray(contentsOfFile: path!) as! Array
+        areaPickerMenu = UIPickerMenuView(frame: .zero)
+        areaPickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: pickerView, leftBtn: areaPickerCancelButton, rightBtn: areaMenuOKButton)
+        view.addSubview(areaPickerMenu!)
+    }
+
+    private func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
             doneToolbar.barStyle = UIBarStyle.blackTranslucent
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
@@ -178,11 +183,6 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
         }
         textFieldsInAllCellResignFirstResponder()
         areaPickerMenu?.dismissAnimation()
-    }
-    func setUpPicker(){
-        areaPickerMenu = UIPickerMenuView(frame: .zero)
-        areaPickerMenu?.setupMenuWith(hostView: self.view, targetPickerView: pickerView, leftBtn: areaPickerCancelButton, rightBtn: areaMenuOKButton)
-        view.addSubview(areaPickerMenu!)
     }
     private func setupcomfirmTripButton(){
         confirmTripButton.isEnabled = false
