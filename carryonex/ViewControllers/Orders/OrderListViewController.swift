@@ -182,11 +182,6 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == TripCategory.carrier.rawValue {
-            if indexPath.section == 0 {
-                guard let cell  = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListLockerCell", for: indexPath) as? OrderListLockerCell else { return UITableViewCell() }
-                cell.selectionStyle = .none
-                return cell
-            }
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             let tripOrder = dataSourceCarrier[indexPath.section]
@@ -218,7 +213,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            return self.dataSourceCarrier.count + 1 // for locker cell
+            return self.dataSourceCarrier.count
         } else {
             return self.dataSourceSender.count
         }
@@ -226,12 +221,8 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            if section == 0 {
-                return 1 // for locker cell
-            } else {
-                let tripOrder = dataSourceCarrier[section - 1]
-                return tripOrder.requests?.count ?? 0
-            }
+            let tripOrder = dataSourceCarrier[section]
+            return tripOrder.requests?.count ?? 0
         } else {
             let tripOrder = dataSourceSender[section]
             return tripOrder.requests?.count ?? 0
@@ -239,26 +230,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
-            return // for locker cell
-        }
-        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
-        let currentPage = dataSource.count
-        guard let currentItem = dataSource[currentPage - 1].requests?.count,
-            !isFetching else {
-            return
-        }
         
-        let section = indexPath.section
-        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
-            fetchRequests()
-        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
-            return 50 // for locker cell
-        }
         if selectedIndexPath == indexPath {
             return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
         }
@@ -266,9 +241,6 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.tag == TripCategory.carrier.rawValue, indexPath.section == 0 {
-            return // for locker cell
-        }
         if selectedIndexPath != indexPath {
             selectedIndexPath = indexPath
         } else {
@@ -296,6 +268,8 @@ extension OrderListViewController: UIScrollViewDelegate {
                 animateImageForTableScrolling()
             }
         }
+        
+        
     }
     
     fileprivate func animateImageForTableScrolling(){
@@ -303,6 +277,19 @@ extension OrderListViewController: UIScrollViewDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+//    fileprivate func fetch(){ // for pull up to refresh
+//        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
+//        let currentPage = dataSource.count
+//        guard let currentItem = dataSource[currentPage - 1].requests?.count, !isFetching else {
+//                return
+//        }
+//        
+//        let section = indexPath.section
+//        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
+//            fetchRequests()
+//        }
+//    }
 }
 
 extension OrderListViewController: OrderListCellDelegate {
