@@ -194,6 +194,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 return UITableViewCell()
             }
+            
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
@@ -229,17 +230,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
-        let currentPage = dataSource.count
-        guard let currentItem = dataSource[currentPage - 1].requests?.count,
-            !isFetching else {
-            return
-        }
         
-        let section = indexPath.section
-        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
-            fetchRequests()
-        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -277,6 +268,8 @@ extension OrderListViewController: UIScrollViewDelegate {
                 animateImageForTableScrolling()
             }
         }
+        
+        
     }
     
     fileprivate func animateImageForTableScrolling(){
@@ -284,6 +277,19 @@ extension OrderListViewController: UIScrollViewDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+//    fileprivate func fetch(){ // for pull up to refresh
+//        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
+//        let currentPage = dataSource.count
+//        guard let currentItem = dataSource[currentPage - 1].requests?.count, !isFetching else {
+//                return
+//        }
+//        
+//        let section = indexPath.section
+//        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
+//            fetchRequests()
+//        }
+//    }
 }
 
 extension OrderListViewController: OrderListCellDelegate {
