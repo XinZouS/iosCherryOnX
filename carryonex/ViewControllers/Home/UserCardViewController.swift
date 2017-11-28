@@ -48,14 +48,19 @@ class UserCardViewController: UIViewController {
                 return
             }
             
-            if let tripOrders = tripOrders, tripOrders.count > 0 {
-                if let startCountry = tripOrders[0].trip.startAddress?.country?.rawValue,let startState = tripOrders[0].trip.startAddress?.state,let startCity = tripOrders[0].trip.startAddress?.city,let endCountry = tripOrders[0].trip.endAddress?.country?.rawValue,let endState = tripOrders[0].trip.endAddress?.state,let endCity = tripOrders[0].trip.endAddress?.city{
-                    self.beginLocationLabel.text = startCountry+" "+startState+" "+startCity
-                    self.endLocationLabel.text = endCountry+" "+endState+" "+endCity
+            if let tripOrders = tripOrders {
+                if tripOrders.count == 0{
+                    print("There is no trip")
+                }else{
+                    if let startCountry = tripOrders[0].trip.startAddress?.country?.rawValue,let startState = tripOrders[0].trip.startAddress?.state,let startCity = tripOrders[0].trip.startAddress?.city,let endCountry = tripOrders[0].trip.endAddress?.country?.rawValue,let endState = tripOrders[0].trip.endAddress?.state,let endCity = tripOrders[0].trip.endAddress?.city{
+                        self.beginLocationLabel.text = startCountry+" "+startState+" "+startCity
+                        self.endLocationLabel.text = endCountry+" "+endState+" "+endCity
+                    }
                 }
             }
         }
     }
+
     var profileInfo: HomeProfileInfo? {
         didSet {
             switch viewTag{
