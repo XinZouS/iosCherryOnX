@@ -59,13 +59,10 @@ class OrderListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        dataSourceCarrier.removeAll()
-        dataSourceSender.removeAll()
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -109,17 +106,17 @@ class OrderListViewController: UIViewController {
     }
     
     @IBAction func listButtonShiperTapped(_ sender: Any) {
-        animateListMoveRight()
-    }
-    
-    @IBAction func listButtonSenderTapped(_ sender: Any) {
         animateListMoveLeft()
     }
     
+    @IBAction func listButtonSenderTapped(_ sender: Any) {
+        animateListMoveRight()
+    }
+    
     private func animateListMoveRight(){
-        if tableViewLeftConstraint.constant < 0 {
-            tableViewLeftConstraint.constant = 0
-            sliderBarCenterConstraint.constant = 0
+        if tableViewLeftConstraint.constant == 0 {
+            tableViewLeftConstraint.constant = -(self.view.bounds.width)
+            sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
             listType = .sender
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
@@ -128,9 +125,9 @@ class OrderListViewController: UIViewController {
     }
     
     private func animateListMoveLeft(){
-        if tableViewLeftConstraint.constant == 0 {
-            tableViewLeftConstraint.constant = -(self.view.bounds.width)
-            sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
+        if tableViewLeftConstraint.constant < 0 {
+            tableViewLeftConstraint.constant = 0
+            sliderBarCenterConstraint.constant = 0
             listType = .carrier
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
@@ -284,9 +281,11 @@ extension OrderListViewController: UIScrollViewDelegate {
             }
         }
         
+        print("scroll y: \(scrollView.contentOffset.y), scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
+        
         //Fetching
         if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
-            self.fetchRequests()
+            //self.fetchRequests()
         }
     }
     
