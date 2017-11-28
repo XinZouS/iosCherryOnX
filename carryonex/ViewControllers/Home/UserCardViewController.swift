@@ -45,14 +45,13 @@ class UserCardViewController: UIViewController {
             
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let tripOrders = tripOrders else {
-                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
-                self.displayGlobalAlert(title: "⚠️获取失败", message: m, action: "好，朕再等等", completion: {
+                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。\(error.localizedDescription)"
+                self.displayGlobalAlert(title: "⚠️连接失败", message: m, action: "好，朕再等等", completion: {
                     self.navigationController?.popToRootViewController(animated: true)
                 })
+                return
+            }
+            guard let tripOrders = tripOrders else {
                 return
             }
             if tripOrders.count == 0{

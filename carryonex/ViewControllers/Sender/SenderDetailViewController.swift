@@ -59,8 +59,8 @@ class SenderDetailViewController: UIViewController {
     }
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
-        priceFinal = Double(priceSlider.value)
-        
+        priceValueTextField.resignFirstResponder()
+        priceFinal = Double(priceSlider.value)        
         let pc = (priceFinal - priceMiddl) * 100.0 / priceMiddl
         let lv = pc < 0 ? "低于" : "高于"
         priceFinalHintLabel.text = lv + "标准价\(Int(pc))%"
@@ -357,6 +357,10 @@ class SenderDetailViewController: UIViewController {
                                                 print("Post request success!")
                                                 self.isLoading = false
                                                 self.removeAllImageFromLocal()
+                                                let m = "您已成功发送寄件，请随时关注订单状态。"
+                                                self.displayGlobalAlert(title: "🎉发布成功", message: m, action: "好，回主页", completion: {
+                                                    self.navigationController?.popToRootViewController(animated: true)
+                                                })
                 })
 
             } else {
