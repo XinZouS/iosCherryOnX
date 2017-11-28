@@ -249,7 +249,7 @@
                                             <constraint firstAttribute="height" constant="40" id="Mgt-rv-qqq"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="新建出行信息">
+                                        <state key="normal" title="确认出行信息">
                                             <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>

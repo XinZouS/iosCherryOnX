@@ -121,6 +121,8 @@ class TripController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
                 destVC.endLocationString = endLocation.text
                 destVC.dateString = timeTextField.text
                 destVC.descriptionString = otherTextField.text
+                destVC.startState = startState
+                destVC.endState = endState
                 if let tripId = sender {
                     destVC.tripId = tripId as! Int
                 }

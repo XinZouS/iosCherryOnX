@@ -25,6 +25,8 @@ class TripCompletedController:UIViewController{
     var endLocationString:String!
     var descriptionString: String!
     var tripId:Int!
+    var startState:String!
+    var endState:String!
     lazy var wechatButton : UIButton = {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "wechatIcon"), for: .normal)
@@ -193,14 +195,15 @@ class TripCompletedController:UIViewController{
     }
     func shareToWechat(){
         let title: String = "CarryonEx 帮你把思念带回家"
-        let msg: String = "关注[游箱]网站获取更多活动信息： https://www.carryonex.com/"
-        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: nil)
+        let msg: String = ""
+        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: "https://www.carryonex.com/")
+        
     }
     
     func shareToMonent(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
-        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: "CarryonEx_OnBoarding-02-1.png", webUrl: nil)
+        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), imageFileName: nil, webUrl: "https://www.carryonex.com/")
     }
     
     func shareToWeibo(){
@@ -255,10 +258,17 @@ class TripCompletedController:UIViewController{
             
         } else if webUrl != nil { // 2. share offical Website:
             let web =  WXWebpageObject()
-            web.webpageUrl = "https://www.carryonex.com/"
+            web.webpageUrl = webUrl
             message.mediaObject = web
-            message.title = "CarryonEx [游箱]帮你把思念带回家"
-            message.description = "关注[游箱]网站获取更多活动信息：https://www.carryonex.com/"
+            if let youxiangId = youxiangLabel.text,let beginLocation = startState,let endLocation = endState,let dateTime = dateString {
+                let startIndex = dateTime.index(dateString.startIndex, offsetBy: 5)
+                let EndIndex = dateTime.index(dateString.startIndex, offsetBy: 10)
+                let monthAnddayString = dateTime[startIndex...EndIndex]
+                message.title = "我的游箱号:\(youxiangId)"
+                message.description = "【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            }else{
+                print("信息不完整")
+            }
             message.setThumbImage(#imageLiteral(resourceName: "CarryonExIcon-29"))
             
             req.bText = false
