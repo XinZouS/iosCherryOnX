@@ -141,12 +141,13 @@ class OrderListViewController: UIViewController {
 
     func fetchRequests() {
         
-        guard isFetching == false else { return }
+        guard !isFetching else { return }
+        
+        isFetching = true
         
         let offset = (listType == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
         let page = 4
         
-        isFetching = true
         ApiServers.shared.getUsersTrips(userType: listType, offset: offset, pageCount: page) { (tripOrders, error) in
             
             self.isFetching = false
@@ -166,16 +167,22 @@ class OrderListViewController: UIViewController {
             if let tripOrders = tripOrders {
                 if self.listType == .carrier {
                     self.dataSourceCarrier.append(contentsOf: tripOrders)
-                    //self.dataSource = self.dataSourceCarrier
                 } else {
                     self.dataSourceSender.append(contentsOf: tripOrders)
-                    //self.dataSource = self.dataSourceSender
                 }
             }
         }
     }
     
-    
+    func updateRequestAtIndexPath(indexPath: IndexPath, statusId: Int) {
+        if (listType == .carrier) {
+            dataSourceCarrier[indexPath.section].requests?[indexPath.row].request.statusId = statusId
+            self.tableViewShiper.reloadRows(at: [indexPath], with: .fade)
+        } else {
+            dataSourceSender[indexPath.section].requests?[indexPath.row].request.statusId = statusId
+            self.tableViewSender.reloadRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -229,10 +236,6 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPath == indexPath {
             return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
@@ -269,7 +272,10 @@ extension OrderListViewController: UIScrollViewDelegate {
             }
         }
         
-        
+        //Fetching
+        if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
+            self.fetchRequests()
+        }
     }
     
     fileprivate func animateImageForTableScrolling(){
@@ -277,28 +283,35 @@ extension OrderListViewController: UIScrollViewDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
-    
-//    fileprivate func fetch(){ // for pull up to refresh
-//        let dataSource = listType == .carrier ? dataSourceCarrier : dataSourceSender
-//        let currentPage = dataSource.count
-//        guard let currentItem = dataSource[currentPage - 1].requests?.count, !isFetching else {
-//                return
-//        }
-//        
-//        let section = indexPath.section
-//        if (section == currentPage - 1) && (indexPath.row == currentItem - 1) {
-//            fetchRequests()
-//        }
-//    }
 }
 
 extension OrderListViewController: OrderListCellDelegate {
     
     func orderCellButtonTapped(request: Request, category: TripCategory, transaction: RequestTransaction, indexPath: IndexPath) {
-        //let tableView = (category == .carrier) ? tableViewShiper : tableViewSender
+        
         print("Transaction tapped: \(transaction.displayString())")
+        
+        displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
+            if style == .default {
+                let tripOrder = self?.dataSourceCarrier[indexPath.section]
+                guard let trip = tripOrder?.trip else { return }
+                guard let requestId = request.id, let tripId = trip.id else { return }
+                ApiServers.shared.postRequestTransaction(requestId: requestId,
+                                                         tripId: tripId,
+                                                         transaction: transaction,
+                                                         completion: { (success, error, statusId) in
+                    if (success) {
+                        if let statusId = statusId {
+                            self?.updateRequestAtIndexPath(indexPath: indexPath, statusId: statusId)
+                            print("New status: \(statusId)")
+                        } else {
+                            debugPrint("No status found, bad call")
+                        }
+                    }
+                })
+            }
+        }
     }
-    
 }
 
 extension OrderListViewController: OrderListCarrierCellDelegate {

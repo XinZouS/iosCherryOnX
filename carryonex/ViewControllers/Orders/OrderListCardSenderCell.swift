@@ -23,7 +23,6 @@ class OrderListCardSenderCell: OrderListCardCell {
     @IBOutlet weak var dateDayLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
     
     // card expand

@@ -876,10 +876,10 @@ class ApiServers : NSObject {
         }
     }
 
-    func postShipperRequestTransaction(requestId: Int,
-                                       tripId: Int,
-                                       transaction: RequestTransaction,
-                                       completion: @escaping (Bool, Error?, Int?) -> Void) {
+    func postRequestTransaction(requestId: Int,
+                                tripId: Int,
+                                transaction: RequestTransaction,
+                                completion: @escaping (Bool, Error?, Int?) -> Void) {   //success, error, status code
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postRequest: Unable to find profile user")
@@ -928,7 +928,7 @@ class ApiServers : NSObject {
                         do {
                             let request: Request = try unbox(dictionary: data, atKey: "request")
                             request.printAllData()
-                            completion(true, nil, request.status?.id)
+                            completion(true, nil, request.statusId)
                             
                         } catch let error {
                             completion(false, error, nil)

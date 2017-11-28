@@ -19,7 +19,7 @@ extension OrderLogSenderCell {
         
         guard let rq = self.request else { return }
         
-        if let statusId = rq.status?.id {
+        if let statusId = rq.statusId {
             switch statusId {
             case RequestStatus.waiting.rawValue:
                 statusLabel.layer.borderColor = buttonThemeColor.cgColor
@@ -53,8 +53,8 @@ extension OrderLogSenderCell {
                 contactButton.setAttributedTitle(attributeString, for: .normal)
                 contactButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
             default:
-                if let id = rq.status?.id, let description = rq.status?.description {
-                    print("error::: get undefine status of Request: \(id): \(description)")
+                if let id = rq.statusId{
+                    print("error::: get undefine status of Request: \(id)")
                 }
             }
             updateCellStatusAndButtons()
@@ -71,7 +71,7 @@ extension OrderLogSenderCell {
     
     func updateCellStatusAndButtons(){
         
-        if let statusId = request?.status?.id {
+        if let statusId = request?.statusId {
             
             let attributes : [String:Any] = [
                 NSFontAttributeName: UIFont.systemFont(ofSize: 14),
@@ -93,9 +93,7 @@ extension OrderLogSenderCell {
                 attributeString = NSAttributedString(string: "详情", attributes: attributes)
                 
             default:
-                if let description = request?.status?.description {
-                    print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(statusId) | \(description)")
-                }
+                print("error::: get undefine status of Request in OrderLogSenderCell::updateCellStatusAndButtons(): \(statusId)")
             }
             
             detailButton.setAttributedTitle(attributeString, for: .normal)

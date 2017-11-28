@@ -10,7 +10,7 @@ import UIKit
 import Unbox
 
 struct TripRequest {
-    let request: Request
+    var request: Request
     let images: [RequestImage]
 }
 

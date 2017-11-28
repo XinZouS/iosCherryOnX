@@ -14,7 +14,7 @@ extension OrderLogShipperCell: OrderLogSenderCellDelegate {
     
     override func updateCellStatusAndButtons() {
         
-        guard let statusId = self.request?.status?.id else { return }
+        guard let statusId = self.request?.statusId else { return }
         
         let attributes : [String:Any] = [
             NSFontAttributeName: UIFont.systemFont(ofSize: 14),

@@ -22,7 +22,6 @@ class OrderListCardShiperCell: OrderListCardCell {
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
     @IBOutlet weak var orderCreditLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!

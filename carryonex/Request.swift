@@ -19,7 +19,7 @@ class Request: Unboxable {
     var note: String?
     
     var endAddress: Address?
-    var status: RequestStatusDetail?
+    var statusId: Int?
     
     required init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
@@ -30,7 +30,7 @@ class Request: Unboxable {
         self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
-        self.status = try? unboxer.unbox(key: RequestKeyInDB.status.rawValue)
+        self.statusId = try? unboxer.unbox(keyPath: "status.id")
         self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
     }
     
@@ -57,6 +57,14 @@ class Request: Unboxable {
         }
         return String(format:"%.2f", Double(price) / 100)
     }
+    
+    func statusString() -> String {
+        if let statusId = statusId, let status = RequestStatus(rawValue: statusId) {
+            return status.displayString()
+        } else {
+            return "错误状态"
+        }
+    }
 }
 
 enum RequestKeyInDB : String {
@@ -77,19 +85,6 @@ enum RequestKeyInDB : String {
     
     //update call
     case requestId = "request_id"
-}
-
-
-struct RequestStatusDetail {
-    let id: Int?
-    let description: String?
-}
-
-extension RequestStatusDetail: Unboxable {
-    init(unboxer: Unboxer) throws {
-        id = try? unboxer.unbox(key: "id")
-        description = try? unboxer.unbox(key: "description")
-    }
 }
 
 struct RequestCategoryItem {
@@ -187,6 +182,37 @@ enum RequestStatus: Int {
     case delivered = 28
     case deliveryConfirmed = 29
     case refundCompleted = 30
+    
+    func displayString() -> String {
+        switch self {
+        case .waiting:
+            return "等待接受"
+        case .rejected:
+            return "已拒绝"
+        case .accepted:
+            return "已接受"
+        case .cancelled:
+            return "已取消"
+        case .paid:
+            return "已付款"
+        case .pendingRefund:
+            return "等待退款"
+        case .inDelivery:
+            return "正在送递"
+        case .delivered:
+            return "已送抵"
+        case .deliveryConfirmed:
+            return "已确认送抵"
+        case .refundCompleted:
+            return "退款完成"
+        case .invalid:
+            return "状态无效"
+        case .badId:
+            return "错误单号"
+        case .initiate:
+            return "寄件创建"
+        }
+    }
 }
 
 enum RequestAction: Int {
@@ -266,6 +292,37 @@ enum RequestTransaction {
             return "确认送达"
         default:
             return "错误行动"
+        }
+    }
+    
+    func confirmDescString() -> String {
+        switch self {
+        case .carrierReject:
+            return "确认拒绝订单？"
+        case .carrierAccept:
+            return "确认接受订单？"
+        case .carrierCancel:
+            return "确认取消订单？"
+        case .carrierRefund:
+            return "确认订单退款？"
+        case .carrierReceive:
+            return "确认接收物品？"
+        case .carrierDeliver:
+            return "确认交付物品？"
+        case .carrierShip:
+            return "确认快递交付？"
+        case .shipperPairing:
+            return "确认请求匹配？"
+        case .shipperCancel:
+            return "确认取消订单？"
+        case .shipperPay:
+            return "确认订单付款？"
+        case .shipperRefund:
+            return "确认订单退款？"
+        case .shipperConfirm:
+            return "确认确认送达？"
+        default:
+            return "出现错误"
         }
     }
     
