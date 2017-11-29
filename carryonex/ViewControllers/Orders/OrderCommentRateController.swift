@@ -19,7 +19,24 @@ class OrderCommentRateController: UIViewController{
     var commentContain:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        addDoneButtonOnKeyboard()
     }
+    
+    private func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        doneToolbar.items = [flexSpace,done]
+        doneToolbar.sizeToFit()
+        self.commentTextField.inputAccessoryView = doneToolbar
+    }
+    
+    func doneButtonAction()
+    {
+        self.commentTextField.resignFirstResponder()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let position = touch.location(in: coverView)
@@ -28,8 +45,9 @@ class OrderCommentRateController: UIViewController{
                     commentWidth.constant = CGFloat(150)
                     rateLevel = Float(150)/30
                 }else{
-                   commentWidth.constant = position.x
-                    rateLevel = Float(position.x)/30
+                    let actualLevel = (Int(Float(position.x)/30)+1)*30
+                    commentWidth.constant = CGFloat(actualLevel)
+                    rateLevel = Float(actualLevel)/30
                 }
             }
         }

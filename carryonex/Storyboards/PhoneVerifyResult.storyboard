@@ -36,9 +36,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Soj-fZ-OAx">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Soj-fZ-OAx">
                                 <rect key="frame" x="0.0" y="445" width="320" height="123"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="b2B-M9-b4I"/>
                                 </constraints>
@@ -109,6 +109,7 @@
     </scenes>
     <resources>
         <image name="Verification_sucess" width="288" height="208"/>
+        <image name="backgroundImage" width="421" height="162"/>
         <image name="logo_grey" width="206" height="86"/>
     </resources>
 </document>

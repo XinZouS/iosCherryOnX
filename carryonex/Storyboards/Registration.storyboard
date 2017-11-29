@@ -148,9 +148,9 @@
                                     <action selector="handleRegisterButtonWithSender:" destination="mDl-U5-fKM" eventType="touchUpInside" id="8Nf-G2-4kc"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zsp-Fw-dSb">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Zsp-Fw-dSb">
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行登陆操作即代表您已阅读并同意" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nd-jr-NXv">
                                 <rect key="frame" x="54.5" y="417" width="206" height="21"/>
@@ -217,6 +217,7 @@
     </scenes>
     <resources>
         <image name="Password" width="26" height="32"/>
+        <image name="backgroundImage" width="421" height="162"/>
         <image name="logo_grey" width="206" height="86"/>
         <image name="userIcon" width="154" height="148"/>
     </resources>

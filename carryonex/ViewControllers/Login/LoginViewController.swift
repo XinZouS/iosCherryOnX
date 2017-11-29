@@ -18,11 +18,21 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var textFieldsContainerView: UIView!
     
+    @IBOutlet weak var bottomImageView: UIImageView!
     @IBOutlet weak var countryCodeButton: UIButton!
     @IBOutlet weak var forgetButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var wechatLoginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
+    
+    lazy var flagPicker: UIPickerView = {
+        let p = UIPickerView()
+        p.backgroundColor = pickerColorLightGray
+        p.dataSource = self
+        p.delegate = self
+        p.isHidden = true
+        return p
+    }()
     
     //MARK: - View Cycle
     override func viewDidLoad() {
@@ -30,6 +40,7 @@ class LoginViewController: UIViewController {
         addWeChatObservers()
         setupPhoneTextField()
         setupPasswordTextField()
+        setupFlagPicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +65,11 @@ class LoginViewController: UIViewController {
         }
     }
     //MARK: - View custom set up
+    
+    private func setupFlagPicker(){
+        view.addSubview(flagPicker)
+        flagPicker.addConstraints(left: bottomImageView.leftAnchor, top: bottomImageView.topAnchor, right: bottomImageView.rightAnchor, bottom: bottomImageView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+    }
     
     private func setupPhoneTextField(){
         phoneField.keyboardType = .numberPad
@@ -104,6 +120,10 @@ class LoginViewController: UIViewController {
     @IBAction func handleForgetButton(sender: UIButton) {
         let status :String = "changePassword"
         performSegue(withIdentifier: "changePassword", sender: status)
+    }
+    
+    @IBAction func countryCodeButtonTapped(_ sender: Any) {
+        openFlagPicker()
     }
     
     func goToVerificationPage(isModifyPhone: Bool) {
@@ -227,6 +247,8 @@ extension LoginViewController {
     }
 }
 
+
+
 extension LoginViewController: UITextFieldDelegate {
      func registerWeChatUser(openId: String, accessToken: String) {
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
@@ -276,4 +298,28 @@ extension LoginViewController: UITextFieldDelegate {
             }
         }
     }
+}
+
+extension LoginViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func openFlagPicker(){
+        flagPicker.isHidden = !flagPicker.isHidden
+        // will hide when begin to set phoneNum
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return flagsTitle.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return flagsTitle[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        countryCode = codeOfFlag[flagsTitle[row]]!
+        countryCodeButton.setTitle("+" + countryCode, for: .normal)
+    }
+
+    
 }

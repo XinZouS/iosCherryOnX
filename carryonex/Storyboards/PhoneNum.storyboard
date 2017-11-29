@@ -131,9 +131,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v12-N4-fq0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="v12-N4-fq0">
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94386500634517767" green="0.94386500634517767" blue="0.94386500634517767" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -197,6 +197,7 @@
     </scenes>
     <resources>
         <image name="Phone" width="34" height="34"/>
+        <image name="backgroundImage" width="421" height="162"/>
         <image name="logo_grey" width="206" height="86"/>
     </resources>
     <inferredMetricsTieBreakers>
