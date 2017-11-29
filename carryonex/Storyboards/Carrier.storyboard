@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMA-bg-EYL">
-                                <rect key="frame" x="10" y="70" width="355" height="527"/>
+                                <rect key="frame" x="10" y="50" width="355" height="547"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -75,7 +75,7 @@
                             <constraint firstItem="5Rs-Lq-Cic" firstAttribute="top" secondItem="iMA-bg-EYL" secondAttribute="bottom" constant="-20" id="3DR-7M-gCf"/>
                             <constraint firstItem="5Rs-Lq-Cic" firstAttribute="centerX" secondItem="iMA-bg-EYL" secondAttribute="centerX" id="Dpn-Jg-Mgj"/>
                             <constraint firstItem="oAy-7w-v9z" firstAttribute="bottom" secondItem="5Rs-Lq-Cic" secondAttribute="bottom" constant="20" id="QNc-p3-7j6"/>
-                            <constraint firstItem="iMA-bg-EYL" firstAttribute="top" secondItem="oAy-7w-v9z" secondAttribute="top" constant="50" id="WdA-Kz-ed4"/>
+                            <constraint firstItem="iMA-bg-EYL" firstAttribute="top" secondItem="oAy-7w-v9z" secondAttribute="top" constant="30" id="WdA-Kz-ed4"/>
                             <constraint firstItem="5Rs-Lq-Cic" firstAttribute="width" secondItem="iMA-bg-EYL" secondAttribute="width" id="WjC-CX-oJU"/>
                             <constraint firstItem="oAy-7w-v9z" firstAttribute="trailing" secondItem="iMA-bg-EYL" secondAttribute="trailing" constant="10" id="jsU-nd-UjS"/>
                             <constraint firstItem="iMA-bg-EYL" firstAttribute="leading" secondItem="oAy-7w-v9z" secondAttribute="leading" constant="10" id="plH-uq-RU5"/>
@@ -105,7 +105,7 @@
             <objects>
                 <tableViewController id="Llg-DT-bEq" customClass="TripTableController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kWG-Bb-aVo">
-                        <rect key="frame" x="0.0" y="0.0" width="355" height="527"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="547"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" red="0.99599462750000001" green="0.99628561739999999" blue="0.98779278989999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
