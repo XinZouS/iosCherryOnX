@@ -135,7 +135,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             if let maybeEmail = emailString {
                 let isMatch = matcher.match(input: maybeEmail)
                 if isMatch {
-                    let profile :[String:Any] = ["realName":nameTextField.text ?? "",
+                    let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
                                                  "email": emailString ?? "",
                                                  "gender": genderString ]
                     ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
@@ -158,6 +158,10 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         activityIndicator.center = view.center
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
+    }
+    
+    @IBAction func PenTapped(_ sender: Any) {
+        nameTextField.becomeFirstResponder()
     }
     
     @IBAction func imageButtonTapped(_ sender: Any) {

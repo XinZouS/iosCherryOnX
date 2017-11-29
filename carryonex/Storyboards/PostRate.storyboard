@@ -178,13 +178,6 @@
             </objects>
             <point key="canvasLocation" x="108.69565217391305" y="194.83695652173915"/>
         </scene>
-        <!--Storyboard Reference-->
-        <scene sceneID="hVS-bf-NOZ">
-            <objects>
-                <viewControllerPlaceholder id="jpx-jF-7ko" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="miX-IP-5nV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="starts5Mask" width="827" height="165"/>

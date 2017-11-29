@@ -54,7 +54,7 @@ class OrderCommentRateController: UIViewController{
     }
     @IBAction func commentButtonTapped(sender: UIButton) {
         commentContain = commentTextField.text!
-        ApiServers.shared.postComment(comment: commentContain, commenteeId: 99, commenterId: 89, rank: rateLevel) { (success, err) in
+        ApiServers.shared.postComment(comment: commentContain, commenteeId: 7, commenterId: 10, rank: rateLevel) { (success, err) in
             if success {
                 print("commited success!")
             }else{

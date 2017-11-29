@@ -105,11 +105,12 @@
                                             <constraint firstAttribute="height" constant="26" id="cOp-e4-mJM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" title="查看33条评价">
+                                        <state key="normal" title="查看历史评价">
                                             <color key="titleColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="seeAllCommentsButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="euQ-Cm-li8"/>
+                                            <segue destination="w24-tR-KPy" kind="show" id="Dll-w8-Pk1"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -252,6 +253,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIb-y2-Jvh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="794" y="-103"/>
+        </scene>
+        <!--HistoryComment-->
+        <scene sceneID="DS5-mn-Xdm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HistoryComment" id="w24-tR-KPy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SEK-MT-VU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="826" y="68"/>
         </scene>
         <!--Settings-->
         <scene sceneID="gtZ-xg-STa">
