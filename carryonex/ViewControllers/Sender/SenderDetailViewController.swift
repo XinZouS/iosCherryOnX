@@ -32,6 +32,7 @@ class SenderDetailViewController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!     // 1
     @IBOutlet weak var addressTextField: UITextField!   // 2
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageTextView: UITextView!   // 3
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
@@ -59,6 +60,7 @@ class SenderDetailViewController: UIViewController {
     }
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
+        guard priceMiddl > 0 else { return }
         priceValueTextField.resignFirstResponder()
         priceFinal = Double(priceSlider.value)        
         let pc = (priceFinal - priceMiddl) * 100.0 / priceMiddl
@@ -108,7 +110,7 @@ class SenderDetailViewController: UIViewController {
 
     var currencyType: CurrencyType = .USD
     var priceValue: Double = 5
-    var priceMiddl: Double = 0
+    var priceMiddl: Double = 5.5
     var priceFinal: Double = 5 {
         didSet {
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
@@ -134,6 +136,9 @@ class SenderDetailViewController: UIViewController {
             submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
         }
     }
+    // textView placeholder text status
+    var isTextViewBeenEdited = false
+    let messageWordsLimite: Int = 140
 
     //MARK: - Methods Start Here
     
@@ -200,14 +205,11 @@ class SenderDetailViewController: UIViewController {
     }
     
     private func setupTextFields(){
-        nameTextField.delegate = self
-        phoneTextField.delegate = self
-        addressTextField.delegate = self
-        priceValueTextField.delegate = self
-        nameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        phoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        addressTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        priceValueTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldAddToolBar(nameTextField, nil)
+        textFieldAddToolBar(phoneTextField, nil)
+        textFieldAddToolBar(addressTextField, nil)
+        textFieldAddToolBar(nil, messageTextView)
+        textFieldAddToolBar(priceValueTextField, nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -281,8 +283,6 @@ class SenderDetailViewController: UIViewController {
         case .exponential:
             print("TODO: exponential func for price")
             return 10
-        default:
-            return priceValue * priceParamA + priceParamB
         }
     }
 
@@ -568,7 +568,64 @@ extension SenderDetailViewController {
 
 
 // MARK: -
+extension SenderDetailViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // check for placeholder
+        if !isTextViewBeenEdited {
+            isTextViewBeenEdited = true
+        }
+        // check for return key
+        if text == "\n" {
+            priceValueTextField.becomeFirstResponder()
+            return false
+        }
+        // check for backspace key
+        if let char = text.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if (isBackSpace == -92) {
+                _ = isInputTextInLimiteWords(textView)
+                return true
+            }
+        }
+        // check for input limite
+        return isInputTextInLimiteWords(textView)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let placeholderTxt = "给出行人的注意事项或特殊要求，字数在\(messageWordsLimite)字以内。"
+        if textView.text == "" {
+            textView.text = placeholderTxt
+            textView.textColor = .lightGray
+            isTextViewBeenEdited = false
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if !isTextViewBeenEdited {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+    
+    private func isInputTextInLimiteWords(_ textView: UITextView) -> Bool {
+        let ok = textView.text.count <= messageWordsLimite
+        messageTitleLabel.text = ok ? "留言" : "留言字数应在\(messageWordsLimite)字以内"
+        return ok
+    }
+
+}
+
 extension SenderDetailViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.tag == textFieldTag.name.rawValue {
+            phoneTextField.becomeFirstResponder()
+            return false
+        }
+        keyboardDismiss()
+        return false
+    }
     
     public func textFieldDidChange(_ textField: UITextField){
         updateSubmitButtonStatus()
@@ -592,11 +649,46 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 preparePriceIn(textField)
             }
         }
+    }
+    
+    fileprivate func textFieldAddToolBar(_ textField: UITextField?, _ textView: UITextView?) {
+        let bar = UIToolbar()
+        bar.barStyle = .default
+        bar.isTranslucent = true
+        bar.tintColor = .black
         
+        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
+        bar.isUserInteractionEnabled = true
+        bar.sizeToFit()
+        
+        if let tf = textField {
+            tf.delegate = self
+            tf.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            tf.inputAccessoryView = bar
+        }
+        if let tv = textView {
+            tv.delegate = self
+            tv.inputAccessoryView = bar
+            tv.textColor = .lightGray
+            tv.text = "给出行人的注意事项或特殊要求，字数在\(messageWordsLimite)字以内。"
+        }
+    }
+    
+    func textFieldDoneButtonTapped(){
+        keyboardDismiss()
+    }
+    func textFieldCancelButtonTapped(){
+        keyboardDismiss()
     }
     
     fileprivate func preparePriceIn(_ textField: UITextField){
-        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text, v != "" {
+        if textField.tag == textFieldTag.price.rawValue, var v = priceValueTextField.text {
+            if v == "" {
+                v = "0"
+            }
             guard let d = Double(v) else {
                 let m = "物品价值只能输入数字和至多1个小数点哦，请确保您的输入不包含空格或其他字符。"
                 displayGlobalAlert(title: "💡请调整定价输入", message: m, action: "好，再试一次", completion: {
@@ -615,15 +707,14 @@ extension SenderDetailViewController: UITextFieldDelegate {
         let pMin: Double = 5
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < 5.0 || pGet < 5.0) ? 10.0 : pGet
-        print("get pMin = \(pMin), pMax = \(pMax) with newPrice = \(newPrice)")
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
-        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", priceMiddl)
         priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
-        
+        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", priceMiddl)
+
         priceSlider.minimumValue = Float(pMin)
-        priceSlider.setValue(Float(priceMiddl), animated: true)
         priceSlider.maximumValue = Float(pMax)
+        priceSlider.setValue(Float(priceMiddl), animated: false)
         priceFinal = priceMiddl
     }
     

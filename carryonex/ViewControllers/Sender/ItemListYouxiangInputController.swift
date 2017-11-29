@@ -39,6 +39,7 @@ class ItemListYouxiangInputController: UIViewController {
     
 
     override func viewDidLoad() {
+        UIApplication.shared.statusBarStyle = .lightContent
         setupNavigationBar()
         setupTextFields()
         setupActivityIndicator()
@@ -61,8 +62,7 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupTextFields(){
-        youxiangcodeTextField.delegate = self
-        youxiangcodeTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
+        textFieldAddToolBar(youxiangcodeTextField)
     }
     
     private func setupActivityIndicator(){
@@ -95,13 +95,6 @@ class ItemListYouxiangInputController: UIViewController {
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
             let t = "⚠️获取失败"
-            if !success {
-                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
-                self.displayGlobalAlert(title: t, message: m, action: "好，回主页", completion: {
-                    self.navigationController?.popToRootViewController(animated: true)
-                })
-                return
-            }
             if let err = error, getTrip == nil {
                 let m = "无法查询此行程，请确保您所填写的游箱号正确。错误信息：\(err.localizedDescription)"
                 self.displayGlobalAlert(title: t, message: m, action: "换个姿势再试一次", completion: {
@@ -113,6 +106,11 @@ class ItemListYouxiangInputController: UIViewController {
                 if let trip = getTrip {
                     self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
                 }
+            } else {
+                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
+                self.displayGlobalAlert(title: t, message: m, action: "好，回主页", completion: {
+                    self.navigationController?.popToRootViewController(animated: true)
+                })
             }
         })
     }
@@ -129,4 +127,30 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
         fetchTripByYouxiangcode(code)
     }
     
+    fileprivate func textFieldAddToolBar(_ textField: UITextField) {
+        let bar = UIToolbar()
+        bar.barStyle = .default
+        bar.isTranslucent = true
+        bar.tintColor = .black
+        
+        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
+        bar.isUserInteractionEnabled = true
+        bar.sizeToFit()
+        
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
+        textField.inputAccessoryView = bar
+    }
+    func textFieldDoneButtonTapped(){
+        youxiangcodeTextField.resignFirstResponder()
+        textFieldDidChanged()
+    }
+    func textFieldCancelButtonTapped(){
+        youxiangcodeTextField.resignFirstResponder()
+    }
+    
+
 }
