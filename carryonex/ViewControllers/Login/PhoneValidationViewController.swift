@@ -53,16 +53,18 @@ class PhoneValidationViewController: UIViewController {
         verifyCodeLabel02.text = ""
         verifyCodeLabel03.text = ""
         verifyCodeLabel04.text = ""
-
+        setupUserPhoneShow()
         verifiTextField.becomeFirstResponder()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupVerifyTextField()
     }
     
+    private func setupUserPhoneShow(){
+        hintLabel.text = "短信验证码已发送至\(zoneCodeInput+" "+phoneInput)，请在此输入"
+    }
     
     private func setupVerifyTextField(){ // hide it under the screen
         view.addSubview(verifiTextField)

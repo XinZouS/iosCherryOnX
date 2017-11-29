@@ -82,7 +82,7 @@
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hgu-IH-Ro0">
-                                <rect key="frame" x="97" y="129" width="182" height="30"/>
+                                <rect key="frame" x="49" y="129" width="230" height="30"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="chf-jm-DEu"/>
@@ -146,14 +146,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J80-6R-1fK">
-                                <rect key="frame" x="49" y="129" width="40" height="30"/>
+                                <rect key="frame" x="49" y="129" width="0.0" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="I80-7Z-8j1"/>
-                                    <constraint firstAttribute="width" constant="40" id="LJb-Do-nqV"/>
+                                    <constraint firstAttribute="width" id="LJb-Do-nqV"/>
                                 </constraints>
                                 <state key="normal" title="+1">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="countryCodeButtonTapped:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="Ue6-MR-Okn"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfD-Gu-RpJ">
                                 <rect key="frame" x="162.5" y="364" width="70" height="20"/>
@@ -277,7 +280,7 @@
                             <constraint firstItem="FvG-Qb-kd7" firstAttribute="centerX" secondItem="20c-1B-UgT" secondAttribute="centerX" id="f1p-xE-S2l"/>
                             <constraint firstItem="VfD-Gu-RpJ" firstAttribute="leading" secondItem="wfh-dM-Ewu" secondAttribute="trailing" constant="5" id="fND-F4-88N"/>
                             <constraint firstItem="CcQ-E8-A9z" firstAttribute="leading" secondItem="hgu-IH-Ro0" secondAttribute="trailing" constant="-31" id="gpK-A4-W88"/>
-                            <constraint firstItem="hgu-IH-Ro0" firstAttribute="leading" secondItem="J80-6R-1fK" secondAttribute="trailing" constant="8" id="hnc-N7-lFQ"/>
+                            <constraint firstItem="hgu-IH-Ro0" firstAttribute="leading" secondItem="J80-6R-1fK" secondAttribute="trailing" id="hnc-N7-lFQ"/>
                             <constraint firstItem="e6x-Tm-Ho7" firstAttribute="centerY" secondItem="woj-xs-lls" secondAttribute="centerY" id="k8m-kY-bwa"/>
                             <constraint firstItem="obd-lv-DUs" firstAttribute="centerX" secondItem="GUr-9Z-UXw" secondAttribute="centerX" constant="-20" id="ltk-o4-amV"/>
                             <constraint firstItem="oaT-uk-PVx" firstAttribute="height" secondItem="20c-1B-UgT" secondAttribute="height" id="mS6-YQ-0mO"/>
@@ -294,6 +297,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="kM7-kR-RfL"/>
                     <connections>
+                        <outlet property="bottomImageView" destination="HzW-lI-cZA" id="Sq5-Ot-QAh"/>
                         <outlet property="countryCodeButton" destination="J80-6R-1fK" id="YDl-l5-LFE"/>
                         <outlet property="forgetButton" destination="wfh-dM-Ewu" id="pRi-Xh-fQV"/>
                         <outlet property="loginButton" destination="20c-1B-UgT" id="fkN-7L-SdD"/>
