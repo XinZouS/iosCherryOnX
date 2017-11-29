@@ -57,14 +57,6 @@ class OrderListViewController: UIViewController {
         setupTableViews()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
         if let category = TripCategory(rawValue: sender.selectedSegmentIndex) {
             listType = category
@@ -266,6 +258,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
 extension OrderListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        /*
         let tableViewDefaultHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 400 : 600
         let offsetY = scrollView.contentOffset.y
 
@@ -280,12 +273,14 @@ extension OrderListViewController: UIScrollViewDelegate {
                 animateImageForTableScrolling()
             }
         }
+ */
         
-        print("scroll y: \(scrollView.contentOffset.y), scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
+        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
+        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
         
         //Fetching
         if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
-            //self.fetchRequests()
+            self.fetchRequests()
         }
     }
     
