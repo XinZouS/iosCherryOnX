@@ -99,9 +99,24 @@ class Address: NSObject, Unboxable {
     }
     
     func homeCardDisplayString() -> String {
-        if let city = city, let country = country {
-            return city + ", " + country.rawValue
+        
+        var address = [String]()
+        if let city = city, !city.isEmpty {
+            address.append(city)
         }
-        return "无城市或国家"
+        
+        if let state = state, !state.isEmpty {
+            address.append(state)
+        }
+        
+        if let country = country {
+            address.append(country.rawValue)
+        }
+        
+        if address.count == 0 {
+            return "无地区"
+        } else {
+            return address.joined(separator: ", ")
+        }
     }
 }

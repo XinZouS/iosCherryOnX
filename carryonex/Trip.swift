@@ -172,10 +172,19 @@ class Trip : NSObject, Unboxable {
         return getDateString(time: fromTime)
     }
     
+    //MARK: - Date
     private func getDateString(time: TimeInterval) -> String {
         let dateFormatter = DateFormatter.init()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: Date(timeIntervalSince1970: time))
+    }
+    
+    private func getThreeLetterMonth(time: TimeInterval) -> String {
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMM"
+        dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: Date(timeIntervalSince1970: time))
     }
 }
