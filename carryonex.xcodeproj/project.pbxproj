@@ -224,6 +224,7 @@
 		FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */; };
 		FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */; };
 		FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */; };
+		FF2187551FCE04F400DE37B4 /* TripTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2187541FCE04F400DE37B4 /* TripTableController.swift */; };
 		FF32AF701F97E42A00E67036 /* DetailUserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */; };
 		FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */; };
 		FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */; };
@@ -503,6 +504,7 @@
 		FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailCreditLevelCell++.swift"; sourceTree = "<group>"; };
 		FF21384C1F9135BC008C5E16 /* RegisterMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterMainController.swift; sourceTree = "<group>"; };
 		FF21384E1F9136F8008C5E16 /* RegisterMainController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterMainController++.swift"; sourceTree = "<group>"; };
+		FF2187541FCE04F400DE37B4 /* TripTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableController.swift; sourceTree = "<group>"; };
 		FF32AF6F1F97E42900E67036 /* DetailUserNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserNameCell.swift; sourceTree = "<group>"; };
 		FF3781091F9BA17400D7D0CA /* OrderDetailPage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderDetailPage++.swift"; sourceTree = "<group>"; };
 		FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardViewController.swift; sourceTree = "<group>"; };
@@ -1284,6 +1286,7 @@
 			children = (
 				FF9108521FC238FA00558A2B /* TripController.swift */,
 				FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */,
+				FF2187541FCE04F400DE37B4 /* TripTableController.swift */,
 			);
 			path = Carrier;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				667E8F8F1FA78B36007B1C51 /* GiftController.swift in Sources */,
 				E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
+				FF2187551FCE04F400DE37B4 /* TripTableController.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
 				66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */,
 				668609731F60774F00740A92 /* WalletCheckingCell.swift in Sources */,
