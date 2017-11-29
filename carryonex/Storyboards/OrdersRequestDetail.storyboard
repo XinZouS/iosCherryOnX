@@ -117,6 +117,9 @@
                                             <constraint firstAttribute="width" constant="30" id="t8Q-3Q-DxD"/>
                                         </constraints>
                                         <state key="normal" image="Phone"/>
+                                        <connections>
+                                            <action selector="phoneButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="I3z-Wn-QbO"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOT-aY-fsy">
                                         <rect key="frame" x="15" y="180" width="80" height="80"/>
@@ -125,6 +128,9 @@
                                             <constraint firstAttribute="width" constant="80" id="v9q-7n-Gye"/>
                                         </constraints>
                                         <state key="normal" image="yadianwenqing"/>
+                                        <connections>
+                                            <action selector="senderImageButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="ow2-aF-DJR"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzO-np-Cho">
                                         <rect key="frame" x="105" y="190" width="190" height="30"/>
@@ -181,6 +187,9 @@
                                                 <state key="normal" title="+2">
                                                     <color key="titleColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="itemImageMoreButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="FRc-X7-FX8"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -231,6 +240,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9g-oY-5O7">
+                                        <rect key="frame" x="254" y="306" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="X8X-Sr-Oaq"/>
+                                            <constraint firstAttribute="width" secondItem="P9g-oY-5O7" secondAttribute="height" multiplier="1:1" id="d7V-Aj-cQ0"/>
+                                        </constraints>
+                                        <state key="normal" image="shareing"/>
+                                        <connections>
+                                            <action selector="youxiangShareButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="Fy3-cL-BU5"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1jW-uu-CyU">
                                         <rect key="frame" x="20" y="356" width="305" height="44"/>
                                         <subviews>
@@ -249,6 +269,9 @@
                                                         <real key="value" value="6"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="finishedButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="sLb-RI-Web"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-OL-TH7" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
                                                 <rect key="frame" x="157.5" y="0.0" width="147.5" height="44"/>
@@ -265,20 +288,15 @@
                                                         <real key="value" value="6"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="J9e-9N-cDD"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Dfh-Jl-WpD"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9g-oY-5O7">
-                                        <rect key="frame" x="254" y="306" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="X8X-Sr-Oaq"/>
-                                            <constraint firstAttribute="width" secondItem="P9g-oY-5O7" secondAttribute="height" multiplier="1:1" id="d7V-Aj-cQ0"/>
-                                        </constraints>
-                                        <state key="normal" image="shareing"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -361,6 +379,24 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwT-SN-31r"/>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="n0b-OL-TH7" id="DPl-2T-6W1"/>
+                        <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="Rbg-BP-xNg"/>
+                        <outlet property="dateMonthLabel" destination="efo-75-gDw" id="pgf-FO-rOi"/>
+                        <outlet property="endAddressLabel" destination="hO5-6m-U41" id="Fp0-e1-Wkf"/>
+                        <outlet property="finishedButton" destination="0Gq-pn-kvc" id="8At-aT-9gC"/>
+                        <outlet property="incomeLabel" destination="lEz-65-FZV" id="oWh-xC-UkJ"/>
+                        <outlet property="itemImage1" destination="eSr-ny-iIF" id="spe-nl-Euq"/>
+                        <outlet property="itemImage2" destination="bJ8-u1-BWW" id="pUV-Y6-T0N"/>
+                        <outlet property="itemImageMoreButton" destination="359-FV-D0g" id="umf-9T-Q4x"/>
+                        <outlet property="phoneButton" destination="KDl-sD-ANm" id="Mxd-8M-sgs"/>
+                        <outlet property="senderImageButton" destination="bOT-aY-fsy" id="OiO-IU-xMZ"/>
+                        <outlet property="senderNameLabel" destination="XzO-np-Cho" id="omb-YY-5sh"/>
+                        <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="xSE-93-c18"/>
+                        <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="dEb-S2-1P0"/>
+                        <outlet property="statusLabel" destination="bjX-jD-MVV" id="683-ry-IDQ"/>
+                        <outlet property="youxiangCode" destination="hDn-7Q-gxw" id="GK8-Gp-CeL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
