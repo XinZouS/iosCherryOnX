@@ -111,6 +111,7 @@ class PhoneNumViewController: UIViewController {
     
     @IBAction func countryCodeButtonTapped(_ sender: UIButton) {
         openFlagPicker()
+        phoneNumTextField.resignFirstResponder()
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {

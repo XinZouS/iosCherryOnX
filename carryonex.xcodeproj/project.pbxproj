@@ -219,6 +219,9 @@
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
 		FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */; };
+		FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */; };
+		FF13DE1E1FCF2FFA0012C4BC /* PersonalCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */; };
+		FF13DE201FCF317F0012C4BC /* PersonalCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */; };
 		FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */; };
 		FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */; };
 		FF19FBF51F9A5566003AF0D6 /* DetailCreditLevelCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */; };
@@ -499,6 +502,9 @@
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
 		FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletedController.swift; sourceTree = "<group>"; };
+		FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HistoryComment.storyboard; sourceTree = "<group>"; };
+		FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCommentController.swift; sourceTree = "<group>"; };
+		FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCommentCell.swift; sourceTree = "<group>"; };
 		FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailController.swift; sourceTree = "<group>"; };
 		FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordController.swift; sourceTree = "<group>"; };
 		FF19FBF41F9A5566003AF0D6 /* DetailCreditLevelCell++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailCreditLevelCell++.swift"; sourceTree = "<group>"; };
@@ -614,6 +620,8 @@
 				FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */,
 				665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */,
 				6602526D1FC48BB300277617 /* ShipperInfoViewController.swift */,
+				FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */,
+				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1239,6 +1247,7 @@
 				CF360F551FBCC451000F6ECC /* SettingPage.storyboard */,
 				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
 				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
+				FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1558,6 +1567,7 @@
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
+				FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */,
 				E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */,
 				E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */,
 				CF24D93F1FC364800036FB4E /* NewSettingPage.storyboard in Resources */,
@@ -1816,6 +1826,7 @@
 				66E650171F5F129300DA90DE /* ApiServers.swift in Sources */,
 				4DE6BDDC1FBA929B00900DF8 /* OrderListViewController.swift in Sources */,
 				668609691F604FCF00740A92 /* WalletController.swift in Sources */,
+				FF13DE201FCF317F0012C4BC /* PersonalCommentCell.swift in Sources */,
 				66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */,
 				667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */,
 				E567BB0C1FCC6D3600B87608 /* STDispute.swift in Sources */,
@@ -1843,6 +1854,7 @@
 				66E5204F1F4C76EC008E521D /* UILabel++.swift in Sources */,
 				66A4B5651FA27C3C000D133C /* OrdersShipperHeaderCell.swift in Sources */,
 				66CDBC6B1F7BF94B008DCB6B /* LocationSearchTableController++.swift in Sources */,
+				FF13DE1E1FCF2FFA0012C4BC /* PersonalCommentController.swift in Sources */,
 				66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */,
 				FF62245B1FB0F24900280FDA /* OrderDetailCommentPageController.swift in Sources */,
 				663121E31F51F454000F7ACB /* TimeAvailableController++.swift in Sources */,
