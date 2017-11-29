@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
-                                <rect key="frame" x="-400" y="206" width="375" height="412"/>
+                                <rect key="frame" x="0.0" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardShiperCell" rowHeight="467" id="5Jd-nC-ZmP" customClass="OrderListCardShiperCell" customModule="carryonex" customModuleProvider="target">
@@ -663,7 +663,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMK-Xr-LQ1">
-                                <rect key="frame" x="-25" y="206" width="375" height="412"/>
+                                <rect key="frame" x="375" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardSenderCell" rowHeight="467" id="cO5-L0-lPg" customClass="OrderListCardSenderCell" customModule="carryonex" customModuleProvider="target">
