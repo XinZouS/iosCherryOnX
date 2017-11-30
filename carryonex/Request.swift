@@ -190,7 +190,7 @@ enum RequestStatus: Int {
         case .rejected:
             return "已拒绝"
         case .accepted:
-            return "已接受"
+            return "等待付款"
         case .cancelled:
             return "已取消"
         case .paid:
@@ -211,6 +211,23 @@ enum RequestStatus: Int {
             return "错误单号"
         case .initiate:
             return "寄件创建"
+        }
+    }
+    
+    func displayColor(category: TripCategory) -> UIColor {
+        switch self {
+        case .waiting:
+            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
+        case .accepted:
+            return category == .carrier ? UIColor.carryon_passiveStatus : UIColor.carryon_aciveStatus
+        case .pendingRefund:
+            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
+        case .delivered:
+            return category == .carrier ? UIColor.carryon_normalStatus : UIColor.carryon_aciveStatus
+        case .paid, .inDelivery, .initiate, .deliveryConfirmed, .refundCompleted:
+            return UIColor.carryon_normalStatus
+        case .rejected, .cancelled, .invalid, .badId:
+            return UIColor.carryon_endedStatus
         }
     }
 }

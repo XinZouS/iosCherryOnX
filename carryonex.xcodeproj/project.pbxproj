@@ -223,6 +223,7 @@
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
+		E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F303551FCF5785008AF2E8 /* UIColor+App.swift */; };
 		FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */; };
 		FF188A331F87CFF5002CAAD9 /* RegisterEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */; };
 		FF188A351F87D01B002CAAD9 /* RegisterPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF188A341F87D01B002CAAD9 /* RegisterPasswordController.swift */; };
@@ -507,6 +508,7 @@
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
+		E5F303551FCF5785008AF2E8 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
 		FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletedController.swift; sourceTree = "<group>"; };
 		FF188A321F87CFF5002CAAD9 /* RegisterEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmailController.swift; sourceTree = "<group>"; };
@@ -738,6 +740,7 @@
 		665DE4EB1F3A0B70004DDB88 /* carryonex */ = {
 			isa = PBXGroup;
 			children = (
+				E5F303541FCF572E008AF2E8 /* Configs */,
 				E542F2701FB4DD650072BB31 /* Models */,
 				E542F25F1FB4B58C0072BB31 /* ViewControllers */,
 				E542F25A1FB4B4720072BB31 /* Storyboards */,
@@ -1382,6 +1385,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		E5F303541FCF572E008AF2E8 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				E5F303551FCF5785008AF2E8 /* UIColor+App.swift */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
 		F9EB5F0D4C24FA38E1E6E2E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,6 +1766,7 @@
 				663F1C961F44DBD000E866C2 /* HomePageTableCell.swift in Sources */,
 				FFCB0F1F1FA7A14500180BDB /* CommentUserNameCell.swift in Sources */,
 				6681310F1F940F250022AEED /* UserSettingController.swift in Sources */,
+				E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */,
 				E567BB101FCC6D5F00B87608 /* STBankAccount.swift in Sources */,
 				663121E51F5232FD000F7ACB /* ShipperAvailableCell.swift in Sources */,
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
