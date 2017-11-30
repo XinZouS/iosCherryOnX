@@ -58,6 +58,13 @@ class Request: Unboxable {
         return String(format:"%.2f", Double(price) / 100)
     }
     
+    func itemValue() -> String {
+        guard let value = totalValue else {
+            return "No Value"
+        }
+        return String(format:"%.2f", Double(value) / 100)
+    }
+    
     func statusString() -> String {
         if let statusId = statusId, let status = RequestStatus(rawValue: statusId) {
             return status.displayString()
