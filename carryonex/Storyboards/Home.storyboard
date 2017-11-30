@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -352,17 +352,17 @@
                                 </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ipz-6C-5S5">
-                                <rect key="frame" x="183" y="76" width="100" height="20"/>
+                                <rect key="frame" x="183" y="79.5" width="100" height="18"/>
                                 <color key="backgroundColor" red="0.99366234517132335" green="1" blue="0.52735828740781621" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="oxR-F5-HDL"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starts5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-c5-ejb">
-                                <rect key="frame" x="183" y="76" width="100" height="20"/>
+                                <rect key="frame" x="183" y="79.5" width="100" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="C2M-pb-ev0"/>
-                                    <constraint firstAttribute="height" constant="20" id="SI4-W2-t3m"/>
+                                    <constraint firstAttribute="height" constant="18" id="SI4-W2-t3m"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -385,8 +385,8 @@
                             <constraint firstItem="9cO-tc-v6Q" firstAttribute="width" secondItem="hIl-WW-GVF" secondAttribute="width" priority="900" id="YCh-e0-X60"/>
                             <constraint firstItem="7wy-UK-KZZ" firstAttribute="top" secondItem="9cO-tc-v6Q" secondAttribute="bottom" constant="10" id="aCK-J5-Wn1"/>
                             <constraint firstItem="7wy-UK-KZZ" firstAttribute="height" secondItem="cKv-qe-r1Y" secondAttribute="height" id="az9-R0-iSe"/>
-                            <constraint firstItem="gOz-c5-ejb" firstAttribute="top" secondItem="7wy-UK-KZZ" secondAttribute="bottom" id="azR-kU-ukc"/>
-                            <constraint firstItem="Ipz-6C-5S5" firstAttribute="top" secondItem="7wy-UK-KZZ" secondAttribute="bottom" id="bs0-vi-hyx"/>
+                            <constraint firstItem="gOz-c5-ejb" firstAttribute="top" secondItem="7wy-UK-KZZ" secondAttribute="bottom" constant="3" id="azR-kU-ukc"/>
+                            <constraint firstItem="Ipz-6C-5S5" firstAttribute="top" secondItem="7wy-UK-KZZ" secondAttribute="bottom" constant="3" id="bs0-vi-hyx"/>
                             <constraint firstItem="Ipz-6C-5S5" firstAttribute="leading" secondItem="gOz-c5-ejb" secondAttribute="leading" id="ema-Bw-jlj"/>
                             <constraint firstItem="MIo-wL-8pr" firstAttribute="top" secondItem="II3-H0-AbJ" secondAttribute="top" constant="20" id="mAd-ec-Y9r"/>
                             <constraint firstItem="De1-dp-x5f" firstAttribute="centerX" secondItem="MIo-wL-8pr" secondAttribute="centerX" id="ntp-ZM-NVt"/>
