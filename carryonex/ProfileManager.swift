@@ -178,7 +178,6 @@ class ProfileManager: NSObject {
     }
     
     //PACKAGE UPDATE
-    //TODO: MENGDI NEEDS TO FIX IT, NOT UPDATING PROPERLY
     func updateUserInfo(info: [String: Any], completion: ((Bool) -> Void)?) {
         guard isLoggedIn() else {
             debugPrint("User is not logged in, unable to update user info")
@@ -210,7 +209,7 @@ class ProfileManager: NSObject {
     }
     
     //SINGLE ITEM UPDATE
-    func updateUserInfo(_ type: UsersInfoUpdate, value: String, completion: ((Bool) -> Void)?) {
+    func updateUserInfo(_ type: UsersInfoUpdate, value: Any, completion: ((Bool) -> Void)?) {
         
         guard isLoggedIn() else {
             print("User is not logged in, unable to update \(type.rawValue) value")
@@ -230,26 +229,30 @@ class ProfileManager: NSObject {
         }
     }
     
-    private func updateUserParams(_ type: UsersInfoUpdate, value: String) {
+    private func updateUserParams(_ type: UsersInfoUpdate, value: Any) {
         switch (type) {
         case .imageUrl:
-            currentUser?.imageUrl = value
+            currentUser?.imageUrl = value as? String
         case .realName:
-            currentUser?.realName = value
+            currentUser?.realName = value as? String
         case .passportUrl:
-            currentUser?.passportUrl = value
+            currentUser?.passportUrl = value as? String
         case .email:
-            currentUser?.email = value
+            currentUser?.email = value as? String
         case .idAUrl:
-            currentUser?.idAUrl = value
+            currentUser?.idAUrl = value as? String
         case .idBUrl:
-            currentUser?.idBUrl = value
+            currentUser?.idBUrl = value as? String
         case .isIdVerified:
-            currentUser?.isIdVerified = value.toBool()
+            if let isVerified = value as? Int {
+                currentUser?.isIdVerified = isVerified.boolValue
+            }
         case .isPhoneVerified:
-            currentUser?.isPhoneVerified = value.toBool()
+            if let isVerified = value as? Int {
+                currentUser?.isPhoneVerified = isVerified.boolValue
+            }
         case .phone:
-            currentUser?.phone = value
+            currentUser?.phone = value as? String
         default:
             print("Not handling update type \(type.rawValue) yet.")
         }

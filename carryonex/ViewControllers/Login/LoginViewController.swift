@@ -274,14 +274,17 @@ extension LoginViewController: UITextFieldDelegate {
                             }
                         })
                     } else {
-                        ProfileManager.shared.register(username: username, password: username.quickTossPassword(), name: realName, completion: { (success, err, errType) in
+                        let password = username.quickTossPassword()
+                        ProfileManager.shared.register(username: username, password: password, name: realName, completion: { (success, err, errType) in
                             if success {
-                                ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (updateSuccess) in
-                                    if updateSuccess {
-                                        self?.dismiss(animated: true, completion: nil)
-                                    } else {
-                                        debugPrint("Wechat registration update user info failed at new registration")
-                                    }
+                                ProfileManager.shared.login(username: username, password: password, completion: { (success) in
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (updateSuccess) in
+                                        if updateSuccess {
+                                            self?.dismiss(animated: true, completion: nil)
+                                        } else {
+                                            debugPrint("Wechat registration update user info failed at new registration")
+                                        }
+                                    })
                                 })
                             } else {
                                 if let error = err {

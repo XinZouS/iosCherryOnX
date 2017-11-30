@@ -420,7 +420,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: String, completion: @escaping (Bool, Error?) -> Void) {
+    func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: Any, completion: @escaping (Bool, Error?) -> Void) {
         
         guard ProfileManager.shared.isLoggedIn() else {
             print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
@@ -436,7 +436,7 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/users/" + updateType.rawValue
         
-        var data: [String: String] = [:]
+        var data: [String: Any] = [:]
         if let profileKey = UsersInfoUpdateKey[updateType]?.rawValue {
             data[profileKey] = value
             

@@ -82,48 +82,32 @@ class RegistrationViewController: UIViewController {
                                        password: password,
                                        name: name,
                                        completion: { (success, err, errType) in
-                                        
                                         if success {
-                                            self.confirmPhoneInServer()
-                                            
-                                        } else {
-                                            let e1 = "您所使用的手机号已注册，请使用密码登陆即可。"
-                                            let e2 = "注册出现错误，请确保所填信息正确，稍后再试一次。\n错误: \(err.debugDescription)"
-                                            let msg = (errType == ErrorType.userAlreadyExist ? e1 : e2)
-                                            self.displayGlobalAlert(title: "⚠️不能注册", message: msg, action: "好", completion: {
-                                                if errType == .userAlreadyExist {
-                                                    self.navigationController?.popViewController(animated: true)
+                                            ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
+                                                if success {
+                                                    ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
+                                                        self.dismiss(animated: true, completion: nil)
+                                                    })
+                                                } else {
+                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重发验证码", completion: { [weak self] _ in
+                                                        self?.navigationController?.popToRootViewController(animated: true)
+                                                    })
                                                 }
+                                            }
+                                        } else {
+                                            self.displayGlobalAlert(title: "注册失败", message: (err?.localizedDescription ?? "不能注册"), action: "好", completion: { [weak self] _ in
+                                                self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }
-        })
-        
-    }
-    
-    
-    private func confirmPhoneInServer(){
-        ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, err) in
-            if let err = err {
-                print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(err.localizedDescription)")
-                self.verifyFaildAlert(err.localizedDescription)
-                return
-            }
-            if success {
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
-    
-    private func verifyFaildAlert(_ msg: String?){
-        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因:" + (msg ?? "验证失败")
-        print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
-        
-        displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
-            self.navigationController?.popViewController(animated: true)
+//                                        else {
+//                                            let e1 = "您所使用的手机号已注册，请使用密码登陆即可。"
+//                                            let e2 = "注册出现错误，请确保所填信息正确，稍后再试一次。\n错误: \(err.debugDescription)"
+//                                            let msg = (errType == ErrorType.userAlreadyExist ? e1 : e2)
+//
+//                                        }
         })
     }
     
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destVC = segue.destination as? PhoneValidationViewController {
             if let info = sender as? [String:String] {
