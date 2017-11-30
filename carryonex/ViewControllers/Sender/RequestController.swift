@@ -277,6 +277,7 @@ extension RequestController: UITextFieldDelegate {
                             print("Post Request Error: \(error.localizedDescription)")
                             return
                         }
+                        ProfileManager.shared.loadLocalUser(completion: nil)
                         print("Post request success!")
                     })
                     

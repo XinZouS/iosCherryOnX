@@ -79,8 +79,9 @@ class TripController: UIViewController{
             trip.pickupDate = childVC.pickUpDate
             trip.note = childVC.otherTextField.text
             ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
-                if success{
+                if success {
                     self.performSegue(withIdentifier: "tripComplete", sender: tripId)
+                    ProfileManager.shared.loadLocalUser(completion: nil)
                 }else{
                     print(msg ?? "")
                 }

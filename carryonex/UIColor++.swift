@@ -34,15 +34,15 @@ let calendarColorLightGray = UIColor(r:201,g:201,b:201)
 
 extension UIColor {
     
-    convenience init(r:CGFloat, g:CGFloat, b:CGFloat) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) {
+        self.init(red: r/255, green: g/255, blue: b/255, alpha: a)
     }
     
-    static func rgb(r:CGFloat, g:CGFloat, b:CGFloat) -> UIColor {
-        return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
+    static func rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: r/255, green: g/255, blue: b/255, alpha: a)
     }
     
-    static func color(_ red: Int, green: Int, blue: Int, alpha: Float) -> UIColor {
+    static func color(_ red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) -> UIColor {
         return UIColor(
             displayP3Red: CGFloat(red) / 255.0,
             green: CGFloat(green) / 255.0,

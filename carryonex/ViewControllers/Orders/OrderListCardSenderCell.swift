@@ -61,6 +61,16 @@ class OrderListCardSenderCell: OrderListCardCell {
     
     override func updateRequestInfoAppearance(request: Request) {
         super.updateRequestInfoAppearance(request: request)
+        
+        shippingCostLabel.text = request.priceString()
+        itemPriceLabel.text = request.itemValue()
+        orderCodeLabel.text = "\(request.tripId ?? -999)"
+        
+        if let shipperAddress = request.endAddress {
+            shiperNameLabel.text = shipperAddress.recipientName
+        }
+        
+        //TODO: Add phone call method
     }
     
     override func updateButtonAppearance(status: RequestStatus) {

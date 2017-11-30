@@ -94,7 +94,7 @@ class MainTabBarController: UITabBarController {
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
             self?.displayAlert(title: "账号异常", message: "登入账号出现异常，请重新登入。", action: "好") {
-                self?.showLogin()
+                ProfileManager.shared.logoutUser()
             }
         }
         
