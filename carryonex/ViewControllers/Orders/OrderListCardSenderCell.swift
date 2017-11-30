@@ -68,7 +68,7 @@ class OrderListCardSenderCell: OrderListCardCell {
         switch status {
         case .waiting, .accepted:
             buttonsToShow = .twoButtons
-        case .paid, .delivered, .deliveryConfirmed:
+        case .delivered, .deliveryConfirmed:
             buttonsToShow = .oneButton
         default:
             buttonsToShow = .noButtons
@@ -81,8 +81,6 @@ class OrderListCardSenderCell: OrderListCardCell {
         case .accepted:
             finishButton.transaction = .shipperPay
             finishButton2.transaction = .shipperCancel
-        case .paid:
-            finishButton.transaction = .shipperRefund
         case .delivered:
             finishButton.transaction = .shipperConfirm
         case .deliveryConfirmed:
