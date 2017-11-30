@@ -155,7 +155,7 @@ extension RequestCategoryItem: Unboxable {
  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],  # 2 cs_rejected
  [-1, -1, -1,  4,  5, -1, -1, -1, -1, -1, -1],  # 3 cs_accepted
  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],  # 4 cs_cancelled
- [-1, -1, -1, -1, -1,  6,  7, -1, -1, -1, -1],  # 5 cs_payed
+ [-1, -1, -1, -1, -1, -1,  7, -1, -1, -1, -1],  # 5 cs_payed
  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 10],  # 6 cs_wait_for_refunded
  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],  # 7 cs_in_delivery
  [-1, -1, -1, -1, -1, -1, -1, -1, -1,  9, -1],  # 8 cs_deliver_completed
@@ -261,7 +261,6 @@ enum RequestTransaction {
     case shipperPairing
     case shipperCancel
     case shipperPay
-    case shipperRefund
     case shipperConfirm
     
     func displayString() -> String {
@@ -286,8 +285,6 @@ enum RequestTransaction {
             return "取消订单"
         case .shipperPay:
             return "订单付款"
-        case .shipperRefund:
-            return "订单退款"
         case .shipperConfirm:
             return "确认送达"
         default:
@@ -317,8 +314,6 @@ enum RequestTransaction {
             return "确认取消订单？"
         case .shipperPay:
             return "确认订单付款？"
-        case .shipperRefund:
-            return "确认订单退款？"
         case .shipperConfirm:
             return "确认确认送达？"
         default:
@@ -356,8 +351,6 @@ enum RequestTransaction {
             return (.cancel, .sender)
         case .shipperPay:
             return (.pay, .sender)
-        case .shipperRefund:
-            return (.refund, .sender)
         case .shipperConfirm:
             return (.confirm, .sender)
         default:
@@ -387,8 +380,6 @@ enum RequestTransaction {
             return (status == .waiting || status == .accepted)
         case .shipperPay:
             return (status == .accepted)
-        case .shipperRefund:
-            return (status == .paid)
         case .shipperConfirm:
             return (status == .delivered)
         default:
