@@ -444,7 +444,7 @@
                         <outlet property="startAddressLabel" destination="lN3-Zw-7Mp" id="49p-AK-vi4"/>
                         <outlet property="tableView" destination="Tgd-hQ-fJ0" id="Ema-HR-DRN"/>
                         <outlet property="youxiangCodeLabel" destination="cie-uh-yGT" id="cbF-fQ-JPz"/>
-                        <segue destination="6Um-MO-dpW" kind="show" id="M1o-MY-uFL"/>
+                        <segue destination="6Um-MO-dpW" kind="show" identifier="gotoOrdersRequestDetailSegue" id="M1o-MY-uFL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBz-Mr-QrY" userLabel="First Responder" sceneMemberID="firstResponder"/>

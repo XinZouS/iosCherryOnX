@@ -11,6 +11,7 @@ import UIKit
 
 class OrdersRequestDetailViewController: UIViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     // trip info
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
@@ -55,18 +56,106 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
     }
     
-    // MARK: -
+    // MARK: - Data models
     var trip: Trip?
-    var request: Request?
     
+    fileprivate var status: RequestStatus = .invalid {
+        didSet {
+            updateButtonAppearance(status: status)
+            statusLabel.text = status.displayString()
+            statusLabel.backgroundColor = status.displayColor(category: .carrier)
+        }
+    }
     
-    // MARK: -
+    var request: Request? {
+        didSet {
+            if let request = request {
+                updateRequestInfoAppearance(request: request)
+            }
+        }
+    }
+    
+
+    // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = false
+        setupScrollView()
+        setupTripInfo()
+        setupRequestInfo()
+    }
+    
+    private func setupScrollView(){
+        scrollView.delegate = self
+    }
+    
+    private func setupTripInfo(){
+        guard let t = trip else { return }
+        setupTripDateLabels(t.timestamp)
+        setupTripAddressLabels(trip: t)
+    }
+    
+    private func setupRequestInfo(){
         
     }
     
+    private func setupTripDateLabels(_ i: Int?){
+        guard let i = i else { return }
+        let date = Date(timeIntervalSince1970: Double(i))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd YYYY"
+        
+        let userCalendar = Calendar.current
+        let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
+        let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
+        
+        dateMonthLabel.text = formatter.shortMonthSymbols.first
+        dateDayLabel.text = "\(dateComponents.day ?? 0)"
+    }
+    
+    private func setupTripAddressLabels(trip: Trip){
+        if let endCountry = trip.endAddress?.country?.rawValue,
+            let endState = trip.endAddress?.state,
+            let endCity = trip.endAddress?.city,
+            let startCountry = trip.startAddress?.country?.rawValue,
+            let startState = trip.startAddress?.state,
+            let startCity = trip.startAddress?.city {
+            
+            endAddressLabel.text = endCountry + "，" + endState + "，" + endCity
+            startAddressLabel.text = startCountry + "，" + startState + "，" + startCity
+        }
+    }
+    
+    private func setupTripStatus(trip: Trip){
+        //???
+    }
+    
+
     
 }
+
+extension OrdersRequestDetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
+    }
+    
+}
+
+extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
+    
+    func updateButtonAppearance(status: RequestStatus) {
+        //Override
+    }
+    
+    func updateRequestInfoAppearance(request: Request) {
+        //Override
+        if let statusId = request.statusId, let newStatus = RequestStatus(rawValue: statusId) {
+            status = newStatus
+        }
+    }
+    
+}
+
 
 

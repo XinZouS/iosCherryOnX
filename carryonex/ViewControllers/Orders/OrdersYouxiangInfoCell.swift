@@ -20,7 +20,21 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     
-    var tripRequest: TripRequest?
+    
+    fileprivate var status: RequestStatus = .invalid {
+        didSet {
+            updateButtonAppearance(status: status)
+            statusLabel.text = status.displayString()
+            statusLabel.backgroundColor = status.displayColor(category: .sender)
+        }
+    }
+    var tripRequest: TripRequest? {
+        didSet{
+            if let req = tripRequest?.request {
+                updateRequestInfoAppearance(request: req)
+            }
+        }
+    }
     var indexPath: IndexPath?
     var ordersYouxiangInfoVC: OrdersYouxiangInfoViewController?
     
@@ -33,6 +47,24 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     
     @IBAction func detailButtonTapped(_ sender: Any) {
     }
+    
+    
+}
+
+
+extension OrdersYouxiangInfoCell: OrderListCardCellProtocol {
+    
+    func updateButtonAppearance(status: RequestStatus) {
+        // no button for update;
+    }
+    
+    func updateRequestInfoAppearance(request: Request) {
+        if let statusId = request.statusId, let newStatus = RequestStatus(rawValue: statusId) {
+            status = newStatus
+        }
+    }
+    
+    
     
     
 }

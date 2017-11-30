@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
-                                <rect key="frame" x="0.0" y="206" width="375" height="412"/>
+                                <rect key="frame" x="-400" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardShiperCell" rowHeight="467" id="5Jd-nC-ZmP" customClass="OrderListCardShiperCell" customModule="carryonex" customModuleProvider="target">
@@ -663,7 +663,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMK-Xr-LQ1">
-                                <rect key="frame" x="375" y="206" width="375" height="412"/>
+                                <rect key="frame" x="-25" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardSenderCell" rowHeight="467" id="cO5-L0-lPg" customClass="OrderListCardSenderCell" customModule="carryonex" customModuleProvider="target">
@@ -1239,11 +1239,29 @@
                         <outlet property="tableViewLeftConstraint" destination="8sQ-5z-FnD" id="gVd-rE-f3t"/>
                         <outlet property="tableViewSender" destination="XMK-Xr-LQ1" id="noQ-qf-x7Z"/>
                         <outlet property="tableViewShiper" destination="E7e-sp-soC" id="mEf-pV-qzt"/>
+                        <segue destination="FVD-Oq-j2e" kind="show" identifier="gotoOrdersYouxiangInfo" id="BgW-qT-SJz"/>
+                        <segue destination="Bup-Hf-zBA" kind="show" identifier="gotoOrdersRequestDetail" id="p3E-TJ-8Ys"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIz-pA-Udb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="511.59420289855075" y="169.56521739130437"/>
+        </scene>
+        <!--OrdersYouxiangInfo-->
+        <scene sceneID="esx-RL-XzS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OrdersYouxiangInfo" id="FVD-Oq-j2e" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uPn-by-POj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1181" y="107"/>
+        </scene>
+        <!--OrdersRequestDetail-->
+        <scene sceneID="iH1-Tb-g1Z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OrdersRequestDetail" id="Bup-Hf-zBA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VjM-eF-HtH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321" y="169"/>
         </scene>
     </scenes>
     <resources>

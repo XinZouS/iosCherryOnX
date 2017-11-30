@@ -78,7 +78,7 @@ class OrderListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.isNavigationBarHidden = true
         //Update page when view shows
         if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
             updateRequests(category: .carrier)
@@ -174,8 +174,8 @@ class OrderListViewController: UIViewController {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
-            
-            if let tripOrders = tripOrders {
+
+            if let tripOrders = tripOrders, tripOrders.count != 0 {
                 if category == .carrier {
                     self.lastCarrierFetchTime = Date.getTimestampNow()
                     self.dataSourceCarrier.append(contentsOf: tripOrders)
@@ -273,6 +273,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             let tripOrder = dataSourceCarrier[indexPath.section]
             if let tripRequest = tripOrder.requests?[indexPath.row] {
+                // TODO: cell.trip = it needs a trip to show trip info;
                 cell.request = tripRequest.request
                 cell.indexPath = indexPath
                 cell.delegate = self
@@ -329,9 +330,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if selectedIndexPath == indexPath {
-            return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
-        }
+//        if selectedIndexPath == indexPath {
+//            return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
+//        }
         return tableViewRowHeight.mainCard.rawValue
     }
     
@@ -341,8 +342,30 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             selectedIndexPath = nil
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        // plan A: expand cell for details
+        //tableView.reloadRows(at: [indexPath], with: .automatic)
+        //tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        // plan B: navigation to new VC
+        if tableView.tag == TripCategory.carrier.rawValue {
+            performSegue(withIdentifier: "gotoOrdersYouxiangInfo", sender: dataSourceCarrier[indexPath.section])
+        } else {
+            let tpOd = dataSourceSender[indexPath.section]
+            let req = tpOd.requests?[indexPath.row]
+            let tp = tpOd.trip
+            performSegue(withIdentifier: "gotoOrdersRequestDetail", sender: (tp, req))
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let youxiangInfoVC = segue.destination as? OrdersYouxiangInfoViewController,
+            let tpOd = sender as? TripOrder {
+            youxiangInfoVC.tripOrder = tpOd
+        }
+        if let requestDetailVC = segue.destination as? OrdersRequestDetailViewController,
+            let tpOd = sender as? (Trip, Request) {
+            requestDetailVC.trip = tpOd.0
+            requestDetailVC.request = tpOd.1
+        }
     }
 }
 

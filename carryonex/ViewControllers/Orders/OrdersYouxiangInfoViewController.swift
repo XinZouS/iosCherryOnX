@@ -37,7 +37,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.isNavigationBarHidden = false
         setupTableView()
     }
     
@@ -130,8 +130,18 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
 extension OrdersYouxiangInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: push new VC for detail
+        guard let requests = tripOrder?.requests, requests.count > 0 else { return }
+        performSegue(withIdentifier: "gotoOrdersRequestDetailSegue", sender: requests[indexPath.row])
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailVC = segue.destination as? OrdersRequestDetailViewController,
+            let req = sender as? Request,
+            let trip = tripOrder?.trip {
+            detailVC.trip = trip
+            detailVC.request = req
+        }
+    }
     
 }
+

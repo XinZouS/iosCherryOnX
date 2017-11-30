@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u44-8x-21Q">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u44-8x-21Q">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-Nl-6eD">
@@ -235,7 +235,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$666.66" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDn-7Q-gxw">
-                                                <rect key="frame" x="164" y="330" width="161" height="23"/>
+                                                <rect key="frame" x="169" y="330" width="156" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="uv3-P2-1y9"/>
                                                 </constraints>
@@ -365,7 +365,7 @@
                                             <constraint firstItem="rB6-f1-cwu" firstAttribute="centerY" secondItem="efo-75-gDw" secondAttribute="centerY" id="3SN-Mi-kRz"/>
                                             <constraint firstItem="lEz-65-FZV" firstAttribute="leading" secondItem="rB6-f1-cwu" secondAttribute="leading" id="62Q-Jj-hAY"/>
                                             <constraint firstItem="bjX-jD-MVV" firstAttribute="centerY" secondItem="rB6-f1-cwu" secondAttribute="centerY" id="6Vy-4H-a8B"/>
-                                            <constraint firstItem="hDn-7Q-gxw" firstAttribute="leading" secondItem="cel-Jl-VHJ" secondAttribute="leading" constant="-5" id="7RV-SK-51Y"/>
+                                            <constraint firstItem="hDn-7Q-gxw" firstAttribute="leading" secondItem="cel-Jl-VHJ" secondAttribute="leading" id="7RV-SK-51Y"/>
                                             <constraint firstItem="bOT-aY-fsy" firstAttribute="leading" secondItem="dXb-Nl-6eD" secondAttribute="leading" constant="15" id="92t-h4-7u4"/>
                                             <constraint firstItem="xVp-rH-O0T" firstAttribute="centerX" secondItem="efo-75-gDw" secondAttribute="centerX" id="9oy-Od-cgc"/>
                                             <constraint firstItem="Uz1-WJ-5FM" firstAttribute="centerY" secondItem="khE-wR-Gy0" secondAttribute="centerY" id="Axm-d8-kg6"/>
@@ -478,6 +478,7 @@
                         <outlet property="recipientNameLabel" destination="Gcc-77-xcQ" id="7WV-oy-ZS3"/>
                         <outlet property="recipientPhoneCallButton" destination="921-Hb-vhw" id="I6n-se-bOR"/>
                         <outlet property="recipientPhoneLabel" destination="Hqf-KG-5e0" id="AO6-2n-V52"/>
+                        <outlet property="scrollView" destination="u44-8x-21Q" id="ULi-GB-gh6"/>
                         <outlet property="senderImageButton" destination="bOT-aY-fsy" id="OiO-IU-xMZ"/>
                         <outlet property="senderNameLabel" destination="XzO-np-Cho" id="omb-YY-5sh"/>
                         <outlet property="senderPhoneButton" destination="KDl-sD-ANm" id="t6g-ga-gKw"/>
