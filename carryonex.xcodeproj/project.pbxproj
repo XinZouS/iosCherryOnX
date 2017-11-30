@@ -273,6 +273,7 @@
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFAA73141FD0749C00516161 /* STInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAA73131FD0749C00516161 /* STInvoice.swift */; };
+		FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAA73151FD0A34200516161 /* STCustomers.swift */; };
 		FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */; };
 		FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */; };
 		FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */; };
@@ -566,6 +567,7 @@
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FFAA73131FD0749C00516161 /* STInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = STInvoice.swift; path = /Users/aaa/Music/carryOnEx/ios/carryonex/Models/Stripe/STInvoice.swift; sourceTree = "<absolute>"; };
+		FFAA73151FD0A34200516161 /* STCustomers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCustomers.swift; sourceTree = "<group>"; };
 		FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentRateController.swift; sourceTree = "<group>"; };
 		FFBCB0CA1FC91E9E00DCDD52 /* PersonalTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTable.swift; sourceTree = "<group>"; };
@@ -1391,6 +1393,7 @@
 				E567BB051FCC6B8C00B87608 /* STPayout.swift */,
 				E567BB071FCC6B9A00B87608 /* STRefund.swift */,
 				E567BB111FCC6DA600B87608 /* STSource.swift */,
+				FFAA73151FD0A34200516161 /* STCustomers.swift */,
 			);
 			path = Stripe;
 			sourceTree = "<group>";
@@ -1839,6 +1842,7 @@
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
 				FF2187551FCE04F400DE37B4 /* TripTableController.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
+				FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */,
 				66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */,
 				668609731F60774F00740A92 /* WalletCheckingCell.swift in Sources */,
 				4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */,

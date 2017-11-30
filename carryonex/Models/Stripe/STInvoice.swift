@@ -22,7 +22,7 @@ struct STInvoice: Unboxable {
     let customer: String?
     let date: TimeInterval?
     let description: String?
-    let discount: [STDiscount]?
+    let discount: STDiscount?
     let endingBalance: Int?
     let forgiven: Bool?
     let lines: [STLines]?
@@ -79,7 +79,7 @@ struct STInvoice: Unboxable {
 }
 struct  STDiscount:Unboxable{
     var object: String? = "discount"
-    let coupon: [STCoupon]?
+    let coupon: STCoupon?
     let customer: String?
     let end: TimeInterval?
     let start: TimeInterval?
@@ -115,8 +115,8 @@ struct STData:Unboxable {
     let description: String?
     let discountable: Bool?
 //  let metadata
-    let period:[STPeriod]?
-    let plan:[STPlan]?
+    let period:STPeriod?
+    let plan:STPlan?
     init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: STKeys.id.rawValue)
         self.object = try? unboxer.unbox(key: STKeys.object.rawValue)
@@ -147,6 +147,9 @@ struct STPlan:Unboxable {
     let interval: String?
     let intervalCount: Int?
     let livemode: Bool?
+    let name: String?
+    let statementDescriptor: String?
+    let trialPeriodDays: TimeInterval?
     //let metadata
     init(unboxer: Unboxer) throws {
         self.id = try? unboxer.unbox(key: STKeys.id.rawValue)
@@ -157,6 +160,9 @@ struct STPlan:Unboxable {
         self.interval = try? unboxer.unbox(key: STKeys.interval.rawValue)
         self.intervalCount = try? unboxer.unbox(key: STKeys.intervalCount.rawValue)
         self.livemode = try? unboxer.unbox(key: STKeys.livemode.rawValue)
+        self.name = try? unboxer.unbox(key: STKeys.name.rawValue)
+        self.statementDescriptor = try? unboxer.unbox(key: STKeys.statementDescriptor.rawValue)
+        self.trialPeriodDays = try? unboxer.unbox(key: STKeys.trialPeriodDays.rawValue)
     }
 }
 
@@ -189,4 +195,35 @@ struct STCoupon:Unboxable{
         self.valid = try? unboxer.unbox(key: STKeys.vaild.rawValue)
     }
 }
+
+struct STInvoiceLineItem: Unboxable{
+    let id: String?
+    var object: String? = "line_item"
+    let amount: Int?
+    let currency: String?
+    let description: String?
+    let discountable: Bool?
+//    let metadata
+    let period: [STPeriod]?
+    let plan: [STPlan]?
+    let proration: Bool?
+    let subscription: String?
+    let subscriptionItem: String?
+    let type: String?
+    init(unboxer: Unboxer) throws {
+        self.id = try? unboxer.unbox(key: STKeys.id.rawValue)
+        self.object = try? unboxer.unbox(key: STKeys.object.rawValue)
+        self.amount = try? unboxer.unbox(key: STKeys.amount.rawValue)
+        self.currency = try? unboxer.unbox(key: STKeys.currency.rawValue)
+        self.description = try? unboxer.unbox(key: STKeys.description.rawValue)
+        self.discountable = try? unboxer.unbox(key: STKeys.discountable.rawValue)
+        self.period = try? unboxer.unbox(key: STKeys.period.rawValue)
+        self.plan = try? unboxer.unbox(key: STKeys.plan.rawValue)
+        self.proration = try? unboxer.unbox(key: STKeys.proration.rawValue)
+        self.subscription = try? unboxer.unbox(key: STKeys.subscription.rawValue)
+        self.subscriptionItem = try? unboxer.unbox(key: STKeys.subscriptionItem.rawValue)
+        self.type = try? unboxer.unbox(key: STKeys.type.rawValue)
+    }
+}
+
 
