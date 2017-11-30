@@ -19,20 +19,26 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     // request info
-    @IBOutlet weak var phoneButton: UIButton!
+    @IBOutlet weak var senderPhoneButton: UIButton!
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemImage1: UIImageView!
     @IBOutlet weak var itemImage2: UIImageView!
     @IBOutlet weak var itemImageMoreButton: UIButton!
-    @IBOutlet weak var youxiangCode: UILabel!
+    @IBOutlet weak var itemValueLabel: UILabel!
+    @IBOutlet weak var itemMessageTextView: UITextView!
+    // recipient info
+    @IBOutlet weak var recipientNameLabel: UILabel!
+    @IBOutlet weak var recipientPhoneLabel: UILabel!
+    @IBOutlet weak var recipientPhoneCallButton: UIButton!
+    @IBOutlet weak var recipientAddressLabel: UILabel!
     // done buttons
     @IBOutlet weak var finishedButton: RequestTransactionButton!
     @IBOutlet weak var cancelButton: RequestTransactionButton!
     
     
-    @IBAction func phoneButtonTapped(_ sender: Any) {
+    @IBAction func senderPhoneButtonTapped(_ sender: Any) {
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
@@ -41,15 +47,20 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func itemImageMoreButtonTapped(_ sender: Any) {
     }
     
-    @IBAction func youxiangShareButtonTapped(_ sender: Any) {
+    @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
     }
-    
+    // done buttons
     @IBAction func finishedButtonTapped(_ sender: Any) {
     }
     @IBAction func cancelButtonTapped(_ sender: Any) {
     }
     
+    // MARK: -
+    var trip: Trip?
+    var request: Request?
     
+    
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         
