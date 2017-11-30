@@ -54,6 +54,7 @@ class UserCardViewController: UIViewController {
             guard let tripOrders = tripOrders else {
                 return
             }
+            
             if tripOrders.count == 0{
                 print("There is no trip")
             }else{

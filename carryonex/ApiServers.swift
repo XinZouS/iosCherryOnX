@@ -95,6 +95,7 @@ class ApiServers : NSObject {
         case realName = "real_name"
         case tripId = "trip_id"
         case userId = "user_id"
+        case sinceTime = "since_time"
     }
     
     
@@ -529,7 +530,7 @@ class ApiServers : NSObject {
     
     
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
-    func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
+    func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, sinceTime: Int = -1, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
             completion(nil, nil)
@@ -537,7 +538,7 @@ class ApiServers : NSObject {
         }
         
         let route = hostVersion + "/users/trips"
-        let parameters : [String: Any] = [
+        var parameters : [String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
@@ -546,6 +547,10 @@ class ApiServers : NSObject {
             ServerKey.pageCount.rawValue: pageCount,
             ServerKey.userType.rawValue: userType.stringValue
         ]
+        
+        if sinceTime > -1 {
+            parameters[ServerKey.sinceTime.rawValue] = sinceTime
+        }
         
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {

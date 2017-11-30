@@ -10,16 +10,6 @@ import UIKit
 
 class OrderListViewController: UIViewController {
     
-    var listType: TripCategory = .carrier {
-        didSet {
-            if dataSourceCarrier.count == 0 || dataSourceSender.count == 0 {
-                fetchRequests()
-            }
-        }
-    }
-    
-    var isFetching = false
-    
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -29,6 +19,27 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var listButtonSender: UIButton!
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
+    
+    var listType: TripCategory = .carrier {
+        didSet {
+            if dataSourceCarrier.count == 0 || dataSourceSender.count == 0 {
+                fetchRequests(category: listType)
+            }
+            
+            //Update page when switch tab
+            if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
+                updateRequests(category: .carrier)
+            }
+            
+            if (dataSourceSender.count > 0 && lastShipperFetchTime != -1 && listType == .sender) {
+                updateRequests(category: .sender)
+            }
+        }
+    }
+    
+    var isFetching = false
+    var lastCarrierFetchTime: Int = -1
+    var lastShipperFetchTime: Int = -1
     
     var selectedIndexPath: IndexPath?
     enum tableViewRowHeight: CGFloat {
@@ -48,13 +59,34 @@ class OrderListViewController: UIViewController {
         }
     }
 
+    
+    //MARK: - View Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupNavigationBar()
+        
         setupSwipeGestureRecognizer()
-        listType = .carrier
-        fetchRequests()
+        
+        //FIXME: Find out why table view constraint is wrong
+        tableViewLeftConstraint.constant = 0
+        sliderBarCenterConstraint.constant = 0
         setupTableViews()
+        
+        listType = .carrier
+        fetchRequests(category: listType)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Update page when view shows
+        if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
+            updateRequests(category: .carrier)
+        }
+        
+        if (dataSourceSender.count > 0 && lastShipperFetchTime != -1 && listType == .sender) {
+            updateRequests(category: .sender)
+        }
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -127,37 +159,96 @@ class OrderListViewController: UIViewController {
         }
     }
     
-
-    func fetchRequests() {
+    fileprivate func fetchRequests(category: TripCategory) {
         
         guard !isFetching else { return }
         
         isFetching = true
         
-        let offset = (listType == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
+        let offset = (category == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
         let page = 4
         
         ApiServers.shared.getUsersTrips(userType: listType, offset: offset, pageCount: page) { (tripOrders, error) in
-            
             self.isFetching = false
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
             
-            if tripOrders == nil {
-                let m = "您太久没有上线啦，或您的账号在其他设备登录过，为确保信息安全请重新登入。"
-                self.displayGlobalAlert(title: "🤔登录已过期", message: m, action: "重新登录", completion: {
-                    ProfileManager.shared.logoutUser()
-                })
+            if let tripOrders = tripOrders {
+                if category == .carrier {
+                    self.lastCarrierFetchTime = Date.getTimestampNow()
+                    self.dataSourceCarrier.append(contentsOf: tripOrders)
+                } else {
+                    self.lastShipperFetchTime = Date.getTimestampNow()
+                    self.dataSourceSender.append(contentsOf: tripOrders)
+                }
+            }
+        }
+    }
+    
+    private func updateRequests(category: TripCategory) {
+        
+        guard !isFetching else { return }
+        
+        isFetching = true
+        
+        let offset = 0
+        let page = (category == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
+        let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastShipperFetchTime
+        let currentDataSource = (category == .carrier) ? self.dataSourceCarrier : self.dataSourceSender
+        
+        ApiServers.shared.getUsersTrips(userType: listType, offset: offset, pageCount: page, sinceTime: lastFetchTime) { (tripOrders, error) in
+            self.isFetching = false
+                                            
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
             
             if let tripOrders = tripOrders {
+                self.updateDataSource(currentDataSource, updatedData: tripOrders)
+                
                 if self.listType == .carrier {
-                    self.dataSourceCarrier.append(contentsOf: tripOrders)
+                    self.lastCarrierFetchTime = Date.getTimestampNow()
+                    self.tableViewShiper.reloadData()
                 } else {
-                    self.dataSourceSender.append(contentsOf: tripOrders)
+                    self.lastShipperFetchTime = Date.getTimestampNow()
+                    self.tableViewSender.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func updateDataSource(_ dataSource: [TripOrder], updatedData: [TripOrder]) {
+        var updatedRequests = [Request]()
+        
+        //Extract all the requests
+        for tripOrder in updatedData {
+            if let requests = tripOrder.requests {
+                for tripRequest in requests {
+                    updatedRequests.append(tripRequest.request)
+                }
+            } else {
+                if let tripId = tripOrder.trip.id {
+                    print("No requests in trip: \(tripId)")
+                }
+            }
+        }
+        
+        //Update data source
+        for request in updatedRequests {
+            for tripOrder in dataSource {
+                if let requests = tripOrder.requests {
+                    for tripRequest in requests {
+                        if let requestId = tripRequest.request.id, let updatedRequestId = request.id, requestId == updatedRequestId {
+                            tripRequest.request.statusId = request.statusId
+                        }
+                    }
+                } else {
+                    if let tripId = tripOrder.trip.id {
+                        print("No requests in trip: \(tripId)")
+                    }
                 }
             }
         }
@@ -258,29 +349,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
 extension OrderListViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        /*
-        let tableViewDefaultHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 400 : 600
-        let offsetY = scrollView.contentOffset.y
-
-        if offsetY > 0 { // moving up
-            if tableViewHeightConstraint.constant < (view.bounds.height - 30) {
-                tableViewHeightConstraint.constant = tableViewDefaultHeight + offsetY
-                animateImageForTableScrolling()
-            }
-        } else { // moving down
-            if tableViewHeightConstraint.constant > tableViewDefaultHeight {
-                tableViewHeightConstraint.constant = tableViewHeightConstraint.constant + offsetY
-                animateImageForTableScrolling()
-            }
-        }
- */
-        
-        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
-        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
+//        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
+//        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
         
         //Fetching
         if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
-            self.fetchRequests()
+            fetchRequests(category: listType)
         }
     }
     
@@ -297,10 +371,11 @@ extension OrderListViewController: OrderListCellDelegate {
         
         print("Transaction tapped: \(transaction.displayString())")
         
+        let currentDataSource = (category == .carrier) ? self.dataSourceCarrier : self.dataSourceSender
         displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
-                let tripOrder = self?.dataSourceCarrier[indexPath.section]
-                guard let trip = tripOrder?.trip else { return }
+                let tripOrder = currentDataSource[indexPath.section]
+                let trip = tripOrder.trip
                 guard let requestId = request.id, let tripId = trip.id else { return }
                 ApiServers.shared.postRequestTransaction(requestId: requestId,
                                                          tripId: tripId,
