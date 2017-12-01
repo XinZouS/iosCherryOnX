@@ -485,11 +485,20 @@
                         <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="xSE-93-c18"/>
                         <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="dEb-S2-1P0"/>
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="683-ry-IDQ"/>
+                        <segue destination="ZrK-lf-uQu" kind="show" identifier="toOtherShipperView" id="TNl-AZ-Tt0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-58.399999999999999" y="109.29535232383809"/>
+        </scene>
+        <!--ShiperInfo-->
+        <scene sceneID="ScR-cJ-WJf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ShiperInfo" id="ZrK-lf-uQu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1M-Q0-NNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="558" y="109"/>
         </scene>
     </scenes>
     <resources>

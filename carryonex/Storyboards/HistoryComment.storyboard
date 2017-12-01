@@ -52,9 +52,9 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrt-MT-dXf">
-                                                    <rect key="frame" x="73" y="38" width="80" height="15"/>
+                                                    <rect key="frame" x="73" y="38" width="150" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="OGH-vI-mOA"/>
+                                                        <constraint firstAttribute="width" constant="150" id="OGH-vI-mOA"/>
                                                         <constraint firstAttribute="height" constant="15" id="OsX-tk-Nd2"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -104,6 +104,14 @@
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="15" id="rwp-F5-IzK"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentTextView" destination="MQp-mk-iGi" id="LE0-xJ-Gyi"/>
+                                            <outlet property="rateView" destination="0PI-de-gtJ" id="Uv2-I4-gr6"/>
+                                            <outlet property="rateViewConstraint" destination="XcM-Py-ld3" id="f6s-Hx-G92"/>
+                                            <outlet property="timeLabel" destination="rrt-MT-dXf" id="nRL-Jg-TW7"/>
+                                            <outlet property="userButton" destination="Etg-76-kaO" id="yjU-YJ-1I3"/>
+                                            <outlet property="userNameLabel" destination="Tgv-eU-Q2k" id="kmB-Ok-eWk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

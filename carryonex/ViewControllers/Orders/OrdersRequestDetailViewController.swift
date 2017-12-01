@@ -43,6 +43,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "toOtherShipperView", sender: self)
     }
     
     @IBAction func itemImageMoreButtonTapped(_ sender: Any) {
@@ -85,6 +86,14 @@ class OrdersRequestDetailViewController: UIViewController {
         setupScrollView()
         setupTripInfo()
         setupRequestInfo()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toOtherShipperView"{
+            if let shipperInfoVC = segue.destination as? ShipperInfoViewController{
+                
+            }
+        }
     }
     
     private func setupScrollView(){
