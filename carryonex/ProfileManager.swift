@@ -117,22 +117,22 @@ class ProfileManager: NSObject {
         }
     }
     
-    func login(username: String, password: String, completion: @escaping(Bool) -> Swift.Void) {
+    func login(username: String? = nil, phone: String? = nil, password: String, completion: @escaping(Bool) -> Swift.Void) {
         
-        ApiServers.shared.postLoginUser(username: username, password: password) { (userToken, error) in
+        ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (credential, error) in
             if let error = error {
                 print("Login Error: \(error.localizedDescription)")
                 completion(false)
                 return
             }
             
-            guard let userToken = userToken else {
+            guard let (userToken, aUsername) = credential else {
                 print("Unable to retrieve token")
                 completion(false)
                 return
             }
             
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
+            ApiServers.shared.getUserInfo(username: aUsername, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
                     print("loadLocalUser Error: \(error.localizedDescription)")
                     completion(false)

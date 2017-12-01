@@ -22,18 +22,18 @@ extension InputPasswordLoginController: UITextFieldDelegate {
         
         _ = passwordField.resignFirstResponder()
         
-        ProfileManager.shared.login(username: username, password: password) { (success) in
-            if success {
-                self.dismiss(animated: true, completion: nil)
-                
-            } else {
-                self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
-                self.passwordField.detailLabel.text = "密码错误请重新输入"
-            }
-        }
+//        ProfileManager.shared.login(username: username, phone: phone, password: password) { (success) in
+//            if success {
+//                self.dismiss(animated: true, completion: nil)
+//                
+//            } else {
+//                self.passwordField.leftViewActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+//                self.passwordField.dividerActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+//                self.passwordField.placeholderActiveColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+//                self.passwordField.detailLabel.textColor = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
+//                self.passwordField.detailLabel.text = "密码错误请重新输入"
+//            }
+//        }
     }
     
     func forgetButtonTapped(){
