@@ -79,7 +79,9 @@ class OrdersRequestDetailViewController: UIViewController {
     // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "订单详情"
         navigationController?.isNavigationBarHidden = false
+        cancelButton.isHidden = true
         setupScrollView()
         setupTripInfo()
         setupRequestInfo()

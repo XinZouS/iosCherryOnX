@@ -175,7 +175,7 @@ class OrderListViewController: UIViewController {
                 return
             }
 
-            if let tripOrders = tripOrders/*, tripOrders.count != 0 */{
+            if let tripOrders = tripOrders, tripOrders.count != 0 {
                 if category == .carrier {
                     self.lastCarrierFetchTime = Date.getTimestampNow()
                     self.dataSourceCarrier.append(contentsOf: tripOrders)
