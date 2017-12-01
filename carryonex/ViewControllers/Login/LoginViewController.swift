@@ -107,7 +107,7 @@ class LoginViewController: UIViewController {
         
         _ = passwordField.resignFirstResponder()
         
-        ProfileManager.shared.login(username: phone, password: password) { (success) in
+        ProfileManager.shared.login(phone: phone, password: password) { (success) in
             if success {
                 self.dismiss(animated: true, completion: nil)
             } else {

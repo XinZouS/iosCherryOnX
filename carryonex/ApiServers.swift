@@ -210,19 +210,32 @@ class ApiServers : NSObject {
         }
     }
 
-    func postLoginUser(username: String, password: String, completion: @escaping (String?, Error?) -> Void) {
+    func postLoginUser(username: String? = nil,
+                       phone: String? = nil,
+                       password: String,
+                       completion: @escaping ((String, String)?, Error?) -> Void) { //(token, username), error
         
         let deviceToken = UserDefaults.getDeviceToken() ?? ""
         
         let route = hostVersion + "/users/login"
+        
+        var data: [String: Any] = [
+            ServerKey.password.rawValue: password,
+            ServerKey.deviceToken.rawValue: deviceToken
+        ]
+        
+        if let phone = phone {
+            data[ServerKey.phone.rawValue] = phone
+        }
+        
+        if let username = username {
+            data[ServerKey.username.rawValue] = username
+        }
+        
         let parameter:[String: Any] = [
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.data.rawValue : [
-                ServerKey.username.rawValue: username,
-                ServerKey.password.rawValue: password,
-                ServerKey.deviceToken.rawValue: deviceToken
-            ]
+            ServerKey.data.rawValue : data
         ]
         
         postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
@@ -237,7 +250,7 @@ class ApiServers : NSObject {
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                     if let token = data[ServerKey.userToken.rawValue] as? String {
-                        completion(token, nil)
+                        completion((token, ""), nil)    //TODO
                         
                     } else {
                         print("postLoginUser - Unable to find token from user data")

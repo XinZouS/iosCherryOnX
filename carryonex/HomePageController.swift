@@ -147,30 +147,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         addNotificationObservers()
         
         ApiServers.shared.getConfig()
-        
-        //Zian: If user is already loggin the app, relogin to refresh the token to
-        //ensure token is in sync with server
-        
-        //Put your password here:
-        /*
-        let password = "montag"
-        if ProfileManager.shared.isLoggedIn() {
-            if let username = ProfileManager.shared.getCurrentUser()?.username {
-                ApiServers.shared.postLoginUser(username: username, password: password) { (token, error) in
-                    if let error = error {
-                        print("Post login user: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    if let token = token {
-                        print("Login Completed. New Token: \(token)")
-                    }
-                    
-                    self.testApiServers()
-                }
-            }
-        }
-        */
     }
     
     override func viewWillAppear(_ animated: Bool) {
