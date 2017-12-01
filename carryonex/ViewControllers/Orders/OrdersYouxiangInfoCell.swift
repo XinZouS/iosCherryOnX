@@ -28,10 +28,10 @@ class OrdersYouxiangInfoCell: UITableViewCell {
             statusLabel.backgroundColor = status.displayColor(category: .sender)
         }
     }
-    var tripRequest: TripRequest? {
+    var request: Request? {
         didSet{
-            if let req = tripRequest?.request {
-                updateRequestInfoAppearance(request: req)
+            if let request = request {
+                updateRequestInfoAppearance(request: request)
             }
         }
     }

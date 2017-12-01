@@ -12,8 +12,8 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
-    private var carrierTrips = [Trip]()
-    private var senderTrips = [Trip]()
+    private var carrierTrips = [Int: Trip]()
+    private var senderTrips = [Int: Trip]()
     
     private var carrierRequests = [Int: Request]()
     private var senderRequests = [Int: Request]()
@@ -21,11 +21,20 @@ class TripOrderDataStore: NSObject {
     private var lastCarrierFetchTime: Int = -1
     private var lastSenderFetchTime: Int = -1
     
-    func getTrips(category: TripCategory) -> [Trip] {
-        let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
-        return targetTrips.sorted { (t1, t2) -> Bool in
+    func getCarrierTrips() -> [Trip] {
+        return carrierTrips.values.sorted { (t1, t2) -> Bool in
             return (t1.timestamp > t2.timestamp)
         }
+    }
+    
+    func getSenderRequests() -> [Request] {
+        return senderRequests.values.sorted(by: { (r1, r2) -> Bool in
+            return r1.id > r2.id
+        })
+    }
+    
+    func getSenderTripById(id: Int) -> Trip? {
+        return senderTrips[id]
     }
     
     func getRequestsByTripId(category: TripCategory, tripId: Int) -> [Request] {
@@ -71,7 +80,7 @@ class TripOrderDataStore: NSObject {
     private func updateData(forCategory category: TripCategory, updatedData: [TripOrder]) {
         
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
-        let (newTripOrders, existingTripOrders) = self.getNewTripOrders(updatedData: updatedData, currentTrips: targetTrips)
+        let (newTripOrders, existingTripOrders) = self.getNewTripOrders(updatedData: updatedData, currentTrips: Array(targetTrips.values))
         
         //NOTE: Maybe we should combine update request data + add new request data
         //Update request data before trip data, because request will need to check for trip data.
@@ -87,7 +96,7 @@ class TripOrderDataStore: NSObject {
         //Handle trips
         for updatedTripOrder in updatedData {
             let trip = updatedTripOrder.trip
-            let tripIndex = isExists(item: updatedTripOrder.trip, list: targetTrips)
+            let tripIndex = isExists(item: updatedTripOrder.trip, list: Array(targetTrips.values))
             targetTrips[tripIndex] = trip
         }
         
@@ -112,24 +121,26 @@ class TripOrderDataStore: NSObject {
     }
     
     private func addNewTripData(forCategory category: TripCategory, newTripOrders: [TripOrder]) {
-        let newTrips = newTripOrders.map { (tripOrder) -> Trip in
-            return tripOrder.trip
-        }
-        
-        if (category == .carrier) {
-            carrierTrips.append(contentsOf: newTrips)
-        } else {
-            senderTrips.append(contentsOf: newTrips)
+        for tripOrder in newTripOrders {
+            let trip = tripOrder.trip
+            if (category == .carrier) {
+                carrierTrips[trip.id] = trip
+            } else {
+                senderTrips[trip.id] = trip
+            }
         }
     }
     
     private func addNewRequestData(forCategory category: TripCategory, newTripOrders: [TripOrder]) {
-        var targetRequests = (category == .carrier) ? carrierRequests : senderRequests
         for tripOrder in newTripOrders {
             if let tripRequests = tripOrder.requests {
                 for tripReq in tripRequests {
                     let req = tripReq.request
-                    targetRequests[req.id] = req
+                    if (category == .carrier) {
+                        carrierRequests[req.id] = req
+                    } else {
+                        senderRequests[req.id] = req
+                    }
                 }
             }
         }

@@ -78,6 +78,10 @@ class Trip : NSObject, Unboxable, Identifiable {
     var timestamp: Int = -1
     var note: String?
     
+    private var monthString: String?
+    private var dayString: String?
+    private var dateString: String?
+    
     override init() {
         super.init()
         
@@ -145,7 +149,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         json[TripKeyInDB.pickupTimeEnd.rawValue]    = Int(pickupTimeEnd ?? 0)
         
         json[TripKeyInDB.note.rawValue] = note ?? ""
-        json[TripKeyInDB.timestamp.rawValue] = timestamp ?? 0
+        json[TripKeyInDB.timestamp.rawValue] = timestamp
         
         return json
     }
@@ -165,11 +169,33 @@ class Trip : NSObject, Unboxable, Identifiable {
         return getDateString(time: fromTime)
     }
     
+    func getDayString() -> String {
+        if let dayString = dayString {
+            return dayString
+        }
+        
+        let day = Date.getTimeString(format: "dd", time: TimeInterval(timestamp))
+        dayString = day
+        return day
+    }
+    
+    func getMonthString() -> String {
+        if let monthString = monthString {
+            return monthString
+        }
+        
+        let month = Date.getTimeString(format: "MMM", time: TimeInterval(timestamp)).uppercased()
+        monthString = month
+        return month
+    }
+    
     //MARK: - Date
     private func getDateString(time: TimeInterval) -> String {
-        let dateFormatter = DateFormatter.init()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: Date(timeIntervalSince1970: time))
+        if let dateString = dateString {
+            return dateString
+        }
+        let date = Date.getTimeString(format: "yyyy-MM-dd", time: time)
+        dateString = date
+        return date
     }
 }

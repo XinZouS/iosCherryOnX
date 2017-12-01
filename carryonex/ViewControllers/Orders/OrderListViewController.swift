@@ -10,6 +10,9 @@ import UIKit
 
 class OrderListViewController: UIViewController {
     
+    let tripInfoSegue = "gotoOrdersYouxiangInfo"
+    let requestDetailSegue = "gotoOrdersRequestDetail"
+    
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -20,22 +23,7 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
-    var listType: TripCategory = .carrier {
-        didSet {
-            if dataSourceCarrier.count == 0 || dataSourceSender.count == 0 {
-                fetchRequests(category: listType)
-            }
-            
-            //Update page when switch tab
-            if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
-                updateRequests(category: .carrier)
-            }
-            
-            if (dataSourceSender.count > 0 && lastShipperFetchTime != -1 && listType == .sender) {
-                updateRequests(category: .sender)
-            }
-        }
-    }
+    var listType: TripCategory = .carrier
     
     var isFetching = false
     var lastCarrierFetchTime: Int = -1
@@ -46,19 +34,18 @@ class OrderListViewController: UIViewController {
         case mainCard = 240
         case detailCard = 300
     }
-    
-    var dataSourceCarrier = [TripOrder]() {
+
+    var carrierTrips = [Trip]() {
         didSet {
             self.tableViewShiper.reloadData()
         }
     }
     
-    var dataSourceSender = [TripOrder]() {
+    var senderRequests = [Request]() {
         didSet {
             self.tableViewSender.reloadData()
         }
     }
-
     
     //MARK: - View Cycle
     
@@ -73,20 +60,38 @@ class OrderListViewController: UIViewController {
         setupTableViews()
         
         listType = .carrier
-        fetchRequests(category: listType)
+        
+        reloadData()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
+            self?.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        //Update page when view shows
-        if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
-            updateRequests(category: .carrier)
-        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if (dataSourceSender.count > 0 && lastShipperFetchTime != -1 && listType == .sender) {
-            updateRequests(category: .sender)
+        if segue.identifier == tripInfoSegue {
+            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
+                tripInfoViewController.trip = trip
+            }
+            
+        } else if segue.identifier == requestDetailSegue {
+            if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
+                requestDetailViewController.trip = tripRequest.0
+                requestDetailViewController.request = tripRequest.1
+            }
         }
+    }
+    
+    
+    func reloadData() {
+        carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
+        senderRequests = TripOrderDataStore.shared.getSenderRequests()
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -159,6 +164,7 @@ class OrderListViewController: UIViewController {
         }
     }
     
+    /*
     fileprivate func fetchRequests(category: TripCategory) {
         
         guard !isFetching else { return }
@@ -186,7 +192,9 @@ class OrderListViewController: UIViewController {
             }
         }
     }
+    */
     
+    /*
     private func updateRequests(category: TripCategory) {
         
         guard !isFetching else { return }
@@ -219,7 +227,9 @@ class OrderListViewController: UIViewController {
             }
         }
     }
-    
+    */
+ 
+    /*
     private func updateDataSource(_ dataSource: [TripOrder], updatedData: [TripOrder]) {
         var updatedRequests = [Request]()
         
@@ -249,7 +259,9 @@ class OrderListViewController: UIViewController {
             }
         }
     }
+    */
     
+    /*
     func updateRequestAtIndexPath(indexPath: IndexPath, statusId: Int) {
         if (listType == .carrier) {
             dataSourceCarrier[indexPath.section].requests?[indexPath.row].request.statusId = statusId
@@ -259,6 +271,7 @@ class OrderListViewController: UIViewController {
             self.tableViewSender.reloadRows(at: [indexPath], with: .fade)
         }
     }
+    */
 }
 
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -267,126 +280,79 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView.tag == TripCategory.carrier.rawValue {
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            let tripOrder = dataSourceCarrier[indexPath.section]
-            //if let tripRequest = tripOrder.requests?[indexPath.row] { // BUG: can not use this if, bcz indexPath.row===0, always outofrange; - Xin
-                // TODO: cell.trip = it needs a trip to show trip info;
-            //    cell.request = tripRequest.request
-                cell.indexPath = indexPath
-                cell.delegate = self
-                cell.carrierDelegate = self
-                if let startCountry = tripOrder.trip.startAddress?.country?.rawValue,let startState = tripOrder.trip.startAddress?.state,let startCity = tripOrder.trip.startAddress?.city{
-                    cell.startAddressLabel.text = startCountry+" "+startState+" "+startCity
-                }
-                if let endCountry = tripOrder.trip.endAddress?.country?.rawValue,let endState = tripOrder.trip.endAddress?.state,let endCity = tripOrder.trip.endAddress?.city{
-                    cell.endAddressLabel.text = endCountry+" "+endState+" "+endCity
-                }
-                return cell
-            //} else {
-            //    return UITableViewCell()
-            //}
+            let trip = carrierTrips[indexPath.row]
+            cell.orderCreditLabel.text = trip.tripCode
+            cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
+            cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
+            cell.dateMonthLabel.text = trip.getMonthString()
+            cell.dateDayLabel.text = trip.getDayString()
+            return cell
             
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            let tripOrder = dataSourceSender[indexPath.section]
-            if tripOrder.requests?.count != 0,
-                let tripRequest = tripOrder.requests?[indexPath.row] {
-                
-                cell.request = tripRequest.request
-                cell.indexPath = indexPath
-                cell.delegate = self
-                cell.senderDelegate = self
-                if let startCountry = tripOrder.trip.startAddress?.country?.rawValue,let startState = tripOrder.trip.startAddress?.state,let startCity = tripOrder.trip.startAddress?.city{
-                    cell.startAddressLabel.text = startCountry+" "+startState+" "+startCity
-                }
-                if let endCountry = tripOrder.trip.endAddress?.country?.rawValue,let endState = tripOrder.trip.endAddress?.state,let endCity = tripOrder.trip.endAddress?.city{
-                    cell.endAddressLabel.text = endCountry+" "+endState+" "+endCity
-                }
-                return cell
-            } else {
-                return UITableViewCell()
-            }
+            
+            let request = senderRequests[indexPath.row]
+            cell.request = request
+            
+            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            cell.startAddressLabel.text = trip?.startAddress?.fullAddressString()
+            cell.endAddressLabel.text = trip?.endAddress?.fullAddressString()
+            return cell
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView.tag == TripCategory.carrier.rawValue {
-            return self.dataSourceCarrier.count
-        } else {
-            return self.dataSourceSender.count
-        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            let tripOrder = dataSourceCarrier[section] // TODO: fix the data passing flow here!
-            return 1
-//            return tripOrder.requests?.count ?? 0
+            return TripOrderDataStore.shared.getCarrierTrips().count
         } else {
-            let tripOrder = dataSourceSender[section]
-            return tripOrder.requests?.count ?? 0
+            return TripOrderDataStore.shared.getSenderRequests().count
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if selectedIndexPath == indexPath {
-//            return tableViewRowHeight.mainCard.rawValue + tableViewRowHeight.detailCard.rawValue
-//        }
         return tableViewRowHeight.mainCard.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedIndexPath != indexPath {
-            selectedIndexPath = indexPath
-        } else {
-            selectedIndexPath = nil
-        }
-        // plan A: expand cell for details
-        //tableView.reloadRows(at: [indexPath], with: .automatic)
-        //tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        // plan B: navigation to new VC
         if tableView.tag == TripCategory.carrier.rawValue {
-            performSegue(withIdentifier: "gotoOrdersYouxiangInfo", sender: dataSourceCarrier[indexPath.section])
+            let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
+            performSegue(withIdentifier: tripInfoSegue, sender: trip)
+            
         } else {
-            let tpOd = dataSourceSender[indexPath.section]
-            let req = tpOd.requests?[indexPath.row]
-            let tp = tpOd.trip
-            performSegue(withIdentifier: "gotoOrdersRequestDetail", sender: (tp, req))
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let youxiangInfoVC = segue.destination as? OrdersYouxiangInfoViewController,
-            let tpOd = sender as? TripOrder {
-            youxiangInfoVC.tripOrder = tpOd
-        }
-        if let requestDetailVC = segue.destination as? OrdersRequestDetailViewController,
-            let tpOd = sender as? (Trip, Request) {
-            requestDetailVC.trip = tpOd.0
-            requestDetailVC.request = tpOd.1
+            let request = senderRequests[indexPath.row]
+            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
         }
     }
 }
 
+/*
 extension OrderListViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
-//        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
-        
-        //Fetching
-        if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
-            fetchRequests(category: listType)
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+////        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
+////        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
+//
+//        //Fetching
+//        if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
+//            fetchRequests(category: listType)
+//        }
+//    }
     
-    fileprivate func animateImageForTableScrolling(){
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
+//    fileprivate func animateImageForTableScrolling(){
+//        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+//    }
 }
+*/
 
+/*
 extension OrderListViewController: OrderListCellDelegate {
     
     func orderCellButtonTapped(request: Request, category: TripCategory, transaction: RequestTransaction, indexPath: IndexPath) {
@@ -415,6 +381,7 @@ extension OrderListViewController: OrderListCellDelegate {
         }
     }
 }
+*/
 
 extension OrderListViewController: OrderListCarrierCellDelegate {
     

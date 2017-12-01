@@ -70,6 +70,13 @@ extension Date {
     static func getTimestampNow() -> Int {
         return Int(NSDate().timeIntervalSince1970)
     }
+    
+    static func getTimeString(format: String, time: TimeInterval) -> String {
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: Date(timeIntervalSince1970: time))
+    }
 }
 
 /* usage:

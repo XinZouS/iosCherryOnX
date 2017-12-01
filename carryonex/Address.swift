@@ -98,7 +98,7 @@ class Address: NSObject, Unboxable {
         return json
     }
     
-    func homeCardDisplayString() -> String {
+    func fullAddressString() -> String {
         
         var address = [String]()
         if let city = city, !city.isEmpty {

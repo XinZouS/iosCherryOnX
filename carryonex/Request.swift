@@ -17,7 +17,6 @@ class Request: Unboxable, Identifiable {
     var totalValue: Int?
     var description: String?
     var note: String?
-    
     var endAddress: Address?
     var statusId: Int?
     

@@ -83,8 +83,8 @@ class UserCardViewController: UIViewController {
         ItemStatusBtn.setTitle("等待付款", for: .normal)
         if let profile = profileInfo {
             timeLabel.text = profile.trip.displayTime()
-            beginLocationLabel.text = profile.trip.startAddress.homeCardDisplayString()
-            endLocationLabel.text = profile.trip.endAddress.homeCardDisplayString()
+            beginLocationLabel.text = profile.trip.startAddress.fullAddressString()
+            endLocationLabel.text = profile.trip.endAddress.fullAddressString()
             //if let imageUrl = URL(string: profile.trip.image) {   //TODO update this
             if let imageUrl = URL(string: "https://www.iaspaper.net/wp-content/uploads/2017/10/Rabbit-Essay.jpg") {
                 ItemDetailBtn.af_setImage(for: .normal, url: imageUrl)
@@ -99,8 +99,8 @@ class UserCardViewController: UIViewController {
         
         if let profile = profileInfo {
             timeLabel.text = profile.request.displayTime()
-            beginLocationLabel.text = profile.request.startAddress.homeCardDisplayString()
-            endLocationLabel.text = profile.request.endAddress.homeCardDisplayString()
+            beginLocationLabel.text = profile.request.startAddress.fullAddressString()
+            endLocationLabel.text = profile.request.endAddress.fullAddressString()
             //if let imageUrl = URL(string: profile.request.image) { //TODO update this
             if let imageUrl = URL(string: "https://www.iaspaper.net/wp-content/uploads/2017/10/Rabbit-Essay.jpg") {
                 ItemDetailBtn.af_setImage(for: .normal, url: imageUrl)

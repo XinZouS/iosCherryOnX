@@ -51,7 +51,7 @@ class OrderListCardShiperCell: OrderListCardCell {
     override func updateRequestInfoAppearance(request: Request) {
         super.updateRequestInfoAppearance(request: request)
         orderCreditLabel.text = request.priceString()
-        youxiangCodeLabel.text = "\(request.tripId ?? -999)"
+        youxiangCodeLabel.text = "\(request.tripId)" //TODO: Change it to trip code
         
         if let shipperAddress = request.endAddress {
             senderNameLabel.text = shipperAddress.recipientName
