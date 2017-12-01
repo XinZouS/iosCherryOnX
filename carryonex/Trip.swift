@@ -52,10 +52,9 @@ enum TripKeyInDB : String {
     case active = "active"
 }
 
-
-class Trip : NSObject, Unboxable {
+class Trip : NSObject, Unboxable, Identifiable {
     
-    var id: Int?
+    var id: Int = 0
     var tripCode: String?
     var transportation: Transportation = .trunk
     
@@ -76,29 +75,23 @@ class Trip : NSObject, Unboxable {
     var pickupDate:      Double? // travel starts
     var pickupTimeStart: Double?
     var pickupTimeEnd:   Double?
-    var timestamp: Int?
+    var timestamp: Int = -1
     var note: String?
     
     override init() {
         super.init()
         
-        self.id = 0
         self.tripCode = "tripCode"
         self.transportation = .trunk
-        
         self.startAddress = Address()
         self.endAddress = Address()
-        
-        self.statusId = RequestStatus.waiting.rawValue
         self.pickupDate = Date().timeIntervalSince1970
         self.pickupTimeStart = Date().timeIntervalSince1970
         self.pickupTimeEnd = Date().timeIntervalSince1970
-        
-        self.timestamp = 0
     }
     
     required init(unboxer: Unboxer) {
-        self.id = try? unboxer.unbox(key: TripKeyInDB.id.rawValue)
+        self.id = try! unboxer.unbox(key: TripKeyInDB.id.rawValue)
         self.tripCode = try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
         self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
 
@@ -112,7 +105,7 @@ class Trip : NSObject, Unboxable {
         self.pickupTimeEnd  = try? unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
         
         self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
-        self.timestamp = try? unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)
+        self.timestamp = try! unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)
     }
     
     func packAsDictionaryForDB() -> [String: Any] {
@@ -132,7 +125,7 @@ class Trip : NSObject, Unboxable {
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
         
         json[TripKeyInDB.note.rawValue] = note ?? ""
-        json[TripKeyInDB.timestamp.rawValue] = timestamp ?? 0
+        json[TripKeyInDB.timestamp.rawValue] = timestamp
         
         return json
     }

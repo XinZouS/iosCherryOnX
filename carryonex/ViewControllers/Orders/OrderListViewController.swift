@@ -230,9 +230,7 @@ class OrderListViewController: UIViewController {
                     updatedRequests.append(tripRequest.request)
                 }
             } else {
-                if let tripId = tripOrder.trip.id {
-                    print("No requests in trip: \(tripId)")
-                }
+                print("No requests in trip: \(tripOrder.trip.id)")
             }
         }
         
@@ -241,14 +239,12 @@ class OrderListViewController: UIViewController {
             for tripOrder in dataSource {
                 if let requests = tripOrder.requests {
                     for tripRequest in requests {
-                        if let requestId = tripRequest.request.id, let updatedRequestId = request.id, requestId == updatedRequestId {
+                        if tripRequest.request.id == request.id {
                             tripRequest.request.statusId = request.statusId
                         }
                     }
                 } else {
-                    if let tripId = tripOrder.trip.id {
-                        print("No requests in trip: \(tripId)")
-                    }
+                    print("No requests in trip: \(tripOrder.trip.id)")
                 }
             }
         }
@@ -402,9 +398,8 @@ extension OrderListViewController: OrderListCellDelegate {
             if style == .default {
                 let tripOrder = currentDataSource[indexPath.section]
                 let trip = tripOrder.trip
-                guard let requestId = request.id, let tripId = trip.id else { return }
-                ApiServers.shared.postRequestTransaction(requestId: requestId,
-                                                         tripId: tripId,
+                ApiServers.shared.postRequestTransaction(requestId: request.id,
+                                                         tripId: trip.id,
                                                          transaction: transaction,
                                                          completion: { (success, error, statusId) in
                     if (success) {
