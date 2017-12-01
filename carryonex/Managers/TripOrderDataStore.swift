@@ -28,10 +28,23 @@ class TripOrderDataStore: NSObject {
         }
     }
     
-    func pull(category: TripCategory) {
+    func getRequestsByTripId(category: TripCategory, tripId: Int) -> [Request] {
+        let targetRequests = (category == .carrier) ? carrierRequests : senderRequests
+        return targetRequests.values.filter({ (req) -> Bool in
+            return req.tripId == tripId
+        })
+    }
+    
+    func getRequest(category: TripCategory, requestId: Int) -> Request? {
+        let targetRequests = (category == .carrier) ? carrierRequests : senderRequests
+        return targetRequests[requestId]
+    }
+    
+    func pull(category: TripCategory, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
-        let pageCount = (targetTrips.count == 0) ? 10 : targetTrips.count
+        let pageCount = (targetTrips.count == 0) ? 10 : targetTrips.count   //first pull 10 items
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
+        
         ApiServers.shared.getUsersTrips(userType: category, offset: 0, pageCount: pageCount, sinceTime: lastFetchTime) { (tripOrders, error) in
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
@@ -40,16 +53,18 @@ class TripOrderDataStore: NSObject {
             
             if let tripOrders = tripOrders {
                 self.updateData(forCategory: category, updatedData: tripOrders)
+                
+                //Only notify update when there are actual substantial update.
+                NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
             }
             
             if category == .carrier {
                 self.lastCarrierFetchTime = Date.getTimestampNow()
+                print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
             } else {
                 self.lastSenderFetchTime = Date.getTimestampNow()
+                print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
             }
-            
-            print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
-            print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
         }
     }
     
@@ -57,6 +72,8 @@ class TripOrderDataStore: NSObject {
         
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         let (newTripOrders, existingTripOrders) = self.getNewTripOrders(updatedData: updatedData, currentTrips: targetTrips)
+        
+        //NOTE: Maybe we should combine update request data + add new request data
         //Update request data before trip data, because request will need to check for trip data.
         updateTripData(forCategory: category, updatedData: existingTripOrders)
         updateRequestData(forCategory: category, updatedData: existingTripOrders)

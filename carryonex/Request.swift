@@ -12,7 +12,7 @@ class Request: Unboxable, Identifiable {
     var id: Int = 0
     var ownerId: Int?
     var ownerUsername: String?
-    var tripId: Int?
+    var tripId: Int = -1
     var priceBySender: Int?
     var totalValue: Int?
     var description: String?
@@ -25,7 +25,7 @@ class Request: Unboxable, Identifiable {
         self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
         self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
-        self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
+        self.tripId = try unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
         self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
         self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
@@ -36,12 +36,12 @@ class Request: Unboxable, Identifiable {
     
     func printAllData() {
         let allData = """
-        id = \(id ?? 0)
+        id = \(id)
         totalValue = \(totalValue ?? 0)
         price = \(priceBySender ?? 0)
         ownerId = \(ownerId ?? 0)
         ownerUsername = \(ownerUsername ?? "")
-        tripId = \(tripId ?? 0),
+        tripId = \(tripId),
         description = \(description ?? "")"
         endAddress = \(endAddress?.descriptionString() ?? "")
         note = \(note ?? "")"

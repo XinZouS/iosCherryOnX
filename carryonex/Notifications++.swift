@@ -15,8 +15,12 @@ extension Notification.Name {
     }
     
     public struct WeChat {
-        public static let changeHeadImg = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.changeHeadImg")
+        public static let ChangeProfileImg = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.change-profile-img")
         public static let Authenticated = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.authenticated")
         public static let AuthenticationFailed = Notification.Name(rawValue: "com.carryonex.notification.name.wechat.authentication-failed")
+    }
+    
+    public struct TripOrderStore {
+        public static let StoreUpdated = Notification.Name(rawValue: "com.carryonex.notification.name.tripOrderStore.store-updated")
     }
 }

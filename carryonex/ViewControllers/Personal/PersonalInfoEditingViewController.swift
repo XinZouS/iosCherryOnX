@@ -46,7 +46,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     fileprivate func addWeChatObservers() {
         /**  微信通知  */
-        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.changeHeadImg, object: nil, queue: nil) { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.ChangeProfileImg, object: nil, queue: nil) { [weak self] notification in
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {

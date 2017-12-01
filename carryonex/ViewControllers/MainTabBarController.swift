@@ -62,6 +62,8 @@ class MainTabBarController: UITabBarController {
                 if isSuccess {
                     self.activityIndicator.stopAnimating()
                     APIServerChecker.testAPIServers()
+                    TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
+                    TripOrderDataStore.shared.pull(category: .sender, completion: nil)
                 }
             })
             appDidLaunch = true
