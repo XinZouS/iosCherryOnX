@@ -78,9 +78,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
             endAddressLabel.text = endCountry + "，" + endState + "，" + endCity
             startAddressLabel.text = startCountry + "，" + startState + "，" + startCity
         }
-        if let tripId = trip.id {
-            youxiangCodeLabel.text = String(tripId)
-        }
+        youxiangCodeLabel.text = String(trip.id)
     }
 
 }

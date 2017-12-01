@@ -832,16 +832,10 @@ class ApiServers : NSObject {
             return
         }
         
-        guard let tripId = trip.id else {
-            print("postRequest: Unable to find trip id")
-            completion(false, nil)
-            return
-        }
-        
         let route = hostVersion + "/requests/create"
         var requestDict: [String: Any] = [
             RequestKeyInDB.endAddress.rawValue: destination.packAsDictionaryForDB(),
-            RequestKeyInDB.tripId.rawValue: tripId,
+            RequestKeyInDB.tripId.rawValue: trip.id,
             RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
             RequestKeyInDB.priceBySender.rawValue: Int(cost * 100),
             RequestKeyInDB.description.rawValue: description

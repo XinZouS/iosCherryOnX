@@ -13,6 +13,7 @@
 		06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */; };
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
+		4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */; };
 		4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */; };
 		4D6571BC1FCFF4900075305F /* Type+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6571BB1FCFF4900075305F /* Type+Extension.swift */; };
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
@@ -301,6 +302,7 @@
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
 		4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardCell.swift; sourceTree = "<group>"; };
+		4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrderDataStore.swift; sourceTree = "<group>"; };
 		4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerChecker.swift; sourceTree = "<group>"; };
 		4D6571BB1FCFF4900075305F /* Type+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type+Extension.swift"; sourceTree = "<group>"; };
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -1407,6 +1409,7 @@
 				66CC1E361FBCC6D50080C80B /* AudioManager.swift */,
 				66CE22571FBE602200DCC274 /* FlickrImageManager.swift */,
 				0675136D1FC26AD2002ABF2E /* WalletManager.swift */,
+				4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1881,6 +1884,7 @@
 				FFF7913E1FD0C25C00C116C6 /* STInvoice.swift in Sources */,
 				66C3EA911FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift in Sources */,
 				661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */,
+				4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */,
 				6686096F1F60703800740A92 /* Transaction.swift in Sources */,
 				6602526E1FC48BB300277617 /* ShipperInfoViewController.swift in Sources */,
 				668609751F60779500740A92 /* WalletCreditCell.swift in Sources */,

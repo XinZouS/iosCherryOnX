@@ -230,9 +230,7 @@ class OrderListViewController: UIViewController {
                     updatedRequests.append(tripRequest.request)
                 }
             } else {
-                if let tripId = tripOrder.trip.id {
-                    print("No requests in trip: \(tripId)")
-                }
+                print("No requests in trip: \(tripOrder.trip.id)")
             }
         }
         
@@ -246,9 +244,7 @@ class OrderListViewController: UIViewController {
                         }
                     }
                 } else {
-                    if let tripId = tripOrder.trip.id {
-                        print("No requests in trip: \(tripId)")
-                    }
+                    print("No requests in trip: \(tripOrder.trip.id)")
                 }
             }
         }
@@ -402,9 +398,9 @@ extension OrderListViewController: OrderListCellDelegate {
             if style == .default {
                 let tripOrder = currentDataSource[indexPath.section]
                 let trip = tripOrder.trip
-                guard let requestId = request.id, let tripId = trip.id else { return }
+                guard let requestId = request.id else { return }
                 ApiServers.shared.postRequestTransaction(requestId: requestId,
-                                                         tripId: tripId,
+                                                         tripId: trip.id,
                                                          transaction: transaction,
                                                          completion: { (success, error, statusId) in
                     if (success) {
