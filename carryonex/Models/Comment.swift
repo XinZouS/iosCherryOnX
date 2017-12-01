@@ -11,7 +11,7 @@ import Unbox
 
 enum CommentKey: String {
     case id = "id"
-    case showName = "show_name"
+    case realName = "real_name"
     case comment = "comment"
     case rank = "rank"
     case imageUrl = "image_url"
@@ -26,20 +26,19 @@ enum CommentKey: String {
 struct Comment {
     let id: Int
     let comment: String
-    let rank: Float
+    let realName: String?
+    let rank: Float?
     let timestamp: Int
-    let showName: String
-    let imageUrl: String
+    let imageUrl: String?
 }
 
 extension Comment: Unboxable {
     init(unboxer: Unboxer) throws {
-        self.id = try unboxer.unbox(key: "id")
-        self.comment = try unboxer.unbox(key: "comment")
-        self.showName = try unboxer.unbox(key: "commenter_username")
-        //self.showName = try unboxer.unbox(key: "show_name")   //TODO
-        self.rank = try unboxer.unbox(key: "rank")
-        self.timestamp = try unboxer.unbox(key: "timestamp")
-        self.imageUrl = try unboxer.unbox(key: "image_url")
+        self.id = try unboxer.unbox(key: CommentKey.commenterId.rawValue)
+        self.comment = try unboxer.unbox(key: CommentKey.comment.rawValue)
+        self.realName = try? unboxer.unbox(key: CommentKey.realName.rawValue)
+        self.rank = try? unboxer.unbox(key: CommentKey.rank.rawValue)
+        self.timestamp = try unboxer.unbox(key: CommentKey.timestamp.rawValue)
+        self.imageUrl = try? unboxer.unbox(key: CommentKey.imageUrl.rawValue)
     }
 }
