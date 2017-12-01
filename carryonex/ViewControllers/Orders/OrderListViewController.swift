@@ -239,7 +239,7 @@ class OrderListViewController: UIViewController {
             for tripOrder in dataSource {
                 if let requests = tripOrder.requests {
                     for tripRequest in requests {
-                        if let requestId = tripRequest.request.id, let updatedRequestId = request.id, requestId == updatedRequestId {
+                        if tripRequest.request.id == request.id {
                             tripRequest.request.statusId = request.statusId
                         }
                     }
@@ -398,8 +398,7 @@ extension OrderListViewController: OrderListCellDelegate {
             if style == .default {
                 let tripOrder = currentDataSource[indexPath.section]
                 let trip = tripOrder.trip
-                guard let requestId = request.id else { return }
-                ApiServers.shared.postRequestTransaction(requestId: requestId,
+                ApiServers.shared.postRequestTransaction(requestId: request.id,
                                                          tripId: trip.id,
                                                          transaction: transaction,
                                                          completion: { (success, error, statusId) in

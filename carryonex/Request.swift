@@ -8,8 +8,8 @@
 
 import Unbox
 
-class Request: Unboxable {
-    var id: Int?
+class Request: Unboxable, Identifiable {
+    var id: Int = 0
     var ownerId: Int?
     var ownerUsername: String?
     var tripId: Int?
@@ -22,7 +22,7 @@ class Request: Unboxable {
     var statusId: Int?
     
     required init(unboxer: Unboxer) throws {
-        self.id = try? unboxer.unbox(key: RequestKeyInDB.id.rawValue)
+        self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
         self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try? unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)

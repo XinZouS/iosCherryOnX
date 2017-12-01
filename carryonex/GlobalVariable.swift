@@ -77,6 +77,10 @@ protocol ZipcodeCellDelegate: class {
     func setupTextField()
 }
 
+protocol Identifiable {
+    var id: Int { get set }
+}
+
 enum TripCategory: Int {
     case carrier
     case sender

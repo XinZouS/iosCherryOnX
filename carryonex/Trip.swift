@@ -52,8 +52,7 @@ enum TripKeyInDB : String {
     case active = "active"
 }
 
-
-class Trip : NSObject, Unboxable {
+class Trip : NSObject, Unboxable, Identifiable {
     
     var id: Int = 0
     var tripCode: String?
