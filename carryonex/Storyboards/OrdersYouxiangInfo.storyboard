@@ -99,20 +99,42 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8GX-O6-WTK">
-                                        <rect key="frame" x="299" y="10" width="30" height="30"/>
+                                        <rect key="frame" x="285" y="0.0" width="60" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="egG-vo-vxE"/>
-                                            <constraint firstAttribute="height" constant="30" id="mM1-nK-c4X"/>
+                                            <constraint firstAttribute="width" constant="60" id="egG-vo-vxE"/>
+                                            <constraint firstAttribute="height" constant="60" id="mM1-nK-c4X"/>
                                         </constraints>
-                                        <state key="normal" image="locker_unlock"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="lockerButtonTapped:" destination="8i7-qB-Vaa" eventType="touchUpInside" id="zQd-uA-IxM"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LockClosed" translatesAutoresizingMaskIntoConstraints="NO" id="iSx-pi-aRf">
+                                        <rect key="frame" x="304" y="10" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="GQc-TV-EXh"/>
+                                            <constraint firstAttribute="width" constant="26" id="YZt-zs-ozk"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已锁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMf-xa-wXt">
+                                        <rect key="frame" x="269" y="12.5" width="30" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="2bu-cE-gvu"/>
+                                            <constraint firstAttribute="height" constant="21" id="we0-9u-xL0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="45C-oU-1Hp"/>
+                                    <constraint firstItem="cMf-xa-wXt" firstAttribute="centerY" secondItem="iSx-pi-aRf" secondAttribute="centerY" id="8Kk-RP-D8q"/>
                                     <constraint firstItem="cie-uh-yGT" firstAttribute="top" secondItem="ed1-H7-FwI" secondAttribute="bottom" constant="6" id="8rG-ID-iiG"/>
                                     <constraint firstItem="Kbd-hj-nhH" firstAttribute="leading" secondItem="cie-uh-yGT" secondAttribute="leading" id="Bm5-rC-2Ho"/>
                                     <constraint firstItem="lfC-3F-tFG" firstAttribute="leading" secondItem="Kbd-hj-nhH" secondAttribute="trailing" constant="5" id="EHJ-ff-07l"/>
@@ -121,18 +143,21 @@
                                     <constraint firstItem="M4S-YX-Zpa" firstAttribute="leading" secondItem="cie-uh-yGT" secondAttribute="trailing" id="Lq8-eu-fFf"/>
                                     <constraint firstItem="K9w-qW-Y6X" firstAttribute="top" secondItem="tCQ-C3-fvF" secondAttribute="top" constant="20" id="SUi-O0-Q0F"/>
                                     <constraint firstItem="lN3-Zw-7Mp" firstAttribute="leading" secondItem="Kbd-hj-nhH" secondAttribute="trailing" constant="5" id="VF0-Y0-mhW"/>
-                                    <constraint firstItem="8GX-O6-WTK" firstAttribute="top" secondItem="tCQ-C3-fvF" secondAttribute="top" constant="10" id="VGp-Pd-gdp"/>
+                                    <constraint firstItem="8GX-O6-WTK" firstAttribute="top" secondItem="tCQ-C3-fvF" secondAttribute="top" id="VGp-Pd-gdp"/>
                                     <constraint firstItem="Kbd-hj-nhH" firstAttribute="top" secondItem="lN3-Zw-7Mp" secondAttribute="bottom" constant="-16" id="VZV-Jv-kBg"/>
                                     <constraint firstItem="0o5-rc-3NY" firstAttribute="centerX" secondItem="K9w-qW-Y6X" secondAttribute="centerX" id="XeJ-s8-Fco"/>
                                     <constraint firstItem="ed1-H7-FwI" firstAttribute="top" secondItem="tCQ-C3-fvF" secondAttribute="top" constant="15" id="b3e-pP-W3H"/>
+                                    <constraint firstItem="iSx-pi-aRf" firstAttribute="leading" secondItem="cMf-xa-wXt" secondAttribute="trailing" constant="5" id="bdg-2p-s3d"/>
+                                    <constraint firstAttribute="trailing" secondItem="iSx-pi-aRf" secondAttribute="trailing" constant="15" id="dua-tA-gHP"/>
                                     <constraint firstAttribute="trailing" secondItem="lfC-3F-tFG" secondAttribute="trailing" id="fmI-rz-zNG"/>
                                     <constraint firstItem="cie-uh-yGT" firstAttribute="leading" secondItem="ed1-H7-FwI" secondAttribute="leading" id="ii6-Nx-aBT"/>
-                                    <constraint firstAttribute="trailing" secondItem="8GX-O6-WTK" secondAttribute="trailing" constant="16" id="jsa-Kv-IAr"/>
+                                    <constraint firstAttribute="trailing" secondItem="8GX-O6-WTK" secondAttribute="trailing" id="jsa-Kv-IAr"/>
                                     <constraint firstItem="M4S-YX-Zpa" firstAttribute="bottom" secondItem="cie-uh-yGT" secondAttribute="bottom" id="kfK-gn-baI"/>
                                     <constraint firstItem="0o5-rc-3NY" firstAttribute="top" secondItem="K9w-qW-Y6X" secondAttribute="bottom" id="kqo-yW-1hl"/>
                                     <constraint firstItem="lfC-3F-tFG" firstAttribute="top" secondItem="Kbd-hj-nhH" secondAttribute="bottom" constant="-15" id="low-gW-kc0"/>
                                     <constraint firstItem="Kbd-hj-nhH" firstAttribute="top" secondItem="cie-uh-yGT" secondAttribute="bottom" constant="13" id="oFD-6e-0Ab"/>
                                     <constraint firstItem="K9w-qW-Y6X" firstAttribute="leading" secondItem="tCQ-C3-fvF" secondAttribute="leading" constant="16" id="qLg-Zn-ged"/>
+                                    <constraint firstItem="iSx-pi-aRf" firstAttribute="top" secondItem="tCQ-C3-fvF" secondAttribute="top" constant="10" id="uGe-TX-lLX"/>
                                     <constraint firstItem="M4S-YX-Zpa" firstAttribute="top" secondItem="cie-uh-yGT" secondAttribute="top" id="uKz-MX-yS5"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -440,6 +465,8 @@
                         <outlet property="dateMonthLabel" destination="K9w-qW-Y6X" id="UQ4-XA-Cwp"/>
                         <outlet property="endAddressLabel" destination="lfC-3F-tFG" id="qTz-Tw-noI"/>
                         <outlet property="lockerButton" destination="8GX-O6-WTK" id="dvh-hj-L52"/>
+                        <outlet property="lockerHintLabel" destination="cMf-xa-wXt" id="P9G-mP-nsp"/>
+                        <outlet property="lockerImageView" destination="iSx-pi-aRf" id="jIe-4T-uDH"/>
                         <outlet property="shareButton" destination="M4S-YX-Zpa" id="Je0-O7-Brp"/>
                         <outlet property="startAddressLabel" destination="lN3-Zw-7Mp" id="49p-AK-vi4"/>
                         <outlet property="tableView" destination="Tgd-hQ-fJ0" id="Ema-HR-DRN"/>
@@ -463,9 +490,9 @@
     <resources>
         <image name="CarryonExIcon-29" width="29" height="29"/>
         <image name="CarryonEx_Wechat_Icon" width="64" height="64"/>
+        <image name="LockClosed" width="59" height="67"/>
         <image name="addressDotDash" width="42" height="108"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
-        <image name="locker_unlock" width="59" height="58"/>
         <image name="shareing" width="63" height="64"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>

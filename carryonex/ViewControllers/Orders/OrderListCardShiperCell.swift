@@ -10,6 +10,7 @@ import UIKit
 
 
 protocol OrderListCarrierCellDelegate: class {
+    func orderListCarrierGotoTripDetailButtonTapped()
     func orderListCarrierSenderProfileTapped()
     func orderListCarrierSenderPhoneTapped()
     func orderListCarrierMoreImagesTapped()
@@ -25,6 +26,8 @@ class OrderListCardShiperCell: OrderListCardCell {
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
+    @IBOutlet weak var gotoTripDetailButton: RequestTransactionButton!
+    @IBOutlet weak var shareYouxiangButton: UIButton!
     // card expand
     @IBOutlet weak var cardDetailView: UIView!
     @IBOutlet weak var senderNameLabel: UILabel!
@@ -37,7 +40,6 @@ class OrderListCardShiperCell: OrderListCardCell {
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var itemListImageMoreButton: UIButton!
-    @IBOutlet weak var youxiangCodeShareButton: UIButton!
     
     weak var carrierDelegate: OrderListCarrierCellDelegate?
     
@@ -98,13 +100,16 @@ class OrderListCardShiperCell: OrderListCardCell {
         if sender == profileButton {
             carrierDelegate?.orderListCarrierSenderProfileTapped()
             
+        } else if sender == gotoTripDetailButton {
+            carrierDelegate?.orderListCarrierGotoTripDetailButtonTapped()
+            
         } else if sender == phoneButton {
             carrierDelegate?.orderListCarrierSenderPhoneTapped()
             
         } else if sender == itemListImageMoreButton {
             carrierDelegate?.orderListCarrierMoreImagesTapped()
             
-        } else if sender == youxiangCodeShareButton {
+        } else if sender == shareYouxiangButton {
             carrierDelegate?.orderListCarrierCodeShareTapped()
         }
     }
