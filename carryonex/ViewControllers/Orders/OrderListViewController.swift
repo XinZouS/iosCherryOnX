@@ -284,6 +284,8 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.orderCreditLabel.text = trip.tripCode
             cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
+            cell.dateMonthLabel.text = trip.getMonthString()
+            cell.dateDayLabel.text = trip.getDayString()
             return cell
             
         } else {
