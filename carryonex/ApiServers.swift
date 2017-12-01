@@ -249,8 +249,8 @@ class ApiServers : NSObject {
             
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
                 if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                    if let token = data[ServerKey.userToken.rawValue] as? String {
-                        completion((token, ""), nil)    //TODO
+                    if let token = data[ServerKey.userToken.rawValue] as? String, let username = data[ServerKey.username.rawValue] as? String {
+                        completion((token, username), nil)
                         
                     } else {
                         print("postLoginUser - Unable to find token from user data")
