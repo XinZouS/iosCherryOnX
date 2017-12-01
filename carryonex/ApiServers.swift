@@ -529,8 +529,7 @@ class ApiServers : NSObject {
     }
     
     
-    // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
-    func getUsersTrips(userType: TripCategory, offset: Int, pageCount: Int = 4, sinceTime: Int = -1, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
+    func getUsersTrips(userType: TripCategory, offset: Int = -1, pageCount: Int = -1, sinceTime: Int = -1, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
             completion(nil, nil)
@@ -543,14 +542,12 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.offset.rawValue: offset,
-            ServerKey.pageCount.rawValue: pageCount,
             ServerKey.userType.rawValue: userType.stringValue
         ]
         
-        if sinceTime > -1 {
-            parameters[ServerKey.sinceTime.rawValue] = sinceTime
-        }
+        if offset > -1 { parameters[ServerKey.offset.rawValue] = offset }
+        if pageCount > -1 { parameters[ServerKey.pageCount.rawValue] = pageCount }
+        if sinceTime > -1 { parameters[ServerKey.sinceTime.rawValue] = sinceTime }
         
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
@@ -994,7 +991,7 @@ class ApiServers : NSObject {
             guard let response = response else {
                 if let error = error {
                     completion(false, error.localizedDescription, nil)
-                    print("getUserComments response error: \(error.localizedDescription)")
+                    print("getRequestPrice response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -1051,15 +1048,9 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                
-                //TODO: update this after server update
-                if data[CommentKey.commentId.rawValue] != nil || data[CommentKey.id.rawValue] != nil {
-                    completion(true, nil)
-                } else {
-                    completion(false, nil)
-                }
-                
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                debugLog("Comment success")
+                completion(true, nil)
             } else {
                 debugLog("Unable to get data")
                 completion(false, nil)
@@ -1070,7 +1061,7 @@ class ApiServers : NSObject {
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
     func getUserComments(commenteeId: Int, offset: Int, pageCount: Int = 4, completion: @escaping((UserComments?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getUsersTrips: Profile user empty, pleaes login to get user's comments")
+            print("getUserComments: Profile user empty, pleaes login to get user's comments")
             completion(nil, nil)
             return
         }
@@ -1096,7 +1087,7 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
-                    let userComments : UserComments = try unbox(dictionary: data, atKey:"comments")
+                    let userComments : UserComments = try unbox(dictionary: data)
                     completion(userComments, nil)
                     
                 } catch let error as NSError {

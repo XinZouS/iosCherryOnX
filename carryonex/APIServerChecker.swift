@@ -16,6 +16,10 @@ class APIServerChecker: NSObject {
         //testPostTripActive(isActive: true)  //Test get also
         //testGetTripActive()
         //testGetUserInfo(info: .imageUrl)
+        
+        //Comments
+        //testGetComments(userId: 7)
+        //testPostComments(comment: "Hello world tester comment", commenteeId: 7, commenterId: 19, rank: 4)
     }
     
     static func testPostUserSos() {
@@ -68,6 +72,22 @@ class APIServerChecker: NSObject {
             if let value = value {
                 print("Get user info \(info.rawValue): \(value)")
             }
+        }
+    }
+    
+    static func testGetComments(userId: Int) {
+        ApiServers.shared.getUserComments(commenteeId: userId, offset: 0) { (userComments, error) in
+            if let userComments = userComments {
+                for comment in userComments.comments {
+                    print("id: \(comment.id) Comment: \(comment.comment)")
+                }
+            }
+        }
+    }
+    
+    static func testPostComments(comment: String, commenteeId: Int, commenterId: Int, rank: Float) {
+        ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: commenterId, rank: rank) { (success, error) in
+            print("Is post comment success: \(success)")
         }
     }
 }
