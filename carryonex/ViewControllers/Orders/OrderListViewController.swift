@@ -10,6 +10,9 @@ import UIKit
 
 class OrderListViewController: UIViewController {
     
+    let tripInfoSegue = "gotoOrdersYouxiangInfo"
+    let requestDetailSegue = "gotoOrdersRequestDetail"
+    
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -20,22 +23,7 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
-    var listType: TripCategory = .carrier {
-        didSet {
-//            if dataSourceCarrier.count == 0 || dataSourceSender.count == 0 {
-//                fetchRequests(category: listType)
-//            }
-            
-            //Update page when switch tab
-//            if (dataSourceCarrier.count > 0 && lastCarrierFetchTime != -1 && listType == .carrier) {
-//                updateRequests(category: .carrier)
-//            }
-//
-//            if (dataSourceSender.count > 0 && lastShipperFetchTime != -1 && listType == .sender) {
-//                updateRequests(category: .sender)
-//            }
-        }
-    }
+    var listType: TripCategory = .carrier
     
     var isFetching = false
     var lastCarrierFetchTime: Int = -1
@@ -72,7 +60,6 @@ class OrderListViewController: UIViewController {
         setupTableViews()
         
         listType = .carrier
-        //fetchRequests(category: listType)
         
         reloadData()
         
@@ -85,6 +72,22 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == tripInfoSegue {
+            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
+                tripInfoViewController.trip = trip
+            }
+            
+        } else if segue.identifier == requestDetailSegue {
+            if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
+                requestDetailViewController.trip = tripRequest.0
+                requestDetailViewController.request = tripRequest.1
+            }
+        }
+    }
+    
     
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
@@ -316,24 +319,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == TripCategory.carrier.rawValue {
             let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
-            performSegue(withIdentifier: "gotoOrdersYouxiangInfo", sender: trip)
+            performSegue(withIdentifier: tripInfoSegue, sender: trip)
             
         } else {
             let request = senderRequests[indexPath.row]
             let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
-            performSegue(withIdentifier: "gotoOrdersRequestDetail", sender: (trip, request))
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let youxiangInfoVC = segue.destination as? OrdersYouxiangInfoViewController,
-            let tpOd = sender as? TripOrder {
-            youxiangInfoVC.tripOrder = tpOd
-        }
-        if let requestDetailVC = segue.destination as? OrdersRequestDetailViewController,
-            let tpOd = sender as? (Trip, Request) {
-            requestDetailVC.trip = tpOd.0
-            requestDetailVC.request = tpOd.1
+            performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
         }
     }
 }

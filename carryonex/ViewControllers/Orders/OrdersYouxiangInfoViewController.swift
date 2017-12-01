@@ -21,7 +21,6 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-
     @IBAction func shareButtonTapped(_ sender: Any) {
     }
     
@@ -29,7 +28,9 @@ class OrdersYouxiangInfoViewController: UIViewController {
         setTripLockerStatus()
     }
     
-    var tripOrder: TripOrder?
+    var trip: Trip!
+    var requests = [Request]()
+    
     var isLocked: Bool = false
     
     var activityIndicator: UIActivityIndicatorCustomizeView!
@@ -47,8 +48,11 @@ class OrdersYouxiangInfoViewController: UIViewController {
         super.viewDidLoad()
         title = "游箱信息"
         navigationController?.isNavigationBarHidden = false
+        
+        requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
+        
         setupTableView()
-        setupUIforTripOrder()
+        setupUIforTrip()
         setupActivityIndicator()
     }
     
@@ -58,11 +62,10 @@ class OrdersYouxiangInfoViewController: UIViewController {
         tableView.tableFooterView = UIView() // remove empty lines
     }
     
-    private func setupUIforTripOrder(){
-        guard let t = tripOrder else { return }
-        setupTripDateLabels(t.trip.pickupDate)
-        setupTripCodeAddressLabels(t.trip)
-        setupLockerForTrip(t.trip)
+    private func setupUIforTrip(){
+        setupTripDateLabels(trip.pickupDate)
+        setupTripCodeAddressLabels(trip)
+        setupLockerForTrip(trip)
     }
     
     private func setupActivityIndicator(){
@@ -116,10 +119,9 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     private func setTripLockerStatus(){
-        guard let t = tripOrder else { return }
         lockerButton.isEnabled = false
         isLoading = true
-        ApiServers.shared.postTripActive(tripId: "\(t.trip.id)", isActive: !isLocked) { (success, error) in
+        ApiServers.shared.postTripActive(tripId: "\(trip.id)", isActive: !isLocked) { (success, error) in
             self.lockerButton.isEnabled = true
             if let err = error {
                 self.isLoading = false
@@ -130,11 +132,10 @@ class OrdersYouxiangInfoViewController: UIViewController {
             if success {
                 // isLoading=F in setupLockerForTrip()
                 self.isLocked = !self.isLocked
-                self.setupLockerForTrip(t.trip)
+                self.setupLockerForTrip(self.trip)
             }
         }
     }
-
 }
 
 
@@ -146,34 +147,30 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let t = tripOrder else {
-            return 1 // for empty cell
-        }
-        guard let requests = t.requests, requests.count != 0 else {
-            return 1 // for empty cell
+        if requests.count == 0 {
+            return 1
         }
         return requests.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tr = tripOrder else {
-            return UITableViewCell()
-        }
-        if let requests = tr.requests, requests.count > 0 {
+        if requests.count > 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoCell", for: indexPath) as? OrdersYouxiangInfoCell {
                 cell.selectionStyle = .none
                 cell.ordersYouxiangInfoVC = self
-                cell.tripRequest = requests[indexPath.row]
+                cell.request = requests[indexPath.row]
                 return cell
             }
+            
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoEmptyCell", for: indexPath) as? OrdersYouxiangInfoEmptyCell {
                 cell.selectionStyle = .none
                 cell.ordersYouxiangInfoVC = self
-                cell.trip = tripOrder?.trip
+                cell.trip = trip
                 return cell
             }
         }
+        
         return UITableViewCell()
     }
     
@@ -182,21 +179,19 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
 extension OrdersYouxiangInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let requests = tripOrder?.requests, requests.count > 0 else { return }
+        if requests.count == 0 { return }
         performSegue(withIdentifier: "gotoOrdersRequestDetailSegue", sender: requests[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailVC = segue.destination as? OrdersRequestDetailViewController,
-            let req = sender as? Request,
-            let trip = tripOrder?.trip {
+        if let detailVC = segue.destination as? OrdersRequestDetailViewController, let request = sender as? Request {
             detailVC.trip = trip
-            detailVC.request = req
+            detailVC.request = request
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tripOrder == nil || tripOrder?.requests?.count == 0 {
+        if requests.count == 0 {
             return 233 // empty cell
         }
         return 170 // request cell
