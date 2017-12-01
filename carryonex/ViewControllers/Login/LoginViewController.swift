@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BPCircleActivityIndicator
 
 class LoginViewController: UIViewController {
 
@@ -24,7 +25,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var wechatLoginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
-    
+    var circleIndicator: BPCircleActivityIndicator!
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
         p.backgroundColor = pickerColorLightGray
@@ -41,6 +42,7 @@ class LoginViewController: UIViewController {
         setupPhoneTextField()
         setupPasswordTextField()
         setupFlagPicker()
+        setupIndicator()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +67,13 @@ class LoginViewController: UIViewController {
         }
     }
     //MARK: - View custom set up
+    
+    private func setupIndicator(){
+        circleIndicator = BPCircleActivityIndicator()
+        circleIndicator.center = view.center
+        circleIndicator.isHidden = true
+        view.addSubview(circleIndicator)
+    }
     
     private func setupFlagPicker(){
         view.addSubview(flagPicker)
@@ -189,6 +198,8 @@ extension LoginViewController {
 extension LoginViewController {
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
+        circleIndicator.isHidden = false
+        circleIndicator.animate()
         wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
@@ -263,6 +274,7 @@ extension LoginViewController: UITextFieldDelegate {
                             if success {
                                 ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
                                     if success {
+                                        self?.circleIndicator.stop()
                                         //if update success close
                                         AppDelegate.shared().mainTabViewController?.dismissLogin()
                                     } else {
@@ -280,6 +292,7 @@ extension LoginViewController: UITextFieldDelegate {
                                 ProfileManager.shared.login(username: username, password: password, completion: { (success) in
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (updateSuccess) in
                                         if updateSuccess {
+                                            self?.circleIndicator.stop()
                                             self?.dismiss(animated: true, completion: nil)
                                         } else {
                                             debugPrint("Wechat registration update user info failed at new registration")

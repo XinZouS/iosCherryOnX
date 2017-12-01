@@ -202,7 +202,8 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         }
         
         UIApplication.shared.beginIgnoringInteractionEvents()
-        activityIndicator.startAnimating() // start uploading image and show indicator
+        activityIndicator.isHidden = false
+        activityIndicator.animate() // start uploading image and show indicator
         
         if let realName = self.nameTextField.text, !realName.isEmpty {
             ProfileManager.shared.updateUserInfo(.realName, value: realName, completion: { (success) in
@@ -281,13 +282,14 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
 
     private func didFinishedUploadImagesToAws(allSuccess: Bool){
         guard allSuccess else {
-            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            activityIndicator.stop()
             displayAlertForUploadFailed(error: nil)
             return
         }
         guard imageUploadingSet.count == 0 else { return }
-        
-        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        activityIndicator.stop()
         UIApplication.shared.endIgnoringInteractionEvents()
         
         DispatchQueue.main.async {

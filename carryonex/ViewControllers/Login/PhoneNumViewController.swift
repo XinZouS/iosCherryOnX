@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Material
+
+import BPCircleActivityIndicator
 
 class PhoneNumViewController: UIViewController {
     
@@ -20,10 +21,12 @@ class PhoneNumViewController: UIViewController {
     var isLoading: Bool = false {
         didSet{
             if isLoading {
-                loadingIndicator.startAnimating()
+                loadingIndicator.isHidden = false
+                loadingIndicator.animate()
                 flagPicker.isHidden = true
             } else {
-                loadingIndicator.stopAnimating()
+                loadingIndicator.isHidden = true
+                loadingIndicator.stop()
             }
             countryCodeButton.isEnabled = !isLoading
             phoneNumTextField.isEnabled = !isLoading
@@ -35,7 +38,7 @@ class PhoneNumViewController: UIViewController {
     @IBOutlet weak var phoneNumTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var bottomImgeView: UIImageView!
-    var loadingIndicator: UIActivityIndicatorCustomizeView!
+    var loadingIndicator: BPCircleActivityIndicator!
     
     
     var transparentView : UIView = {
@@ -100,9 +103,9 @@ class PhoneNumViewController: UIViewController {
     }
     
     private func setupActivityIndicator(){
-        loadingIndicator = UIActivityIndicatorCustomizeView()
+        loadingIndicator = BPCircleActivityIndicator()
         loadingIndicator.center = view.center
-        loadingIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        loadingIndicator.isHidden = true
         view.addSubview(loadingIndicator)
     }
 

@@ -92,6 +92,8 @@ target 'carryonex' do
 
   # stripe
   pod 'Stripe'
-
+  
+  # indicator
+  pod 'BPCircleActivityIndicator'
 
 end

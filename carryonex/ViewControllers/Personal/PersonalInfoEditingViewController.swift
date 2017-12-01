@@ -13,6 +13,7 @@ import AWSCore
 import AWSS3
 import ALCameraViewController
 import Photos
+import BPCircleActivityIndicator
 
 class PersonalInfoEditingViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
@@ -20,7 +21,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     var user: ProfileUser?
-    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
     override func viewDidLoad() {
         setupUser()
@@ -154,9 +155,9 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         }
     }
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
     
@@ -231,7 +232,8 @@ extension PersonalInfoEditingViewController{
 /// MARK: - Image upload to AWS
 extension PersonalInfoEditingViewController{
     func uploadImageToAws(getImg: UIImage){
-        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        activityIndicator.animate()
         UIApplication.shared.beginIgnoringInteractionEvents()
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
@@ -243,7 +245,8 @@ extension PersonalInfoEditingViewController{
     
     func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
         if let err = error {
-            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            activityIndicator.stop()
             UIApplication.shared.endIgnoringInteractionEvents()
             let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
             self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
@@ -254,7 +257,8 @@ extension PersonalInfoEditingViewController{
                 if success {
                     self.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
-                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stop()
                     UIApplication.shared.endIgnoringInteractionEvents()
                 }
             })

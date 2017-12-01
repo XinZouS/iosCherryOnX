@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-
+import BPCircleActivityIndicator
 
 class WebController: UIViewController, WKNavigationDelegate {
     
@@ -24,7 +24,7 @@ class WebController: UIViewController, WKNavigationDelegate {
         return w
     }()
     
-    var activityIndicator: UIActivityIndicatorCustomizeView?
+    var activityIndicator: BPCircleActivityIndicator?
     
     
     override func viewDidLoad() {
@@ -44,18 +44,20 @@ class WebController: UIViewController, WKNavigationDelegate {
         DispatchQueue.main.async {
             let request = URLRequest(url: self.url)
             self.webView.load(request)
-            self.activityIndicator?.startAnimating()
+            self.activityIndicator?.isHidden = false
+            self.activityIndicator?.animate()
         }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        activityIndicator?.stopAnimating()
+        activityIndicator?.isHidden = true
+        activityIndicator?.stop()
     }
     
     private func setupActivityIndicatorView(){
-        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator = BPCircleActivityIndicator()
         activityIndicator?.center = view.center
-        activityIndicator?.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        activityIndicator?.isHidden = true
         if let a = activityIndicator {
             view.addSubview(a)
         }

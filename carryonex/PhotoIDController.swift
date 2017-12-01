@@ -10,7 +10,7 @@ import UIKit
 
 import AWSCognito
 import AWSS3
-
+import BPCircleActivityIndicator
 
 class PhotoIDController: UIViewController {
     
@@ -38,7 +38,7 @@ class PhotoIDController: UIViewController {
     var passportReady = false
     var profileReady = false
     
-    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     
     let pageMargin: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 20 : (UIScreen.main.bounds.width / 6.0)
     let imgMargin : CGFloat = 30
@@ -364,13 +364,9 @@ class PhotoIDController: UIViewController {
     }
     
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.center = view.center
-//        activityIndicator.hidesWhenStopped = true
-//        activityIndicator.backgroundColor = UIColor.black
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
-//        activityIndicator.layer.cornerRadius = 10
-//        activityIndicator.layer.masksToBounds = true
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
     
