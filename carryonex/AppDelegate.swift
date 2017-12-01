@@ -190,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         if resp.errCode == 0  {
             if let resp = resp as? SendAuthResp {
                 if wxloginStatus == "fillProfile"{
-                    NotificationCenter.default.post(name: Notification.Name.WeChat.changeHeadImg, object: resp)
+                    NotificationCenter.default.post(name: Notification.Name.WeChat.ChangeProfileImg, object: resp)
                 }else{
                     NotificationCenter.default.post(name: Notification.Name.WeChat.Authenticated, object: resp)
                 }
