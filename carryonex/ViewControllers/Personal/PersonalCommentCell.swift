@@ -14,4 +14,10 @@ class PersonalCommentCell: UITableViewCell {
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var rateViewConstraint: NSLayoutConstraint!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        userButton.setImage(nil, for: .normal)
+    }
 }

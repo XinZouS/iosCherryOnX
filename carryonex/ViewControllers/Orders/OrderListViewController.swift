@@ -31,7 +31,7 @@ class OrderListViewController: UIViewController {
     
     var selectedIndexPath: IndexPath?
     enum tableViewRowHeight: CGFloat {
-        case mainCard = 160
+        case mainCard = 240
         case detailCard = 300
     }
 
@@ -384,6 +384,10 @@ extension OrderListViewController: OrderListCellDelegate {
 */
 
 extension OrderListViewController: OrderListCarrierCellDelegate {
+    
+    func orderListCarrierGotoTripDetailButtonTapped(){
+        
+    }
     
     func orderListCarrierSenderProfileTapped() {
         print("Carrier Sender Profile Tapped")

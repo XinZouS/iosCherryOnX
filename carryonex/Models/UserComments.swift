@@ -16,7 +16,7 @@ enum UserCommentsKey: String {
 
 struct UserComments {
     let rank: Float
-    let comments: [Comment]
+    var comments: [Comment]
     let commentsLength: Int
 }
 

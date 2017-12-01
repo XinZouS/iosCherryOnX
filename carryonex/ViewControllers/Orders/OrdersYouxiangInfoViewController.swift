@@ -18,6 +18,8 @@ class OrdersYouxiangInfoViewController: UIViewController {
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var lockerButton: UIButton!
+    @IBOutlet weak var lockerImageView: UIImageView!
+    @IBOutlet weak var lockerHintLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -113,14 +115,15 @@ class OrdersYouxiangInfoViewController: UIViewController {
                 })
             }
             self.isLocked = tripActiveStatus == TripActive.inactive
-            let icon: UIImage = self.isLocked ? #imageLiteral(resourceName: "locker") : #imageLiteral(resourceName: "locker_unlock")
-            self.lockerButton.setImage(icon, for: .normal)
+            self.lockerImageView.image = self.isLocked ? #imageLiteral(resourceName: "LockClosed") : #imageLiteral(resourceName: "LockOpened")
+            self.lockerHintLabel.isHidden = !self.isLocked
         }
     }
     
     private func setTripLockerStatus(){
         lockerButton.isEnabled = false
         isLoading = true
+        
         ApiServers.shared.postTripActive(tripId: "\(trip.id)", isActive: !isLocked) { (success, error) in
             self.lockerButton.isEnabled = true
             if let err = error {
