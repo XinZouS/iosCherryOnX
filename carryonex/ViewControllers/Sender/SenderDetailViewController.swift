@@ -13,9 +13,7 @@ import AWSCore
 import AWSS3
 import ALCameraViewController
 
-
 class SenderDetailViewController: UIViewController {
-    
     
     @IBOutlet weak var scrollView: UIScrollView!
     // master info card
@@ -276,7 +274,7 @@ class SenderDetailViewController: UIViewController {
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
         case .linear:
-            return priceValue * priceParamA + priceParamB
+            return priceValue * priceParamA + (Double(priceParamB) / 100)
         case .logarithmic:
             print("TODO: logarithmic func for price")
             return 10
@@ -685,18 +683,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func preparePriceIn(_ textField: UITextField){
-        if textField.tag == textFieldTag.price.rawValue, var v = priceValueTextField.text {
-            if v == "" {
-                v = "0"
-            }
-            guard let d = Double(v) else {
-                let m = "物品价值只能输入数字和至多1个小数点哦，请确保您的输入不包含空格或其他字符。"
-                displayGlobalAlert(title: "💡请调整定价输入", message: m, action: "好，再试一次", completion: {
-                    self.priceValueTextField.text = ""
-                    self.priceValueTextField.becomeFirstResponder()
-                })
-                return
-            }
+        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text, let d = Double(v) {
             priceValue = d
             updatePriceContentsFor(newPrice: d)
         }
