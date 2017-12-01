@@ -175,7 +175,7 @@ class OrderListViewController: UIViewController {
                 return
             }
 
-            if let tripOrders = tripOrders, tripOrders.count != 0 {
+            if let tripOrders = tripOrders/*, tripOrders.count != 0 */{
                 if category == .carrier {
                     self.lastCarrierFetchTime = Date.getTimestampNow()
                     self.dataSourceCarrier.append(contentsOf: tripOrders)
@@ -272,9 +272,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             let tripOrder = dataSourceCarrier[indexPath.section]
-            if let tripRequest = tripOrder.requests?[indexPath.row] {
+            //if let tripRequest = tripOrder.requests?[indexPath.row] { // BUG: can not use this if, bcz indexPath.row===0, always outofrange; - Xin
                 // TODO: cell.trip = it needs a trip to show trip info;
-                cell.request = tripRequest.request
+            //    cell.request = tripRequest.request
                 cell.indexPath = indexPath
                 cell.delegate = self
                 cell.carrierDelegate = self
@@ -285,15 +285,17 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.endAddressLabel.text = endCountry+" "+endState+" "+endCity
                 }
                 return cell
-            } else {
-                return UITableViewCell()
-            }
+            //} else {
+            //    return UITableViewCell()
+            //}
             
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             let tripOrder = dataSourceSender[indexPath.section]
-            if let tripRequest = tripOrder.requests?[indexPath.row] {
+            if tripOrder.requests?.count != 0,
+                let tripRequest = tripOrder.requests?[indexPath.row] {
+                
                 cell.request = tripRequest.request
                 cell.indexPath = indexPath
                 cell.delegate = self
@@ -321,8 +323,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            let tripOrder = dataSourceCarrier[section]
-            return tripOrder.requests?.count ?? 0
+            let tripOrder = dataSourceCarrier[section] // TODO: fix the data passing flow here!
+            return 1
+//            return tripOrder.requests?.count ?? 0
         } else {
             let tripOrder = dataSourceSender[section]
             return tripOrder.requests?.count ?? 0

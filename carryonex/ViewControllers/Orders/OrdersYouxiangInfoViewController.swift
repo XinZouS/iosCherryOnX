@@ -62,9 +62,9 @@ class OrdersYouxiangInfoViewController: UIViewController {
         let userCalendar = Calendar.current
         let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
         let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
-        
-        dateMonthLabel.text = formatter.shortMonthSymbols.first
-        dateDayLabel.text = "\(dateComponents.day ?? 0)"
+        //BUG: nil
+        //dateMonthLabel.text = formatter.shortMonthSymbols.first
+        //dateDayLabel.text = "\(dateComponents.day ?? 0)"
     }
     
     private func setupTripCodeAddressLabels(trip: Trip){
