@@ -42,15 +42,18 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishedButton: RequestTransactionButton!
     @IBOutlet weak var cancelButton: RequestTransactionButton!
     
+    let toShipperViewSegue = "toOtherShipperView"
+    
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
         
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "toOtherShipperView", sender: self)
+        performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
     @IBAction func itemImageMoreButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
@@ -73,11 +76,12 @@ class OrdersRequestDetailViewController: UIViewController {
         didSet {
             updateButtonAppearance(status: status)
             statusLabel.text = status.displayString()
-            statusLabel.backgroundColor = status.displayColor(category: .carrier)
+            statusLabel.backgroundColor = status.displayColor(category: self.category)
         }
     }
     
     var request: Request!
+    var category: TripCategory = .carrier
     
     // MARK: - VC funcs
     override func viewDidLoad() {
@@ -106,7 +110,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toOtherShipperView"{
+        if segue.identifier == toShipperViewSegue {
             //if let shipperInfoVC = segue.destination as? ShipperInfoViewController{
                 
             //}

@@ -78,12 +78,14 @@ class OrderListViewController: UIViewController {
         if segue.identifier == tripInfoSegue {
             if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
                 tripInfoViewController.trip = trip
+                tripInfoViewController.category = listType
             }
             
         } else if segue.identifier == requestDetailSegue {
             if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
                 requestDetailViewController.trip = tripRequest.0
                 requestDetailViewController.request = tripRequest.1
+                requestDetailViewController.category = listType
             }
         }
     }
