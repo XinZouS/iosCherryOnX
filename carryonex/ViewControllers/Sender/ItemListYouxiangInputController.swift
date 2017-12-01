@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import BPCircleActivityIndicator
 
 class ItemListYouxiangInputController: UIViewController {
     
@@ -25,13 +26,15 @@ class ItemListYouxiangInputController: UIViewController {
         fetchTripByYouxiangcode(code)
     }
     
-    var activityIndicator: UIActivityIndicatorCustomizeView!
+    var activityIndicator: BPCircleActivityIndicator!
     var isLoading: Bool = false {
         didSet{
             if isLoading {
-                activityIndicator.startAnimating()
+                activityIndicator.isHidden = false
+                activityIndicator.animate()
             } else {
-                activityIndicator.stopAnimating()
+                activityIndicator.isHidden = true
+                activityIndicator.stop()
             }
             goDetailButton.isEnabled = !isLoading
         }
@@ -66,9 +69,9 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator = BPCircleActivityIndicator()
         activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
     

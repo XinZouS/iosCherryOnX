@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import BPCircleActivityIndicator
 
 extension UIColor {
     struct MyTheme {
@@ -33,11 +34,9 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     var nowHour :String = ""
     var timeStatus :String = ""
     var gradientLayer: CAGradientLayer!
-    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     // paramter to send to other field
     var imageurl = ""
     var realname = ""
-    
     
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
@@ -52,10 +51,10 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         super.viewDidLoad()
         setupNowHour()
         setupBackGroundColor()
-        setupActivityIndicator()
         addUserUpdateNotificationObservers()
         setupLocation()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,14 +79,6 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
             }
         }
         
-    }
-    
-    
-    private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView()
-        activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
-        view.addSubview(activityIndicator)
     }
     
     private func setupNowHour(){

@@ -8,6 +8,7 @@
 
 import UIKit
 import Reachability
+import BPCircleActivityIndicator
 
 class MainTabBarController: UITabBarController {
     
@@ -18,6 +19,7 @@ class MainTabBarController: UITabBarController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    var circleIndicator: BPCircleActivityIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +45,10 @@ class MainTabBarController: UITabBarController {
     //MARK: - Helpers
     
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
-        view.addSubview(activityIndicator)
+        circleIndicator = BPCircleActivityIndicator()
+        circleIndicator.center = view.center
+        circleIndicator.isHidden = true
+        view.addSubview(circleIndicator)
     }
     
     private func isItHaveLogIn(){
@@ -57,10 +59,12 @@ class MainTabBarController: UITabBarController {
     
     private func loadingDisplay(){
         if !appDidLaunch {
-            self.activityIndicator.startAnimating()
+            self.circleIndicator.isHidden = false
+            self.circleIndicator.animate()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
-                    self.activityIndicator.stopAnimating()
+                    self.circleIndicator.stop()
+                    self.circleIndicator.isHidden = true
                     APIServerChecker.testAPIServers()
                     TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
                     TripOrderDataStore.shared.pull(category: .sender, completion: nil)
@@ -75,7 +79,7 @@ class MainTabBarController: UITabBarController {
             loginViewController = loginViewContainer as? LoginViewController
             self.present(loginViewContainer, animated: true) { [weak self]_ in
                 self?.selectedIndex = 0
-                self?.activityIndicator.stopAnimating()
+                self?.circleIndicator.stop()
             }
         } else {
             debugLog("Something is wrong with the Login storyboard, please check.")
