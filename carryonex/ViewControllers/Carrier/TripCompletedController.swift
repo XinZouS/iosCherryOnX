@@ -19,6 +19,8 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
+    
+    var alert: UIAlertController?
     var gradientLayer: CAGradientLayer!
     var dateString :String!
     var beginLocationString:String!
@@ -88,9 +90,7 @@ class TripCompletedController:UIViewController{
         setupCardInformation()
         setupBackGroundColor()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+    
     private func setupCardInformation(){
         beginLocationLabel.text = beginLocationString
         endLocationLabel.text = endLocationString
@@ -201,7 +201,10 @@ class TripCompletedController:UIViewController{
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion:{})
         }
+        
+        alert = alertController
     }
+    
     func shareToWechat(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = ""
@@ -216,16 +219,18 @@ class TripCompletedController:UIViewController{
     }
     
     func shareToWeibo(){
-        if let youxiangId = youxiangLabel.text,let beginLocation = startState,let endLocation = endState,let dateTime = dateString {
-            let startIndex = dateTime.index(dateString.startIndex, offsetBy: 5)
-            let EndIndex = dateTime.index(dateString.startIndex, offsetBy: 10)
-            let monthAnddayString = dateTime[startIndex...EndIndex]
-            let title = ""
-            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
-            prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"),url:"https://www.carryonex.com/" , type: SSDKPlatformType.typeSinaWeibo)
-        }else{
-            print("信息不完整")
-        }
+        alert?.dismiss(animated: true, completion: { [weak self] in
+            if let youxiangId = self?.youxiangLabel.text, let beginLocation = self?.startState, let endLocation = self?.endState, let dateTime = self?.dateString {
+                let startIndex = dateTime.index(dateTime.startIndex, offsetBy: 5)
+                let EndIndex = dateTime.index(dateTime.startIndex, offsetBy: 10)
+                let monthAnddayString = dateTime[startIndex...EndIndex]
+                let title = ""
+                let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+                self?.prepareSharing(title: title, msg: msg, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"),url:"https://www.carryonex.com/" , type: SSDKPlatformType.typeSinaWeibo)
+            } else {
+                print("信息不完整")
+            }
+        })
     }
     
     func shareToFacebook(){
@@ -346,7 +351,5 @@ class TripCompletedController:UIViewController{
     @IBAction func gobackToFirstPageButtonTapped(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
 }
 

@@ -24,6 +24,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func lockerButtonTapped(_ sender: Any) {
@@ -47,66 +48,53 @@ class OrdersYouxiangInfoViewController: UIViewController {
         }
     }
 
+    static func storyboardViewController() -> OrdersYouxiangInfoViewController? {
+        let storyboard = UIStoryboard.init(name: "OrdersYouxiangInfo", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "") as? OrdersYouxiangInfoViewController
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "游箱信息"
         navigationController?.isNavigationBarHidden = false
         
-        requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
-        
-        setupTableView()
-        setupUIforTrip()
-        setupActivityIndicator()
-    }
-    
-    private func setupTableView(){
+        //Setup table view
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView() // remove empty lines
-    }
-    
-    private func setupUIforTrip(){
-        setupTripDateLabels(trip.pickupDate)
-        setupTripCodeAddressLabels(trip)
-        setupLockerForTrip(trip)
-    }
-    
-    private func setupActivityIndicator(){
+        
+        //Setup activity indicator
         activityIndicator = UIActivityIndicatorCustomizeView()
         activityIndicator.center = view.center
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
-    }
-    
-    private func setupTripDateLabels(_ d: Double?){
-        guard let d = d else { return }
-        let date = Date(timeIntervalSince1970: d)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd YYYY"
         
-        let userCalendar = Calendar.current
-        let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
-        let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
-        dateMonthLabel.text = formatter.shortMonthSymbols.first
-        dateDayLabel.text = "\(dateComponents.day ?? 0)"
-    }
-    
-    private func setupTripCodeAddressLabels(_ trip: Trip){
-        if let endCountry = trip.endAddress?.country?.rawValue,
-            let endState = trip.endAddress?.state,
-            let endCity = trip.endAddress?.city,
-            let startCountry = trip.startAddress?.country?.rawValue,
-            let startState = trip.startAddress?.state,
-            let startCity = trip.startAddress?.city {
-            
-            endAddressLabel.text = endCountry + "，" + endState + "，" + endCity
-            startAddressLabel.text = startCountry + "，" + startState + "，" + startCity
+        loadData()
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
+            self?.loadData()
+            self?.tableView.reloadData()
         }
-        youxiangCodeLabel.text = String(trip.id)
     }
     
-    private func setupLockerForTrip(_ t: Trip){
-        ApiServers.shared.getTripActive(tripId: "\(t.id)") { (tripActiveStatus, error) in
+    func loadData() {
+        requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
+        
+        //TODO: use trip.active parameter.
+        self.isLocked = true
+        self.lockerImageView.image = self.isLocked ? #imageLiteral(resourceName: "LockClosed") : #imageLiteral(resourceName: "LockOpened")
+        self.lockerHintLabel.isHidden = !self.isLocked
+        
+        dateMonthLabel.text = trip.getMonthString()
+        dateDayLabel.text = trip.getDayString()
+        startAddressLabel.text = trip.startAddress?.fullAddressString()
+        endAddressLabel.text = trip.endAddress?.fullAddressString()
+        youxiangCodeLabel.text = trip.tripCode
+    }
+    
+    private func setupLocker() {
+        ApiServers.shared.getTripActive(tripId: "\(trip.id)") { (tripActiveStatus, error) in
             self.isLoading = false
             if tripActiveStatus == .error || tripActiveStatus == .notExist {
                 let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
@@ -136,12 +124,11 @@ class OrdersYouxiangInfoViewController: UIViewController {
             if success {
                 // isLoading=F in setupLockerForTrip()
                 self.isLocked = !self.isLocked
-                self.setupLockerForTrip(self.trip)
+                self.setupLocker()
             }
         }
     }
 }
-
 
 
 extension OrdersYouxiangInfoViewController: UITableViewDataSource {
@@ -161,7 +148,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
         if requests.count > 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoCell", for: indexPath) as? OrdersYouxiangInfoCell {
                 cell.selectionStyle = .none
-                cell.ordersYouxiangInfoVC = self
+                cell.cellCategory = category
                 cell.request = requests[indexPath.row]
                 return cell
             }
@@ -169,7 +156,6 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoEmptyCell", for: indexPath) as? OrdersYouxiangInfoEmptyCell {
                 cell.selectionStyle = .none
-                cell.ordersYouxiangInfoVC = self
                 cell.trip = trip
                 return cell
             }

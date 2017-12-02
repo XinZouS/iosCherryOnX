@@ -31,7 +31,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     @IBOutlet weak var statusLabel: UILabel!
     
     weak var delegate: OrderListCellDelegate?
-    var indexPath: IndexPath?
+    var indexPath: IndexPath = IndexPath()
     var cellCategory: TripCategory = .carrier
     
     private var status: RequestStatus = .invalid {
@@ -68,7 +68,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        resetButtons()
+        //resetButtons()
     }
     
     func updateButtonAppearance(status: RequestStatus) {
@@ -89,9 +89,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     }
     
     @IBAction func handleActionButton(button: RequestTransactionButton) {
-        if let request = request,
-            let indexPath = indexPath,
-            button.transaction.isValid(for: status) {
+        if let request = request, button.transaction.isValid(for: status) {
             delegate?.orderCellButtonTapped(request: request,
                                             category: cellCategory,
                                             transaction: button.transaction,

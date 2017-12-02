@@ -24,13 +24,13 @@ extension TripRequest: Unboxable {
 struct RequestImage {
     let id: String?
     let requestId: String?
-    let imageUrl: String?
+    let imageUrl: String
 }
 
 extension RequestImage: Unboxable {
     init(unboxer: Unboxer) throws {
         id = try? unboxer.unbox(key: "id")
         requestId = try? unboxer.unbox(key: "request_id")
-        imageUrl = try? unboxer.unbox(key: "image_url")
+        imageUrl = try unboxer.unbox(key: "image_url")
     }
 }

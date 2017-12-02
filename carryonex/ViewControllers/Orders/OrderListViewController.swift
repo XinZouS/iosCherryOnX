@@ -78,14 +78,14 @@ class OrderListViewController: UIViewController {
         if segue.identifier == tripInfoSegue {
             if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
                 tripInfoViewController.trip = trip
-                tripInfoViewController.category = listType
+                tripInfoViewController.category = .carrier
             }
             
         } else if segue.identifier == requestDetailSegue {
             if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
                 requestDetailViewController.trip = tripRequest.0
                 requestDetailViewController.request = tripRequest.1
-                requestDetailViewController.category = listType
+                requestDetailViewController.category = .sender
             }
         }
     }
@@ -174,24 +174,34 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView.tag == TripCategory.carrier.rawValue {
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
+            cell.cellCategory = .carrier
+            cell.carrierDelegate = self
+            
             let trip = carrierTrips[indexPath.row]
             cell.orderCreditLabel.text = trip.tripCode
             cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
             cell.dateMonthLabel.text = trip.getMonthString()
             cell.dateDayLabel.text = trip.getDayString()
+            cell.indexPath = indexPath
             return cell
             
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
+            cell.cellCategory = .sender
+            cell.indexPath = indexPath
             
             let request = senderRequests[indexPath.row]
             cell.request = request
             
-            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
             cell.startAddressLabel.text = trip?.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip?.endAddress?.fullAddressString()
+            cell.dateMonthLabel.text = trip?.getMonthString()
+            cell.dateDayLabel.text = trip?.getDayString()
+            cell.itemNumLabel.text = "\(request.images.count)件"
+            cell.shiperNameLabel.text = request.ownerUsername
             return cell
         }
     }
@@ -213,13 +223,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.tag == TripCategory.carrier.rawValue {
-            let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
-            performSegue(withIdentifier: tripInfoSegue, sender: trip)
-            
-        } else {
+        if tableView.tag == TripCategory.sender.rawValue {
             let request = senderRequests[indexPath.row]
-            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
             performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
         }
     }
@@ -227,39 +233,17 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension OrderListViewController: OrderListCarrierCellDelegate {
     
-    func orderListCarrierGotoTripDetailButtonTapped(){
-        
+    func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath){
+        let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
+        performSegue(withIdentifier: tripInfoSegue, sender: trip)
     }
     
-    func orderListCarrierSenderProfileTapped() {
-        print("Carrier Sender Profile Tapped")
+    func orderListCarrierLockButtonTapped(indexPath: IndexPath) {
+        print("Carrier Lock Tapped")
     }
     
-    func orderListCarrierSenderPhoneTapped() {
-        print("Carrier Sender Phone Tapped")
-    }
-    
-    func orderListCarrierMoreImagesTapped() {
-        print("Carrier More Images Tapped")
-    }
-    
-    func orderListCarrierCodeShareTapped() {
+    func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
         print("Carrier Share Tapped")
-    }
-}
-
-extension OrderListViewController: OrderListSenderCellDelegate {
-    
-    func orderListSenderItemImageTapped() {
-        print("Sender Item Image Tapped")
-    }
-    
-    func orderListSenderCarrierProfileImageTapped() {
-        print("Sender Carrier Profile Image Tapped")
-    }
-    
-    func orderListSenderCarrierPhoneTapped() {
-        print("Sender Carrier Phone Tapped")
     }
 }
 

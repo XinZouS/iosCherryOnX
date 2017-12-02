@@ -33,8 +33,9 @@ class TripOrderDataStore: NSObject {
         })
     }
     
-    func getSenderTripById(id: Int) -> Trip? {
-        return senderTrips[id]
+    func getTrip(category: TripCategory, id: Int) -> Trip? {
+        let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
+        return targetTrips[id]
     }
     
     func getRequestsByTripId(category: TripCategory, tripId: Int) -> [Request] {
@@ -62,7 +63,7 @@ class TripOrderDataStore: NSObject {
             
             if let tripOrders = tripOrders {
                 self.updateData(forCategory: category, updatedData: tripOrders)
-                
+                completion?()
                 //Only notify update when there are actual substantial update.
                 NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
             }
@@ -136,6 +137,9 @@ class TripOrderDataStore: NSObject {
             if let tripRequests = tripOrder.requests {
                 for tripReq in tripRequests {
                     let req = tripReq.request
+                    req.images = tripReq.images.map({ (reqImage) -> String in
+                        return reqImage.imageUrl
+                    })
                     if (category == .carrier) {
                         carrierRequests[req.id] = req
                     } else {

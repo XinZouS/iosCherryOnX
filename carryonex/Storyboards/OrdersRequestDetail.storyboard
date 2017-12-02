@@ -35,7 +35,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="v0a-8k-6U6"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -329,7 +329,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="finishedButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="sLb-RI-Web"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="gGm-HC-aUP"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-OL-TH7" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
@@ -348,7 +348,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="cancelButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="J9e-9N-cDD"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="qBV-5B-fpR"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -463,11 +463,11 @@
                         <viewLayoutGuide key="safeArea" id="bwT-SN-31r"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="n0b-OL-TH7" id="DPl-2T-6W1"/>
                         <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="Rbg-BP-xNg"/>
                         <outlet property="dateMonthLabel" destination="efo-75-gDw" id="pgf-FO-rOi"/>
                         <outlet property="endAddressLabel" destination="hO5-6m-U41" id="Fp0-e1-Wkf"/>
-                        <outlet property="finishedButton" destination="0Gq-pn-kvc" id="8At-aT-9gC"/>
+                        <outlet property="finishButton" destination="0Gq-pn-kvc" id="sYh-sX-fHj"/>
+                        <outlet property="finishButton2" destination="n0b-OL-TH7" id="sL8-xh-6kf"/>
                         <outlet property="incomeLabel" destination="lEz-65-FZV" id="oWh-xC-UkJ"/>
                         <outlet property="itemImage1" destination="eSr-ny-iIF" id="spe-nl-Euq"/>
                         <outlet property="itemImage2" destination="bJ8-u1-BWW" id="pUV-Y6-T0N"/>

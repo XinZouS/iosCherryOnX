@@ -140,6 +140,9 @@
                                                                             <real key="value" value="3"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="vUj-IA-8jM"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已锁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fM4-XG-yGf">
                                                                     <rect key="frame" x="275" y="14.5" width="30" height="21"/>
@@ -151,7 +154,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uis-al-R78" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
+                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uis-al-R78">
                                                                     <rect key="frame" x="20" y="157" width="305" height="44"/>
                                                                     <color key="backgroundColor" red="1" green="0.41499206420000001" blue="0.4057528675" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
@@ -167,7 +170,7 @@
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <action selector="handleActionButtonWithButton:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="23X-CJ-y2Y"/>
+                                                                        <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="XLG-WE-3J2"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U79-GR-E0H">
@@ -177,6 +180,9 @@
                                                                         <constraint firstAttribute="height" constant="30" id="zvC-5f-hUG"/>
                                                                     </constraints>
                                                                     <state key="normal" image="shareing"/>
+                                                                    <connections>
+                                                                        <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="rlF-5M-Ry0"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -271,9 +277,6 @@
                                                                         <constraint firstAttribute="width" constant="30" id="xRg-LF-39L"/>
                                                                     </constraints>
                                                                     <state key="normal" image="Phone"/>
-                                                                    <connections>
-                                                                        <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="Usi-6P-Awk"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4LK-om-U3m">
                                                                     <rect key="frame" x="20" y="20" width="80" height="80"/>
@@ -282,9 +285,6 @@
                                                                         <constraint firstAttribute="height" constant="80" id="yb8-WY-8v4"/>
                                                                     </constraints>
                                                                     <state key="normal" image="yadianwenqing"/>
-                                                                    <connections>
-                                                                        <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="3pg-XY-DpA"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olv-Tc-cum">
                                                                     <rect key="frame" x="115" y="30" width="180" height="30"/>
@@ -327,9 +327,6 @@
                                                                             <state key="normal" title="+2">
                                                                                 <color key="titleColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
-                                                                            <connections>
-                                                                                <action selector="handleCarrierCellButtonWithSender:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="mne-uM-srp"/>
-                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -383,7 +380,7 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CNF-PK-uj2">
                                                                     <rect key="frame" x="23" y="231" width="299" height="44"/>
                                                                     <subviews>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eni-Zu-scV" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eni-Zu-scV">
                                                                             <rect key="frame" x="0.0" y="0.0" width="144.5" height="44"/>
                                                                             <color key="backgroundColor" red="1" green="0.4149920642375946" blue="0.40575286746025085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -398,11 +395,8 @@
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
-                                                                            <connections>
-                                                                                <action selector="handleActionButtonWithButton:" destination="5Jd-nC-ZmP" eventType="touchUpInside" id="QOm-ax-3Zc"/>
-                                                                            </connections>
                                                                         </button>
-                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-NO-zpo" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-NO-zpo">
                                                                             <rect key="frame" x="154.5" y="0.0" width="144.5" height="44"/>
                                                                             <color key="backgroundColor" red="0.99581614847715738" green="0.69876002137720139" blue="0.35090438614321429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -417,9 +411,6 @@
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
-                                                                            <connections>
-                                                                                <action selector="handleActionButtonWithButton:" destination="5Jd-nC-ZmP" eventType="touchDragInside" id="9AE-v4-NGf"/>
-                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                     <constraints>
@@ -504,6 +495,7 @@
                                             <outlet property="itemListImageMoreButton" destination="7pJ-uR-Op0" id="r2s-83-BLN"/>
                                             <outlet property="itemListImageView1" destination="8XQ-ai-s7c" id="Ht3-Ke-tFW"/>
                                             <outlet property="itemListImageView2" destination="92W-bj-Eac" id="CzK-rg-Cl0"/>
+                                            <outlet property="lockButton" destination="7iO-DM-Xxg" id="vWS-nH-Gnx"/>
                                             <outlet property="orderCreditLabel" destination="dyh-Le-L47" id="MjE-fS-310"/>
                                             <outlet property="phoneButton" destination="ZFZ-wi-Xam" id="wqP-Az-h39"/>
                                             <outlet property="profileButton" destination="4LK-om-U3m" id="ffe-qJ-Cd4"/>
