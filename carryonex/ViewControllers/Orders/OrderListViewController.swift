@@ -78,14 +78,14 @@ class OrderListViewController: UIViewController {
         if segue.identifier == tripInfoSegue {
             if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
                 tripInfoViewController.trip = trip
-                tripInfoViewController.category = listType
+                tripInfoViewController.category = .carrier
             }
             
         } else if segue.identifier == requestDetailSegue {
             if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
                 requestDetailViewController.trip = tripRequest.0
                 requestDetailViewController.request = tripRequest.1
-                requestDetailViewController.category = listType
+                requestDetailViewController.category = .sender
             }
         }
     }
@@ -174,6 +174,8 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView.tag == TripCategory.carrier.rawValue {
             guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
+            cell.cellCategory = .carrier
+            
             let trip = carrierTrips[indexPath.row]
             cell.orderCreditLabel.text = trip.tripCode
             cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
@@ -185,6 +187,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
+            cell.cellCategory = .sender
             
             let request = senderRequests[indexPath.row]
             cell.request = request
@@ -192,6 +195,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
             cell.startAddressLabel.text = trip?.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip?.endAddress?.fullAddressString()
+            cell.dateMonthLabel.text = trip?.getMonthString()
+            cell.dateDayLabel.text = trip?.getDayString()
+            cell.itemNumLabel.text = "\(request.images.count)件"
+            cell.shiperNameLabel.text = request.ownerUsername
             return cell
         }
     }

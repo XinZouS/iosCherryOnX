@@ -20,6 +20,8 @@ class Request: Unboxable, Identifiable {
     var endAddress: Address?
     var statusId: Int?
     
+    var images = [String]()
+    
     required init(unboxer: Unboxer) throws {
         self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)

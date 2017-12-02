@@ -20,35 +20,40 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     
+    var cellCategory: TripCategory = .carrier
     
     fileprivate var status: RequestStatus = .invalid {
         didSet {
             updateButtonAppearance(status: status)
             statusLabel.text = status.displayString()
-            statusLabel.backgroundColor = status.displayColor(category: .sender)
+            statusLabel.backgroundColor = status.displayColor(category: cellCategory)
         }
     }
+    
     var request: Request? {
         didSet{
             if let request = request {
                 updateRequestInfoAppearance(request: request)
+                incomeLabel.text = request.priceString()
+                itemNumberLabel.text = "\(request.images.count) 张"
+                senderNameLabel.text = request.ownerUsername    //update to real name
+                //senderImageButton //TODO: add user image
             }
         }
     }
     var indexPath: IndexPath?
-    var ordersYouxiangInfoVC: OrdersYouxiangInfoViewController?
-    
     
     @IBAction func itemImageButtonTapped(_ sender: Any) {
+    
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
+    
     }
     
     @IBAction func detailButtonTapped(_ sender: Any) {
+    
     }
-    
-    
 }
 
 
@@ -63,24 +68,15 @@ extension OrdersYouxiangInfoCell: OrderListCardCellProtocol {
             status = newStatus
         }
     }
-    
-    
-    
-    
 }
-
-
 
 class OrdersYouxiangInfoEmptyCell: UITableViewCell {
     
-    var ordersYouxiangInfoVC: OrdersYouxiangInfoViewController?
     var trip: Trip? 
     
-    @IBOutlet weak var shareButton: RequestTransactionButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
+    
     }
-    
-    
-    
 }

@@ -57,6 +57,7 @@ class OrderListCardSenderCell: OrderListCardCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellCategory = .sender
+        statusLabel.textColor = UIColor.darkGray
     }
     
     override func updateRequestInfoAppearance(request: Request) {

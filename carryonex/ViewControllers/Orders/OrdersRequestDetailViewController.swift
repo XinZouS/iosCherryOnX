@@ -39,8 +39,8 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var recipientPhoneCallButton: UIButton!
     
     // done buttons
-    @IBOutlet weak var finishedButton: RequestTransactionButton!
-    @IBOutlet weak var cancelButton: RequestTransactionButton!
+    @IBOutlet weak var finishButton: RequestTransactionButton!
+    @IBOutlet weak var finishButton2: RequestTransactionButton!
     
     let toShipperViewSegue = "toOtherShipperView"
     
@@ -72,23 +72,31 @@ class OrdersRequestDetailViewController: UIViewController {
     // MARK: - Data models
     var trip: Trip = Trip()
     
-    fileprivate var status: RequestStatus = .invalid {
+    var request: Request!
+    var category: TripCategory = .carrier
+    
+    var buttonsToShow: OrderButtonToShow = .noButtons {
         didSet {
-            updateButtonAppearance(status: status)
-            statusLabel.text = status.displayString()
-            statusLabel.backgroundColor = status.displayColor(category: self.category)
+            switch buttonsToShow {
+            case .noButtons:
+                finishButton.isHidden = true
+                finishButton2.isHidden = true
+            case .oneButton:
+                finishButton.isHidden = false
+                finishButton2.isHidden = true
+            case .twoButtons:
+                finishButton.isHidden = false
+                finishButton2.isHidden = false
+            }
         }
     }
     
-    var request: Request!
-    var category: TripCategory = .carrier
     
     // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "订单详情"
         navigationController?.isNavigationBarHidden = false
-        cancelButton.isHidden = true
         
         updateRequestInfoAppearance(request: request)
         if let trip = TripOrderDataStore.shared.getSenderTripById(id: request.id) {
@@ -124,13 +132,72 @@ class OrdersRequestDetailViewController: UIViewController {
 
 extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     func updateButtonAppearance(status: RequestStatus) {
-        //Override
+        if category == .carrier {
+            switch status {
+            case .waiting, .paid, .pendingRefund, .inDelivery:
+                buttonsToShow = .twoButtons
+            case .accepted, .delivered:
+                buttonsToShow = .oneButton
+            default:
+                buttonsToShow = .noButtons
+            }
+            
+            switch status {
+            case .waiting:
+                finishButton.transaction = .carrierAccept
+                finishButton2.transaction = .carrierReject
+            case .accepted:
+                finishButton.transaction = .carrierCancel
+            case .paid:
+                finishButton.transaction = .carrierReceive
+                finishButton2.transaction = .carrierRefund
+            case .pendingRefund:
+                finishButton.transaction = .carrierRefund
+                finishButton2.transaction = .carrierDeliver  //TODO: ASK.
+            case .inDelivery:
+                finishButton.transaction = .carrierShip
+                finishButton2.transaction = .carrierRefund
+            case .delivered:
+                finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+            default:
+                break
+            }
+            
+        } else {
+            //Carrier
+            switch status {
+            case .waiting, .accepted:
+                buttonsToShow = .twoButtons
+            case .delivered, .deliveryConfirmed:
+                buttonsToShow = .oneButton
+            default:
+                buttonsToShow = .noButtons
+            }
+            
+            switch status {
+            case .waiting:
+                finishButton.transaction = .shipperCancel
+                finishButton2.transaction = .shipperPairing
+            case .accepted:
+                finishButton.transaction = .shipperPay
+                finishButton2.transaction = .shipperCancel
+            case .delivered:
+                finishButton.transaction = .shipperConfirm
+            case .deliveryConfirmed:
+                finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+            default:
+                break
+            }
+        }
+        
     }
     
     func updateRequestInfoAppearance(request: Request) {
         //Override
-        if let statusId = request.statusId, let newStatus = RequestStatus(rawValue: statusId) {
-            status = newStatus
+        if let statusId = request.statusId, let status = RequestStatus(rawValue: statusId) {
+            updateButtonAppearance(status: status)
+            statusLabel.text = status.displayString()
+            statusLabel.backgroundColor = status.displayColor(category: category)
         }
     }
 }

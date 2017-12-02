@@ -136,6 +136,9 @@ class TripOrderDataStore: NSObject {
             if let tripRequests = tripOrder.requests {
                 for tripReq in tripRequests {
                     let req = tripReq.request
+                    req.images = tripReq.images.map({ (reqImage) -> String in
+                        return reqImage.imageUrl
+                    })
                     if (category == .carrier) {
                         carrierRequests[req.id] = req
                     } else {

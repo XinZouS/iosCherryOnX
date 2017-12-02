@@ -24,6 +24,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func lockerButtonTapped(_ sender: Any) {
@@ -55,7 +56,15 @@ class OrdersYouxiangInfoViewController: UIViewController {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
         
         setupTableView()
-        setupUIforTrip()
+        
+        setupLocker()
+        
+        dateMonthLabel.text = trip.getMonthString()
+        dateDayLabel.text = trip.getDayString()
+        startAddressLabel.text = trip.startAddress?.fullAddressString()
+        endAddressLabel.text = trip.endAddress?.fullAddressString()
+        youxiangCodeLabel.text = trip.tripCode
+        
         setupActivityIndicator()
     }
     
@@ -65,12 +74,6 @@ class OrdersYouxiangInfoViewController: UIViewController {
         tableView.tableFooterView = UIView() // remove empty lines
     }
     
-    private func setupUIforTrip(){
-        setupTripDateLabels(trip.pickupDate)
-        setupTripCodeAddressLabels(trip)
-        setupLockerForTrip(trip)
-    }
-    
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView()
         activityIndicator.center = view.center
@@ -78,35 +81,8 @@ class OrdersYouxiangInfoViewController: UIViewController {
         view.addSubview(activityIndicator)
     }
     
-    private func setupTripDateLabels(_ d: Double?){
-        guard let d = d else { return }
-        let date = Date(timeIntervalSince1970: d)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd YYYY"
-        
-        let userCalendar = Calendar.current
-        let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
-        let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
-        dateMonthLabel.text = formatter.shortMonthSymbols.first
-        dateDayLabel.text = "\(dateComponents.day ?? 0)"
-    }
-    
-    private func setupTripCodeAddressLabels(_ trip: Trip){
-        if let endCountry = trip.endAddress?.country?.rawValue,
-            let endState = trip.endAddress?.state,
-            let endCity = trip.endAddress?.city,
-            let startCountry = trip.startAddress?.country?.rawValue,
-            let startState = trip.startAddress?.state,
-            let startCity = trip.startAddress?.city {
-            
-            endAddressLabel.text = endCountry + "，" + endState + "，" + endCity
-            startAddressLabel.text = startCountry + "，" + startState + "，" + startCity
-        }
-        youxiangCodeLabel.text = String(trip.id)
-    }
-    
-    private func setupLockerForTrip(_ t: Trip){
-        ApiServers.shared.getTripActive(tripId: "\(t.id)") { (tripActiveStatus, error) in
+    private func setupLocker() {
+        ApiServers.shared.getTripActive(tripId: "\(trip.id)") { (tripActiveStatus, error) in
             self.isLoading = false
             if tripActiveStatus == .error || tripActiveStatus == .notExist {
                 let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
@@ -136,12 +112,11 @@ class OrdersYouxiangInfoViewController: UIViewController {
             if success {
                 // isLoading=F in setupLockerForTrip()
                 self.isLocked = !self.isLocked
-                self.setupLockerForTrip(self.trip)
+                self.setupLocker()
             }
         }
     }
 }
-
 
 
 extension OrdersYouxiangInfoViewController: UITableViewDataSource {
@@ -161,7 +136,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
         if requests.count > 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoCell", for: indexPath) as? OrdersYouxiangInfoCell {
                 cell.selectionStyle = .none
-                cell.ordersYouxiangInfoVC = self
+                cell.cellCategory = category
                 cell.request = requests[indexPath.row]
                 return cell
             }
@@ -169,7 +144,6 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoEmptyCell", for: indexPath) as? OrdersYouxiangInfoEmptyCell {
                 cell.selectionStyle = .none
-                cell.ordersYouxiangInfoVC = self
                 cell.trip = trip
                 return cell
             }
