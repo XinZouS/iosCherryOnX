@@ -23,7 +23,11 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
     
-    var listType: TripCategory = .carrier
+    var listType: TripCategory = .carrier {
+        didSet {
+            TripOrderDataStore.shared.pull(category: listType, completion: nil)
+        }
+    }
     
     var isFetching = false
     var lastCarrierFetchTime: Int = -1
@@ -59,8 +63,6 @@ class OrderListViewController: UIViewController {
         sliderBarCenterConstraint.constant = 0
         setupTableViews()
         
-        listType = .carrier
-        
         reloadData()
         
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
@@ -71,6 +73,8 @@ class OrderListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        
+        TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

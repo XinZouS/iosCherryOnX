@@ -66,6 +66,8 @@ class TripOrderDataStore: NSObject {
                 completion?()
                 //Only notify update when there are actual substantial update.
                 NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+            } else {
+                print("No new update since: \(lastFetchTime)")
             }
             
             if category == .carrier {
@@ -97,8 +99,7 @@ class TripOrderDataStore: NSObject {
         //Handle trips
         for updatedTripOrder in updatedData {
             let trip = updatedTripOrder.trip
-            let tripIndex = isExists(item: updatedTripOrder.trip, list: Array(targetTrips.values))
-            targetTrips[tripIndex] = trip
+            targetTrips[trip.id] = trip
         }
         
         if category == .carrier { carrierTrips = targetTrips }
