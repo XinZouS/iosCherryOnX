@@ -32,7 +32,7 @@ class OrderListViewController: UIViewController {
     var selectedIndexPath: IndexPath?
     enum tableViewRowHeight: CGFloat {
         case carrierCard = 240
-        case requestCard = 160
+        case requestCard = 155
     }
 
     var carrierTrips = [Trip]() {
@@ -63,7 +63,7 @@ class OrderListViewController: UIViewController {
         
         reloadData()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.reloadData()
         }
     }
@@ -89,7 +89,6 @@ class OrderListViewController: UIViewController {
             }
         }
     }
-    
     
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
@@ -201,7 +200,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.dateMonthLabel.text = trip?.getMonthString()
             cell.dateDayLabel.text = trip?.getDayString()
             cell.itemNumLabel.text = "\(request.images.count)件"
-            cell.shiperNameLabel.text = request.ownerUsername
+            if let image = request.images.first, let imageUrl = URL(string: image) {
+                cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
+            }
+            
             return cell
         }
     }

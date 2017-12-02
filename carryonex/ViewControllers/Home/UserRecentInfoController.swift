@@ -30,9 +30,9 @@ class UserRecentInfoController: UIViewController{
     
     func getUserRecentInfo(){
         guard let profileInfo = ProfileManager.shared.homeProfileInfo else { return }
-        shipTime.setTitle(String(describing: profileInfo.tripCount), for: .normal)
-        sendTime.setTitle(String(describing: profileInfo.requestCount), for: .normal)
-        generalCommentBtn.setTitle(String(describing: profileInfo.rating), for: .normal)
+        shipTime.setTitle(String(profileInfo.tripCount), for: .normal)
+        sendTime.setTitle(String(profileInfo.requestCount), for: .normal)
+        generalCommentBtn.setTitle(String(profileInfo.rating), for: .normal)
         starViewWidth.constant = CGFloat(profileInfo.rating * 20)
     }
 }

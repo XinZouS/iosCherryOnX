@@ -32,7 +32,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     }
     
     var nowHour :String = ""
-    var timeStatus :String = ""
+    var timeStatus :String = "" //TODO: make it an enum
     var gradientLayer: CAGradientLayer!
     // paramter to send to other field
     var imageurl = ""
@@ -51,7 +51,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         super.viewDidLoad()
         setupNowHour()
         setupBackGroundColor()
-        addUserUpdateNotificationObservers()
+        addObservers()
         setupLocation()
     }
     
@@ -66,7 +66,6 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         setupUserImageView()
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "shiper"){
             if let destVC = segue.destination as? UserCardViewController {
@@ -78,7 +77,6 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
                 destVC.viewTag = 1
             }
         }
-        
     }
     
     private func setupNowHour(){
@@ -92,11 +90,11 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         if let nowHourInt = Int(nowHour){
             if nowHourInt >= timeEnum.night.rawValue || nowHourInt < timeEnum.morning.rawValue { // night
                 timeStatus = "night"
-            }else if nowHourInt >= timeEnum.afternoon.rawValue {
+            } else if nowHourInt >= timeEnum.afternoon.rawValue {
                 timeStatus = "afternoon"
-            }else if nowHourInt >= timeEnum.noon.rawValue{
+            } else if nowHourInt >= timeEnum.noon.rawValue{
                 timeStatus = "noon"
-            }else{
+            } else {
                 timeStatus = "morning"
             }
         }
@@ -120,8 +118,12 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func addUserUpdateNotificationObservers(){
+    private func addObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            self?.loadUserProfile()
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.loadUserProfile()
         }
     }

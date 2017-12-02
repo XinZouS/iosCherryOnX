@@ -720,12 +720,11 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfR-3s-Rgw">
                                                                     <rect key="frame" x="12" y="12" width="86" height="86"/>
                                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <state key="normal" image="CarryonEx_Wechat_Icon"/>
                                                                     <connections>
                                                                         <action selector="handleSenderCellButtonWithSender:" destination="cO5-L0-lPg" eventType="touchUpInside" id="vIT-UX-yEY"/>
                                                                     </connections>
                                                                 </button>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH0-4G-Zw4">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH0-4G-Zw4">
                                                                     <rect key="frame" x="29" y="90" width="52" height="20"/>
                                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
@@ -783,7 +782,7 @@
                                                                     <color key="textColor" red="1" green="0.4149920642375946" blue="0.40575286746025085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addressDotDash" translatesAutoresizingMaskIntoConstraints="NO" id="9nF-KN-6yT">
+                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addressDotDash" translatesAutoresizingMaskIntoConstraints="NO" id="9nF-KN-6yT">
                                                                     <rect key="frame" x="118" y="42" width="15" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="9nF-KN-6yT" secondAttribute="height" multiplier="5:13" id="2Mp-g1-Q4Q"/>
@@ -1295,7 +1294,6 @@
     <resources>
         <image name="CarryonEx_Electronics" width="28" height="28"/>
         <image name="CarryonEx_PayPal" width="460" height="176"/>
-        <image name="CarryonEx_Wechat_Icon" width="64" height="64"/>
         <image name="LockClosed" width="59" height="67"/>
         <image name="Phone" width="34" height="34"/>
         <image name="addressDotDash" width="42" height="108"/>

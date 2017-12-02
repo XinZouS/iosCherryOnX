@@ -23,7 +23,6 @@ class UserCardViewController: UIViewController {
 
     var listType: TripCategory = .carrier
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addNotificationObservers()
@@ -33,36 +32,9 @@ class UserCardViewController: UIViewController {
         switch viewTag{
         case 0:
             setupShipperCardView()
-            setupInformation()
         default:
             listType = .sender
             setupSenderCardView()
-            setupInformation()
-        }
-    }
-    private func setupInformation(){
-        ApiServers.shared.getUsersTrips(userType: listType, offset: 1, pageCount: 1) { (tripOrders, error) in
-            
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。\(error.localizedDescription)"
-                self.displayGlobalAlert(title: "⚠️连接失败", message: m, action: "好，朕再等等", completion: {
-                    self.navigationController?.popToRootViewController(animated: true)
-                })
-                return
-            }
-            guard let tripOrders = tripOrders else {
-                return
-            }
-            
-            if tripOrders.count == 0{
-                print("There is no trip")
-            }else{
-                if let startCountry = tripOrders[0].trip.startAddress?.country?.rawValue,let startState = tripOrders[0].trip.startAddress?.state,let startCity = tripOrders[0].trip.startAddress?.city,let endCountry = tripOrders[0].trip.endAddress?.country?.rawValue,let endState = tripOrders[0].trip.endAddress?.state,let endCity = tripOrders[0].trip.endAddress?.city{
-                    self.beginLocationLabel.text = startCountry+" "+startState+" "+startCity
-                    self.endLocationLabel.text = endCountry+" "+endState+" "+endCity
-                }
-            }
         }
     }
 
@@ -85,7 +57,6 @@ class UserCardViewController: UIViewController {
             timeLabel.text = profile.trip.displayTime()
             beginLocationLabel.text = profile.trip.startAddress.fullAddressString()
             endLocationLabel.text = profile.trip.endAddress.fullAddressString()
-            //if let imageUrl = URL(string: profile.trip.image) {   //TODO update this
             if let imageUrl = URL(string: profile.trip.image) {
                 ItemDetailBtn.af_setImage(for: .normal, url: imageUrl)
             }
@@ -113,4 +84,3 @@ class UserCardViewController: UIViewController {
         }
     }
 }
-

@@ -149,7 +149,13 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoCell", for: indexPath) as? OrdersYouxiangInfoCell {
                 cell.selectionStyle = .none
                 cell.cellCategory = category
-                cell.request = requests[indexPath.row]
+                
+                let request = requests[indexPath.row]
+                
+                cell.request = request
+                if let image = request.images.first, let imageUrl = URL(string: image) {
+                    cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
+                }
                 return cell
             }
             

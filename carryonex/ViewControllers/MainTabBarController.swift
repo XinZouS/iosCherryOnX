@@ -63,12 +63,12 @@ class MainTabBarController: UITabBarController {
             self.circleIndicator.animate()
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
-                    self.circleIndicator.stop()
-                    self.circleIndicator.isHidden = true
                     APIServerChecker.testAPIServers()
                     TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
                     TripOrderDataStore.shared.pull(category: .sender, completion: nil)
                 }
+                self.circleIndicator.stop()
+                self.circleIndicator.isHidden = true
             })
             appDidLaunch = true
         }
