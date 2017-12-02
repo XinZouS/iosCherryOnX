@@ -24,11 +24,16 @@ class PersonalPageViewController: UIViewController{
     var loginViewController = LoginViewController()
     @IBOutlet weak var tableView: UITableView!
     
-    let titles = ["钱包","帮助","设置", "锁定游箱"]
+    let titles = ["钱包","帮助","设置"]
     let subTitles = ["收付款，查看余额，提现", "", "", ""]
     let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]
     let cellId = "PersonalPageTableCell"
 
+    let segueIdWalletPage = "creditViewController"
+    let segueIdSettingPage = "pushSettingPageSegue"
+    let segueIdEditProfile = "editProfile"
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "我的"
@@ -51,7 +56,7 @@ class PersonalPageViewController: UIViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editProfile"{
+        if segue.identifier == segueIdEditProfile {
             if let destVC = segue.destination as? PersonalInfoEditingViewController {
                 personInfoEditCtl = destVC
             }
@@ -91,11 +96,11 @@ class PersonalPageViewController: UIViewController{
     }
     
     @IBAction func userProfileImageTapped(_ sender: Any) {
-        
+        // TODO: go to user info detail page
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "editProfile", sender: self)
+        performSegue(withIdentifier: segueIdEditProfile, sender: self)
     }
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
         // TODO: navigate to see comments page;
@@ -110,17 +115,14 @@ extension PersonalPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            print("TODO: show wallet page")
+            performSegue(withIdentifier: segueIdWalletPage, sender: self)
             
         case 1:
             let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
             ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
 
         case 2:
-            performSegue(withIdentifier: "pushSettingPageSegue", sender: self)
-            
-        case 3:
-            print("TODO: add youxiang locker page")
+            performSegue(withIdentifier: segueIdSettingPage, sender: self)
             
         default:
             print("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")

@@ -55,10 +55,10 @@ class RegistrationViewController: UIViewController {
             AudioManager.shared.playSond(named: .failed)
             return
         }
-        if !isPasswordValidate() {
-            AudioManager.shared.playSond(named: .failed)
-            return
-        }
+//        if !isPasswordValidate() {
+//            AudioManager.shared.playSond(named: .failed)
+//            return
+//        }
         guard isPasswordValid else {
             AudioManager.shared.playSond(named: .failed)
             return 

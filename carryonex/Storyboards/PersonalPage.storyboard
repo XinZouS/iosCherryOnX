@@ -240,6 +240,7 @@
                         <outlet property="viewAllCommentsButton" destination="5jW-M4-Hh1" id="FrX-tM-qHJ"/>
                         <segue destination="8e3-v7-MZQ" kind="show" identifier="pushSettingPageSegue" id="816-em-gYx"/>
                         <segue destination="d0Q-Mq-eMb" kind="show" identifier="editProfile" id="gQ6-hm-xS3"/>
+                        <segue destination="RNw-WB-w1Z" kind="show" identifier="creditViewController" id="VYo-pe-ZEt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IxM-00-QIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,7 +261,15 @@
                 <viewControllerPlaceholder storyboardName="HistoryComment" id="w24-tR-KPy" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEK-MT-VU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826" y="68"/>
+            <point key="canvasLocation" x="942" y="32"/>
+        </scene>
+        <!--CreditViewController-->
+        <scene sceneID="OZc-f3-yN6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CreditViewController" id="RNw-WB-w1Z" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ox4-Bf-2ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="782" y="117"/>
         </scene>
         <!--Settings-->
         <scene sceneID="gtZ-xg-STa">
@@ -268,7 +277,7 @@
                 <viewControllerPlaceholder storyboardName="Settings" id="8e3-v7-MZQ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEb-hl-sx3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="748" y="262"/>
+            <point key="canvasLocation" x="710" y="262"/>
         </scene>
     </scenes>
     <resources>

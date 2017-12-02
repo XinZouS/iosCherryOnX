@@ -8,13 +8,14 @@
 
 import UIKit
 
-class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate{
+class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,UITextViewDelegate{
     
     @IBOutlet weak var tripTableView: UITableView!
-    @IBOutlet weak var otherTextField: UITextField!
+    @IBOutlet weak var otherTextField: UITextView!
     @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var endLocation: UITextField!
     @IBOutlet weak var beginLocation: UITextField!
+    @IBOutlet weak var hintLabel: UILabel!
     let timePicker:UIDatePicker = UIDatePicker()
     var addressArray = [[String: AnyObject]]()
     //选择的国家索引
@@ -46,6 +47,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         addDoneButtonOnKeyboard()
         tripTableView.allowsSelection = false
         setUpPicker()
+        otherTextField.delegate = self
     }
     
     private func setUpPicker(){
@@ -68,6 +70,9 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     
     func doneButtonAction()
     {
+        if otherTextField.text == ""{
+            self.hintLabel.isHidden = false
+        }
         self.timeTextField.resignFirstResponder()
         self.otherTextField.resignFirstResponder()
         self.beginLocation.resignFirstResponder()
@@ -225,8 +230,8 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         tripTableView.setContentOffset(offset, animated: true)
         timeTextField.inputView = timePicker
     }
-    
-    @IBAction func otherTextFieldTapped(_ sender: Any) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        hintLabel.isHidden = true
         indexOfTextField = 3
         judgeButtonState()
         var offset = tripTableView.contentOffset
@@ -272,7 +277,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width:
             tableView.bounds.size.width, height: tableView.bounds.size.height))
-        headerLabel.font = UIFont(name: "Verdana", size: 25)
+        headerLabel.font = UIFont(name: "Verdana", size: 20)
         headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
         headerLabel.sizeToFit()
         headerView.addSubview(headerLabel)
@@ -281,6 +286,6 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(50)
+        return CGFloat(30)
     }
 }

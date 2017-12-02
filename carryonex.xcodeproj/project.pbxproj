@@ -159,6 +159,8 @@
 		66C3EA8D1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */; };
 		66C3EA8F1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */; };
 		66C3EA911FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA901FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift */; };
+		66C9002C1FD2084D0017DBC4 /* CreditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */; };
+		66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9002D1FD218550017DBC4 /* CreditViewController.swift */; };
 		66C9756F1F3DF15200450F37 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9756E1F3DF15200450F37 /* UserProfileView.swift */; };
 		66C975791F3E149700450F37 /* VerificationController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C975781F3E149700450F37 /* VerificationController++.swift */; };
 		66C9757D1F3E165A00450F37 /* DisclaimerController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */; };
@@ -455,6 +457,8 @@
 		66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersYouxiangInfoViewController.swift; sourceTree = "<group>"; };
 		66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersYouxiangInfoCell.swift; sourceTree = "<group>"; };
 		66C3EA901FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersRequestDetailViewController.swift; sourceTree = "<group>"; };
+		66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreditViewController.storyboard; sourceTree = "<group>"; };
+		66C9002D1FD218550017DBC4 /* CreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewController.swift; sourceTree = "<group>"; };
 		66C9756E1F3DF15200450F37 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		66C975781F3E149700450F37 /* VerificationController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VerificationController++.swift"; sourceTree = "<group>"; };
 		66C9757C1F3E165A00450F37 /* DisclaimerController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisclaimerController++.swift"; sourceTree = "<group>"; };
@@ -650,6 +654,7 @@
 				6602526D1FC48BB300277617 /* ShipperInfoViewController.swift */,
 				FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */,
 				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
+				66C9002D1FD218550017DBC4 /* CreditViewController.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1280,6 +1285,7 @@
 				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
 				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
 				FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */,
+				66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1613,6 +1619,7 @@
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
+				66C9002C1FD2084D0017DBC4 /* CreditViewController.storyboard in Resources */,
 				FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */,
 				E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */,
 				E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */,
@@ -1951,6 +1958,7 @@
 				66E650191F5F231200DA90DE /* OrdersSenderPageCell++.swift in Sources */,
 				66E650211F5F86C000DA90DE /* OrderLogShipperCell++.swift in Sources */,
 				660F4F831F5756DD00F4820D /* OkButton++.swift in Sources */,
+				66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */,
 				662C277E1FAEC1B400D90E08 /* AwsServerManager.swift in Sources */,
 				668609791F607CC600740A92 /* WalletCheckingCell++.swift in Sources */,
 				665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */,

@@ -12,6 +12,7 @@ import AWSCognito
 import AWSCore
 import AWSS3
 import ALCameraViewController
+import BPCircleActivityIndicator
 
 class RequestController: UICollectionViewController, UIGestureRecognizerDelegate {
     
@@ -23,7 +24,7 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         return v
     }()
     
-    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
+    var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
 
     let labelW: CGFloat = 90
     
@@ -103,9 +104,9 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     }
     
     private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
     

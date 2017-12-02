@@ -231,7 +231,8 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
-        
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
     }
     
     @IBAction func shiperButtonTapped(_ sender: Any) {
