@@ -48,37 +48,49 @@ class OrdersYouxiangInfoViewController: UIViewController {
         }
     }
 
+    static func storyboardViewController() -> OrdersYouxiangInfoViewController? {
+        let storyboard = UIStoryboard.init(name: "OrdersYouxiangInfo", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "") as? OrdersYouxiangInfoViewController
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "游箱信息"
         navigationController?.isNavigationBarHidden = false
         
+        //Setup table view
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView() // remove empty lines
+        
+        //Setup activity indicator
+        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
+        
+        loadData()
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
+            self?.loadData()
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func loadData() {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
         
-        setupTableView()
-        
-        setupLocker()
+        //TODO: use trip.active parameter.
+        self.isLocked = true
+        self.lockerImageView.image = self.isLocked ? #imageLiteral(resourceName: "LockClosed") : #imageLiteral(resourceName: "LockOpened")
+        self.lockerHintLabel.isHidden = !self.isLocked
         
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
         youxiangCodeLabel.text = trip.tripCode
-        
-        setupActivityIndicator()
-    }
-    
-    private func setupTableView(){
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView() // remove empty lines
-    }
-    
-    private func setupActivityIndicator(){
-        activityIndicator = UIActivityIndicatorCustomizeView()
-        activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
-        view.addSubview(activityIndicator)
     }
     
     private func setupLocker() {

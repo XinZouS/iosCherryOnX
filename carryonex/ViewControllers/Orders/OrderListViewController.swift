@@ -195,7 +195,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             let request = senderRequests[indexPath.row]
             cell.request = request
             
-            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
             cell.startAddressLabel.text = trip?.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip?.endAddress?.fullAddressString()
             cell.dateMonthLabel.text = trip?.getMonthString()
@@ -225,7 +225,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == TripCategory.sender.rawValue {
             let request = senderRequests[indexPath.row]
-            let trip = TripOrderDataStore.shared.getSenderTripById(id: request.tripId)
+            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
             performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
         }
     }

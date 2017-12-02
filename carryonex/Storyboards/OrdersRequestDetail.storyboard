@@ -329,7 +329,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="finishedButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="sLb-RI-Web"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="gGm-HC-aUP"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-OL-TH7" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
@@ -348,7 +348,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="cancelButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="J9e-9N-cDD"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="qBV-5B-fpR"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -466,7 +466,7 @@
                         <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="Rbg-BP-xNg"/>
                         <outlet property="dateMonthLabel" destination="efo-75-gDw" id="pgf-FO-rOi"/>
                         <outlet property="endAddressLabel" destination="hO5-6m-U41" id="Fp0-e1-Wkf"/>
-                        <outlet property="finishButton" destination="0Gq-pn-kvc" id="Q5n-3k-TQG"/>
+                        <outlet property="finishButton" destination="0Gq-pn-kvc" id="sYh-sX-fHj"/>
                         <outlet property="finishButton2" destination="n0b-OL-TH7" id="sL8-xh-6kf"/>
                         <outlet property="incomeLabel" destination="lEz-65-FZV" id="oWh-xC-UkJ"/>
                         <outlet property="itemImage1" destination="eSr-ny-iIF" id="spe-nl-Euq"/>

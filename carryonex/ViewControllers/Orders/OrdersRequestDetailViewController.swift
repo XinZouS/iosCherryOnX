@@ -60,13 +60,31 @@ class OrdersRequestDetailViewController: UIViewController {
     
     }
     
-    // done buttons
-    @IBAction func finishedButtonTapped(_ sender: Any) {
-    
-    }
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-    
+    @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
+        let transaction = sender.transaction
+        print("Transaction tapped: \(transaction.displayString())")
+        let tripId = trip.id
+        let requestId = request.id
+        let requestCategory = category
+        displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
+            if style == .default {
+                ApiServers.shared.postRequestTransaction(requestId: requestId,
+                                                         tripId: tripId,
+                                                         transaction: transaction,
+                                                         completion: { (success, error, statusId) in
+                                                            if (success) {
+                                                                if let statusId = statusId {
+                                                                    print("New status: \(statusId)")
+                                                                    TripOrderDataStore.shared.pull(category: requestCategory, completion: {
+                                                                        self?.reloadData()
+                                                                    })
+                                                                } else {
+                                                                    debugPrint("No status found, bad call")
+                                                                }
+                                                            }
+                })
+            }
+        }
     }
     
     // MARK: - Data models
@@ -98,8 +116,21 @@ class OrdersRequestDetailViewController: UIViewController {
         title = "订单详情"
         navigationController?.isNavigationBarHidden = false
         
+        setupView()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == toShipperViewSegue {
+            //if let shipperInfoVC = segue.destination as? ShipperInfoViewController{
+                
+            //}
+        }
+    }
+    
+    private func setupView() {
         updateRequestInfoAppearance(request: request)
-        if let trip = TripOrderDataStore.shared.getSenderTripById(id: request.id) {
+        
+        if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
             self.trip = trip
         }
         
@@ -117,16 +148,11 @@ class OrdersRequestDetailViewController: UIViewController {
         endAddressLabel.text = trip.endAddress?.fullAddressString()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == toShipperViewSegue {
-            //if let shipperInfoVC = segue.destination as? ShipperInfoViewController{
-                
-            //}
+    private func reloadData() {
+        if let updatedRequest = TripOrderDataStore.shared.getRequest(category: category, requestId: self.request.id) {
+            request = updatedRequest
+            setupView()
         }
-    }
-    
-    private func setupTripStatus(trip: Trip){
-        
     }
 }
 
@@ -189,7 +215,6 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
                 break
             }
         }
-        
     }
     
     func updateRequestInfoAppearance(request: Request) {
