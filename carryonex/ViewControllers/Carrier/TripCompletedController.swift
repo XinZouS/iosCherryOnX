@@ -19,6 +19,7 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
+    
     var gradientLayer: CAGradientLayer!
     var dateString :String!
     var beginLocationString:String!
@@ -88,9 +89,7 @@ class TripCompletedController:UIViewController{
         setupCardInformation()
         setupBackGroundColor()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+    
     private func setupCardInformation(){
         beginLocationLabel.text = beginLocationString
         endLocationLabel.text = endLocationString
@@ -193,6 +192,7 @@ class TripCompletedController:UIViewController{
             self.present(alertController, animated: true, completion:{})
         }
     }
+    
     func shareToWechat(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = ""
@@ -337,7 +337,5 @@ class TripCompletedController:UIViewController{
     @IBAction func gobackToFirstPageButtonTapped(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
 }
 
