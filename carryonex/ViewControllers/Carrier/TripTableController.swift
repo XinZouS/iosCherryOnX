@@ -70,7 +70,9 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     
     func doneButtonAction()
     {
-        self.hintLabel.isHidden = false
+        if otherTextField.text == ""{
+            self.hintLabel.isHidden = false
+        }
         self.timeTextField.resignFirstResponder()
         self.otherTextField.resignFirstResponder()
         self.beginLocation.resignFirstResponder()
