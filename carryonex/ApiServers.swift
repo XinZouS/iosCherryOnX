@@ -570,7 +570,7 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response["data"] as? [String: Any] {
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let tripOrders : [TripOrder] = try unbox(dictionary: data, atKey:"trips")
                     completion(tripOrders, nil)
