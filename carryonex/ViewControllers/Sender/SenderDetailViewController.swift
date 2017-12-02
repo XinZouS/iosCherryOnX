@@ -362,13 +362,13 @@ class SenderDetailViewController: UIViewController {
                                                 self.displayGlobalAlert(title: "🎉发布成功", message: m, action: "好，回主页", completion: {
                                                     self.navigationController?.popToRootViewController(animated: true)
                                                 })
+                                                
+                                                TripOrderDataStore.shared.pull(category: .sender, completion: nil)
                 })
 
             } else {
                 self.getTripErrorAndReturnPrePage()
             }
-            
-            
         }
     }
 
@@ -562,9 +562,6 @@ extension SenderDetailViewController {
         print("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
-
-    
-    
 }
 
 
@@ -745,8 +742,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    
 }
 
 extension SenderDetailViewController: UIScrollViewDelegate {
@@ -755,8 +750,6 @@ extension SenderDetailViewController: UIScrollViewDelegate {
         keyboardDismiss()
     }
 }
-
-
 
 // MARK: -
 class ItemImageCollectionCell: UICollectionViewCell {
@@ -780,12 +773,4 @@ class ItemImageCollectionCell: UICollectionViewCell {
     private func removeLocalImageInCollectionView(){
         parentVC?.removeImagePairOfName(imgName: imageFileName)
     }
-    
-    
 }
-
-
-
-
-
-

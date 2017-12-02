@@ -109,10 +109,14 @@ class TripOrderDataStore: NSObject {
         var targetRequests = (category == .carrier) ? carrierRequests : senderRequests
         for updatedTripOrder in updatedData {
             let trip = updatedTripOrder
-            if let requests = trip.requests {
-                for request in requests {
-                    let reqId = request.request.id
-                    targetRequests[reqId] = request.request
+            if let tripRequests = trip.requests {
+                for tripRequest in tripRequests {
+                    let reqId = tripRequest.request.id
+                    let request = tripRequest.request
+                    request.images = tripRequest.images.map({ (reqImage) -> String in
+                        return reqImage.imageUrl
+                    })
+                    targetRequests[reqId] = request
                 }
             }
         }

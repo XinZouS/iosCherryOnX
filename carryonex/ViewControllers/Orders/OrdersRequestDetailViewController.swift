@@ -146,6 +146,21 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
+        
+        if let image = request.images.first, let imageUrl = URL(string: image) {
+            itemImage1.af_setImage(withURL: imageUrl)
+        }
+        
+        itemImageMoreButton.isHidden = (request.images.count < 2)
+        if request.images.count > 1 {
+            itemImage2.isHidden = false
+            let image = request.images[1]
+            if let imageUrl = URL(string: image) {
+                itemImage2.af_setImage(withURL: imageUrl)
+            }
+        } else {
+            itemImage2.isHidden = true
+        }
     }
     
     private func reloadData() {
