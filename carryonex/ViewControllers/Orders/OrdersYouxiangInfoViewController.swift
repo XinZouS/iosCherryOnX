@@ -32,6 +32,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     var trip: Trip!
     var requests = [Request]()
+    var category: TripCategory = .carrier
     
     var isLocked: Bool = false
     
@@ -190,6 +191,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDelegate {
         if let detailVC = segue.destination as? OrdersRequestDetailViewController, let request = sender as? Request {
             detailVC.trip = trip
             detailVC.request = request
+            detailVC.category = category
         }
     }
     

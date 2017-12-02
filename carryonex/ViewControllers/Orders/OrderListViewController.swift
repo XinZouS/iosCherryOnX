@@ -31,8 +31,8 @@ class OrderListViewController: UIViewController {
     
     var selectedIndexPath: IndexPath?
     enum tableViewRowHeight: CGFloat {
-        case mainCard = 240
-        case detailCard = 300
+        case carrierCard = 240
+        case requestCard = 160
     }
 
     var carrierTrips = [Trip]() {
@@ -78,12 +78,14 @@ class OrderListViewController: UIViewController {
         if segue.identifier == tripInfoSegue {
             if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
                 tripInfoViewController.trip = trip
+                tripInfoViewController.category = listType
             }
             
         } else if segue.identifier == requestDetailSegue {
             if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
                 requestDetailViewController.trip = tripRequest.0
                 requestDetailViewController.request = tripRequest.1
+                requestDetailViewController.category = listType
             }
         }
     }
@@ -164,114 +166,6 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    /*
-    fileprivate func fetchRequests(category: TripCategory) {
-        
-        guard !isFetching else { return }
-        
-        isFetching = true
-        
-        let offset = (category == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
-        let page = 4
-        
-        ApiServers.shared.getUsersTrips(userType: listType, offset: offset, pageCount: page) { (tripOrders, error) in
-            self.isFetching = false
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
-
-            if let tripOrders = tripOrders, tripOrders.count != 0 {
-                if category == .carrier {
-                    self.lastCarrierFetchTime = Date.getTimestampNow()
-                    self.dataSourceCarrier.append(contentsOf: tripOrders)
-                } else {
-                    self.lastShipperFetchTime = Date.getTimestampNow()
-                    self.dataSourceSender.append(contentsOf: tripOrders)
-                }
-            }
-        }
-    }
-    */
-    
-    /*
-    private func updateRequests(category: TripCategory) {
-        
-        guard !isFetching else { return }
-        
-        isFetching = true
-        
-        let offset = 0
-        let page = (category == .carrier) ? dataSourceCarrier.count : dataSourceSender.count
-        let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastShipperFetchTime
-        let currentDataSource = (category == .carrier) ? self.dataSourceCarrier : self.dataSourceSender
-        
-        ApiServers.shared.getUsersTrips(userType: listType, offset: offset, pageCount: page, sinceTime: lastFetchTime) { (tripOrders, error) in
-            self.isFetching = false
-                                            
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let tripOrders = tripOrders {
-                self.updateDataSource(currentDataSource, updatedData: tripOrders)
-                
-                if self.listType == .carrier {
-                    self.lastCarrierFetchTime = Date.getTimestampNow()
-                    self.tableViewShiper.reloadData()
-                } else {
-                    self.lastShipperFetchTime = Date.getTimestampNow()
-                    self.tableViewSender.reloadData()
-                }
-            }
-        }
-    }
-    */
- 
-    /*
-    private func updateDataSource(_ dataSource: [TripOrder], updatedData: [TripOrder]) {
-        var updatedRequests = [Request]()
-        
-        //Extract all the requests
-        for tripOrder in updatedData {
-            if let requests = tripOrder.requests {
-                for tripRequest in requests {
-                    updatedRequests.append(tripRequest.request)
-                }
-            } else {
-                print("No requests in trip: \(tripOrder.trip.id)")
-            }
-        }
-        
-        //Update data source
-        for request in updatedRequests {
-            for tripOrder in dataSource {
-                if let requests = tripOrder.requests {
-                    for tripRequest in requests {
-                        if tripRequest.request.id == request.id {
-                            tripRequest.request.statusId = request.statusId
-                        }
-                    }
-                } else {
-                    print("No requests in trip: \(tripOrder.trip.id)")
-                }
-            }
-        }
-    }
-    */
-    
-    /*
-    func updateRequestAtIndexPath(indexPath: IndexPath, statusId: Int) {
-        if (listType == .carrier) {
-            dataSourceCarrier[indexPath.section].requests?[indexPath.row].request.statusId = statusId
-            self.tableViewShiper.reloadRows(at: [indexPath], with: .fade)
-        } else {
-            dataSourceSender[indexPath.section].requests?[indexPath.row].request.statusId = statusId
-            self.tableViewSender.reloadRows(at: [indexPath], with: .fade)
-        }
-    }
-    */
 }
 
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -315,7 +209,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableViewRowHeight.mainCard.rawValue
+        return (tableView.tag == TripCategory.carrier.rawValue) ? tableViewRowHeight.carrierCard.rawValue : tableViewRowHeight.requestCard.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -330,58 +224,6 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-/*
-extension OrderListViewController: UIScrollViewDelegate {
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-////        print("scroll y: \(scrollView.contentOffset.y), LIMIT: \(Float(scrollView.contentSize.height - scrollView.frame.size.height))")
-////        print("scroll content height: \(scrollView.contentSize.height), scroll frame height: \(scrollView.frame.size.height)")
-//
-//        //Fetching
-//        if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {
-//            fetchRequests(category: listType)
-//        }
-//    }
-    
-//    fileprivate func animateImageForTableScrolling(){
-//        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-//    }
-}
-*/
-
-/*
-extension OrderListViewController: OrderListCellDelegate {
-    
-    func orderCellButtonTapped(request: Request, category: TripCategory, transaction: RequestTransaction, indexPath: IndexPath) {
-        
-        print("Transaction tapped: \(transaction.displayString())")
-        
-        let currentDataSource = (category == .carrier) ? self.dataSourceCarrier : self.dataSourceSender
-        displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
-            if style == .default {
-                let tripOrder = currentDataSource[indexPath.section]
-                let trip = tripOrder.trip
-                ApiServers.shared.postRequestTransaction(requestId: request.id,
-                                                         tripId: trip.id,
-                                                         transaction: transaction,
-                                                         completion: { (success, error, statusId) in
-                    if (success) {
-                        if let statusId = statusId {
-                            self?.updateRequestAtIndexPath(indexPath: indexPath, statusId: statusId)
-                            print("New status: \(statusId)")
-                        } else {
-                            debugPrint("No status found, bad call")
-                        }
-                    }
-                })
-            }
-        }
-    }
-}
-*/
 
 extension OrderListViewController: OrderListCarrierCellDelegate {
     
