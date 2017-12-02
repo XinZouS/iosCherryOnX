@@ -147,10 +147,11 @@ class TripCompletedController:UIViewController{
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
+        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let margin:CGFloat = 10.0
-        let viewWidth:CGFloat = alertController.view.bounds.size.width - margin * 4.0
-        let rect = CGRect(x: margin, y: margin, width: viewWidth ,height: 120)
+        let margin: CGFloat = 10.0
+        let viewWidth: CGFloat = alertController.view.bounds.size.width - margin * 4.0
+        let rect = CGRect(x: margin, y: margin, width: viewWidth, height: 120)
         let shareView = UIView(frame: rect)
         alertController.view.addSubview(shareView)
         
@@ -160,15 +161,19 @@ class TripCompletedController:UIViewController{
         shareView.addSubview(weiboButton)
         shareView.addSubview(facebookButton)
         
-        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
-        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
-        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
-        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: 5, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: (viewWidth-25)/4, height: (viewWidth-25)/4)
+        let w: CGFloat = isPhone ? ((viewWidth - 25) / 4) : 63
+        let l: CGFloat = 5
+        let y: CGFloat = -10
+        let t: CGFloat = 5
+        wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
+        momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
+        weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
+        facebookButton.addConstraints(left: weiboButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
         
-        wechatButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
-        momentButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
-        weiboButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
-        facebookButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: -10).isActive = true
+        wechatButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: y).isActive = true
+        momentButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: y).isActive = true
+        weiboButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: y).isActive = true
+        facebookButton.centerYAnchor.constraint(equalTo: shareView.centerYAnchor, constant: y).isActive = true
         
         shareView.addSubview(facebookLabel)
         shareView.addSubview(wechatLabel)
@@ -180,15 +185,19 @@ class TripCompletedController:UIViewController{
         momentLabel.centerXAnchor.constraint(equalTo: momentButton.centerXAnchor).isActive = true
         weiboLabel.centerXAnchor.constraint(equalTo: weiboButton.centerXAnchor).isActive = true
         
-        wechatLabel.addConstraints(left: nil, top: wechatButton.bottomAnchor, right: nil, bottom:nil , leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        momentLabel.addConstraints(left: nil, top: momentButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        weiboLabel.addConstraints(left: nil, top: weiboButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        facebookLabel.addConstraints(left: nil, top: facebookButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        wechatLabel.addConstraints(left: nil, top: wechatButton.bottomAnchor, right: nil, bottom:nil , leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        momentLabel.addConstraints(left: nil, top: momentButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        weiboLabel.addConstraints(left: nil, top: weiboButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        facebookLabel.addConstraints(left: nil, top: facebookButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         alertController.addAction(cancelAction)
         
+        if !isPhone { // iPad MUST setup reference for alertViewController
+            alertController.popoverPresentationController?.sourceView = self.shareButton
+            shareView.frame = CGRect(x: 10, y: 24, width: 200, height: 100)
+        }
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion:{})
         }
