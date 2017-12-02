@@ -147,7 +147,12 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         }
                     })
                 }else{
-                    debugPrint("the customer's email wrong")
+                    let errMsg = "亲，请输入正确的邮箱号"
+                    displayGlobalAlert(title: "保存失败", message: errMsg, action: "回去修改", completion: {
+                        if let childVC = self.childViewControllers.first as? PersonalTable {
+                            childVC.emailTextField.becomeFirstResponder()
+                        }
+                    })
                 }
             } else {
                 debugPrint("unwrap failure")
