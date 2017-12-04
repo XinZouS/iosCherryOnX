@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/aaa/Music/carryOnEx/ios/carryonex/Managers/ShareManager.swift">
+   </FileRef>
+   <FileRef
       location = "group:carryonex.xcodeproj">
    </FileRef>
    <FileRef

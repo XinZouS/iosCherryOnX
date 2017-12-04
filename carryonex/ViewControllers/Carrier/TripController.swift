@@ -12,6 +12,8 @@ import FSCalendar
 class TripController: UIViewController{
     @IBOutlet weak var confirmTripButton: UIButton!
     var gradientLayer: CAGradientLayer!
+    var tripCompleteCtl: TripCompletedController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -25,6 +27,7 @@ class TripController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "tripComplete") {
             if let destVC = segue.destination as? TripCompletedController{
+                tripCompleteCtl = destVC
                 if let childVC = self.childViewControllers.first as? TripTableController {
                     destVC.beginLocationString = childVC.beginLocation.text
                     destVC.endLocationString = childVC.endLocation.text

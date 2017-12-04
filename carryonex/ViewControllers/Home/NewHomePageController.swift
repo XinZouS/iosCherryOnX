@@ -46,6 +46,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     @IBOutlet weak var circle: UIImageView!
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
+    var tripCtl:TripController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,11 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         if (segue.identifier == "sender"){
             if let destVC = segue.destination as? UserCardViewController {
                 destVC.viewTag = 1
+            }
+        }
+        if (segue.identifier == "sender"){
+            if let destVC = segue.destination as? TripController {
+                tripCtl = destVC
             }
         }
     }
@@ -238,7 +244,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     }
     
     @IBAction func shiperButtonTapped(_ sender: Any) {
-        
+        performSegue(withIdentifier: "carrierSegue", sender: self)
     }
     
     @IBAction func senderButtonTapped(_ sender: Any) {

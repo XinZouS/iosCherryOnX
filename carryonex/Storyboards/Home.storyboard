@@ -67,7 +67,6 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="shiperButtonTapped:" destination="V1Q-cB-PhT" eventType="touchUpInside" id="i9z-gh-EoC"/>
-                                                    <segue destination="tne-a3-sE6" kind="show" id="hkL-cg-wLY"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="早上好" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjM-F8-bvr">
@@ -282,6 +281,7 @@
                         <outlet property="senderButton" destination="P6J-p5-57s" id="Zng-1v-hek"/>
                         <outlet property="shiperButton" destination="zzJ-f5-BBS" id="mb3-4H-XsF"/>
                         <outlet property="userProfileImageBtn" destination="1Jk-1D-Ewz" id="rdY-zs-MV5"/>
+                        <segue destination="tne-a3-sE6" kind="show" identifier="carrierSegue" id="66u-bD-f5w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvg-8M-6ND" userLabel="First Responder" sceneMemberID="firstResponder"/>
