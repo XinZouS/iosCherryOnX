@@ -878,6 +878,15 @@ class ApiServers : NSObject {
                 return
             }
             
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
+                completion(true, nil)
+            } else {
+                print("postRequest - Unable to post request data")
+                completion(false, nil)
+            }
+            
+            /*
+             //If mengdi fix it and we need it in the future, we have the full request return.
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let request: Request = try unbox(dictionary: data, atKey: "request")
@@ -893,6 +902,7 @@ class ApiServers : NSObject {
                 print("postRequest - Unable to post request data")
                 completion(false, nil)
             }
+            */
         }
     }
 
