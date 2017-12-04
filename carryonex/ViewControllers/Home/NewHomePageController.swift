@@ -123,8 +123,8 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
             self?.loadUserProfile()
         }
         
-        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
-            self?.loadUserProfile()
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { _ in
+            ProfileManager.shared.loadLocalUser(completion: nil)
         }
     }
     
