@@ -26,7 +26,7 @@ class Request: Unboxable, Identifiable {
     var requestEta: Int?
     var priceStd: Int?
     var currency: String?
-    var createdTimestamp: Int = Date.getTimestampNow()
+    var createdTimestamp: Int
     //var items: [String]? TODO: do we still need this?? BUG: Expected element type
     var images: [RequestImage] = []
     var ownerRating: Double = 0
@@ -50,7 +50,9 @@ class Request: Unboxable, Identifiable {
         self.requestEta = try? unboxer.unbox(key: RequestKeyInDB.requestEta.rawValue)
         self.priceStd = try? unboxer.unbox(key: RequestKeyInDB.priceStd.rawValue)
         self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
-        self.createdTimestamp = (try? unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)) ?? -1
+        self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
+        self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
+        
         //self.items = [String]? TODO = do we still need this?? BUG: Expected element type
         self.ownerRating = (try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)) ?? 0
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
