@@ -13,7 +13,7 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
     var requestCtl : RequestController?
     
     var info = ""
-    var request : Request!
+    var request : Request?
     
     let pageMargin : CGFloat = 20
     
@@ -98,22 +98,15 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
         view.backgroundColor = .white
         
         setupNavigationBar()
-        
         setupTitleLabel()
-        
         setupContentLabel()
-        
         setupDetailInformation()
-        
         setupContentStackView()
-        
         setupCostLabelAndUnderlineView()
-        
         setupPaymentLabel()
-        
+        setupOkButton()
         setupPaymentCollectionView()
         
-        setupOkButton()
     }
     
     private func setupNavigationBar(){
@@ -125,7 +118,7 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
     
     private func setupTitleLabel(){
         view.addSubview(titleLabel)
-        titleLabel.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: pageMargin, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 60)
+        titleLabel.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: pageMargin, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 20)
         
         setupTitleAttributeText()
     }
@@ -141,17 +134,17 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
     private func setupDetailInformation(){
         view.addSubview(detailInformation)
         detailInformation.addConstraints(left: view.leftAnchor, top: contentLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 40)
-        detailInformation.text = request.description
+        detailInformation.text = request?.description
     }
     
     private func setupContentStackView(){
         view.addSubview(contentStackView)
-        contentStackView.addConstraints(left: view.leftAnchor, top: detailInformation.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 100)
+        contentStackView.addConstraints(left: view.leftAnchor, top: detailInformation.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 40)
     }
     
     private func setupCostLabelAndUnderlineView(){
         view.addSubview(costLabel)
-        costLabel.addConstraints(left: view.leftAnchor, top: contentStackView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 40)
+        costLabel.addConstraints(left: view.leftAnchor, top: contentStackView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 30)
         
         view.addSubview(underlineView)
         underlineView.addConstraints(left: view.leftAnchor, top: costLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 0, height: 1)
@@ -162,18 +155,18 @@ class PaymentController: UIViewController, UICollectionViewDelegate, UICollectio
         paymentLabel.addConstraints(left: view.leftAnchor, top: underlineView.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 5, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 20)
     }
     
+    private func setupOkButton(){
+        view.addSubview(okButton)
+        okButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 44, width: 0, height: 40)
+    }
+    
     private func setupPaymentCollectionView(){
         view.addSubview(collectionView)
-        collectionView.addConstraints(left: view.leftAnchor, top: paymentLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 10, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 260)
+        collectionView.addConstraints(left: view.leftAnchor, top: paymentLabel.bottomAnchor, right: view.rightAnchor, bottom: okButton.topAnchor, leftConstent: pageMargin, topConstent: 10, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 0)
         
         collectionView.register(PaymentCell.self, forCellWithReuseIdentifier: paymentCellId)
     }
     
-    private func setupOkButton(){
-        view.addSubview(okButton)
-        okButton.addConstraints(left: view.leftAnchor, top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
-    }
-
     
     
     
