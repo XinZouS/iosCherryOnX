@@ -181,13 +181,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.carrierDelegate = self
             
             let trip = carrierTrips[indexPath.row]
-            cell.youxiangCodeLabel.text = trip.tripCode
-            cell.lockImageView.image = (trip.active == TripActive.active) ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed") // I trying to do this
-            cell.lockLabel.isHidden = (trip.active == TripActive.active)
-            cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
-            cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
-            cell.dateMonthLabel.text = trip.getMonthString()
-            cell.dateDayLabel.text = trip.getDayString()
+            cell.trip = trip
             cell.indexPath = indexPath
             return cell
             
@@ -244,31 +238,6 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath){
         let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
         performSegue(withIdentifier: tripInfoSegue, sender: trip)
-    }
-    
-    func orderListCarrierLockButtonTapped(indexPath: IndexPath) {
-        guard indexPath.row < carrierTrips.count else { return }
-        let id: String = "\(carrierTrips[indexPath.row].id)"
-        // BUG TODO: when 2nd time tapping the lock button,
-        // will crash: libc++abi.dylib: terminating with uncaught exception of type NSException
-        ApiServers.shared.getTripActive(tripId: id) { (activeType, error) in
-            if let err = error {
-                print("error: cannot getTripActive by id, error = \(err)")
-                return
-            }
-            if let cell = self.tableView(self.tableViewShiper, cellForRowAt: indexPath) as? OrderListCardShiperCell {
-                
-                let isActive = (activeType == TripActive.active)
-                ApiServers.shared.postTripActive(tripId: id, isActive: isActive, completion: { (success, error) in
-                    if let err = error {
-                        print("error: cannot postTripActive by id, error = \(err)")
-                        return
-                    }
-                    cell.lockImageView.image = !isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
-                    cell.lockLabel.isHidden = !isActive
-                })
-            }
-        }
     }
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {

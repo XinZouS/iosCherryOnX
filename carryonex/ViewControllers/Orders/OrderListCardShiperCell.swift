@@ -11,7 +11,6 @@ import UIKit
 
 protocol OrderListCarrierCellDelegate: class {
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath)
-    func orderListCarrierLockButtonTapped(indexPath: IndexPath)
     func orderListCarrierCodeShareTapped(indexPath: IndexPath)
 }
 
@@ -45,29 +44,27 @@ class OrderListCardShiperCell: OrderListCardCell {
     
     weak var carrierDelegate: OrderListCarrierCellDelegate?
     
+    var trip: Trip? {
+        didSet{
+            let isActive: Bool = (trip?.active == TripActive.active)
+            youxiangCodeLabel.text = trip?.tripCode
+            setupYouxiangLokcerStatus(isActive: isActive)
+            startAddressLabel.text = trip?.startAddress?.fullAddressString()
+            endAddressLabel.text = trip?.endAddress?.fullAddressString()
+            dateMonthLabel.text = trip?.getMonthString()
+            dateDayLabel.text = trip?.getDayString()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         cellCategory = .carrier
-        setupYouxiangLokcerInitStatus()
+        setupYouxiangLokcerStatus(isActive: true)
     }
 
-    private func setupYouxiangLokcerInitStatus(){
-        lockLabel.isHidden = true
-        lockImageView.image = #imageLiteral(resourceName: "LockOpened")
-    }
-    
-    public func setupYouxiangLockerAppearance(_ tripId: String?){
-        guard let id = tripId else { return }
-        ApiServers.shared.getTripActive(tripId: "\(id)") { (tripActive, error) in
-            print("get active = \(tripActive)")
-            if let err = error {
-                print("get error when getTripActive in OrderListCardShiperCell...error = \(err)")
-                return
-            }
-            let active = (tripActive == TripActive.active)
-            self.lockLabel.isHidden = active
-            self.lockImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
-        }
+    private func setupYouxiangLokcerStatus(isActive: Bool){
+        lockLabel.isHidden = isActive
+        lockImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
     }
     
     override func updateRequestInfoAppearance(request: Request) {
@@ -119,17 +116,38 @@ class OrderListCardShiperCell: OrderListCardCell {
     }
     
     @IBAction func handleCarrierCellButton(sender: UIButton) {
-        if sender == lockButton {
-            carrierDelegate?.orderListCarrierLockButtonTapped(indexPath: indexPath)
-            
-        } else if sender == gotoTripDetailButton {
+        if sender == gotoTripDetailButton {
             carrierDelegate?.orderListCarrierGotoTripDetailButtonTapped(indexPath: indexPath)
             
         } else if sender == shareYouxiangButton {
             carrierDelegate?.orderListCarrierCodeShareTapped(indexPath: indexPath)
+            
+        } else if sender == lockButton {
+            lockButtonTapped()
+            
         }
     }
     
-    
-    
+    private func lockButtonTapped(){
+        guard let id = trip?.id else { return }
+        let isActive = (trip?.active == TripActive.active)
+        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
+            if let err = error {
+                print("error: cannot postTripActive by id, error = \(err)")
+                return
+            }
+            ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
+                if let err = error {
+                    print("get error when get TripActive: err = \(err)")
+                    return
+                }
+                let active = (tripActive == TripActive.active)
+                self.trip?.active = tripActive
+                self.setupYouxiangLokcerStatus(isActive: active)
+            })
+        })
+
+    }
+
+  
 }
