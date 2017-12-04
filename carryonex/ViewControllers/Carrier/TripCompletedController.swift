@@ -23,7 +23,7 @@ class TripCompletedController:UIViewController{
     var beginLocationString:String!
     var endLocationString:String!
     var descriptionString: String!
-    var tripId:Int!
+    var tripcode:String!
     var startState:String!
     var endState:String!
     
@@ -74,7 +74,7 @@ class TripCompletedController:UIViewController{
         monthLabel.text = monthString
         dayLabel.text = day
         descriptionLabel.text = descriptionString
-        youxiangLabel.text = String(tripId)
+        youxiangLabel.text = tripcode
     }
     
     private func setupBackGroundColor(){
@@ -107,7 +107,8 @@ class TripCompletedController:UIViewController{
             let monthAnddayString = dateTime[startIndex...EndIndex]
             let title = "我的游箱号:\(youxiangId)"
             let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
-            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title)
+            let url = "www.carryonex.com"
+            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
         }
     }
     

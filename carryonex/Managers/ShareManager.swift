@@ -15,6 +15,8 @@ class ShareManager: UIViewController{
     static let shared = ShareManager()
     var ShareMessage: String!
     var ShareTitle: String!
+    var ShareUrl: String!
+
     var alert: UIAlertController?
     
     lazy var wechatButton : UIButton = {
@@ -126,28 +128,29 @@ class ShareManager: UIViewController{
         return alertController
     }
     
-    func SetupShareInfomation(shareMessage:String,shareTitle:String){
+    func SetupShareInfomation(shareMessage:String,shareTitle:String,shareUrl:String){
         ShareMessage = shareMessage
         ShareTitle = shareTitle
+        ShareUrl = shareUrl
     }
     
     
     func shareToWechat(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = ""
-        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: "https://www.carryonex.com/")
+        shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: ShareManager.shared.ShareUrl)
         
     }
     
     func shareToMonent(){
         let title: String = "CarryonEx 帮你把思念带回家"
         let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
-        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: "https://www.carryonex.com/")
+        shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: ShareManager.shared.ShareUrl)
     }
     
     func shareToWeibo(){
         alert?.dismiss(animated: true, completion: { [weak self] in
-            self?.prepareSharing(title: ShareManager.shared.ShareTitle, msg: ShareManager.shared.ShareMessage, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"),url:"https://www.carryonex.com/" , type: SSDKPlatformType.typeSinaWeibo)
+            self?.prepareSharing(title: ShareManager.shared.ShareTitle, msg: ShareManager.shared.ShareMessage, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"),url:ShareManager.shared.ShareUrl , type: SSDKPlatformType.typeSinaWeibo)
         })
     }
     
@@ -159,7 +162,7 @@ class ShareManager: UIViewController{
         }
         let title: String = ShareManager.shared.ShareTitle
         let msg: String = ShareManager.shared.ShareMessage
-        let url = URL(string: "https://www.carryonex.com")
+        let url = URL(string: ShareManager.shared.ShareUrl)
         //let url = URL(string: "http://www.xingyu-gu.com")
         let imgUrl = URL(string: "https://static.wixstatic.com/media/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png/v1/fill/w_161,h_66,al_c,usm_0.66_1.00_0.01/6e8d8c_24b10870843c4f74ae760e7fd4317b69~mv2.png")
         

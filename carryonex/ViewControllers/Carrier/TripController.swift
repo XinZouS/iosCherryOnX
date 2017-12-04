@@ -35,8 +35,8 @@ class TripController: UIViewController{
                     destVC.descriptionString = childVC.otherTextField.text
                     destVC.startState = childVC.startState
                     destVC.endState = childVC.endState
-                    if let tripId = sender {
-                        destVC.tripId = tripId as! Int
+                    if let tripcode = sender {
+                        destVC.tripcode = tripcode as! String
                     }
                 }
             }
@@ -81,9 +81,9 @@ class TripController: UIViewController{
             trip.startAddress?.country = Country(rawValue: childVC.startCountry)
             trip.pickupDate = childVC.pickUpDate
             trip.note = childVC.otherTextField.text
-            ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripId) in
+            ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripCode) in
                 if success {
-                    self.performSegue(withIdentifier: "tripComplete", sender: tripId)
+                    self.performSegue(withIdentifier: "tripComplete", sender: tripCode)
                     ProfileManager.shared.loadLocalUser(completion: nil)
                     TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
                 }else{

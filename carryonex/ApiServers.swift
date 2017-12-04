@@ -697,9 +697,9 @@ class ApiServers : NSObject {
     }
     
     
-    func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, Int?) -> Void){ //callBack(success,msg,id)
+    func postTripInfo(trip: Trip, completion: @escaping (Bool, String?, String?) -> Void){ //callBack(success,msg,id)
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", -999)
+            completion(false, "postTripInfo: Profile user empty, pleaes login to post trip info", "noTrip")
             return
         }
         
@@ -727,7 +727,7 @@ class ApiServers : NSObject {
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
                     let trip: Trip = try unbox(dictionary: data, atKey: "trip")
-                    completion(true, "Data post successful", trip.id)
+                    completion(true, "Data post successful", trip.tripCode)
                     
                 } catch let error as NSError {
                     completion(false, error.localizedDescription, nil)
@@ -735,7 +735,7 @@ class ApiServers : NSObject {
                 
             } else {
                 let msg = response[ServerKey.message.rawValue] as? String
-                completion(false, msg, -999)
+                completion(false, msg, "noTrip")
             }
         }
     }
