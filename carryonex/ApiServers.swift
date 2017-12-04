@@ -644,6 +644,7 @@ class ApiServers : NSObject {
     
     // MARK: - Trip APIs
     
+    //TODO: UPDATE ID TO CODE IN SIGNATURE
     func getTripInfo(id: String, completion: @escaping (Bool, Trip?, Error?) -> Void) { //callback(success, trip object, error)
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("getTripInfo: Profile user empty, pleaes login to get trip info")
@@ -658,7 +659,7 @@ class ApiServers : NSObject {
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.tripId.rawValue: id
+            TripKeyInDB.tripCode.rawValue: id
         ]
         
         getDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in
