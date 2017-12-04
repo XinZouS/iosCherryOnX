@@ -140,8 +140,6 @@ class Trip : NSObject, Unboxable, Identifiable {
     func packAsDictionaryForDB() -> [String: Any] {
         var json = [String: Any]()
         
-        json[TripKeyInDB.id.rawValue] = id
-        json[TripKeyInDB.tripCode.rawValue] = tripCode
         json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
         
         json[TripKeyInDB.startAddress.rawValue] = startAddress?.packAsDictionaryForDB()
@@ -151,17 +149,10 @@ class Trip : NSObject, Unboxable, Identifiable {
         json[TripKeyInDB.pickupDate.rawValue] = Int(pickupDate ?? 0)
         json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
-        json[TripKeyInDB.timestamp.rawValue] = timestamp
         json[TripKeyInDB.note.rawValue] = note ?? ""
+        json[TripKeyInDB.active.rawValue] = active.rawValue
         
         json[TripKeyInDB.carrierId.rawValue] = carrierId
-        json[TripKeyInDB.carrierUsername.rawValue] = carrierUsername
-        json[TripKeyInDB.createdTimestamp.rawValue] = createdTimestamp
-        json[TripKeyInDB.active.rawValue] = active // TODO: what value should pass to DB??
-        json[TripKeyInDB.carrierRealName.rawValue] = carrierRealName
-        json[TripKeyInDB.carrierRating.rawValue] = carrierRating
-        json[TripKeyInDB.carrierPhone.rawValue] = carrierPhone
-        json[TripKeyInDB.carrierImageUrl.rawValue] = carrierImageUrl
 
         return json
     }
