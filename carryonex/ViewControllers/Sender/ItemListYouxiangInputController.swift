@@ -66,6 +66,7 @@ class ItemListYouxiangInputController: UIViewController {
     
     private func setupTextFields(){
         textFieldAddToolBar(youxiangcodeTextField)
+        youxiangcodeTextField.autocapitalizationType = .allCharacters
     }
     
     private func setupActivityIndicator(){
