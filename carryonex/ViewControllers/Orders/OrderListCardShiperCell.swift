@@ -20,13 +20,15 @@ class OrderListCardShiperCell: OrderListCardCell {
     // order card
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
-    @IBOutlet weak var orderCreditLabel: UILabel!
+    @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
     @IBOutlet weak var gotoTripDetailButton: UIButton!
     @IBOutlet weak var shareYouxiangButton: UIButton!
     @IBOutlet weak var lockButton: UIButton!
+    @IBOutlet weak var lockImageView: UIImageView!
+    @IBOutlet weak var lockLabel: UILabel!
     
     // card expand
     @IBOutlet weak var cardDetailView: UIView!
@@ -35,7 +37,7 @@ class OrderListCardShiperCell: OrderListCardCell {
     @IBOutlet weak var senderStarViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemListImageView1: UIImageView!
     @IBOutlet weak var itemListImageView2: UIImageView!
-    @IBOutlet weak var youxiangCodeLabel: UILabel!
+    //@IBOutlet weak var youxiangCodeLabel: UILabel!
     
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
@@ -46,12 +48,32 @@ class OrderListCardShiperCell: OrderListCardCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellCategory = .carrier
+        setupYouxiangLokcerInitStatus()
+    }
+
+    private func setupYouxiangLokcerInitStatus(){
+        lockLabel.isHidden = true
+        lockImageView.image = #imageLiteral(resourceName: "LockOpened")
+    }
+    
+    public func setupYouxiangLockerAppearance(_ tripId: String?){
+        guard let id = tripId else { return }
+        ApiServers.shared.getTripActive(tripId: "\(id)") { (tripActive, error) in
+            print("get active = \(tripActive)")
+            if let err = error {
+                print("get error when getTripActive in OrderListCardShiperCell...error = \(err)")
+                return
+            }
+            let active = (tripActive == TripActive.active)
+            self.lockLabel.isHidden = active
+            self.lockImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+        }
     }
     
     override func updateRequestInfoAppearance(request: Request) {
         super.updateRequestInfoAppearance(request: request)
-        orderCreditLabel.text = request.priceString()
-        youxiangCodeLabel.text = "\(request.tripId)" //TODO: Change it to trip code
+        youxiangCodeLabel.text = request.priceString()
+        youxiangCodeLabel.text = "\(request.tripId)"
         
         if let shipperAddress = request.endAddress {
             senderNameLabel.text = shipperAddress.recipientName
@@ -107,4 +129,7 @@ class OrderListCardShiperCell: OrderListCardCell {
             carrierDelegate?.orderListCarrierCodeShareTapped(indexPath: indexPath)
         }
     }
+    
+    
+    
 }

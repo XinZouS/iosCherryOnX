@@ -17,11 +17,22 @@ class Request: Unboxable, Identifiable {
     var totalValue: Int?
     var description: String?
     var note: String?
+    var startAddress: Address?
     var endAddress: Address?
     var statusId: Int?
     
-    var images = [String]()
-    
+    var name: String?
+    var timestamp: Int?
+    var requestEta: Int?
+    var priceStd: Int?
+    var currency: String?
+    var createdTimestamp: Int = Date.getTimestampNow()
+    //var items: [String]? TODO: do we still need this?? BUG: Expected element type
+    var images: [RequestImage] = []
+    var ownerRating: Double = 0
+    var ownerImageUrl: String?
+    var ownerRealName: String?
+
     required init(unboxer: Unboxer) throws {
         self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
@@ -30,9 +41,20 @@ class Request: Unboxable, Identifiable {
         self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
         self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
+        self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
+        self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
         self.statusId = try? unboxer.unbox(keyPath: "status.id")
-        self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
+        
+        self.name = try? unboxer.unbox(key: RequestKeyInDB.name.rawValue)
+        self.requestEta = try? unboxer.unbox(key: RequestKeyInDB.requestEta.rawValue)
+        self.priceStd = try? unboxer.unbox(key: RequestKeyInDB.priceStd.rawValue)
+        self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
+        self.createdTimestamp = (try? unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)) ?? -1
+        //self.items = [String]? TODO = do we still need this?? BUG: Expected element type
+        self.ownerRating = (try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)) ?? 0
+        self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
+        self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
     }
     
     func printAllData() {
@@ -81,6 +103,7 @@ enum RequestKeyInDB : String {
     case ownerId = "owner_id"
     case ownerUsername = "owner_username"
     case tripId = "trip_id"
+    case startAddress = "start_address"
     case endAddress = "end_address"
     case status = "status"
     case images = "images"
@@ -93,6 +116,16 @@ enum RequestKeyInDB : String {
     
     //update call
     case requestId = "request_id"
+    case name = "name"
+    case requestEta = "request_eta"
+    case priceStd = "price_std"
+    case currency = "currency"
+    case createdTimestamp = "created_timestamp"
+    //case items = [String]? TODO = do we still need this?? BUG: Expected element type
+    case ownerRating = "owner_rating"
+    case ownerImageUrl = "owner_image"
+    case ownerRealName = "owner_real_name"
+    
 }
 
 struct RequestCategoryItem {

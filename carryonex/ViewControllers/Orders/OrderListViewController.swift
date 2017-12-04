@@ -181,7 +181,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.carrierDelegate = self
             
             let trip = carrierTrips[indexPath.row]
-            cell.orderCreditLabel.text = trip.tripCode
+            cell.youxiangCodeLabel.text = trip.tripCode
+            cell.lockImageView.image = (trip.active == TripActive.active) ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed") // I trying to do this
+            cell.lockLabel.isHidden = (trip.active == TripActive.active)
             cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
             cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
             cell.dateMonthLabel.text = trip.getMonthString()
@@ -204,7 +206,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.dateMonthLabel.text = trip?.getMonthString()
             cell.dateDayLabel.text = trip?.getDayString()
             cell.itemNumLabel.text = "\(request.images.count)件"
-            if let image = request.images.first, let imageUrl = URL(string: image) {
+            if let image = request.images.first?.imageUrl, let imageUrl = URL(string: image) {
                 cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
             }
             
@@ -245,7 +247,28 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     }
     
     func orderListCarrierLockButtonTapped(indexPath: IndexPath) {
-        print("Carrier Lock Tapped")
+        guard indexPath.row < carrierTrips.count else { return }
+        let id: String = "\(carrierTrips[indexPath.row].id)"
+        // BUG TODO: when 2nd time tapping the lock button,
+        // will crash: libc++abi.dylib: terminating with uncaught exception of type NSException
+        ApiServers.shared.getTripActive(tripId: id) { (activeType, error) in
+            if let err = error {
+                print("error: cannot getTripActive by id, error = \(err)")
+                return
+            }
+            if let cell = self.tableView(self.tableViewShiper, cellForRowAt: indexPath) as? OrderListCardShiperCell {
+                
+                let isActive = (activeType == TripActive.active)
+                ApiServers.shared.postTripActive(tripId: id, isActive: isActive, completion: { (success, error) in
+                    if let err = error {
+                        print("error: cannot postTripActive by id, error = \(err)")
+                        return
+                    }
+                    cell.lockImageView.image = !isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+                    cell.lockLabel.isHidden = !isActive
+                })
+            }
+        }
     }
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {

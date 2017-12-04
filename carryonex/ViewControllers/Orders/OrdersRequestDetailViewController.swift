@@ -147,15 +147,15 @@ class OrdersRequestDetailViewController: UIViewController {
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
         
-        if let image = request.images.first, let imageUrl = URL(string: image) {
+        if let image = request.images.first?.imageUrl, let imageUrl = URL(string: image) {
             itemImage1.af_setImage(withURL: imageUrl)
         }
         
         itemImageMoreButton.isHidden = (request.images.count < 2)
         if request.images.count > 1 {
             itemImage2.isHidden = false
-            let image = request.images[1]
-            if let imageUrl = URL(string: image) {
+            let imageObj = request.images[1]
+            if let imageUrl = URL(string: imageObj.imageUrl) {
                 itemImage2.af_setImage(withURL: imageUrl)
             }
         } else {

@@ -24,11 +24,11 @@ enum Transportation : String, UnboxableEnum {
     }
 }
 
-enum TripActive {
-    case active
-    case inactive
-    case notExist
-    case error
+enum TripActive : Int, UnboxableEnum {
+    case inactive = 0
+    case active   = 1
+    case notExist = 2
+    case error    = 4 // 404 err
 }
 
 
@@ -38,18 +38,26 @@ enum TripKeyInDB : String {
     case username       = "username"
     case transportation = "transportation"
     
-    case startAddress = "start_address"
-    case endAddress   = "end_address"
+    case startAddress   = "start_address"
+    case endAddress     = "end_address"
     
-    case statusId        = "status_id"
+    case statusId       = "status_id"
     case pickupDate     = "pickup_date"
     case pickupTimeStart = "pickup_start_time"
     case pickupTimeEnd  = "pickup_end_time"
-    case timestamp = "timestamp"
+    case timestamp      = "timestamp"
     
-    case note = "note"
+    case note   = "note"
     case tripId = "trip_id"
     case active = "active"
+
+    case carrierId        = "carrier_id"
+    case carrierUsername  = "carrier_username"
+    case createdTimestamp = "created_timestamp"
+    case carrierRealName  = "carrier_real_name"
+    case carrierRating    = "carrier_rating"
+    case carrierPhone     = "carrier_phone"
+    case carrierImageUrl  = "carrier_image"
 }
 
 class Trip : NSObject, Unboxable, Identifiable {
@@ -82,6 +90,16 @@ class Trip : NSObject, Unboxable, Identifiable {
     private var dayString: String?
     private var dateString: String?
     
+    var carrierId: Int?
+    var carrierUsername: String?
+    var createdTimestamp: Int = Date.getTimestampNow()
+    var active = TripActive.active
+    var carrierRealName: String?
+    var carrierRating: Double?
+    var carrierPhone: String?
+    var carrierImageUrl: String?
+    
+    
     override init() {
         super.init()
         
@@ -95,7 +113,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     }
     
     required init(unboxer: Unboxer) {
-        self.id = try! unboxer.unbox(key: TripKeyInDB.id.rawValue)
+        self.id = (try? unboxer.unbox(key: TripKeyInDB.id.rawValue)) ?? 0
         self.tripCode = try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
         self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
 
@@ -103,13 +121,20 @@ class Trip : NSObject, Unboxable, Identifiable {
         self.endAddress = try? unboxer.unbox(key: TripKeyInDB.endAddress.rawValue)
 
         self.statusId = (try? unboxer.unbox(key: TripKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
-        
         self.pickupDate     = try? unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
         self.pickupTimeStart = try? unboxer.unbox(key: TripKeyInDB.pickupTimeStart.rawValue)
         self.pickupTimeEnd  = try? unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
-        
+        self.timestamp = (try? unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)) ?? -1
         self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
-        self.timestamp = try! unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)
+        
+        self.carrierId = try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
+        self.carrierUsername = try? unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)
+        self.createdTimestamp = (try? unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)) ?? -1
+        self.active = (try? unboxer.unbox(key: TripKeyInDB.active.rawValue)) ?? TripActive.error
+        self.carrierRealName = try? unboxer.unbox(key: TripKeyInDB.carrierRealName.rawValue)
+        self.carrierRating = try? unboxer.unbox(key: TripKeyInDB.carrierRating.rawValue)
+        self.carrierPhone = try? unboxer.unbox(key: TripKeyInDB.carrierPhone.rawValue)
+        self.carrierImageUrl = try? unboxer.unbox(key: TripKeyInDB.carrierImageUrl.rawValue)
     }
     
     func packAsDictionaryForDB() -> [String: Any] {
@@ -123,37 +148,24 @@ class Trip : NSObject, Unboxable, Identifiable {
         json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
         
         json[TripKeyInDB.statusId.rawValue] = statusId
-        
         json[TripKeyInDB.pickupDate.rawValue] = Int(pickupDate ?? 0)
         json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
-        
-        json[TripKeyInDB.note.rawValue] = note ?? ""
         json[TripKeyInDB.timestamp.rawValue] = timestamp
+        json[TripKeyInDB.note.rawValue] = note ?? ""
         
+        json[TripKeyInDB.carrierId.rawValue] = carrierId
+        json[TripKeyInDB.carrierUsername.rawValue] = carrierUsername
+        json[TripKeyInDB.createdTimestamp.rawValue] = createdTimestamp
+        json[TripKeyInDB.active.rawValue] = active // TODO: what value should pass to DB??
+        json[TripKeyInDB.carrierRealName.rawValue] = carrierRealName
+        json[TripKeyInDB.carrierRating.rawValue] = carrierRating
+        json[TripKeyInDB.carrierPhone.rawValue] = carrierPhone
+        json[TripKeyInDB.carrierImageUrl.rawValue] = carrierImageUrl
+
         return json
     }
-    
-    func packAsPostData() -> [String: Any] {
         
-        var json = [String: Any]()
-        json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
-        
-        json[TripKeyInDB.startAddress.rawValue] = startAddress?.packAsDictionaryForDB()
-        json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
-        
-        json[TripKeyInDB.statusId.rawValue] = statusId
-        
-        json[TripKeyInDB.pickupDate.rawValue]       = Int(pickupDate ?? 0)
-        json[TripKeyInDB.pickupTimeStart.rawValue]  = Int(pickupTimeStart ?? 0)
-        json[TripKeyInDB.pickupTimeEnd.rawValue]    = Int(pickupTimeEnd ?? 0)
-        
-        json[TripKeyInDB.note.rawValue] = note ?? ""
-        json[TripKeyInDB.timestamp.rawValue] = timestamp
-        
-        return json
-    }
-    
     func getStartAddress() -> Address {
         return self.startAddress ?? Address()
     }

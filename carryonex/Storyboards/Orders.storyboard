@@ -95,7 +95,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预计收入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nro-IU-Dki">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游箱号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nro-IU-Dki">
                                                                     <rect key="frame" x="92" y="15" width="60" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="60" id="8jt-Y8-IO4"/>
@@ -105,7 +105,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$32.09" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-Le-L47">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123ABC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-Le-L47">
                                                                     <rect key="frame" x="92" y="41" width="120" height="31"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="31" id="Mw1-3z-baY"/>
@@ -496,7 +496,8 @@
                                             <outlet property="itemListImageView1" destination="8XQ-ai-s7c" id="Ht3-Ke-tFW"/>
                                             <outlet property="itemListImageView2" destination="92W-bj-Eac" id="CzK-rg-Cl0"/>
                                             <outlet property="lockButton" destination="7iO-DM-Xxg" id="vWS-nH-Gnx"/>
-                                            <outlet property="orderCreditLabel" destination="dyh-Le-L47" id="MjE-fS-310"/>
+                                            <outlet property="lockImageView" destination="6UX-4n-yuZ" id="93b-Jk-6Bg"/>
+                                            <outlet property="lockLabel" destination="fM4-XG-yGf" id="tuw-0Y-ELT"/>
                                             <outlet property="phoneButton" destination="ZFZ-wi-Xam" id="wqP-Az-h39"/>
                                             <outlet property="profileButton" destination="4LK-om-U3m" id="ffe-qJ-Cd4"/>
                                             <outlet property="senderNameLabel" destination="Olv-Tc-cum" id="35x-5X-Buu"/>
@@ -505,7 +506,7 @@
                                             <outlet property="sepratorImageView" destination="QG6-ER-uXl" id="Mui-gU-mAQ"/>
                                             <outlet property="shareYouxiangButton" destination="U79-GR-E0H" id="NMx-sN-Hkr"/>
                                             <outlet property="startAddressLabel" destination="7sm-jq-C6m" id="4Dl-8A-CX9"/>
-                                            <outlet property="youxiangCodeLabel" destination="d9a-4H-TK6" id="CmC-qj-64b"/>
+                                            <outlet property="youxiangCodeLabel" destination="dyh-Le-L47" id="pZT-il-91x"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListHeaderCell" rowHeight="60" id="y4H-GA-6eC" customClass="OrderListHeaderCell" customModule="carryonex" customModuleProvider="target">

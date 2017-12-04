@@ -704,7 +704,7 @@ class ApiServers : NSObject {
         }
         
         let sessionStr = hostVersion + "/trips/trips"
-        let tripDict = trip.packAsPostData()
+        let tripDict = trip.packAsDictionaryForDB()
         
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
