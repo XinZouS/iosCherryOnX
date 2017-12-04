@@ -11,13 +11,11 @@ import Unbox
 
 struct TripRequest {
     var request: Request
-    let images: [RequestImage]
 }
 
 extension TripRequest: Unboxable {
     init(unboxer: Unboxer) throws {
         self.request = try unboxer.unbox(key: "request")
-        self.images = try unboxer.unbox(key: "images")
     }
 }
 

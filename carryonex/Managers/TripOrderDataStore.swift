@@ -112,10 +112,8 @@ class TripOrderDataStore: NSObject {
             let trip = updatedTripOrder
             if let tripRequests = trip.requests {
                 for tripRequest in tripRequests {
-                    let reqId = tripRequest.request.id
                     let request = tripRequest.request
-                    request.images = tripRequest.images
-                    targetRequests[reqId] = request
+                    targetRequests[request.id] = request
                 }
             }
         }
@@ -140,7 +138,6 @@ class TripOrderDataStore: NSObject {
             if let tripRequests = tripOrder.requests {
                 for tripReq in tripRequests {
                     let req = tripReq.request
-                    req.images = tripReq.images
                     if (category == .carrier) {
                         carrierRequests[req.id] = req
                     } else {
