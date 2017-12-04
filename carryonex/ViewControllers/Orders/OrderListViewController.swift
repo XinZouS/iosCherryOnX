@@ -29,10 +29,20 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var isFetching = false
+    var activityIndicator: UIActivityIndicatorCustomizeView!
+    var isFetching: Bool = false {
+        didSet{
+            if isFetching {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
     var lastCarrierFetchTime: Int = -1
     var lastShipperFetchTime: Int = -1
     
+
     var selectedIndexPath: IndexPath?
     enum tableViewRowHeight: CGFloat {
         case carrierCard = 240
@@ -59,9 +69,16 @@ class OrderListViewController: UIViewController {
         setupSwipeGestureRecognizer()
         
         //FIXME: Find out why table view constraint is wrong
+        //TODO: constraints are ok, if nothing wrong then remove both lines when you see this; - Xin
         tableViewLeftConstraint.constant = 0
         sliderBarCenterConstraint.constant = 0
         setupTableViews()
+        
+        //Setup activity indicator
+        activityIndicator = UIActivityIndicatorCustomizeView()
+        activityIndicator.center = view.center
+        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        view.addSubview(activityIndicator)
         
         reloadData()
         
@@ -242,6 +259,39 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
         print("Carrier Share Tapped")
+    }
+    
+    func orderListCarrierLockerButtonTapped(indexPath: IndexPath) {
+        guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
+        guard let id = cell.trip?.id else { return }
+        cell.lockButton.isEnabled = false
+        isFetching = true
+        
+        let isActive = (carrierTrips[indexPath.row].active == TripActive.active)
+        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
+            cell.lockButton.isEnabled = true
+            self.isFetching = false
+            if let err = error {
+                print("error: cannot postTripActive by id, error = \(err)")
+                let m = "哎呀暂时无法设置锁定状态，请保持网络连接，稍后再试。错误信息：\(err.localizedDescription)"
+                self.displayGlobalAlert(title: "⚠️锁定失败", message: m, action: "朕知道了", completion: nil)
+                return
+            }
+            ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
+                if let err = error {
+                    print("get error when get TripActive: err = \(err)")
+                    let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
+                    self.displayGlobalAlert(title: "⛔️锁定失败", message: m, action: "重新登陆", completion: {
+                        self.navigationController?.popToRootViewController(animated: false)
+                        ProfileManager.shared.logoutUser()
+                    })
+                    return
+                }
+                let active = (tripActive == TripActive.active)
+                cell.trip?.active = tripActive
+                cell.setupYouxiangLokcerStatus(isActive: active)
+            })
+        })
     }
 }
 

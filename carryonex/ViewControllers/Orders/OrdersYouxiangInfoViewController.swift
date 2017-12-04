@@ -35,8 +35,6 @@ class OrdersYouxiangInfoViewController: UIViewController {
     var requests = [Request]()
     var category: TripCategory = .carrier
     
-    var isLocked: Bool = false
-    
     var activityIndicator: UIActivityIndicatorCustomizeView!
     var isLoading: Bool = false {
         didSet{
@@ -47,6 +45,8 @@ class OrdersYouxiangInfoViewController: UIViewController {
             }
         }
     }
+    
+    let orderRequestDetailSegueId = "gotoOrdersRequestDetailSegue"
 
     static func storyboardViewController() -> OrdersYouxiangInfoViewController? {
         let storyboard = UIStoryboard.init(name: "OrdersYouxiangInfo", bundle: nil)
@@ -81,10 +81,9 @@ class OrdersYouxiangInfoViewController: UIViewController {
     func loadData() {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
         
-        //TODO: use trip.active parameter.
-        self.isLocked = true
-        self.lockerImageView.image = self.isLocked ? #imageLiteral(resourceName: "LockClosed") : #imageLiteral(resourceName: "LockOpened")
-        self.lockerHintLabel.isHidden = !self.isLocked
+        let active: Bool = (trip.active == TripActive.active)
+        lockerImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+        lockerHintLabel.isHidden = active
         
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
@@ -93,40 +92,41 @@ class OrdersYouxiangInfoViewController: UIViewController {
         youxiangCodeLabel.text = trip.tripCode
     }
     
-    private func setupLocker() {
-        ApiServers.shared.getTripActive(tripId: "\(trip.id)") { (tripActiveStatus, error) in
-            self.isLoading = false
-            if tripActiveStatus == .error || tripActiveStatus == .notExist {
-                let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
-                self.displayGlobalAlert(title: "⛔️锁定失败", message: m, action: "重新登陆", completion: {
-                    self.navigationController?.popToRootViewController(animated: false)
-                    ProfileManager.shared.logoutUser()
-                })
-            }
-            self.isLocked = tripActiveStatus == TripActive.inactive
-            self.lockerImageView.image = self.isLocked ? #imageLiteral(resourceName: "LockClosed") : #imageLiteral(resourceName: "LockOpened")
-            self.lockerHintLabel.isHidden = !self.isLocked
-        }
+    private func setupYouxiangLokcerStatus(isActive: Bool){
+        lockerImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+        lockerHintLabel.isHidden = isActive
     }
     
     private func setTripLockerStatus(){
         lockerButton.isEnabled = false
         isLoading = true
         
-        ApiServers.shared.postTripActive(tripId: "\(trip.id)", isActive: !isLocked) { (success, error) in
+        let id = trip.id
+        let isActive = (trip.active == TripActive.active)
+        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
+            self.isLoading = false
             self.lockerButton.isEnabled = true
             if let err = error {
-                self.isLoading = false
+                print("error: cannot postTripActive by id, error = \(err)")
                 let m = "哎呀暂时无法设置锁定状态，请保持网络连接，稍后再试。错误信息：\(err.localizedDescription)"
                 self.displayGlobalAlert(title: "⚠️锁定失败", message: m, action: "朕知道了", completion: nil)
                 return
             }
-            if success {
-                // isLoading=F in setupLockerForTrip()
-                self.isLocked = !self.isLocked
-                self.setupLocker()
-            }
-        }
+            ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
+                if let err = error {
+                    print("get error when get TripActive: err = \(err)")
+                    let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
+                    self.displayGlobalAlert(title: "⛔️锁定失败", message: m, action: "重新登陆", completion: {
+                        self.navigationController?.popToRootViewController(animated: false)
+                        ProfileManager.shared.logoutUser()
+                    })
+                    return
+                }
+                let active = (tripActive == TripActive.active)
+                self.trip?.active = tripActive
+                self.setupYouxiangLokcerStatus(isActive: active)
+            })
+        })
     }
 }
 
@@ -178,7 +178,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if requests.count == 0 { return }
-        performSegue(withIdentifier: "gotoOrdersRequestDetailSegue", sender: requests[indexPath.row])
+        performSegue(withIdentifier: orderRequestDetailSegueId, sender: requests[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

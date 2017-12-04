@@ -12,6 +12,7 @@ import UIKit
 protocol OrderListCarrierCellDelegate: class {
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath)
     func orderListCarrierCodeShareTapped(indexPath: IndexPath)
+    func orderListCarrierLockerButtonTapped(indexPath: IndexPath)
 }
 
 class OrderListCardShiperCell: OrderListCardCell {
@@ -62,7 +63,7 @@ class OrderListCardShiperCell: OrderListCardCell {
         setupYouxiangLokcerStatus(isActive: true)
     }
 
-    private func setupYouxiangLokcerStatus(isActive: Bool){
+    public func setupYouxiangLokcerStatus(isActive: Bool){
         lockLabel.isHidden = isActive
         lockImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
     }
@@ -123,31 +124,10 @@ class OrderListCardShiperCell: OrderListCardCell {
             carrierDelegate?.orderListCarrierCodeShareTapped(indexPath: indexPath)
             
         } else if sender == lockButton {
-            lockButtonTapped()
+            carrierDelegate?.orderListCarrierLockerButtonTapped(indexPath: indexPath)
             
         }
     }
     
-    private func lockButtonTapped(){
-        guard let id = trip?.id else { return }
-        let isActive = (trip?.active == TripActive.active)
-        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
-            if let err = error {
-                print("error: cannot postTripActive by id, error = \(err)")
-                return
-            }
-            ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
-                if let err = error {
-                    print("get error when get TripActive: err = \(err)")
-                    return
-                }
-                let active = (tripActive == TripActive.active)
-                self.trip?.active = tripActive
-                self.setupYouxiangLokcerStatus(isActive: active)
-            })
-        })
-
-    }
-
   
 }
