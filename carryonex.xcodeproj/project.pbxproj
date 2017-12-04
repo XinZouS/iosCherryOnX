@@ -225,6 +225,7 @@
 		E567BB121FCC6DA600B87608 /* STSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB111FCC6DA600B87608 /* STSource.swift */; };
 		E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5791E531FABC60E006B4F68 /* UserDefaults++.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
+		E59154BF1FD5E56F00333585 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59154BE1FD5E56E00333585 /* ShareManager.swift */; };
 		E597D94E1F9FD32900B98CAB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597D94D1F9FD32900B98CAB /* Config.swift */; };
 		E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */; };
 		E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F303551FCF5785008AF2E8 /* UIColor+App.swift */; };
@@ -276,7 +277,6 @@
 		FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAA73151FD0A34200516161 /* STCustomers.swift */; };
-		FFB0D8B31FD5B1FD00573720 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D8B21FD5B1FD00573720 /* ShareManager.swift */; };
 		FFB0D8B51FD5B76600573720 /* UIAlertController++App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D8B41FD5B76600573720 /* UIAlertController++App.swift */; };
 		FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */; };
 		FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */; };
@@ -521,6 +521,7 @@
 		E567BB111FCC6DA600B87608 /* STSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSource.swift; sourceTree = "<group>"; };
 		E5791E531FABC60E006B4F68 /* UserDefaults++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults++.swift"; sourceTree = "<group>"; };
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		E59154BE1FD5E56E00333585 /* ShareManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		E597D94D1F9FD32900B98CAB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E5ECF9B61F97E5EE00FB0F25 /* ProfileUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUser.swift; sourceTree = "<group>"; };
 		E5F303551FCF5785008AF2E8 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
@@ -575,7 +576,6 @@
 		FF8A4B691F951B9800A75C7E /* InputPasswordLoginController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputPasswordLoginController++.swift"; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FFAA73151FD0A34200516161 /* STCustomers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCustomers.swift; sourceTree = "<group>"; };
-		FFB0D8B21FD5B1FD00573720 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShareManager.swift; path = /Users/aaa/Music/carryOnEx/ios/carryonex/Managers/ShareManager.swift; sourceTree = "<absolute>"; };
 		FFB0D8B41FD5B76600573720 /* UIAlertController++App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController++App.swift"; sourceTree = "<group>"; };
 		FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentRateController.swift; sourceTree = "<group>"; };
@@ -1413,7 +1413,7 @@
 		E58FDC991FA5A202000C126E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				FFB0D8B21FD5B1FD00573720 /* ShareManager.swift */,
+				E59154BE1FD5E56E00333585 /* ShareManager.swift */,
 				E58FDC9A1FA5A226000C126E /* ServiceManager.swift */,
 				66C138C31FACBB4300755754 /* ReachabilityManager.swift */,
 				662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */,
@@ -1873,7 +1873,6 @@
 				66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */,
 				66E6501B1F5F2F2200DA90DE /* OrderLogSenderCell++.swift in Sources */,
 				E567BB0E1FCC6D4E00B87608 /* STCharge.swift in Sources */,
-				FFB0D8B31FD5B1FD00573720 /* ShareManager.swift in Sources */,
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				66F065C31FC88D280072A42D /* UIImage++.swift in Sources */,
@@ -1921,6 +1920,7 @@
 				663121E71F534B17000F7ACB /* PaymentController.swift in Sources */,
 				FF6224631FB0F9CD00280FDA /* DetailUserNameCell++.swift in Sources */,
 				FF4896E71F98F3AC009B3EE5 /* DetailCreditLevelCell.swift in Sources */,
+				E59154BF1FD5E56F00333585 /* ShareManager.swift in Sources */,
 				66E5204F1F4C76EC008E521D /* UILabel++.swift in Sources */,
 				66A4B5651FA27C3C000D133C /* OrdersShipperHeaderCell.swift in Sources */,
 				66C3EA8F1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift in Sources */,
