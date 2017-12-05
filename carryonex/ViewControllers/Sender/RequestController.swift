@@ -273,9 +273,10 @@ extension RequestController: UITextFieldDelegate {
                                                   trip: trip,
                                                   imageUrls: urls,
                                                   description: "",
-                                                  completion: { (success, error) in
+                                                  completion: { (success, error, serverError) in
                         if let error = error {
-                            print("Post Request Error: \(error.localizedDescription)")
+                            let errStr = serverError.desplayString()
+                            print("Post Request Error: \(error.localizedDescription), \(errStr)")
                             return
                         }
                         ProfileManager.shared.loadLocalUser(completion: nil)

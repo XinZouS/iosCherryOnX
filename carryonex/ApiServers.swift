@@ -829,17 +829,18 @@ class ApiServers : NSObject {
     
     // MARK: - Request APIs
     
+    /// completion: (success:Bool, error:Error, errCode:ServerErrorCode)
     func postRequest(totalValue: Double,
                      cost: Double,
                      destination: Address,
                      trip: Trip,
                      imageUrls: [String],
                      description: String,
-                     completion: @escaping (Bool, Error?) -> Void) {
+                     completion: @escaping (Bool, Error?, ServerError) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             print("postRequest: Unable to find profile user")
-            completion(false, nil)
+            completion(false, nil, .badRequest)
             return
         }
         
@@ -874,10 +875,10 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postRequest response error: \(error.localizedDescription)")
                 }
-                completion(false, error)
+                completion(false, error, .notFound)
                 return
             }
-            
+            //let statusCode = (response[ServerKey.statusCode.rawValue] as? Int) ?? 404
             if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
                 completion(true, nil)
             } else {
@@ -891,16 +892,16 @@ class ApiServers : NSObject {
                 do {
                     let request: Request = try unbox(dictionary: data, atKey: "request")
                     request.printAllData()
-                    completion(true, nil)
+                    completion(true, nil, ServerError(rawValue: statusCode) ?? .ok)
                     
                 } catch let error {
-                    completion(false, error)
+                    completion(false, error, ServerError(rawValue: statusCode) ?? .noResponse)
                     print("Get error when postRequest. Error = \(error.localizedDescription)")
                 }
                 
             } else {
                 print("postRequest - Unable to post request data")
-                completion(false, nil)
+                completion(false, nil, ServerError(rawValue: statusCode) ?? .notFound)
             }
             */
         }

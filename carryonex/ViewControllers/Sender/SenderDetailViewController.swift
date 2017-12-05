@@ -346,12 +346,12 @@ class SenderDetailViewController: UIViewController {
                                               trip: trip,
                                               imageUrls: urls,
                                               description: "",
-                                              completion: { (success, error) in
+                                              completion: { (success, error, serverErr) in
                                                 
                                                 if let error = error {
                                                     self.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
-                                                    let m = "发布请求失败啦！请确保您的网络连接正常，稍后再试一次。"
+                                                    let m = "发布请求失败啦！请确保您的网络连接正常，稍后再试一次。错误：\(serverErr.desplayString())"
                                                     self.displayGlobalAlert(title: "⚠️遇到错误", message: m, action: ok, completion: nil)
                                                     return
                                                 }
