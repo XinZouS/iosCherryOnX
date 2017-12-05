@@ -11,13 +11,16 @@ import UIKit
 class PhoneValidationViewController: UIViewController {
 
     var isModifyPhoneNumber = false
-    var status = "registeration"
+    var status: LoginStatus = .registeration
     var zoneCodeInput: String = "1"
     var phoneInput: String = ""
     var verificationCode = "1234"
     
     var resetTime: Int = 0
     var resetTimer : Timer?
+    
+    let segueIdRegistrationVC = "gotoRegistrationVC"
+    let segueIdChangePw = "gotoChangePassword"
     
     @IBOutlet weak var hintLabel: UILabel!
     
@@ -128,10 +131,10 @@ class PhoneValidationViewController: UIViewController {
             })
         } else {
             switch status {
-            case "registeration":
-                self.performSegue(withIdentifier: "gotoRegistrationVC", sender: registerUserInfo)
-            case "changePassword":
-                self.performSegue(withIdentifier: "gotoChangePassword", sender: registerUserInfo)
+            case .registeration :
+                self.performSegue(withIdentifier: segueIdRegistrationVC, sender: registerUserInfo)
+            case .changePassword :
+                self.performSegue(withIdentifier: segueIdChangePw, sender: registerUserInfo)
             default:
 //                self.performSegue(withIdentifier: "", sender: self)
 //              useForChangePhoneNumber.
@@ -141,13 +144,13 @@ class PhoneValidationViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "gotoRegistrationVC" {
+        if segue.identifier == segueIdRegistrationVC {
             if let regVC = segue.destination as? RegistrationViewController,
                 let info = sender as? [String:String] {
                 regVC.registerUserInfo = info
             }
         }
-        if segue.identifier == "gotoChangePassword" {
+        if segue.identifier == segueIdChangePw {
             if let regVC = segue.destination as? ChangePasswordController,
                 let info = sender as? [String:String] {
                 regVC.registerUserInfo = info

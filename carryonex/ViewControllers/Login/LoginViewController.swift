@@ -35,6 +35,8 @@ class LoginViewController: UIViewController {
         return p
     }()
     
+    let segueIdChangePw = "changePassword"
+    
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +61,9 @@ class LoginViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "changePassword"{
-            if let regVC = segue.destination as? PhoneNumViewController,
-                let status = sender as? String {
-                regVC.status = status
+        if segue.identifier == segueIdChangePw {
+            if let regVC = segue.destination as? PhoneNumViewController {
+                regVC.loginStatus = .changePassword
             }
         }
     }

@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum LoginStatus {
+    case registeration
+    case modifyPhone
+    case changePassword
+    case unknow 
+}
+
 enum CurrencyType: String {
     case CNY = "￥"
     case USD = "$"
