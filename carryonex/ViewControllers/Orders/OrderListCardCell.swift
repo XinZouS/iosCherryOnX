@@ -23,6 +23,10 @@ protocol OrderListCardCellProtocol {
     func updateRequestInfoAppearance(request: Request)
 }
 
+protocol OrdersYouxiangInfoEmptyCellDelegate: class {
+    func shareButtonInPageTapped()
+}
+
 class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
 
     // bottom buttons

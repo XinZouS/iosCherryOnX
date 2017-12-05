@@ -72,11 +72,12 @@ extension OrdersYouxiangInfoCell: OrderListCardCellProtocol {
 
 class OrdersYouxiangInfoEmptyCell: UITableViewCell {
     
-    var trip: Trip? 
+    var trip: Trip?
+    var emptyCellDelegate: OrdersYouxiangInfoEmptyCellDelegate?
     
     @IBOutlet weak var shareButton: UIButton!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
-    
+        emptyCellDelegate?.shareButtonInPageTapped()
     }
 }

@@ -266,12 +266,16 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
 extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.x
         let y = scrollView.contentOffset.y
         let maxY = scrollView.contentSize.height - self.view.bounds.height + 100
+        if x != 0 {
+            scrollView.setContentOffset(CGPoint(x: 0, y: y), animated: false)
+        }
         if y < 0 || y > maxY {
             return
         }
-        scrollView.setContentOffset(CGPoint(x:0, y: y), animated: true)
+        scrollView.setContentOffset(CGPoint(x:0, y: y), animated: false)
     }
     
     

@@ -24,7 +24,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
-        
+        shareYouxiangCode()
     }
     
     @IBAction func lockerButtonTapped(_ sender: Any) {
@@ -45,8 +45,12 @@ class OrdersYouxiangInfoViewController: UIViewController {
             }
         }
     }
+    var sharingAlertVC: UIAlertController?
     
+    let infoCellId = "OrdersYouxiangInfoCell"
+    let emptyCellId = "OrdersYouxiangInfoEmptyCell"
     let orderRequestDetailSegueId = "gotoOrdersRequestDetailSegue"
+    let emptyCellDelegate = self
 
     static func storyboardViewController() -> OrdersYouxiangInfoViewController? {
         let storyboard = UIStoryboard.init(name: "OrdersYouxiangInfo", bundle: nil)
@@ -128,6 +132,35 @@ class OrdersYouxiangInfoViewController: UIViewController {
             })
         })
     }
+    
+    
+    func shareYouxiangCode() {
+        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+        sharingAlertVC = ShareManager.shared.setupShareFrame()
+        setupShareInformation()
+        if !isPhone {
+            sharingAlertVC?.popoverPresentationController?.sourceView = self.startAddressLabel
+        }
+        DispatchQueue.main.async {
+            self.present(self.sharingAlertVC!, animated: true, completion:{})
+        }
+    }
+    
+    private func setupShareInformation(){
+        if let youxiangId = trip.tripCode,
+            let beginLocation = trip.startAddress?.fullAddressString(),
+            let endLocation = trip.endAddress?.fullAddressString() {
+            
+            let dateMonth = trip.getMonthString()
+            let dateDay = trip.getDayString()
+            let monthAnddayString = "\(dateMonth), \(dateDay)"
+            let title = "我的游箱号:\(youxiangId)"
+            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            let url = "www.carryonex.com" // TODO: change this for link to appstore or inside app page;
+            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
+        }
+    }
+
 }
 
 
@@ -146,7 +179,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if requests.count > 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoCell", for: indexPath) as? OrdersYouxiangInfoCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: infoCellId, for: indexPath) as? OrdersYouxiangInfoCell {
                 cell.selectionStyle = .none
                 cell.cellCategory = category
                 
@@ -162,9 +195,10 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
             }
             
         } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersYouxiangInfoEmptyCell", for: indexPath) as? OrdersYouxiangInfoEmptyCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: emptyCellId, for: indexPath) as? OrdersYouxiangInfoEmptyCell {
                 cell.selectionStyle = .none
                 cell.trip = trip
+                cell.emptyCellDelegate = self
                 return cell
             }
         }
@@ -198,3 +232,10 @@ extension OrdersYouxiangInfoViewController: UITableViewDelegate {
     
 }
 
+extension OrdersYouxiangInfoViewController: OrdersYouxiangInfoEmptyCellDelegate {
+    
+    func shareButtonInPageTapped(){
+        shareYouxiangCode()
+    }
+    
+}
