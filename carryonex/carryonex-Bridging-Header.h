@@ -31,3 +31,4 @@
 //支付宝SDK
 //#import "APOpenAPI.h"
 
+#import <AlipaySDK/AlipaySDK.h>

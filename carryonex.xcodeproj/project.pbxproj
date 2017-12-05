@@ -9,13 +9,30 @@
 /* Begin PBXBuildFile section */
 		066F824A1FBF6CE800269934 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066F82491FBF6CE800269934 /* Comment.swift */; };
 		066F824C1FBF826000269934 /* UserComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066F824B1FBF826000269934 /* UserComments.swift */; };
-		0675136E1FC26AD2002ABF2E /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0675136D1FC26AD2002ABF2E /* WalletManager.swift */; };
 		06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */; };
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
 		4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */; };
 		4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */; };
 		4D6571BC1FCFF4900075305F /* Type+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6571BB1FCFF4900075305F /* Type+Extension.swift */; };
+		4D79327E1FD676D90081BBE2 /* WalletManager+AliPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */; };
+		4D79327F1FD676D90081BBE2 /* WalletManager+Stripe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */; };
+		4D7932801FD676D90081BBE2 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327D1FD676D90081BBE2 /* WalletManager.swift */; };
+		4D7932851FD67A410081BBE2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932841FD67A410081BBE2 /* libc++.tbd */; };
+		4D7932881FD67A7E0081BBE2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932871FD67A6A0081BBE2 /* CoreTelephony.framework */; };
+		4D7932891FD67A880081BBE2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932861FD67A5F0081BBE2 /* SystemConfiguration.framework */; };
+		4D79328B1FD67A9B0081BBE2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79328A1FD67A940081BBE2 /* QuartzCore.framework */; };
+		4D79328D1FD67ACD0081BBE2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79328C1FD67AA30081BBE2 /* CoreText.framework */; };
+		4D79328F1FD67AE40081BBE2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79328E1FD67AD90081BBE2 /* CoreGraphics.framework */; };
+		4D7932911FD67B020081BBE2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932901FD67AFF0081BBE2 /* UIKit.framework */; };
+		4D7932931FD67B0F0081BBE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932921FD67B0C0081BBE2 /* Foundation.framework */; };
+		4D7932961FD67B220081BBE2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932941FD67B190081BBE2 /* CFNetwork.framework */; };
+		4D7932971FD67B240081BBE2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7932951FD67B1E0081BBE2 /* CoreMotion.framework */; };
+		4D7932A01FD67CAB0081BBE2 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79329E1FD67CAB0081BBE2 /* AlipaySDK.framework */; };
+		4D7932A11FD67CAB0081BBE2 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D79329F1FD67CAB0081BBE2 /* AlipaySDK.bundle */; };
+		4D7932A41FD680DC0081BBE2 /* APAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */; };
+		4D7932A61FD689040081BBE2 /* APOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A51FD689040081BBE2 /* APOrderInfo.swift */; };
+		4D7932A81FD689920081BBE2 /* APBizContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A71FD689920081BBE2 /* APBizContent.swift */; };
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
 		4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */; };
 		4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */; };
@@ -301,7 +318,6 @@
 /* Begin PBXFileReference section */
 		066F82491FBF6CE800269934 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		066F824B1FBF826000269934 /* UserComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserComments.swift; sourceTree = "<group>"; };
-		0675136D1FC26AD2002ABF2E /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListEmptyCell.swift; sourceTree = "<group>"; };
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
@@ -309,6 +325,24 @@
 		4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrderDataStore.swift; sourceTree = "<group>"; };
 		4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerChecker.swift; sourceTree = "<group>"; };
 		4D6571BB1FCFF4900075305F /* Type+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type+Extension.swift"; sourceTree = "<group>"; };
+		4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletManager+AliPay.swift"; sourceTree = "<group>"; };
+		4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletManager+Stripe.swift"; sourceTree = "<group>"; };
+		4D79327D1FD676D90081BBE2 /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
+		4D7932841FD67A410081BBE2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		4D7932861FD67A5F0081BBE2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4D7932871FD67A6A0081BBE2 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		4D79328A1FD67A940081BBE2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4D79328C1FD67AA30081BBE2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		4D79328E1FD67AD90081BBE2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4D7932901FD67AFF0081BBE2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4D7932921FD67B0C0081BBE2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4D7932941FD67B190081BBE2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4D7932951FD67B1E0081BBE2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		4D79329E1FD67CAB0081BBE2 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		4D79329F1FD67CAB0081BBE2 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAuthInfo.swift; sourceTree = "<group>"; };
+		4D7932A51FD689040081BBE2 /* APOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOrderInfo.swift; sourceTree = "<group>"; };
+		4D7932A71FD689920081BBE2 /* APBizContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBizContent.swift; sourceTree = "<group>"; };
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationViewController.swift; sourceTree = "<group>"; };
@@ -603,19 +637,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFEDFD8B1FA3C82600A1511E /* libxml2.tbd in Frameworks */,
-				FFEDFD8A1FA3C81100A1511E /* WebKit.framework in Frameworks */,
+				4D79328D1FD67ACD0081BBE2 /* CoreText.framework in Frameworks */,
+				4D79328B1FD67A9B0081BBE2 /* QuartzCore.framework in Frameworks */,
+				4D7932891FD67A880081BBE2 /* SystemConfiguration.framework in Frameworks */,
+				4D7932881FD67A7E0081BBE2 /* CoreTelephony.framework in Frameworks */,
+				4D79328F1FD67AE40081BBE2 /* CoreGraphics.framework in Frameworks */,
+				4D7932911FD67B020081BBE2 /* UIKit.framework in Frameworks */,
+				4D7932931FD67B0F0081BBE2 /* Foundation.framework in Frameworks */,
+				4D7932961FD67B220081BBE2 /* CFNetwork.framework in Frameworks */,
+				4D7932971FD67B240081BBE2 /* CoreMotion.framework in Frameworks */,
 				FF4D14CF1FA3BF7D009CC1A0 /* libresolv.tbd in Frameworks */,
-				FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */,
-				66B31C081F71CBFF005A4382 /* FBSDKShareKit.framework in Frameworks */,
-				66B31C041F71CBAE005A4382 /* FBSDKCoreKit.framework in Frameworks */,
+				FFEDFD8B1FA3C82600A1511E /* libxml2.tbd in Frameworks */,
 				66B31C001F71B283005A4382 /* libsqlite3.tbd in Frameworks */,
-				66B31BFE1F71B279005A4382 /* ImageIO.framework in Frameworks */,
-				66B31BFC1F71B267005A4382 /* JavaScriptCore.framework in Frameworks */,
-				66B31C0E1F72A60A005A4382 /* FBSDKLoginKit.framework in Frameworks */,
+				4D7932851FD67A410081BBE2 /* libc++.tbd in Frameworks */,
 				66B31BFA1F71B25E005A4382 /* libstdc++.tbd in Frameworks */,
 				66B31BF91F71B24D005A4382 /* libz.tbd in Frameworks */,
 				66B31BF81F71B22D005A4382 /* libicucore.tbd in Frameworks */,
+				66B31C081F71CBFF005A4382 /* FBSDKShareKit.framework in Frameworks */,
+				66B31C041F71CBAE005A4382 /* FBSDKCoreKit.framework in Frameworks */,
+				FFEDFD8A1FA3C81100A1511E /* WebKit.framework in Frameworks */,
+				FFE23E2D1F8BCD3C0043D651 /* libWeChatSDK.a in Frameworks */,
+				66B31BFE1F71B279005A4382 /* ImageIO.framework in Frameworks */,
+				66B31BFC1F71B267005A4382 /* JavaScriptCore.framework in Frameworks */,
+				66B31C0E1F72A60A005A4382 /* FBSDKLoginKit.framework in Frameworks */,
+				4D7932A01FD67CAB0081BBE2 /* AlipaySDK.framework in Frameworks */,
 				663121F71F548C6F000F7ACB /* MapKit.framework in Frameworks */,
 				90D4C228BA0130B57100B4AD /* Pods_carryonex.framework in Frameworks */,
 			);
@@ -630,6 +675,36 @@
 				4D6571BB1FCFF4900075305F /* Type+Extension.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		4D79327A1FD676D90081BBE2 /* WalletManager */ = {
+			isa = PBXGroup;
+			children = (
+				4D7932A21FD67FF00081BBE2 /* AliPay */,
+				4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */,
+				4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */,
+				4D79327D1FD676D90081BBE2 /* WalletManager.swift */,
+			);
+			path = WalletManager;
+			sourceTree = "<group>";
+		};
+		4D7932811FD67A070081BBE2 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				4D79329F1FD67CAB0081BBE2 /* AlipaySDK.bundle */,
+				4D79329E1FD67CAB0081BBE2 /* AlipaySDK.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		4D7932A21FD67FF00081BBE2 /* AliPay */ = {
+			isa = PBXGroup;
+			children = (
+				4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */,
+				4D7932A51FD689040081BBE2 /* APOrderInfo.swift */,
+				4D7932A71FD689920081BBE2 /* APBizContent.swift */,
+			);
+			path = AliPay;
 			sourceTree = "<group>";
 		};
 		4DC043C51FB769EF00F6C3F0 /* Supports */ = {
@@ -780,6 +855,7 @@
 				E58FDC991FA5A202000C126E /* Managers */,
 				4D6571BA1FCFF4710075305F /* Helper */,
 				E53791E61FABC047009647CD /* Vendor */,
+				4D7932811FD67A070081BBE2 /* Framework */,
 				4DC043C51FB769EF00F6C3F0 /* Supports */,
 				FF4A5B581F7D9AEE001D86D0 /* address.plist */,
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
@@ -1234,14 +1310,21 @@
 		B74509BA4913B598D9C8BF81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D7932951FD67B1E0081BBE2 /* CoreMotion.framework */,
+				4D7932941FD67B190081BBE2 /* CFNetwork.framework */,
+				4D7932921FD67B0C0081BBE2 /* Foundation.framework */,
+				4D7932901FD67AFF0081BBE2 /* UIKit.framework */,
+				4D79328E1FD67AD90081BBE2 /* CoreGraphics.framework */,
+				4D79328C1FD67AA30081BBE2 /* CoreText.framework */,
+				4D79328A1FD67A940081BBE2 /* QuartzCore.framework */,
+				4D7932871FD67A6A0081BBE2 /* CoreTelephony.framework */,
+				4D7932861FD67A5F0081BBE2 /* SystemConfiguration.framework */,
+				4D7932841FD67A410081BBE2 /* libc++.tbd */,
 				FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */,
 				FF4D14CC1FA3BF67009CC1A0 /* libxml2.tbd */,
 				FF4D14CA1FA3BF59009CC1A0 /* WebKit.framework */,
-				FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */,
 				FFE23E2A1F8BCD280043D651 /* Pods */,
 				66B31C0D1F72A60A005A4382 /* FBSDKLoginKit.framework */,
-				66B31C071F71CBFF005A4382 /* FBSDKShareKit.framework */,
-				66B31C031F71CBAE005A4382 /* FBSDKCoreKit.framework */,
 				66B31BFF1F71B283005A4382 /* libsqlite3.tbd */,
 				66B31BFD1F71B279005A4382 /* ImageIO.framework */,
 				66B31BFB1F71B267005A4382 /* JavaScriptCore.framework */,
@@ -1249,6 +1332,9 @@
 				663121F61F548C6F000F7ACB /* MapKit.framework */,
 				66B1CA901F41FA7000EA0A43 /* libstdc++.tbd */,
 				66B1CA8F1F41FA4700EA0A43 /* libz.tbd */,
+				66B31C071F71CBFF005A4382 /* FBSDKShareKit.framework */,
+				66B31C031F71CBAE005A4382 /* FBSDKCoreKit.framework */,
+				FFE23E2C1F8BCD3B0043D651 /* libWeChatSDK.a */,
 				8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */,
 			);
 			name = Frameworks;
@@ -1413,13 +1499,13 @@
 		E58FDC991FA5A202000C126E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D79327A1FD676D90081BBE2 /* WalletManager */,
 				E59154BE1FD5E56E00333585 /* ShareManager.swift */,
 				E58FDC9A1FA5A226000C126E /* ServiceManager.swift */,
 				66C138C31FACBB4300755754 /* ReachabilityManager.swift */,
 				662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */,
 				66CC1E361FBCC6D50080C80B /* AudioManager.swift */,
 				66CE22571FBE602200DCC274 /* FlickrImageManager.swift */,
-				0675136D1FC26AD2002ABF2E /* WalletManager.swift */,
 				4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */,
 			);
 			path = Managers;
@@ -1646,6 +1732,7 @@
 				E542F2691FB4B7930072BB31 /* Sender.storyboard in Resources */,
 				4DC043DD1FB7933400F6C3F0 /* Login.storyboard in Resources */,
 				66E2C98E1FBA4DEA000B250E /* PhoneNum.storyboard in Resources */,
+				4D7932A11FD67CAB0081BBE2 /* AlipaySDK.bundle in Resources */,
 				CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */,
 				665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */,
 				660ABC611FC35CC000B81076 /* SenderDetailInfo.storyboard in Resources */,
@@ -1802,6 +1889,7 @@
 				667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */,
 				66E6501F1F5F85B800DA90DE /* OrderLogShipperCell.swift in Sources */,
 				FF66FE291FAA410500B4FA41 /* OrderCommentAndSubmitCell++.swift in Sources */,
+				4D7932A61FD689040081BBE2 /* APOrderInfo.swift in Sources */,
 				660F4F701F570D9B00F4820D /* AddressDetailCell.swift in Sources */,
 				6633DC911F5DA63800B2FFAC /* OrdersLogController.swift in Sources */,
 				FF4896F31F9929F0009B3EE5 /* DetailPriceCell.swift in Sources */,
@@ -1817,11 +1905,13 @@
 				66DA06C61F5DF5B1002C8442 /* OrdersShipperPageCell.swift in Sources */,
 				6633DC941F5DE7E500B2FFAC /* OrdersSenderPageCell.swift in Sources */,
 				66E520541F4CAA19008E521D /* Request.swift in Sources */,
+				4D7932801FD676D90081BBE2 /* WalletManager.swift in Sources */,
 				FF6224611FB0F5C600280FDA /* OrderDetailCommentInfoCell.swift in Sources */,
 				FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */,
 				FF37810A1F9BA17400D7D0CA /* OrderDetailPage++.swift in Sources */,
 				E5791E541FABC60E006B4F68 /* UserDefaults++.swift in Sources */,
 				669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */,
+				4D79327E1FD676D90081BBE2 /* WalletManager+AliPay.swift in Sources */,
 				66C9757F1F3E167C00450F37 /* DisclaimerController.swift in Sources */,
 				667DBD741F95460800DF3800 /* WebController.swift in Sources */,
 				665DE4F51F3A0B70004DDB88 /* carryonex.xcdatamodeld in Sources */,
@@ -1841,6 +1931,7 @@
 				6686096B1F6052D400740A92 /* HeaderView.swift in Sources */,
 				665DE4EF1F3A0B70004DDB88 /* HomePageController.swift in Sources */,
 				663121F31F545B3C000F7ACB /* ConfirmBaseController.swift in Sources */,
+				4D7932A81FD689920081BBE2 /* APBizContent.swift in Sources */,
 				4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */,
 				66CE22561FBE246300DCC274 /* OrderListCardShiperCell.swift in Sources */,
 				FFE750F31F7C1AE7001B5738 /* AddressDetailCell++.swift in Sources */,
@@ -1895,8 +1986,8 @@
 				66099F4F1F58A5D000B12E21 /* RequestInfoView.swift in Sources */,
 				667DBD771F954FA300DF3800 /* LicensesController++.swift in Sources */,
 				E567BB0C1FCC6D3600B87608 /* STDispute.swift in Sources */,
-				0675136E1FC26AD2002ABF2E /* WalletManager.swift in Sources */,
 				FFF7913E1FD0C25C00C116C6 /* STInvoice.swift in Sources */,
+				4D79327F1FD676D90081BBE2 /* WalletManager+Stripe.swift in Sources */,
 				66C3EA911FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift in Sources */,
 				661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */,
 				4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */,
@@ -2018,6 +2109,7 @@
 				660F4F6B1F56FFEC00F4820D /* AddressController.swift in Sources */,
 				667E8F911FA78C03007B1C51 /* SilenceCarouselView.swift in Sources */,
 				E597D94E1F9FD32900B98CAB /* Config.swift in Sources */,
+				4D7932A41FD680DC0081BBE2 /* APAuthInfo.swift in Sources */,
 				06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */,
 				E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */,
 				FFCB0F1D1FA79FC100180BDB /* OrderCommentPage.swift in Sources */,
@@ -2175,6 +2267,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/carryonex/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2293,6 +2386,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/carryonex/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
