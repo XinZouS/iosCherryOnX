@@ -880,11 +880,11 @@ class ApiServers : NSObject {
             }
             //let statusCode = (response[ServerKey.statusCode.rawValue] as? Int) ?? 404
             if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
-                completion(true, nil)
+                completion(true, nil, .ok)
             } else {
                 print("postRequest - Unable to post request data")
-                completion(false, nil)
-            }
+                completion(false, nil, .notFound)
+            } // TODO: temp usage, will replace by following after DB fixed:
             
             /*
              //If mengdi fix it and we need it in the future, we have the full request return.

@@ -129,6 +129,7 @@ class OrdersRequestDetailViewController: UIViewController {
         title = "订单详情"
         navigationController?.isNavigationBarHidden = false
         
+        setupScrollView()
         setupView()
     }
     
@@ -139,7 +140,12 @@ class OrdersRequestDetailViewController: UIViewController {
             //}
         }
     }
-    
+
+    private func setupScrollView(){
+        scrollView.delegate = self
+        scrollView.isDirectionalLockEnabled = true
+    }
+
     private func setupView() {
         updateRequestInfoAppearance(request: request)
         
@@ -253,4 +259,14 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             statusLabel.backgroundColor = status.displayColor(category: category)
         }
     }
+}
+
+
+extension OrdersRequestDetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.setContentOffset(CGPoint(x:0, y:scrollView.contentOffset.y), animated: false)
+    }
+    
+    
 }
