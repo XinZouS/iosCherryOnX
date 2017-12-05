@@ -148,6 +148,8 @@
 		669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669518241F60DAAD00BFC37B /* InviteFriendController.swift */; };
 		66988DA01F9C5B6D000B14F5 /* CustomerServersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66988D9F1F9C5B6D000B14F5 /* CustomerServersController.swift */; };
 		66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */; };
+		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
+		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
 		66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF11F3A5F8100B32AD3 /* UIView++.swift */; };
 		66A16AF41F3B56B500B32AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF31F3B56B500B32AD3 /* User.swift */; };
 		66A16AF81F3B6B2E00B32AD3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF71F3B6B2E00B32AD3 /* Trip.swift */; };
@@ -464,6 +466,8 @@
 		669518241F60DAAD00BFC37B /* InviteFriendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendController.swift; sourceTree = "<group>"; };
 		66988D9F1F9C5B6D000B14F5 /* CustomerServersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServersController.swift; sourceTree = "<group>"; };
 		66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomerServersController++.swift"; sourceTree = "<group>"; };
+		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
+		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
 		66A16AF11F3A5F8100B32AD3 /* UIView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
 		66A16AF31F3B56B500B32AD3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66A16AF71F3B6B2E00B32AD3 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -734,6 +738,7 @@
 				FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */,
 				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
 				66C9002D1FD218550017DBC4 /* CreditViewController.swift */,
+				66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1376,6 +1381,7 @@
 				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
 				FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */,
 				66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */,
+				66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1708,6 +1714,7 @@
 			files = (
 				FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */,
 				FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */,
+				66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */,
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
@@ -1950,6 +1957,7 @@
 				E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
 				FF2187551FCE04F400DE37B4 /* TripTableController.swift in Sources */,
+				66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
 				FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */,
 				66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */,
