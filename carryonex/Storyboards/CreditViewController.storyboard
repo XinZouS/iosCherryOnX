@@ -96,6 +96,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="extractCashButtonTapped:" destination="HnA-le-RxJ" eventType="touchUpInside" id="Rn5-qX-ZL3"/>
+                                            <segue destination="Yqh-Xb-y3j" kind="show" id="kpd-hS-1ig"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -212,6 +213,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r5u-ZC-Wl2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-18.399999999999999" y="163.26836581709148"/>
+        </scene>
+        <!--AlipayCashExtract-->
+        <scene sceneID="zkn-vL-fMn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AlipayCashExtract" id="Yqh-Xb-y3j" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IZ5-87-6G8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="608" y="163"/>
         </scene>
     </scenes>
 </document>

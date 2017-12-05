@@ -328,6 +328,9 @@ extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
         actionSheet.addAction(cancelAction)
         photoBrowser.present(actionSheet, animated: true, completion: nil)
     }
+}
+
+
 extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
