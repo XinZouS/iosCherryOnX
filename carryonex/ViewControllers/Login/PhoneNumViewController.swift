@@ -7,16 +7,18 @@
 //
 
 import UIKit
-
 import BPCircleActivityIndicator
 
 class PhoneNumViewController: UIViewController {
     
     var isModifyPhoneNumber = false
-    var status  = ""
+    var loginStatus: LoginStatus = .unknow
     var zoneCodeInput = "1"
     var phoneInput = ""
 
+    let segueIdChangePw = "changePassword"
+    let segueIdVerifyVC = "gotoPhoneVerifyVC"
+    
     var isPhoneNumValid: Bool = false
     var isLoading: Bool = false {
         didSet{
@@ -143,13 +145,17 @@ extension PhoneNumViewController: PhoneNumberDelegate {
                 return
             }
             if isExist {
-                switch self.status{
-                case "modifyPhoneNumber":
+                switch self.loginStatus {
+                case .modifyPhone :
                     self.modifyUserPhoneNum(newPhone)
+                    
+                case .changePassword:
+                    self.goToVerificationPage()
+                    
                 default:
-                    self.verifyUserNewPhoneNum()
+                    self.loginByPasswordInput()
                 }
-            } else {
+            } else { // is new phone: 
                 self.verifyUserNewPhoneNum()
             }
         }
@@ -217,26 +223,26 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             "countryCode" : zoneCodeInput,
             "phone" : phoneInput,
             ]
-        switch status {
-        case "changePassword":
-            performSegue(withIdentifier: "changePassword", sender: info)
+        switch loginStatus {
+        case .changePassword :
+            performSegue(withIdentifier: segueIdChangePw, sender: info)
         default:
-            performSegue(withIdentifier: "gotoPhoneVerifyVC", sender: info)
+            performSegue(withIdentifier: segueIdVerifyVC, sender: info)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "gotoPhoneVerifyVC" {
+        if segue.identifier == segueIdVerifyVC {
             if let vldVC = segue.destination as? PhoneValidationViewController,
                 let info = sender as? [String:String] {
                 vldVC.registerUserInfo = info
             }
         }
-        if segue.identifier == "changePassword" {
+        if segue.identifier == segueIdChangePw {
             if let vldVC = segue.destination as? PhoneValidationViewController,
                 let info = sender as? [String:String] {
                 vldVC.registerUserInfo = info
-                vldVC.status = "changePassword"
+                vldVC.status = LoginStatus.changePassword
             }
         }
     }
