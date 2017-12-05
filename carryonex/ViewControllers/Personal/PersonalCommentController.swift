@@ -14,38 +14,48 @@ class PersonalCommentController: UIViewController{
     let cellId = "UserCommentCellId"
     var commentDict: UserComments?
     var hasLoadData: Bool! = false
-    var loadMoreView:UIView?
     var loadMoreEnable = true
     var offset: Int = 0
     let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-    
+    var doneLabel: UILabel = {
+        let l = UILabel()
+        l.text = "亲，没有您有关的评论了哦~"
+        l.isHidden = true
+        l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        return l
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchComment()
         setupTableView()
-        setupLoadMoreView()
-        self.commentTableView.tableFooterView = self.loadMoreView
     }
     private func setupTableView(){
+        commentTableView.tableFooterView = setupLoadMoreView()
         commentTableView.allowsSelection = false
         title = "我的评价"
     }
     
-    private func setupLoadMoreView() {
-        self.loadMoreView = UIView(frame: CGRect(x: 0, y:self.commentTableView.contentSize.height,
-                                                 width:self.commentTableView.bounds.size.width, height: 60))
-        self.loadMoreView!.autoresizingMask = UIViewAutoresizing.flexibleWidth
-        self.loadMoreView!.backgroundColor = UIColor.clear
-        
-        //添加中间的环形进度条
-        activityViewIndicator.color = UIColor.darkGray
-        let indicatorX = self.loadMoreView!.frame.size.width/2-activityViewIndicator.frame.width/2
-        let indicatorY = self.loadMoreView!.frame.size.height/2-activityViewIndicator.frame.height/2
-        activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
-                                             width: activityViewIndicator.frame.width,
-                                             height: activityViewIndicator.frame.height)
-        activityViewIndicator.startAnimating()
-        self.loadMoreView!.addSubview(activityViewIndicator)
+    private func setupLoadMoreView() ->UIView{
+        let view = UIView(frame: CGRect(x: 0, y:self.commentTableView.contentSize.height,
+                                           width:self.commentTableView.bounds.size.width, height: 60))
+            view.autoresizingMask = UIViewAutoresizing.flexibleWidth
+            view.backgroundColor = UIColor.clear
+            
+            //添加中间的环形进度条
+            activityViewIndicator.color = UIColor.darkGray
+            let indicatorX = view.frame.size.width/2-activityViewIndicator.frame.width/2
+            let indicatorY = view.frame.size.height/2-activityViewIndicator.frame.height/2
+            activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
+                                                 width: activityViewIndicator.frame.width,
+                                                 height: activityViewIndicator.frame.height)
+            activityViewIndicator.startAnimating()
+            doneLabel.frame = CGRect(x: self.view.frame.size.width/2-125,
+                                     y: indicatorY,
+                                     width: 250,
+                                     height: activityViewIndicator.frame.height)
+            view.addSubview(activityViewIndicator)
+            view.addSubview(doneLabel)
+            return view
     }
     
     func fetchComment(){
@@ -57,6 +67,10 @@ class PersonalCommentController: UIViewController{
                             self.commentDict = userCommnt
                             self.hasLoadData = true
                             self.commentTableView.reloadData()
+                            if self.commentDict?.comments.count == 0 {
+                                self.activityViewIndicator.stopAnimating()
+                                self.doneLabel.isHidden = false
+                            }
                         }
                     }
                 }
@@ -139,6 +153,7 @@ extension PersonalCommentController: UIScrollViewDelegate {
                         UpdateHistoryComment()
                     }else{
                         print("load All data")
+                        doneLabel.isHidden = false
                         activityViewIndicator.stopAnimating()
                     }
                 }

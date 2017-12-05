@@ -59,6 +59,19 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
     
     }
+    @IBAction func PhoneButtonTapped(_ sender: Any) {        
+        if let PhoneNumberUrl = recipientPhoneLabel.text,let url = URL(string: PhoneNumberUrl) {
+            //根据iOS系统版本，分别处理
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                })
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
     
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         let transaction = sender.transaction
