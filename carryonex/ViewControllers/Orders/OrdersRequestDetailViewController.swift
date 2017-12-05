@@ -7,12 +7,17 @@
 //
 
 import UIKit
-
+import AlamofireImage
+import JXPhotoBrowser
 
 class OrdersRequestDetailViewController: UIViewController {
     
+    @IBOutlet weak var blockerWidth: NSLayoutConstraint!
+    weak var selectedCell: PhotoBrowserCollectionViewCell?
+    @IBOutlet weak var phontobrowser: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var imageCountButton: UIButton!
     // trip info
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
@@ -26,9 +31,6 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var itemImage1: UIImageView!
-    @IBOutlet weak var itemImage2: UIImageView!
-    @IBOutlet weak var itemImageMoreButton: UIButton!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
     
@@ -44,6 +46,8 @@ class OrdersRequestDetailViewController: UIViewController {
     
     let toShipperViewSegue = "toOtherShipperView"
     
+    @IBAction func moreImageTapped(_ sender: Any) {
+    }
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
         
     }
@@ -52,15 +56,12 @@ class OrdersRequestDetailViewController: UIViewController {
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
-    @IBAction func itemImageMoreButtonTapped(_ sender: Any) {
-        
-    }
     
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
     
     }
     @IBAction func PhoneButtonTapped(_ sender: Any) {        
-        if let PhoneNumberUrl = recipientPhoneLabel.text,let url = URL(string: PhoneNumberUrl) {
+        if let PhoneNumberUrl = recipientPhoneLabel.text,let url = URL(string:"tel://"+PhoneNumberUrl) {
             //根据iOS系统版本，分别处理
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url, options: [:],
@@ -127,10 +128,10 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "订单详情"
-        navigationController?.isNavigationBarHidden = false
-        
+        navigationController?.isNavigationBarHidden = false        
         setupScrollView()
         setupView()
+        setupCollectionView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,13 +141,16 @@ class OrdersRequestDetailViewController: UIViewController {
             //}
         }
     }
+    
+    private func setupCollectionView(){
+        phontobrowser.register(PhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId)
+    }
 
     private func setupScrollView(){
         scrollView.delegate = self
         scrollView.isDirectionalLockEnabled = true
         scrollView.alwaysBounceVertical = true
     }
-
     private func setupView() {
         updateRequestInfoAppearance(request: request)
         
@@ -166,20 +170,11 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
-        
-        if let image = request.images.first?.imageUrl, let imageUrl = URL(string: image) {
-            itemImage1.af_setImage(withURL: imageUrl)
-        }
-        
-        itemImageMoreButton.isHidden = (request.images.count < 2)
-        if request.images.count > 1 {
-            itemImage2.isHidden = false
-            let imageObj = request.images[1]
-            if let imageUrl = URL(string: imageObj.imageUrl) {
-                itemImage2.af_setImage(withURL: imageUrl)
-            }
-        } else {
-            itemImage2.isHidden = true
+        blockerWidth.constant = UIScreen.main.bounds.width-150
+        if request.images.count > 2{
+            imageCountButton.setTitle("+\(request.images.count-2)", for: .normal)
+        }else{
+            imageCountButton.setTitle("", for: .normal)
         }
     }
     
@@ -262,7 +257,77 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     }
 }
 
+extension OrdersRequestDetailViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return request.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId, for: indexPath) as! PhotoBrowserCollectionViewCell
+        cell.imageView.af_setImage(withURL: URL(string: request.images[indexPath.row].imageUrl)!)
+        return cell
+    }
+}
 
+extension OrdersRequestDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoBrowserCollectionViewCell else {
+            return
+        }
+        selectedCell = cell
+        // 调起图片浏览器
+        let vc = PhotoBrowser(showByViewController: self, delegate: self)
+        // 装配PageControl，提供了两种PageControl实现，若需要其它样式，可参照着自由定制
+        if arc4random_uniform(2) % 2 == 0 {
+            vc.pageControlDelegate = PhotoBrowserDefaultPageControlDelegate(numberOfPages: request.images.count)
+        } else {
+            vc.pageControlDelegate = PhotoBrowserNumberPageControlDelegate(numberOfPages: request.images.count)
+        }
+        vc.show(index: indexPath.item)
+    }
+}
+// 实现浏览器代理协议
+extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
+    func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
+        return request.images.count
+    }
+    
+    /// 缩放起始视图
+    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailViewForIndex index: Int) -> UIView? {
+        return phontobrowser?.cellForItem(at: IndexPath(item: index, section: 0))
+    }
+    
+    /// 图片加载前的placeholder
+    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailImageForIndex index: Int) -> UIImage? {
+        let cell = phontobrowser?.cellForItem(at: IndexPath(item: index, section: 0)) as? PhotoBrowserCollectionViewCell
+        // 取thumbnailImage
+        return cell?.imageView.image
+    }
+    
+    
+    /// 最高清图，原图。（需要时可实现本方法）
+    /*
+     func photoBrowser(_ photoBrowser: PhotoBrowser, rawUrlForIndex index: Int) -> URL? {
+     return nil
+     // 测试
+     return index == 2 ? URL(string: "https://b-ssl.duitang.com/uploads/item/201501/28/20150128173439_RK4XS.jpeg") : nil
+     }*/
+    
+    /// 长按图片
+    func photoBrowser(_ photoBrowser: PhotoBrowser, didLongPressForIndex index: Int, image: UIImage) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let saveImageAction = UIAlertAction(title: "保存图片", style: .default) { (_) in
+            print("保存图片：\(image)")
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        actionSheet.addAction(saveImageAction)
+        actionSheet.addAction(cancelAction)
+        photoBrowser.present(actionSheet, animated: true, completion: nil)
+    }
 extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -277,7 +342,5 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
         }
         scrollView.setContentOffset(CGPoint(x:0, y: y), animated: false)
     }
-    
-    
-    
+  
 }
