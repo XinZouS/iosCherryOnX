@@ -132,6 +132,12 @@
                                                     <constraint firstAttribute="width" constant="80" id="v9q-7n-Gye"/>
                                                 </constraints>
                                                 <state key="normal" image="yadianwenqing"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="40"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="senderImageButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="ow2-aF-DJR"/>
                                                 </connections>

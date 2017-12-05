@@ -162,10 +162,14 @@ class OrdersRequestDetailViewController: UIViewController {
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
-        
+        senderNameLabel.text = request.ownerRealName
         itemValueLabel.text = "$" + request.itemValue()
         itemMessageTextView.text = request.note
-        
+        if let urlString = request.ownerImageUrl, let imgUrl = URL(string: urlString){
+            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+        }else{
+            senderImageButton.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+        }
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
