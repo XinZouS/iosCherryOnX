@@ -131,6 +131,7 @@ class OrdersRequestDetailViewController: UIViewController {
     private func setupScrollView(){
         scrollView.delegate = self
         scrollView.isDirectionalLockEnabled = true
+        scrollView.alwaysBounceVertical = true
     }
 
     private func setupView() {
@@ -252,8 +253,14 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
 extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.setContentOffset(CGPoint(x:0, y:scrollView.contentOffset.y), animated: false)
+        let y = scrollView.contentOffset.y
+        let maxY = scrollView.contentSize.height - self.view.bounds.height + 100
+        if y < 0 || y > maxY {
+            return
+        }
+        scrollView.setContentOffset(CGPoint(x:0, y: y), animated: true)
     }
+    
     
     
 }
