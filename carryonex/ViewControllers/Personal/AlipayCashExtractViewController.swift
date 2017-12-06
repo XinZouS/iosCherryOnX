@@ -25,6 +25,12 @@ class AlipayCashExtract: UIViewController {
         // TODO: doneButtonTapped;
     }
     
+    enum TextFieldTag: Int {
+        case aliAccount = 0
+        case aliName = 1
+        case cashExtract = 2
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "支付宝提现"
@@ -48,55 +54,56 @@ class AlipayCashExtract: UIViewController {
     }
     
     private func setupTextFields(){
-        textFieldAddToolBar(alipayAccountTextField)
-        textFieldAddToolBar(alipayNameTextField)
-        textFieldAddToolBar(cashExtractTextField)
+        textFieldAddToolBar(alipayAccountTextField, tag: .aliAccount)
+        textFieldAddToolBar(alipayNameTextField, tag: .aliName)
+        textFieldAddToolBar(cashExtractTextField, tag: .cashExtract)
     }
 
+    fileprivate func textFieldAddToolBar(_ textField: UITextField?, tag: TextFieldTag) {
+        if let tf = textField {
+            tf.tag = tag.rawValue
+            tf.delegate = self
+            tf.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            tf.inputAccessoryView = setupToolBar()
+        }
+    }
     
-    fileprivate func textFieldAddToolBar(_ textField: UITextField?) {
+    private func setupToolBar() -> UIToolbar {
         let bar = UIToolbar()
         bar.barStyle = .default
         bar.isTranslucent = true
         bar.tintColor = .black
         
-        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
-        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped(_:)))
+        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped(_:)))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let decimal = UIBarButtonItem(title: "[小数点 . ]", style: .plain, target: self, action: #selector(decimalButtonTapped))
-//        if textField == cashExtractTextField {
-//            bar.setItems([cancelBtn, spaceBtn, decimal, doneBtn], animated: false)
-//        } else {
-            bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
-//        }
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
         bar.isUserInteractionEnabled = true
         bar.sizeToFit()
         
-        if let tf = textField {
-            tf.delegate = self
-            tf.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            tf.inputAccessoryView = bar
-        }
+        return bar
     }
     
-    func textFieldDoneButtonTapped(){
-        keyboardDismiss()
-    }
-    func textFieldCancelButtonTapped(){
+    func textFieldDoneButtonTapped(_ textField: UITextField){
         keyboardDismiss()
     }
     
-    func decimalButtonTapped(){
-        if let cashStr = cashExtractTextField.text, cashStr != "" {
-            let parts = cashStr.components(separatedBy: ".")
-            if parts.count < 2 {
-                cashExtractTextField.text = cashStr + "."
-            } else { // already contains "."
-                // do nothing
-            }
-        } else {
-            cashExtractTextField.text = "0."
-        }
+    func textFieldCancelButtonTapped(_ textField: UITextField){
+        ///BUG TODO: this doesn't work...why??? - Xin
+//        print("get cancel on txFd.tag = \(textField.tag)")
+//        switch textField.tag {
+//        case TextFieldTag.aliAccount.rawValue:
+//            alipayAccountTextField.text = ""
+//
+//        case TextFieldTag.aliName.rawValue:
+//            alipayNameTextField.text = ""
+//
+//        case TextFieldTag.cashExtract.rawValue:
+//            cashExtractTextField.text = ""
+//
+//        default:
+            keyboardDismiss()
+//        }
     }
     
 
@@ -110,6 +117,9 @@ extension AlipayCashExtract: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // check for decimal 6.66:
+        guard textField == cashExtractTextField else {
+            return true
+        }
         let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
         let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
@@ -118,6 +128,23 @@ extension AlipayCashExtract: UITextFieldDelegate {
         let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
         
         return numberOfMatches != 0
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case TextFieldTag.aliAccount.rawValue:
+            alipayNameTextField.becomeFirstResponder()
+            
+        case TextFieldTag.aliName.rawValue:
+            cashExtractTextField.becomeFirstResponder()
+            
+        case TextFieldTag.cashExtract.rawValue:
+            cashExtractTextField.resignFirstResponder()
+            
+        default:
+            keyboardDismiss()
+        }
+        return false
     }
     
     fileprivate func keyboardDismiss(){

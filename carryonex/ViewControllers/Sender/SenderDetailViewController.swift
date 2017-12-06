@@ -623,6 +623,21 @@ extension SenderDetailViewController: UITextViewDelegate {
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // check for decimal 6.66:
+        guard textField == priceValueTextField else {
+            return true
+        }
+        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
+        let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
+        let reportProgress = NSRegularExpression.MatchingOptions.reportProgress
+        let regex = try! NSRegularExpression(pattern: expression, options: allowCommentAndWitespace)
+        let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
+        
+        return numberOfMatches != 0
+    }
+    
     private func isInputTextInLimiteWords(_ textView: UITextView) -> Bool {
         let ok = textView.text.count <= messageWordsLimite
         messageTitleLabel.text = ok ? "留言" : "留言字数应在\(messageWordsLimite)字以内"
