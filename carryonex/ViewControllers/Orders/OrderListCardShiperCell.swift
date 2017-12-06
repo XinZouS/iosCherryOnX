@@ -47,7 +47,7 @@ class OrderListCardShiperCell: OrderListCardCell {
     
     var trip: Trip? {
         didSet{
-            let isActive: Bool = (trip?.active == TripActive.active)
+            let isActive: Bool = (trip?.active == TripActive.active.rawValue)
             youxiangCodeLabel.text = trip?.tripCode
             setupYouxiangLokcerStatus(isActive: isActive)
             startAddressLabel.text = trip?.startAddress?.fullAddressString()

@@ -85,7 +85,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     func loadData() {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
         
-        let active: Bool = (trip.active == TripActive.active)
+        let active: Bool = (trip.active == TripActive.active.rawValue)
         lockerImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
         lockerHintLabel.isHidden = active
         
@@ -106,7 +106,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
         isLoading = true
         
         let id = trip.id
-        let isActive = (trip.active == TripActive.active)
+        let isActive = (trip.active == TripActive.active.rawValue)
         ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
             self.isLoading = false
             self.lockerButton.isEnabled = true
@@ -127,7 +127,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
                     return
                 }
                 let active = (tripActive == TripActive.active)
-                self.trip?.active = tripActive
+                self.trip?.active = tripActive.rawValue
                 self.setupYouxiangLokcerStatus(isActive: active)
             })
         })
@@ -147,15 +147,15 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     private func setupShareInformation(){
-        if let youxiangId = trip.tripCode,
-            let beginLocation = trip.startAddress?.fullAddressString(),
+        if let beginLocation = trip.startAddress?.fullAddressString(),
             let endLocation = trip.endAddress?.fullAddressString() {
             
             let dateMonth = trip.getMonthString()
             let dateDay = trip.getDayString()
             let monthAnddayString = "\(dateMonth), \(dateDay)"
-            let title = "我的游箱号:\(youxiangId)"
-            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            
+            let title = "我的游箱号:\(trip.tripCode)"
+            let msg = "我的游箱号:\(trip.tripCode) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
             let url = "www.carryonex.com" // TODO: change this for link to appstore or inside app page;
             ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
         }

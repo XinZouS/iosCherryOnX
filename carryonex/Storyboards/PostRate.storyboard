@@ -72,7 +72,6 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件经历如何，对出行人的服务是否满意" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GDW-rZ-cY5">
                                 <rect key="frame" x="20" y="315" width="279.66666666666669" height="18"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -97,16 +96,6 @@
                                     <action selector="commentButtonTappedWithSender:" destination="3HJ-cW-Sdm" eventType="touchUpInside" id="gnG-1M-avD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASt-vu-3Dv">
-                                <rect key="frame" x="176" y="440.66666666666669" width="62" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="ASt-vu-3Dv" secondAttribute="height" multiplier="32:15" id="s3x-mt-ECN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="返回首页">
-                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Qx-Mt-WOC">
                                 <rect key="frame" x="244" y="97" width="150" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.90980239640000005" blue="0.16298468269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,6 +115,20 @@
                                 <rect key="frame" x="244" y="97" width="150" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASt-vu-3Dv">
+                                <rect key="frame" x="147" y="442.66666666666669" width="120" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IEN-s6-8Go"/>
+                                    <constraint firstAttribute="width" constant="120" id="QJv-Ct-xPz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="返回首页">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="backToHomeTappedWithSender:" destination="3HJ-cW-Sdm" eventType="touchUpInside" id="qMP-z6-iYv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -136,7 +139,7 @@
                             <constraint firstItem="eZb-T7-PGP" firstAttribute="leading" secondItem="Ia4-l9-qYD" secondAttribute="leading" id="58y-EX-QSI"/>
                             <constraint firstItem="ONn-ff-6am" firstAttribute="top" secondItem="Rgo-9S-tv2" secondAttribute="top" constant="10" id="5Gh-kP-ey4"/>
                             <constraint firstItem="AI6-Nc-erR" firstAttribute="centerX" secondItem="wId-b5-Cai" secondAttribute="centerX" id="8ru-gM-etI"/>
-                            <constraint firstItem="ASt-vu-3Dv" firstAttribute="centerX" secondItem="AI6-Nc-erR" secondAttribute="centerX" id="9bs-nq-7sV"/>
+                            <constraint firstItem="ASt-vu-3Dv" firstAttribute="centerX" secondItem="FHW-ju-nic" secondAttribute="centerX" id="9Qe-zl-3Eh"/>
                             <constraint firstItem="I1R-bQ-0z6" firstAttribute="top" secondItem="ONn-ff-6am" secondAttribute="bottom" constant="5" id="HAa-vq-SNR"/>
                             <constraint firstItem="Ia4-l9-qYD" firstAttribute="leading" secondItem="FHW-ju-nic" secondAttribute="leading" constant="20" id="LpF-8S-nl2"/>
                             <constraint firstItem="eZb-T7-PGP" firstAttribute="top" secondItem="Rgo-9S-tv2" secondAttribute="bottom" constant="53" id="Mex-Si-MZ0"/>
@@ -146,7 +149,6 @@
                             <constraint firstItem="I1R-bQ-0z6" firstAttribute="leading" secondItem="ONn-ff-6am" secondAttribute="leading" id="Okk-ZS-LJh"/>
                             <constraint firstItem="I1R-bQ-0z6" firstAttribute="leading" secondItem="Rgo-9S-tv2" secondAttribute="trailing" constant="12" id="Q9U-Ed-k50"/>
                             <constraint firstItem="uPL-aQ-TYL" firstAttribute="width" secondItem="21d-tz-YXj" secondAttribute="width" id="RrP-GU-qX5"/>
-                            <constraint firstItem="ASt-vu-3Dv" firstAttribute="top" secondItem="AI6-Nc-erR" secondAttribute="bottom" constant="8" id="S2o-Q0-2hi"/>
                             <constraint firstAttribute="trailing" secondItem="wId-b5-Cai" secondAttribute="trailing" constant="20" id="Sib-Fp-Au2"/>
                             <constraint firstItem="jH7-ap-Yie" firstAttribute="top" secondItem="eZb-T7-PGP" secondAttribute="bottom" constant="8" id="c9U-04-6fP"/>
                             <constraint firstItem="uPL-aQ-TYL" firstAttribute="centerY" secondItem="21d-tz-YXj" secondAttribute="centerY" id="e7J-gf-wmR"/>
@@ -160,18 +162,22 @@
                             <constraint firstItem="21d-tz-YXj" firstAttribute="centerY" secondItem="ONn-ff-6am" secondAttribute="centerY" id="lVE-gO-amw"/>
                             <constraint firstItem="GDW-rZ-cY5" firstAttribute="top" secondItem="jH7-ap-Yie" secondAttribute="bottom" constant="26.5" id="nX8-O7-clf"/>
                             <constraint firstItem="wId-b5-Cai" firstAttribute="top" secondItem="GDW-rZ-cY5" secondAttribute="bottom" constant="8" id="no5-lJ-vcG"/>
+                            <constraint firstItem="ASt-vu-3Dv" firstAttribute="top" secondItem="AI6-Nc-erR" secondAttribute="bottom" constant="10" id="oJW-tM-GDm"/>
                             <constraint firstItem="wId-b5-Cai" firstAttribute="leading" secondItem="GDW-rZ-cY5" secondAttribute="leading" id="odg-93-4M8"/>
                             <constraint firstItem="ONn-ff-6am" firstAttribute="trailing" secondItem="Ia4-l9-qYD" secondAttribute="trailing" constant="60.5" id="zZD-Wv-8mi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FHW-ju-nic"/>
                     </view>
                     <connections>
+                        <outlet property="categoryLabel" destination="ONn-ff-6am" id="hlQ-WB-bYr"/>
                         <outlet property="commentButton" destination="AI6-Nc-erR" id="mgW-P4-DFW"/>
                         <outlet property="commentRate" destination="fhs-K2-1B8" id="kVK-EA-OIQ"/>
                         <outlet property="commentTextField" destination="GDW-rZ-cY5" id="7lz-46-eva"/>
                         <outlet property="commentView" destination="4Qx-Mt-WOC" id="R0H-4Z-6m7"/>
                         <outlet property="commentWidth" destination="hGb-QF-gx0" id="TGr-tr-aDC"/>
                         <outlet property="coverView" destination="uPL-aQ-TYL" id="jHK-o1-IgG"/>
+                        <outlet property="profileImageView" destination="Rgo-9S-tv2" id="4r5-AX-o9w"/>
+                        <outlet property="realNameLabel" destination="I1R-bQ-0z6" id="fIn-d9-3lG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyf-6R-dN2" userLabel="First Responder" sceneMemberID="firstResponder"/>

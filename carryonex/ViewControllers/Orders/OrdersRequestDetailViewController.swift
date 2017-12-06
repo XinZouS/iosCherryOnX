@@ -46,9 +46,12 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     
     let toShipperViewSegue = "toOtherShipperView"
+    let postRateSegue = "PostRateSegue"
     
     @IBAction func moreImageTapped(_ sender: Any) {
+        
     }
+    
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
         
     }
@@ -57,10 +60,10 @@ class OrdersRequestDetailViewController: UIViewController {
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
-    
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
     
     }
+    
     @IBAction func PhoneButtonTapped(_ sender: Any) {        
         if let PhoneNumberUrl = recipientPhoneLabel.text,let url = URL(string:"tel://"+PhoneNumberUrl) {
             //根据iOS系统版本，分别处理
@@ -78,6 +81,12 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         let transaction = sender.transaction
         print("Transaction tapped: \(transaction.displayString())")
+        
+        if transaction == .allowRating {
+            performSegue(withIdentifier: postRateSegue, sender: nil)
+            return
+        }
+        
         let tripId = trip.id
         let requestId = request.id
         let requestCategory = category
@@ -136,10 +145,17 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == toShipperViewSegue {
-            //if let shipperInfoVC = segue.destination as? ShipperInfoViewController{
-                
-            //}
+        if segue.identifier == postRateSegue, let viewController = segue.destination as? OrderCommentRateController {
+            viewController.category = category
+            if category == .carrier {
+                viewController.commenteeId = request.ownerId
+                viewController.commenteeRealName = request.ownerRealName ?? request.ownerUsername
+                viewController.commenteeImage = request.ownerImageUrl
+            } else {
+                viewController.commenteeId = trip.carrierId
+                viewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
+                viewController.commenteeImage = trip.carrierImageUrl
+            }
         }
     }
     
@@ -197,7 +213,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             switch status {
             case .waiting:
                 buttonsToShow = .twoButtons
-            case .accepted, .delivered, .paid, .inDelivery: //.pendingRefund,
+            case .accepted, .delivered, .paid, .inDelivery, .deliveryConfirmed: //.pendingRefund,
                 buttonsToShow = .oneButton
             default:
                 buttonsToShow = .noButtons
@@ -215,8 +231,8 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
 //                finishButton.transaction = .carrierReceive
             case .inDelivery:
                 finishButton.transaction = .carrierShip
-            case .delivered:
-                finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+            case .delivered, .deliveryConfirmed:
+                finishButton.transaction = .allowRating
             default:
                 break
             }
@@ -242,7 +258,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             case .delivered:
                 finishButton.transaction = .shipperConfirm
             case .deliveryConfirmed:
-                finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+                finishButton.transaction = .allowRating
             default:
                 break
             }

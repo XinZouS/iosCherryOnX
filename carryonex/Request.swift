@@ -10,8 +10,6 @@ import Unbox
 
 class Request: Unboxable, Identifiable {
     var id: Int = 0
-    var ownerId: Int?
-    var ownerUsername: String?
     var tripId: Int = -1
     var priceBySender: Int
     var totalValue: Int
@@ -27,16 +25,18 @@ class Request: Unboxable, Identifiable {
     var priceStd: Int?
     var currency: String?
     var createdTimestamp: Int
-    //var items: [String]? TODO: do we still need this?? BUG: Expected element type
     var images: [RequestImage] = []
-    var ownerRating: Double = 0
+    
+    let ownerId: Int
+    let ownerUsername: String
+    let ownerRating: Double
     var ownerImageUrl: String?
     var ownerRealName: String?
 
     required init(unboxer: Unboxer) throws {
         self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
-        self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
-        self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
+        self.ownerId = try unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
+        self.ownerUsername = try unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
         self.priceBySender = try unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
         self.totalValue = try unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
@@ -53,8 +53,7 @@ class Request: Unboxable, Identifiable {
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
         self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         
-        //self.items = [String]? TODO = do we still need this?? BUG: Expected element type
-        self.ownerRating = (try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)) ?? 0
+        self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
     }
@@ -64,8 +63,8 @@ class Request: Unboxable, Identifiable {
         id = \(id)
         totalValue = \(totalValue)
         price = \(priceBySender)
-        ownerId = \(ownerId ?? 0)
-        ownerUsername = \(ownerUsername ?? "")
+        ownerId = \(ownerId)
+        ownerUsername = \(ownerUsername)
         tripId = \(tripId),
         description = \(description ?? "")"
         endAddress = \(endAddress?.descriptionString() ?? "")
@@ -303,6 +302,7 @@ enum RequestAction: Int {
  */
 enum RequestTransaction {
     case invalid
+    case allowRating
     
     case carrierReject
     case carrierAccept
@@ -338,6 +338,8 @@ enum RequestTransaction {
             return "订单付款"
         case .shipperConfirm:
             return "确认送达"
+        case .allowRating:
+            return "给与评价"
         default:
             return "错误行动"
         }
@@ -365,6 +367,8 @@ enum RequestTransaction {
             return "确认订单付款？"
         case .shipperConfirm:
             return "确认确认送达？"
+        case .allowRating:
+            return "确认给与评价?"
         default:
             return "出现错误"
         }
