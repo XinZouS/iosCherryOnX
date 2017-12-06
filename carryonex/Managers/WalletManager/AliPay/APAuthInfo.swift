@@ -29,7 +29,7 @@ class APAuthInfo: NSObject {
          self.targetID = targetID
     }
     
-    func packageString() -> String? {
+    func descriptionString() -> String? {
         if appID.count != 16 || pid.count != 16 {
             return nil
         }
@@ -47,20 +47,6 @@ class APAuthInfo: NSObject {
             "auth_type": authType
         ]
         
-        var tmpArray = [String]()
-        let sortedKeyArray = tmpDict.keys.sorted()
-        for key in sortedKeyArray {
-            if let value = tmpDict[key], let orderItem = itemWithKey(key: key, value: value), orderItem.count > 0 {
-                tmpArray.append(orderItem)
-            }
-        }
-        return tmpArray.joined(separator: "&")
-    }
-    
-    private func itemWithKey(key: String, value: String) -> String? {
-        if key.count > 0 && value.count > 0 {
-            return "\(key)=\(value)"
-        }
-        return nil
+        return APUtilities.componentString(data: tmpDict, encoded: false)
     }
 }

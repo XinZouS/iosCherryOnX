@@ -11,6 +11,7 @@
 		066F824C1FBF826000269934 /* UserComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066F824B1FBF826000269934 /* UserComments.swift */; };
 		06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */; };
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
+		4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0472F11FD77F3600A4EA6C /* APUtilities.swift */; };
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
 		4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */; };
 		4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */; };
@@ -323,6 +324,7 @@
 		06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListEmptyCell.swift; sourceTree = "<group>"; };
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
+		4D0472F11FD77F3600A4EA6C /* APUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APUtilities.swift; sourceTree = "<group>"; };
 		4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardCell.swift; sourceTree = "<group>"; };
 		4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrderDataStore.swift; sourceTree = "<group>"; };
 		4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerChecker.swift; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 				4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */,
 				4D7932A51FD689040081BBE2 /* APOrderInfo.swift */,
 				4D7932A71FD689920081BBE2 /* APBizContent.swift */,
+				4D0472F11FD77F3600A4EA6C /* APUtilities.swift */,
 			);
 			path = AliPay;
 			sourceTree = "<group>";
@@ -2055,6 +2058,7 @@
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
+				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
