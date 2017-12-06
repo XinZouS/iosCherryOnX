@@ -183,9 +183,9 @@ class OrdersRequestDetailViewController: UIViewController {
         itemValueLabel.text = "$" + request.itemValue()
         itemMessageTextView.text = request.note
         if let urlString = request.ownerImageUrl, let imgUrl = URL(string: urlString){
-            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         }else{
-            senderImageButton.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+            senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()

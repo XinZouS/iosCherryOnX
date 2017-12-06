@@ -98,7 +98,7 @@ class ItemListYouxiangInputController: UIViewController {
         isLoading = true
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
-            let t = "⚠️获取失败"
+            let t = "查询失败"
             if let err = error, getTrip == nil {
                 let m = "您搜索的邮箱号不存在，或已被出行人关闭"
                 self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
