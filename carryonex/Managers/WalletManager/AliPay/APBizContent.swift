@@ -16,7 +16,7 @@ class APBizContent: NSObject {
     let sellerId: String
     var productCode: String = "QUICK_MSECURITY_PAY"
     var body: String?
-    var timeoutExpress: String?
+    var timeoutExpress: String = "30m"
     
     init(subject: String, outTradeNo: String, totalAmount: String, sellerId: String) {
         self.subject = subject
@@ -25,7 +25,7 @@ class APBizContent: NSObject {
         self.sellerId = sellerId
     }
     
-    func packageString() -> String? {
+    func descriptionString() -> String? {
         var tmpDict: [String:String] = [
             "subject": subject,
             "out_trade_no": outTradeNo,
@@ -38,9 +38,7 @@ class APBizContent: NSObject {
             tmpDict["body"] = body
         }
         
-        if let timeoutExpress = timeoutExpress, !timeoutExpress.isEmpty {
-            tmpDict["timeout_express"] = timeoutExpress
-        }
+        tmpDict["timeout_express"] = timeoutExpress
         
         let tmpData = try! JSONSerialization.data(withJSONObject: tmpDict, options: .prettyPrinted)
         let tmpStr = String.init(data: tmpData, encoding: .utf8)

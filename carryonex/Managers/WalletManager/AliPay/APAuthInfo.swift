@@ -42,7 +42,7 @@ class APAuthInfo: NSObject {
             "app_name": "mc",
             "biz_type": "openservice",
             "product_id": "APP_FAST_LOGIN",
-            "scope": "scope",
+            "scope": "kuaijie",
             "target_id": targetID,
             "auth_type": authType
         ]

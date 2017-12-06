@@ -8,6 +8,9 @@
 
 import Foundation
 
+let aliPid = "2088821540881344"
+let aliAppId = "2017111409922946"
+
 class APUtilities {
     
     static func componentString(data: [String: String], encoded: Bool) -> String {
@@ -39,5 +42,11 @@ class APUtilities {
             encodedValue = value.addingPercentEncoding(withAllowedCharacters: charset)!
         }
         return encodedValue
+    }
+    
+    static func nowTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: Date())
     }
 }

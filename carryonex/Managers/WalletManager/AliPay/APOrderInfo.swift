@@ -13,7 +13,6 @@ class APOrderInfo: NSObject {
     let appId: String
     let method: String
     let charset: String
-    let timestamp: String
     let version: String
     let bizContentDesc: String
     let signType: String
@@ -23,12 +22,11 @@ class APOrderInfo: NSObject {
     var notifyUrl: String?
     var appAuthToken: String?
     
-    init(appId: String, method: String = "alipay.trade.app.pay", charset: String = "utf-8", timestamp: String,
-         version: String = "1.0", bizContentDesc: String, signType: String = "RSA") {
+    init(appId: String, method: String = "alipay.trade.app.pay", charset: String = "utf-8",
+         version: String = "1.0", bizContentDesc: String, signType: String = "RSA2") {
         self.appId = appId
         self.method = method
         self.charset = charset
-        self.timestamp = timestamp
         self.version = version
         self.bizContentDesc = bizContentDesc
         self.signType = signType
@@ -39,7 +37,7 @@ class APOrderInfo: NSObject {
             "app_id": appId,
             "method": method,
             "charset": charset,
-            "timestamp": timestamp,
+            "timestamp": APUtilities.nowTimestamp(),
             "version" : version,
             "biz_content": bizContentDesc,
             "sign_type": signType
