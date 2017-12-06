@@ -19,11 +19,25 @@ class AlipayCashExtract: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     
     @IBAction func extractValueButtonTapped(_ sender: Any) {
+        cashExtract = cashAvailable
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         // TODO: doneButtonTapped;
     }
+    
+    
+    var cashExtract: Double = 0.0 {
+        didSet{
+            cashExtractTextField.text = String(format: "%.2f", cashAvailable)
+        }
+    }
+    var cashAvailable: Double = 0.0 {
+        didSet{
+            cashAvailableLabel.text = "可提现金额：" + String(format: "%.2f", cashAvailable)
+        }
+    }
+    
     
     enum TextFieldTag: Int {
         case aliAccount = 0
@@ -38,6 +52,7 @@ class AlipayCashExtract: UIViewController {
         setupUnderlines()
         setupTextFields()
         cashExtractTextField.becomeFirstResponder()
+        getCashAvailableFromServer()
     }
     
     private func setupUnderlines(){
@@ -52,6 +67,15 @@ class AlipayCashExtract: UIViewController {
         let line3: CGFloat = 246
         containerView.drawStroke(startPoint: CGPoint(x: 0, y: line3), endPoint: CGPoint(x: w, y: line3), color: gray, lineWidth: h)
     }
+    
+    private func getCashAvailableFromServer(){
+        // TODO: get real value from server:
+        var input: Double = 233.6666666
+        //ApiServers.shared.getUserAccountCashValue()
+        cashAvailable = input.roundUp2Decimal()
+        
+    }
+
     
     private func setupTextFields(){
         textFieldAddToolBar(alipayAccountTextField, tag: .aliAccount)
@@ -89,7 +113,7 @@ class AlipayCashExtract: UIViewController {
     }
     
     func textFieldCancelButtonTapped(_ textField: UITextField){
-        ///BUG TODO: this doesn't work...why??? - Xin
+        ///BUG TODO: this doesn't work...why??? It also doesn't work in DoneButtonTapped(textField)  - Xin
 //        print("get cancel on txFd.tag = \(textField.tag)")
 //        switch textField.tag {
 //        case TextFieldTag.aliAccount.rawValue:
@@ -112,10 +136,23 @@ class AlipayCashExtract: UIViewController {
 extension AlipayCashExtract: UITextFieldDelegate {
     
     public func textFieldDidChange(_ textField: UITextField) {
-        //
+        // check for extractValue <= cashAvailable:
+        guard textField == cashExtractTextField else { return }
+        let v: Double = Double(textField.text ?? "0.0") ?? 0.0
+        let isAvailable = cashAvailable >= v && v >= 0.00
+        if !isAvailable {
+            textField.text = String(format: "%.2f", cashAvailable)
+        }
     }
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // check for backspace key
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if (isBackSpace == -92) {
+                return true
+            }
+        }
         // check for decimal 6.66:
         guard textField == cashExtractTextField else {
             return true
@@ -126,7 +163,7 @@ extension AlipayCashExtract: UITextFieldDelegate {
         let reportProgress = NSRegularExpression.MatchingOptions.reportProgress
         let regex = try! NSRegularExpression(pattern: expression, options: allowCommentAndWitespace)
         let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
-        
+
         return numberOfMatches != 0
     }
     
@@ -154,3 +191,5 @@ extension AlipayCashExtract: UITextFieldDelegate {
     }
     
 }
+
+

@@ -152,6 +152,7 @@
 		66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */; };
 		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
 		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
+		66A142E11FD870C00067EBDA /* Double++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142E01FD870C00067EBDA /* Double++.swift */; };
 		66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF11F3A5F8100B32AD3 /* UIView++.swift */; };
 		66A16AF41F3B56B500B32AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF31F3B56B500B32AD3 /* User.swift */; };
 		66A16AF81F3B6B2E00B32AD3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF71F3B6B2E00B32AD3 /* Trip.swift */; };
@@ -472,6 +473,7 @@
 		66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomerServersController++.swift"; sourceTree = "<group>"; };
 		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
 		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
+		66A142E01FD870C00067EBDA /* Double++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double++.swift"; sourceTree = "<group>"; };
 		66A16AF11F3A5F8100B32AD3 /* UIView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
 		66A16AF31F3B56B500B32AD3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66A16AF71F3B6B2E00B32AD3 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -1108,6 +1110,7 @@
 				66F065C21FC88D280072A42D /* UIImage++.swift */,
 				664C5F2C1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift */,
 				66D9A2511F81E0D5007216A5 /* Date++.swift */,
+				66A142E01FD870C00067EBDA /* Double++.swift */,
 				664C5F2E1F6C34DC00FE55FE /* String++.swift */,
 				66A16AFD1F3BA82000B32AD3 /* PageContainer.swift */,
 				660704DF1F3CBD42000C09FD /* SideMenuUserInfoView.swift */,
@@ -1952,6 +1955,7 @@
 				E5ECF9B71F97E5EE00FB0F25 /* ProfileUser.swift in Sources */,
 				66099F4D1F588FB100B12E21 /* AddressSearchController.swift in Sources */,
 				66DA06D01F5F05B3002C8442 /* OrdersLogController++.swift in Sources */,
+				66A142E11FD870C00067EBDA /* Double++.swift in Sources */,
 				66AC944E1F4E076900967693 /* UIPickerMenuView.swift in Sources */,
 				FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */,
 				664C5F2F1F6C34DC00FE55FE /* String++.swift in Sources */,
