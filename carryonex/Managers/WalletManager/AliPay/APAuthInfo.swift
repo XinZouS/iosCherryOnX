@@ -54,7 +54,6 @@ class APAuthInfo: NSObject {
                 tmpArray.append(orderItem)
             }
         }
-        
         return tmpArray.joined(separator: "&")
     }
     
