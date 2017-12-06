@@ -12,6 +12,8 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
+    private let pullPageCount = 4
+    
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
     
@@ -50,12 +52,27 @@ class TripOrderDataStore: NSObject {
         return targetRequests[requestId]
     }
     
+    func pullNextPage(category: TripCategory, completion:(() -> Void)?) {
+        let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
+        let offset = targetTrips.count
+        let pageCount = pullPageCount
+        let lastFetchTime = -1
+        
+        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
+    }
+    
     func pull(category: TripCategory, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
-        let pageCount = (targetTrips.count == 0) ? 10 : targetTrips.count   //first pull 10 items
+        let offset = 0
+        let pageCount = (targetTrips.count == 0) ? pullPageCount : targetTrips.count   //first pull 10 items
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
         
-        ApiServers.shared.getUsersTrips(userType: category, offset: 0, pageCount: pageCount, sinceTime: lastFetchTime) { (tripOrders, error) in
+        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
+    }
+    
+    private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, completion:(() -> Void)?) {
+        
+        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
@@ -67,7 +84,7 @@ class TripOrderDataStore: NSObject {
                 //Only notify update when there are actual substantial update.
                 NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
             } else {
-                print("No new update since: \(lastFetchTime)")
+                print("No new update since: \(sinceTime)")
             }
             
             if category == .carrier {
