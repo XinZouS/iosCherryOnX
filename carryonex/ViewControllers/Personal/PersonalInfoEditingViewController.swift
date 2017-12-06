@@ -148,7 +148,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                     })
                 }else{
                     let errMsg = "资料保存失败:请输入正确的电子邮箱格式"
-                    displayGlobalAlert(title: "保存失败", message: errMsg, action: "好的", completion: {
+                    displayGlobalAlert(title: "资料保存失败", message: errMsg, action: "好的", completion: {
                         if let childVC = self.childViewControllers.first as? PersonalTable {
                             childVC.emailTextField.becomeFirstResponder()
                         }
