@@ -173,7 +173,7 @@ class PhoneValidationViewController: UIViewController {
     }
 
     private func verifyFaildAlert(_ msg: String?){
-        let errMsg = "抱歉验证遇到问题，是不是验证码没填对？或请稍后重新发送新的验证码。错误原因:" + (msg ?? "验证失败")
+        let errMsg = "您的短信验证码有误，请重新获取验证码"
         print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
 
         displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
