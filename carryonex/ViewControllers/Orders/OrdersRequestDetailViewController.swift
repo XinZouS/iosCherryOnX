@@ -205,6 +205,7 @@ class OrdersRequestDetailViewController: UIViewController {
         recipientAddressLabel.text = request.endAddress?.detailedAddress
         itemValueLabel.text = "$" + request.itemValue()
         itemMessageTextView.text = request.note
+        
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()

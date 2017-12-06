@@ -120,9 +120,9 @@ extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
             cell.userNameLabel.text = commentDict?.comments[indexPath.row].realName
             
             if let imageUrl = commentDict?.comments[indexPath.row].imageUrl,let url = URL(string:imageUrl){
-                cell.userButton.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+                cell.userButton.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             } else {
-                cell.userButton.setImage(#imageLiteral(resourceName: "CarryonEx_User"), for: .normal)
+                cell.userButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }
             
             if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
