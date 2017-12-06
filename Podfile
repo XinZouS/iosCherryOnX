@@ -13,7 +13,7 @@ target 'carryonex' do
   pod 'Unbox', '2.5.0'
   pod 'Alamofire', '4.5.1'
   pod 'AlamofireImage'
-  pod 'M13Checkbox', '3.2.1'
+  pod 'M13Checkbox', '3.1.1'
   pod 'SMSSDK', '3.0.1'
   pod 'FSCalendar', '2.7.9'
   pod 'paper-onboarding', '2.0.1'

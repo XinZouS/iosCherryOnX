@@ -79,7 +79,7 @@ protocol PhoneNumberDelegate: class {
 }
 
 enum Payment {
-    case applePay, paypal, creditCard, wechatPay
+    case alipay, applePay, paypal, creditCard, wechatPay
 }
 
 protocol ZipcodeCellDelegate: class {

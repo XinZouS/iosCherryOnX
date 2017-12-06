@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import JXPhotoBrowser
+import M13Checkbox
 
 class OrdersRequestDetailViewController: UIViewController {
     
@@ -44,6 +45,17 @@ class OrdersRequestDetailViewController: UIViewController {
     // done buttons
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
+    
+    // payment menu at bottom of view
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var paymentMenuTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var paymentMenuView: UIView!
+    @IBOutlet weak var checkboxAlipay: UIView!
+    @IBOutlet weak var checkboxWechatPay: UIView!
+    @IBOutlet weak var gotoPaymentButton: RequestTransactionButton!
+    var checkAlipay: M13Checkbox?
+    var checkWechat: M13Checkbox?
+    
     
     let toShipperViewSegue = "toOtherShipperView"
     let postRateSegue = "PostRateSegue"
@@ -86,6 +98,10 @@ class OrdersRequestDetailViewController: UIViewController {
             performSegue(withIdentifier: postRateSegue, sender: nil)
             return
         }
+        if transaction == .shipperPay, paymentMenuTopConstraint.constant <= 0 {
+            paymentMenuAnimateShowHide()
+            return
+        }
         
         let tripId = trip.id
         let requestId = request.id
@@ -111,11 +127,18 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    
     // MARK: - Data models
     var trip: Trip = Trip()
     
     var request: Request!
     var category: TripCategory = .carrier
+    
+    var paymentType: Payment = .alipay {
+        didSet{
+            paymentTypeDidChanged()
+        }
+    }
     
     var buttonsToShow: OrderButtonToShow = .noButtons {
         didSet {
@@ -142,6 +165,7 @@ class OrdersRequestDetailViewController: UIViewController {
         setupScrollView()
         setupView()
         setupCollectionView()
+        setupPaymentMenuView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -159,6 +183,32 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    private func setupPaymentMenuView(){
+        let sz: CGFloat = 30.0
+        checkAlipay = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: sz, height: sz))
+        checkWechat = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: sz, height: sz))
+        setupPaymentCheckbox(checkAlipay!)
+        setupPaymentCheckbox(checkWechat!)
+        paymentType = .alipay
+        checkboxAlipay.addSubview(checkAlipay!)
+        checkboxWechatPay.addSubview(checkWechat!)
+        
+        let tapRgr = UITapGestureRecognizer(target: self, action: #selector(backgroundViewHide))
+        backgroundView.isHidden = true
+        backgroundView.isUserInteractionEnabled = true
+        backgroundView.addGestureRecognizer(tapRgr)
+        gotoPaymentButton.transaction = .shipperPay
+    }
+    private func setupPaymentCheckbox(_ b: M13Checkbox){
+        b.markType = .checkmark
+        b.boxType = .circle
+        b.checkmarkLineWidth = 4
+        b.boxLineWidth = 2
+        b.tintColor = UIColor.green // selected
+        b.secondaryTintColor = UIColor.lightGray // unselected
+        b.borderColor = UIColor.lightGray
+    }
+
     private func setupCollectionView(){
         phontobrowser.register(PhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId)
     }
@@ -167,6 +217,7 @@ class OrdersRequestDetailViewController: UIViewController {
         scrollView.delegate = self
         scrollView.isDirectionalLockEnabled = true
         scrollView.alwaysBounceVertical = true
+        scrollView.isScrollEnabled = (UIDevice.current.userInterfaceIdiom == .phone)
     }
     private func setupView() {
         updateRequestInfoAppearance(request: request)
@@ -205,6 +256,55 @@ class OrdersRequestDetailViewController: UIViewController {
             setupView()
         }
     }
+    
+    private func paymentMenuAnimateShowHide(){
+        let toShow: Bool = paymentMenuTopConstraint.constant <= 0
+        let offset: CGFloat = toShow ? paymentMenuView.bounds.height : -50
+        paymentMenuTopConstraint.constant = offset
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        if offset > 0 {
+            backgroundView.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.backgroundView.alpha = 1
+            }, completion: nil)
+        }
+    }
+    
+    public func backgroundViewHide(){
+        paymentMenuAnimateShowHide()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.backgroundView.alpha = 0
+        }) { (complete) in
+            if complete {
+                self.backgroundView.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func checkboxValueChanged(_ sender: Any){
+        switch paymentType {
+        case .alipay:
+            paymentType = .wechatPay
+            
+        case .wechatPay:
+            paymentType = .alipay
+            
+        default:
+            paymentType = .alipay
+        }
+    }
+    
+    private func paymentTypeDidChanged(){
+        let aliState:    M13Checkbox.CheckState = (paymentType == .alipay)    ? .checked : .unchecked
+        let wechatState: M13Checkbox.CheckState = (paymentType == .wechatPay) ? .checked : .unchecked
+        checkAlipay?.setCheckState(aliState, animated: true)
+        checkWechat?.setCheckState(wechatState, animated: true)
+    }
+
+
 }
 
 extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
