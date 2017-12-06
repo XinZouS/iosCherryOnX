@@ -951,23 +951,9 @@ class ApiServers : NSObject {
             }
             
             if let code = response[ServerKey.statusCode.rawValue] as? Int {
-                if code == 200 {
+                if code == 200 && response[ServerKey.data.rawValue] != nil {
                     print("Code 200, update successful")
-                    if let data = response[ServerKey.data.rawValue] as? [String: Any] {
-                        do {
-                            let request: Request = try unbox(dictionary: data, atKey: "request")
-                            request.printAllData()
-                            completion(true, nil, request.statusId)
-                            
-                        } catch let error {
-                            completion(false, error, nil)
-                            debugPrint("Get error when postRequest update. Error = \(error.localizedDescription)")
-                        }
-                        
-                    } else {
-                        debugPrint("Transmission successful but missing data...")
-                        completion(true, nil, nil)
-                    }
+                    completion(true, nil, requestId)
                     
                 } else {
                     if let data = response[ServerKey.data.rawValue] as? [String: Any], let statusCode = data[RequestKeyInDB.status.rawValue] as? Int {
