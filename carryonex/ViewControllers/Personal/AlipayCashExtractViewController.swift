@@ -63,12 +63,7 @@ class AlipayCashExtract: UIViewController {
         let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
         let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let decimal = UIBarButtonItem(title: "[小数点 . ]", style: .plain, target: self, action: #selector(decimalButtonTapped))
-//        if textField == cashExtractTextField {
-//            bar.setItems([cancelBtn, spaceBtn, decimal, doneBtn], animated: false)
-//        } else {
-            bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
-//        }
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
         bar.isUserInteractionEnabled = true
         bar.sizeToFit()
         
@@ -110,6 +105,9 @@ extension AlipayCashExtract: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // check for decimal 6.66:
+        guard textField == cashExtractTextField else {
+            return true
+        }
         let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
         let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
