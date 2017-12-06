@@ -16,6 +16,15 @@ import BPCircleActivityIndicator
 
 class SenderDetailViewController: UIViewController {
     
+    lazy var flagPicker: UIPickerView = {
+        let p = UIPickerView()
+        p.backgroundColor = pickerColorLightGray
+        p.dataSource = self
+        p.delegate = self
+        p.isHidden = false
+        return p
+    }()
+    var zoneCodeInput = "1"
     @IBOutlet weak var scrollView: UIScrollView!
     // master info card
     @IBOutlet weak var shiperInfoCardView: UIView!
@@ -47,6 +56,7 @@ class SenderDetailViewController: UIViewController {
     // DONE!
     @IBOutlet weak var submitButton: UIButton!
 
+    @IBOutlet weak var countryCodeButton: UIButton!
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
@@ -162,6 +172,13 @@ class SenderDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSubmitButtonStatus()
+        setupFlagPicker()
+    }
+    
+    private func setupFlagPicker(){
+        view.addSubview(flagPicker)
+        flagPicker.isHidden = true
+        flagPicker.addConstraints(left: scrollView.leftAnchor, top: nil, right: scrollView.rightAnchor, bottom: scrollView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 150)
     }
     
     private func setupCardView(){
@@ -337,7 +354,7 @@ class SenderDetailViewController: UIViewController {
                 let totalValue = Double(self.priceValue)
                 let cost = self.priceFinal
                 address.recipientName = name
-                address.phoneNumber = phone
+                address.phoneNumber = self.zoneCodeInput+phone
                 address.detailedAddress = destAddressStr
 
                 ApiServers.shared.postRequest(totalValue: totalValue,
@@ -631,6 +648,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        flagPicker.isHidden = true
         if textField.tag == textFieldTag.price.rawValue {
             //scrollViewAnimateToBottom()
             priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
@@ -772,5 +790,31 @@ class ItemImageCollectionCell: UICollectionViewCell {
     
     private func removeLocalImageInCollectionView(){
         parentVC?.removeImagePairOfName(imgName: imageFileName)
+    }
+}
+// MARK: pickerView delegate
+extension SenderDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBAction func countryCodeTapped(_ sender: Any) {
+        openFlagPicker()
+    }
+    
+    func openFlagPicker(){
+        flagPicker.isHidden = !flagPicker.isHidden
+        // will hide when begin to set phoneNum
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return flagsTitle.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return flagsTitle[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        zoneCodeInput = codeOfFlag[flagsTitle[row]]!
+        countryCodeButton.setTitle("+" + zoneCodeInput, for: .normal)
     }
 }
