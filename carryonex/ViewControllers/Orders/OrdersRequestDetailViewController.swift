@@ -204,7 +204,7 @@ class OrdersRequestDetailViewController: UIViewController {
         b.boxType = .circle
         b.checkmarkLineWidth = 4
         b.boxLineWidth = 2
-        b.tintColor = UIColor.green // selected
+        b.tintColor = colorCheckmarkGreen // selected
         b.secondaryTintColor = UIColor.lightGray // unselected
         b.borderColor = UIColor.lightGray
     }
