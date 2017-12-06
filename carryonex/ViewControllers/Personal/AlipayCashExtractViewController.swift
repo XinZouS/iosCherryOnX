@@ -64,11 +64,11 @@ class AlipayCashExtract: UIViewController {
         let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let decimal = UIBarButtonItem(title: "[小数点 . ]", style: .plain, target: self, action: #selector(decimalButtonTapped))
-        if textField == cashExtractTextField {
-            bar.setItems([cancelBtn, spaceBtn, decimal, doneBtn], animated: false)
-        } else {
+//        if textField == cashExtractTextField {
+//            bar.setItems([cancelBtn, spaceBtn, decimal, doneBtn], animated: false)
+//        } else {
             bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
-        }
+//        }
         bar.isUserInteractionEnabled = true
         bar.sizeToFit()
         
