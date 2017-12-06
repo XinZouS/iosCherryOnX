@@ -14,7 +14,7 @@ import AWSS3
 import ALCameraViewController
 import BPCircleActivityIndicator
 
-class SenderDetailViewController: UIViewController {
+class SenderDetailViewController: UIViewController{
     
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
@@ -25,6 +25,8 @@ class SenderDetailViewController: UIViewController {
         return p
     }()
     var zoneCodeInput = "1"
+    
+    @IBOutlet weak var countryCodeTextField: UITextField! //5
     @IBOutlet weak var scrollView: UIScrollView!
     // master info card
     @IBOutlet weak var shiperInfoCardView: UIView!
@@ -89,8 +91,6 @@ class SenderDetailViewController: UIViewController {
     var priceParamA: Double = 1
     var priceParamB: Double = 1
     
-
-    
     // MARK: - model properties
     
     var trip: Trip?
@@ -131,6 +131,7 @@ class SenderDetailViewController: UIViewController {
         case address = 2
         case message = 3
         case price = 4
+        case countryCode = 5
     }
     
     var keyboardHeight: CGFloat = 160
@@ -172,13 +173,7 @@ class SenderDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSubmitButtonStatus()
-        setupFlagPicker()
-    }
-    
-    private func setupFlagPicker(){
-        view.addSubview(flagPicker)
-        flagPicker.isHidden = true
-        flagPicker.addConstraints(left: scrollView.leftAnchor, top: nil, right: scrollView.rightAnchor, bottom: scrollView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 150)
+        setupCountryCodeTextField()
     }
     
     private func setupCardView(){
@@ -228,6 +223,7 @@ class SenderDetailViewController: UIViewController {
         textFieldAddToolBar(addressTextField, nil)
         textFieldAddToolBar(nil, messageTextView)
         textFieldAddToolBar(priceValueTextField, nil)
+        textFieldAddToolBar(countryCodeTextField,nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -243,6 +239,14 @@ class SenderDetailViewController: UIViewController {
         let droplet = #imageLiteral(resourceName: "droplet-png").scaleTo(newSize: CGSize(width: 20, height: 20))
         priceSlider.setThumbImage(droplet, for: .normal)
         priceSlider.setThumbImage(droplet, for: .highlighted)
+    }
+    
+    private func setupCountryCodeTextField(){
+        countryCodeTextField.inputView = flagPicker
+    }
+    
+    @IBAction func CountryCodeTapped(_ sender: Any) {
+
     }
     
     private func setupMasterCardInfo(){
@@ -648,7 +652,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        flagPicker.isHidden = true
         if textField.tag == textFieldTag.price.rawValue {
             //scrollViewAnimateToBottom()
             priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
@@ -694,9 +697,11 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDoneButtonTapped(){
+        countryCodeTextField.resignFirstResponder()
         keyboardDismiss()
     }
     func textFieldCancelButtonTapped(){
+        countryCodeTextField.resignFirstResponder()
         keyboardDismiss()
     }
     
@@ -783,7 +788,6 @@ class ItemImageCollectionCell: UICollectionViewCell {
         removeLocalImageWithFileName()
         removeLocalImageInCollectionView()
     }
-    
     private func removeLocalImageWithFileName(){
         parentVC?.removeImageWithUrlInLocalFileDirectory(fileName: imageFileName)
     }
@@ -793,16 +797,7 @@ class ItemImageCollectionCell: UICollectionViewCell {
     }
 }
 // MARK: pickerView delegate
-extension SenderDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    @IBAction func countryCodeTapped(_ sender: Any) {
-        openFlagPicker()
-    }
-    
-    func openFlagPicker(){
-        flagPicker.isHidden = !flagPicker.isHidden
-        // will hide when begin to set phoneNum
-    }
+extension SenderDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -814,7 +809,9 @@ extension SenderDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
         return flagsTitle[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        zoneCodeInput = codeOfFlag[flagsTitle[row]]!
-        countryCodeButton.setTitle("+" + zoneCodeInput, for: .normal)
+        if let zoneCode = codeOfFlag[flagsTitle[row]],let zoneFlag = Flag[flagsTitle[row]]{
+            zoneCodeInput = zoneCode
+            countryCodeTextField.text = zoneFlag
+        }
     }
 }
