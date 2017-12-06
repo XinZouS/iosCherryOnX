@@ -848,7 +848,7 @@ class ApiServers : NSObject {
             RequestKeyInDB.tripId.rawValue: trip.id,
             RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
             RequestKeyInDB.priceBySender.rawValue: Int(cost * 100),
-            RequestKeyInDB.description.rawValue: description
+            RequestKeyInDB.note.rawValue: description
         ]
         
         if imageUrls.count > 0 {
