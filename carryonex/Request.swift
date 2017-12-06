@@ -214,11 +214,11 @@ enum RequestStatus: Int {
     case accepted = 23
     case cancelled = 24
     case paid = 25
-    case pendingRefund = 26
+    //case pendingRefund = 26
     case inDelivery = 27
     case delivered = 28
     case deliveryConfirmed = 29
-    case refundCompleted = 30
+//    case refundCompleted = 30
     
     func displayString() -> String {
         switch self {
@@ -232,16 +232,16 @@ enum RequestStatus: Int {
             return "已取消"
         case .paid:
             return "已付款"
-        case .pendingRefund:
-            return "等待退款"
+//        case .pendingRefund:
+//            return "等待退款"
         case .inDelivery:
             return "正在送递"
         case .delivered:
             return "已送抵"
         case .deliveryConfirmed:
             return "已确认送抵"
-        case .refundCompleted:
-            return "退款完成"
+//        case .refundCompleted:
+//            return "退款完成"
         case .invalid:
             return "状态无效"
         case .badId:
@@ -257,11 +257,11 @@ enum RequestStatus: Int {
             return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .accepted:
             return category == .carrier ? UIColor.carryon_passiveStatus : UIColor.carryon_aciveStatus
-        case .pendingRefund:
-            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
+//        case .pendingRefund:
+//            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .delivered:
             return category == .carrier ? UIColor.carryon_normalStatus : UIColor.carryon_aciveStatus
-        case .paid, .inDelivery, .initiate, .deliveryConfirmed, .refundCompleted:
+        case .paid, .inDelivery, .initiate, .deliveryConfirmed:  //.refundCompleted
             return UIColor.carryon_normalStatus
         case .rejected, .cancelled, .invalid, .badId:
             return UIColor.carryon_endedStatus
@@ -307,7 +307,6 @@ enum RequestTransaction {
     case carrierReject
     case carrierAccept
     case carrierCancel
-    case carrierRefund
     case carrierReceive
     case carrierDeliver
     case carrierShip
@@ -325,8 +324,6 @@ enum RequestTransaction {
             return "接受订单"
         case .carrierCancel:
             return "取消订单"
-        case .carrierRefund:
-            return "订单退款"
         case .carrierReceive:
             return "接收物品"
         case .carrierDeliver:
@@ -354,8 +351,6 @@ enum RequestTransaction {
             return "确认接受订单？"
         case .carrierCancel:
             return "确认取消订单？"
-        case .carrierRefund:
-            return "确认订单退款？"
         case .carrierReceive:
             return "确认接收物品？"
         case .carrierDeliver:
@@ -391,8 +386,6 @@ enum RequestTransaction {
             return (.accept, .carrier)
         case .carrierCancel:
             return (.cancel, .carrier)
-        case .carrierRefund:
-            return (.refund, .carrier)
         case .carrierReceive:
             return (.receive, .carrier)
         case .carrierDeliver:
@@ -420,8 +413,6 @@ enum RequestTransaction {
             return (status == .waiting)
         case .carrierCancel:
             return (status == .accepted)
-        case .carrierRefund:
-            return (status == .paid || status == .inDelivery)
         case .carrierReceive:
             return (status == .paid)
         case .carrierDeliver:

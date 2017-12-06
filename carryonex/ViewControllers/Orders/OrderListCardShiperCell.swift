@@ -81,9 +81,9 @@ class OrderListCardShiperCell: OrderListCardCell {
     override func updateButtonAppearance(status: RequestStatus) {
         //Carrier
         switch status {
-        case .waiting, .paid, .pendingRefund, .inDelivery:
+        case .waiting:
             buttonsToShow = .twoButtons
-        case .accepted, .delivered:
+        case .accepted, .delivered, .paid, .inDelivery: //.pendingRefund
             buttonsToShow = .oneButton
         default:
             buttonsToShow = .noButtons
@@ -97,13 +97,10 @@ class OrderListCardShiperCell: OrderListCardCell {
             finishButton.transaction = .carrierCancel
         case .paid:
             finishButton.transaction = .carrierReceive
-            finishButton2.transaction = .carrierRefund
-        case .pendingRefund:
-            finishButton.transaction = .carrierRefund
-            finishButton2.transaction = .carrierDeliver  //TODO: ASK.
+//        case .pendingRefund:
+//            finishButton.transaction = .carrierDeliver
         case .inDelivery:
             finishButton.transaction = .carrierShip
-            finishButton2.transaction = .carrierRefund
         case .delivered:
             finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
         default:
