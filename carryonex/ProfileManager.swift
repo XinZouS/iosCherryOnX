@@ -25,7 +25,7 @@ class ProfileManager: NSObject {
     //MARK: - Variables
     
     static var shared = ProfileManager()
-    
+    private var currentTripOrderDataStore: TripOrderDataStore?
     private var currentUser: ProfileUser?
     var homeProfileInfo: HomeProfileInfo?
     
@@ -155,6 +155,7 @@ class ProfileManager: NSObject {
             debugLog("Remote logged out: \(success)")
         }
         self.currentUser = nil
+        self.currentTripOrderDataStore = nil
         deleteUserTokenFromKeychain()
         NotificationCenter.default.post(name: .UserLoggedOut, object: nil)
     }

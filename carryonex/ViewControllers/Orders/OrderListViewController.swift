@@ -84,9 +84,7 @@ class OrderListViewController: UIViewController {
         activityIndicator.center = view.center
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
-        
         reloadData()
-        
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
         }
@@ -149,18 +147,28 @@ class OrderListViewController: UIViewController {
     private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
-        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper)
-        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender)
+        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper,tag:0)
+        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender,tag:1)
     }
     
-    private func setupLoadMoreView(tableView:UITableView) ->UIView{
-        let view = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height,
+    private func setupLoadMoreView(tableView:UITableView,tag:Int) ->UIView{
+        let footView = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height,
                                         width:tableView.bounds.size.width, height: 150))
         let BlankNotice = UIImageView()
-        view.addSubview(BlankNotice)
-        BlankNotice.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        let hintLabel = UILabel()
+        footView.addSubview(BlankNotice)
+        BlankNotice.frame = CGRect(x:footView.center.x-50,y:footView.center.y-30,width:100,height:60)
         BlankNotice.image = #imageLiteral(resourceName: "EmptyOrder")
-        return view
+        footView.addSubview(hintLabel)
+        switch tag {
+        case 0:
+            hintLabel.text = "你还没有出行记录，快发布你的行程吧"
+        default:
+            hintLabel.text = "你还没有寄件记录，快寄送些东西吧"
+        }
+        hintLabel.addConstraints(left: nil, top: BlankNotice.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        hintLabel.centerXAnchor.constraint(equalTo: BlankNotice.centerXAnchor).isActive = true
+        return footView
     }
     
     private func setupSwipeGestureRecognizer(){
