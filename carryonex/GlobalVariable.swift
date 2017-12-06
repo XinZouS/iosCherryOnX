@@ -50,6 +50,7 @@ let colorOkgreen = #colorLiteral(red: 0.2061403394, green: 0.6508488059, blue: 0
 let colorErroRed = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
 let colorErrGray = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
 let colorTheamRed = #colorLiteral(red: 1, green: 0.4149920642, blue: 0.4057528675, alpha: 1)
+let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
 
 // wechat login judge
 var wxloginStatus :String = ""

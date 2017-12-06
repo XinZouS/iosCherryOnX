@@ -530,6 +530,7 @@
                         <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="dEb-S2-1P0"/>
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="683-ry-IDQ"/>
                         <segue destination="ZrK-lf-uQu" kind="show" identifier="toOtherShipperView" id="TNl-AZ-Tt0"/>
+                        <segue destination="qfU-8x-8ak" kind="show" identifier="PostRateSegue" id="vkC-Eo-on5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,6 +544,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1M-Q0-NNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="558" y="109"/>
+        </scene>
+        <!--PostRate-->
+        <scene sceneID="aiP-Dd-WRn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PostRate" id="qfU-8x-8ak" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LV8-OO-C1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="561" y="220"/>
         </scene>
     </scenes>
     <resources>

@@ -273,17 +273,18 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     }
     
     private func setupShareInformation(trip: Trip){
-        if let youxiangId = trip.tripCode,
-            let beginLocation = trip.startAddress?.fullAddressString(),
+        if let beginLocation = trip.startAddress?.fullAddressString(),
             let endLocation = trip.endAddress?.fullAddressString() {
             let dateMonth = trip.getMonthString()
             let dateDay = trip.getDayString()
-            let monthAnddayString = "\(dateMonth), \(dateDay)"
-            // sharing info:
-            let title = "我的游箱号:\(youxiangId)"
-            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
+            let monthAndDayString = "\(dateMonth), \(dateDay)"
+            
+        // sharing info:
+            let tripCode = trip.tripCode
+            let title = "我的游箱号:\(tripCode)"
+            let msg = "我的游箱号:\(tripCode) \n【\(monthAndDayString)】 \n【\(beginLocation)-\(endLocation)】"
             let url = "www.carryonex.com" // TODO: change this for link to appstore or inside app page;
-            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
+            ShareManager.shared.SetupShareInfomation(shareMessage: msg, shareTitle:title, shareUrl:url)
         }
     }
     
@@ -293,7 +294,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
         cell.lockButton.isEnabled = false
         isFetching = true
         
-        let isActive = (carrierTrips[indexPath.row].active == TripActive.active)
+        let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
         ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
             cell.lockButton.isEnabled = true
             self.isFetching = false
@@ -314,7 +315,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
                     return
                 }
                 let active = (tripActive == TripActive.active)
-                cell.trip?.active = tripActive
+                cell.trip?.active = tripActive.rawValue
                 cell.setupYouxiangLokcerStatus(isActive: active)
             })
         })

@@ -11,6 +11,8 @@
 		066F824C1FBF826000269934 /* UserComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066F824B1FBF826000269934 /* UserComments.swift */; };
 		06869F3E1FBBB66B0047F10E /* OrderListEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */; };
 		4D002EE31FA843E300F77553 /* TripOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D002EE21FA843E300F77553 /* TripOrder.swift */; };
+		4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0472F11FD77F3600A4EA6C /* APUtilities.swift */; };
+		4D0472F41FD7B2D700A4EA6C /* DeeplinkNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0472F31FD7B2D700A4EA6C /* DeeplinkNavigator.swift */; };
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
 		4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */; };
 		4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */; };
@@ -148,6 +150,8 @@
 		669518251F60DAAD00BFC37B /* InviteFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669518241F60DAAD00BFC37B /* InviteFriendController.swift */; };
 		66988DA01F9C5B6D000B14F5 /* CustomerServersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66988D9F1F9C5B6D000B14F5 /* CustomerServersController.swift */; };
 		66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */; };
+		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
+		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
 		66A16AF21F3A5F8100B32AD3 /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF11F3A5F8100B32AD3 /* UIView++.swift */; };
 		66A16AF41F3B56B500B32AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF31F3B56B500B32AD3 /* User.swift */; };
 		66A16AF81F3B6B2E00B32AD3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A16AF71F3B6B2E00B32AD3 /* Trip.swift */; };
@@ -321,6 +325,8 @@
 		06869F3D1FBBB66B0047F10E /* OrderListEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListEmptyCell.swift; sourceTree = "<group>"; };
 		1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.debug.xcconfig"; sourceTree = "<group>"; };
 		4D002EE21FA843E300F77553 /* TripOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrder.swift; sourceTree = "<group>"; };
+		4D0472F11FD77F3600A4EA6C /* APUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APUtilities.swift; sourceTree = "<group>"; };
+		4D0472F31FD7B2D700A4EA6C /* DeeplinkNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkNavigator.swift; sourceTree = "<group>"; };
 		4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardCell.swift; sourceTree = "<group>"; };
 		4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrderDataStore.swift; sourceTree = "<group>"; };
 		4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerChecker.swift; sourceTree = "<group>"; };
@@ -464,6 +470,8 @@
 		669518241F60DAAD00BFC37B /* InviteFriendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendController.swift; sourceTree = "<group>"; };
 		66988D9F1F9C5B6D000B14F5 /* CustomerServersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServersController.swift; sourceTree = "<group>"; };
 		66988DA21F9C5C64000B14F5 /* CustomerServersController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomerServersController++.swift"; sourceTree = "<group>"; };
+		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
+		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
 		66A16AF11F3A5F8100B32AD3 /* UIView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
 		66A16AF31F3B56B500B32AD3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66A16AF71F3B6B2E00B32AD3 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -673,6 +681,7 @@
 			isa = PBXGroup;
 			children = (
 				4D6571BB1FCFF4900075305F /* Type+Extension.swift */,
+				4D0472F31FD7B2D700A4EA6C /* DeeplinkNavigator.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -703,6 +712,7 @@
 				4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */,
 				4D7932A51FD689040081BBE2 /* APOrderInfo.swift */,
 				4D7932A71FD689920081BBE2 /* APBizContent.swift */,
+				4D0472F11FD77F3600A4EA6C /* APUtilities.swift */,
 			);
 			path = AliPay;
 			sourceTree = "<group>";
@@ -734,6 +744,7 @@
 				FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */,
 				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
 				66C9002D1FD218550017DBC4 /* CreditViewController.swift */,
+				66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1351,31 +1362,32 @@
 		E542F25A1FB4B4720072BB31 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */,
+				66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */,
+				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
+				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
 				FF7ECED71FC9568100F76ED8 /* ChangePersonalProfile.storyboard */,
-				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
+				66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */,
+				FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */,
 				E542F25D1FB4B5220072BB31 /* Home.storyboard */,
 				4DC043DC1FB7933400F6C3F0 /* Login.storyboard */,
+				E542F25B1FB4B49E0072BB31 /* Main.storyboard */,
+				CF24D93E1FC364800036FB4E /* NewSettingPage.storyboard */,
+				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
+				66C3EA8A1FCF330E00D9F582 /* OrdersRequestDetail.storyboard */,
+				66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */,
+				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
 				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
 				66CE22531FBDED5600DCC274 /* PhoneVerifyResult.storyboard */,
+				CF24D93C1FC353EA0036FB4E /* PostRate.storyboard */,
 				E5267D141FB63524003ADF14 /* Registration.storyboard */,
-				E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */,
-				CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */,
+				CFA277BB1FC1411D0008FC63 /* Request.storyboard */,
 				E542F2681FB4B7930072BB31 /* Sender.storyboard */,
 				660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */,
-				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
-				66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */,
-				66C3EA8A1FCF330E00D9F582 /* OrdersRequestDetail.storyboard */,
-				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
-				CF24D93E1FC364800036FB4E /* NewSettingPage.storyboard */,
-				CFA277BB1FC1411D0008FC63 /* Request.storyboard */,
-				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
-				CF24D93C1FC353EA0036FB4E /* PostRate.storyboard */,
 				CF360F551FBCC451000F6ECC /* SettingPage.storyboard */,
+				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
 				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
-				FF855FCC1FC7778600210F1C /* changePassword.storyboard */,
-				FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */,
-				66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1708,6 +1720,7 @@
 			files = (
 				FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */,
 				FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */,
+				66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */,
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				CF360F561FBCC451000F6ECC /* SettingPage.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
@@ -1950,6 +1963,7 @@
 				E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */,
 				FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */,
 				FF2187551FCE04F400DE37B4 /* TripTableController.swift in Sources */,
+				66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */,
 				FF8A4B6A1F951B9800A75C7E /* InputPasswordLoginController++.swift in Sources */,
 				FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */,
 				66421C701F65E3E50034D9DC /* OnboardingPage.swift in Sources */,
@@ -2047,6 +2061,7 @@
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
+				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				FFCB0F211FA7A15B00180BDB /* CommentBaseCell.swift in Sources */,
 				6695181E1F60A9D400BFC37B /* CreditDetailView.swift in Sources */,
@@ -2093,6 +2108,7 @@
 				668131131F9413F70022AEED /* UserSettingCell.swift in Sources */,
 				FF4896E91F9906D3009B3EE5 /* DetailBaseCell.swift in Sources */,
 				664C5F2D1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift in Sources */,
+				4D0472F41FD7B2D700A4EA6C /* DeeplinkNavigator.swift in Sources */,
 				FFCB0F231FA7A16E00180BDB /* CommentViewCell.swift in Sources */,
 				6604605C1F50976F00E5DC4C /* UIButton++.swift in Sources */,
 				667E8F931FA7B11D007B1C51 /* DetailBarView.swift in Sources */,

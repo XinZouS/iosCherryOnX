@@ -10,11 +10,9 @@ import Unbox
 
 class Request: Unboxable, Identifiable {
     var id: Int = 0
-    var ownerId: Int?
-    var ownerUsername: String?
     var tripId: Int = -1
-    var priceBySender: Int?
-    var totalValue: Int?
+    var priceBySender: Int
+    var totalValue: Int
     var description: String?
     var note: String?
     var startAddress: Address?
@@ -27,19 +25,21 @@ class Request: Unboxable, Identifiable {
     var priceStd: Int?
     var currency: String?
     var createdTimestamp: Int
-    //var items: [String]? TODO: do we still need this?? BUG: Expected element type
     var images: [RequestImage] = []
-    var ownerRating: Double = 0
+    
+    let ownerId: Int
+    let ownerUsername: String
+    let ownerRating: Double
     var ownerImageUrl: String?
     var ownerRealName: String?
 
     required init(unboxer: Unboxer) throws {
         self.id = try unboxer.unbox(key: RequestKeyInDB.id.rawValue)
-        self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
-        self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
+        self.ownerId = try unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
+        self.ownerUsername = try unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
-        self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
-        self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
+        self.priceBySender = try unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
+        self.totalValue = try unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
         self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
         self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
@@ -53,8 +53,7 @@ class Request: Unboxable, Identifiable {
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
         self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         
-        //self.items = [String]? TODO = do we still need this?? BUG: Expected element type
-        self.ownerRating = (try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)) ?? 0
+        self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
     }
@@ -62,10 +61,10 @@ class Request: Unboxable, Identifiable {
     func printAllData() {
         let allData = """
         id = \(id)
-        totalValue = \(totalValue ?? 0)
-        price = \(priceBySender ?? 0)
-        ownerId = \(ownerId ?? 0)
-        ownerUsername = \(ownerUsername ?? "")
+        totalValue = \(totalValue)
+        price = \(priceBySender)
+        ownerId = \(ownerId)
+        ownerUsername = \(ownerUsername)
         tripId = \(tripId),
         description = \(description ?? "")"
         endAddress = \(endAddress?.descriptionString() ?? "")
@@ -77,17 +76,11 @@ class Request: Unboxable, Identifiable {
     }
     
     func priceString() -> String {
-        guard let price = priceBySender else {
-            return "No Price"
-        }
-        return String(format:"%.2f", Double(price) / 100)
+        return String(format:"%.2f", Double(priceBySender) / 100)
     }
     
     func itemValue() -> String {
-        guard let value = totalValue else {
-            return "No Value"
-        }
-        return String(format:"%.2f", Double(value) / 100)
+        return String(format:"%.2f", Double(totalValue) / 100)
     }
     
     func statusString() -> String {
@@ -220,11 +213,11 @@ enum RequestStatus: Int {
     case accepted = 23
     case cancelled = 24
     case paid = 25
-    case pendingRefund = 26
+    //case pendingRefund = 26
     case inDelivery = 27
     case delivered = 28
     case deliveryConfirmed = 29
-    case refundCompleted = 30
+//    case refundCompleted = 30
     
     func displayString() -> String {
         switch self {
@@ -238,16 +231,16 @@ enum RequestStatus: Int {
             return "已取消"
         case .paid:
             return "已付款"
-        case .pendingRefund:
-            return "等待退款"
+//        case .pendingRefund:
+//            return "等待退款"
         case .inDelivery:
             return "正在送递"
         case .delivered:
             return "已送抵"
         case .deliveryConfirmed:
             return "已确认送抵"
-        case .refundCompleted:
-            return "退款完成"
+//        case .refundCompleted:
+//            return "退款完成"
         case .invalid:
             return "状态无效"
         case .badId:
@@ -263,11 +256,11 @@ enum RequestStatus: Int {
             return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .accepted:
             return category == .carrier ? UIColor.carryon_passiveStatus : UIColor.carryon_aciveStatus
-        case .pendingRefund:
-            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
+//        case .pendingRefund:
+//            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .delivered:
             return category == .carrier ? UIColor.carryon_normalStatus : UIColor.carryon_aciveStatus
-        case .paid, .inDelivery, .initiate, .deliveryConfirmed, .refundCompleted:
+        case .paid, .inDelivery, .initiate, .deliveryConfirmed:  //.refundCompleted
             return UIColor.carryon_normalStatus
         case .rejected, .cancelled, .invalid, .badId:
             return UIColor.carryon_endedStatus
@@ -309,11 +302,11 @@ enum RequestAction: Int {
  */
 enum RequestTransaction {
     case invalid
+    case allowRating
     
     case carrierReject
     case carrierAccept
     case carrierCancel
-    case carrierRefund
     case carrierReceive
     case carrierDeliver
     case carrierShip
@@ -331,8 +324,6 @@ enum RequestTransaction {
             return "接受订单"
         case .carrierCancel:
             return "取消订单"
-        case .carrierRefund:
-            return "订单退款"
         case .carrierReceive:
             return "接收物品"
         case .carrierDeliver:
@@ -347,6 +338,8 @@ enum RequestTransaction {
             return "订单付款"
         case .shipperConfirm:
             return "确认送达"
+        case .allowRating:
+            return "给与评价"
         default:
             return "错误行动"
         }
@@ -360,8 +353,6 @@ enum RequestTransaction {
             return "确认接受订单？"
         case .carrierCancel:
             return "确认取消订单？"
-        case .carrierRefund:
-            return "确认订单退款？"
         case .carrierReceive:
             return "确认接收物品？"
         case .carrierDeliver:
@@ -376,6 +367,8 @@ enum RequestTransaction {
             return "确认订单付款？"
         case .shipperConfirm:
             return "确认确认送达？"
+        case .allowRating:
+            return "确认给与评价?"
         default:
             return "出现错误"
         }
@@ -397,8 +390,6 @@ enum RequestTransaction {
             return (.accept, .carrier)
         case .carrierCancel:
             return (.cancel, .carrier)
-        case .carrierRefund:
-            return (.refund, .carrier)
         case .carrierReceive:
             return (.receive, .carrier)
         case .carrierDeliver:
@@ -426,8 +417,6 @@ enum RequestTransaction {
             return (status == .waiting)
         case .carrierCancel:
             return (status == .accepted)
-        case .carrierRefund:
-            return (status == .paid || status == .inDelivery)
         case .carrierReceive:
             return (status == .paid)
         case .carrierDeliver:

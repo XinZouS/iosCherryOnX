@@ -24,7 +24,7 @@ enum Transportation : String, UnboxableEnum {
     }
 }
 
-enum TripActive : Int, UnboxableEnum {
+enum TripActive : Int {
     case inactive = 0
     case active   = 1
     case notExist = 2
@@ -62,8 +62,8 @@ enum TripKeyInDB : String {
 
 class Trip : NSObject, Unboxable, Identifiable {
     
-    var id: Int = 0
-    var tripCode: String?
+    var id: Int = -999
+    var tripCode: String = ""
     var transportation: Transportation = .trunk
     
     var totalLength: Double = 0.0
@@ -90,20 +90,18 @@ class Trip : NSObject, Unboxable, Identifiable {
     private var dayString: String?
     private var dateString: String?
     
-    var carrierId: Int?
-    var carrierUsername: String?
-    var createdTimestamp: Int = Date.getTimestampNow()
-    var active = TripActive.active
-    var carrierRealName: String?
+    var active: Int = 0
+    
+    var carrierId: Int = -999
+    var carrierUsername: String = ""
+    var createdTimestamp: Int = -999
+    var carrierRealName: String? = ""
     var carrierRating: Double?
     var carrierPhone: String?
     var carrierImageUrl: String?
     
-    
     override init() {
         super.init()
-        
-        self.tripCode = "tripCode"
         self.transportation = .trunk
         self.startAddress = Address()
         self.endAddress = Address()
@@ -113,24 +111,24 @@ class Trip : NSObject, Unboxable, Identifiable {
     }
     
     required init(unboxer: Unboxer) {
-        self.id = (try? unboxer.unbox(key: TripKeyInDB.id.rawValue)) ?? 0
-        self.tripCode = try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
+        self.id = try! unboxer.unbox(key: TripKeyInDB.id.rawValue)
+        self.tripCode = try! unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
         self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
 
         self.startAddress = try? unboxer.unbox(key: TripKeyInDB.startAddress.rawValue)
         self.endAddress = try? unboxer.unbox(key: TripKeyInDB.endAddress.rawValue)
 
         self.statusId = (try? unboxer.unbox(key: TripKeyInDB.statusId.rawValue)) ?? RequestStatus.waiting.rawValue
-        self.pickupDate     = try? unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
+        self.pickupDate = try? unboxer.unbox(key: TripKeyInDB.pickupDate.rawValue)
         self.pickupTimeStart = try? unboxer.unbox(key: TripKeyInDB.pickupTimeStart.rawValue)
         self.pickupTimeEnd  = try? unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
         self.timestamp = (try? unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)) ?? -1
         self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
         
-        self.carrierId = try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
-        self.carrierUsername = try? unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)
-        self.createdTimestamp = (try? unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)) ?? -1
-        self.active = (try? unboxer.unbox(key: TripKeyInDB.active.rawValue)) ?? TripActive.error
+        self.carrierId = try! unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
+        self.carrierUsername = try! unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)
+        self.createdTimestamp = try! unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)
+        self.active = try! unboxer.unbox(key: TripKeyInDB.active.rawValue)
         self.carrierRealName = try? unboxer.unbox(key: TripKeyInDB.carrierRealName.rawValue)
         self.carrierRating = try? unboxer.unbox(key: TripKeyInDB.carrierRating.rawValue)
         self.carrierPhone = try? unboxer.unbox(key: TripKeyInDB.carrierPhone.rawValue)
@@ -150,7 +148,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
         json[TripKeyInDB.note.rawValue] = note ?? ""
-        json[TripKeyInDB.active.rawValue] = active.rawValue
+        json[TripKeyInDB.active.rawValue] = active
         
         json[TripKeyInDB.carrierId.rawValue] = carrierId
 

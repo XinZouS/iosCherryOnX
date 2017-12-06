@@ -10,16 +10,23 @@ import UIKit
 import Reachability
 import BPCircleActivityIndicator
 
+enum TabViewIndex: Int {
+    case home = 0
+    case order
+    case settings
+}
+
 class MainTabBarController: UITabBarController {
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
     var loginViewController: LoginViewController?
+    var circleIndicator: BPCircleActivityIndicator!
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    var circleIndicator: BPCircleActivityIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +44,19 @@ class MainTabBarController: UITabBarController {
             }
         }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isItHaveLogIn()
         loadingDisplay()
     }
+    
+    
     //MARK: - Helpers
+    
+    func selectTabIndex(index: TabViewIndex) {
+        self.selectedIndex = index.rawValue
+    }
     
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
