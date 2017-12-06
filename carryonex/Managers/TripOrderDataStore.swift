@@ -12,6 +12,8 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
+    private let pullPageCount = 4
+    
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
     
@@ -52,8 +54,8 @@ class TripOrderDataStore: NSObject {
     
     func pullNextPage(category: TripCategory, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
-        let pageCount = 10
         let offset = targetTrips.count
+        let pageCount = pullPageCount
         let lastFetchTime = -1
         
         fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
@@ -62,7 +64,7 @@ class TripOrderDataStore: NSObject {
     func pull(category: TripCategory, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         let offset = 0
-        let pageCount = (targetTrips.count == 0) ? 10 : targetTrips.count   //first pull 10 items
+        let pageCount = (targetTrips.count == 0) ? pullPageCount : targetTrips.count   //first pull 10 items
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
         
         fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
@@ -70,7 +72,7 @@ class TripOrderDataStore: NSObject {
     
     private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, completion:(() -> Void)?) {
         
-        ApiServers.shared.getUsersTrips(userType: category, offset: 0, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
+        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return

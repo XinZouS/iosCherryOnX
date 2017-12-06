@@ -37,6 +37,7 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     // paramter to send to other field
     var imageurl = ""
     var realname = ""
+    var isStoreUpdated: Bool = false
     
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
@@ -56,10 +57,13 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         setupLocation()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        if (isStoreUpdated) {
+            ProfileManager.shared.loadLocalUser(completion: nil)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,8 +133,8 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
             self?.loadUserProfile()
         }
         
-        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { _ in
-            ProfileManager.shared.loadLocalUser(completion: nil)
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
+            self?.isStoreUpdated = true
         }
     }
     

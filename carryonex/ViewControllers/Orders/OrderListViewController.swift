@@ -39,6 +39,7 @@ class OrderListViewController: UIViewController {
             }
         }
     }
+    
     var lastCarrierFetchTime: Int = -1
     var lastShipperFetchTime: Int = -1
     
@@ -111,6 +112,8 @@ class OrderListViewController: UIViewController {
             }
         }
     }
+    
+    //MARK: - Helper Methods
     
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
@@ -187,6 +190,43 @@ class OrderListViewController: UIViewController {
         }
     }
     
+}
+
+extension OrderListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+        if (bottomEdge >= scrollView.contentSize.height) {
+            if !isFetching {
+                print("Hit bottom")
+                isFetching = true
+                TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
+                    self.reloadData()
+                    self.isFetching = false
+                })
+            }
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+            if (bottomEdge >= scrollView.contentSize.height) {
+                if !isFetching {
+                    print("Hit bottom")
+                    isFetching = true
+                    TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
+                        self.reloadData()
+                        self.isFetching = false
+                    })
+                }
+            }
+        }
+    }
+    
+    private func currentTableView() -> UITableView {
+        return (listType == .carrier) ? tableViewShiper : tableViewSender
+    }
 }
 
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
