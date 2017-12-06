@@ -42,7 +42,7 @@
                                     <constraint firstAttribute="width" constant="80" id="Pp6-We-zOw"/>
                                     <constraint firstAttribute="height" constant="80" id="ejQ-Bk-3pZ"/>
                                 </constraints>
-                                <state key="normal" image="yadianwenqing"/>
+                                <state key="normal" image="blankUserHeadImage"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -281,9 +281,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="person" width="20" height="19"/>
         <image name="setting_gray" width="96" height="96"/>
         <image name="starts5Mask" width="827" height="165"/>
-        <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>

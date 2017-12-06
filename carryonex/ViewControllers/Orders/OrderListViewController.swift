@@ -12,7 +12,6 @@ class OrderListViewController: UIViewController {
     
     let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
-    
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -126,6 +125,12 @@ class OrderListViewController: UIViewController {
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
         senderRequests = TripOrderDataStore.shared.getSenderRequests()
+        if carrierTrips.count != 0{
+            tableViewShiper.tableFooterView = nil
+        }
+        if senderRequests.count != 0{
+            tableViewSender.tableFooterView = nil
+        }
         isStoreUpdated = false  //reset
     }
     
@@ -144,6 +149,18 @@ class OrderListViewController: UIViewController {
     private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
+        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper)
+        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender)
+    }
+    
+    private func setupLoadMoreView(tableView:UITableView) ->UIView{
+        let view = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height,
+                                        width:tableView.bounds.size.width, height: 150))
+        let BlankNotice = UIImageView()
+        view.addSubview(BlankNotice)
+        BlankNotice.addConstraints(left: view.leftAnchor, top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        BlankNotice.image = #imageLiteral(resourceName: "EmptyOrder")
+        return view
     }
     
     private func setupSwipeGestureRecognizer(){

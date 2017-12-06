@@ -81,9 +81,9 @@ class PersonalPageViewController: UIViewController{
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
             URLCache.shared.removeAllCachedResponses()
-            userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+            userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         } else {
-            userProfileImage.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+            userProfileImage.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
         if let currUserName  = currUser.realName,currUserName != ""{
             userProfileNameLabel.text = currUserName
