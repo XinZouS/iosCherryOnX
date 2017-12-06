@@ -127,13 +127,11 @@ class ApiServers : NSObject {
     // NOTE: USE PROFILE MANAGER TO REGISTER AND LOGIN!!!
     func postRegisterUser(username: String, countryCode: String, phone: String, password: String, email: String, name: String, completion: @escaping(String?, Error?) -> Swift.Void) {
         
-        let deviceToken = UserDefaults.getDeviceToken() ?? ""
         let route = hostVersion + "/users"
         var postData = [
             ProfileUserKey.username.rawValue: username,
             ServerKey.password.rawValue: password,
             ProfileUserKey.countryCode.rawValue: countryCode,
-            ServerKey.deviceToken.rawValue: deviceToken,
             ProfileUserKey.realName.rawValue: name
         ]
         
