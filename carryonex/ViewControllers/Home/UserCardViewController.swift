@@ -51,9 +51,12 @@ class UserCardViewController: UIViewController {
     
     private func setupShipperCardView(){
         UserStatus.text = "我是出行人"
-        ItemStatusBtn.backgroundColor = #colorLiteral(red: 0.9794175029, green: 0.8914141059, blue: 0.4391655922, alpha: 1)
-        ItemStatusBtn.setTitle("等待付款", for: .normal)
+        
         if let profile = profileInfo {
+            if let status = RequestStatus(rawValue: profile.request.statusId) {
+                ItemStatusBtn.backgroundColor = status.displayColor(category: .carrier)
+                ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+            }
             timeLabel.text = profile.trip.displayTime()
             beginLocationLabel.text = profile.trip.startAddress.fullAddressString()
             endLocationLabel.text = profile.trip.endAddress.fullAddressString()
@@ -65,10 +68,11 @@ class UserCardViewController: UIViewController {
     
     private func setupSenderCardView(){
         UserStatus.text = "我是寄件人"
-        ItemStatusBtn.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        ItemStatusBtn.setTitle("等待付款", for: .normal)
-        
         if let profile = profileInfo {
+            if let status = RequestStatus(rawValue: profile.request.statusId) {
+                ItemStatusBtn.backgroundColor = status.displayColor(category: .sender)
+                ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+            }
             timeLabel.text = profile.request.displayTime()
             beginLocationLabel.text = profile.request.startAddress.fullAddressString()
             endLocationLabel.text = profile.request.endAddress.fullAddressString()
