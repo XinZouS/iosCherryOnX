@@ -8,14 +8,38 @@
 
 import Foundation
 
-let pid = ""
-let appId = "2017111409922946"
-
 //Ali Pay
 extension WalletManager {
 
     func aliPayAuth(request: Request) {
         
+        let sellerId = ""   //TODO add seller id
+        let bizContent = APBizContent(subject: request.ownerRealName ?? "name",
+                                      outTradeNo: String(request.id),
+                                      totalAmount: request.priceString(),
+                                      sellerId: sellerId)
+        bizContent.body = request.note
+        
+        guard let bizContentString = bizContent.descriptionString() else {
+            debugPrint("Invalid request content:\(request.id)")
+            return
+        }
+        let order = APOrderInfo(appId: aliAppId, bizContentDesc: bizContentString)
+        let orderInfo = order.descriptionString(encoded: false)
+        let orderInfoEncoded = order.descriptionString(encoded: true)
+        //print("Order specs: \(orderInfo)")
+        //print("Order encoded: \(orderInfoEncoded)")
+        
+        let signedString = orderInfo //TODO: SIGN IT WITH MENGDI
+        let orderString = "\(orderInfoEncoded)&sign=\(signedString)"
+        print("signed: \(signedString)")
+        print("order: \(orderString)")
+        
+        /*
+        AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (resultDic) in
+            print("Result Dict")
+        }
+         */
     }
     
 }

@@ -13,8 +13,8 @@ class Request: Unboxable, Identifiable {
     var ownerId: Int?
     var ownerUsername: String?
     var tripId: Int = -1
-    var priceBySender: Int?
-    var totalValue: Int?
+    var priceBySender: Int
+    var totalValue: Int
     var description: String?
     var note: String?
     var startAddress: Address?
@@ -38,8 +38,8 @@ class Request: Unboxable, Identifiable {
         self.ownerId = try? unboxer.unbox(key: RequestKeyInDB.ownerId.rawValue)
         self.ownerUsername = try? unboxer.unbox(key: RequestKeyInDB.ownerUsername.rawValue)
         self.tripId = try unboxer.unbox(key: RequestKeyInDB.tripId.rawValue)
-        self.priceBySender = try? unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
-        self.totalValue = try? unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
+        self.priceBySender = try unboxer.unbox(key: RequestKeyInDB.priceBySender.rawValue)
+        self.totalValue = try unboxer.unbox(key: RequestKeyInDB.totalValue.rawValue)
         self.description = try? unboxer.unbox(key: RequestKeyInDB.description.rawValue)
         self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
         self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
@@ -62,8 +62,8 @@ class Request: Unboxable, Identifiable {
     func printAllData() {
         let allData = """
         id = \(id)
-        totalValue = \(totalValue ?? 0)
-        price = \(priceBySender ?? 0)
+        totalValue = \(totalValue)
+        price = \(priceBySender)
         ownerId = \(ownerId ?? 0)
         ownerUsername = \(ownerUsername ?? "")
         tripId = \(tripId),
@@ -77,17 +77,11 @@ class Request: Unboxable, Identifiable {
     }
     
     func priceString() -> String {
-        guard let price = priceBySender else {
-            return "No Price"
-        }
-        return String(format:"%.2f", Double(price) / 100)
+        return String(format:"%.2f", Double(priceBySender) / 100)
     }
     
     func itemValue() -> String {
-        guard let value = totalValue else {
-            return "No Value"
-        }
-        return String(format:"%.2f", Double(value) / 100)
+        return String(format:"%.2f", Double(totalValue) / 100)
     }
     
     func statusString() -> String {
