@@ -111,8 +111,8 @@ class Trip : NSObject, Unboxable, Identifiable {
     }
     
     required init(unboxer: Unboxer) {
-        self.id = try! unboxer.unbox(key: TripKeyInDB.id.rawValue)
-        self.tripCode = try! unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)
+        self.id = (try? unboxer.unbox(key: TripKeyInDB.id.rawValue)) ?? -1
+        self.tripCode = (try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)) ?? "no_code"
         self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
 
         self.startAddress = try? unboxer.unbox(key: TripKeyInDB.startAddress.rawValue)
@@ -125,10 +125,10 @@ class Trip : NSObject, Unboxable, Identifiable {
         self.timestamp = (try? unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)) ?? -1
         self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
         
-        self.carrierId = try! unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)
-        self.carrierUsername = try! unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)
-        self.createdTimestamp = try! unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)
-        self.active = try! unboxer.unbox(key: TripKeyInDB.active.rawValue)
+        self.carrierId = (try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)) ?? -1
+        self.carrierUsername = (try? unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)) ?? "no_name"
+        self.createdTimestamp = (try? unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)) ?? -1
+        self.active = (try? unboxer.unbox(key: TripKeyInDB.active.rawValue)) ?? TripActive.active.rawValue
         self.carrierRealName = try? unboxer.unbox(key: TripKeyInDB.carrierRealName.rawValue)
         self.carrierRating = try? unboxer.unbox(key: TripKeyInDB.carrierRating.rawValue)
         self.carrierPhone = try? unboxer.unbox(key: TripKeyInDB.carrierPhone.rawValue)
