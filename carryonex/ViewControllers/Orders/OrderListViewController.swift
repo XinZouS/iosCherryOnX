@@ -25,7 +25,9 @@ class OrderListViewController: UIViewController {
     
     var listType: TripCategory = .carrier {
         didSet {
-            TripOrderDataStore.shared.pull(category: listType, completion: nil)
+            TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
+                self?.reloadData()
+            }
         }
     }
     
@@ -63,6 +65,8 @@ class OrderListViewController: UIViewController {
         }
     }
     
+    var isStoreUpdated = false
+    
     //MARK: - View Cycle
     
     override func viewDidLoad() {
@@ -85,7 +89,7 @@ class OrderListViewController: UIViewController {
         reloadData()
         
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
-            self?.reloadData()
+            self?.isStoreUpdated = true
         }
     }
     
@@ -93,7 +97,11 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         
-        TripOrderDataStore.shared.pull(category: listType, completion: nil)
+        if !isStoreUpdated {
+            TripOrderDataStore.shared.pull(category: listType, completion: nil)
+        } else {
+            self.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -118,6 +126,7 @@ class OrderListViewController: UIViewController {
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
         senderRequests = TripOrderDataStore.shared.getSenderRequests()
+        isStoreUpdated = false  //reset
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
