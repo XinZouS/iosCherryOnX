@@ -60,7 +60,7 @@ class MainTabBarController: UITabBarController {
     
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.center = view.center
+        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }
