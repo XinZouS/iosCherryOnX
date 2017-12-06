@@ -96,7 +96,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     var carrierUsername: String = ""
     var createdTimestamp: Int = -999
     var carrierRealName: String? = ""
-    var carrierRating: Double?
+    var carrierRating: Double = 0
     var carrierPhone: String?
     var carrierImageUrl: String?
     
@@ -130,7 +130,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         self.createdTimestamp = (try? unboxer.unbox(key: TripKeyInDB.createdTimestamp.rawValue)) ?? -1
         self.active = (try? unboxer.unbox(key: TripKeyInDB.active.rawValue)) ?? TripActive.active.rawValue
         self.carrierRealName = try? unboxer.unbox(key: TripKeyInDB.carrierRealName.rawValue)
-        self.carrierRating = try? unboxer.unbox(key: TripKeyInDB.carrierRating.rawValue)
+        self.carrierRating = (try? unboxer.unbox(key: TripKeyInDB.carrierRating.rawValue)) ?? 0
         self.carrierPhone = try? unboxer.unbox(key: TripKeyInDB.carrierPhone.rawValue)
         self.carrierImageUrl = try? unboxer.unbox(key: TripKeyInDB.carrierImageUrl.rawValue)
     }
