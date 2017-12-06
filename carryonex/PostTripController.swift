@@ -115,7 +115,7 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     
     private func setupActivityIndicatorView(){
         activityIndicator = UIActivityIndicatorCustomizeView() 
-        activityIndicator.center = view.center
+        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         view.addSubview(activityIndicator)
     }

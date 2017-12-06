@@ -100,7 +100,7 @@ class OrdersBasePageCell : UICollectionViewCell, UICollectionViewDelegate {
     
     private func setupActivityIndicator(){
         activityIndicator = UIActivityIndicatorCustomizeView()
-        activityIndicator.center = self.center
+        activityIndicator.frame = CGRect(x:self.center.x-15,y:self.center.y-15,width:0,height:0)
         activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
         self.addSubview(activityIndicator)
     }

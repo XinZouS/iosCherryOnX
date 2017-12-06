@@ -56,7 +56,7 @@ class WebController: UIViewController, WKNavigationDelegate {
     
     private func setupActivityIndicatorView(){
         activityIndicator = BPCircleActivityIndicator()
-        activityIndicator?.center = view.center
+        activityIndicator?.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
         activityIndicator?.isHidden = true
         if let a = activityIndicator {
             view.addSubview(a)

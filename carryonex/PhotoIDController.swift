@@ -365,7 +365,7 @@ class PhotoIDController: UIViewController {
     
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.center = view.center
+        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
