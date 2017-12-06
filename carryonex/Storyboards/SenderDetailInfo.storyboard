@@ -50,7 +50,7 @@
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                             </textField>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sMe-nJ-rAO">
-                                                <rect key="frame" x="221" y="71" width="133" height="30"/>
+                                                <rect key="frame" x="214" y="71" width="140" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="oe5-x4-UbJ"/>
                                                 </constraints>
@@ -337,7 +337,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2b-2d-e9b">
-                                                <rect key="frame" x="221" y="106" width="133" height="1"/>
+                                                <rect key="frame" x="214" y="106" width="140" height="1"/>
                                                 <color key="backgroundColor" red="0.75486093759536743" green="0.81906920671463013" blue="0.86501246690750122" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="rcb-A6-EgE"/>
@@ -364,24 +364,23 @@
                                                     <constraint firstAttribute="height" constant="1" id="dqc-tA-1HY"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AA9-eH-rlr">
-                                                <rect key="frame" x="175" y="71" width="36" height="30"/>
+                                            <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="🇺🇸" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHY-Ns-YIs">
+                                                <rect key="frame" x="174" y="77.5" width="40" height="17"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="AA9-eH-rlr" secondAttribute="height" multiplier="1.2:1" id="MBz-pl-cPg"/>
+                                                    <constraint firstAttribute="width" constant="40" id="KPn-UL-c9k"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <state key="normal" title="+1">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="countryCodeTapped:" destination="9GN-Q6-B5Q" eventType="touchUpInside" id="85B-8d-oa2"/>
+                                                    <action selector="CountryCodeTapped:" destination="9GN-Q6-B5Q" eventType="editingDidBegin" id="Ufb-2t-mcP"/>
                                                 </connections>
-                                            </button>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="n9m-Kb-9lM" firstAttribute="trailing" secondItem="pLz-4m-fw3" secondAttribute="trailing" constant="-50" id="00G-kF-K3R"/>
-                                            <constraint firstItem="AA9-eH-rlr" firstAttribute="height" secondItem="7Ma-mb-utn" secondAttribute="height" id="0YQ-6a-2k3"/>
                                             <constraint firstItem="ThB-34-TMg" firstAttribute="leading" secondItem="JKg-Tw-1B7" secondAttribute="leading" id="12E-Cx-kCz"/>
                                             <constraint firstItem="D9l-18-isQ" firstAttribute="leading" secondItem="7Ma-mb-utn" secondAttribute="leading" id="2FR-wI-ow4"/>
                                             <constraint firstItem="cfK-uz-g0f" firstAttribute="centerX" secondItem="G5c-TZ-bsD" secondAttribute="centerX" id="2qD-W4-ybh"/>
@@ -395,6 +394,7 @@
                                             <constraint firstItem="EXv-g9-HqW" firstAttribute="width" secondItem="ThB-34-TMg" secondAttribute="width" id="8st-VG-2vd"/>
                                             <constraint firstItem="G5c-TZ-bsD" firstAttribute="trailing" secondItem="InB-Za-NvJ" secondAttribute="trailing" id="8wx-j1-Nbb"/>
                                             <constraint firstItem="pLz-4m-fw3" firstAttribute="centerY" secondItem="JKg-Tw-1B7" secondAttribute="centerY" id="9og-eJ-4ah"/>
+                                            <constraint firstItem="hHY-Ns-YIs" firstAttribute="leading" secondItem="7Ma-mb-utn" secondAttribute="trailing" constant="4.5" id="ATv-oq-Aug"/>
                                             <constraint firstItem="rzG-4c-pXu" firstAttribute="leading" secondItem="5G6-Oc-uG7" secondAttribute="leading" id="BLy-qc-Ngu"/>
                                             <constraint firstItem="rzG-4c-pXu" firstAttribute="top" secondItem="InB-Za-NvJ" secondAttribute="bottom" constant="20" id="CYE-Ux-5T6"/>
                                             <constraint firstItem="HVK-50-yad" firstAttribute="leading" secondItem="9UX-Eu-WY8" secondAttribute="leading" constant="20" id="Cbn-R7-K2S"/>
@@ -410,6 +410,7 @@
                                             <constraint firstAttribute="height" constant="850" id="Jbx-es-1uq"/>
                                             <constraint firstItem="cfK-uz-g0f" firstAttribute="top" secondItem="G5c-TZ-bsD" secondAttribute="bottom" constant="5" id="Jwr-Ad-PaB"/>
                                             <constraint firstItem="S3D-Ji-qp7" firstAttribute="width" secondItem="ThB-34-TMg" secondAttribute="width" id="Lnm-LJ-7dY"/>
+                                            <constraint firstItem="sMe-nJ-rAO" firstAttribute="leading" secondItem="hHY-Ns-YIs" secondAttribute="trailing" id="LvV-s2-Z4J"/>
                                             <constraint firstItem="7h8-eT-uPI" firstAttribute="trailing" secondItem="rV8-hG-yHT" secondAttribute="trailing" id="M4O-Pn-Qoc"/>
                                             <constraint firstItem="N2b-2d-e9b" firstAttribute="width" secondItem="sMe-nJ-rAO" secondAttribute="width" id="NpK-Cf-nlm"/>
                                             <constraint firstItem="9di-wT-6nb" firstAttribute="leading" secondItem="JKg-Tw-1B7" secondAttribute="leading" id="Obg-ci-Z3I"/>
@@ -419,11 +420,10 @@
                                             <constraint firstItem="GMd-Tv-Y7E" firstAttribute="trailing" secondItem="InB-Za-NvJ" secondAttribute="trailing" id="SVo-Dg-pNJ"/>
                                             <constraint firstItem="G5c-TZ-bsD" firstAttribute="leading" secondItem="InB-Za-NvJ" secondAttribute="leading" id="T7l-aQ-FZs"/>
                                             <constraint firstItem="5vI-Tt-0iB" firstAttribute="width" secondItem="GMd-Tv-Y7E" secondAttribute="width" id="TOz-9P-Pg9"/>
-                                            <constraint firstItem="AA9-eH-rlr" firstAttribute="centerY" secondItem="7Ma-mb-utn" secondAttribute="centerY" id="U5o-OS-us8"/>
-                                            <constraint firstItem="AA9-eH-rlr" firstAttribute="leading" secondItem="7Ma-mb-utn" secondAttribute="trailing" constant="5.5" id="UK1-Vv-pf2"/>
                                             <constraint firstItem="HJV-Kv-t7t" firstAttribute="leading" secondItem="5G6-Oc-uG7" secondAttribute="leading" id="UZl-0s-oue"/>
                                             <constraint firstItem="G5c-TZ-bsD" firstAttribute="top" secondItem="rzG-4c-pXu" secondAttribute="bottom" constant="3" id="WKu-4t-L6o"/>
                                             <constraint firstItem="7h8-eT-uPI" firstAttribute="leading" secondItem="9di-wT-6nb" secondAttribute="leading" id="WYM-8u-i2n"/>
+                                            <constraint firstItem="hHY-Ns-YIs" firstAttribute="centerY" secondItem="7Ma-mb-utn" secondAttribute="centerY" id="XMa-HN-KVw"/>
                                             <constraint firstItem="rV8-hG-yHT" firstAttribute="top" secondItem="9di-wT-6nb" secondAttribute="top" id="auM-HR-oVE"/>
                                             <constraint firstItem="pLz-4m-fw3" firstAttribute="trailing" secondItem="GMd-Tv-Y7E" secondAttribute="trailing" id="bmb-wD-TC0"/>
                                             <constraint firstItem="QkD-Dl-r65" firstAttribute="centerX" secondItem="7Ma-mb-utn" secondAttribute="centerX" id="cEp-Om-5Ip"/>
@@ -433,7 +433,6 @@
                                             <constraint firstItem="S3D-Ji-qp7" firstAttribute="height" secondItem="ThB-34-TMg" secondAttribute="height" id="dtG-Be-BSl"/>
                                             <constraint firstItem="7Ma-mb-utn" firstAttribute="top" secondItem="HVK-50-yad" secondAttribute="bottom" constant="20" id="ege-2n-9Kk"/>
                                             <constraint firstItem="n9m-Kb-9lM" firstAttribute="leading" secondItem="ThB-34-TMg" secondAttribute="leading" constant="50" id="emq-0F-Pkh"/>
-                                            <constraint firstItem="sMe-nJ-rAO" firstAttribute="leading" secondItem="AA9-eH-rlr" secondAttribute="trailing" constant="10" id="er0-Jb-gWD"/>
                                             <constraint firstItem="InB-Za-NvJ" firstAttribute="leading" secondItem="5G6-Oc-uG7" secondAttribute="leading" id="fEt-8f-q40"/>
                                             <constraint firstAttribute="trailing" secondItem="D9l-18-isQ" secondAttribute="trailing" constant="20" id="gIu-rw-hw2"/>
                                             <constraint firstItem="HVK-50-yad" firstAttribute="top" secondItem="9UX-Eu-WY8" secondAttribute="top" constant="30" id="glO-WI-3zM"/>
@@ -620,7 +619,7 @@
                     <connections>
                         <outlet property="addressTextField" destination="D9l-18-isQ" id="HrQ-2z-rl1"/>
                         <outlet property="collectionView" destination="InB-Za-NvJ" id="mEg-Sj-KsQ"/>
-                        <outlet property="countryCodeButton" destination="AA9-eH-rlr" id="hiu-LR-rH1"/>
+                        <outlet property="countryCodeTextField" destination="hHY-Ns-YIs" id="U29-Wc-Uen"/>
                         <outlet property="currencyTypeSegmentControl" destination="pLz-4m-fw3" id="fDm-PM-1Fi"/>
                         <outlet property="dateDayLabel" destination="e9v-an-219" id="P8z-II-wLc"/>
                         <outlet property="dateMonthLabel" destination="bUA-d7-VZu" id="xlV-Rj-ajW"/>
