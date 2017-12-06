@@ -343,22 +343,25 @@ class SenderDetailViewController: UIViewController{
         }
         
         isLoading = true
-        uploadImagesToAwsAndGetUrls { (urls, error) in
+        uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
+            
+            guard let strongSelf = self else { return }
+            
             if let err = error {
-                self.isLoading = false
+                strongSelf.isLoading = false
                 let m = "上传照片失败啦，错误信息：\(err.localizedDescription)"
-                self.displayGlobalAlert(title: "哎呀", message: m, action: "稍后再试一次", completion: nil)
+                strongSelf.displayGlobalAlert(title: "哎呀", message: m, action: "稍后再试一次", completion: nil)
                 return
             }
             // TODO BUG: test use fake trip only, remove this before launch!!!
             
             
-            if let urls = urls, let trip = self.trip, let address = trip.endAddress {
+            if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
                 
-                let totalValue = Double(self.priceValue)
-                let cost = self.priceFinal
+                let totalValue = Double(strongSelf.priceValue)
+                let cost = strongSelf.priceFinal
                 address.recipientName = name
-                address.phoneNumber = self.zoneCodeInput+phone
+                address.phoneNumber = strongSelf.zoneCodeInput + phone
                 address.detailedAddress = destAddressStr
 
                 ApiServers.shared.postRequest(totalValue: totalValue,
@@ -366,29 +369,29 @@ class SenderDetailViewController: UIViewController{
                                               destination: address,
                                               trip: trip,
                                               imageUrls: urls,
-                                              description: "",
+                                              description: strongSelf.messageTextView.text,
                                               completion: { (success, error, serverErr) in
                                                 
                                                 if let error = error {
-                                                    self.isLoading = false
+                                                    strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
                                                     let m = "发布请求失败啦！请确保您的网络连接正常，稍后再试一次。错误：\(serverErr.desplayString())"
-                                                    self.displayGlobalAlert(title: "⚠️遇到错误", message: m, action: ok, completion: nil)
+                                                    strongSelf.displayGlobalAlert(title: "⚠️遇到错误", message: m, action: ok, completion: nil)
                                                     return
                                                 }
                                                 print("Post request success!")
-                                                self.isLoading = false
-                                                self.removeAllImageFromLocal()
+                                                strongSelf.isLoading = false
+                                                strongSelf.removeAllImageFromLocal()
                                                 let m = "您已成功发送寄件，请随时关注订单状态。"
-                                                self.displayGlobalAlert(title: "🎉发布成功", message: m, action: "好，回主页", completion: {
-                                                    self.navigationController?.popToRootViewController(animated: true)
+                                                strongSelf.displayGlobalAlert(title: "🎉发布成功", message: m, action: "好，回主页", completion: { [weak self] _ in
+                                                    self?.navigationController?.popToRootViewController(animated: true)
                                                 })
                                                 
                                                 TripOrderDataStore.shared.pull(category: .sender, completion: nil)
                 })
 
             } else {
-                self.getTripErrorAndReturnPrePage()
+                strongSelf.getTripErrorAndReturnPrePage()
             }
         }
     }

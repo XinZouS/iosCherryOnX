@@ -34,6 +34,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
+    @IBOutlet weak var senderDescLabel: UILabel!
     
     // recipient info
     @IBOutlet weak var recipientNameLabel: UILabel!
@@ -175,18 +176,36 @@ class OrdersRequestDetailViewController: UIViewController {
             self.trip = trip
         }
         
+        var profileImageString: String?
+        
+        if category == .carrier {
+            profileImageString = request.ownerImageUrl
+            senderNameLabel.text = request.ownerRealName
+            senderDescLabel.text = "寄件人评分"
+            recipientPhoneCallButton.isHidden = false
+            senderScoreWidthConstraint.constant = CGFloat(request.ownerRating * 20) //*(100/5)
+            
+        } else {
+            profileImageString = trip.carrierImageUrl
+            senderNameLabel.text = trip.carrierRealName
+            senderDescLabel.text = "出行人评分"
+            recipientPhoneCallButton.isHidden = true
+            senderScoreWidthConstraint.constant = CGFloat(trip.carrierRating * 20) //*(100/5)
+        }
+        
+        if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
+            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+        }else{
+            senderImageButton.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+        }
+        
         incomeLabel.text = "$" + request.priceString()
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
-        senderNameLabel.text = request.ownerRealName
         itemValueLabel.text = "$" + request.itemValue()
         itemMessageTextView.text = request.note
-        if let urlString = request.ownerImageUrl, let imgUrl = URL(string: urlString){
-            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-        }else{
-            senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
-        }
+        
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
