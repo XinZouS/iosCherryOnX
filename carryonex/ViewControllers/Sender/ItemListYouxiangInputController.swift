@@ -109,6 +109,10 @@ class ItemListYouxiangInputController: UIViewController {
             }
             if success {
                 if let trip = getTrip {
+                    if trip.carrierId == ProfileManager.shared.getCurrentUser()?.id {
+                        self.displayAlert(title: "游箱错误", message: "你不能新增寄件到自己开启的游箱。", action: "知道了")
+                        return
+                    }
                     self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
                 }
             } else {
