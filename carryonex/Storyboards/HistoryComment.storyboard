@@ -46,7 +46,7 @@
                                                     <state key="normal" image="yadianwenqing"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="18"/>
+                                                            <real key="value" value="25"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -131,11 +131,20 @@
                     </view>
                     <connections>
                         <outlet property="commentTableView" destination="xes-GP-OIG" id="u8T-la-7cW"/>
+                        <segue destination="hIy-7C-HdB" kind="show" identifier="gotoOtherPeopleIntro" id="Iql-rs-5Vp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vy-LB-Cuo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-210.40000000000001" y="143.47826086956522"/>
+        </scene>
+        <!--ShiperInfo-->
+        <scene sceneID="Fk9-p1-xDd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ShiperInfo" id="hIy-7C-HdB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZJF-FG-Ehm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="412" y="143"/>
         </scene>
     </scenes>
     <resources>

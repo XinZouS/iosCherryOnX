@@ -20,7 +20,9 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     @IBOutlet weak var commentLabel: UILabel!
     let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     let cellId = "ShipperRatingCellId"
-    var request: Request?
+    var commenteeId: Int?
+    var commenteeRealName: String?
+    var commenteeImage: String?
     var hasLoadData: Bool! = false
     var loadMoreEnable = true
     var offset: Int = 0
@@ -44,7 +46,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func getShipperCommentInformation(){
-        if let userId = request?.ownerId{
+        if let userId = commenteeId{
             ApiServers.shared.getUserComments(commenteeId: userId, offset: 0, completion: { (userComent, error) in
                 guard error == nil else {return}
                 if let userCommnt = userComent{
@@ -52,7 +54,6 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
                     self.setupUserRate()
                     self.hasLoadData = true
                     self.commentTable.reloadData()
-                    self.isLoadAllData()
                 }
             })
         }
@@ -86,9 +87,9 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func setupView(){
-        if let request = request {
-            userNameLabel.text = request.ownerRealName    //update to real name
-            if let urlString = request.ownerImageUrl,let url = URL(string:urlString){
+        if let ownerRealName = commenteeRealName,let ownerImageUrl = commenteeImage{
+            userNameLabel.text = ownerRealName    //update to real name
+            if let url = URL(string:ownerImageUrl){
                 userImageBtn.af_setImage(for: .normal, url: url)
                 //senderImageButton //TODO: add user image
             }else{
@@ -166,20 +167,19 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     func UpdateHistoryComment(){
         activityViewIndicator.startAnimating()
         loadMoreEnable = false
-        if let userId = request?.ownerId{
+        if let userId = commenteeId{
             ApiServers.shared.getUserComments(commenteeId: userId, offset: offset) { (userCommnt, error) in
                 guard error == nil else {return}
                 if let userCommnt = userCommnt{
                     for comments in userCommnt.comments{
                         self.commentDict?.comments.append(comments)
-                        self.isLoadAllData()
                     }
                     self.commentTable.reloadData()
                 }
             }
         }
     }
-    private func isLoadAllData(){
+    func isLoadAllData(){
         if let dictionary = commentDict{
             if (dictionary.comments.count == dictionary.commentsLength){
                 doneLabel.isHidden = false
@@ -227,6 +227,7 @@ extension ShipperInfoViewController: UITableViewDelegate, UITableViewDataSource{
             if let count = commentDict?.comments.count{
                 if (indexPath.row == count-1) {
                     loadMoreEnable = true
+                    isLoadAllData()
                 }
             }
         }
