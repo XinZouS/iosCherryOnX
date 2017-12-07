@@ -191,7 +191,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="170"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ivb-BI-hKc" id="xsq-3b-g82">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="169.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="be6-ix-7ux">
@@ -386,7 +386,7 @@
                                         <rect key="frame" x="0.0" y="198" width="375" height="233"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Kf-w4-he9" id="L4S-Y6-EqO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="232.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="233"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还没找到寄件人哦，快去分享行程吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q99-rP-q7f">
