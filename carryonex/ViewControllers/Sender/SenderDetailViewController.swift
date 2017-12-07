@@ -13,6 +13,7 @@ import AWSCore
 import AWSS3
 import ALCameraViewController
 import BPCircleActivityIndicator
+import AlamofireImage
 
 
 struct ImageNamePair {
@@ -69,8 +70,6 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceFinalHintLabel: UILabel!
     // DONE!
     @IBOutlet weak var submitButton: UIButton!
-
-    @IBOutlet weak var countryCodeButton: UIButton!
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
@@ -176,6 +175,7 @@ class SenderDetailViewController: UIViewController{
         setupActivityIndicator()
         setupSlider()
         getPriceFunctionFromServer()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -196,7 +196,11 @@ class SenderDetailViewController: UIViewController{
             let startCountry = trip?.startAddress?.country?.rawValue,
             let startState = trip?.startAddress?.state,
             let startCity = trip?.startAddress?.city {
-            
+            if let imageUrl = trip?.carrierImageUrl,let url = URL(string:imageUrl){
+                senderProfileImageButton.af_setImage(for: .normal, url: url)
+            }else{
+                senderProfileImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            }
             endAddressLabel.text = endCountry+" "+endState+" "+endCity
             startAddressLabel.text = startCountry+" "+startState+" "+startCity
         }

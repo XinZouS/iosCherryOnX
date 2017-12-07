@@ -62,10 +62,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="小头像" translatesAutoresizingMaskIntoConstraints="NO" id="O5h-HS-WaM">
-                                        <rect key="frame" x="278" y="20" width="45" height="45"/>
+                                        <rect key="frame" x="273" y="20" width="50" height="50"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="g2W-EX-QTR"/>
                                             <constraint firstAttribute="width" secondItem="O5h-HS-WaM" secondAttribute="height" multiplier="1:1" id="tuN-Zy-Ehg"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享是一种美德；快将您的游箱号分享到社交圈吧！" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="717-tM-T8i">
                                         <rect key="frame" x="10.5" y="230" width="322.5" height="33.5"/>
@@ -181,6 +188,7 @@
                         <outlet property="endLocationLabel" destination="LBp-Qq-hGn" id="1IC-aj-z0a"/>
                         <outlet property="monthLabel" destination="aUL-Ch-uno" id="PiW-Fl-isq"/>
                         <outlet property="shareButton" destination="4qe-Qc-oj0" id="LKO-I4-HB9"/>
+                        <outlet property="userImage" destination="O5h-HS-WaM" id="7Vf-we-j18"/>
                         <outlet property="youxiangLabel" destination="L6f-sn-a6w" id="nYm-M7-PY0"/>
                     </connections>
                 </viewController>

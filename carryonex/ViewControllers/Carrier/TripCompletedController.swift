@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class TripCompletedController:UIViewController{
     @IBOutlet weak var beginLocationLabel: UILabel!
@@ -16,7 +17,7 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
-    
+    @IBOutlet weak var userImage: UIImageView!
     var alert: UIAlertController?
     var gradientLayer: CAGradientLayer!
     var dateString :String!
@@ -75,6 +76,13 @@ class TripCompletedController:UIViewController{
         dayLabel.text = day
         descriptionLabel.text = descriptionString
         youxiangLabel.text = tripcode
+        if let currentUser = ProfileManager.shared.getCurrentUser(){
+            if let urlString = currentUser.imageUrl, let url = URL(string:urlString){
+                userImage.af_setImage(withURL: url)
+            }else{
+                userImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
+            }
+        }
     }
     
     private func setupBackGroundColor(){
