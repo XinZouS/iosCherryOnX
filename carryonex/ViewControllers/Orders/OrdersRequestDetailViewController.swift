@@ -10,6 +10,7 @@ import UIKit
 import AlamofireImage
 import JXPhotoBrowser
 import M13Checkbox
+import MapKit
 
 class OrdersRequestDetailViewController: UIViewController {
     
@@ -42,10 +43,15 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var recipientPhoneLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var recipientPhoneCallButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
+    internal let locationManager = CLLocationManager()
+    var selectedPin : MKPlacemark? = nil
     
     // done buttons
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
+    @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
     
     // payment menu at bottom of view
     @IBOutlet weak var backgroundView: UIView!
@@ -269,6 +275,7 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    
     private func reloadData() {
         if let updatedRequest = TripOrderDataStore.shared.getRequest(category: category, requestId: self.request.id) {
             request = updatedRequest
@@ -329,6 +336,7 @@ class OrdersRequestDetailViewController: UIViewController {
 extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     func updateButtonAppearance(status: RequestStatus) {
         if category == .carrier {
+            updateMapViewToShow(false)
             switch status {
             case .waiting:
                 buttonsToShow = .twoButtons
@@ -357,7 +365,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             }
             
         } else {
-            //Carrier
+            //Sender
             switch status {
             case .waiting, .accepted:
                 buttonsToShow = .twoButtons
@@ -374,6 +382,8 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             case .accepted:
                 finishButton.transaction = .shipperPay
                 finishButton2.transaction = .shipperCancel
+            case .inDelivery:
+                updateMapViewToShow(true) // map for sender to see carrier
             case .delivered:
                 finishButton.transaction = .shipperConfirm
             case .deliveryConfirmed:
@@ -388,8 +398,21 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         //Override
         if let statusId = request.statusId, let status = RequestStatus(rawValue: statusId) {
             updateButtonAppearance(status: status)
+            updateMapViewToShow(status == .inDelivery)
             statusLabel.text = status.displayString()
             statusLabel.backgroundColor = status.displayColor(category: category)
+        }
+    }
+    
+    fileprivate func updateMapViewToShow(_ showMap: Bool){
+        finishButtonStackViewHeighConstraint.constant = showMap ? 0 : 44
+        mapViewHeighConstraint.constant = showMap ? mapView.bounds.width * 0.56 : 0 // 9:16 = 0.56
+        print("done, now buton heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+        }
+        if showMap {
+            zoomToUserLocation()
         }
     }
 }
@@ -484,3 +507,128 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     }
   
 }
+
+
+// MARK: - Map delegate
+
+extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
+    
+    func zoomToUserLocation(){
+        
+        mapView.delegate = self
+        mapView.showsScale = true
+        mapView.showsPointsOfInterest = true
+        mapView.showsUserLocation = true
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        }
+        locationManager.requestLocation()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        
+        // zoom in to user location
+        guard let loc = locationManager.location?.coordinate else { return }
+        let viewRegion = MKCoordinateRegionMakeWithDistance(loc, 600, 600)
+        mapView.setRegion(viewRegion, animated: false)
+        
+        DispatchQueue.main.async {
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            //print("update location: \(location)") // will do update every 1sec
+            let span = MKCoordinateSpanMake(0.03, 0.03)
+            let region = MKCoordinateRegionMake(location.coordinate, span)
+            mapView.setRegion(region, animated: true)
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("get errrorroro HomePageController++ locationManager didFailWithError: \(error)")
+        displayAlert(title: "‼️无法获取GPS", message: "定位失败，请打开您的GPS。错误信息：\(error)", action: "朕知道了")
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("TODO: updateSearchResults...")
+    }
+    func targetCurrentLocBtnTapped(){
+        locationManager.startUpdatingLocation()
+    }
+    
+    /// HandleMapSearch delegate:
+    func dropPinZoomIn(placemark:MKPlacemark){
+        // cache the pin
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        
+        DispatchQueue.main.async {
+            let span = MKCoordinateSpanMake(0.02, 0.02)
+            let region = MKCoordinateRegionMake(placemark.coordinate, span)
+            self.mapView.setRegion(region, animated: true)
+        }
+    }
+    
+}
+
+
+// setup pin on the Map: MKMapViewDelegate, setup pin and its callout view
+extension OrdersRequestDetailViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil //return nil so map view draws "blue dot" for standard user location
+        }
+        // Customized pinView:
+//        let reusePinId = "HomeMapPinId"
+//        //        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reusePinId, for: annotation)
+//        //        pinView.tintColor = .orange
+//        //        pinView.canShowCallout = true
+//
+//        var pinView: MKAnnotationView?
+//        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reusePinId) {
+//            pinView = dequeuedAnnotationView
+//            pinView?.annotation = annotation
+//        }else {
+//            pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reusePinId)
+//            pinView?.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//        }
+//        // customize annotationView image
+//        pinView?.canShowCallout = true
+//        //pinView?.image = #imageLiteral(resourceName: "CarryonEx_Wechat_Icon")
+//
+//        // add left button on info view of pin
+//        //        let sz = CGSize(width: 30, height: 30)
+//        //        let button = UIButton(frame: CGRect(origin: .zero, size: sz))
+//        //        button.setBackgroundImage(#imageLiteral(resourceName: "CarryonEx_A"), for: .normal)
+//        //        //button.addTarget(self, action: #selector(getDirections), for: .touchUpInside) // driving nav API
+//        //        pinView?.leftCalloutAccessoryView = button
+//
+//        return pinView
+        return nil
+    }
+    
+}
+
+
+
