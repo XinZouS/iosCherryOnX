@@ -98,16 +98,21 @@ class ItemListYouxiangInputController: UIViewController {
         isLoading = true
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
-            let t = "⚠️获取失败"
+            let t = "查询失败"
             if let err = error, getTrip == nil {
-                let m = "无法查询此行程，请确保您所填写的游箱号正确。错误信息：\(err.localizedDescription)"
-                self.displayGlobalAlert(title: t, message: m, action: "换个姿势再试一次", completion: {
+                let m = "您搜索的邮箱号不存在，或已被出行人关闭"
+                self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
                     self.youxiangcodeTextField.becomeFirstResponder()
                 })
+                print(err)
                 return
             }
             if success {
                 if let trip = getTrip {
+                    if trip.carrierId == ProfileManager.shared.getCurrentUser()?.id {
+                        self.displayAlert(title: "游箱错误", message: "你不能新增寄件到自己开启的游箱。", action: "知道了")
+                        return
+                    }
                     self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
                 }
             } else {

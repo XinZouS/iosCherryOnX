@@ -142,9 +142,9 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
             URLCache.shared.removeAllCachedResponses()
-            userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+            userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         } else {
-            userProfileImageBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+            userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
         if let currUserName  = currUser.realName,currUserName != ""{
             var greeting = "你好"
@@ -190,12 +190,13 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         currLocation = locations.last!
         //判断是否为空
         if(location.horizontalAccuracy > 0){
-            let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            print("纬度:\(long!)")
-            print("经度:\(lat!)")
+            //let lat = Double(String(format: "%.1f", location.coordinate.latitude))
+            //let long = Double(String(format: "%.1f", location.coordinate.longitude))
+            //print("纬度:\(long!)")
+            //print("经度:\(lat!)")
             LonLatToCity()
             //停止定位
+            
             locationManager.stopUpdatingLocation()
         }
     }

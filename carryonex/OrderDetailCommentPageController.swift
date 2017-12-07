@@ -130,7 +130,7 @@ class OrderDetailCommentPageController: UICollectionViewController, UICollection
             if let imageUrl = infoDict[keys[indexPath.item-1]]!["imageUrl"] as? String{
                 orderDetailCommentInfoCell?.senderImgBtn.af_setImage(for: .normal, url: URL(string: imageUrl)!)
             }else{
-                orderDetailCommentInfoCell?.senderImgBtn.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
+                orderDetailCommentInfoCell?.senderImgBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }
             orderDetailCommentInfoCell?.timeLabel.text = infoDict[keys[indexPath.item-1]]!["date"] as! String+"天前"
             

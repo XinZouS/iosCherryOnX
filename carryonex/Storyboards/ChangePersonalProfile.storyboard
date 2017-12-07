@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="width" constant="70" id="U7t-H1-YXr"/>
                                     <constraint firstAttribute="height" constant="70" id="b8V-ck-jfP"/>
                                 </constraints>
-                                <state key="normal" image="imagePlaceHolder30" backgroundImage="小头像"/>
+                                <state key="normal" image="blankUserHeadImage" backgroundImage="小头像"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="35"/>
@@ -245,7 +245,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="imagePlaceHolder30" width="90" height="90"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="下笔" width="83" height="88"/>
         <image name="小头像" width="45" height="43"/>
     </resources>

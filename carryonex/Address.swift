@@ -21,13 +21,7 @@ enum AddressKeyInDB : String {
     case city = "city"
     case recipientName = "resident"
     case phoneNumber = "phone"
-    case detailedAddress = "detailed_address"
-    
-//    case id = "id"
-//    case street = "street"
-//    case zipcode    = "zipcode"
-//    case longtitude = "longitude"
-//    case latitude   = "latitude"
+    case detailedAddress = "description"
 }
 
 class Address: NSObject, Unboxable {
@@ -94,7 +88,7 @@ class Address: NSObject, Unboxable {
         json[AddressKeyInDB.city.rawValue] = city
         json[AddressKeyInDB.recipientName.rawValue] = recipientName
         json[AddressKeyInDB.phoneNumber.rawValue] = phoneNumber
-        json[AddressKeyInDB.detailedAddress.rawValue] = detailedAddress
+        json[AddressKeyInDB.detailedAddress.rawValue] = detailedAddress //This is actually going into description field
         return json
     }
     

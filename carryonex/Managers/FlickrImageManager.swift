@@ -14,35 +14,52 @@ class FlickrImageManager {
     
     static let shared = FlickrImageManager()
     
-    private let flickrInterestingList = FKFlickrInterestingnessGetList()
+    private let flickrKey = "c22c86842ebcfe756a2697225d13bcc7"
+    private let flickrSecret = "8ae3a0ab3eb194ce"
+    private var storedImageUrls: [URL]?
     
-    
-    private init(){
-        flickrInterestingList.per_page = "15"
+    init() {
+        FlickrKit.shared().initialize(withAPIKey: flickrKey, sharedSecret: flickrSecret)
     }
     
-//    public func loadFlickrImagesFromLocation(bottomLeft: CLLocationCoordinate2D, topRight: CLLocationCoordinate2D, complection: (Bool, NSArray) -> Void){ // success, entries
-//        let baseUrl = buildFlickrSearchUrl()
-//    }
-//    
-//    private func buildFlickrSearchUrl(from startLoc: CLLocationCoordinate2D, to endLoc: CLLocationCoordinate2D) -> NSString {
-//        
-//    }
+    func isStoreImageFilled() -> Bool {
+        if let storedImageUrls = storedImageUrls {
+            return storedImageUrls.count > 0
+        }
+        return false
+    }
     
-    public func getPhotoUrl(){
-        /*
-        FlickrKit.shared().call(flickrInterestingList) { (resopnse, error) in
+    func randomImageUrl() -> URL? {
+        if let storedImageUrls = storedImageUrls {
+            let randomIndex = Int(arc4random_uniform(UInt32(storedImageUrls.count)))
+            return storedImageUrls[randomIndex]
+        }
+        return nil
+    }
+    
+    func getPhotoUrl(from place: String, completion: @escaping ([URL]?) -> Void) {
+        let photoSearch = FKFlickrPhotosSearch()
+        photoSearch.per_page = "10"
+        photoSearch.tags = place + ",landmark"
+        photoSearch.tag_mode = "all"
+        let fk = FlickrKit.shared()
+        fk.call(photoSearch) { (response, error) in
             DispatchQueue.main.async(execute: {
-                if let response = resopnse {
-                    guard let topPhotos = resopnse!["photos"] as? [String: AnyObject],
-                        let photoArray = topPhotos["photo"] as? [[NSObject: AnyObject]] else { return }
-                    if photoArray.count > 0 {
-                        let photoUrl = FlickrKit.shared().photoURL(for: FKPhotoSize.large1600, fromPhotoDictionary: photoArray[0])
-                    }
+                if let response = response, let photos = response["photos"] as? [String: Any], let photoDataArray = photos["photo"] as? [Any] {
+                    //print(response)
+                    //print(photos)
+                    //print(photoDataArray)
+                    var urlArray = [URL]()
+                    photoDataArray.forEach({ (photoData) in
+                        if let photoData = photoData as? [String: Any] {
+                            let url = fk.photoURL(for: .medium800, fromPhotoDictionary: photoData)
+                            urlArray.append(url)
+                        }
+                    })
+                    self.storedImageUrls = urlArray
+                    completion(urlArray)
                 }
             })
         }
-         */
     }
-    
 }

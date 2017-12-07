@@ -34,7 +34,13 @@ class TripOrderDataStore: NSObject {
             return r1.id > r2.id
         })
     }
-    
+    func removeAll(){
+        carrierTrips.removeAll()
+        senderTrips.removeAll()
+        carrierRequests.removeAll()
+        senderRequests.removeAll()
+        NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+    }
     func getTrip(category: TripCategory, id: Int) -> Trip? {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         return targetTrips[id]

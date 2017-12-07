@@ -82,7 +82,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         if let currentUser = ProfileManager.shared.getCurrentUser() {
             user = currentUser
             if let imageUrlString =  currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
-                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
+                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage:#imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             }
             
             nameTextField.text = currentUser.realName
@@ -147,8 +147,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         }
                     })
                 }else{
-                    let errMsg = "亲，请输入正确的邮箱号"
-                    displayGlobalAlert(title: "保存失败", message: errMsg, action: "回去修改", completion: {
+                    let errMsg = "资料保存失败:请输入正确的电子邮箱格式"
+                    displayGlobalAlert(title: "资料保存失败", message: errMsg, action: "好的", completion: {
                         if let childVC = self.childViewControllers.first as? PersonalTable {
                             childVC.emailTextField.becomeFirstResponder()
                         }
@@ -364,14 +364,14 @@ extension PersonalInfoEditingViewController{
         if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
             let urlRequst = URLRequest.init(url: imgUrl)
             _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
-            self.imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+            self.imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             
             if let homeController = AppDelegate.shared().mainTabViewController?.homeViewController {
-                homeController.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+                homeController.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             }
             
             if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
-                personalController.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "CarryonEx_User"), filter: nil, progress: nil, completion: nil)
+                personalController.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             }
         }
     }
@@ -383,7 +383,7 @@ extension PersonalInfoEditingViewController{
     
     internal func setupWechatImg(){
         let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
-        imageButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "CarryonEx_UploadProfile"), filter: nil, progress: nil, completion: nil)
+        imageButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
     }
 }
 

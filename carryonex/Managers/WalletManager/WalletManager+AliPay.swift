@@ -13,6 +13,7 @@ extension WalletManager {
 
     func aliPayAuth(request: Request) {
         
+        /*
         let sellerId = ""   //TODO add seller id
         let bizContent = APBizContent(subject: request.ownerRealName ?? "name",
                                       outTradeNo: String(request.id),
@@ -34,10 +35,18 @@ extension WalletManager {
         let orderString = "\(orderInfoEncoded)&sign=\(signedString)"
         print("signed: \(signedString)")
         print("order: \(orderString)")
+        */
         
         /*
         AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (resultDic) in
             print("Result Dict")
+        }
+         
+        let orderTradeNo = String(request.id + request.ownerId)
+        let userId = String(request.ownerId)
+        let request = String(request.id)
+        ApiServers.shared.postWalletAliPay(orderTradeNo, totalAmount: "0.50", userId: userId, requestId: request) { (error) in
+            
         }
          */
     }
