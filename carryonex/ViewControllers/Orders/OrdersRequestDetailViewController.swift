@@ -189,8 +189,17 @@ class OrdersRequestDetailViewController: UIViewController {
             }
         }
         if segue.identifier == toShipperViewSegue, let viewController = segue.destination as? ShipperInfoViewController {
-            viewController.phoneNumber = request.ownerUsername
-            viewController.request = request
+            if category == .carrier {
+                viewController.commenteeId = request.ownerId
+                viewController.commenteeRealName = request.ownerRealName ?? request.ownerUsername
+                viewController.commenteeImage = request.ownerImageUrl
+                viewController.phoneNumber = request.ownerUsername
+            } else {
+                viewController.commenteeId = trip.carrierId
+                viewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
+                viewController.commenteeImage = trip.carrierImageUrl
+                viewController.phoneNumber = trip.carrierPhone
+            }
         }
     }
     

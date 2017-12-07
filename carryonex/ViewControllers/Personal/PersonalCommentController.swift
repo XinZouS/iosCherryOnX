@@ -29,9 +29,19 @@ class PersonalCommentController: UIViewController{
         fetchComment()
         setupTableView()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gotoOtherPeopleIntro",let viewController = segue.destination as? ShipperInfoViewController,let dictionary = commentDict{
+            let index = sender as! Int
+            viewController.commenteeId = dictionary.comments[index].id
+            viewController.commenteeImage = dictionary.comments[index].imageUrl
+            viewController.commenteeRealName = dictionary.comments[index].realName
+        }
+    }
+    
     private func setupTableView(){
         commentTableView.tableFooterView = setupLoadMoreView()
-        commentTableView.allowsSelection = false
+        commentTableView.allowsSelection = true
         title = "我的评价"
     }
     
@@ -70,7 +80,6 @@ class PersonalCommentController: UIViewController{
                                 self.activityViewIndicator.stopAnimating()
                                 self.doneLabel.isHidden = false
                             }
-                            self.isLoadAllData()
                         }
                     }
                 }
@@ -86,7 +95,6 @@ class PersonalCommentController: UIViewController{
                     if let userCommnt = userCommnt{
                         for comments in userCommnt.comments{
                             self.commentDict?.comments.append(comments)
-                            self.isLoadAllData()
                         }
                         self.commentTableView.reloadData()
                     }
@@ -94,12 +102,12 @@ class PersonalCommentController: UIViewController{
             }
         }
     }
-    private func isLoadAllData(){
+    func isLoadAllData(){
         if let dictionary = commentDict{
             if (dictionary.comments.count == dictionary.commentsLength){
                 doneLabel.isHidden = false
                 activityViewIndicator.stopAnimating()
-                
+                loadMoreEnable = false
             }
         }
     }
@@ -123,6 +131,7 @@ extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = commentTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PersonalCommentCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         if hasLoadData{
             cell.commentTextView.text = commentDict?.comments[indexPath.row].comment
             if let rank = commentDict?.comments[indexPath.row].rank{
@@ -145,13 +154,19 @@ extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
             if let count = commentDict?.comments.count{
                 if (indexPath.row == count-1) {
                     loadMoreEnable = true
+                    isLoadAllData()
                 }
             }
         }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        performSegue(withIdentifier: "gotoOtherPeopleIntro", sender: index)
     }
 }
 extension PersonalCommentController: UIScrollViewDelegate {

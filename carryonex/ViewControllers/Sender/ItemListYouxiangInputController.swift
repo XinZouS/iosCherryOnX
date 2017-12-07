@@ -46,6 +46,7 @@ class ItemListYouxiangInputController: UIViewController {
         setupNavigationBar()
         setupTextFields()
         setupActivityIndicator()
+        youxiangcodeTextField.keyboardType = .emailAddress
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,6 +97,7 @@ class ItemListYouxiangInputController: UIViewController {
             return
         }
         isLoading = true
+        goDetailButton.isEnabled = false
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
             let t = "查询失败"
@@ -121,6 +123,7 @@ class ItemListYouxiangInputController: UIViewController {
                     self.navigationController?.popToRootViewController(animated: true)
                 })
             }
+            self.goDetailButton.isEnabled = false
         })
     }
     
