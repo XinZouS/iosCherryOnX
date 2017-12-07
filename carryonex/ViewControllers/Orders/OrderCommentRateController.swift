@@ -18,8 +18,7 @@ class OrderCommentRateController: UIViewController {
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var realNameLabel: UILabel!
-    
-    var rate: Float = 0
+    var rate: Float = 5
     var commenteeId: Int = 0
     var commenteeRealName: String?
     var commenteeImage: String?
@@ -81,7 +80,7 @@ class OrderCommentRateController: UIViewController {
         }
         
         if let comment = commentTextField.text, !comment.isEmpty {
-            ApiServers.shared.postComment(comment: comment, commenteeId: 7, commenterId: currentUserId, rank: rate) { (success, error) in
+            ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: currentUserId, rank: rate) { (success, error) in
                 if let error = error {
                     print("Comment error: \(error.localizedDescription)")
                     return

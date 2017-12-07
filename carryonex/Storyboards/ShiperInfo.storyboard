@@ -27,6 +27,12 @@
                                     <constraint firstAttribute="width" constant="80" id="QMa-6E-pTO"/>
                                 </constraints>
                                 <state key="normal" image="yadianwenqing"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Name Name " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGJ-gc-2hT">
                                 <rect key="frame" x="20" y="130" width="335" height="30"/>
@@ -62,7 +68,11 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="PhoneButtonTapped:" destination="Hwm-C6-vDU" eventType="touchUpInside" id="Yjf-8n-dwz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ta5-AD-Eae">
                                 <rect key="frame" x="217.5" y="180" width="40" height="40"/>
@@ -89,7 +99,11 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="messageButtonTapped:" destination="Hwm-C6-vDU" eventType="touchUpInside" id="WNT-Hp-Hqr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5g-sU-DfT">
                                 <rect key="frame" x="107.5" y="240" width="60" height="40"/>
@@ -153,11 +167,11 @@
                                     <constraint firstAttribute="height" constant="20" id="PT9-kD-Del"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ywe-lr-VNQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ywe-lr-VNQ">
                                 <rect key="frame" x="0.0" y="391" width="355" height="276"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShipperRatingCellId" rowHeight="122" id="mvu-vU-HT6">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShipperRatingCellId" rowHeight="122" id="mvu-vU-HT6" customClass="ShipperInfoViewCell" customModule="carryonex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="355" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvu-vU-HT6" id="u2T-Eu-DEF">
@@ -238,8 +252,20 @@
                                                 <constraint firstItem="CGj-Ps-eiq" firstAttribute="leading" secondItem="st7-1g-dTv" secondAttribute="trailing" constant="10" id="zPa-C9-LlP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentTextView" destination="XnN-g4-2vv" id="E83-F3-Xj1"/>
+                                            <outlet property="rateView" destination="bP2-Ab-K3w" id="YOT-6X-Erk"/>
+                                            <outlet property="rateViewConstraint" destination="ttb-Aw-sRa" id="Ips-Zk-hxk"/>
+                                            <outlet property="timeLabel" destination="2oV-CS-SYW" id="NTe-DZ-Ugq"/>
+                                            <outlet property="userButton" destination="st7-1g-dTv" id="pR2-Yg-ZIc"/>
+                                            <outlet property="userNameLabel" destination="CGj-Ps-eiq" id="xNZ-2W-aZR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Hwm-C6-vDU" id="jjI-no-Z0I"/>
+                                    <outlet property="delegate" destination="Hwm-C6-vDU" id="zWK-uO-zb1"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="共99条评价" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXW-ta-eiK">
                                 <rect key="frame" x="195" y="370.5" width="160" height="14.5"/>
@@ -287,6 +313,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="n8f-AY-4Nd"/>
                     </view>
+                    <connections>
+                        <outlet property="commentLabel" destination="WXW-ta-eiK" id="CpB-BX-J4j"/>
+                        <outlet property="commentTable" destination="ywe-lr-VNQ" id="dMC-lp-Yhf"/>
+                        <outlet property="rateLabel" destination="dfC-hB-D7u" id="ViY-Mb-QLa"/>
+                        <outlet property="rateView" destination="yUT-gH-m5v" id="zow-1D-dOi"/>
+                        <outlet property="rateViewWidth" destination="HNY-0r-5mc" id="0hC-Yk-uOK"/>
+                        <outlet property="userImageBtn" destination="pPb-dj-uGM" id="RYI-vJ-2aY"/>
+                        <outlet property="userNameLabel" destination="PGJ-gc-2hT" id="lTt-gi-lIm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4iC-5T-Lgx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

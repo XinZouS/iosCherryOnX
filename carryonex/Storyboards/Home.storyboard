@@ -425,9 +425,6 @@
                                 <state key="normal" image="backgroundImage">
                                     <color key="titleColor" red="0.95224517580000001" green="0.97231811290000003" blue="0.99305683369999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Wnz-Vs-y6V" kind="show" id="ELb-oH-BjQ"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNm-h6-Twn">
                                 <rect key="frame" x="62" y="142" width="66" height="19.5"/>
@@ -579,14 +576,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HZ-Jy-qSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1261" y="404"/>
-        </scene>
-        <!--PostRate-->
-        <scene sceneID="szJ-Xj-Y9W">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PostRate" id="Wnz-Vs-y6V" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TnM-Hb-iJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1617" y="426"/>
         </scene>
     </scenes>
     <resources>

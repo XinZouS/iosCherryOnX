@@ -48,7 +48,6 @@ class PersonalCommentController: UIViewController{
             activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
                                                  width: activityViewIndicator.frame.width,
                                                  height: activityViewIndicator.frame.height)
-            activityViewIndicator.startAnimating()
             doneLabel.frame = CGRect(x: self.view.frame.size.width/2-125,
                                      y: indicatorY,
                                      width: 250,
@@ -71,12 +70,14 @@ class PersonalCommentController: UIViewController{
                                 self.activityViewIndicator.stopAnimating()
                                 self.doneLabel.isHidden = false
                             }
+                            self.isLoadAllData()
                         }
                     }
                 }
             }
     }
     func UpdateHistoryComment(){
+        activityViewIndicator.startAnimating()
         loadMoreEnable = false
         if let userInfo = ProfileManager.shared.getCurrentUser(){
             if let userId = userInfo.id{
@@ -85,10 +86,20 @@ class PersonalCommentController: UIViewController{
                     if let userCommnt = userCommnt{
                         for comments in userCommnt.comments{
                             self.commentDict?.comments.append(comments)
+                            self.isLoadAllData()
                         }
                         self.commentTableView.reloadData()
                     }
                 }
+            }
+        }
+    }
+    private func isLoadAllData(){
+        if let dictionary = commentDict{
+            if (dictionary.comments.count == dictionary.commentsLength){
+                doneLabel.isHidden = false
+                activityViewIndicator.stopAnimating()
+                
             }
         }
     }
@@ -149,7 +160,7 @@ extension PersonalCommentController: UIScrollViewDelegate {
             if (loadMoreEnable){
                 if let commentsLength = commentDict?.commentsLength{
                     if offset < commentsLength-1{
-                        offset += 1
+                        offset += 4
                         UpdateHistoryComment()
                     }else{
                         print("load All data")

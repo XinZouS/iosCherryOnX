@@ -37,7 +37,12 @@ class OrdersYouxiangInfoCell: UITableViewCell {
                 incomeLabel.text = request.priceString()
                 itemNumberLabel.text = "\(request.images.count) 张"
                 senderNameLabel.text = request.ownerUsername    //update to real name
+                if let urlString = request.ownerImageUrl,let url = URL(string:urlString){
+                senderImageButton.af_setImage(for: .normal, url: url)
                 //senderImageButton //TODO: add user image
+                }else{
+                    senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+                }
             }
         }
     }

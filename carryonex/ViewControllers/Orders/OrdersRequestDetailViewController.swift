@@ -188,6 +188,10 @@ class OrdersRequestDetailViewController: UIViewController {
                 viewController.commenteeImage = trip.carrierImageUrl
             }
         }
+        if segue.identifier == toShipperViewSegue, let viewController = segue.destination as? ShipperInfoViewController {
+            viewController.phoneNumber = request.ownerUsername
+            viewController.request = request
+        }
     }
     
     private func setupPaymentMenuView(){
