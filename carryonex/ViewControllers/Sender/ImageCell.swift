@@ -9,17 +9,6 @@
 import UIKit
 
 
-struct ImageNamePair {
-    var name : String?
-    var image: UIImage?
-    
-    init(name: String, image: UIImage) {
-        self.name = name
-        self.image = image
-    }
-    
-}
-
 /// MARK: - ImageCell for RequestController:
 
 class ImageCell: RequestBaseCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
