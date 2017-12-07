@@ -300,6 +300,7 @@
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAA73151FD0A34200516161 /* STCustomers.swift */; };
 		FFB0D8B51FD5B76600573720 /* UIAlertController++App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D8B41FD5B76600573720 /* UIAlertController++App.swift */; };
+		FFB2F65E1FD9C46D00EA02BD /* ShipperInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */; };
 		FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */; };
 		FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */; };
 		FFCB0F1A1FA79EE500180BDB /* OrderCommentPage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB0F191FA79EE500180BDB /* OrderCommentPage++.swift */; };
@@ -621,6 +622,7 @@
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FFAA73151FD0A34200516161 /* STCustomers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCustomers.swift; sourceTree = "<group>"; };
 		FFB0D8B41FD5B76600573720 /* UIAlertController++App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController++App.swift"; sourceTree = "<group>"; };
+		FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipperInfoViewCell.swift; sourceTree = "<group>"; };
 		FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		FFBCB0C71FC8C79800DCDD52 /* OrderCommentRateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCommentRateController.swift; sourceTree = "<group>"; };
 		FFBCB0CA1FC91E9E00DCDD52 /* PersonalTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTable.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
 				66C9002D1FD218550017DBC4 /* CreditViewController.swift */,
 				66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */,
+				FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1958,6 +1961,7 @@
 				66A142E11FD870C00067EBDA /* Double++.swift in Sources */,
 				66AC944E1F4E076900967693 /* UIPickerMenuView.swift in Sources */,
 				FF21384D1F9135BC008C5E16 /* RegisterMainController.swift in Sources */,
+				FFB2F65E1FD9C46D00EA02BD /* ShipperInfoViewCell.swift in Sources */,
 				664C5F2F1F6C34DC00FE55FE /* String++.swift in Sources */,
 				669518201F60D0C100BFC37B /* WalletController++.swift in Sources */,
 				660F4F771F5718D900F4820D /* AddressController++.swift in Sources */,

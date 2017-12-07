@@ -183,7 +183,7 @@ class OrdersRequestDetailViewController: UIViewController {
             }
         }
         if segue.identifier == toShipperViewSegue, let viewController = segue.destination as? ShipperInfoViewController {
-            viewController.phoneNumber = recipientPhoneLabel.text
+            viewController.phoneNumber = request.ownerUsername
             viewController.request = request
         }
     }
