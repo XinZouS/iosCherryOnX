@@ -1191,6 +1191,46 @@ class ApiServers : NSObject {
         }
     }
     
+    //Ali
+    /*
+    func postWalletAliPay(_ orderTradeNo: String, totalAmount: String, userId: String, requestId: String, completion: @escaping((Error?) -> Void)) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's stripe id")
+            completion(nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/alipay/pay"
+        
+        let requestDict: [String: Any] = [
+            "out_trade_no": orderTradeNo,
+            "total_amount": totalAmount,
+            "user_id": userId,
+            "request_id": requestId
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            if let error = error {
+                print("postWalletAliPay update response error: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            
+            print(response)
+            
+            completion(nil)
+        }
+    }
+    */
     
     // MARK: - basic GET and POST by url
     /**
