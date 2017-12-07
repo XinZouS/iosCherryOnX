@@ -14,6 +14,18 @@ import AWSS3
 import ALCameraViewController
 import BPCircleActivityIndicator
 
+
+struct ImageNamePair {
+    var name : String?
+    var image: UIImage?
+    
+    init(name: String, image: UIImage) {
+        self.name = name
+        self.image = image
+    }
+    
+}
+
 class SenderDetailViewController: UIViewController{
     
     lazy var flagPicker: UIPickerView = {
@@ -117,7 +129,7 @@ class SenderDetailViewController: UIViewController{
         }
     }
 
-    var currencyType: CurrencyType = .USD
+    var currencyType: CurrencyType = .CNY
     var priceValue: Double = 5
     var priceMiddl: Double = 5.5
     var priceFinal: Double = 5 {
@@ -157,6 +169,7 @@ class SenderDetailViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "寄件"
+        currencyTypeSegmentControl.isHidden = true // TODO: for now, only support .CNY
         scrollView.delegate = self
         setupCollectionView()
         setupTextFields()
@@ -438,13 +451,13 @@ extension SenderDetailViewController: UICollectionViewDataSource, UICollectionVi
         cell.backgroundColor = .white
         // number of images = [1,6]
         if indexPath.item < images.count || (images.count == 6) {
-            cell.imageFileName = images[indexPath.item].name!
-            cell.imageView.image = images[indexPath.item].image!
+            cell.imageFileName = images[indexPath.item].name ?? "no_imgname"
+            cell.imageView.image = images[indexPath.item].image ?? UIImage()
             cell.cancelButton.isHidden = false
-            cell.cancelButton.isEnabled = true
+            //cell.cancelButton.isEnabled = true
         } else {
             cell.cancelButton.isHidden = true
-            cell.cancelButton.isEnabled = false
+            //cell.cancelButton.isEnabled = false
             cell.imageView.image = #imageLiteral(resourceName: "CarryonEx_UploadID") // upload ID image
         }
         return cell
@@ -507,6 +520,9 @@ extension SenderDetailViewController {
         self.imageUploadSequence[imageName] = localFileUrl
         self.imageUploadingSet.insert(imageName)
         self.images.append(ImageNamePair(name: imageName, image: image))
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     internal func uploadImagesToAwsAndGetUrls(completion: @escaping([String]?, Error?) -> Void) {
@@ -799,7 +815,13 @@ class ItemImageCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    var imageFileName = ""
+    
+    var imageFileName = "" {
+        didSet{
+            cancelButton.isHidden = false
+            cancelButton.isEnabled = true
+        }
+    }
     
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -814,6 +836,8 @@ class ItemImageCollectionCell: UICollectionViewCell {
         parentVC?.removeImagePairOfName(imgName: imageFileName)
     }
 }
+
+
 // MARK: pickerView delegate
 extension SenderDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
