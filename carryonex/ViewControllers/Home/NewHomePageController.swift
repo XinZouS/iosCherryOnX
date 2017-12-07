@@ -190,12 +190,13 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         currLocation = locations.last!
         //判断是否为空
         if(location.horizontalAccuracy > 0){
-            let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            print("纬度:\(long!)")
-            print("经度:\(lat!)")
+            //let lat = Double(String(format: "%.1f", location.coordinate.latitude))
+            //let long = Double(String(format: "%.1f", location.coordinate.longitude))
+            //print("纬度:\(long!)")
+            //print("经度:\(lat!)")
             LonLatToCity()
             //停止定位
+            
             locationManager.stopUpdatingLocation()
         }
     }
