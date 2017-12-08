@@ -205,7 +205,7 @@ class PhotoIDController: UIViewController {
     
     lazy var submitButton : UIButton = {
         let b = UIButton()
-        b.backgroundColor = buttonThemeColor
+        b.backgroundColor = colorTheamRed
         b.tintColor = buttonColorWhite
         //b.setTitle("完成验证", for: .normal)
         let att = [NSFontAttributeName: UIFont.systemFont(ofSize: 16),
@@ -275,24 +275,26 @@ class PhotoIDController: UIViewController {
     private func setupNameInputContents(){
         
         scrollContainer.addSubview(nameLabel)
-        nameLabel.addConstraints(left: view.leftAnchor, top: scrollContainer.topAnchor, right: nil, bottom: nil, leftConstent: pageMargin, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 90, height: labelH)
+        nameLabel.addConstraints(left: view.leftAnchor, top: scrollContainer.topAnchor, right: nil, bottom: nil, leftConstent: pageMargin, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 90, height: 0) // h = labelH, now we don't need it
+        nameLabel.isHidden = true
         
         if let currName = ProfileManager.shared.getCurrentUser()?.realName {
             nameTextField.text = currName
         }
         scrollContainer.addSubview(nameTextField)
         nameTextField.addConstraints(left: nameLabel.rightAnchor, top: nameLabel.topAnchor, right: view.rightAnchor, bottom: nameLabel.bottomAnchor, leftConstent: 10, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 0)
-        nameTextField.becomeFirstResponder()
+        //nameTextField.becomeFirstResponder()
+        nameTextField.isHidden = true
         
-        scrollContainer.addSubview(nameUnderLineView)
-        nameUnderLineView.addConstraints(left: view.leftAnchor, top: nameLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 1)
+//        scrollContainer.addSubview(nameUnderLineView)
+//        nameUnderLineView.addConstraints(left: view.leftAnchor, top: nameLabel.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: pageMargin, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 1)
         
     }
     
     private func setupIdTypeSelectionContents(){
         
         scrollContainer.addSubview(idTypeLabel)
-        idTypeLabel.addConstraints(left: view.leftAnchor, top: nameUnderLineView.bottomAnchor, right: nil, bottom: nil, leftConstent: pageMargin, topConstent: 20, rightConstent: 0, bottomConstent: 0, width: 90, height: labelH)
+        idTypeLabel.addConstraints(left: view.leftAnchor, top: scrollContainer.topAnchor, right: nil, bottom: nil, leftConstent: pageMargin, topConstent: 5, rightConstent: 0, bottomConstent: 0, width: 90, height: labelH)
         
         scrollContainer.addSubview(idTypeButton)
         idTypeButton.addConstraints(left: idTypeLabel.rightAnchor, top: idTypeLabel.topAnchor, right: view.rightAnchor, bottom: idTypeLabel.bottomAnchor, leftConstent: 10, topConstent: 0, rightConstent: pageMargin, bottomConstent: 0, width: 0, height: 0)
@@ -359,7 +361,7 @@ class PhotoIDController: UIViewController {
     
     private func setupSubmitButton(){
         scrollContainer.addSubview(submitButton)
-        submitButton.addConstraints(left: view.leftAnchor, top: profileButton.bottomAnchor, right: view.rightAnchor, bottom: scrollContainer.bottomAnchor, leftConstent: 0, topConstent: 30, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
+        submitButton.addConstraints(left: view.leftAnchor, top: profileButton.bottomAnchor, right: view.rightAnchor, bottom: scrollContainer.bottomAnchor, leftConstent: 0, topConstent: 30, rightConstent: 0, bottomConstent: 0, width: 0, height: 44)
         //submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
@@ -405,8 +407,6 @@ class PhotoIDController: UIViewController {
         // change button title by attributed string:
         let attStr = NSAttributedString(string: idType.rawValue, attributes: idTypeBtnTitleAttributes)
         idTypeButton.setAttributedTitle(attStr, for: .normal)
-        
-        print("change user id type to \(idType)!!!")
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
