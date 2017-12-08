@@ -60,12 +60,16 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var checkboxAlipay: UIView!
     @IBOutlet weak var checkboxWechatPay: UIView!
     @IBOutlet weak var gotoPaymentButton: RequestTransactionButton!
+    
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
     
-    
     let toShipperViewSegue = "toOtherShipperView"
     let postRateSegue = "PostRateSegue"
+    
+    @IBAction func testPayButton(_ sender: Any) {
+        WalletManager.shared.aliPayAuth(request: request)
+    }
     
     @IBAction func moreImageTapped(_ sender: Any) {
         
