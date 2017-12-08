@@ -88,6 +88,10 @@ class PersonalPageViewController: UIViewController{
         if let currUserName  = currUser.realName,currUserName != ""{
             userProfileNameLabel.text = currUserName
         }
+        if let profileInfo = ProfileManager.shared.homeProfileInfo{
+            scoreLabel.text = String(format: "%.1f", profileInfo.rating)
+            scoreColorBarWidthConstraint.constant = CGFloat( profileInfo.rating*25)
+        }
     }
     
     private func setupUserImageView(){
