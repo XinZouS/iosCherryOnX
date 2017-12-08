@@ -57,6 +57,12 @@
 				<string>wx9dc6e6f4fe161a4f</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>alipay</string>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>7</string>
@@ -80,6 +86,8 @@
 	<string>CarryonEx</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>alipayshare</string>
+		<string>alipay</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
@@ -143,6 +151,10 @@
 	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>你可以从手机相册选择照片</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -16,31 +16,62 @@ class FlickrImageManager {
     
     private let flickrKey = "c22c86842ebcfe756a2697225d13bcc7"
     private let flickrSecret = "8ae3a0ab3eb194ce"
-    private var storedImageUrls: [URL]?
-    
+    private var storedImageTripUrls: [URL]?
+    private var storedImageRqstUrls: [URL]?
+    private var tripIndex: Int = 0
+    private var rqstIndex: Int = 0
+
     init() {
         FlickrKit.shared().initialize(withAPIKey: flickrKey, sharedSecret: flickrSecret)
     }
     
-    func isStoreImageFilled() -> Bool {
-        if let storedImageUrls = storedImageUrls {
-            return storedImageUrls.count > 0
+    func isStoreImageFilled(isTrip: Bool) -> Bool {
+        if isTrip {
+            if let urls = storedImageTripUrls {
+                return urls.count > 0
+            }
+        } else {
+            if let urls = storedImageRqstUrls {
+                return urls.count > 0
+            }
         }
         return false
     }
     
-    func randomImageUrl() -> URL? {
-        if let storedImageUrls = storedImageUrls {
-            let randomIndex = Int(arc4random_uniform(UInt32(storedImageUrls.count)))
-            return randomIndex == 0 ? nil : storedImageUrls[randomIndex]
+    func randomImageUrl(isTrip: Bool) -> URL? {
+        if isTrip {
+            if let storedImageTripUrls = storedImageTripUrls {
+                let randomIndex = Int(arc4random_uniform(UInt32(storedImageTripUrls.count)))
+                return randomIndex == 0 ? nil : storedImageTripUrls[randomIndex]
+            }
+        } else {
+            if let urls = storedImageRqstUrls {
+                let randomIndex = Int(arc4random_uniform(UInt32(urls.count)))
+                return randomIndex == 0 ? nil : urls[randomIndex]
+            }
         }
         return nil
     }
     
-    func getPhotoUrl(from place: String, completion: @escaping ([URL]?) -> Void) {
+    func nextImageUrl(isTrip: Bool) -> URL? {
+        if isTrip {
+            if let urls = storedImageTripUrls, urls.count > 0 {
+                tripIndex = (tripIndex + 1 >= urls.count) ? 0 : tripIndex + 1
+                return urls[tripIndex]
+            }
+        } else {
+            if let urls = storedImageRqstUrls, urls.count > 0 {
+                rqstIndex = (rqstIndex + 1 >= urls.count) ? 0 : rqstIndex + 1
+                return urls[rqstIndex]
+            }
+        }
+        return nil
+    }
+    
+    func getPhotoUrl(from place: String, isTrip: Bool, completion: @escaping ([URL]?) -> Void) {
         let photoSearch = FKFlickrPhotosSearch()
         photoSearch.per_page = "10"
-        photoSearch.tags = place + ",landmark,city" // [landmark, build, street, city, landscape]
+        photoSearch.tags = place + ", city, famous" // [landmark, build, city, landscape]
         photoSearch.tag_mode = "all" // [all(and), any(or)]
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
@@ -56,7 +87,11 @@ class FlickrImageManager {
                             urlArray.append(url)
                         }
                     })
-                    self.storedImageUrls = urlArray
+                    if isTrip {
+                        self.storedImageTripUrls = urlArray
+                    } else {
+                        self.storedImageRqstUrls = urlArray
+                    }
                     completion(urlArray)
                 }
             })

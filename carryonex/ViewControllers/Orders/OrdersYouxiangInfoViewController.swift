@@ -219,7 +219,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDelegate {
         if let detailVC = segue.destination as? OrdersRequestDetailViewController, let request = sender as? Request {
             detailVC.trip = trip
             detailVC.request = request
-            detailVC.category = category
+            detailVC.category = .carrier
         }
     }
     
