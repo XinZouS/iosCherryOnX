@@ -243,6 +243,7 @@ class OrdersRequestDetailViewController: UIViewController {
         scrollView.alwaysBounceVertical = true
         scrollView.isScrollEnabled = (UIDevice.current.userInterfaceIdiom == .phone)
     }
+    
     private func setupView() {
         updateRequestInfoAppearance(request: request)
         

@@ -90,6 +90,13 @@ class Request: Unboxable, Identifiable {
             return "错误状态"
         }
     }
+    
+    func status() -> RequestStatus {
+        if let statusId = statusId, let status = RequestStatus(rawValue: statusId) {
+            return status
+        }
+        return .invalid
+    }
 }
 
 enum RequestKeyInDB : String {

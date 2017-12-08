@@ -8,83 +8,63 @@
 
 import UIKit
 
+protocol UserCardDelegate: class {
+    func userCardTapped(sender: UIButton, request: Request, category:TripCategory)
+}
+
 class UserCardViewController: UIViewController {
     
     @IBOutlet weak var UserStatus: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var ItemDetailBtn: UIButton!
+    @IBOutlet weak var requestImageView: UIImageView!
     @IBOutlet weak var ItemStatusBtn: UIButton!
     @IBOutlet weak var beginLocationLabel: UILabel!
     @IBOutlet weak var endLocationLabel: UILabel!
     @IBOutlet weak var BeginIconImage: UIImageView!
     @IBOutlet weak var endIconImage: UIImageView!
     
-    var viewTag:Int = 0
-
-    var listType: TripCategory = .carrier
-
+    var category: TripCategory?
+    var request: Request? {
+        didSet {
+            setupCardView()
+        }
+    }
+    
+    weak var delegate: UserCardDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNotificationObservers()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        switch viewTag{
-        case 0:
-            setupShipperCardView()
-        default:
-            listType = .sender
-            setupSenderCardView()
-        }
+        
+        ItemStatusBtn.isHidden = true
+        setupCardView()
+        
+        self.view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapCard))
+        self.view.addGestureRecognizer(tapGesture)
     }
 
-    var profileInfo: HomeProfileInfo? {
-        didSet {
-            switch viewTag{
-            case 0:
-                setupShipperCardView()
-            default:
-                setupSenderCardView()
-            }
-        }
+    @objc private func handleTapCard(sender: UIButton) {
+        guard let request = request, let category = category else { return }
+        delegate?.userCardTapped(sender: sender, request: request, category: category)
     }
     
-    private func setupShipperCardView(){
-        UserStatus.text = "我是出行人"
-        
-        if let profile = profileInfo {
-            if let status = RequestStatus(rawValue: profile.request.statusId) {
-                ItemStatusBtn.backgroundColor = status.displayColor(category: .carrier)
-                ItemStatusBtn.setTitle(status.displayString(), for: .normal)
-            }
-            timeLabel.text = profile.trip.displayTime()
-            beginLocationLabel.text = profile.trip.startAddress.fullAddressString()
-            endLocationLabel.text = profile.trip.endAddress.fullAddressString()
-            if let imageUrl = URL(string: profile.trip.image) {
-                ItemDetailBtn.af_setImage(for: .normal, url: imageUrl)
-            }
+    private func setupCardView(){
+        guard let request = request, let category = category else {
+            ItemStatusBtn.isHidden = true
+            return
         }
-    }
-    
-    private func setupSenderCardView(){
-        UserStatus.text = "我是寄件人"
-        if let profile = profileInfo {
-            if let status = RequestStatus(rawValue: profile.request.statusId) {
-                ItemStatusBtn.backgroundColor = status.displayColor(category: .sender)
-                ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+        UserStatus.text = (category == .carrier) ? "出行订单" : "寄件订单"
+        let status = request.status()
+        ItemStatusBtn.isHidden = false
+        ItemStatusBtn.backgroundColor = status.displayColor(category: category)
+        ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+        if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
+            timeLabel.text = trip.cardDisplayTime()
+            beginLocationLabel.text = trip.startAddress?.fullAddressString()
+            endLocationLabel.text = trip.endAddress?.fullAddressString()
+            if request.images.count > 0, let imageUrl = URL(string: request.images[0].imageUrl) {
+                requestImageView.af_setImage(withURL: imageUrl)
             }
-            timeLabel.text = profile.request.displayTime()
-            beginLocationLabel.text = profile.request.startAddress.fullAddressString()
-            endLocationLabel.text = profile.request.endAddress.fullAddressString()
-            if let imageUrl = URL(string: profile.request.image) {
-                ItemDetailBtn.af_setImage(for: .normal, url: imageUrl)
-            }
-        }
-    }
-    
-    private func addNotificationObservers() {
-        NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
-            self?.profileInfo = ProfileManager.shared.homeProfileInfo
         }
     }
 }

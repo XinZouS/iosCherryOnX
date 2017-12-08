@@ -190,6 +190,10 @@ class Trip : NSObject, Unboxable, Identifiable {
         return month
     }
     
+    func cardDisplayTime() -> String {
+        return Date.getTimeString(format: "MM/dd", time: TimeInterval(timestamp))
+    }
+    
     //MARK: - Date
     private func getDateString(time: TimeInterval) -> String {
         if let dateString = dateString {

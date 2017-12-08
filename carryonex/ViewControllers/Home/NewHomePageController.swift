@@ -22,7 +22,7 @@ extension UIColor {
     }
 }
 
-class NewHomePageController: UIViewController,CLLocationManagerDelegate{
+class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     enum timeEnum: Int{
         case morning = 6
@@ -45,10 +45,16 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     @IBOutlet weak var shiperButton: UIButton!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var circle: UIImageView!
+    
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
-    var tripCtl:TripController?
+    
+    weak var userCardOne: UserCardViewController?
+    weak var userCardTwo: UserCardViewController?
+    weak var tripController: TripController?
 
+    let ordersRequestDetailSegue = "OrdersRequestDetailSegue"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNowHour()
@@ -74,17 +80,34 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "shiper"){
             if let destVC = segue.destination as? UserCardViewController {
-                destVC.viewTag = 0
+                userCardOne = destVC
+                userCardOne?.delegate = self
             }
         }
+        
         if (segue.identifier == "sender"){
             if let destVC = segue.destination as? UserCardViewController {
-                destVC.viewTag = 1
+                userCardTwo = destVC
+                userCardTwo?.delegate = self
             }
         }
+        
         if (segue.identifier == "sender"){
             if let destVC = segue.destination as? TripController {
-                tripCtl = destVC
+                tripController = destVC
+            }
+        }
+        
+        if (segue.identifier == ordersRequestDetailSegue) {
+            if let viewController = segue.destination as? OrdersRequestDetailViewController {
+                if let requestInfo = sender as? [String: Any] {
+                    guard let request = requestInfo["request"] as? Request, let category = requestInfo["category"] as? TripCategory else { return }
+                    viewController.request = request
+                    viewController.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                        viewController.trip = trip
+                    }
+                }
             }
         }
     }
@@ -128,13 +151,24 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func addObservers(){
+    private func addObservers() {
+        
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.loadUserProfile()
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
+            
+            let topRequests = TripOrderDataStore.shared.getTopRequests()
+            if topRequests.count > 0 {
+                self?.userCardOne?.category = topRequests.first?.1
+                self?.userCardOne?.request = topRequests.first?.0
+                if topRequests.count > 1 {
+                    self?.userCardTwo?.category = topRequests[1].1
+                    self?.userCardTwo?.request = topRequests[1].0
+                }
+            }
         }
     }
     
@@ -256,7 +290,18 @@ class NewHomePageController: UIViewController,CLLocationManagerDelegate{
         
     }
     
+    
 }
+
+extension NewHomePageController: UserCardDelegate {
+    
+    func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
+        let request: [String: Any] = ["request": request, "category": category]
+        performSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
+    }
+}
+
+
 extension UIAlertController {
     
     /// Initialize an alert view titled "Oops" with `message` and single "OK" action with no handler
