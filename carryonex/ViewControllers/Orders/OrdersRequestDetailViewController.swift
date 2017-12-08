@@ -59,7 +59,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var paymentMenuView: UIView!
     @IBOutlet weak var checkboxAlipay: UIView!
     @IBOutlet weak var checkboxWechatPay: UIView!
-    @IBOutlet weak var gotoPaymentButton: RequestTransactionButton!
+    @IBOutlet weak var gotoPaymentButton: UIButton!
     
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
@@ -101,6 +101,10 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func goToPaymentHandler(_ sender: Any) {
+        WalletManager.shared.aliPayAuth(request: request)
+    }
+    
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         let transaction = sender.transaction
         print("Transaction tapped: \(transaction.displayString())")
@@ -109,7 +113,8 @@ class OrdersRequestDetailViewController: UIViewController {
             performSegue(withIdentifier: postRateSegue, sender: nil)
             return
         }
-        if transaction == .shipperPay, paymentMenuTopConstraint.constant <= 0 {
+        
+        if transaction == .shipperPay {
             paymentMenuAnimateShowHide()
             return
         }
@@ -135,6 +140,7 @@ class OrdersRequestDetailViewController: UIViewController {
                                                             }
                 })
             }
+            self?.backgroundViewHide()
         }
     }
     
@@ -177,6 +183,7 @@ class OrdersRequestDetailViewController: UIViewController {
         setupView()
         setupCollectionView()
         setupPaymentMenuView()
+        addObservers()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -221,9 +228,10 @@ class OrdersRequestDetailViewController: UIViewController {
         backgroundView.isHidden = true
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(tapRgr)
-        gotoPaymentButton.transaction = .shipperPay
     }
+    
     private func setupPaymentCheckbox(_ b: M13Checkbox){
+        b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
         b.markType = .checkmark
         b.boxType = .circle
         b.checkmarkLineWidth = 4
@@ -259,6 +267,7 @@ class OrdersRequestDetailViewController: UIViewController {
             senderDescLabel.text = "寄件人评分"
             recipientPhoneCallButton.isHidden = false
             senderScoreWidthConstraint.constant = CGFloat(request.ownerRating * 20) //*(100/5)
+            updateMapViewToShow(false) // map for sender to see carrier
             
         } else {
             profileImageString = trip.carrierImageUrl
@@ -293,6 +302,25 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
+            if let status = notification.object as? AliPayResultStatus {
+                if status == .success || status == .processing {
+                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: "好", completion: { [weak self] _ in
+                        guard let strongSelf = self else { return }
+                        TripOrderDataStore.shared.pull(category: strongSelf.category, completion: { [weak self] _ in
+                            self?.reloadData()
+                        })
+                    })
+                } else {
+                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: "好")
+                }
+                
+            } else {
+                self?.displayAlert(title: "支付失败", message: "未知错误", action: "好")
+            }
+        }
+    }
     
     private func reloadData() {
         if let updatedRequest = TripOrderDataStore.shared.getRequest(category: category, requestId: self.request.id) {
@@ -328,16 +356,15 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func checkboxValueChanged(_ sender: Any){
-        switch paymentType {
-        case .alipay:
+    public func checkBoxDidChanged(_ checkBox: M13Checkbox){
+        if checkBox.checkState == .unchecked {
+            checkBox.checkState = .checked
+        }
+        if checkBox == checkAlipay {
+            paymentType = .alipay
+        }
+        if checkBox == checkWechat {
             paymentType = .wechatPay
-            
-        case .wechatPay:
-            paymentType = .alipay
-            
-        default:
-            paymentType = .alipay
         }
     }
     
@@ -514,15 +541,14 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x
         let y = scrollView.contentOffset.y
-        let maxY = scrollView.contentSize.height - self.view.bounds.height + 100
+        let maxY = scrollView.contentSize.height - self.view.bounds.height + 60
+        let setY = y < 0 ? 0 : (y > maxY ? maxY : y)
+        
         if x != 0 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: y), animated: false)
+            scrollView.setContentOffset(CGPoint(x:0, y: setY), animated: false)
         }
-        if y < 0 || y > maxY {
-            return
-        }
-        scrollView.setContentOffset(CGPoint(x:0, y: y), animated: false)
     }
+    
   
 }
 

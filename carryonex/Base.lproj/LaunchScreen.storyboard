@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,16 +22,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CarryonEx_OnBoarding-03-1" translatesAutoresizingMaskIntoConstraints="NO" id="EbT-FH-Vde">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Box_Cyan" translatesAutoresizingMaskIntoConstraints="NO" id="E9i-eE-C0G">
+                                <rect key="frame" x="67.5" y="557" width="240" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="03R-cY-VBL"/>
+                                    <constraint firstAttribute="width" constant="240" id="6mv-XH-vk5"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchpage_word" translatesAutoresizingMaskIntoConstraints="NO" id="uc9-ot-Jra">
+                                <rect key="frame" x="87.5" y="193.5" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="lI9-8N-br5"/>
+                                    <constraint firstAttribute="height" constant="100" id="vPa-wZ-Bau"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="EbT-FH-Vde" secondAttribute="bottom" id="JIE-II-75z"/>
-                            <constraint firstAttribute="trailing" secondItem="EbT-FH-Vde" secondAttribute="trailing" id="dg1-Sw-XOv"/>
-                            <constraint firstItem="EbT-FH-Vde" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="jh2-hJ-GYU"/>
-                            <constraint firstItem="EbT-FH-Vde" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="l3q-6s-k5t"/>
+                            <constraint firstItem="uc9-ot-Jra" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PEc-WB-xD2"/>
+                            <constraint firstItem="E9i-eE-C0G" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TlG-fQ-qHW"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="E9i-eE-C0G" secondAttribute="bottom" constant="40" id="xi4-BC-H6W"/>
+                            <constraint firstItem="uc9-ot-Jra" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-40" id="zca-0q-tBY"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +52,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CarryonEx_OnBoarding-03-1" width="862" height="1533"/>
+        <image name="Launchpage_word" width="301" height="154"/>
+        <image name="Logo_Box_Cyan" width="373" height="119"/>
     </resources>
 </document>

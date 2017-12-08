@@ -42,6 +42,11 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgViewTopWave" translatesAutoresizingMaskIntoConstraints="NO" id="pio-pR-OLJ">
                                 <rect key="frame" x="0.0" y="111" width="375" height="50"/>
@@ -50,6 +55,11 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                     </constraint>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
                                 <rect key="frame" x="0.0" y="206" width="375" height="412"/>
@@ -1225,12 +1235,21 @@
                                     <constraint firstAttribute="height" constant="3" id="N3H-WL-wBh"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-gs-o2U">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="height" secondItem="z2e-bx-5Cc" secondAttribute="height" multiplier="0.618" id="15m-Fg-TZP"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="width" secondItem="z2e-bx-5Cc" secondAttribute="width" id="1nA-Mi-mma"/>
                             <constraint firstItem="QUR-20-iwi" firstAttribute="bottom" secondItem="4Zb-lX-Fnf" secondAttribute="bottom" constant="-4" id="28G-Fq-ZOQ"/>
+                            <constraint firstItem="Bk5-gs-o2U" firstAttribute="leading" secondItem="RDL-q7-LHv" secondAttribute="leading" id="3Xo-8T-mdD"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="8sQ-5z-FnD"/>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="top" secondItem="z2e-bx-5Cc" secondAttribute="top" id="9Vl-Rw-eMo"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="bottom" secondItem="gNp-Kw-G8B" secondAttribute="bottom" id="ERT-1Y-h8y"/>
@@ -1240,6 +1259,7 @@
                             <constraint firstItem="4Zb-lX-Fnf" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="-2" id="ULt-VI-Ufk"/>
                             <constraint firstItem="QUR-20-iwi" firstAttribute="centerX" secondItem="4Zb-lX-Fnf" secondAttribute="centerX" id="UR6-U2-IZU"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="height" secondItem="4Zb-lX-Fnf" secondAttribute="height" id="V2H-TG-gNf"/>
+                            <constraint firstItem="Bk5-gs-o2U" firstAttribute="trailing" secondItem="RDL-q7-LHv" secondAttribute="trailing" id="Viu-vq-9xX"/>
                             <constraint firstItem="4Zb-lX-Fnf" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="centerX" id="VtR-lC-EWQ"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="50" id="Zxt-3L-ul7"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="leading" secondItem="4Zb-lX-Fnf" secondAttribute="trailing" id="aSu-OC-hxa"/>
@@ -1248,12 +1268,14 @@
                                 <variation key="heightClass=regular-widthClass=regular" constant="130"/>
                             </constraint>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="leading" secondItem="z2e-bx-5Cc" secondAttribute="leading" id="dCS-hq-K9y"/>
+                            <constraint firstItem="Bk5-gs-o2U" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="top" id="f3J-hn-rbP"/>
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="leading" secondItem="E7e-sp-soC" secondAttribute="trailing" id="h4g-tG-Cvv"/>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="hK0-yC-uKJ"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="top" secondItem="4Zb-lX-Fnf" secondAttribute="top" id="hci-QD-GtJ"/>
                             <constraint firstItem="gNp-Kw-G8B" firstAttribute="trailing" secondItem="uSa-Hc-dgJ" secondAttribute="trailing" constant="30" id="oG7-bX-1rp">
                                 <variation key="heightClass=regular-widthClass=regular" constant="130"/>
                             </constraint>
+                            <constraint firstItem="Bk5-gs-o2U" firstAttribute="bottom" secondItem="RDL-q7-LHv" secondAttribute="bottom" id="qFr-rn-0hP"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="uBU-AP-mDa"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="xjG-Qs-1nx"/>
                         </constraints>
@@ -1261,6 +1283,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="txf-yd-FWg"/>
                     <connections>
+                        <outlet property="imageTitleTransitionView" destination="Bk5-gs-o2U" id="oUM-OG-WMo"/>
                         <outlet property="imageTitleView" destination="RDL-q7-LHv" id="a6W-N0-zpW"/>
                         <outlet property="listButtonSender" destination="uSa-Hc-dgJ" id="rej-w4-BDd"/>
                         <outlet property="listButtonShiper" destination="4Zb-lX-Fnf" id="zLd-oD-szt"/>

@@ -23,4 +23,8 @@ extension Notification.Name {
     public struct TripOrderStore {
         public static let StoreUpdated = Notification.Name(rawValue: "com.carryonex.notification.name.tripOrderStore.store-updated")
     }
+    
+    public struct Alipay {
+        public static let PaymentProcessed = Notification.Name(rawValue: "com.carryonex.notification.name.alipay.payment-processed")
+    }
 }
