@@ -88,9 +88,10 @@ class OrderCommentRateController: UIViewController {
                 print("Comment success!")
                 
                 self.displayAlert(title: "提交成功", message: "谢谢你的意见", action: "好", completion: { [weak self] _ in
-                    AppDelegate.shared().mainTabViewController?.selectTabIndex(index: .home)
-                    self?.navigationController?.popToRootViewController(animated: false)
+//                    AppDelegate.shared().mainTabViewController?.selectTabIndex(index: .home)
+                    self?.navigationController?.popViewController(animated: true)
                 })
+                
             }
             
         } else {

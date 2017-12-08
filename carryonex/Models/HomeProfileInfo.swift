@@ -20,7 +20,7 @@ enum HomeProfileKey: String {
 struct HomeProfileInfo {
     let user: ProfileUser
     let tripCount: Int
-    let rating: Int
+    let rating: Float
     let requestCount: Int
     let request: HomeOrderCardInfo
     let trip: HomeOrderCardInfo
