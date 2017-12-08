@@ -15,13 +15,14 @@ class OrderListViewController: UIViewController {
     let requestDetailSegue = "gotoOrdersRequestDetail"
     
     let cityStringDefault = "New York"
-    var cityStringForImage: String = "New York" {
+    var cityStringForImage: String = "" {
         didSet{
             loadImageUrlsOfCurrentCity()
         }
     }
     var imageTimer: Timer?
     @IBOutlet weak var imageTitleView: UIImageView!
+    @IBOutlet weak var imageTitleTransitionView: UIImageView!
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -36,7 +37,7 @@ class OrderListViewController: UIViewController {
         didSet {
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
-                self?.setCityStringForImage()
+                self?.animateTitleImageTransition()
             }
         }
     }
@@ -86,7 +87,6 @@ class OrderListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCityStringForImage()
         loadImageUrlsOfCurrentCity()
         setupImageTimer()
         setupSwipeGestureRecognizer()
@@ -415,66 +415,55 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
 }
 
 /**
- * Set up title image for city > state > country
+ * Set up title image for city > state
  */
 extension OrderListViewController {
     
     fileprivate func setCityStringForImage(){
         if listType == .carrier {
             if let ct = carrierTrips.first?.endAddress?.city {
-                cityStringForImage = (ct == "" ? cityStringDefault : ct)
-                return
+                cityStringForImage = ct
+            }
+            if let st = carrierTrips.first?.endAddress?.state {
+                cityStringForImage = cityStringForImage + "," + st
             }
         }
         if listType == .sender {
             if let ct = senderRequests.first?.endAddress?.city {
-                cityStringForImage = (ct == "" ? cityStringDefault : ct)
-                return
+                cityStringForImage = ct
             }
-        }
-    }
-    fileprivate func setStateStringForImage(){
-        if listType == .carrier {
-            if let st = carrierTrips.first?.endAddress?.state {
-                cityStringForImage = (st == "" ? cityStringDefault : st)
-            }else{
-                cityStringForImage = cityStringDefault
-            }
-        }
-        if listType == .sender {
             if let st = senderRequests.first?.endAddress?.state {
-                cityStringForImage = (st == "" ? cityStringDefault : st)
-            }else{
-                cityStringForImage = cityStringDefault
+                cityStringForImage = cityStringForImage + "," + st
             }
         }
     }
     
-    public func setTitleImage(){
-        guard FlickrImageManager.shared.isStoreImageFilled() else {
-            setCityStringForImage()
-            loadImageUrlsOfCurrentCity()
-            return
-        }
-        if let url = FlickrImageManager.shared.randomImageUrl() {
-            imageTitleView.af_setImage(withURL: url)
-        }
-    }
     public func loadImageUrlsOfCurrentCity(){
-        print(" ---- load image for: \(cityStringForImage)")
-        FlickrImageManager.shared.getPhotoUrl(from: cityStringForImage) { (urls) in
-            guard let urls = urls, let url = urls.first else {
-                self.setStateStringForImage() // if unable to load city, try use state;
-                print("----------- !!! load city failed, will set State..")
+        FlickrImageManager.shared.getPhotoUrl(from: cityStringForImage, isTrip: listType == .carrier) { (urls) in
+            guard let urls = urls, urls.first != nil else {
+                self.cityStringForImage = self.cityStringDefault
                 return
             }
-            self.imageTitleView.af_setImage(withURL: url)
+        }
+    }
+    
+    public func animateTitleImageTransition(){
+        guard let newUrl = FlickrImageManager.shared.nextImageUrl(isTrip: listType == .carrier) else {
+            return
+        }
+        imageTitleTransitionView.image = imageTitleView.image
+        imageTitleTransitionView.alpha = 1
+        imageTitleTransitionView.isHidden = false
+        imageTitleView.af_setImage(withURL: newUrl)
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.imageTitleTransitionView.alpha = 0
+        }) { (finished) in
+            self.imageTitleTransitionView.isHidden = true
         }
     }
     
     fileprivate func setupImageTimer(){
-        if FlickrImageManager.shared.isStoreImageFilled(), (imageTimer?.isValid ?? false) { return }
-        imageTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(setTitleImage), userInfo: nil, repeats: true)
+        imageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(animateTitleImageTransition), userInfo: nil, repeats: true)
     }
 
     
