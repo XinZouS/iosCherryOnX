@@ -36,23 +36,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="npu-dQ-KRM">
-                                <rect key="frame" x="20" y="50" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="Pp6-We-zOw"/>
-                                    <constraint firstAttribute="height" constant="80" id="ejQ-Bk-3pZ"/>
-                                </constraints>
-                                <state key="normal" image="blankUserHeadImage"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="40"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="userProfileImageTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="5rz-TS-8Th"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHr-jU-Elz">
                                 <rect key="frame" x="110" y="90" width="90" height="40"/>
                                 <constraints>
@@ -210,22 +193,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-lW-r8p">
+                                <rect key="frame" x="20" y="50" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="495-5y-6fk"/>
+                                    <constraint firstAttribute="width" constant="80" id="YJU-jF-7IK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2Vk-7A-shz" firstAttribute="bottom" secondItem="gXv-6y-Que" secondAttribute="bottom" id="1Ma-EA-BZT"/>
                             <constraint firstItem="2Vk-7A-shz" firstAttribute="top" secondItem="W84-E3-MmT" secondAttribute="bottom" constant="10" id="34D-3C-OYj"/>
                             <constraint firstItem="sHr-jU-Elz" firstAttribute="top" secondItem="ueD-kw-dQa" secondAttribute="bottom" id="93k-4g-TSA"/>
-                            <constraint firstItem="npu-dQ-KRM" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" constant="20" id="9jz-lX-2z2"/>
-                            <constraint firstItem="ueD-kw-dQa" firstAttribute="bottom" secondItem="npu-dQ-KRM" secondAttribute="centerY" id="D5i-09-hYV"/>
-                            <constraint firstItem="W84-E3-MmT" firstAttribute="top" secondItem="npu-dQ-KRM" secondAttribute="bottom" constant="10" id="Fng-3Y-FFu"/>
+                            <constraint firstItem="ueD-kw-dQa" firstAttribute="bottom" secondItem="Muc-lW-r8p" secondAttribute="centerY" id="D5i-09-hYV"/>
+                            <constraint firstItem="W84-E3-MmT" firstAttribute="top" secondItem="Muc-lW-r8p" secondAttribute="bottom" constant="10" id="Fng-3Y-FFu"/>
                             <constraint firstItem="gXv-6y-Que" firstAttribute="trailing" secondItem="ueD-kw-dQa" secondAttribute="trailing" constant="20" id="JkE-jx-FQU"/>
                             <constraint firstItem="gXv-6y-Que" firstAttribute="trailing" secondItem="W84-E3-MmT" secondAttribute="trailing" constant="20" id="KGC-y2-nWc"/>
-                            <constraint firstItem="W84-E3-MmT" firstAttribute="leading" secondItem="npu-dQ-KRM" secondAttribute="leading" id="Vdl-gi-8Be"/>
+                            <constraint firstItem="W84-E3-MmT" firstAttribute="leading" secondItem="Muc-lW-r8p" secondAttribute="leading" id="Vdl-gi-8Be"/>
                             <constraint firstItem="sHr-jU-Elz" firstAttribute="leading" secondItem="ueD-kw-dQa" secondAttribute="leading" id="Wwr-CY-EY7"/>
-                            <constraint firstItem="npu-dQ-KRM" firstAttribute="top" secondItem="gXv-6y-Que" secondAttribute="top" constant="30" id="fSB-Jg-L0K"/>
-                            <constraint firstItem="ueD-kw-dQa" firstAttribute="leading" secondItem="npu-dQ-KRM" secondAttribute="trailing" constant="10" id="i14-95-agA"/>
+                            <constraint firstItem="Muc-lW-r8p" firstAttribute="top" secondItem="gXv-6y-Que" secondAttribute="top" constant="30" id="glW-cC-Ohw"/>
+                            <constraint firstItem="ueD-kw-dQa" firstAttribute="leading" secondItem="Muc-lW-r8p" secondAttribute="trailing" constant="10" id="i14-95-agA"/>
                             <constraint firstItem="gXv-6y-Que" firstAttribute="trailing" secondItem="2Vk-7A-shz" secondAttribute="trailing" constant="20" id="nJ8-8z-BMY"/>
+                            <constraint firstItem="Muc-lW-r8p" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" constant="20" id="puO-Nv-Ps9"/>
                             <constraint firstItem="2Vk-7A-shz" firstAttribute="leading" secondItem="gXv-6y-Que" secondAttribute="leading" id="wQx-Pg-H03"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gXv-6y-Que"/>
@@ -235,7 +231,7 @@
                         <outlet property="scoreColorBarWidthConstraint" destination="wFy-ag-0j0" id="78X-jo-quQ"/>
                         <outlet property="scoreLabel" destination="H2j-mr-0g1" id="WoY-pt-HsY"/>
                         <outlet property="tableView" destination="2Vk-7A-shz" id="L7p-6l-7DB"/>
-                        <outlet property="userProfileImage" destination="npu-dQ-KRM" id="nnM-X9-qqZ"/>
+                        <outlet property="userProfileImage" destination="Muc-lW-r8p" id="rGa-Za-VMm"/>
                         <outlet property="userProfileNameLabel" destination="ueD-kw-dQa" id="a3M-bU-xIM"/>
                         <outlet property="viewAllCommentsButton" destination="5jW-M4-Hh1" id="FrX-tM-qHJ"/>
                         <segue destination="8e3-v7-MZQ" kind="show" identifier="pushSettingPageSegue" id="816-em-gYx"/>
@@ -282,7 +278,6 @@
     </scenes>
     <resources>
         <image name="PersonalIcon_80x80" width="26" height="26"/>
-        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="setting_gray" width="96" height="96"/>
         <image name="starts5Mask" width="827" height="165"/>
     </resources>

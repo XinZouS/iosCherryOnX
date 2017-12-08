@@ -186,14 +186,15 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     func submitButtonTapped(){
         
-        if nameTextField.text == nil || nameTextField.text == "" {
-            displayAlert(title: "您还没写名字呢", message: "启禀皇上，请在姓名栏里输入您的昵称！", action: "朕知道了")
-            return
+//        if nameTextField.text == nil || nameTextField.text == "" {
+//            displayAlert(title: "您还没写名字呢", message: "启禀皇上，请在姓名栏里输入您的昵称！", action: "朕知道了")
+//            return
             //        }else // NOTE: temperary not using profile image;
 //        if !profileReady {
 //            displayAlert(title: "您还没有头像哦", message: "请拍摄正面清晰照作为您的真人头像以保障您的账户信息完整，谢谢！", action: "嗯，平身吧")
 //            return
-        }else if idType == .passport && !passportReady {
+//        }else
+    if idType == .passport && !passportReady {
             displayAlert(title: "您选好护照了吗？", message: "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！", action: "这就选")
             return
         }else if idType == .idCard && (!idCardAReady || !idCardBReady) {

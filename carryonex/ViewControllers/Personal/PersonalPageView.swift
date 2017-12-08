@@ -15,7 +15,7 @@ import ALCameraViewController
 import Photos
 
 class PersonalPageViewController: UIViewController{
-    @IBOutlet weak var userProfileImage: UIButton!
+    @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileNameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
@@ -81,9 +81,9 @@ class PersonalPageViewController: UIViewController{
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
             URLCache.shared.removeAllCachedResponses()
-            userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            userProfileImage.af_setImage(withURL: imgUrl)
         } else {
-            userProfileImage.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
         }
         if let currUserName  = currUser.realName,currUserName != ""{
             userProfileNameLabel.text = currUserName
@@ -93,10 +93,6 @@ class PersonalPageViewController: UIViewController{
     private func setupUserImageView(){
         userProfileImage.layer.masksToBounds = true
         userProfileImage.layer.cornerRadius = CGFloat(Int(userProfileImage.height)/2)
-    }
-    
-    @IBAction func userProfileImageTapped(_ sender: Any) {
-        // TODO: go to user info detail page
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {

@@ -188,7 +188,9 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         attachmentMenu.addAction(openCamera)
         attachmentMenu.addAction(wechatLogin)
         attachmentMenu.addAction(cancelSelect)
-        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            attachmentMenu.popoverPresentationController?.sourceView = self.nameTextField
+        }
         present(attachmentMenu, animated: true, completion: nil)
     }
 }
@@ -371,7 +373,11 @@ extension PersonalInfoEditingViewController{
             }
             
             if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
-                personalController.userProfileImage.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+                personalController.userProfileImage.af_setImage(withURL: imgUrl)
+            }
+        } else {
+            if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
+                personalController.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
             }
         }
     }

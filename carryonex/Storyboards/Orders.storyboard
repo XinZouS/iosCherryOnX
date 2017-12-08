@@ -40,7 +40,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CarryonEx_PayPal" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgViewTopWave" translatesAutoresizingMaskIntoConstraints="NO" id="pio-pR-OLJ">
@@ -1297,8 +1297,8 @@
     </scenes>
     <resources>
         <image name="CarryonEx_Electronics" width="28" height="28"/>
-        <image name="CarryonEx_PayPal" width="460" height="176"/>
         <image name="LockClosed" width="59" height="67"/>
+        <image name="NY_skyline" width="1520" height="1000"/>
         <image name="Phone" width="34" height="34"/>
         <image name="addressDotDash" width="42" height="108"/>
         <image name="dashline_gray" width="978" height="21"/>
