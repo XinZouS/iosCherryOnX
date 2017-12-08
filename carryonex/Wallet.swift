@@ -17,6 +17,8 @@ enum WalletKeyInDB: String {
     case userId = "user_id"
     case ephemeralKey = "ephemeralkey"
     case currency = "currency"
+    
+    case orderString = "order_string" //alipay
 }
 
 class Wallet : NSObject, Unboxable {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z1x-0S-3lW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z1x-0S-3lW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -21,6 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="860"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-wQ-9pO">
+                                <rect key="frame" x="0.0" y="20" width="375" height="840"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u44-8x-21Q">
                                 <rect key="frame" x="0.0" y="20" width="375" height="840"/>
                                 <subviews>
@@ -43,6 +47,16 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGT-HP-8jx">
+                                                <rect key="frame" x="8" y="105" width="62" height="47"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="47" id="QnG-9V-qbT"/>
+                                                </constraints>
+                                                <state key="normal" title="支付测试"/>
+                                                <connections>
+                                                    <action selector="testPayButton:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="z3X-Di-JuQ"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efo-75-gDw">
                                                 <rect key="frame" x="16" y="30" width="46" height="20"/>
                                                 <constraints>
@@ -412,7 +426,9 @@
                                         <constraints>
                                             <constraint firstItem="Hqf-KG-5e0" firstAttribute="leading" secondItem="4yd-Ii-1Ck" secondAttribute="leading" id="1Li-Th-RmP"/>
                                             <constraint firstAttribute="trailing" secondItem="qVA-Bh-Wfs" secondAttribute="trailing" id="1j8-m4-I5j"/>
+                                            <constraint firstItem="dGT-HP-8jx" firstAttribute="centerX" secondItem="xVp-rH-O0T" secondAttribute="centerX" id="2Vs-fw-wgt"/>
                                             <constraint firstItem="Jdy-IV-3gE" firstAttribute="centerY" secondItem="iWD-qj-ukX" secondAttribute="centerY" id="2ad-DF-x6Z"/>
+                                            <constraint firstItem="dGT-HP-8jx" firstAttribute="top" secondItem="xVp-rH-O0T" secondAttribute="bottom" constant="20" id="2lF-0A-ELq"/>
                                             <constraint firstItem="Gcc-77-xcQ" firstAttribute="top" secondItem="xCC-Uf-ncD" secondAttribute="bottom" constant="5" id="3EK-EP-kLh"/>
                                             <constraint firstItem="rB6-f1-cwu" firstAttribute="centerY" secondItem="efo-75-gDw" secondAttribute="centerY" id="3SN-Mi-kRz"/>
                                             <constraint firstItem="lEz-65-FZV" firstAttribute="leading" secondItem="rB6-f1-cwu" secondAttribute="leading" id="62Q-Jj-hAY"/>
@@ -505,10 +521,6 @@
                                     <constraint firstItem="dXb-Nl-6eD" firstAttribute="leading" secondItem="u44-8x-21Q" secondAttribute="leading" constant="15" id="wof-I1-YAt"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-wQ-9pO">
-                                <rect key="frame" x="0.0" y="20" width="375" height="840"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-kc-Wge">
                                 <rect key="frame" x="0.0" y="910" width="375" height="200"/>
                                 <subviews>
@@ -662,7 +674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58.399999999999999" y="109.29535232383809"/>
+            <point key="canvasLocation" x="-58.399999999999999" y="108.84557721139431"/>
         </scene>
         <!--ShiperInfo-->
         <scene sceneID="ScR-cJ-WJf">
