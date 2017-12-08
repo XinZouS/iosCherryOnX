@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import BPCircleActivityIndicator
 
 class ShipperInfoViewController: UIViewController,MFMessageComposeViewControllerDelegate{
     var phoneNumber:String?
@@ -26,9 +27,10 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     var hasLoadData: Bool! = false
     var loadMoreEnable = true
     var offset: Int = 0
+    var circleIndicator: BPCircleActivityIndicator!
     var doneLabel: UILabel = {
         let l = UILabel()
-        l.text = "亲，没有您有关的评论了哦~"
+        l.text = "亲，没有有关的评论了哦~"
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return l
@@ -36,6 +38,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     var commentDict: UserComments?
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupIndicator()
         getShipperCommentInformation()
         setupTableView()
     }
@@ -45,15 +48,32 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         setupView()
     }
     
+    private func setupIndicator(){
+        circleIndicator = BPCircleActivityIndicator()
+        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.isHidden = true
+        view.addSubview(circleIndicator)
+    }
+    
     private func getShipperCommentInformation(){
         if let userId = commenteeId{
+            circleIndicator.isHidden = false
+            circleIndicator.animate()
             ApiServers.shared.getUserComments(commenteeId: userId, offset: 0, completion: { (userComent, error) in
                 guard error == nil else {return}
+                self.circleIndicator.stop()
+                self.circleIndicator.isHidden = true
                 if let userCommnt = userComent{
                     self.commentDict = userCommnt
                     self.setupUserRate()
                     self.hasLoadData = true
                     self.commentTable.reloadData()
+                    if self.commentDict?.comments.count == 0 {
+                        self.activityViewIndicator.stopAnimating()
+                        self.doneLabel.isHidden = false
+                    }else{
+                        self.doneLabel.isHidden = true
+                    }
                 }
             })
         }
@@ -182,7 +202,6 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     func isLoadAllData(){
         if let dictionary = commentDict{
             if (dictionary.comments.count == dictionary.commentsLength){
-                doneLabel.isHidden = false
                 activityViewIndicator.stopAnimating()
                 loadMoreEnable = false
             }
@@ -247,7 +266,6 @@ extension ShipperInfoViewController: UIScrollViewDelegate {
                         UpdateHistoryComment()
                     }else{
                         print("load All data")
-                        doneLabel.isHidden = false
                         activityViewIndicator.stopAnimating()
                     }
                 }

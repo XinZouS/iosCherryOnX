@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import BPCircleActivityIndicator
 
 class PersonalCommentController: UIViewController{
     @IBOutlet weak var commentTableView: UITableView!
@@ -16,6 +17,7 @@ class PersonalCommentController: UIViewController{
     var hasLoadData: Bool! = false
     var loadMoreEnable = true
     var offset: Int = 0
+    var circleIndicator: BPCircleActivityIndicator!
     let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     var doneLabel: UILabel = {
         let l = UILabel()
@@ -26,8 +28,16 @@ class PersonalCommentController: UIViewController{
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupIndicator()
         fetchComment()
         setupTableView()
+    }
+    
+    private func setupIndicator(){
+        circleIndicator = BPCircleActivityIndicator()
+        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.isHidden = true
+        view.addSubview(circleIndicator)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,10 +78,14 @@ class PersonalCommentController: UIViewController{
     }
     
     func fetchComment(){
+        circleIndicator.isHidden = false
+        circleIndicator.animate()
         if let userInfo = ProfileManager.shared.getCurrentUser(){
             if let userId = userInfo.id{
                 ApiServers.shared.getUserComments(commenteeId: userId, offset: offset) { (userCommnt, error) in
                         guard error == nil else {return}
+                        self.circleIndicator.isHidden = true
+                        self.circleIndicator.stop()
                         if let userCommnt = userCommnt{
                             self.commentDict = userCommnt
                             self.hasLoadData = true
@@ -79,6 +93,8 @@ class PersonalCommentController: UIViewController{
                             if self.commentDict?.comments.count == 0 {
                                 self.activityViewIndicator.stopAnimating()
                                 self.doneLabel.isHidden = false
+                            }else{
+                                self.doneLabel.isHidden = true
                             }
                         }
                     }
@@ -105,7 +121,6 @@ class PersonalCommentController: UIViewController{
     func isLoadAllData(){
         if let dictionary = commentDict{
             if (dictionary.comments.count == dictionary.commentsLength){
-                doneLabel.isHidden = false
                 activityViewIndicator.stopAnimating()
                 loadMoreEnable = false
             }
@@ -179,7 +194,6 @@ extension PersonalCommentController: UIScrollViewDelegate {
                         UpdateHistoryComment()
                     }else{
                         print("load All data")
-                        doneLabel.isHidden = false
                         activityViewIndicator.stopAnimating()
                     }
                 }
