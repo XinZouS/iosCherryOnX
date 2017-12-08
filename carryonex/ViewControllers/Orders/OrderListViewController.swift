@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BPCircleActivityIndicator
 
 class OrderListViewController: UIViewController {
     
@@ -40,13 +41,15 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var activityIndicator: UIActivityIndicatorCustomizeView!
+    var activityIndicator: BPCircleActivityIndicator!
     var isFetching: Bool = false {
         didSet{
             if isFetching {
-                activityIndicator.startAnimating()
+                activityIndicator.isHidden = false
+                activityIndicator.animate()
             } else {
-                activityIndicator.stopAnimating()
+                activityIndicator.stop()
+                activityIndicator.isHidden = true
             }
         }
     }
@@ -95,9 +98,9 @@ class OrderListViewController: UIViewController {
         setupTableViews()
         
         //Setup activity indicator
-        activityIndicator = UIActivityIndicatorCustomizeView()
-        activityIndicator.center = view.center
-        activityIndicator.bounds = CGRect(x: 0, y: 0, width: 60, height: 60)
+        activityIndicator = BPCircleActivityIndicator()
+        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
         reloadData()
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in

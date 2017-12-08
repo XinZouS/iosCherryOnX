@@ -20,6 +20,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
+    var circleIndicator: BPCircleActivityIndicator!
     var user: ProfileUser?
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
@@ -29,6 +30,14 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         setupActivityIndicator()
         addWeChatObservers()
         setupTextField()
+        setupIndicator()
+    }
+    
+    private func setupIndicator(){
+        circleIndicator = BPCircleActivityIndicator()
+        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.isHidden = true
+        view.addSubview(circleIndicator)
     }
     
     private func setupTextField(){
@@ -117,6 +126,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @objc private func saveButtonTapped(){
         if let childVC = self.childViewControllers.first as? PersonalTable {
+            circleIndicator.isHidden = false
+            circleIndicator.animate()
             var genderString = ""
             let emailString = childVC.emailTextField.text
             if let gender = childVC.genderTextField.text {
@@ -141,6 +152,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                                                  "gender": genderString ]
                     ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
                         if success{
+                            self.circleIndicator.isHidden = true
+                            self.circleIndicator.stop()
                             self.navigationController?.popViewController(animated: true)
                         }else{
                             debugPrint("change profile error")
@@ -161,7 +174,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
+        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }

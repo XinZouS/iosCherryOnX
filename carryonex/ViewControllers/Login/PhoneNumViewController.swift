@@ -106,7 +106,7 @@ class PhoneNumViewController: UIViewController {
     
     private func setupActivityIndicator(){
         loadingIndicator = BPCircleActivityIndicator()
-        loadingIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-15,width:0,height:0)
+        loadingIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
         loadingIndicator.isHidden = true
         view.addSubview(loadingIndicator)
     }
