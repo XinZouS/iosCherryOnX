@@ -16,16 +16,11 @@ class ItemListYouxiangInputController: UIViewController {
     @IBOutlet weak var goDetailButton: UIButton!
     
     @IBAction func goDetailPage(_ sender: Any) {
-        guard let code = youxiangcodeTextField.text, code.count >= 0 else { // TODO: change to ==6 before launch!!!!!!!
-            let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
-            displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
-                self.youxiangcodeTextField.becomeFirstResponder()
-            })
-            return
-        }
+        guard let code = youxiangcodeTextField.text else { return }
         fetchTripByYouxiangcode(code)
     }
     
+    let segueIdSenderDetailInfo = "goToSenderDetailInfoPage"
     var activityIndicator: BPCircleActivityIndicator!
     var isLoading: Bool = false {
         didSet{
@@ -79,7 +74,7 @@ class ItemListYouxiangInputController: UIViewController {
     
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "goToSenderDetailInfoPage" {
+        if identifier == segueIdSenderDetailInfo {
             return sender != nil
         }
         return true
@@ -96,8 +91,16 @@ class ItemListYouxiangInputController: UIViewController {
         if isLoading {
             return
         }
+        guard code.count == 6 else {
+            let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
+            displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+                self.youxiangcodeTextField.becomeFirstResponder()
+            })
+            return
+        }
         isLoading = true
         goDetailButton.isEnabled = false
+
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
             let t = "查询失败"
