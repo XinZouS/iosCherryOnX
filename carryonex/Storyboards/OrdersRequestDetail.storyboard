@@ -531,7 +531,7 @@
                                             <constraint firstAttribute="height" constant="40" id="kef-My-xka"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatPayIcon_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="Qen-QI-gxw">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WechatPayIcon_bubble" translatesAutoresizingMaskIntoConstraints="NO" id="Qen-QI-gxw">
                                         <rect key="frame" x="33" y="75" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="E66-5i-gAj"/>
@@ -544,7 +544,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信支付" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jI-OS-7gB">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信支付" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jI-OS-7gB">
                                         <rect key="frame" x="90" y="83" width="69.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -558,7 +558,7 @@
                                             <constraint firstAttribute="height" constant="30" id="bxu-EH-YrG"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grN-7J-gbX">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grN-7J-gbX">
                                         <rect key="frame" x="315" y="78.5" width="30" height="30"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
