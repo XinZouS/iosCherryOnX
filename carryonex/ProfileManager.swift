@@ -154,7 +154,7 @@ class ProfileManager: NSObject {
             debugLog("Remote logged out: \(success)")
         }
         self.currentUser = nil
-        TripOrderDataStore.shared.removeAll()
+        TripOrderDataStore.shared.clearStore()
         deleteUserTokenFromKeychain()
         NotificationCenter.default.post(name: .UserLoggedOut, object: nil)
     }

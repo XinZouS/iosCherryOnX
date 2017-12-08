@@ -34,13 +34,7 @@ class TripOrderDataStore: NSObject {
             return r1.id > r2.id
         })
     }
-    func removeAll(){
-        carrierTrips.removeAll()
-        senderTrips.removeAll()
-        carrierRequests.removeAll()
-        senderRequests.removeAll()
-        NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
-    }
+    
     func getTrip(category: TripCategory, id: Int) -> Trip? {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         return targetTrips[id]
@@ -56,6 +50,60 @@ class TripOrderDataStore: NSObject {
     func getRequest(category: TripCategory, requestId: Int) -> Request? {
         let targetRequests = (category == .carrier) ? carrierRequests : senderRequests
         return targetRequests[requestId]
+    }
+    
+    func getTopRequests() -> [(Request, TripCategory)] {
+        let highPriorityCarrier = carrierRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.waiting.rawValue ||
+                    statusId == RequestStatus.paid.rawValue
+            }
+            return false
+        })
+        
+        let carrierHighTuple = highPriorityCarrier.map { (req) -> (Request, TripCategory) in
+            return (req, .carrier)
+        }
+        
+        let highPrioritySender = senderRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.accepted.rawValue ||
+                    statusId == RequestStatus.rejected.rawValue ||
+                    statusId == RequestStatus.inDelivery.rawValue ||
+                    statusId == RequestStatus.delivered.rawValue
+            }
+            return false
+        })
+        
+        let senderHighTuples = highPrioritySender.map { (req) -> (Request, TripCategory) in
+            return (req, .sender)
+        }
+        
+        let normalPriorityCarrier = carrierRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.accepted.rawValue ||
+                    statusId == RequestStatus.inDelivery.rawValue ||
+                    statusId == RequestStatus.deliveryConfirmed.rawValue
+            }
+            return false
+        })
+        
+        let carrierNormalTuple = normalPriorityCarrier.map { (req) -> (Request, TripCategory) in
+            return (req, .carrier)
+        }
+        
+        let normalPrioritySender = senderRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.waiting.rawValue
+            }
+            return false
+        })
+        
+        let senderNormalTuple = normalPrioritySender.map { (req) -> (Request, TripCategory) in
+            return (req, .carrier)
+        }
+        
+        return Array(carrierHighTuple) + Array(senderHighTuples) + Array(carrierNormalTuple) + Array(senderNormalTuple)
     }
     
     func pullNextPage(category: TripCategory, completion:(() -> Void)?) {
@@ -74,6 +122,14 @@ class TripOrderDataStore: NSObject {
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
         
         fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
+    }
+    
+    func clearStore(){
+        carrierTrips.removeAll()
+        senderTrips.removeAll()
+        carrierRequests.removeAll()
+        senderRequests.removeAll()
+        NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
     }
     
     private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, completion:(() -> Void)?) {

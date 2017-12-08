@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -282,6 +282,7 @@
                         <outlet property="shiperButton" destination="zzJ-f5-BBS" id="mb3-4H-XsF"/>
                         <outlet property="userProfileImageBtn" destination="1Jk-1D-Ewz" id="rdY-zs-MV5"/>
                         <segue destination="tne-a3-sE6" kind="show" identifier="carrierSegue" id="66u-bD-f5w"/>
+                        <segue destination="r9p-vd-rdi" kind="show" identifier="OrdersRequestDetailSegue" id="9HR-f4-sF7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvg-8M-6ND" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -420,14 +421,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="132.5" height="239"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvw-Lq-mZv">
-                                <rect key="frame" x="0.0" y="72" width="132.5" height="95"/>
-                                <state key="normal" image="backgroundImage">
-                                    <color key="titleColor" red="0.95224517580000001" green="0.97231811290000003" blue="0.99305683369999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUa-8x-ShP">
+                                <rect key="frame" x="0.0" y="72" width="133" height="95"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNm-h6-Twn">
-                                <rect key="frame" x="62" y="142" width="66" height="19.5"/>
+                                <rect key="frame" x="66" y="135" width="66.5" height="27"/>
                                 <color key="backgroundColor" red="0.48055821657180786" green="0.98284262418746948" blue="0.92320346832275391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="等待出发">
@@ -537,22 +535,20 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Nml-Q9-J3X" firstAttribute="height" secondItem="vHm-a6-OjY" secondAttribute="height" id="1C8-Ki-Zyj"/>
+                            <constraint firstItem="bUa-8x-ShP" firstAttribute="leading" secondItem="Omt-IP-fsz" secondAttribute="leading" id="3lU-sv-m4G"/>
                             <constraint firstItem="Nml-Q9-J3X" firstAttribute="leading" secondItem="sH9-pa-dKR" secondAttribute="leading" id="5Qt-3R-2lg"/>
                             <constraint firstAttribute="trailing" secondItem="Nml-Q9-J3X" secondAttribute="trailing" id="Apn-iw-hAD"/>
                             <constraint firstItem="vHm-a6-OjY" firstAttribute="height" secondItem="sH9-pa-dKR" secondAttribute="height" multiplier="0.3" id="Hgn-EX-jQp"/>
-                            <constraint firstItem="Omt-IP-fsz" firstAttribute="trailing" secondItem="hNm-h6-Twn" secondAttribute="trailing" constant="5" id="IFN-LD-M7D"/>
-                            <constraint firstItem="Omt-IP-fsz" firstAttribute="leading" secondItem="cvw-Lq-mZv" secondAttribute="leading" id="JDF-GC-yWz"/>
-                            <constraint firstItem="cvw-Lq-mZv" firstAttribute="centerX" secondItem="Omt-IP-fsz" secondAttribute="centerX" id="NU1-Fe-ARR"/>
+                            <constraint firstItem="Omt-IP-fsz" firstAttribute="trailing" secondItem="hNm-h6-Twn" secondAttribute="trailing" id="IFN-LD-M7D"/>
                             <constraint firstAttribute="bottom" secondItem="Nml-Q9-J3X" secondAttribute="bottom" id="Ni9-6y-baL"/>
                             <constraint firstAttribute="trailing" secondItem="vHm-a6-OjY" secondAttribute="trailing" id="OgD-2y-Vwd"/>
                             <constraint firstItem="vHm-a6-OjY" firstAttribute="top" secondItem="sH9-pa-dKR" secondAttribute="top" id="Zc9-VO-WfU"/>
-                            <constraint firstItem="Nml-Q9-J3X" firstAttribute="top" secondItem="cvw-Lq-mZv" secondAttribute="bottom" id="f5Q-CH-86p"/>
+                            <constraint firstItem="bUa-8x-ShP" firstAttribute="trailing" secondItem="Omt-IP-fsz" secondAttribute="trailing" id="bAh-i0-dau"/>
                             <constraint firstItem="Nml-Q9-J3X" firstAttribute="top" secondItem="hNm-h6-Twn" secondAttribute="bottom" constant="5" id="iNm-Xb-9fH"/>
                             <constraint firstItem="vHm-a6-OjY" firstAttribute="leading" secondItem="sH9-pa-dKR" secondAttribute="leading" id="irg-6j-Z5J"/>
-                            <constraint firstItem="hNm-h6-Twn" firstAttribute="width" secondItem="cvw-Lq-mZv" secondAttribute="width" multiplier="0.5" id="kxs-Xp-heu"/>
-                            <constraint firstItem="cvw-Lq-mZv" firstAttribute="trailing" secondItem="Omt-IP-fsz" secondAttribute="trailing" id="kzq-Qs-fXe"/>
-                            <constraint firstItem="hNm-h6-Twn" firstAttribute="height" secondItem="cvw-Lq-mZv" secondAttribute="height" multiplier="0.2" id="x3k-Ej-mTR"/>
-                            <constraint firstItem="cvw-Lq-mZv" firstAttribute="top" secondItem="vHm-a6-OjY" secondAttribute="bottom" id="yT0-na-blT"/>
+                            <constraint firstItem="hNm-h6-Twn" firstAttribute="width" secondItem="bUa-8x-ShP" secondAttribute="width" multiplier="0.5" id="rN8-Be-E3L"/>
+                            <constraint firstItem="bUa-8x-ShP" firstAttribute="top" secondItem="vHm-a6-OjY" secondAttribute="bottom" id="usn-AR-xj7"/>
+                            <constraint firstItem="Nml-Q9-J3X" firstAttribute="top" secondItem="bUa-8x-ShP" secondAttribute="bottom" id="xnW-O2-073"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Omt-IP-fsz"/>
                         <userDefinedRuntimeAttributes>
@@ -564,23 +560,30 @@
                     </view>
                     <connections>
                         <outlet property="BeginIconImage" destination="l0A-fk-OVx" id="7Hw-5u-l7c"/>
-                        <outlet property="ItemDetailBtn" destination="cvw-Lq-mZv" id="VzM-zz-Erk"/>
                         <outlet property="ItemStatusBtn" destination="hNm-h6-Twn" id="rgq-p4-nY2"/>
                         <outlet property="UserStatus" destination="SdW-0A-pDb" id="jjy-v3-n08"/>
                         <outlet property="beginLocationLabel" destination="k1i-YZ-eRO" id="nJK-W9-dMw"/>
                         <outlet property="endIconImage" destination="Vbf-W8-rpX" id="3IH-Nh-0IY"/>
                         <outlet property="endLocationLabel" destination="IA6-lq-H5N" id="3yO-9F-KbR"/>
+                        <outlet property="requestImageView" destination="bUa-8x-ShP" id="XBX-wa-lPA"/>
                         <outlet property="timeLabel" destination="2MO-JA-Zff" id="A8h-Wz-Boj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HZ-Jy-qSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1261" y="404"/>
+            <point key="canvasLocation" x="1260.9375" y="402.99295774647885"/>
+        </scene>
+        <!--OrdersRequestDetail-->
+        <scene sceneID="ccN-TO-qMq">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OrdersRequestDetail" id="r9p-vd-rdi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D0F-cy-6GX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1267" y="706"/>
         </scene>
     </scenes>
     <resources>
         <image name="HomepageIcon_80x80" width="26" height="26"/>
-        <image name="backgroundImage" width="421" height="162"/>
         <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="location_grey" width="4" height="6"/>
         <image name="starts5Mask" width="827" height="165"/>

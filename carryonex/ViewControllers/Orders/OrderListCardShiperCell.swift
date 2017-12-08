@@ -97,8 +97,6 @@ class OrderListCardShiperCell: OrderListCardCell {
             finishButton.transaction = .carrierCancel
         case .paid:
             finishButton.transaction = .carrierReceive
-//        case .pendingRefund:
-//            finishButton.transaction = .carrierDeliver
         case .inDelivery:
             finishButton.transaction = .carrierShip
         case .delivered:
