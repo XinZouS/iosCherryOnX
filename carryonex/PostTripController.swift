@@ -22,7 +22,6 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
         f.dateFormat = "yyyy年MM月dd日" // "MM-dd-yyyy" // TODO: for english date
         return f
     }()
-    
 //     row in collectionView: 0:transporation, 1:flightInfo, 
     let labelNames:     [String] = ["游箱类别", "出发地：", "目的地：", "出发时间："]
     let placeholders:   [String] = ["请选择出行方式", "请选择出发地", "请选择目的地", "请选择出发时间", "设置取货时间段"]
@@ -75,14 +74,11 @@ class PostTripController:UICollectionViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         setupNavigationBar()
         setupOkButton()
         setupCollectionView()
         setupActivityIndicatorView()
     }
-    
-    
     
     private func setupNavigationBar(){
         title = "出行"

@@ -233,10 +233,10 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
-		E542F2721FB605080072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		E542F2741FB6053D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		E542F2761FB6057E0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		E542F2781FB6058D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2721FB605080072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E542F2761FB6057E0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E542F2781FB6058D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB011FCC6B5A00B87608 /* STBalance.swift */; };
 		E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */; };
 		E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB051FCC6B8C00B87608 /* STPayout.swift */; };
@@ -1989,7 +1989,7 @@
 				FF4896F51F992B53009B3EE5 /* DetailButtonCell.swift in Sources */,
 				66A16B001F3BB3AA00B32AD3 /* SideMenuLeftController.swift in Sources */,
 				66F065C31FC88D280072A42D /* UIImage++.swift in Sources */,
-				E542F2721FB605080072BB31 /* BuildFile in Sources */,
+				E542F2721FB605080072BB31 /* (null) in Sources */,
 				66DA06D21F5F0935002C8442 /* TabTitleMenuBar++.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
 				665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */,
@@ -2067,7 +2067,7 @@
 				660F4F6E1F570C0500F4820D /* AddressBaseCell.swift in Sources */,
 				4D4D14161FC940AB00B9A1EB /* APIServerChecker.swift in Sources */,
 				660704E01F3CBD42000C09FD /* SideMenuUserInfoView.swift in Sources */,
-				E542F2741FB6053D0072BB31 /* BuildFile in Sources */,
+				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				FF76373D1F97C3CA00F44A48 /* GlobalVariable.swift in Sources */,
 				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
@@ -2087,7 +2087,7 @@
 				668609791F607CC600740A92 /* WalletCheckingCell++.swift in Sources */,
 				665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */,
 				660704E41F3CF3E8000C09FD /* VerificationController.swift in Sources */,
-				E542F2761FB6057E0072BB31 /* BuildFile in Sources */,
+				E542F2761FB6057E0072BB31 /* (null) in Sources */,
 				66988DA31F9C5C64000B14F5 /* CustomerServersController++.swift in Sources */,
 				FF7ECEE01FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift in Sources */,
 				667E8F971FA7CC80007B1C51 /* GiftYoupiaoCell.swift in Sources */,
@@ -2123,7 +2123,7 @@
 				660F4F7D1F571D2F00F4820D /* ZipcodeAndNameCell++.swift in Sources */,
 				FFDC0E511F9E44500011A425 /* PhotoBrowserViewController.swift in Sources */,
 				663121E91F534B8F000F7ACB /* PaymentController++.swift in Sources */,
-				E542F2781FB6058D0072BB31 /* BuildFile in Sources */,
+				E542F2781FB6058D0072BB31 /* (null) in Sources */,
 				FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
 				FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */,
