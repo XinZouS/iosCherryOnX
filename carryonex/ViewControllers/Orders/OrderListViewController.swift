@@ -32,7 +32,6 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var listButtonSender: UIButton!
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
-    
     var listType: TripCategory = .carrier {
         didSet {
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
@@ -80,6 +79,11 @@ class OrderListViewController: UIViewController {
         }
     }
     
+
+    var isStoreUpdated = false
+    var refreshShipperControl: UIRefreshControl!
+    var refreshSenderControl: UIRefreshControl!
+
     //MARK: - View Cycle
     
     override func viewDidLoad() {
@@ -94,13 +98,14 @@ class OrderListViewController: UIViewController {
         tableViewLeftConstraint.constant = 0
         sliderBarCenterConstraint.constant = 0
         setupTableViews()
-        
+        setupRefreshController()
         //Setup activity indicator
         activityIndicator = BPCircleActivityIndicator()
         activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
         reloadData()
+        
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.reloadData()
         }
@@ -130,6 +135,26 @@ class OrderListViewController: UIViewController {
     }
     
     //MARK: - Helper Methods
+    
+    private func setupRefreshController(){
+        //添加刷新
+        refreshShipperControl = UIRefreshControl()
+        refreshShipperControl.addTarget(self, action: #selector(refreshData),
+                                 for: .valueChanged)
+        refreshShipperControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
+        tableViewShiper.addSubview(refreshShipperControl)
+        refreshSenderControl = UIRefreshControl()
+        refreshSenderControl.addTarget(self, action: #selector(refreshData),
+                                        for: .valueChanged)
+        refreshSenderControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
+        tableViewSender.addSubview(refreshSenderControl)
+    }
+    
+    func refreshData(){
+        reloadData()
+        self.refreshShipperControl.endRefreshing()
+        self.refreshSenderControl.endRefreshing()
+    }
     
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
