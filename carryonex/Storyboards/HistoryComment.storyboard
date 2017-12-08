@@ -84,14 +84,21 @@
                                                         <constraint firstAttribute="width" constant="50" id="hdB-Si-dIw"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PM5-aB-Tqk">
+                                                    <rect key="frame" x="-0.5" y="-1" width="355" height="150"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="leading" secondItem="rrt-MT-dXf" secondAttribute="leading" id="4HU-d3-HLd"/>
+                                                <constraint firstItem="PM5-aB-Tqk" firstAttribute="height" secondItem="T1r-sD-TLg" secondAttribute="height" id="4Qf-UR-cZ0"/>
+                                                <constraint firstItem="PM5-aB-Tqk" firstAttribute="width" secondItem="T1r-sD-TLg" secondAttribute="width" id="66n-IU-3qK"/>
                                                 <constraint firstItem="Etg-76-kaO" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="11" id="6Db-9a-QkY"/>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="width" secondItem="T1r-sD-TLg" secondAttribute="width" multiplier="0.75" id="EO6-kv-Z5Y"/>
                                                 <constraint firstItem="Etg-76-kaO" firstAttribute="leading" secondItem="T1r-sD-TLg" secondAttribute="leading" constant="15" id="FcK-uP-VWH"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="height" secondItem="yyx-l8-7hc" secondAttribute="height" id="Fqg-pd-afH"/>
+                                                <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerX" secondItem="T1r-sD-TLg" secondAttribute="centerX" id="JD8-f9-hdJ"/>
                                                 <constraint firstItem="yyx-l8-7hc" firstAttribute="leading" secondItem="Tgv-eU-Q2k" secondAttribute="trailing" constant="20" id="N81-tt-kCb"/>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="height" secondItem="T1r-sD-TLg" secondAttribute="height" multiplier="0.5" id="YG9-2Q-S6b"/>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="top" secondItem="rrt-MT-dXf" secondAttribute="bottom" constant="8" id="Ygl-Te-1iB"/>
@@ -102,6 +109,7 @@
                                                 <constraint firstItem="rrt-MT-dXf" firstAttribute="top" secondItem="Tgv-eU-Q2k" secondAttribute="bottom" constant="3" id="r1Q-7y-Wlo"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="leading" secondItem="yyx-l8-7hc" secondAttribute="leading" id="rZj-Bg-0JA"/>
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="15" id="rwp-F5-IzK"/>
+                                                <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerY" secondItem="T1r-sD-TLg" secondAttribute="centerY" id="w4E-gF-hCA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
