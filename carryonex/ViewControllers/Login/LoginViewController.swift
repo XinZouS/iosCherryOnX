@@ -122,6 +122,8 @@ class LoginViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: "好")
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
             }
         }
