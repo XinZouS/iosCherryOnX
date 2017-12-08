@@ -80,8 +80,6 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var isStoreUpdated = false
-    
     //MARK: - View Cycle
     
     override func viewDidLoad() {
@@ -104,19 +102,14 @@ class OrderListViewController: UIViewController {
         view.addSubview(activityIndicator)
         reloadData()
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
-            self?.isStoreUpdated = true
+            self?.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
-        if !isStoreUpdated {
-            TripOrderDataStore.shared.pull(category: listType, completion: nil)
-        } else {
-            self.reloadData()
-        }
+        TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -147,7 +140,6 @@ class OrderListViewController: UIViewController {
         if senderRequests.count != 0{
             tableViewSender.tableFooterView = nil
         }
-        isStoreUpdated = false  //reset
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {

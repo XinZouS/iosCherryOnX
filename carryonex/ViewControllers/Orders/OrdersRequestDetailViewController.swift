@@ -59,7 +59,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var paymentMenuView: UIView!
     @IBOutlet weak var checkboxAlipay: UIView!
     @IBOutlet weak var checkboxWechatPay: UIView!
-    @IBOutlet weak var gotoPaymentButton: RequestTransactionButton!
+    @IBOutlet weak var gotoPaymentButton: UIButton!
     
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
@@ -101,6 +101,10 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func goToPaymentHandler(_ sender: Any) {
+        WalletManager.shared.aliPayAuth(request: request)
+    }
+    
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         let transaction = sender.transaction
         print("Transaction tapped: \(transaction.displayString())")
@@ -109,7 +113,8 @@ class OrdersRequestDetailViewController: UIViewController {
             performSegue(withIdentifier: postRateSegue, sender: nil)
             return
         }
-        if transaction == .shipperPay, paymentMenuTopConstraint.constant <= 0 {
+        
+        if transaction == .shipperPay {
             paymentMenuAnimateShowHide()
             return
         }
@@ -178,6 +183,7 @@ class OrdersRequestDetailViewController: UIViewController {
         setupView()
         setupCollectionView()
         setupPaymentMenuView()
+        addObservers()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -222,8 +228,8 @@ class OrdersRequestDetailViewController: UIViewController {
         backgroundView.isHidden = true
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(tapRgr)
-        gotoPaymentButton.transaction = .shipperPay
     }
+    
     private func setupPaymentCheckbox(_ b: M13Checkbox){
         b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
         b.markType = .checkmark
@@ -296,6 +302,25 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
+            if let status = notification.object as? AliPayResultStatus {
+                if status == .success || status == .processing {
+                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: "好", completion: { [weak self] _ in
+                        guard let strongSelf = self else { return }
+                        TripOrderDataStore.shared.pull(category: strongSelf.category, completion: { [weak self] _ in
+                            self?.reloadData()
+                        })
+                    })
+                } else {
+                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: "好")
+                }
+                
+            } else {
+                self?.displayAlert(title: "支付失败", message: "未知错误", action: "好")
+            }
+        }
+    }
     
     private func reloadData() {
         if let updatedRequest = TripOrderDataStore.shared.getRequest(category: category, requestId: self.request.id) {

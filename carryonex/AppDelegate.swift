@@ -161,8 +161,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     
     /// WeChat API connection
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
+                if let result = result {
+                    WalletManager.shared.aliPayProcessOrderCallbackHandler(result: result)
+                    print("OpenURL callback result: \(result)")
+                }
+            })
+            
+            AlipaySDK.defaultService().processAuth_V2Result(url, standbyCallback: { (result) in
+                var authCode: String? = nil
+                if let resultValue = result?["result"] as? String {
+                    if resultValue.count > 0 {
+                        let resultArr = resultValue.components(separatedBy: "&")
+                        for subResult in resultArr {
+                            if subResult.count > 10 && subResult.hasPrefix("auth_code=") {
+                                let index = subResult.index(subResult.endIndex, offsetBy: -10)
+                                authCode = subResult.substring(from: index)
+                                break
+                            }
+                        }
+                    }
+                }
+                
+                if let authCode = authCode {
+                    print("Authorization result: \(authCode)")
+                }
+            })
+        }
+        
         FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         WXApi.handleOpen(url, delegate: self)
+        
         return true
     }
     
@@ -175,6 +206,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("Remote notification: \(userInfo)")
+        
+        //Show alert when push notification is recieved
+        if let mainViewController = self.mainTabViewController {
+            if let page = userInfo["page"] as? String, let aps = userInfo["aps"] as? [String: Any], let title = aps["alert"] as? String {
+                let category: TripCategory = (page == "carrier") ? .carrier : .sender
+                mainViewController.displayGlobalAlert(title: "寄件状态更新", message: title, action: "好", completion: {
+                    TripOrderDataStore.shared.pull(category: category, completion: nil)
+                })
+            }
+        }
     }
     
     
