@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOn-km-Alh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOn-km-Alh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -19,7 +19,7 @@
         <scene sceneID="GoH-pk-Xp7">
             <objects>
                 <navigationController navigationBarHidden="YES" id="jOn-km-Alh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="订单" image="orderIcon" id="pr2-j8-IZ6"/>
+                    <tabBarItem key="tabBarItem" title="订单" image="orderIcon_82x82" id="pr2-j8-IZ6"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yln-HP-UEk">
                         <autoresizingMask key="autoresizingMask"/>
@@ -40,6 +40,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CarryonEx_PayPal" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgViewTopWave" translatesAutoresizingMaskIntoConstraints="NO" id="pio-pR-OLJ">
+                                <rect key="frame" x="0.0" y="111" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="XXh-cb-8iX">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
                                 <rect key="frame" x="0.0" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1181,20 +1192,11 @@
                                     <outlet property="delegate" destination="lgk-n5-ovN" id="afn-2m-KK5"/>
                                 </connections>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CarryonEx_PayPal" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgViewTopWave" translatesAutoresizingMaskIntoConstraints="NO" id="pio-pR-OLJ">
-                                <rect key="frame" x="0.0" y="126" width="375" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="XXh-cb-8iX"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zb-lX-Fnf">
-                                <rect key="frame" x="30" y="164" width="157.5" height="46"/>
+                                <rect key="frame" x="30" y="154" width="157.5" height="40"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="orE-v0-kPf"/>
+                                    <constraint firstAttribute="height" constant="40" id="orE-v0-kPf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="出行">
@@ -1205,7 +1207,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-Hc-dgJ">
-                                <rect key="frame" x="187.5" y="164" width="157.5" height="46"/>
+                                <rect key="frame" x="187.5" y="154" width="157.5" height="40"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="寄件">
@@ -1216,7 +1218,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUR-20-iwi">
-                                <rect key="frame" x="59.5" y="203" width="100" height="3"/>
+                                <rect key="frame" x="59.5" y="187" width="100" height="3"/>
                                 <color key="backgroundColor" red="1" green="0.41893023252487183" blue="0.418658047914505" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="5Uj-bO-c6T"/>
@@ -1233,13 +1235,13 @@
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="top" secondItem="z2e-bx-5Cc" secondAttribute="top" id="9Vl-Rw-eMo"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="bottom" secondItem="gNp-Kw-G8B" secondAttribute="bottom" id="ERT-1Y-h8y"/>
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="width" secondItem="E7e-sp-soC" secondAttribute="width" id="Ic3-c7-85Z"/>
-                            <constraint firstItem="pio-pR-OLJ" firstAttribute="bottom" secondItem="RDL-q7-LHv" secondAttribute="bottom" id="JSn-ax-sL4"/>
+                            <constraint firstItem="pio-pR-OLJ" firstAttribute="bottom" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="5" id="JSn-ax-sL4"/>
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="top" secondItem="E7e-sp-soC" secondAttribute="top" id="JmW-DW-jNg"/>
                             <constraint firstItem="4Zb-lX-Fnf" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="-2" id="ULt-VI-Ufk"/>
                             <constraint firstItem="QUR-20-iwi" firstAttribute="centerX" secondItem="4Zb-lX-Fnf" secondAttribute="centerX" id="UR6-U2-IZU"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="height" secondItem="4Zb-lX-Fnf" secondAttribute="height" id="V2H-TG-gNf"/>
                             <constraint firstItem="4Zb-lX-Fnf" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="centerX" id="VtR-lC-EWQ"/>
-                            <constraint firstItem="E7e-sp-soC" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="40" id="Zxt-3L-ul7"/>
+                            <constraint firstItem="E7e-sp-soC" firstAttribute="top" secondItem="RDL-q7-LHv" secondAttribute="bottom" constant="50" id="Zxt-3L-ul7"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="leading" secondItem="4Zb-lX-Fnf" secondAttribute="trailing" id="aSu-OC-hxa"/>
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="height" secondItem="E7e-sp-soC" secondAttribute="height" id="aU3-cr-bgb"/>
                             <constraint firstItem="4Zb-lX-Fnf" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" constant="30" id="cIY-3k-RGl">
@@ -1259,6 +1261,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="txf-yd-FWg"/>
                     <connections>
+                        <outlet property="imageTitleView" destination="RDL-q7-LHv" id="a6W-N0-zpW"/>
                         <outlet property="listButtonSender" destination="uSa-Hc-dgJ" id="rej-w4-BDd"/>
                         <outlet property="listButtonShiper" destination="4Zb-lX-Fnf" id="zLd-oD-szt"/>
                         <outlet property="sliderBar" destination="QUR-20-iwi" id="MUw-k7-tfD"/>
@@ -1301,7 +1304,7 @@
         <image name="dashline_gray" width="978" height="21"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="imgViewTopWave" width="528" height="55"/>
-        <image name="orderIcon" width="19" height="19"/>
+        <image name="orderIcon_82x82" width="27" height="27"/>
         <image name="shareing" width="63" height="64"/>
         <image name="starts5Mask" width="827" height="165"/>
         <image name="yadianwenqing" width="313" height="308"/>

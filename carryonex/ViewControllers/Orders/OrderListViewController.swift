@@ -12,6 +12,15 @@ class OrderListViewController: UIViewController {
     
     let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
+    
+    let cityStringDefault = "New York"
+    var cityStringForImage: String = "New York" {
+        didSet{
+            loadImageUrlsOfCurrentCity()
+        }
+    }
+    var imageTimer: Timer?
+    @IBOutlet weak var imageTitleView: UIImageView!
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
@@ -26,6 +35,7 @@ class OrderListViewController: UIViewController {
         didSet {
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
+                self?.setCityStringForImage()
             }
         }
     }
@@ -55,12 +65,14 @@ class OrderListViewController: UIViewController {
     var carrierTrips = [Trip]() {
         didSet {
             self.tableViewShiper.reloadData()
+            setCityStringForImage()
         }
     }
     
     var senderRequests = [Request]() {
         didSet {
             self.tableViewSender.reloadData()
+            setCityStringForImage()
         }
     }
     
@@ -71,6 +83,9 @@ class OrderListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setCityStringForImage()
+        loadImageUrlsOfCurrentCity()
+        setupImageTimer()
         setupSwipeGestureRecognizer()
         
         //FIXME: Find out why table view constraint is wrong
@@ -394,5 +409,71 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             })
         })
     }
+}
+
+/**
+ * Set up title image for city > state > country
+ */
+extension OrderListViewController {
+    
+    fileprivate func setCityStringForImage(){
+        if listType == .carrier {
+            if let ct = carrierTrips.first?.endAddress?.city {
+                cityStringForImage = (ct == "" ? cityStringDefault : ct)
+                return
+            }
+        }
+        if listType == .sender {
+            if let ct = senderRequests.first?.endAddress?.city {
+                cityStringForImage = (ct == "" ? cityStringDefault : ct)
+                return
+            }
+        }
+    }
+    fileprivate func setStateStringForImage(){
+        if listType == .carrier {
+            if let st = carrierTrips.first?.endAddress?.state {
+                cityStringForImage = (st == "" ? cityStringDefault : st)
+            }else{
+                cityStringForImage = cityStringDefault
+            }
+        }
+        if listType == .sender {
+            if let st = senderRequests.first?.endAddress?.state {
+                cityStringForImage = (st == "" ? cityStringDefault : st)
+            }else{
+                cityStringForImage = cityStringDefault
+            }
+        }
+    }
+    
+    public func setTitleImage(){
+        guard FlickrImageManager.shared.isStoreImageFilled() else {
+            setCityStringForImage()
+            loadImageUrlsOfCurrentCity()
+            return
+        }
+        if let url = FlickrImageManager.shared.randomImageUrl() {
+            imageTitleView.af_setImage(withURL: url)
+        }
+    }
+    public func loadImageUrlsOfCurrentCity(){
+        print(" ---- load image for: \(cityStringForImage)")
+        FlickrImageManager.shared.getPhotoUrl(from: cityStringForImage) { (urls) in
+            guard let urls = urls, let url = urls.first else {
+                self.setStateStringForImage() // if unable to load city, try use state;
+                print("----------- !!! load city failed, will set State..")
+                return
+            }
+            self.imageTitleView.af_setImage(withURL: url)
+        }
+    }
+    
+    fileprivate func setupImageTimer(){
+        if FlickrImageManager.shared.isStoreImageFilled(), (imageTimer?.isValid ?? false) { return }
+        imageTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(setTitleImage), userInfo: nil, repeats: true)
+    }
+
+    
 }
 

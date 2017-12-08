@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qoh-Tt-j0u">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -16,7 +16,7 @@
         <scene sceneID="YJT-Xn-JfT">
             <objects>
                 <navigationController navigationBarHidden="YES" id="qoh-Tt-j0u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="游箱" image="homeIcon" id="Yr0-Bi-VvI"/>
+                    <tabBarItem key="tabBarItem" title="游箱" image="HomepageIcon_80x80" id="Yr0-Bi-VvI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qSZ-sl-e6b">
                         <autoresizingMask key="autoresizingMask"/>
@@ -579,9 +579,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="HomepageIcon_80x80" width="26" height="26"/>
         <image name="backgroundImage" width="421" height="162"/>
         <image name="blankUserHeadImage" width="160" height="159"/>
-        <image name="homeIcon" width="19" height="20"/>
         <image name="location_grey" width="4" height="6"/>
         <image name="starts5Mask" width="827" height="165"/>
     </resources>

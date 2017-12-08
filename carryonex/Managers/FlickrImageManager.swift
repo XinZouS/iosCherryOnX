@@ -32,7 +32,7 @@ class FlickrImageManager {
     func randomImageUrl() -> URL? {
         if let storedImageUrls = storedImageUrls {
             let randomIndex = Int(arc4random_uniform(UInt32(storedImageUrls.count)))
-            return storedImageUrls[randomIndex]
+            return randomIndex == 0 ? nil : storedImageUrls[randomIndex]
         }
         return nil
     }
@@ -40,8 +40,8 @@ class FlickrImageManager {
     func getPhotoUrl(from place: String, completion: @escaping ([URL]?) -> Void) {
         let photoSearch = FKFlickrPhotosSearch()
         photoSearch.per_page = "10"
-        photoSearch.tags = place + ",landmark"
-        photoSearch.tag_mode = "all"
+        photoSearch.tags = place + ",landmark,city" // [landmark, build, street, city, landscape]
+        photoSearch.tag_mode = "all" // [all(and), any(or)]
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
             DispatchQueue.main.async(execute: {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WZm-XB-p46">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WZm-XB-p46">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,7 +15,7 @@
         <scene sceneID="kkn-h2-Yet">
             <objects>
                 <navigationController navigationBarHidden="YES" id="WZm-XB-p46" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="person" id="ylg-MR-dVa"/>
+                    <tabBarItem key="tabBarItem" title="我" image="PersonalIcon_80x80" id="ylg-MR-dVa"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c3E-LO-Me0">
                         <autoresizingMask key="autoresizingMask"/>
@@ -281,8 +281,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="PersonalIcon_80x80" width="26" height="26"/>
         <image name="blankUserHeadImage" width="160" height="159"/>
-        <image name="person" width="20" height="19"/>
         <image name="setting_gray" width="96" height="96"/>
         <image name="starts5Mask" width="827" height="165"/>
     </resources>
