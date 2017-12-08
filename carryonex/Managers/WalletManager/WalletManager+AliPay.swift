@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum AliPayResultStatus: Int {
-    case success = 9000
-    case processing = 8000
-    case failed = 4000
-    case repeated = 5000
-    case cancelledByUser = 6001
-    case networkProblem = 6002
-    case unknown = 6004
-    case invalid = -1
+enum AliPayResultStatus: String {
+    case success = "9000"
+    case processing = "8000"
+    case failed = "4000"
+    case repeated = "5000"
+    case cancelledByUser = "6001"
+    case networkProblem = "6002"
+    case unknown = "6004"
+    case invalid = "-1"
     
     func statusDescription() -> String {
         switch self {
@@ -69,11 +69,10 @@ extension WalletManager {
         "sign":"gCtfE64YPRUCnnS1YGKc+mMn7rJvgCgTP/CfnpSd+CgWiz+mwq0PolJZB74F8M3LOVWNOos83gYtR1u2PJw/VWdp9aT6UhjSy4FgyXoug1EPaLh8iNvegPU7dVieZhx3sNAW8o9n9bzfy9xKNLcchXnXaSjuxs9Mgx81rJnTi4ZIShIKf/zJFautcGb/nTu3xypIc5iRf3sdmIKze0P8kSOa7Zy8tB/rnAHP63/evxicAynOhV45XnjQatrUlvI627udQW9UtnddiMFfGgu8Zao87q/Mv6DjoI5rkWASA2uoe/lPqDiv/tiB+fV7sSs67QDI95rtbF8D2z/RF1fPlA==",
         "sign_type":"RSA2"},
      AnyHashable("memo"): ]
-     
      */
     
     func aliPayProcessOrderCallbackHandler(result: [AnyHashable: Any]) {
-        if let resultStatus = result["resultStatus"] as? Int {
+        if let resultStatus = result["resultStatus"] as? String {
             if let status = AliPayResultStatus(rawValue: resultStatus) {
                 NotificationCenter.default.post(name: Notification.Name.Alipay.PaymentProcessed, object: status)
             } else {
