@@ -259,6 +259,7 @@ class OrdersRequestDetailViewController: UIViewController {
             senderDescLabel.text = "寄件人评分"
             recipientPhoneCallButton.isHidden = false
             senderScoreWidthConstraint.constant = CGFloat(request.ownerRating * 20) //*(100/5)
+            updateMapViewToShow(false) // map for sender to see carrier
             
         } else {
             profileImageString = trip.carrierImageUrl
@@ -514,15 +515,14 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x
         let y = scrollView.contentOffset.y
-        let maxY = scrollView.contentSize.height - self.view.bounds.height + 100
+        let maxY = scrollView.contentSize.height - self.view.bounds.height + 60
+        let setY = y < 0 ? 0 : (y > maxY ? maxY : y)
+        
         if x != 0 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: y), animated: false)
+            scrollView.setContentOffset(CGPoint(x:0, y: setY), animated: false)
         }
-        if y < 0 || y > maxY {
-            return
-        }
-        scrollView.setContentOffset(CGPoint(x:0, y: y), animated: false)
     }
+    
   
 }
 
