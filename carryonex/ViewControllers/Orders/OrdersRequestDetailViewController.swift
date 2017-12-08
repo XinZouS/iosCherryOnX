@@ -135,6 +135,7 @@ class OrdersRequestDetailViewController: UIViewController {
                                                             }
                 })
             }
+            self?.backgroundViewHide()
         }
     }
     
@@ -224,6 +225,7 @@ class OrdersRequestDetailViewController: UIViewController {
         gotoPaymentButton.transaction = .shipperPay
     }
     private func setupPaymentCheckbox(_ b: M13Checkbox){
+        b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
         b.markType = .checkmark
         b.boxType = .circle
         b.checkmarkLineWidth = 4
@@ -329,16 +331,15 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func checkboxValueChanged(_ sender: Any){
-        switch paymentType {
-        case .alipay:
+    public func checkBoxDidChanged(_ checkBox: M13Checkbox){
+        if checkBox.checkState == .unchecked {
+            checkBox.checkState = .checked
+        }
+        if checkBox == checkAlipay {
+            paymentType = .alipay
+        }
+        if checkBox == checkWechat {
             paymentType = .wechatPay
-            
-        case .wechatPay:
-            paymentType = .alipay
-            
-        default:
-            paymentType = .alipay
         }
     }
     
