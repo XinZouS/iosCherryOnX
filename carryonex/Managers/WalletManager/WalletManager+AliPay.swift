@@ -13,9 +13,10 @@ extension WalletManager {
     func aliPayAuth(request: Request) {
         let userId = String(request.ownerId)
         let requestId = String(request.id)
-        ApiServers.shared.postWalletAliPay(totalAmount: String(request.priceBySender), userId: userId, requestId: requestId) { (orderString, error) in
+        let total = String(format: "%.2f", (Double(request.priceBySender) / 100.0))
+        ApiServers.shared.postWalletAliPay(totalAmount: total, userId: userId, requestId: requestId) { (orderString, error) in
             AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (result) in
-                print("Result Dict: \(result)")
+                //print("Result Dict: \(result)")
             }
         }
     }
