@@ -36,7 +36,7 @@ class PersonalPageViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "我的"
+        title = "我"
         setupTableView()
         setupNavigationBar()
         addUserUpdateNotificationObservers()
