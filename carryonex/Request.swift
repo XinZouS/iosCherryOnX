@@ -243,9 +243,9 @@ enum RequestStatus: Int {
         case .inDelivery:
             return "正在送递"
         case .delivered:
-            return "已送抵"
+            return "已送达"
         case .deliveryConfirmed:
-            return "已确认送抵"
+            return "已确认送达"
 //        case .refundCompleted:
 //            return "退款完成"
         case .invalid:

@@ -404,7 +404,7 @@ class SenderDetailViewController: UIViewController{
                                                     self?.navigationController?.popToRootViewController(animated: true)
                                                 })
                                                 
-                                                TripOrderDataStore.shared.pull(category: .sender, completion: nil)
+                                                TripOrderDataStore.shared.pull(category: .sender, delay: 1, completion: nil)
                 })
 
             } else {

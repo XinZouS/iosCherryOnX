@@ -210,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         //Show alert when push notification is recieved
         if let mainViewController = self.mainTabViewController {
             if let page = userInfo["page"] as? String, let aps = userInfo["aps"] as? [String: Any], let title = aps["alert"] as? String {
-                let category: TripCategory = (page == "carrier") ? .carrier : .sender
+                let category: TripCategory = (page == "carrier") ? .sender : .carrier
                 mainViewController.displayGlobalAlert(title: "寄件状态更新", message: title, action: "好", completion: {
                     TripOrderDataStore.shared.pull(category: category, completion: nil)
                 })

@@ -73,6 +73,7 @@ class FlickrImageManager {
         photoSearch.per_page = "10"
         photoSearch.tags = place + ", city, famous" // [landmark, build, city, landscape]
         photoSearch.tag_mode = "all" // [all(and), any(or)]
+        photoSearch.is_commons = "true"
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
             DispatchQueue.main.async(execute: {
