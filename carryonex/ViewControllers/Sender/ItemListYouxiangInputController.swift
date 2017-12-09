@@ -94,6 +94,7 @@ class ItemListYouxiangInputController: UIViewController {
         guard code.count == 6 else {
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
             displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+                self.isLoading = false
                 self.youxiangcodeTextField.becomeFirstResponder()
             })
             return
@@ -126,7 +127,7 @@ class ItemListYouxiangInputController: UIViewController {
                     self.navigationController?.popToRootViewController(animated: true)
                 })
             }
-            self.goDetailButton.isEnabled = false
+            self.goDetailButton.isEnabled = true
         })
     }
     
