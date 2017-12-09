@@ -129,6 +129,8 @@ class TripOrderDataStore: NSObject {
         senderTrips.removeAll()
         carrierRequests.removeAll()
         senderRequests.removeAll()
+        lastSenderFetchTime = -1
+        lastCarrierFetchTime = -1
         NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
     }
     

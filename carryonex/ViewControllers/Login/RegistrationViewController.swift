@@ -138,7 +138,6 @@ class RegistrationViewController: UIViewController {
     
     func isPasswordValidate() -> Bool {
         guard let password = passwordField.text, let confirm = confirmPasswordField.text, password != "", confirm != "" else {
-            AudioManager.shared.playSond(named: .failed)
             isPasswordValid = false
             checkRegistrationButtonReady()
             return false

@@ -34,36 +34,49 @@ class UserCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         ItemStatusBtn.isHidden = true
-        setupCardView()
-        
         self.view.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapCard))
         self.view.addGestureRecognizer(tapGesture)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupCardView()
+    }
 
+    
     @objc private func handleTapCard(sender: UIButton) {
         guard let request = request, let category = category else { return }
         delegate?.userCardTapped(sender: sender, request: request, category: category)
     }
     
     private func setupCardView(){
+        UserStatus.text = (self.category == .carrier) ? "出行订单" : "寄件订单"
+        requestImageView.image = (self.category == .carrier) ? #imageLiteral(resourceName: "empty2") : #imageLiteral(resourceName: "empty1")
+        beginLocationLabel.text = "暂时没有位置信息"
+        endLocationLabel.text = "暂时没有位置信息"
+        timeLabel.text = "无行程信息"
         guard let request = request, let category = category else {
             ItemStatusBtn.isHidden = true
             return
         }
-        UserStatus.text = (category == .carrier) ? "出行订单" : "寄件订单"
+        
         let status = request.status()
         ItemStatusBtn.isHidden = false
         ItemStatusBtn.backgroundColor = status.displayColor(category: category)
         ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+        
         if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
             timeLabel.text = trip.cardDisplayTime()
             beginLocationLabel.text = trip.startAddress?.fullAddressString()
             endLocationLabel.text = trip.endAddress?.fullAddressString()
             if request.images.count > 0, let imageUrl = URL(string: request.images[0].imageUrl) {
-                requestImageView.af_setImage(withURL: imageUrl)
+                if category == .carrier{
+                    requestImageView.af_setImage(withURL: imageUrl, placeholderImage: #imageLiteral(resourceName: "empty1"))
+                }else{
+                    requestImageView.af_setImage(withURL: imageUrl, placeholderImage: #imageLiteral(resourceName: "empty2"))
+                }
             }
         }
     }

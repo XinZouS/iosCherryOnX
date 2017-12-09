@@ -101,7 +101,6 @@ class LoginViewController: UIViewController {
                          action: L("action.ok")) {
                 _ = self.phoneField.becomeFirstResponder()
             }
-            AudioManager.shared.playSond(named: .failed)
             return
         }
         
@@ -111,7 +110,6 @@ class LoginViewController: UIViewController {
                          action: L("action.ok")) {
                 _ = self.passwordField.becomeFirstResponder()
             }
-            AudioManager.shared.playSond(named: .failed)
             return
         }
         
