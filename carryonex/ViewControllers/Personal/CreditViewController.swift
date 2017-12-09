@@ -56,9 +56,9 @@ class CreditViewController: UIViewController {
         setupDateFormatter()
     }
     
-    private func setupNavigationBar(){
-        let btn = UIBarButtonItem(title: "付款方式", style: .plain, target: self, action: #selector(paymentTypeBarButtonTapped))
-        self.navigationItem.rightBarButtonItem = btn
+    private func setupNavigationBar(){ // TODO: not need this in testing phase;
+        //let btn = UIBarButtonItem(title: "付款方式", style: .plain, target: self, action: #selector(paymentTypeBarButtonTapped))
+        //self.navigationItem.rightBarButtonItem = btn
     }
     
     private func loadTransactionInfo(){
@@ -72,7 +72,7 @@ class CreditViewController: UIViewController {
     }
     
     private func setupDateFormatter(){
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.dateFormat = "MM-dd-yyyy"
     }
     
     func paymentTypeBarButtonTapped(){

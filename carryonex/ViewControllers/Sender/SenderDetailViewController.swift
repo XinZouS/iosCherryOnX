@@ -129,8 +129,8 @@ class SenderDetailViewController: UIViewController{
     }
 
     var currencyType: CurrencyType = .CNY
-    var priceValue: Double = 5
-    var priceMiddl: Double = 5.5
+    var priceValue: Double = 0.1
+    var priceMiddl: Double = 2.5
     var priceFinal: Double = 5 {
         didSet {
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
@@ -752,9 +752,9 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
-        let pMin: Double = 5
+        let pMin: Double = 0.1
         let pGet = calculatePrice(type: .linear)
-        let pMax: Double = (newPrice < 5.0 || pGet < 5.0) ? 10.0 : pGet
+        let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
         priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
