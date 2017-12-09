@@ -9,17 +9,32 @@
 import UIKit
 
 class ChangePasswordController: UIViewController{
+    
     var registerUserInfo : [String:String]?
     var zoneCodeInput :String = "1"
     var phoneInput :String = ""
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var changePasswordButton: UIButton!
+    @IBOutlet weak var bottomImageView: UIImageView!
+    
     override func viewDidLoad() {
-       zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
+        zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
         phoneInput = registerUserInfo?["phone"] ?? ""
+        setupPasswordTextField()
+        setupGifImageView()
+    }
+    
+    private func setupPasswordTextField(){
         passwordTextField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         passwordTextField.isSecureTextEntry = true
     }
+    
+    private func setupGifImageView(){
+        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        bottomImageView.image = gifImg
+    }
+    
     @objc private func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
@@ -35,6 +50,7 @@ class ChangePasswordController: UIViewController{
             changePasswordButton.backgroundColor = colorErrGray
         }
     }
+    
     @IBAction func changePasswordTapped(_ sender: Any) {
         let newPassword = passwordTextField.text
         ProfileManager.shared.forgetPassword(phone: phoneInput, password: newPassword!) { (success, error) in
