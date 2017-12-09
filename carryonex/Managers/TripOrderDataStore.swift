@@ -115,13 +115,12 @@ class TripOrderDataStore: NSObject {
         fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
     }
     
-    func pull(category: TripCategory, completion:(() -> Void)?) {
+    func pull(category: TripCategory, delay: Int = 0, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         let offset = 0
         let pageCount = (targetTrips.count == 0) ? pullPageCount : targetTrips.count   //first pull 10 items
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
-        
-        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
+        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, delay: delay, completion: completion)
     }
     
     func clearStore(){
@@ -134,29 +133,34 @@ class TripOrderDataStore: NSObject {
         NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
     }
     
-    private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, completion:(() -> Void)?) {
+    private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, delay: Int = 0, completion:(() -> Void)?) {
         
-        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
-            if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                return
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(delay)) {
             
-            if let tripOrders = tripOrders {
-                self.updateData(forCategory: category, updatedData: tripOrders)
-                completion?()
-                //Only notify update when there are actual substantial update.
-                NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
-            } else {
-                print("No new update since: \(sinceTime)")
-            }
+            print("PULL CATEGORY: \(category)")
             
-            if category == .carrier {
-                self.lastCarrierFetchTime = Date.getTimestampNow()
-                print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
-            } else {
-                self.lastSenderFetchTime = Date.getTimestampNow()
-                print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
+            ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
+                if let error = error {
+                    print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let tripOrders = tripOrders {
+                    self.updateData(forCategory: category, updatedData: tripOrders)
+                    completion?()
+                    //Only notify update when there are actual substantial update.
+                    NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+                } else {
+                    print("No new update since: \(sinceTime)")
+                }
+                
+                if category == .carrier {
+                    self.lastCarrierFetchTime = Date.getTimestampNow()
+                    print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
+                } else {
+                    self.lastSenderFetchTime = Date.getTimestampNow()
+                    print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
+                }
             }
         }
     }

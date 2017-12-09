@@ -85,7 +85,7 @@ class TripController: UIViewController{
                 if success {
                     self.performSegue(withIdentifier: "tripComplete", sender: tripCode)
                     ProfileManager.shared.loadLocalUser(completion: nil)
-                    TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
+                    TripOrderDataStore.shared.pull(category: .carrier, delay: 1, completion: nil)
                 }else{
                     print(msg ?? "")
                 }

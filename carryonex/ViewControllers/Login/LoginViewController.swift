@@ -45,6 +45,7 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
         setupFlagPicker()
         setupIndicator()
+        setupGifImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +70,11 @@ class LoginViewController: UIViewController {
     }
     //MARK: - View custom set up
     
+    private func setupGifImage(){
+        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        bottomImageView.image = gifImg
+    }
+
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
         circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)

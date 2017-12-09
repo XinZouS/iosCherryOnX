@@ -80,8 +80,6 @@ class OrderListViewController: UIViewController {
         }
     }
     
-
-    var isStoreUpdated = false
     var refreshShipperControl: TGRefreshSwift!
     var refreshSenderControl: TGRefreshSwift!
 
