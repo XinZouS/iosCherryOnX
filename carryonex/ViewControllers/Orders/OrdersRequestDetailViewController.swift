@@ -67,10 +67,6 @@ class OrdersRequestDetailViewController: UIViewController {
     let toShipperViewSegue = "toOtherShipperView"
     let postRateSegue = "PostRateSegue"
     
-    @IBAction func testPayButton(_ sender: Any) {
-        WalletManager.shared.aliPayAuth(request: request)
-    }
-    
     @IBAction func moreImageTapped(_ sender: Any) {
         
     }
@@ -106,6 +102,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
+        
         let transaction = sender.transaction
         print("Transaction tapped: \(transaction.displayString())")
         
@@ -115,7 +112,7 @@ class OrdersRequestDetailViewController: UIViewController {
         }
         
         if transaction == .shipperPay {
-            paymentMenuAnimateShowHide()
+            showPaymentView(true)
             return
         }
         
@@ -124,26 +121,20 @@ class OrdersRequestDetailViewController: UIViewController {
         let requestCategory = category
         displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
-                ApiServers.shared.postRequestTransaction(requestId: requestId,
-                                                         tripId: tripId,
-                                                         transaction: transaction,
-                                                         completion: { (success, error, statusId) in
-                                                            if (success) {
-                                                                if let statusId = statusId {
-                                                                    print("New status: \(statusId)")
-                                                                    TripOrderDataStore.shared.pull(category: requestCategory, completion: {
-                                                                        self?.reloadData()
-                                                                    })
-                                                                } else {
-                                                                    debugPrint("No status found, bad call")
-                                                                }
-                                                            }
+                ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
+                    if (success) {
+                        if let statusId = statusId {
+                            print("New status: \(statusId)")
+                            TripOrderDataStore.shared.pull(category: requestCategory, delay: 2, completion: nil)
+                        } else {
+                            debugPrint("No status found, bad call")
+                        }
+                    }
                 })
             }
             self?.backgroundViewHide()
         }
     }
-    
     
     // MARK: - Data models
     var trip: Trip = Trip()
@@ -172,7 +163,6 @@ class OrdersRequestDetailViewController: UIViewController {
             }
         }
     }
-    
     
     // MARK: - VC funcs
     override func viewDidLoad() {
@@ -253,6 +243,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func setupView() {
+        
         updateRequestInfoAppearance(request: request)
         
         if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
@@ -279,7 +270,8 @@ class OrdersRequestDetailViewController: UIViewController {
         
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
             senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "carryonex_UserInfo"), filter: nil, progress: nil, completion: nil)
-        }else{
+        
+        } else{
             senderImageButton.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         }
         
@@ -308,10 +300,24 @@ class OrdersRequestDetailViewController: UIViewController {
                 if status == .success || status == .processing {
                     self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: "好", completion: { [weak self] _ in
                         guard let strongSelf = self else { return }
-                        TripOrderDataStore.shared.pull(category: strongSelf.category, completion: { [weak self] _ in
-                            self?.reloadData()
+                        
+                        self?.backgroundViewHide()
+                        
+                        let tripId = strongSelf.trip.id
+                        let requestId = strongSelf.request.id
+                        let requestCategory = strongSelf.category
+                        ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: .shipperPay, completion: { (success, error, statusId) in
+                            if (success) {
+                                if let statusId = statusId {
+                                    print("New status: \(statusId)")
+                                    TripOrderDataStore.shared.pull(category: requestCategory, completion: nil)
+                                } else {
+                                    debugPrint("No status found, bad call")
+                                }
+                            }
                         })
                     })
+                    
                 } else {
                     self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: "好")
                 }
@@ -320,6 +326,11 @@ class OrdersRequestDetailViewController: UIViewController {
                 self?.displayAlert(title: "支付失败", message: "未知错误", action: "好")
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated,
+                                               object: nil, queue: nil, using: { [weak self] (notification) in
+                                                self?.reloadData()
+        })
     }
     
     private func reloadData() {
@@ -329,9 +340,8 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
-    private func paymentMenuAnimateShowHide(){
-        let toShow: Bool = paymentMenuTopConstraint.constant <= 0
-        let offset: CGFloat = toShow ? paymentMenuView.bounds.height : -50
+    private func showPaymentView(_ isShown: Bool) {
+        let offset: CGFloat = isShown ? paymentMenuView.bounds.height : -paymentMenuView.bounds.height
         paymentMenuTopConstraint.constant = offset
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -346,7 +356,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     public func backgroundViewHide(){
-        paymentMenuAnimateShowHide()
+        showPaymentView(false)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.backgroundView.alpha = 0
         }) { (complete) in
@@ -374,18 +384,18 @@ class OrdersRequestDetailViewController: UIViewController {
         checkAlipay?.setCheckState(aliState, animated: true)
         checkWechat?.setCheckState(wechatState, animated: true)
     }
-
-
 }
 
+
 extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
+    
     func updateButtonAppearance(status: RequestStatus) {
         if category == .carrier {
             updateMapViewToShow(false)
             switch status {
-            case .waiting:
+            case .waiting, .inDelivery:
                 buttonsToShow = .twoButtons
-            case .accepted, .delivered, .paid, .inDelivery, .deliveryConfirmed: //.pendingRefund,
+            case .accepted, .delivered, .paid, .deliveryConfirmed: //.pendingRefund,
                 buttonsToShow = .oneButton
             default:
                 buttonsToShow = .noButtons
@@ -399,10 +409,9 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
                 finishButton.transaction = .carrierCancel
             case .paid:
                 finishButton.transaction = .carrierReceive
-//            case .pendingRefund:
-//                finishButton.transaction = .carrierReceive
             case .inDelivery:
-                finishButton.transaction = .carrierShip
+                finishButton.transaction = .carrierDeliver
+                finishButton2.transaction = .carrierShip
             case .delivered, .deliveryConfirmed:
                 finishButton.transaction = .allowRating
             default:
@@ -462,7 +471,9 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     }
 }
 
+
 extension OrdersRequestDetailViewController: UICollectionViewDataSource {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -477,7 +488,9 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
     }
 }
 
+
 extension OrdersRequestDetailViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoBrowserCollectionViewCell else {
             return
@@ -494,8 +507,11 @@ extension OrdersRequestDetailViewController: UICollectionViewDelegate {
         vc.show(index: indexPath.item)
     }
 }
+    
+    
 // 实现浏览器代理协议
 extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
+    
     func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
         return request.images.count
     }
@@ -671,8 +687,4 @@ extension OrdersRequestDetailViewController: MKMapViewDelegate {
 //        return pinView
         return nil
     }
-    
 }
-
-
-

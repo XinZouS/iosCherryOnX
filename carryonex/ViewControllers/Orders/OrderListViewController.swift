@@ -79,8 +79,6 @@ class OrderListViewController: UIViewController {
         }
     }
     
-
-    var isStoreUpdated = false
     var refreshShipperControl: UIRefreshControl!
     var refreshSenderControl: UIRefreshControl!
 

@@ -32,7 +32,12 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     var trip: Trip!
-    var requests = [Request]()
+    var requests = [Request]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
     var category: TripCategory = .carrier
     
     var activityIndicator: UIActivityIndicatorCustomizeView!
@@ -78,12 +83,13 @@ class OrdersYouxiangInfoViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.loadData()
-            self?.tableView.reloadData()
         }
     }
     
     func loadData() {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
+        
+        print("Number of requests in trip \(trip.id): \(requests.count)")
         
         let active: Bool = (trip.active == TripActive.active.rawValue)
         lockerImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")

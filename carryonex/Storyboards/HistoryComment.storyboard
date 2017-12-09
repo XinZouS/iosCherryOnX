@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="28" width="355" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4OI-jy-XwE" id="T1r-sD-TLg">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="149.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PI-de-gtJ">
@@ -52,9 +52,8 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrt-MT-dXf">
-                                                    <rect key="frame" x="73" y="38" width="150" height="15"/>
+                                                    <rect key="frame" x="73" y="38" width="61.5" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="150" id="OGH-vI-mOA"/>
                                                         <constraint firstAttribute="height" constant="15" id="OsX-tk-Nd2"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
