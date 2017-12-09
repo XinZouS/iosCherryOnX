@@ -472,34 +472,30 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nml-Q9-J3X">
                                 <rect key="frame" x="0.0" y="167" width="132.5" height="72"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_grey" translatesAutoresizingMaskIntoConstraints="NO" id="l0A-fk-OVx">
-                                        <rect key="frame" x="10" y="8.5" width="10" height="15"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location_blue" translatesAutoresizingMaskIntoConstraints="NO" id="l0A-fk-OVx">
+                                        <rect key="frame" x="3" y="4" width="20" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="15" id="b5a-Dp-L7M"/>
-                                            <constraint firstAttribute="width" constant="10" id="eI3-Vm-mcr"/>
+                                            <constraint firstAttribute="height" constant="24" id="b5a-Dp-L7M"/>
+                                            <constraint firstAttribute="width" constant="20" id="eI3-Vm-mcr"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美国纽约州纽约市" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1i-YZ-eRO">
-                                        <rect key="frame" x="40" y="10" width="82.5" height="12"/>
+                                        <rect key="frame" x="25" y="10" width="102.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美国加利福尼亚州洛杉矶市" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IA6-lq-H5N">
-                                        <rect key="frame" x="40" y="34" width="82.5" height="24"/>
+                                        <rect key="frame" x="25" y="34" width="102.5" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-W8-rpX">
-                                        <rect key="frame" x="10" y="38.5" width="10" height="15"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="10" id="UGq-iC-rkm"/>
-                                            <constraint firstAttribute="height" constant="15" id="b2n-0o-Rem"/>
-                                        </constraints>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location_blue" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-W8-rpX">
+                                        <rect key="frame" x="3" y="34" width="20" height="24"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXY-4d-7MS">
-                                        <rect key="frame" x="12" y="25.5" width="6" height="11"/>
+                                        <rect key="frame" x="10" y="26" width="6" height="10"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.63914442059999999" green="0.63925665620000005" blue="0.63913732769999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -507,19 +503,21 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.96068006753921509" green="0.96084433794021606" blue="0.96066969633102417" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="IA6-lq-H5N" secondAttribute="trailing" constant="10" id="4vq-xX-PrZ"/>
-                                    <constraint firstItem="k1i-YZ-eRO" firstAttribute="centerX" secondItem="Nml-Q9-J3X" secondAttribute="centerX" constant="15" id="AkK-eh-LC1"/>
-                                    <constraint firstItem="KXY-4d-7MS" firstAttribute="top" secondItem="l0A-fk-OVx" secondAttribute="bottom" constant="2" id="BkF-Ey-nBx"/>
+                                    <constraint firstItem="k1i-YZ-eRO" firstAttribute="trailing" secondItem="IA6-lq-H5N" secondAttribute="trailing" id="4vq-xX-PrZ"/>
+                                    <constraint firstItem="KXY-4d-7MS" firstAttribute="top" secondItem="l0A-fk-OVx" secondAttribute="bottom" constant="-2" id="BkF-Ey-nBx"/>
                                     <constraint firstItem="Vbf-W8-rpX" firstAttribute="centerY" secondItem="IA6-lq-H5N" secondAttribute="centerY" id="Cjn-z7-U3w"/>
                                     <constraint firstItem="l0A-fk-OVx" firstAttribute="centerY" secondItem="k1i-YZ-eRO" secondAttribute="centerY" id="GnE-6w-n4d"/>
-                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="leading" secondItem="Nml-Q9-J3X" secondAttribute="leading" constant="10" id="YeZ-Rb-Ora"/>
-                                    <constraint firstItem="l0A-fk-OVx" firstAttribute="leading" secondItem="Nml-Q9-J3X" secondAttribute="leading" constant="10" id="bPZ-hP-Feb"/>
-                                    <constraint firstAttribute="trailing" secondItem="k1i-YZ-eRO" secondAttribute="trailing" constant="10" id="bhg-9K-hgC"/>
+                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="leading" secondItem="l0A-fk-OVx" secondAttribute="leading" id="YeZ-Rb-Ora"/>
+                                    <constraint firstItem="l0A-fk-OVx" firstAttribute="leading" secondItem="Nml-Q9-J3X" secondAttribute="leading" constant="3" id="bPZ-hP-Feb"/>
+                                    <constraint firstAttribute="trailing" secondItem="k1i-YZ-eRO" secondAttribute="trailing" constant="5" id="bhg-9K-hgC"/>
                                     <constraint firstItem="IA6-lq-H5N" firstAttribute="leading" secondItem="k1i-YZ-eRO" secondAttribute="leading" id="e27-qC-ZUr"/>
+                                    <constraint firstItem="k1i-YZ-eRO" firstAttribute="leading" secondItem="l0A-fk-OVx" secondAttribute="trailing" constant="2" id="etd-wu-lWX"/>
                                     <constraint firstItem="KXY-4d-7MS" firstAttribute="centerX" secondItem="l0A-fk-OVx" secondAttribute="centerX" id="fN9-II-s1a"/>
                                     <constraint firstItem="k1i-YZ-eRO" firstAttribute="centerY" secondItem="Nml-Q9-J3X" secondAttribute="centerY" constant="-20" id="gW7-fV-8Wx"/>
+                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="height" secondItem="l0A-fk-OVx" secondAttribute="height" id="gs6-ns-tGr"/>
                                     <constraint firstItem="IA6-lq-H5N" firstAttribute="centerY" secondItem="Nml-Q9-J3X" secondAttribute="centerY" constant="10" id="qDg-Yb-uya"/>
-                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="top" secondItem="KXY-4d-7MS" secondAttribute="bottom" constant="2" id="zF6-bh-veU"/>
+                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="width" secondItem="l0A-fk-OVx" secondAttribute="width" id="rIy-4g-Nir"/>
+                                    <constraint firstItem="Vbf-W8-rpX" firstAttribute="top" secondItem="KXY-4d-7MS" secondAttribute="bottom" constant="-2" id="zF6-bh-veU"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
@@ -586,7 +584,6 @@
         <image name="HomepageIcon_80x80" width="26" height="26"/>
         <image name="Location_blue" width="38" height="46"/>
         <image name="blankUserHeadImage" width="160" height="159"/>
-        <image name="location_grey" width="4" height="6"/>
         <image name="starts5Mask" width="827" height="165"/>
     </resources>
     <inferredMetricsTieBreakers>
