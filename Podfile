@@ -96,4 +96,6 @@ target 'carryonex' do
   # indicator
   pod 'BPCircleActivityIndicator'
 
+  pod 'TGRefreshSwift'
+
 end
