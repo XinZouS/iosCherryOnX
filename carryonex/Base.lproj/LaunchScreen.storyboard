@@ -22,18 +22,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Box_Cyan" translatesAutoresizingMaskIntoConstraints="NO" id="E9i-eE-C0G">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="E9i-eE-C0G">
                                 <rect key="frame" x="67.5" y="557" width="240" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="03R-cY-VBL"/>
                                     <constraint firstAttribute="width" constant="240" id="6mv-XH-vk5"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchpage_word" translatesAutoresizingMaskIntoConstraints="NO" id="uc9-ot-Jra">
-                                <rect key="frame" x="87.5" y="193.5" width="200" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchpage_ShareTexts" translatesAutoresizingMaskIntoConstraints="NO" id="uc9-ot-Jra">
+                                <rect key="frame" x="87.5" y="213.5" width="200" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="lI9-8N-br5"/>
-                                    <constraint firstAttribute="height" constant="100" id="vPa-wZ-Bau"/>
+                                    <constraint firstAttribute="height" constant="80" id="vPa-wZ-Bau"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -52,7 +52,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Launchpage_word" width="301" height="154"/>
-        <image name="Logo_Box_Cyan" width="373" height="119"/>
+        <image name="LaunchLogo" width="377" height="121"/>
+        <image name="Launchpage_ShareTexts" width="374" height="126"/>
     </resources>
 </document>
