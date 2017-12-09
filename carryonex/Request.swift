@@ -163,7 +163,7 @@ extension RequestCategoryItem: Unboxable {
  '''
  '''
  Actions:
- 0: 请求匹配
+ 0: 再次提醒
  1: 拒绝匹配
  2: 接受匹配
  3: 取消订单
@@ -300,7 +300,7 @@ enum RequestAction: Int {
  (carrier) 状态:完成派送(8) -> 当面交付(7) -> 状态:完成派送(8)
  (carrier) 状态:正在派送(7) -> 快递交付(8) -> 状态:完成派送(8)
 
- (sender) 状态:等待接受(1) -> 请求匹配(0) -> 状态:等待接受(1)
+ (sender) 状态:等待接受(1) -> 再次提醒(0) -> 状态:等待接受(1)
  (sender) 状态:等待接受(1) -> 取消订单(3) -> 状态:已取消(4)
  (sender) 状态:已接收，等待付款(3) -> 取消订单(3) -> 状态:已取消(4)
  (sender) 状态:已接收，等待付款(3) -> 付款(4) -> 状态:已付款(5)
@@ -338,7 +338,7 @@ enum RequestTransaction {
         case .carrierShip:
             return "快递交付"
         case .shipperPairing:
-            return "请求匹配"
+            return "再次提醒"
         case .shipperCancel:
             return "取消订单"
         case .shipperPay:
@@ -367,7 +367,7 @@ enum RequestTransaction {
         case .carrierShip:
             return "确认快递交付？"
         case .shipperPairing:
-            return "确认请求匹配？"
+            return "确认再次提醒？"
         case .shipperCancel:
             return "确认取消订单？"
         case .shipperPay:

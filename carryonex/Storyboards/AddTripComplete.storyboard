@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hxZ-DM-DN1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hxZ-DM-DN1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -80,14 +80,6 @@
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ss3-Ul-ru7">
-                                        <rect key="frame" x="163.5" y="106.5" width="20" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="LyY-M5-bMI"/>
-                                            <constraint firstAttribute="width" constant="20" id="uew-nW-sHe"/>
-                                        </constraints>
-                                        <state key="normal" image="shareButton"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-Qc-oj0">
                                         <rect key="frame" x="35" y="278" width="273" height="44"/>
                                         <color key="backgroundColor" red="1" green="0.41885420680046082" blue="0.42289164662361145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -136,14 +128,12 @@
                                     <constraint firstAttribute="trailing" secondItem="pRI-DK-s4V" secondAttribute="trailing" constant="40" id="LiZ-I4-XVZ"/>
                                     <constraint firstItem="L6f-sn-a6w" firstAttribute="top" secondItem="53Q-PW-Uw6" secondAttribute="bottom" constant="-3" id="NN8-UY-pZO"/>
                                     <constraint firstAttribute="trailing" secondItem="4qe-Qc-oj0" secondAttribute="trailing" constant="35" id="NW2-0t-rLZ"/>
-                                    <constraint firstItem="Ss3-Ul-ru7" firstAttribute="centerY" secondItem="L6f-sn-a6w" secondAttribute="centerY" constant="-1" id="NqX-5D-hsD"/>
                                     <constraint firstAttribute="trailing" secondItem="O5h-HS-WaM" secondAttribute="trailing" constant="20" id="Pr0-Tb-qej"/>
                                     <constraint firstItem="717-tM-T8i" firstAttribute="leading" secondItem="ezQ-hd-BTC" secondAttribute="leading" constant="10" id="RJR-y2-ZcR"/>
                                     <constraint firstAttribute="trailing" secondItem="717-tM-T8i" secondAttribute="trailing" constant="10" id="XcB-Qh-AVB"/>
                                     <constraint firstItem="53Q-PW-Uw6" firstAttribute="centerY" secondItem="aUL-Ch-uno" secondAttribute="centerY" id="ZdW-bg-kyA"/>
                                     <constraint firstItem="aUL-Ch-uno" firstAttribute="top" secondItem="ezQ-hd-BTC" secondAttribute="top" constant="14" id="a7r-bB-qc9"/>
                                     <constraint firstAttribute="bottom" secondItem="pRI-DK-s4V" secondAttribute="bottom" constant="10" id="cEJ-TE-VQE"/>
-                                    <constraint firstItem="Ss3-Ul-ru7" firstAttribute="leading" secondItem="L6f-sn-a6w" secondAttribute="trailing" constant="5" id="cbp-69-QQI"/>
                                     <constraint firstItem="ewO-3W-fpj" firstAttribute="centerX" secondItem="aUL-Ch-uno" secondAttribute="centerX" id="fj0-xb-F17"/>
                                     <constraint firstItem="mfv-aQ-PNL" firstAttribute="top" secondItem="Rqq-Aa-E5I" secondAttribute="top" constant="4" id="ggr-EB-omv"/>
                                     <constraint firstItem="mfv-aQ-PNL" firstAttribute="leading" secondItem="L6f-sn-a6w" secondAttribute="leading" id="hNk-x8-LAv"/>
@@ -198,7 +188,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="shareButton" width="20" height="20"/>
         <image name="串串" width="12" height="35"/>
         <image name="小头像" width="45" height="43"/>
     </resources>
