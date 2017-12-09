@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eRT-V6-pbO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eRT-V6-pbO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -174,7 +174,7 @@
                         <viewLayoutGuide key="safeArea" id="LMn-Tc-Oa8"/>
                     </view>
                     <connections>
-                        <outlet property="bottomImgeView" destination="v12-N4-fq0" id="3UJ-Hz-qZ0"/>
+                        <outlet property="bottomImageView" destination="v12-N4-fq0" id="3Qy-W2-PiW"/>
                         <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
                         <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>

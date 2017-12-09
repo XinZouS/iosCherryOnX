@@ -8,6 +8,7 @@
 
 import UIKit
 import BPCircleActivityIndicator
+import TGRefreshSwift
 
 class OrderListViewController: UIViewController {
     
@@ -79,8 +80,8 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var refreshShipperControl: UIRefreshControl!
-    var refreshSenderControl: UIRefreshControl!
+    var refreshShipperControl: TGRefreshSwift!
+    var refreshSenderControl: TGRefreshSwift!
 
     //MARK: - View Cycle
     
@@ -136,22 +137,33 @@ class OrderListViewController: UIViewController {
     
     private func setupRefreshController(){
         //添加刷新
-        refreshShipperControl = UIRefreshControl()
+        refreshShipperControl = TGRefreshSwift()
         refreshShipperControl.addTarget(self, action: #selector(refreshData),
                                  for: .valueChanged)
-        refreshShipperControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
         tableViewShiper.addSubview(refreshShipperControl)
-        refreshSenderControl = UIRefreshControl()
+        
+        refreshSenderControl = TGRefreshSwift()
         refreshSenderControl.addTarget(self, action: #selector(refreshData),
                                         for: .valueChanged)
-        refreshSenderControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
         tableViewSender.addSubview(refreshSenderControl)
     }
     
     func refreshData(){
-        reloadData()
-        self.refreshShipperControl.endRefreshing()
-        self.refreshSenderControl.endRefreshing()
+        if listType == .carrier {
+            refreshShipperControl.beginRefreshing()
+        } else {
+            refreshSenderControl.beginRefreshing()
+        }
+        TripOrderDataStore.shared.pull(category: listType, completion: {
+            let time: TimeInterval = 1.0
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+                if self.listType == .carrier {
+                    self.refreshShipperControl.endRefreshing()
+                } else {
+                    self.refreshSenderControl.endRefreshing()
+                }
+            }
+        })
     }
     
     func reloadData() {

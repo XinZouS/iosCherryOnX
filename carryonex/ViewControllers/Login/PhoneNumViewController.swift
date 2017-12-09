@@ -39,7 +39,7 @@ class PhoneNumViewController: UIViewController {
     @IBOutlet weak var countryCodeButton: UIButton!
     @IBOutlet weak var phoneNumTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var bottomImgeView: UIImageView!
+    @IBOutlet weak var bottomImageView: UIImageView!
     var loadingIndicator: BPCircleActivityIndicator!
     
     
@@ -69,6 +69,7 @@ class PhoneNumViewController: UIViewController {
         setupTextField()
         setupFlagPicker()
         checkPhone()
+        setupGifImage()
         setupActivityIndicator()
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
@@ -101,7 +102,7 @@ class PhoneNumViewController: UIViewController {
     
     private func setupFlagPicker(){
         view.addSubview(flagPicker)
-        flagPicker.addConstraints(left: bottomImgeView.leftAnchor, top: bottomImgeView.topAnchor, right: bottomImgeView.rightAnchor, bottom: bottomImgeView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        flagPicker.addConstraints(left: bottomImageView.leftAnchor, top: bottomImageView.topAnchor, right: bottomImageView.rightAnchor, bottom: bottomImageView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
     }
     
     private func setupActivityIndicator(){
@@ -109,6 +110,11 @@ class PhoneNumViewController: UIViewController {
         loadingIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
         loadingIndicator.isHidden = true
         view.addSubview(loadingIndicator)
+    }
+    
+    private func setupGifImage(){
+        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        bottomImageView.image = gifImg
     }
 
     

@@ -45,6 +45,7 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
         setupFlagPicker()
         setupIndicator()
+        setupGifImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +70,11 @@ class LoginViewController: UIViewController {
     }
     //MARK: - View custom set up
     
+    private func setupGifImage(){
+        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        bottomImageView.image = gifImg
+    }
+
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
         circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
@@ -122,6 +128,8 @@ class LoginViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: "好")
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
             }
         }

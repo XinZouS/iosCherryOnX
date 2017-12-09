@@ -163,6 +163,9 @@ class PhoneValidationViewController: UIViewController {
         ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, err) in
             if let err = err {
                 print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(err.localizedDescription)")
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
+                AudioManager.shared.playSond(named: .failed)
                 self.verifyFaildAlert(err.localizedDescription)
                 return
             }
@@ -175,7 +178,9 @@ class PhoneValidationViewController: UIViewController {
     private func verifyFaildAlert(_ msg: String?){
         let errMsg = "您的短信验证码有误，请重新获取验证码"
         print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
-
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+        AudioManager.shared.playSond(named: .failed)
         displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
             self.navigationController?.popViewController(animated: true)
         })

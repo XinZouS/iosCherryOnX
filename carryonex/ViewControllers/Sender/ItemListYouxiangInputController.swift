@@ -94,6 +94,7 @@ class ItemListYouxiangInputController: UIViewController {
         guard code.count == 6 else {
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
             displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+                self.isLoading = false
                 self.youxiangcodeTextField.becomeFirstResponder()
             })
             return
@@ -105,6 +106,9 @@ class ItemListYouxiangInputController: UIViewController {
             self.isLoading = false
             let t = "查询失败"
             if let err = error, getTrip == nil {
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
+                AudioManager.shared.playSond(named: .failed)
                 let m = "您搜索的邮箱号不存在，或已被出行人关闭"
                 self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
                     self.youxiangcodeTextField.becomeFirstResponder()
@@ -115,6 +119,9 @@ class ItemListYouxiangInputController: UIViewController {
             if success {
                 if let trip = getTrip {
                     if trip.carrierId == ProfileManager.shared.getCurrentUser()?.id {
+                        let generator = UIImpactFeedbackGenerator(style: .heavy)
+                        generator.impactOccurred()
+                        AudioManager.shared.playSond(named: .failed)
                         self.displayAlert(title: "游箱错误", message: "你不能新增寄件到自己开启的游箱。", action: "知道了")
                         return
                     }
@@ -122,11 +129,14 @@ class ItemListYouxiangInputController: UIViewController {
                 }
             } else {
                 let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
+                AudioManager.shared.playSond(named: .failed)
                 self.displayGlobalAlert(title: t, message: m, action: "好，回主页", completion: {
                     self.navigationController?.popToRootViewController(animated: true)
                 })
             }
-            self.goDetailButton.isEnabled = false
+            self.goDetailButton.isEnabled = true
         })
     }
     
