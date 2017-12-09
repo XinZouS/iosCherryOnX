@@ -74,7 +74,9 @@ class MainTabBarController: UITabBarController {
     private func loadingDisplay(){
         if !appDidLaunch {
             self.circleIndicator.isHidden = false
-            self.circleIndicator.animate()
+            DispatchQueue.main.async(execute: {
+                self.circleIndicator.animate()
+            })
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
                     APIServerChecker.testAPIServers()

@@ -271,6 +271,8 @@ extension LoginViewController: UITextFieldDelegate {
      func registerWeChatUser(openId: String, accessToken: String) {
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
         self.quickDataFromUrl(url: requestUrl) { [weak self] jsonResult in
+            self?.circleIndicator.stop()
+            self?.circleIndicator.isHidden = true
             guard let jsonResult = jsonResult else { return }
             if let username = jsonResult["openid"] as? String,
                 let imgUrl = jsonResult["headimgurl"] as? String,
