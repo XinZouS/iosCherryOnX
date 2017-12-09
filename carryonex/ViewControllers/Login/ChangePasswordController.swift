@@ -31,7 +31,7 @@ class ChangePasswordController: UIViewController{
     }
     
     private func setupGifImageView(){
-        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        let gifImg = UIImage.gifImageWithName("Login_animated_loop_png")
         bottomImageView.image = gifImg
     }
     
