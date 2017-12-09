@@ -280,7 +280,7 @@
 		FF4A5B571F7D5520001D86D0 /* ProvinceAndCityCell++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A5B561F7D5520001D86D0 /* ProvinceAndCityCell++.swift */; };
 		FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF4A5B581F7D9AEE001D86D0 /* address.plist */; };
 		FF4D14CF1FA3BF7D009CC1A0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */; };
-		FF50699A1FDB5CB900978756 /* graceful.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF5069991FDB5CB800978756 /* graceful.mp3 */; };
+		FF50699A1FDB5CB900978756 /* notification.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF5069991FDB5CB800978756 /* notification.mp3 */; };
 		FF523FDE1F87D90900449BEE /* RegisterEmailController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */; };
 		FF523FE01F87D92600449BEE /* RegisterPasswordController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */; };
 		FF62245B1FB0F24900280FDA /* OrderDetailCommentPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */; };
@@ -604,7 +604,7 @@
 		FF4D14CA1FA3BF59009CC1A0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FF4D14CC1FA3BF67009CC1A0 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		FF4D14CE1FA3BF7D009CC1A0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		FF5069991FDB5CB800978756 /* graceful.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = graceful.mp3; sourceTree = "<group>"; };
+		FF5069991FDB5CB800978756 /* notification.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification.mp3; sourceTree = "<group>"; };
 		FF523FDD1F87D90900449BEE /* RegisterEmailController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterEmailController++.swift"; sourceTree = "<group>"; };
 		FF523FDF1F87D92600449BEE /* RegisterPasswordController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterPasswordController++.swift"; sourceTree = "<group>"; };
 		FF62245A1FB0F24900280FDA /* OrderDetailCommentPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailCommentPageController.swift; sourceTree = "<group>"; };
@@ -1226,7 +1226,7 @@
 		66CC1E381FBCCB350080C80B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				FF5069991FDB5CB800978756 /* graceful.mp3 */,
+				FF5069991FDB5CB800978756 /* notification.mp3 */,
 				66CC1E391FBCCBD40080C80B /* failed.mp3 */,
 				66CC1E3A1FBCCBD40080C80B /* success.mp3 */,
 			);
@@ -1758,7 +1758,7 @@
 				66E2C9821FB66755000B250E /* PhoneVerify.storyboard in Resources */,
 				CF24D93D1FC353EA0036FB4E /* PostRate.storyboard in Resources */,
 				E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */,
-				FF50699A1FDB5CB900978756 /* graceful.mp3 in Resources */,
+				FF50699A1FDB5CB900978756 /* notification.mp3 in Resources */,
 				E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */,
 				66C3EA891FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard in Resources */,
 				FF7ECED81FC9568200F76ED8 /* ChangePersonalProfile.storyboard in Resources */,
