@@ -17,6 +17,7 @@ class RegistrationViewController: UIViewController {
     
     @IBOutlet weak var registerButton: Button!
     @IBOutlet weak var agreeButton: UIButton!
+    @IBOutlet weak var bottomImageView: UIImageView!
     
     var registerUserInfo : [String:String]?
     
@@ -30,6 +31,7 @@ class RegistrationViewController: UIViewController {
         super.viewDidLoad()
 
         setupTextFields()
+        setupGifImage()
     }
 
     
@@ -47,6 +49,10 @@ class RegistrationViewController: UIViewController {
         confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
     }
 
+    private func setupGifImage(){
+        let gifImg = UIImage.gifImageWithName("Login_illustration_animated_loop")
+        bottomImageView.image = gifImg
+    }
     
     
     @IBAction func handleRegisterButton(sender: UIButton) {
