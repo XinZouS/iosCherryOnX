@@ -80,7 +80,7 @@ class ShareManager: UIViewController{
         let alertController = UIAlertController.shareFrame
         let margin: CGFloat = 10.0
         let viewWidth: CGFloat = alertController.view.bounds.size.width - margin * 4.0
-        let rect = CGRect(x: margin, y: margin, width: viewWidth, height: 120)
+        let rect = CGRect(x: margin, y: margin, width: viewWidth, height: 90)
         let shareView = UIView(frame: rect)
         alertController.view.addSubview(shareView)
     
@@ -90,10 +90,10 @@ class ShareManager: UIViewController{
         shareView.addSubview(weiboButton)
         shareView.addSubview(facebookButton)
     
-        let w: CGFloat = isPhone ? ((viewWidth - 25) / 4) : 63
-        let l: CGFloat = 5
-        let y: CGFloat = -10
-        let t: CGFloat = 5
+        let w: CGFloat = isPhone ? ((viewWidth - 100) / 4) : 63
+        let l: CGFloat = 20  // left constent for button
+        let y: CGFloat = -10 // centerYAnchor
+        let t: CGFloat = 10  // top constent for label
         wechatButton.addConstraints(left: shareView.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
         momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
         weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)

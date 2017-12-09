@@ -9,5 +9,5 @@
 import UIKit
 
 extension UIAlertController{
-    open class var shareFrame :UIAlertController{return UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)}
+    open class var shareFrame :UIAlertController{return UIAlertController(title: "\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)}
 }
