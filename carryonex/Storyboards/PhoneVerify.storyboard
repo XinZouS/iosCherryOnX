@@ -141,6 +141,12 @@
                                     <action selector="resendButtonTapped:" destination="EVF-5t-OYk" eventType="touchUpInside" id="F89-RM-a2O"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5m-pC-dsR">
+                                <rect key="frame" x="97" y="290" width="180" height="46"/>
+                                <connections>
+                                    <action selector="inputButtonTapped:" destination="EVF-5t-OYk" eventType="touchUpInside" id="qNE-xq-sOb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -148,12 +154,16 @@
                             <constraint firstItem="itB-f5-oqo" firstAttribute="centerY" secondItem="n6Z-ct-2zi" secondAttribute="centerY" constant="-20" id="7a2-6P-HSC"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="top" secondItem="lCT-vt-Prp" secondAttribute="bottom" priority="800" constant="20" id="IEX-GG-Rz4"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="top" secondItem="8uh-HT-Yz0" secondAttribute="bottom" priority="800" constant="15" id="SwB-7i-L3j"/>
+                            <constraint firstItem="V5m-pC-dsR" firstAttribute="width" secondItem="itB-f5-oqo" secondAttribute="width" id="eFq-2f-oME"/>
                             <constraint firstItem="vrY-Df-ZXQ" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="eej-Xe-p4U"/>
+                            <constraint firstItem="V5m-pC-dsR" firstAttribute="height" secondItem="itB-f5-oqo" secondAttribute="height" id="f6l-zt-LDI"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8uh-HT-Yz0" secondAttribute="bottom" constant="10" id="fCG-Yd-uOB"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="icp-yt-bpB"/>
+                            <constraint firstItem="V5m-pC-dsR" firstAttribute="centerY" secondItem="itB-f5-oqo" secondAttribute="centerY" id="jVQ-fV-8VN"/>
                             <constraint firstItem="lCT-vt-Prp" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="jZm-Yy-sa6"/>
                             <constraint firstItem="8uh-HT-Yz0" firstAttribute="centerX" secondItem="n6Z-ct-2zi" secondAttribute="centerX" id="jve-AV-vkW"/>
                             <constraint firstItem="itB-f5-oqo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lCT-vt-Prp" secondAttribute="bottom" constant="10" id="lvS-Ok-utc"/>
+                            <constraint firstItem="V5m-pC-dsR" firstAttribute="centerX" secondItem="itB-f5-oqo" secondAttribute="centerX" id="ptS-G3-D5e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HB9-Ck-JkU"/>
                     </view>

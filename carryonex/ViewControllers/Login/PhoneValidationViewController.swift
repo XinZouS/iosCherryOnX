@@ -116,6 +116,11 @@ class PhoneValidationViewController: UIViewController {
         })
     }
     
+    
+    @IBAction func inputButtonTapped(_ sender: Any) {
+        verifiTextField.becomeFirstResponder()
+    }
+    
     private func verifySuccess(){
         if isModifyPhoneNumber {
             let newPhone = zoneCodeInput + "-" + phoneInput

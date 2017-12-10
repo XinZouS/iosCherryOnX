@@ -156,7 +156,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
                     self.modifyUserPhoneNum(newPhone)
                     
                 case .changePassword:
-                    self.goToVerificationPage()
+                    self.verifyUserNewPhoneNum()
                     
                 default:
                     self.loginByPasswordInput()
