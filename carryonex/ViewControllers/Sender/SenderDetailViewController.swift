@@ -691,22 +691,30 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == textFieldTag.price.rawValue {
-            //scrollViewAnimateToBottom()
-            priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
-            animateUIifNeeded()
+            scrollViewMove(offset: 200)
+            //priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
+            //animateUIifNeeded()
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.tag == textFieldTag.price.rawValue {
             if (priceValueTextField.text == nil || priceValueTextField.text == "") {
-                priceValueTextFieldLeftConstraint.constant = 0
-                animateUIifNeeded()
+                //priceValueTextFieldLeftConstraint.constant = 0
+                //animateUIifNeeded()
             } else {
                 preparePriceIn(textField)
             }
+            scrollViewMove(offset: -200)
         }
     }
+    
+    private func scrollViewMove(offset: CGFloat){
+        let newY: CGFloat = scrollView.contentOffset.y + offset
+        let offset = CGPoint(x: 0, y: newY)
+        scrollView.setContentOffset(offset, animated: true)
+    }
+    
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField?, _ textView: UITextView?) {
         let bar = UIToolbar()
@@ -766,16 +774,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
         priceFinal = priceMiddl
     }
     
-    private func scrollViewAnimateToBottom(){
-        var offset = scrollView.contentOffset
-        let expOffset = scrollView.bounds.height - view.bounds.height
-        if offset.y < expOffset {
-            offset.y = expOffset
-        }
-        offset.y += keyboardHeight
-        scrollView.setContentOffset(offset, animated: true)
-    }
-    
     public func keyboardWillShow(_ notification: Notification) {
         guard let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
         keyboardHeight = frame.cgRectValue.height
@@ -808,6 +806,9 @@ extension SenderDetailViewController: UITextFieldDelegate {
 extension SenderDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if priceValueTextField.isEditing {
+            return
+        }
         keyboardDismiss()
     }
 }
