@@ -82,6 +82,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             if let destVC = segue.destination as? UserCardViewController {
                 userCardOne = destVC
                 userCardOne?.delegate = self
+                destVC.category = .carrier
             }
         }
         
@@ -89,6 +90,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             if let destVC = segue.destination as? UserCardViewController {
                 userCardTwo = destVC
                 userCardTwo?.delegate = self
+                destVC.category = .sender
             }
         }
         
@@ -170,12 +172,19 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: .UserLoggedOut, object: nil, queue: nil) { [weak self] _ in
+            self?.userCardOne?.category = .carrier
+            self?.userCardOne?.request = nil
+            
+            self?.userCardTwo?.category = .carrier
+            self?.userCardTwo?.request = nil
+        }
     }
     
     func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
-            URLCache.shared.removeAllCachedResponses()
             userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         } else {
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
