@@ -70,10 +70,9 @@ class AlipayCashExtract: UIViewController {
     
     private func getCashAvailableFromServer(){
         // TODO: get real value from server:
-        var input: Double = 233.6666666
+        //var input: Double = 233.6666666
         //ApiServers.shared.getUserAccountCashValue()
-        cashAvailable = input.roundUp2Decimal()
-        
+        //cashAvailable = input.roundUp2Decimal()
     }
 
     
