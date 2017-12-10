@@ -90,7 +90,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     private var dayString: String?
     private var dateString: String?
     
-    var active: Int = 0
+    var active: Int = 1
     
     var carrierId: Int = -999
     var carrierUsername: String = ""
