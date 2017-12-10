@@ -229,10 +229,11 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     //FIXME: CoreLocationManagerDelegate 中获取到位置信息的处理函数
     func  locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //取得locations数组的最后一个
-        let location:CLLocation = locations[locations.count-1]
-        currLocation = locations.last!
-        //判断是否为空
-        if(location.horizontalAccuracy > 0){
+        if let location = locations.last {
+            currLocation = location
+        }
+        
+        if(currLocation.horizontalAccuracy > 0){
             //let lat = Double(String(format: "%.1f", location.coordinate.latitude))
             //let long = Double(String(format: "%.1f", location.coordinate.longitude))
             //print("纬度:\(long!)")
@@ -246,22 +247,29 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     func LonLatToCity() {
         let geocoder: CLGeocoder = CLGeocoder()
+        
         geocoder.reverseGeocodeLocation(currLocation) { (placemark, error) -> Void in
-            if(error == nil)
-            {
-                let array = placemark! as NSArray
-                let mark = array.firstObject as! CLPlacemark
-                //城市
-                let city: String = (mark.addressDictionary! as NSDictionary).value(forKey: "City") as! String
-                //国家
-                let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
-                
-                let State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
-                self.locationLabel.text = (country as String)+" "+State+" "+city
+            if let error = error {
+                print("Get location error: \(error.localizedDescription)")
+                return
             }
-            else
-            {
-                print(error ?? "")
+            
+            if let placemark = placemark, placemark.count > 0 {
+                var locationString = String()
+                let mark = placemark[0]
+                if let city = mark.addressDictionary?["City"] as? String {
+                    locationString += city
+                }
+                
+                if let state = mark.addressDictionary?["State"] as? String {
+                    locationString += (" " + state)
+                }
+                
+                if let country = mark.addressDictionary?["Country"] as? String {
+                    locationString += (" " + country)
+                }
+                
+                self.locationLabel.text = locationString
             }
         }
     }
