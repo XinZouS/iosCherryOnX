@@ -691,7 +691,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == textFieldTag.price.rawValue {
-            scrollViewMove(offset: 200)
+            scrollViewMove(offset: 210)
             //priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
             //animateUIifNeeded()
         }
@@ -705,12 +705,16 @@ extension SenderDetailViewController: UITextFieldDelegate {
             } else {
                 preparePriceIn(textField)
             }
-            scrollViewMove(offset: -200)
+            scrollViewMove(offset: -210)
         }
     }
     
     private func scrollViewMove(offset: CGFloat){
-        let newY: CGFloat = scrollView.contentOffset.y + offset
+        let currY = scrollView.contentOffset.y
+        guard currY > 60 else {
+            return
+        }
+        let newY: CGFloat = currY + offset
         let offset = CGPoint(x: 0, y: newY)
         scrollView.setContentOffset(offset, animated: true)
     }
