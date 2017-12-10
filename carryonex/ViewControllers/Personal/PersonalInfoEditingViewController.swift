@@ -20,10 +20,13 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var doneButton: UIButton!
+    
     var circleIndicator: BPCircleActivityIndicator!
     var user: ProfileUser?
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
+    
     override func viewDidLoad() {
         setupUser()
         setupNavigationBar()
@@ -206,6 +209,21 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         }
         present(attachmentMenu, animated: true, completion: nil)
     }
+    
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        dismissVC()
+    }
+    
+    private func dismissVC(){
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromBottom
+        view.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 /// MARK: - ALCameraView or ImagePicker setup
 extension PersonalInfoEditingViewController{

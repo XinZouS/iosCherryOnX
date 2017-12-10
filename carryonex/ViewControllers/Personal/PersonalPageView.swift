@@ -32,6 +32,7 @@ class PersonalPageViewController: UIViewController{
     let segueIdWalletPage = "creditViewController"
     let segueIdSettingPage = "pushSettingPageSegue"
     let segueIdEditProfile = "editProfile"
+    let personalInfoVCId = "PersonalInfoEditingViewController"
 
     
     override func viewDidLoad() {
@@ -100,13 +101,26 @@ class PersonalPageViewController: UIViewController{
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: segueIdEditProfile, sender: self)
+        //performSegue(withIdentifier: segueIdEditProfile, sender: self) default push, change to :
+        presentEditProfileVC(bySubtype: kCATransitionFromTop)
     }
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
         // TODO: navigate to see comments page;
     }
     
-    
+    private func presentEditProfileVC(bySubtype: String){
+        let sb = UIStoryboard(name: "ChangePersonalProfile", bundle: nil)
+        if let vc = sb.instantiateViewController(withIdentifier: personalInfoVCId) as? PersonalInfoEditingViewController {
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            transition.type = kCATransitionPush
+            transition.subtype = bySubtype //kCATransitionFromBottom
+            view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+    }
     
 }
 
