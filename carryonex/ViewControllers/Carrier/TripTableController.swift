@@ -19,11 +19,14 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     let timePicker:UIDatePicker = UIDatePicker()
     var addressArray = [[String: AnyObject]]()
     //选择的国家索引
-    var countryIndex = 0
-    //选择的省索引
-    var stateIndex = 0
-    //选择城市索引
-    var citiesIndex = 0
+    var startCountryIndex = 0
+    var startStateIndex = 0
+    var startCitiesIndex = 0
+    
+    var endCountryIndex = 0
+    var endStateIndex = 0
+    var endCitiesIndex = 0
+    
     var indexOfTextField : Int = 0
     var pickUpDate :Double = 0
     var endCity: String = ""
@@ -79,29 +82,17 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         self.endLocation.resignFirstResponder()
         switch indexOfTextField {
         case 0:
-            let country = self.addressArray[countryIndex]
-            let state = (country["states"] as! NSArray)[stateIndex]
-                as! [String: AnyObject]
-            let city = (state["cities"] as! NSArray)[citiesIndex]
-                as! [String: AnyObject]
-            if let countryStr = self.addressArray[countryIndex]["country"] as? String,let stateStr = state["state"] as? String,let cityStr = city["city"] as? String {
-                startState = stateStr
-                startCity = cityStr
-                startCountry = countryStr
-                beginLocation.text = countryStr + " " + stateStr + " " + cityStr
-            }
+            let location = locationTuples(countryIdx: startCountryIndex, stateIdx: startStateIndex, cityIdx: startCitiesIndex)
+            startCountry = location.0
+            startState = location.1
+            startCity = location.2
+            self.beginLocation.text = startCountry + " " + startState + " " + startCity
         case 1:
-            let country = self.addressArray[countryIndex]
-            let state = (country["states"] as! NSArray)[stateIndex]
-                as! [String: AnyObject]
-            let city = (state["cities"] as! NSArray)[citiesIndex]
-                as! [String: AnyObject]
-            if let countryStr = self.addressArray[countryIndex]["country"] as? String,let stateStr = state["state"] as? String,let cityStr = city["city"] as? String {
-                endState = stateStr
-                endCity = cityStr
-                endCountry = countryStr
-                endLocation.text = countryStr + " " + stateStr + " " + cityStr
-            }
+            let location = locationTuples(countryIdx: endCountryIndex, stateIdx: endStateIndex, cityIdx: endCitiesIndex)
+            endCountry = location.0
+            endState = location.1
+            endCity = location.2
+            self.endLocation.text = endCountry + " " + endState + " " + endCity
         default:
             print("no picker")
         }
@@ -148,77 +139,113 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     }
     
     //设置选择框的行数，继承于UIPickerViewDataSource协议
-    func pickerView(_ pickerView: UIPickerView,
-                    numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        let countryIndex = (indexOfTextField == 0) ? startCountryIndex : endCountryIndex
+        let stateIndex = (indexOfTextField == 0) ? startStateIndex : endStateIndex
+        
         if component == 0 {
             return self.addressArray.count
+            
         } else if component == 1 {
-            let country = self.addressArray[countryIndex]
-            return country["states"]!.count
-        } else {
-            let country = self.addressArray[countryIndex]
-            if let state = (country["states"] as! NSArray)[stateIndex]
-                as? [String: AnyObject] {
-                return state["cities"]!.count
-            } else {
-                return 0
+            if let statesArray = self.countryDictionary(countryIdx: countryIndex)?["states"] as? [[String: Any]] {
+                return statesArray.count
             }
+            return 0
+            
+        } else {
+            if let cityArray = self.stateDictionary(countryIdx: countryIndex, stateIdx: stateIndex)?["cities"] as? [[String: Any]] {
+                return cityArray.count
+            }
+            return 0
         }
     }
+    
     //设置选择框各选项的内容，继承于UIPickerViewDelegate协议
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int,
-                    forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        let countryIndex = (indexOfTextField == 0) ? startCountryIndex : endCountryIndex
+        let stateIndex = (indexOfTextField == 0) ? startStateIndex : endStateIndex
+        
         if component == 0 {
-            return self.addressArray[row]["country"] as? String
-        }else if component == 1 {
-            let country = self.addressArray[countryIndex]
-            let state = (country["states"] as! NSArray)[row]
-                as! [String: AnyObject]
-            return state["state"] as? String
-        }else {
-            let country = self.addressArray[countryIndex]
-            let state = (country["states"] as! NSArray)[stateIndex]
-                as! [String: AnyObject]
-            let city = (state["cities"] as! NSArray)[row]
-                as! [String: AnyObject]
-            return city["city"] as? String
+            if let countryName = countryDictionary(countryIdx: row)?["country"] as? String {
+                return countryName
+            }
+            return ""
+            
+        } else if component == 1 {
+            if let stateName = stateDictionary(countryIdx: countryIndex, stateIdx: row)?["state"] as? String {
+                return stateName
+            }
+            return ""
+        
+        } else {
+            if let cityName = cityDictionary(countryIdx: countryIndex, stateIdx: stateIndex, cityIdx: row)?["city"] as? String {
+                return cityName
+            }
+            return ""
         }
     }
+    
     //选中项改变事件（将在滑动停止后触发）
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int,
                     inComponent component: Int) {
         //根据列、行索引判断需要改变数据的区域
+        
         switch (component) {
         case 0:
-            countryIndex = row;
-            stateIndex = 0;
-            pickerView.reloadComponent(1);
-            pickerView.reloadComponent(2);
+            if indexOfTextField == 0 {
+                startCountryIndex = row
+                startStateIndex = 0
+                startCitiesIndex = 0
+            } else {
+                endCountryIndex = row
+                endStateIndex = 0
+                endCitiesIndex = 0
+            }
+            pickerView.reloadComponent(1)
+            pickerView.reloadComponent(2)
             pickerView.selectRow(0, inComponent: 1, animated: false)
             pickerView.selectRow(0, inComponent: 2, animated: false)
         case 1:
-            stateIndex = row;
-            pickerView.reloadComponent(2);
+            if indexOfTextField == 0 {
+                startStateIndex = row
+                startCitiesIndex = 0
+            } else {
+                endStateIndex = row
+                endCitiesIndex = 0
+            }
+            pickerView.reloadComponent(2)
             pickerView.selectRow(0, inComponent: 2, animated: false)
         case 2:
-            citiesIndex = row;
+            if indexOfTextField == 0 {
+                startCitiesIndex = row
+            } else {
+                endCitiesIndex = row
+            }
         default:
             break;
         }
     }
+    
     //设置选择框的列数为3列,继承于UIPickerViewDataSource协议
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
     
-    
     @IBAction func beginLcationTapped(_ sender: Any) {
         indexOfTextField = 0
+        pickerView.selectRow(startCountryIndex, inComponent: 0, animated: false)
+        pickerView.selectRow(startStateIndex, inComponent: 1, animated: false)
+        pickerView.selectRow(startCitiesIndex, inComponent: 2, animated: false)
         beginLocation.inputView = pickerView
     }
 
     @IBAction func endLocationTapped(_ sender: Any) {
         indexOfTextField = 1
+        pickerView.selectRow(endCountryIndex, inComponent: 0, animated: false)
+        pickerView.selectRow(endStateIndex, inComponent: 1, animated: false)
+        pickerView.selectRow(endCitiesIndex, inComponent: 2, animated: false)
         endLocation.inputView = pickerView
     }
     
@@ -230,6 +257,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         tripTableView.setContentOffset(offset, animated: true)
         timeTextField.inputView = timePicker
     }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         hintLabel.isHidden = true
         indexOfTextField = 3
@@ -239,7 +267,6 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         tripTableView.setContentOffset(offset, animated: true)
     }
 
-    
     @IBAction func tobeginTextField(_ sender: Any) {
         beginLocation.becomeFirstResponder()
     }
@@ -288,4 +315,45 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat(30)
     }
+    
+    //MARK: Plist data processors
+    func locationTuples(countryIdx: Int, stateIdx: Int, cityIdx: Int) -> (String, String, String) {
+        let country = countryDictionary(countryIdx: countryIdx)
+        let state = stateDictionary(countryIdx: countryIdx, stateIdx: stateIdx)
+        let city = cityDictionary(countryIdx: countryIdx, stateIdx: stateIdx, cityIdx: cityIdx)
+        
+        let countryStr = country!["country"] as! String
+        let stateStr = state!["state"] as! String
+        let cityStr = city!["city"] as! String
+        
+        return (countryStr, stateStr, cityStr)
+    }
+    
+    func countryDictionary(countryIdx: Int) -> [String: Any]? {
+        if countryIdx < self.addressArray.count {
+            return self.addressArray[countryIdx]
+        }
+        return nil
+    }
+    
+    func stateDictionary(countryIdx: Int, stateIdx: Int) -> [String: Any]? {
+        if let country = countryDictionary(countryIdx: countryIdx), let states = country["states"] as? [[String: Any]?] {
+            if states.count > stateIdx {
+                return states[stateIdx]
+            }
+            return nil
+        }
+        return nil
+    }
+    
+    func cityDictionary(countryIdx: Int, stateIdx: Int, cityIdx: Int) -> [String: Any]? {
+        if let state = stateDictionary(countryIdx: countryIdx, stateIdx: stateIdx), let cities = state["cities"] as? [[String: Any]?] {
+            if cities.count > cityIdx {
+                return cities[cityIdx]
+            }
+            return nil
+        }
+        return nil
+    }
+    
 }
