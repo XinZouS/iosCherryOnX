@@ -43,16 +43,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGT-HP-8jx">
-                                                <rect key="frame" x="8" y="105" width="62" height="47"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="47" id="QnG-9V-qbT"/>
-                                                </constraints>
-                                                <state key="normal" title="支付测试"/>
-                                                <connections>
-                                                    <action selector="testPayButton:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="z3X-Di-JuQ"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efo-75-gDw">
                                                 <rect key="frame" x="16" y="30" width="46" height="20"/>
                                                 <constraints>
@@ -422,9 +412,7 @@
                                         <constraints>
                                             <constraint firstItem="Hqf-KG-5e0" firstAttribute="leading" secondItem="4yd-Ii-1Ck" secondAttribute="leading" id="1Li-Th-RmP"/>
                                             <constraint firstAttribute="trailing" secondItem="qVA-Bh-Wfs" secondAttribute="trailing" id="1j8-m4-I5j"/>
-                                            <constraint firstItem="dGT-HP-8jx" firstAttribute="centerX" secondItem="xVp-rH-O0T" secondAttribute="centerX" id="2Vs-fw-wgt"/>
                                             <constraint firstItem="Jdy-IV-3gE" firstAttribute="centerY" secondItem="iWD-qj-ukX" secondAttribute="centerY" id="2ad-DF-x6Z"/>
-                                            <constraint firstItem="dGT-HP-8jx" firstAttribute="top" secondItem="xVp-rH-O0T" secondAttribute="bottom" constant="20" id="2lF-0A-ELq"/>
                                             <constraint firstItem="Gcc-77-xcQ" firstAttribute="top" secondItem="xCC-Uf-ncD" secondAttribute="bottom" constant="5" id="3EK-EP-kLh"/>
                                             <constraint firstItem="rB6-f1-cwu" firstAttribute="centerY" secondItem="efo-75-gDw" secondAttribute="centerY" id="3SN-Mi-kRz"/>
                                             <constraint firstItem="lEz-65-FZV" firstAttribute="leading" secondItem="rB6-f1-cwu" secondAttribute="leading" id="62Q-Jj-hAY"/>
