@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "carryonex_UserInfo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "carryonex_UserInfo.png",
       "scale" : "2x"
     },
     {

@@ -25,7 +25,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var wechatLoginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
+    
     var circleIndicator: BPCircleActivityIndicator!
+    
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
         p.backgroundColor = pickerColorLightGray
@@ -257,12 +259,24 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        let url = "\(userGuideWebHoster)/doc_agreement"
+        gotoWebview(title: "用户协议", url: "\(userGuideWebHoster)/doc_agreement")
+    }
+    
+    @IBAction func handleAppAgreementButton(_ sender: Any) {
+        gotoWebview(title: "软件使用协议", url: "\(userGuideWebHoster)/doc_license")
+    }
+    
+    @IBAction func handlePrivacyPolicyButton(_ sender: Any) {
+        gotoWebview(title: "隐私政策", url: "\(userGuideWebHoster)/doc_privacy")
+    }
+    
+    private func gotoWebview(title: String, url: String) {
         let webVC = WebController()
         self.navigationController?.pushViewController(webVC, animated: true)
-        webVC.title = "使用协议"
+        webVC.title = title
         webVC.url = URL(string: url)
     }
+    
 }
 
 

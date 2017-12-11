@@ -46,10 +46,10 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="毕茗菲" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Ce-ko-VoG">
-                                <rect key="frame" x="105" y="132" width="150" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="我的名字" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="5Ce-ko-VoG">
+                                <rect key="frame" x="105" y="132" width="120" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="LO3-BB-lAg"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="LO3-BB-lAg"/>
                                     <constraint firstAttribute="height" constant="30" id="lO3-rv-bxd"/>
                                 </constraints>
                                 <nil key="textColor"/>
@@ -63,7 +63,7 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELf-Gn-Olo">
-                                <rect key="frame" x="255" y="129" width="36" height="36"/>
+                                <rect key="frame" x="225" y="129" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="aOW-6h-T8y"/>
                                     <constraint firstAttribute="width" constant="36" id="yeL-uH-f4b"/>
@@ -99,6 +99,7 @@
                             <constraint firstItem="Fjg-e4-EPs" firstAttribute="leading" secondItem="JWn-cE-5cX" secondAttribute="leading" id="h4c-2n-h45"/>
                             <constraint firstItem="5Ce-ko-VoG" firstAttribute="leading" secondItem="e4E-X0-MtB" secondAttribute="leading" id="kSP-oQ-tyo"/>
                             <constraint firstItem="ELf-Gn-Olo" firstAttribute="leading" secondItem="5Ce-ko-VoG" secondAttribute="trailing" id="qLk-um-weD"/>
+                            <constraint firstItem="JWn-cE-5cX" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ELf-Gn-Olo" secondAttribute="trailing" constant="20" id="qMA-fp-m3i"/>
                             <constraint firstItem="Fjg-e4-EPs" firstAttribute="top" secondItem="5Ce-ko-VoG" secondAttribute="bottom" constant="60" id="siq-TY-qtj"/>
                             <constraint firstItem="JWn-cE-5cX" firstAttribute="trailing" secondItem="Fjg-e4-EPs" secondAttribute="trailing" id="wbb-a5-dAw"/>
                         </constraints>
