@@ -12,7 +12,7 @@ import UIKit
 protocol OrderListCarrierCellDelegate: class {
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath)
     func orderListCarrierCodeShareTapped(indexPath: IndexPath)
-    func orderListCarrierLockerButtonTapped(indexPath: IndexPath)
+    func orderListCarrierLockerButtonTapped(indexPath: IndexPath, completion: (() -> Void)?)
 }
 
 class OrderListCardShiperCell: OrderListCardCell {
@@ -45,6 +45,11 @@ class OrderListCardShiperCell: OrderListCardCell {
     
     weak var carrierDelegate: OrderListCarrierCellDelegate?
     
+    var isActive = true {
+        didSet{
+            setupYouxiangLokcerStatus(isActive: isActive)
+        }
+    }
     var trip: Trip? {
         didSet{
             let isActive: Bool = (trip?.active == TripActive.active.rawValue)
@@ -63,7 +68,7 @@ class OrderListCardShiperCell: OrderListCardCell {
         setupYouxiangLokcerStatus(isActive: true)
     }
 
-    public func setupYouxiangLokcerStatus(isActive: Bool){
+    private func setupYouxiangLokcerStatus(isActive: Bool){
         lockLabel.isHidden = isActive
         lockImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
     }
@@ -100,7 +105,7 @@ class OrderListCardShiperCell: OrderListCardCell {
         case .inDelivery:
             finishButton.transaction = .carrierShip
         case .delivered:
-            finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+            finishButton.setTitle("写评价", for: .normal) //TODO: need to see how it fits in.
         default:
             break
         }
@@ -119,7 +124,7 @@ class OrderListCardShiperCell: OrderListCardCell {
             carrierDelegate?.orderListCarrierCodeShareTapped(indexPath: indexPath)
             
         } else if sender == lockButton {
-            carrierDelegate?.orderListCarrierLockerButtonTapped(indexPath: indexPath)
+            carrierDelegate?.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: nil)
             
         }
     }

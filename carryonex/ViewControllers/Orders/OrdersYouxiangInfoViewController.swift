@@ -28,7 +28,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     @IBAction func lockerButtonTapped(_ sender: Any) {
-        setTripLockerStatus()
+        setTripToLocked(!isActive, completion: nil)
     }
     
     var trip: Trip!
@@ -38,6 +38,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
         }
     }
     
+    var isActive = true
     var category: TripCategory = .carrier
     
     var activityIndicator: UIActivityIndicatorCustomizeView!
@@ -91,9 +92,9 @@ class OrdersYouxiangInfoViewController: UIViewController {
         
         print("Number of requests in trip \(trip.id): \(requests.count)")
         
-        let active: Bool = (trip.active == TripActive.active.rawValue)
-        lockerImageView.image = active ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
-        lockerHintLabel.isHidden = active
+        isActive = (trip.active == TripActive.active.rawValue)
+        lockerImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+        lockerHintLabel.isHidden = isActive
         
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
@@ -102,18 +103,13 @@ class OrdersYouxiangInfoViewController: UIViewController {
         youxiangCodeLabel.text = trip.tripCode
     }
     
-    private func setupYouxiangLokcerStatus(isActive: Bool){
-        lockerImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
-        lockerHintLabel.isHidden = isActive
-    }
-    
-    private func setTripLockerStatus(){
+    private func setTripToLocked(_ toLock: Bool, completion: (() -> Void)?){
         lockerButton.isEnabled = false
         isLoading = true
         
         let id = trip.id
-        let isActive = (trip.active == TripActive.active.rawValue)
-        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
+        //isActive = (trip.active == TripActive.active.rawValue)
+        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: toLock, completion: { (success, error) in
             self.isLoading = false
             self.lockerButton.isEnabled = true
             if let err = error {
@@ -132,24 +128,34 @@ class OrdersYouxiangInfoViewController: UIViewController {
                     })
                     return
                 }
-                let active = (tripActive == TripActive.active)
+                self.isActive = (tripActive == TripActive.active)
                 self.trip?.active = tripActive.rawValue
-                self.setupYouxiangLokcerStatus(isActive: active)
+                self.lockerImageView.image = self.isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
+                self.lockerHintLabel.isHidden = self.isActive
+                completion?()
             })
         })
     }
     
     
     func shareYouxiangCode() {
+        guard isActive else {
+            displayGlobalAlertActions(title: "⚠️分享游箱？", message: "您的游箱已锁，请先解锁再分享。", actions: ["保持锁定","解锁并分享"], completion: { (tag) in
+                if tag == 1 { // unlock and share
+                    self.setTripToLocked(true, completion: {
+                        self.shareYouxiangCode()
+                    })
+                }
+            })
+            return
+        }
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         sharingAlertVC = ShareManager.shared.setupShareFrame()
         setupShareInformation()
         if !isPhone {
             sharingAlertVC?.popoverPresentationController?.sourceView = self.startAddressLabel
         }
-        DispatchQueue.main.async {
-            self.present(self.sharingAlertVC!, animated: true, completion:{})
-        }
+        self.present(self.sharingAlertVC!, animated: true, completion:{})
     }
     
     private func setupShareInformation(){

@@ -36,6 +36,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     var doneLabel: UILabel = {
         let l = UILabel()
         l.text = "暂时没有来自别人的评论"
+        l.textAlignment = .center
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return l
@@ -105,7 +106,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
                                              width: activityViewIndicator.frame.width,
                                              height: activityViewIndicator.frame.height)
         let w: CGFloat = 250
-        doneLabel.frame = CGRect(x: self.view.frame.midX - (w / 2.0) + 20,
+        doneLabel.frame = CGRect(x: self.view.frame.midX - (w / 2.0),
                                  y: indicatorY + 20,
                                  width: w,
                                  height: activityViewIndicator.frame.height)
