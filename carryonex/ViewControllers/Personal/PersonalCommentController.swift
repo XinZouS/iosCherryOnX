@@ -11,17 +11,20 @@ import AlamofireImage
 import BPCircleActivityIndicator
 
 class PersonalCommentController: UIViewController{
+    
     @IBOutlet weak var commentTableView: UITableView!
+    
     let cellId = "UserCommentCellId"
     var commentDict: UserComments?
     var hasLoadData: Bool! = false
     var loadMoreEnable = true
     var offset: Int = 0
-    var circleIndicator: BPCircleActivityIndicator!
+    var circleIndicator: BPCircleActivityIndicator! // one is for entire page, one is for reload, shoud give them correct names. - Xin
     let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    
     var doneLabel: UILabel = {
         let l = UILabel()
-        l.text = "亲，没有您有关的评论了哦~"
+        l.text = "暂时没有来自别人的评论"
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return l
@@ -56,51 +59,52 @@ class PersonalCommentController: UIViewController{
     }
     
     private func setupLoadMoreView() ->UIView{
-        let view = UIView(frame: CGRect(x: 0, y:self.commentTableView.contentSize.height,
-                                           width:self.commentTableView.bounds.size.width, height: 60))
-            view.autoresizingMask = UIViewAutoresizing.flexibleWidth
-            view.backgroundColor = UIColor.clear
-            
-            //添加中间的环形进度条
-            activityViewIndicator.color = UIColor.darkGray
-            let indicatorX = view.frame.size.width/2-activityViewIndicator.frame.width/2
-            let indicatorY = view.frame.size.height/2-activityViewIndicator.frame.height/2
-            activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
-                                                 width: activityViewIndicator.frame.width,
-                                                 height: activityViewIndicator.frame.height)
-            doneLabel.frame = CGRect(x: self.view.frame.size.width/2-125,
-                                     y: indicatorY,
-                                     width: 250,
-                                     height: activityViewIndicator.frame.height)
-            view.addSubview(activityViewIndicator)
-            view.addSubview(doneLabel)
-            return view
+        let view = UIView(frame: CGRect(x: 0,
+                                        y: self.commentTableView.contentSize.height,
+                                        width: self.commentTableView.bounds.size.width, height: 60))
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        view.backgroundColor = UIColor.clear
+        
+        //添加中间的环形进度条
+        activityViewIndicator.color = UIColor.darkGray
+        let indicatorX = view.frame.midX - activityViewIndicator.frame.midX
+        let indicatorY = view.frame.midY - activityViewIndicator.frame.midY
+        activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
+                                             width: activityViewIndicator.frame.width,
+                                             height: activityViewIndicator.frame.height)
+        let w: CGFloat = 250
+        doneLabel.frame = CGRect(x: self.view.frame.midX - (w / 2.0),
+                                 y: indicatorY,
+                                 width: w,
+                                 height: activityViewIndicator.frame.height)
+        view.addSubview(activityViewIndicator)
+        view.addSubview(doneLabel)
+        return view
     }
     
     func fetchComment(){
         circleIndicator.isHidden = false
         circleIndicator.animate()
-        if let userInfo = ProfileManager.shared.getCurrentUser(){
-            if let userId = userInfo.id{
-                ApiServers.shared.getUserComments(commenteeId: userId, offset: offset) { (userCommnt, error) in
-                        guard error == nil else {return}
-                        self.circleIndicator.isHidden = true
-                        self.circleIndicator.stop()
-                        if let userCommnt = userCommnt{
-                            self.commentDict = userCommnt
-                            self.hasLoadData = true
-                            self.commentTableView.reloadData()
-                            if self.commentDict?.comments.count == 0 {
-                                self.activityViewIndicator.stopAnimating()
-                                self.doneLabel.isHidden = false
-                            }else{
-                                self.doneLabel.isHidden = true
-                            }
-                        }
+        if let userInfo = ProfileManager.shared.getCurrentUser(), let userId = userInfo.id {
+            ApiServers.shared.getUserComments(commenteeId: userId, offset: offset) { (userCommnt, error) in
+                guard error == nil else {return}
+                self.circleIndicator.isHidden = true
+                self.circleIndicator.stop()
+                if let userCommnt = userCommnt {
+                    self.commentDict = userCommnt
+                    self.hasLoadData = true
+                    self.commentTableView.reloadData()
+                    if self.commentDict?.comments.count == 0 {
+                        self.activityViewIndicator.stopAnimating()
+                        self.doneLabel.isHidden = false
+                    }else{
+                        self.doneLabel.isHidden = true
                     }
                 }
             }
+        }
     }
+    
     func UpdateHistoryComment(){
         activityViewIndicator.startAnimating()
         loadMoreEnable = false

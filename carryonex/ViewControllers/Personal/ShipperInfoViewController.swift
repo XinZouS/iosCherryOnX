@@ -22,7 +22,6 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     @IBOutlet weak var commentTable: UITableView!
     @IBOutlet weak var commentLabel: UILabel!
     
-    let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     let cellId = "ShipperRatingCellId"
     var commenteeId: Int?
     var commenteeRealName: String?
@@ -30,7 +29,10 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     var hasLoadData: Bool! = false
     var loadMoreEnable = true
     var offset: Int = 0
+    
     var circleIndicator: BPCircleActivityIndicator!
+    let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+
     var doneLabel: UILabel = {
         let l = UILabel()
         l.text = "暂时没有来自别人的评论"
@@ -40,8 +42,10 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }()
     
     var commentDict: UserComments?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "用户评价"
         setupIndicator()
         getShipperCommentInformation()
         setupTableView()
@@ -60,32 +64,31 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func getShipperCommentInformation(){
-        if let userId = commenteeId{
-            circleIndicator.isHidden = false
-            circleIndicator.animate()
-            ApiServers.shared.getUserComments(commenteeId: userId, offset: 0, completion: { (userComent, error) in
-                guard error == nil else {return}
-                self.circleIndicator.stop()
-                self.circleIndicator.isHidden = true
-                if let userCommnt = userComent{
-                    self.commentDict = userCommnt
-                    self.setupUserRate()
-                    self.hasLoadData = true
-                    self.commentTable.reloadData()
-                    if self.commentDict?.comments.count == 0 {
-                        self.activityViewIndicator.stopAnimating()
-                        self.doneLabel.isHidden = false
-                    }else{
-                        self.doneLabel.isHidden = true
-                    }
+        guard let userId = commenteeId else { return }
+        circleIndicator.isHidden = false
+        circleIndicator.animate()
+        ApiServers.shared.getUserComments(commenteeId: userId, offset: 0, completion: { (userComent, error) in
+            guard error == nil else {return}
+            self.circleIndicator.stop()
+            self.circleIndicator.isHidden = true
+            if let userCommnt = userComent{
+                self.commentDict = userCommnt
+                self.setupUserRate()
+                self.hasLoadData = true
+                self.commentTable.reloadData()
+                if self.commentDict?.comments.count == 0 {
+                    self.activityViewIndicator.stopAnimating()
+                    self.doneLabel.isHidden = false
+                }else{
+                    self.doneLabel.isHidden = true
                 }
-            })
-        }
+            }
+        })
     }
+    
     private func setupTableView(){
         commentTable.tableFooterView = setupLoadMoreView()
         commentTable.allowsSelection = false
-        title = "我的评价"
     }
     
     private func setupLoadMoreView() ->UIView{
@@ -96,14 +99,15 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         
         //添加中间的环形进度条
         activityViewIndicator.color = UIColor.darkGray
-        let indicatorX = view.frame.size.width/2-activityViewIndicator.frame.width/2
-        let indicatorY = view.frame.size.height/2-activityViewIndicator.frame.height/2
-        activityViewIndicator.frame = CGRect(x: indicatorX,y: indicatorY,
+        let indicatorX = view.frame.midX - activityViewIndicator.frame.midX
+        let indicatorY = view.frame.midY - activityViewIndicator.frame.midY
+        activityViewIndicator.frame = CGRect(x: indicatorX, y: indicatorY,
                                              width: activityViewIndicator.frame.width,
                                              height: activityViewIndicator.frame.height)
-        doneLabel.frame = CGRect(x: self.view.frame.size.width/2-125,
-                                 y: indicatorY,
-                                 width: 250,
+        let w: CGFloat = 250
+        doneLabel.frame = CGRect(x: self.view.frame.midX - (w / 2.0) + 20,
+                                 y: indicatorY + 20,
+                                 width: w,
                                  height: activityViewIndicator.frame.height)
         view.addSubview(activityViewIndicator)
         view.addSubview(doneLabel)
