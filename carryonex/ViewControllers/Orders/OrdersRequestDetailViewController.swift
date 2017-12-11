@@ -141,6 +141,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     var request: Request!
     var category: TripCategory = .carrier
+    var currency: CurrencyType = .CNY
     
     var paymentType: Payment = .alipay {
         didSet{
@@ -275,12 +276,12 @@ class OrdersRequestDetailViewController: UIViewController {
             senderImageButton.setImage(#imageLiteral(resourceName: "carryonex_UserInfo"), for: .normal)
         }
         
-        incomeLabel.text = "$" + request.priceString()
+        incomeLabel.text = currency.rawValue + request.priceString()
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
-        itemValueLabel.text = "$" + request.itemValue()
-        itemMessageTextView.text = request.note
+        itemValueLabel.text = currency.rawValue + request.itemValue()
+        itemMessageTextView.attributedText = messageAttributeText(msg: request.note)
         
         dateMonthLabel.text = trip.getMonthString()
         dateDayLabel.text = trip.getDayString()
@@ -292,6 +293,18 @@ class OrdersRequestDetailViewController: UIViewController {
         }else{
             imageCountButton.setTitle("", for: .normal)
         }
+    }
+    
+    private func messageAttributeText(msg: String?) -> NSAttributedString {
+        var m = "TA还没有写留言"
+        if let getMsg = msg {
+            m = getMsg
+        }
+        let title = "留言："
+        let titleAtt = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        let msgAtt = NSMutableAttributedString(string: m, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+        titleAtt.append(msgAtt)
+        return titleAtt
     }
     
     private func addObservers() {
