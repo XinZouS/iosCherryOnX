@@ -14,6 +14,8 @@ class OrderListViewController: UIViewController {
     
     let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
+    let shiperCellId = "OrderListCardShiperCell"
+    let senderCellId = "OrderListCardSenderCell"
     
     let cityStringDefault = "New York"
     var cityStringForImage: String = "" {
@@ -312,7 +314,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == TripCategory.carrier.rawValue {
-            guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: "OrderListCardShiperCell", for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
+            guard let cell = tableViewShiper.dequeueReusableCell(withIdentifier: shiperCellId, for: indexPath) as? OrderListCardShiperCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.cellCategory = .carrier
             cell.carrierDelegate = self
@@ -323,7 +325,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
-            guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: "OrderListCardSenderCell", for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
+            guard let cell = tableViewSender.dequeueReusableCell(withIdentifier: senderCellId, for: indexPath) as? OrderListCardSenderCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.cellCategory = .sender
             cell.indexPath = indexPath
@@ -378,6 +380,17 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     }
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
+        guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
+        guard cell.isActive else {
+            displayGlobalAlertActions(title: "⚠️分享游箱？", message: "您的游箱已锁，请先解锁再分享。", actions: ["保持锁定","解锁并分享"], completion: { (tag) in
+                if tag == 1 { // unlock and share
+                    self.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
+                        self.orderListCarrierCodeShareTapped(indexPath: indexPath)
+                    })
+                }
+            })
+            return
+        }
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         sharingAlertVC = ShareManager.shared.setupShareFrame()
         setupShareInformation(trip: carrierTrips[indexPath.row])
@@ -386,9 +399,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
                 sharingAlertVC?.popoverPresentationController?.sourceView = cell.shareYouxiangButton
             }
         }
-        DispatchQueue.main.async {
-            self.present(self.sharingAlertVC!, animated: true, completion:{})
-        }
+        self.present(self.sharingAlertVC!, animated: true, completion:{})
     }
     
     private func setupShareInformation(trip: Trip){
@@ -407,7 +418,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
         }
     }
     
-    func orderListCarrierLockerButtonTapped(indexPath: IndexPath) {
+    func orderListCarrierLockerButtonTapped(indexPath: IndexPath, completion: (() -> Void)?) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard let id = cell.trip?.id else { return }
         cell.lockButton.isEnabled = false
@@ -435,7 +446,8 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
                 }
                 let active = (tripActive == TripActive.active)
                 cell.trip?.active = tripActive.rawValue
-                cell.setupYouxiangLokcerStatus(isActive: active)
+                cell.isActive = active
+                completion?()
             })
         })
     }

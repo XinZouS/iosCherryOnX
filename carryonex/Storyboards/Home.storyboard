@@ -130,7 +130,7 @@
                                             <constraint firstItem="P6J-p5-57s" firstAttribute="leading" secondItem="zzJ-f5-BBS" secondAttribute="trailing" constant="10" id="xkA-ee-meQ"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Jk-1D-Ewz">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Jk-1D-Ewz">
                                         <rect key="frame" x="30" y="14" width="86" height="86"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1Jk-1D-Ewz" secondAttribute="height" multiplier="1:1" id="4v0-E5-Hnw"/>

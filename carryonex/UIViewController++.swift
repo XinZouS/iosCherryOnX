@@ -38,6 +38,7 @@ extension UIViewController {
         present(v, animated: true, completion: nil)
     }
     
+    /// Alert with single actions, completion:(tag) -> Void
     func displayGlobalAlert(title: String, message: String, action: String, completion:(() -> Void)?) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
@@ -45,6 +46,21 @@ extension UIViewController {
         }
         
         v.addAction(action)
+        
+        if let topVC = topViewController(base: self) {
+            topVC.present(v, animated: true, completion: nil)
+        }
+    }
+
+    /// Alert with multiple actions, completion:(tag) -> Void
+    func displayGlobalAlertActions(title: String, message: String, actions: [String], completion:((Int) -> Void)?) {
+        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        for i in 0..<actions.count {
+            let action = UIAlertAction(title: actions[i], style: .default) { (action) in
+                completion?(i)
+            }
+            v.addAction(action)
+        }
         
         if let topVC = topViewController(base: self) {
             topVC.present(v, animated: true, completion: nil)
