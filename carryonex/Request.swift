@@ -238,16 +238,12 @@ enum RequestStatus: Int {
             return "已取消"
         case .paid:
             return "已付款"
-//        case .pendingRefund:
-//            return "等待退款"
         case .inDelivery:
-            return "正在送递"
+            return "正在派送"
         case .delivered:
-            return "已送达"
+            return "已交付"
         case .deliveryConfirmed:
             return "已确认送达"
-//        case .refundCompleted:
-//            return "退款完成"
         case .invalid:
             return "状态无效"
         case .badId:
@@ -332,9 +328,9 @@ enum RequestTransaction {
         case .carrierCancel:
             return "取消订单"
         case .carrierReceive:
-            return "当面交付"
+            return "已揽件"
         case .carrierDeliver:
-            return "交付物品"
+            return "当面交付"
         case .carrierShip:
             return "快递交付"
         case .shipperPairing:
@@ -344,7 +340,7 @@ enum RequestTransaction {
         case .shipperPay:
             return "订单付款"
         case .shipperConfirm:
-            return "确认送达"
+            return "确认收货"
         case .allowRating:
             return "给与评价"
         default:
@@ -361,9 +357,9 @@ enum RequestTransaction {
         case .carrierCancel:
             return "确认取消订单？"
         case .carrierReceive:
-            return "确认当面交付？"
+            return "确认已揽件？"
         case .carrierDeliver:
-            return "确认交付物品？"
+            return "确认当面交付？"
         case .carrierShip:
             return "确认快递交付？"
         case .shipperPairing:
@@ -373,7 +369,7 @@ enum RequestTransaction {
         case .shipperPay:
             return "确认订单付款？"
         case .shipperConfirm:
-            return "确认确认送达？"
+            return "确认收货？"
         case .allowRating:
             return "确认给与评价?"
         default:

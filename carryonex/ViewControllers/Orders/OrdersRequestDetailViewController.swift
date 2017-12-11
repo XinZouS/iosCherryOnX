@@ -395,7 +395,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             switch status {
             case .waiting, .inDelivery:
                 buttonsToShow = .twoButtons
-            case .accepted, .delivered, .paid, .deliveryConfirmed: //.pendingRefund,
+            case .accepted, .paid, .deliveryConfirmed:
                 buttonsToShow = .oneButton
             default:
                 buttonsToShow = .noButtons
@@ -412,7 +412,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             case .inDelivery:
                 finishButton.transaction = .carrierDeliver
                 finishButton2.transaction = .carrierShip
-            case .delivered, .deliveryConfirmed:
+            case .deliveryConfirmed:
                 finishButton.transaction = .allowRating
             default:
                 break
