@@ -332,7 +332,7 @@ enum RequestTransaction {
         case .carrierCancel:
             return "取消订单"
         case .carrierReceive:
-            return "接收物品"
+            return "当面交付"
         case .carrierDeliver:
             return "交付物品"
         case .carrierShip:
@@ -361,7 +361,7 @@ enum RequestTransaction {
         case .carrierCancel:
             return "确认取消订单？"
         case .carrierReceive:
-            return "确认接收物品？"
+            return "确认当面交付？"
         case .carrierDeliver:
             return "确认交付物品？"
         case .carrierShip:
