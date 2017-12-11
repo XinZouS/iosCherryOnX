@@ -11,7 +11,9 @@ import MessageUI
 import BPCircleActivityIndicator
 
 class ShipperInfoViewController: UIViewController,MFMessageComposeViewControllerDelegate{
+    
     var phoneNumber:String?
+    
     @IBOutlet weak var userImageBtn: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
@@ -19,6 +21,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     @IBOutlet weak var rateViewWidth: NSLayoutConstraint!
     @IBOutlet weak var commentTable: UITableView!
     @IBOutlet weak var commentLabel: UILabel!
+    
     let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     let cellId = "ShipperRatingCellId"
     var commenteeId: Int?
@@ -30,11 +33,12 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     var circleIndicator: BPCircleActivityIndicator!
     var doneLabel: UILabel = {
         let l = UILabel()
-        l.text = "亲，没有有关的评论了哦~"
+        l.text = "暂时没有来自别人的评论"
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return l
     }()
+    
     var commentDict: UserComments?
     override func viewDidLoad() {
         super.viewDidLoad()

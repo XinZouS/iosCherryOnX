@@ -8,13 +8,15 @@
 
 import UIKit
 
-class PersonalTable: UITableViewController,UIPickerViewDelegate,UIPickerViewDataSource{
+class PersonalTable: UITableViewController,UIPickerViewDataSource{
     
     @IBOutlet weak var genderTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
+    
     let genderPickerView = UIPickerView()
-    var pickerData: [String] = [String]()
+    var pickerData: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerData = ["未知","男", "女", "其他"]
@@ -24,6 +26,23 @@ class PersonalTable: UITableViewController,UIPickerViewDelegate,UIPickerViewData
         self.tableView.tableFooterView = UIView()
         self.tableView.allowsSelection = false
     }
+    
+    private func setupTextField(){
+        genderTextField.inputView = genderPickerView
+        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
+        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        doneToolbar.items = [flexSpace,done]
+        doneToolbar.sizeToFit()
+        self.genderTextField.inputAccessoryView = doneToolbar
+        self.emailTextField.inputAccessoryView = doneToolbar
+    }
+    
+}
+
+extension PersonalTable: UIPickerViewDelegate {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -40,24 +59,13 @@ class PersonalTable: UITableViewController,UIPickerViewDelegate,UIPickerViewData
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         genderTextField.text = pickerData[genderPickerView.selectedRow(inComponent: 0)]
     }
-    private func setupTextField(){
-        genderTextField.inputView = genderPickerView
-        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        doneToolbar.barStyle = UIBarStyle.blackTranslucent
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
-        doneToolbar.items = [flexSpace,done]
-        doneToolbar.sizeToFit()
-        self.genderTextField.inputAccessoryView = doneToolbar
-        self.emailTextField.inputAccessoryView = doneToolbar
-    }
     
     @IBAction func commitButtonTapped(_ sender: Any) {
         let idCV = PhotoIDController()
         self.navigationController?.pushViewController(idCV, animated: true)
     }
     
-    @objc private func doneButtonAction(){
+    @objc func doneButtonAction(){
         genderTextField.resignFirstResponder()
         emailTextField.resignFirstResponder()
     }
