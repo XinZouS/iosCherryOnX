@@ -38,6 +38,11 @@ class TripCompletedController:UIViewController{
         setupBackGroundColor()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupNavigationBar()
+    }
+    
     private func setupCardInformation(){
         beginLocationLabel.text = beginLocationString
         endLocationLabel.text = endLocationString
@@ -69,6 +74,10 @@ class TripCompletedController:UIViewController{
         let endColor :UIColor = UIColor.MyTheme.cyan
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    private func setupNavigationBar(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem()
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
