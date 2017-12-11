@@ -16,8 +16,10 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     @IBOutlet weak var endLocation: UITextField!
     @IBOutlet weak var beginLocation: UITextField!
     @IBOutlet weak var hintLabel: UILabel!
+    
     let timePicker:UIDatePicker = UIDatePicker()
     var addressArray = [[String: AnyObject]]()
+    
     //选择的国家索引
     var startCountryIndex = 0
     var startStateIndex = 0
@@ -134,7 +136,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         timePicker.maximumDate = maxDate
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
-        timeTextField.text = strNowTime[YearStartIndex...YearEndIndex]+"年"+strNowTime[MonthStartIndex...MonthendIndex]+"月"+strNowTime[DayStartIndex...DayendIndex]+"日"
+        timeTextField.text = strNowTime[YearStartIndex...YearEndIndex] + "年"                            + strNowTime[MonthStartIndex...MonthendIndex] + "月" + strNowTime[DayStartIndex...DayendIndex] + "日"
         pickUpDate = date.timeIntervalSince1970
     }
     
