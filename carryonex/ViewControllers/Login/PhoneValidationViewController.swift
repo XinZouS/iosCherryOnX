@@ -59,6 +59,11 @@ class PhoneValidationViewController: UIViewController {
         setupUserPhoneShow()
         verifiTextField.becomeFirstResponder()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        verifiTextField.resignFirstResponder()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
