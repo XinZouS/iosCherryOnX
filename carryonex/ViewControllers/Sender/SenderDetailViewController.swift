@@ -204,9 +204,9 @@ class SenderDetailViewController: UIViewController{
             endAddressLabel.text = endCountry+" "+endState+" "+endCity
             startAddressLabel.text = startCountry+" "+startState+" "+startCity
         }
-        if let tripId = trip?.id{
-            youxiangCodeLabel.text = String(tripId)
-        }
+        
+        youxiangCodeLabel.text = trip?.tripCode
+        
         if let d = trip?.pickupDate {
             let date = Date(timeIntervalSince1970: d)
             let formatter = DateFormatter()
