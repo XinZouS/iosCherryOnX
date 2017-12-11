@@ -109,7 +109,7 @@ class ItemListYouxiangInputController: UIViewController {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                let m = "您搜索的邮箱号不存在，或已被出行人关闭"
+                let m = "您搜索的游箱号不存在，或已被出行人关闭"
                 self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
                     self.youxiangcodeTextField.becomeFirstResponder()
                 })
