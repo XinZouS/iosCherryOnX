@@ -10,7 +10,11 @@ import UIKit
 import FSCalendar
 
 class TripController: UIViewController{
+    
+    let segueIdTripComplete = "tripComplete"
+    
     @IBOutlet weak var confirmTripButton: UIButton!
+    
     var gradientLayer: CAGradientLayer!
     var tripCompleteCtl: TripCompletedController!
     
@@ -25,19 +29,20 @@ class TripController: UIViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "tripComplete") {
-            if let destVC = segue.destination as? TripCompletedController{
-                tripCompleteCtl = destVC
-                if let childVC = self.childViewControllers.first as? TripTableController {
-                    destVC.beginLocationString = childVC.beginLocation.text
-                    destVC.endLocationString = childVC.endLocation.text
-                    destVC.dateString = childVC.timeTextField.text
-                    destVC.descriptionString = childVC.otherTextField.text
-                    destVC.startState = childVC.startState
-                    destVC.endState = childVC.endState
-                    if let tripcode = sender {
-                        destVC.tripcode = tripcode as! String
-                    }
+        if (segue.identifier == segueIdTripComplete) {
+            guard let destVC = segue.destination as? TripCompletedController else {
+                return
+            }
+            tripCompleteCtl = destVC
+            if let childVC = self.childViewControllers.first as? TripTableController {
+                destVC.beginLocationString = childVC.beginLocation.text
+                destVC.endLocationString = childVC.endLocation.text
+                destVC.dateString = childVC.timeTextField.text
+                destVC.descriptionString = childVC.otherTextField.text
+                destVC.startState = childVC.startState
+                destVC.endState = childVC.endState
+                if let tripcode = sender as? String {
+                    destVC.tripcode = tripcode
                 }
             }
         }
@@ -81,9 +86,9 @@ class TripController: UIViewController{
             trip.startAddress?.country = Country(rawValue: childVC.startCountry)
             trip.pickupDate = childVC.pickUpDate
             trip.note = childVC.otherTextField.text
-            ApiServers.shared.postTripInfo(trip: trip) { (success,msg, tripCode) in
+            ApiServers.shared.postTripInfo(trip: trip) { (success, msg, tripCode) in
                 if success {
-                    self.performSegue(withIdentifier: "tripComplete", sender: tripCode)
+                    self.performSegue(withIdentifier: self.segueIdTripComplete, sender: tripCode)
                     ProfileManager.shared.loadLocalUser(completion: nil)
                     TripOrderDataStore.shared.pull(category: .carrier, delay: 1, completion: nil)
                 }else{

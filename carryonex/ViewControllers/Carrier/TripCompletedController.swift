@@ -10,6 +10,8 @@ import UIKit
 import AlamofireImage
 
 class TripCompletedController:UIViewController{
+    
+    @IBOutlet weak var titleHintLabel: UILabel!
     @IBOutlet weak var beginLocationLabel: UILabel!
     @IBOutlet weak var endLocationLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
@@ -17,16 +19,18 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
+    
     var alert: UIAlertController?
     var gradientLayer: CAGradientLayer!
-    var dateString :String!
-    var beginLocationString:String!
-    var endLocationString:String!
+    var dateString: String!
+    var beginLocationString: String!
+    var endLocationString: String!
     var descriptionString: String!
-    var tripcode:String!
-    var startState:String!
-    var endState:String!
+    var tripcode: String!
+    var startState: String!
+    var endState: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,36 +47,7 @@ class TripCompletedController:UIViewController{
         let DayEndIndex = dateString.index(dateString.startIndex, offsetBy: 9)
         let month = dateString[MonthStartIndex...MonthEndIndex]
         let day = dateString[DayStartIndex...DayEndIndex]
-        var monthString = ""
-        switch month{
-        case "01":
-            monthString = "JAN"
-        case "02":
-            monthString = "FEB"
-        case "03":
-            monthString = "MAR"
-        case "04":
-            monthString = "APR"
-        case "05":
-            monthString = "MAY"
-        case "06":
-            monthString = "JUN"
-        case "07":
-            monthString = "JULY"
-        case "08":
-            monthString = "AUG"
-        case "09":
-            monthString = "SEP"
-        case "10":
-            monthString = "OCT"
-        case "11":
-            monthString = "NOV"
-        case "12":
-            monthString = "DEC"
-        default:
-            break
-        }
-        monthLabel.text = monthString
+        monthLabel.text = getMonthString(month)
         dayLabel.text = day
         descriptionLabel.text = descriptionString
         youxiangLabel.text = tripcode
@@ -103,9 +78,7 @@ class TripCompletedController:UIViewController{
         if !isPhone {
             alert?.popoverPresentationController?.sourceView = self.shareButton
         }
-        DispatchQueue.main.async {
-            self.present(self.alert!, animated: true, completion:{})
-        }
+        self.present(self.alert!, animated: true, completion:{})
     }
     
     private func shareInformation(){
@@ -120,7 +93,38 @@ class TripCompletedController:UIViewController{
         }
     }
     
-    @IBAction func gobackToFirstPageButtonTapped(_ sender: Any) {
+    private func getMonthString(_ month: String) -> String {
+        switch month {
+        case "01":
+            return "JAN"
+        case "02":
+            return "FEB"
+        case "03":
+            return "MAR"
+        case "04":
+            return "APR"
+        case "05":
+            return "MAY"
+        case "06":
+            return "JUN"
+        case "07":
+            return "JULY"
+        case "08":
+            return "AUG"
+        case "09":
+            return "SEP"
+        case "10":
+            return "OCT"
+        case "11":
+            return "NOV"
+        case "12":
+            return "DEC"
+        default:
+            return "N/A"
+        }
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
 }

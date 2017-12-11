@@ -41,6 +41,7 @@ class SenderDetailViewController: UIViewController{
     
     @IBOutlet weak var countryCodeTextField: UITextField! //5
     @IBOutlet weak var scrollView: UIScrollView!
+    
     // master info card
     @IBOutlet weak var shiperInfoCardView: UIView!
     @IBOutlet weak var dateMonthLabel: UILabel!
@@ -49,6 +50,9 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var senderProfileImageButton: UIButton!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
+    @IBOutlet weak var tripNoteLabel: UILabel!
+    @IBOutlet weak var tripNoteLabelHeighConstraint: NSLayoutConstraint!
+    
     // detail info card
     @IBOutlet weak var senderInfoCardView: UIView!
     @IBOutlet weak var nameTextField: UITextField!      // 0
@@ -57,6 +61,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageTextView: UITextView!   // 3
+    
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
     @IBOutlet weak var priceValueTextField: UITextField! // 4
@@ -68,6 +73,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceSlider: UISlider!
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
+    
     // DONE!
     @IBOutlet weak var submitButton: UIButton!
     // MARK: - actions forcontents
@@ -206,6 +212,13 @@ class SenderDetailViewController: UIViewController{
         }
         
         youxiangCodeLabel.text = trip?.tripCode
+        if let note = trip?.note, note != "" {
+            tripNoteLabel.text = note
+            tripNoteLabelHeighConstraint.constant = 46
+        }else{
+            tripNoteLabelHeighConstraint.constant = 0
+        }
+        view.layoutIfNeeded()
         
         if let d = trip?.pickupDate {
             let date = Date(timeIntervalSince1970: d)
