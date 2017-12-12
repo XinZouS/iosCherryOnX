@@ -391,31 +391,15 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             })
             return
         }
-        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        sharingAlertVC = ShareManager.shared.setupShareFrame()
-        setupShareInformation(trip: carrierTrips[indexPath.row])
-        if !isPhone {
-            if let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell {
-                sharingAlertVC?.popoverPresentationController?.sourceView = cell.shareYouxiangButton
-            }
+        
+        let trip = carrierTrips[indexPath.row]
+        sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
+        
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            sharingAlertVC?.popoverPresentationController?.sourceView = cell.shareYouxiangButton
         }
+        
         self.present(self.sharingAlertVC!, animated: true, completion:{})
-    }
-    
-    private func setupShareInformation(trip: Trip){
-        if let beginLocation = trip.startAddress?.fullAddressString(),
-            let endLocation = trip.endAddress?.fullAddressString() {
-            let dateMonth = trip.getMonthString()
-            let dateDay = trip.getDayString()
-            let monthAndDayString = "\(dateMonth), \(dateDay)"
-            
-        // sharing info:
-            let tripCode = trip.tripCode
-            let title = "我的游箱号:\(tripCode)"
-            let msg = "我的游箱号:\(tripCode) \n【\(monthAndDayString)】 \n【\(beginLocation)-\(endLocation)】"
-            let url = "www.carryonex.com" // TODO: change this for link to appstore or inside app page;
-            ShareManager.shared.SetupShareInfomation(shareMessage: msg, shareTitle:title, shareUrl:url)
-        }
     }
     
     func orderListCarrierLockerButtonTapped(indexPath: IndexPath, completion: (() -> Void)?) {

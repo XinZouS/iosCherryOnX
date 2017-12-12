@@ -194,6 +194,14 @@ class Trip : NSObject, Unboxable, Identifiable {
         return Date.getTimeString(format: "MM/dd", time: TimeInterval(timestamp))
     }
     
+    func shareInfo() -> (String, String, String) {  //title, message, url
+        let dateString = "\(self.getMonthString()), \(self.getDayString())"
+        let title = "我的游箱号:\(self.tripCode)"
+        let message = "我的游箱号:\(self.tripCode) \n【\(dateString)】 \n【\(self.startAddress?.fullAddressString() ?? "未知地址")-\(self.endAddress?.fullAddressString() ?? "未知地址")】"
+        let url = "https://www.carryonex.com/" // TODO: change this for link to appstore or inside app page;
+        return (title, message, url)
+    }
+    
     //MARK: - Date
     private func getDateString(time: TimeInterval) -> String {
         if let dateString = dateString {

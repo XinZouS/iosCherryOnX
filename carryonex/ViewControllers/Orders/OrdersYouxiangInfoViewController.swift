@@ -149,28 +149,14 @@ class OrdersYouxiangInfoViewController: UIViewController {
             })
             return
         }
-        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        sharingAlertVC = ShareManager.shared.setupShareFrame()
-        setupShareInformation()
-        if !isPhone {
+        
+        sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
+        
+        if UIDevice.current.userInterfaceIdiom != .phone {
             sharingAlertVC?.popoverPresentationController?.sourceView = self.startAddressLabel
         }
+        
         self.present(self.sharingAlertVC!, animated: true, completion:{})
-    }
-    
-    private func setupShareInformation(){
-        if let beginLocation = trip.startAddress?.fullAddressString(),
-            let endLocation = trip.endAddress?.fullAddressString() {
-            
-            let dateMonth = trip.getMonthString()
-            let dateDay = trip.getDayString()
-            let monthAnddayString = "\(dateMonth), \(dateDay)"
-            
-            let title = "我的游箱号:\(trip.tripCode)"
-            let msg = "我的游箱号:\(trip.tripCode) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
-            let url = "www.carryonex.com" // TODO: change this for link to appstore or inside app page;
-            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
-        }
     }
 
 }
