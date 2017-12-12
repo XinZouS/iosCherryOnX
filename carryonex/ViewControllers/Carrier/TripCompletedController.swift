@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class TripCompletedController:UIViewController{
+class TripCompletedController : UIViewController{
     
     @IBOutlet weak var titleHintLabel: UILabel!
     @IBOutlet weak var beginLocationLabel: UILabel!
@@ -22,15 +22,7 @@ class TripCompletedController:UIViewController{
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
     
-    var alert: UIAlertController?
-    var gradientLayer: CAGradientLayer!
-    var dateString: String!
-    var beginLocationString: String!
-    var endLocationString: String!
-    var descriptionString: String!
-    var tripcode: String!
-    var startState: String!
-    var endState: String!
+    var trip: Trip?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,18 +36,12 @@ class TripCompletedController:UIViewController{
     }
     
     private func setupCardInformation(){
-        beginLocationLabel.text = beginLocationString
-        endLocationLabel.text = endLocationString
-        let MonthStartIndex = dateString.index(dateString.startIndex, offsetBy: 5)
-        let MonthEndIndex = dateString.index(dateString.startIndex, offsetBy: 6)
-        let DayStartIndex = dateString.index(dateString.startIndex, offsetBy: 8)
-        let DayEndIndex = dateString.index(dateString.startIndex, offsetBy: 9)
-        let month = dateString[MonthStartIndex...MonthEndIndex]
-        let day = dateString[DayStartIndex...DayEndIndex]
-        monthLabel.text = getMonthString(month)
-        dayLabel.text = day
-        descriptionLabel.text = descriptionString
-        youxiangLabel.text = tripcode
+        beginLocationLabel.text = trip?.startAddress?.fullAddressString()
+        endLocationLabel.text = trip?.endAddress?.fullAddressString()
+        monthLabel.text = trip?.getMonthString()
+        dayLabel.text = trip?.getDayString()
+        descriptionLabel.text = trip?.note
+        youxiangLabel.text = trip?.tripCode
         if let currentUser = ProfileManager.shared.getCurrentUser(){
             if let urlString = currentUser.imageUrl, let url = URL(string:urlString){
                 userImage.af_setImage(withURL: url)
@@ -66,7 +52,7 @@ class TripCompletedController:UIViewController{
     }
     
     private func setupBackGroundColor(){
-        gradientLayer = CAGradientLayer()
+        let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
@@ -81,24 +67,14 @@ class TripCompletedController:UIViewController{
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
-        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        alert = ShareManager.shared.setupShareFrame()
-        shareInformation()
-        if !isPhone {
-            alert?.popoverPresentationController?.sourceView = self.shareButton
-        }
-        self.present(self.alert!, animated: true, completion:{})
-    }
-    
-    private func shareInformation(){
-            if let youxiangId = self.youxiangLabel.text, let beginLocation = self.startState, let endLocation = self.endState, let dateTime = self.dateString {
-            let startIndex = dateTime.index(dateTime.startIndex, offsetBy: 5)
-            let EndIndex = dateTime.index(dateTime.startIndex, offsetBy: 10)
-            let monthAnddayString = dateTime[startIndex...EndIndex]
-            let title = "我的游箱号:\(youxiangId)"
-            let msg = "我的游箱号:\(youxiangId) \n【\(monthAnddayString)】 \n【\(beginLocation)-\(endLocation)】"
-            let url = "www.carryonex.com"
-            ShareManager.shared.SetupShareInfomation(shareMessage: msg,shareTitle:title,shareUrl:url)
+        if let trip = trip {
+            let sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                sharingAlertVC.popoverPresentationController?.sourceView = self.shareButton
+            }
+            self.present(sharingAlertVC, animated: true, completion: nil)
+        } else {
+            debugPrint("Unable to find trip")
         }
     }
     

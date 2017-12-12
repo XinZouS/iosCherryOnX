@@ -16,7 +16,6 @@ class TripController: UIViewController{
     @IBOutlet weak var confirmTripButton: UIButton!
     
     var gradientLayer: CAGradientLayer!
-    var tripCompleteCtl: TripCompletedController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,20 +29,8 @@ class TripController: UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == segueIdTripComplete) {
-            guard let destVC = segue.destination as? TripCompletedController else {
-                return
-            }
-            tripCompleteCtl = destVC
-            if let childVC = self.childViewControllers.first as? TripTableController {
-                destVC.beginLocationString = childVC.beginLocation.text
-                destVC.endLocationString = childVC.endLocation.text
-                destVC.dateString = childVC.timeTextField.text
-                destVC.descriptionString = childVC.otherTextField.text
-                destVC.startState = childVC.startState
-                destVC.endState = childVC.endState
-                if let tripcode = sender as? String {
-                    destVC.tripcode = tripcode
-                }
+            if let viewController = segue.destination as? TripCompletedController, let trip = sender as? Trip {
+                viewController.trip = trip
             }
         }
     }
@@ -88,10 +75,10 @@ class TripController: UIViewController{
             trip.note = childVC.otherTextField.text
             ApiServers.shared.postTripInfo(trip: trip) { (success, msg, tripCode) in
                 if success {
-                    self.performSegue(withIdentifier: self.segueIdTripComplete, sender: tripCode)
+                    self.performSegue(withIdentifier: self.segueIdTripComplete, sender: trip)
                     ProfileManager.shared.loadLocalUser(completion: nil)
                     TripOrderDataStore.shared.pull(category: .carrier, delay: 1, completion: nil)
-                }else{
+                } else {
                     print(msg ?? "")
                 }
             }
