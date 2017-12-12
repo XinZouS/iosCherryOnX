@@ -80,7 +80,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupUserImageView()
-        checkForUpdate()
+        //checkForUpdate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -236,13 +236,15 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func checkForUpdate() {
-        guard let updatedVersion = ApiServers.shared.config?.iosVersion, let currentVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
+        guard let updatedVersion = ApiServers.shared.config?.iosVersion,
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
             return
         }
+        
+        let currentVersion = version + "." + build
         if updatedVersion != currentVersion {
             print("Current: \(currentVersion), Updated to: \(updatedVersion)")
-            return  //Remove this when feed ready
-                
             self.displayGlobalAlertActions(title: "有新版本更新", message: "版本 \(updatedVersion) 已经推出，请往 AppStore 下载游箱最新版本。", actions: ["前往 AppStore"], completion: { (index) in
                 //TODO: Update to carryonex app URL
                 let appStoreLink = "https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
