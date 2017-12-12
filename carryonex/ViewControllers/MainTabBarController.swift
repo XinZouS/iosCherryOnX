@@ -81,19 +81,19 @@ class MainTabBarController: UITabBarController {
             ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
                 if isSuccess {
                     APIServerChecker.testAPIServers()
-                    TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
-                    TripOrderDataStore.shared.pull(category: .sender, completion: nil)
+                    TripOrderDataStore.shared.pullAll(completion: {
+                        print("Pull ALL completed")
+                    })
                 }
                 self.circleIndicator.stop()
                 self.circleIndicator.isHidden = true
+                appDidLaunch = true
             })
-            appDidLaunch = true
         }
     }
     
     private func showLogin(_ animated: Bool) {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
-            loginViewController = loginViewContainer as? LoginViewController
             self.present(loginViewContainer, animated: animated) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.circleIndicator.stop()
@@ -127,8 +127,6 @@ class MainTabBarController: UITabBarController {
             if !reachabilityObject.isReachable {
                 let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
                 strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
-            } else {
-                strongSelf.isItHaveLogIn(true)
             }
         }
     }

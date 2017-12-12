@@ -112,15 +112,40 @@ class TripOrderDataStore: NSObject {
         let pageCount = pullPageCount
         let lastFetchTime = -1
         
-        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, completion: completion)
+        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime) {[weak self] (tripOrders) in
+            //Only notify update when there are actual substantial update.
+            if let tripOrders = tripOrders {
+                self?.updateData(forCategory: category, updatedData: tripOrders)
+                NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+            }
+            completion?()
+        }
     }
     
-    func pull(category: TripCategory, delay: Int = 0, completion:(() -> Void)?) {
+    func pull(category: TripCategory, delay: Int = 0, shouldNotify: Bool = true, completion:(() -> Void)?) {
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         let offset = 0
         let pageCount = (targetTrips.count == 0) ? pullPageCount : targetTrips.count   //first pull 10 items
         let lastFetchTime = (category == .carrier) ? lastCarrierFetchTime : lastSenderFetchTime
-        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime, delay: delay, completion: completion)
+        fetchData(forCategory: category, offset: offset, pageCount: pageCount, sinceTime: lastFetchTime) {[weak self] (tripOrders) in
+            //Only notify update when there are actual substantial update.
+            if let tripOrders = tripOrders {
+                self?.updateData(forCategory: category, updatedData: tripOrders)
+                if shouldNotify {
+                    NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+                }
+            }
+            completion?()
+        }
+    }
+    
+    func pullAll(delay: Int = 0, completion:(() -> Void)?) {
+        pull(category: .carrier, shouldNotify: false) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.pull(category: .sender, shouldNotify: true, completion: {
+                completion?()
+            })
+        }
     }
     
     func clearStore(){
@@ -133,7 +158,7 @@ class TripOrderDataStore: NSObject {
         NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
     }
     
-    private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, delay: Int = 0, completion:(() -> Void)?) {
+    private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, delay: Int = 0, completion:(([TripOrder]?) -> Void)?) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(delay)) {
             
@@ -146,11 +171,9 @@ class TripOrderDataStore: NSObject {
                 }
                 
                 if let tripOrders = tripOrders {
-                    self.updateData(forCategory: category, updatedData: tripOrders)
-                    completion?()
-                    //Only notify update when there are actual substantial update.
-                    NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+                    completion?(tripOrders)
                 } else {
+                    completion?(nil)
                     print("No new update since: \(sinceTime)")
                 }
                 

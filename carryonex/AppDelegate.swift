@@ -62,7 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         if let mainNavigationController = self.window?.rootViewController {
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
         }
-        
         return true
     }
     
@@ -129,17 +128,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         application.applicationIconBadgeNumber = 0
+        
+        //Pull when app comes to foreground, refresh store
+        TripOrderDataStore.shared.pullAll(completion: {
+            print("Pull ALL completed")
+        })
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
-        
-        //Pull when app comes to foreground, refresh store
-        TripOrderDataStore.shared.pull(category: .carrier, completion: nil)
-        TripOrderDataStore.shared.pull(category: .sender, completion: nil)
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
