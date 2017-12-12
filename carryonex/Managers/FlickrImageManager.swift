@@ -69,10 +69,13 @@ class FlickrImageManager {
     }
     
     func getPhotoUrl(from place: String, isTrip: Bool, completion: @escaping ([URL]?) -> Void) {
+        guard place != "", place != " " else {
+            return
+        }
         let photoSearch = FKFlickrPhotosSearch()
         photoSearch.per_page = "10"
-        photoSearch.tags = place + ",city,famous" // [landmark, build, city, landscape]
-        photoSearch.tag_mode = "all" // [all(and), any(or)]
+        photoSearch.tags = place + ",city" // [landmark, build, city, landscape]
+        photoSearch.tag_mode = "any" // [all(and), any(or)]
         photoSearch.is_commons = "true"
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
