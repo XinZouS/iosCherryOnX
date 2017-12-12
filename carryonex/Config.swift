@@ -11,6 +11,7 @@ import Unbox
 
 struct Config {
     let version: Int
+    let iosVersion: String?
     let faq: ConfigSection
     let order: ConfigSection
     let payment: ConfigSection
@@ -26,6 +27,7 @@ struct Config {
 extension Config: Unboxable {
     init(unboxer: Unboxer) throws {
         self.version = try unboxer.unbox(key: "version")
+        self.iosVersion = try? unboxer.unbox(key: "ios_version")
         self.faq = try unboxer.unbox(keyPath: "customer_service.faq")
         self.order = try unboxer.unbox(keyPath: "customer_service.order")
         self.payment = try unboxer.unbox(keyPath: "customer_service.payment")

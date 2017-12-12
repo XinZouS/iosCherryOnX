@@ -57,6 +57,9 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ApiServers.shared.getConfig()
+        
         setupNowHour()
         setupBackGroundColor()
         addObservers()
