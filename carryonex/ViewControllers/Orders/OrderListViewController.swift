@@ -103,7 +103,6 @@ class OrderListViewController: UIViewController {
         super.viewDidLoad()
         
         loadImageUrlsOfCurrentCity()
-        setupImageTimer()
         setupSwipeGestureRecognizer()
         
         //FIXME: Find out why table view constraint is wrong
@@ -128,7 +127,7 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         TripOrderDataStore.shared.pull(category: listType, completion: nil)
-        imageTimer?.fire()
+        setupImageTimer()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -195,6 +194,7 @@ class OrderListViewController: UIViewController {
         if senderRequests.count != 0{
             tableViewSender.tableFooterView = nil
         }
+        setCityStringForImage()
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -461,21 +461,25 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
 extension OrderListViewController {
     
     fileprivate func setCityStringForImage(){
+        var newCity = cityStringDefault
         if listType == .carrier {
             if let ct = carrierTrips.first?.endAddress?.city {
-                cityStringForImage = ct
+                newCity = ct
             }
             if let st = carrierTrips.first?.endAddress?.state {
-                cityStringForImage = cityStringForImage + "," + st
+                newCity = newCity + "," + st
             }
         }
         if listType == .sender {
             if let ct = senderRequests.first?.endAddress?.city {
-                cityStringForImage = ct
+                newCity = ct
             }
             if let st = senderRequests.first?.endAddress?.state {
-                cityStringForImage = cityStringForImage + "," + st
+                newCity = newCity + "," + st
             }
+        }
+        if cityStringForImage != newCity {
+            cityStringForImage = newCity
         }
     }
     
@@ -485,7 +489,6 @@ extension OrderListViewController {
                 self.cityStringForImage = self.cityStringDefault
                 return
             }
-            print("get urls = \(urls)")
         }
     }
     
@@ -493,7 +496,6 @@ extension OrderListViewController {
         guard let newUrl = FlickrImageManager.shared.nextImageUrl(isTrip: listType == .carrier) else {
             return
         }
-        print("\n animateTitleImageTransition")
         imageTitleTransitionView.image = imageTitleView.image
         imageTitleTransitionView.alpha = 1
         imageTitleTransitionView.isHidden = false
