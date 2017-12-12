@@ -55,6 +55,8 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
 
     let ordersRequestDetailSegue = "OrdersRequestDetailSegue"
     
+    //MARK: - View Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,6 +80,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupUserImageView()
+        checkForUpdate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,6 +119,9 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
+    
+    
+    //MARK - Helper
     
     private func setupNowHour(){
         let date = Date()
@@ -228,6 +234,31 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
+    
+    private func checkForUpdate() {
+        guard let updatedVersion = ApiServers.shared.config?.iosVersion, let currentVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
+            return
+        }
+        if updatedVersion != currentVersion {
+            print("Current: \(currentVersion), Updated to: \(updatedVersion)")
+            return  //Remove this when feed ready
+                
+            self.displayGlobalAlertActions(title: "有新版本更新", message: "版本 \(updatedVersion) 已经推出，请往 AppStore 下载游箱最新版本。", actions: ["前往 AppStore"], completion: { (index) in
+                //TODO: Update to carryonex app URL
+                let appStoreLink = "https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
+                if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+                    // Attempt to open the URL.
+                    UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+                        if success {
+                            print("Launching \(url) was successful")
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    //MARK: - Location
     
     //FIXME: CoreLocationManagerDelegate 中获取到位置信息的处理函数
     func  locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
