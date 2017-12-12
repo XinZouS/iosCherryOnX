@@ -112,7 +112,6 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         timeFormatter.dateFormat = "yyyyMMddHHmmssSSS"
         let strNowTime = timeFormatter.string(from: date) as String
         let calendar = Calendar.current
-        var minComponents = calendar.dateComponents([.day,.month,.year], from: Date())
         var maxComponents = calendar.dateComponents([.day,.month,.year], from: Date())
         let YearStartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 0)
         let YearEndIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 3)
@@ -125,15 +124,11 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
         let nowDay = Int(strNowTime[DayStartIndex...DayendIndex])
         maxComponents.day = nowDay
         maxComponents.month = nowMonth
-        maxComponents.year = nowYear!+1
-        minComponents.day = nowDay
-        minComponents.month = nowMonth
-        minComponents.year = nowYear
-        let minDate: Date = calendar.date(from: minComponents)!
-        let maxDate: Date = calendar.date(from: maxComponents)!
+        maxComponents.year = nowYear! + 2   //Give a bit of breathing room
+        if let maxDate: Date = calendar.date(from: maxComponents) {
+            timePicker.maximumDate = maxDate
+        }
         timePicker.datePickerMode = UIDatePickerMode.date
-        timePicker.minimumDate = minDate
-        timePicker.maximumDate = maxDate
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
         timeTextField.text = strNowTime[YearStartIndex...YearEndIndex] + "年"                            + strNowTime[MonthStartIndex...MonthendIndex] + "月" + strNowTime[DayStartIndex...DayendIndex] + "日"

@@ -80,7 +80,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     var endLocation  : CLLocationCoordinate2D?
     
     var statusId: Int = RequestStatus.waiting.rawValue
-    var pickupDate:      Double? // travel starts
+    var pickupDate: Double? // travel starts
     var pickupTimeStart: Double?
     var pickupTimeEnd:   Double?
     var timestamp: Int = -1
@@ -89,6 +89,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     private var monthString: String?
     private var dayString: String?
     private var dateString: String?
+    private var cardDisplayTimeString: String?
     
     var active: Int = 1
     
@@ -105,7 +106,6 @@ class Trip : NSObject, Unboxable, Identifiable {
         self.transportation = .trunk
         self.startAddress = Address()
         self.endAddress = Address()
-        self.pickupDate = Date().timeIntervalSince1970
         self.pickupTimeStart = Date().timeIntervalSince1970
         self.pickupTimeEnd = Date().timeIntervalSince1970
     }
@@ -144,7 +144,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
         
         json[TripKeyInDB.statusId.rawValue] = statusId
-        json[TripKeyInDB.pickupDate.rawValue] = Int(pickupDate ?? 0)
+        json[TripKeyInDB.pickupDate.rawValue] = Double(pickupDate ?? 0)
         json[TripKeyInDB.pickupTimeStart.rawValue] = Int(pickupTimeStart ?? 0)
         json[TripKeyInDB.pickupTimeEnd.rawValue] = Int(pickupTimeEnd ?? 0)
         json[TripKeyInDB.note.rawValue] = note ?? ""
@@ -175,9 +175,12 @@ class Trip : NSObject, Unboxable, Identifiable {
             return dayString
         }
         
-        let day = Date.getTimeString(format: "dd", time: TimeInterval(timestamp))
-        dayString = day
-        return day
+        if let pickupDate = pickupDate {
+            let day = Date.getTimeString(format: "dd", time: TimeInterval(pickupDate))
+            dayString = day
+            return day
+        }
+        return ""
     }
     
     func getMonthString() -> String {
@@ -185,13 +188,26 @@ class Trip : NSObject, Unboxable, Identifiable {
             return monthString
         }
         
-        let month = Date.getTimeString(format: "MMM", time: TimeInterval(timestamp)).uppercased()
-        monthString = month
-        return month
+        if let pickupDate = pickupDate {
+            let month = Date.getTimeString(format: "MMM", time: TimeInterval(pickupDate)).uppercased()
+            monthString = month
+            return month
+        }
+        return ""
     }
     
     func cardDisplayTime() -> String {
-        return Date.getTimeString(format: "MM/dd", time: TimeInterval(timestamp))
+        if let cardDisplayTimeString = cardDisplayTimeString {
+            return cardDisplayTimeString
+        }
+        
+        if let pickupDate = pickupDate {
+            let cardTime = Date.getTimeString(format: "MM/dd", time: TimeInterval(pickupDate))
+            cardDisplayTimeString = cardTime
+            return cardTime
+        }
+        
+        return ""
     }
     
     func shareInfo() -> (String, String, String) {  //title, message, url

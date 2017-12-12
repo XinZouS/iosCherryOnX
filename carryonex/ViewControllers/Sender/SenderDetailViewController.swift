@@ -220,18 +220,9 @@ class SenderDetailViewController: UIViewController{
         }
         view.layoutIfNeeded()
         
-        if let d = trip?.pickupDate {
-            let date = Date(timeIntervalSince1970: d)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MMM dd YYYY"
-            
-            let userCalendar = Calendar.current
-            let requestdComponents: Set<Calendar.Component> = [.year, .month, .day]
-            let dateComponents = userCalendar.dateComponents(requestdComponents, from: date)
-            
-            dateMonthLabel.text = formatter.shortMonthSymbols.first
-            dateDayLabel.text = "\(dateComponents.day ?? 0)"
-        }
+        dateMonthLabel.text = trip?.getMonthString()
+        dateDayLabel.text = trip?.getDayString()
+        
         // TODO: get shiper image url and setup profile image for trip card;
     }
     
