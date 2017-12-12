@@ -11,6 +11,7 @@ import AlamofireImage
 import JXPhotoBrowser
 import M13Checkbox
 import MapKit
+import BPCircleActivityIndicator
 
 class OrdersRequestDetailViewController: UIViewController {
     
@@ -52,6 +53,22 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
+    @IBOutlet weak var statusLoadingIndicator: BPCircleActivityIndicator!
+    var isLoadingStatus = false {
+        didSet {
+            if isLoadingStatus {
+                statusLoadingIndicator.isHidden = false
+                statusLoadingIndicator.animate()
+                finishButton.isEnabled = false
+                finishButton2.isEnabled = false
+            } else {
+                statusLoadingIndicator.stop()
+                statusLoadingIndicator.isHidden = true
+                finishButton.isEnabled = true
+                finishButton2.isEnabled = true
+            }
+        }
+    }
     
     // payment menu at bottom of view
     @IBOutlet weak var backgroundView: UIView!
@@ -121,14 +138,20 @@ class OrdersRequestDetailViewController: UIViewController {
         let requestCategory = category
         displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
+                self?.isLoadingStatus = true
                 ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
                     if (success) {
                         if let statusId = statusId {
                             print("New status: \(statusId)")
-                            TripOrderDataStore.shared.pull(category: requestCategory, delay: 2, completion: nil)
+                            TripOrderDataStore.shared.pull(category: requestCategory, delay: 1, completion: {
+                                self?.isLoadingStatus = false
+                            })
                         } else {
                             debugPrint("No status found, bad call")
+                            self?.isLoadingStatus = false
                         }
+                    } else {
+                        self?.isLoadingStatus = false
                     }
                 })
             }
@@ -169,7 +192,7 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "订单详情"
-        navigationController?.isNavigationBarHidden = false        
+        navigationController?.isNavigationBarHidden = false
         setupScrollView()
         setupView()
         setupCollectionView()
@@ -459,6 +482,10 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
                 break
             }
         }
+        
+        //To prevent grid lock because of loading issue, re-enable button again upon
+        //setting transaction
+        isLoadingStatus = false
     }
     
     func updateRequestInfoAppearance(request: Request) {
