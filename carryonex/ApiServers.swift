@@ -1018,6 +1018,7 @@ class ApiServers : NSObject {
                      commenteeId: Int,
                      commenterId: Int,
                      rank: Float,
+                     requestId: Int,
                      completion: @escaping (Bool, Error?) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
@@ -1031,7 +1032,8 @@ class ApiServers : NSObject {
             CommentKey.comment.rawValue: comment,
             CommentKey.commenteeId.rawValue: commenteeId,
             CommentKey.commenterId.rawValue: commenterId,
-            CommentKey.rank.rawValue: rank
+            CommentKey.rank.rawValue: rank,
+            "request_id": requestId
         ]
         
         let parameters: [String: Any] = [

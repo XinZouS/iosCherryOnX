@@ -23,6 +23,7 @@ class OrderCommentRateController: UIViewController {
     var commenteeRealName: String?
     var commenteeImage: String?
     var category: TripCategory?
+    var requestId: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,8 +80,12 @@ class OrderCommentRateController: UIViewController {
             return
         }
         
-        if let comment = commentTextField.text, !comment.isEmpty {
-            ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: currentUserId, rank: rate) { (success, error) in
+        if let comment = commentTextField.text, !comment.trimmingCharacters(in: .whitespaces).isEmpty {
+            ApiServers.shared.postComment(comment: comment,
+                                          commenteeId: commenteeId,
+                                          commenterId: currentUserId,
+                                          rank: rate,
+                                          requestId: requestId) { (success, error) in
                 if let error = error {
                     print("Comment error: \(error.localizedDescription)")
                     return
@@ -88,10 +93,8 @@ class OrderCommentRateController: UIViewController {
                 print("Comment success!")
                 
                 self.displayAlert(title: "提交成功", message: "谢谢你的评价", action: "好", completion: { [weak self] _ in
-//                    AppDelegate.shared().mainTabViewController?.selectTabIndex(index: .home)
                     self?.navigationController?.popViewController(animated: true)
                 })
-                
             }
             
         } else {
