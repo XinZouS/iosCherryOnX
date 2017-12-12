@@ -43,11 +43,12 @@ class MainTabBarController: UITabBarController {
                 }
             }
         }
+        
+        isItHaveLogIn(false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        isItHaveLogIn()
         loadingDisplay()
     }
     
@@ -65,9 +66,9 @@ class MainTabBarController: UITabBarController {
         view.addSubview(circleIndicator)
     }
     
-    private func isItHaveLogIn(){
+    private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
-            showLogin()
+            showLogin(animated)
         }
     }
     
@@ -90,10 +91,10 @@ class MainTabBarController: UITabBarController {
         }
     }
     
-    private func showLogin() {
+    private func showLogin(_ animated: Bool) {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
             loginViewController = loginViewContainer as? LoginViewController
-            self.present(loginViewContainer, animated: true) { [weak self]_ in
+            self.present(loginViewContainer, animated: animated) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.circleIndicator.stop()
                 appDidLaunch = false
@@ -111,7 +112,7 @@ class MainTabBarController: UITabBarController {
     //MARK: - Notification
     private func addObservers() {
         NotificationCenter.default.addObserver(forName: .UserLoggedOut, object: nil, queue: nil) { [weak self] _ in
-            self?.showLogin()
+            self?.showLogin(true)
         }
         
         //登录异常（如改变设备）
@@ -127,7 +128,7 @@ class MainTabBarController: UITabBarController {
                 let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
                 strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
             } else {
-                strongSelf.isItHaveLogIn()
+                strongSelf.isItHaveLogIn(true)
             }
         }
     }
