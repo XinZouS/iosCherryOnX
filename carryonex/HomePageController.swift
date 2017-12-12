@@ -145,8 +145,6 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupUserInfoMenuView()
         setupActivityIndicator()
         addNotificationObservers()
-        
-        ApiServers.shared.getConfig()
     }
     
     override func viewWillAppear(_ animated: Bool) {

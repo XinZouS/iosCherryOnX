@@ -36,7 +36,12 @@ class CreditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func faqButtonTapped(_ sender: Any) {
-        // TODO: FAQ button tapped
+        let webVC = WebController()
+        self.navigationController?.pushViewController(webVC, animated: true)
+        webVC.title = title
+        if let url = URL(string: "\(userGuideWebHoster)/doc_wallet_info") {
+            webVC.url = url
+        }
     }
     
     @IBAction func extractCashButtonTapped(_ sender: Any) {
