@@ -117,10 +117,9 @@ class OrdersShipperHeaderCell : UICollectionViewCell {
         let endCity   = trip?.getEndAddress().city ?? "end"
         cityLabel.text = "\(startCity)--\(endCity)"
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        let d = Date(timeIntervalSince1970: trip?.pickupDate ?? 0)
-        dateLabel.text = formatter.string(from: d)
+        if let date = trip?.pickupDate {
+            dateLabel.text = Date.getTimeString(format: "yyyy/MM/dd", time: date)
+        }
     }
 
     

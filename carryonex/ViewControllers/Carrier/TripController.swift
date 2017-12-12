@@ -74,12 +74,13 @@ class TripController: UIViewController{
             trip.pickupDate = childVC.pickUpDate
             trip.note = childVC.otherTextField.text
             ApiServers.shared.postTripInfo(trip: trip) { (success, msg, tripCode) in
-                if success {
+                if success, let tripCode = tripCode {
+                    trip.tripCode = tripCode
                     self.performSegue(withIdentifier: self.segueIdTripComplete, sender: trip)
                     ProfileManager.shared.loadLocalUser(completion: nil)
                     TripOrderDataStore.shared.pull(category: .carrier, delay: 1, completion: nil)
                 } else {
-                    print(msg ?? "")
+                    print(msg ?? "Failed post trip")
                 }
             }
         }else{
