@@ -81,11 +81,11 @@ class ShareViewFactory: UIView {
         self.addSubview(facebookLabel)
         self.addSubview(weiboLabel)
         
-        let w: CGFloat = isPhone ? ((viewWidth - 100) / 4) : 63
-        let l: CGFloat = 20  // left constent for button
-        let y: CGFloat = -10 // centerYAnchor
-        let t: CGFloat = 10  // top constent for label
-        
+        let w: CGFloat = isPhone ? ((viewWidth - 100) / 4) : 46
+        let l: CGFloat = 20  // left constent for UIButton
+        let y: CGFloat = isPhone ? -10 : -26 // centerYAnchor for UIButton
+        let t: CGFloat = isPhone ? 10 : 5  // top constent for UILabel
+
         wechatButton.addConstraints(left: self.leftAnchor, top: nil, right: nil, bottom:nil , leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
         momentButton.addConstraints(left: wechatButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
         weiboButton.addConstraints(left: momentButton.rightAnchor, top: nil, right: nil, bottom: nil, leftConstent: l, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: w, height: w)
