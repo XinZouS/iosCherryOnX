@@ -65,6 +65,12 @@ class TripController: UIViewController{
     @IBAction func commitTripInfo(_ sender: Any) {
         let trip = Trip()
         if let childVC = self.childViewControllers.first as? TripTableController {
+            
+            if childVC.pickUpDate < (Date().timeIntervalSince1970 - 86400) {    //86400 seconds/day
+                self.displayAlert(title: "出行日期有误", message: "出行日期不能早于今天，请重新输入", action: "好")
+                return
+            }
+            
             trip.endAddress?.state = childVC.endState
             trip.endAddress?.city = childVC.endCity
             trip.endAddress?.country = Country(rawValue:childVC.endCountry)
