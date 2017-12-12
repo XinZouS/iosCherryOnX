@@ -362,10 +362,12 @@ class SenderDetailViewController: UIViewController{
             displayGlobalAlert(title: t, message: "请正确设置您的货物价值，和具有吸引力的报价给出行人。", action: ok, completion: nil)
             return
         }
-        
+        guard isLoading == false else {
+            return
+        }
         isLoading = true
         uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
-            
+            self?.isLoading = false
             guard let strongSelf = self else { return }
             
             if let err = error {
@@ -374,8 +376,6 @@ class SenderDetailViewController: UIViewController{
                 strongSelf.displayGlobalAlert(title: "哎呀", message: m, action: "稍后再试一次", completion: nil)
                 return
             }
-            // TODO BUG: test use fake trip only, remove this before launch!!!
-            
             
             if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
                 
