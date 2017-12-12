@@ -18,12 +18,6 @@ class OrderListViewController: UIViewController {
     let senderCellId = "OrderListCardSenderCell"
     
     /// Flickr Image operator
-    let cityStringDefault = "New York"
-    var cityStringForImage: String = "" {
-        didSet{
-            loadImageUrlsOfCurrentCity()
-        }
-    }
     var imageTimer: Timer?
     
     // UI contents
@@ -41,6 +35,7 @@ class OrderListViewController: UIViewController {
     
     var listType: TripCategory = .carrier {
         didSet {
+            loadImageUrlsOfCurrentCity()
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
                 self?.animateTitleImageTransition()
@@ -77,9 +72,6 @@ class OrderListViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tableViewShiper.reloadData()
             }
-            if carrierTrips.count > 0 {
-                setCityStringForImage()
-            }
         }
     }
     
@@ -87,9 +79,6 @@ class OrderListViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.tableViewSender.reloadData()
-            }
-            if senderRequests.count > 0 {
-                setCityStringForImage()
             }
         }
     }
@@ -102,7 +91,6 @@ class OrderListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadImageUrlsOfCurrentCity()
         setupSwipeGestureRecognizer()
         
         //FIXME: Find out why table view constraint is wrong
@@ -117,6 +105,8 @@ class OrderListViewController: UIViewController {
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
         reloadData()
+        
+        loadImageUrlsOfCurrentCity()
         
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.reloadData()
@@ -194,7 +184,6 @@ class OrderListViewController: UIViewController {
         if senderRequests.count != 0{
             tableViewSender.tableFooterView = nil
         }
-        setCityStringForImage()
     }
     
     @IBAction func handleDataSourceChanged(sender: UISegmentedControl) {
@@ -460,57 +449,40 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
  */
 extension OrderListViewController {
     
-    fileprivate func setCityStringForImage(){
-        var newCity = cityStringDefault
+    public func loadImageUrlsOfCurrentCity() {
+        
+        var place: String
         if listType == .carrier {
-            if let ct = carrierTrips.first?.endAddress?.city {
-                newCity = ct
-            }
-            if let st = carrierTrips.first?.endAddress?.state {
-                newCity = newCity + "," + st
-            }
+            place = self.carrierTrips.first?.endAddress?.state ?? ""
+        } else {
+            place = self.senderRequests.first?.endAddress?.state ?? ""
         }
-        if listType == .sender {
-            if let ct = senderRequests.first?.endAddress?.city {
-                newCity = ct
-            }
-            if let st = senderRequests.first?.endAddress?.state {
-                newCity = newCity + "," + st
-            }
-        }
-        if cityStringForImage != newCity {
-            cityStringForImage = newCity
-        }
-    }
-    
-    public func loadImageUrlsOfCurrentCity(){
-        FlickrImageManager.shared.getPhotoUrl(from: cityStringForImage, isTrip: listType == .carrier) { (urls) in
-            guard let urls = urls, urls.first != nil else {
-                self.cityStringForImage = self.cityStringDefault
-                return
+        
+        if !place.isEmpty {
+            FlickrImageManager.shared.getPhotoUrl(from: place, category: listType) { (urls) in
+                self.animateTitleImageTransition()
             }
         }
     }
     
     public func animateTitleImageTransition(){
-        guard let newUrl = FlickrImageManager.shared.nextImageUrl(isTrip: listType == .carrier) else {
+        guard let newUrl = FlickrImageManager.shared.nextImageUrl(category: listType) else {
             return
         }
-        imageTitleTransitionView.image = imageTitleView.image
-        imageTitleTransitionView.alpha = 1
-        imageTitleTransitionView.isHidden = false
-        imageTitleView.af_setImage(withURL: newUrl)
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.imageTitleTransitionView.alpha = 0
-        }) { (finished) in
-            self.imageTitleTransitionView.isHidden = true
-        }
+        DispatchQueue.main.async(execute: {
+            self.imageTitleTransitionView.image = self.imageTitleView.image
+            self.imageTitleTransitionView.alpha = 1
+            self.imageTitleTransitionView.isHidden = false
+            self.imageTitleView.af_setImage(withURL: newUrl)
+            UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.imageTitleTransitionView.alpha = 0
+            }) { (finished) in
+                self.imageTitleTransitionView.isHidden = true
+            }
+        })
     }
     
     fileprivate func setupImageTimer(){
         imageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(animateTitleImageTransition), userInfo: nil, repeats: true)
     }
-
-    
 }
-

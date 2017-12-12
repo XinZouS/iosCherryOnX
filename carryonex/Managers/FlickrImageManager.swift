@@ -25,8 +25,8 @@ class FlickrImageManager {
         FlickrKit.shared().initialize(withAPIKey: flickrKey, sharedSecret: flickrSecret)
     }
     
-    func isStoreImageFilled(isTrip: Bool) -> Bool {
-        if isTrip {
+    func isStoreImageFilled(category: TripCategory) -> Bool {
+        if category == .carrier {
             if let urls = storedImageTripUrls {
                 return urls.count > 0
             }
@@ -38,8 +38,8 @@ class FlickrImageManager {
         return false
     }
     
-    func randomImageUrl(isTrip: Bool) -> URL? {
-        if isTrip {
+    func randomImageUrl(category: TripCategory) -> URL? {
+        if category == .carrier {
             if let storedImageTripUrls = storedImageTripUrls {
                 let randomIndex = Int(arc4random_uniform(UInt32(storedImageTripUrls.count)))
                 return randomIndex == 0 ? nil : storedImageTripUrls[randomIndex]
@@ -53,8 +53,8 @@ class FlickrImageManager {
         return nil
     }
     
-    func nextImageUrl(isTrip: Bool) -> URL? {
-        if isTrip {
+    func nextImageUrl(category: TripCategory) -> URL? {
+        if category == .carrier {
             if let urls = storedImageTripUrls, urls.count > 0 {
                 tripIndex = (tripIndex + 1 >= urls.count) ? 0 : tripIndex + 1
                 return urls[tripIndex]
@@ -68,37 +68,37 @@ class FlickrImageManager {
         return nil
     }
     
-    func getPhotoUrl(from place: String, isTrip: Bool, completion: @escaping ([URL]?) -> Void) {
-        guard place != "", place != " " else {
+    func getPhotoUrl(from place: String, category: TripCategory, completion: @escaping ([URL]?) -> Void) {
+        guard !place.isEmpty else {
             return
         }
+        
+        let searchTag = place + ",landscape" // [landmark, building, city, landscape]
+        
         let photoSearch = FKFlickrPhotosSearch()
         photoSearch.per_page = "10"
-        photoSearch.tags = place + ",city" // [landmark, build, city, landscape]
-        photoSearch.tag_mode = "any" // [all(and), any(or)]
-        photoSearch.is_commons = "true"
+        photoSearch.tags = searchTag
+        photoSearch.tag_mode = "all" // [all(and), any(or)]
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
-            DispatchQueue.main.async(execute: {
-                if let response = response, let photos = response["photos"] as? [String: Any], let photoDataArray = photos["photo"] as? [Any] {
-                    //print(response)
-                    //print(photos)
-                    //print(photoDataArray)
-                    var urlArray = [URL]()
-                    photoDataArray.forEach({ (photoData) in
-                        if let photoData = photoData as? [String: Any] {
-                            let url = fk.photoURL(for: .medium800, fromPhotoDictionary: photoData)
-                            urlArray.append(url)
-                        }
-                    })
-                    if isTrip {
-                        self.storedImageTripUrls = urlArray
-                    } else {
-                        self.storedImageRqstUrls = urlArray
+            if let response = response, let photos = response["photos"] as? [String: Any], let photoDataArray = photos["photo"] as? [Any] {
+                //print(response)
+                //print(photos)
+                //print(photoDataArray)
+                var urlArray = [URL]()
+                photoDataArray.forEach({ (photoData) in
+                    if let photoData = photoData as? [String: Any] {
+                        let url = fk.photoURL(for: .medium800, fromPhotoDictionary: photoData)
+                        urlArray.append(url)
                     }
-                    completion(urlArray)
+                })
+                if category == .carrier {
+                    self.storedImageTripUrls = urlArray
+                } else {
+                    self.storedImageRqstUrls = urlArray
                 }
-            })
+                completion(urlArray)
+            }
         }
     }
 }
