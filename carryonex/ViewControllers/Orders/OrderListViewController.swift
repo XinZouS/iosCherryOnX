@@ -17,6 +17,7 @@ class OrderListViewController: UIViewController {
     let shiperCellId = "OrderListCardShiperCell"
     let senderCellId = "OrderListCardSenderCell"
     
+    /// Flickr Image operator
     let cityStringDefault = "New York"
     var cityStringForImage: String = "" {
         didSet{
@@ -24,6 +25,8 @@ class OrderListViewController: UIViewController {
         }
     }
     var imageTimer: Timer?
+    
+    // UI contents
     @IBOutlet weak var imageTitleView: UIImageView!
     @IBOutlet weak var imageTitleTransitionView: UIImageView!
     @IBOutlet weak var tableViewShiper: UITableView!
@@ -35,6 +38,7 @@ class OrderListViewController: UIViewController {
     @IBOutlet weak var listButtonSender: UIButton!
     @IBOutlet weak var sliderBar: UIView!
     @IBOutlet weak var sliderBarCenterConstraint: NSLayoutConstraint!
+    
     var listType: TripCategory = .carrier {
         didSet {
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
@@ -70,15 +74,23 @@ class OrderListViewController: UIViewController {
 
     var carrierTrips = [Trip]() {
         didSet {
-            self.tableViewShiper.reloadData()
-            setCityStringForImage()
+            DispatchQueue.main.async {
+                self.tableViewShiper.reloadData()
+            }
+            if carrierTrips.count > 0 {
+                setCityStringForImage()
+            }
         }
     }
     
     var senderRequests = [Request]() {
         didSet {
-            self.tableViewSender.reloadData()
-            setCityStringForImage()
+            DispatchQueue.main.async {
+                self.tableViewSender.reloadData()
+            }
+            if senderRequests.count > 0 {
+                setCityStringForImage()
+            }
         }
     }
     
@@ -116,6 +128,12 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         TripOrderDataStore.shared.pull(category: listType, completion: nil)
+        imageTimer?.fire()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        imageTimer?.invalidate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -467,6 +485,7 @@ extension OrderListViewController {
                 self.cityStringForImage = self.cityStringDefault
                 return
             }
+            print("get urls = \(urls)")
         }
     }
     
@@ -474,6 +493,7 @@ extension OrderListViewController {
         guard let newUrl = FlickrImageManager.shared.nextImageUrl(isTrip: listType == .carrier) else {
             return
         }
+        print("\n animateTitleImageTransition")
         imageTitleTransitionView.image = imageTitleView.image
         imageTitleTransitionView.alpha = 1
         imageTitleTransitionView.isHidden = false
