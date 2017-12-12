@@ -38,7 +38,6 @@ class OrderListViewController: UIViewController {
             loadImageUrlsOfCurrentCity()
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
-                self?.animateTitleImageTransition()
             }
         }
     }
@@ -117,12 +116,11 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         TripOrderDataStore.shared.pull(category: listType, completion: nil)
-        setupImageTimer()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        imageTimer?.invalidate()
+        invalidateImageTimer()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -449,7 +447,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
  */
 extension OrderListViewController {
     
-    public func loadImageUrlsOfCurrentCity() {
+    fileprivate func loadImageUrlsOfCurrentCity() {
         
         var place: String
         if listType == .carrier {
@@ -458,17 +456,22 @@ extension OrderListViewController {
             place = self.senderRequests.first?.endAddress?.state ?? ""
         }
         
-        if !place.isEmpty {
+        if !place.isEmpty && !FlickrImageManager.shared.isStoreImageFilled(category: listType) {
             FlickrImageManager.shared.getPhotoUrl(from: place, category: listType) { (urls) in
-                self.animateTitleImageTransition()
+                //Only trigger it when timer is off, so we could smooth out the transition
+                if self.imageTimer == nil {
+                    self.performSelector(onMainThread: #selector(self.startImageTimer), with: nil, waitUntilDone: false)
+                    self.animateTitleImageTransition()
+                }
             }
         }
     }
     
-    public func animateTitleImageTransition(){
+    @objc fileprivate func animateTitleImageTransition(){
         guard let newUrl = FlickrImageManager.shared.nextImageUrl(category: listType) else {
             return
         }
+        
         DispatchQueue.main.async(execute: {
             self.imageTitleTransitionView.image = self.imageTitleView.image
             self.imageTitleTransitionView.alpha = 1
@@ -482,7 +485,15 @@ extension OrderListViewController {
         })
     }
     
-    fileprivate func setupImageTimer(){
+    @objc fileprivate func startImageTimer() {
+        if imageTimer != nil {
+            invalidateImageTimer()
+        }
         imageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(animateTitleImageTransition), userInfo: nil, repeats: true)
+    }
+    
+    fileprivate func invalidateImageTimer() {
+        imageTimer?.invalidate()
+        imageTimer = nil
     }
 }
