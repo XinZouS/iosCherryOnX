@@ -203,6 +203,7 @@ class OrdersRequestDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == postRateSegue, let viewController = segue.destination as? OrderCommentRateController {
             viewController.category = category
+            viewController.requestId = request.id
             if category == .carrier {
                 viewController.commenteeId = request.ownerId
                 viewController.commenteeRealName = request.ownerRealName ?? request.ownerUsername

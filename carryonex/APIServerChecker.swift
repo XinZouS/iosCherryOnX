@@ -85,8 +85,8 @@ class APIServerChecker: NSObject {
         }
     }
     
-    static func testPostComments(comment: String, commenteeId: Int, commenterId: Int, rank: Float) {
-        ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: commenterId, rank: rank) { (success, error) in
+    static func testPostComments(comment: String, commenteeId: Int, commenterId: Int, rank: Float, requestId: Int) {
+        ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: commenterId, rank: rank, requestId: requestId) { (success, error) in
             print("Is post comment success: \(success)")
         }
     }
