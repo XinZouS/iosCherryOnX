@@ -211,6 +211,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
+        saveButtonTapped()
         dismissVC()
     }
     

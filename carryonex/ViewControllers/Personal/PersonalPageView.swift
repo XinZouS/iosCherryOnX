@@ -111,12 +111,12 @@ class PersonalPageViewController: UIViewController{
     private func presentEditProfileVC(bySubtype: String){
         let sb = UIStoryboard(name: "ChangePersonalProfile", bundle: nil)
         if let vc = sb.instantiateViewController(withIdentifier: personalInfoVCId) as? PersonalInfoEditingViewController {
-            let transition = CATransition()
-            transition.duration = 0.5
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            transition.type = kCATransitionPush
-            transition.subtype = bySubtype //kCATransitionFromBottom
-            view.window!.layer.add(transition, forKey: kCATransition)
+//            let transition = CATransition()
+//            transition.duration = 0.5
+//            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//            transition.type = kCATransitionPush
+//            transition.subtype = bySubtype //kCATransitionFromBottom
+//            view.window!.layer.add(transition, forKey: kCATransition)
             self.present(vc, animated: true, completion: nil)
         }
         
