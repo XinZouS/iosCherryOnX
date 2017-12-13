@@ -49,4 +49,20 @@ extension UIColor {
             blue: CGFloat(blue) / 255.0,
             alpha: CGFloat(alpha))
     }
+    
+    
+    struct MyTheme {
+        static let morningBlue = #colorLiteral(red: 0, green: 0.3294117647, blue: 0.5803921569, alpha: 1)
+        static let morningWhite = #colorLiteral(red: 0.9058823529, green: 0.9215686275, blue: 0.9294117647, alpha: 1)
+        
+        static let noonYellow = #colorLiteral(red: 0.9843137255, green: 0.5725490196, blue: 0.0862745098, alpha: 1)
+        static let noonWhite = #colorLiteral(red: 0.8078431373, green: 0.8588235294, blue: 0.8901960784, alpha: 1)
+        
+        static let afternoonBlue = #colorLiteral(red: 0, green: 0.3294117647, blue: 0.5803921569, alpha: 1)
+        static let afternoonWhite = #colorLiteral(red: 0.9058823529, green: 0.9215686275, blue: 0.9294117647, alpha: 1)
+        
+        static let nightBlue = #colorLiteral(red: 0.1284747124, green: 0.1093071476, blue: 0.3388965428, alpha: 1)
+        static let nightCyan = #colorLiteral(red: 0.1916682422, green: 0.6344442368, blue: 0.7353702188, alpha: 1)        
+    }
 }
+

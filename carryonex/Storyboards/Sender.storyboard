@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6aY-yC-FGU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6aY-yC-FGU">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,20 +23,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-IG-2gI">
-                                <rect key="frame" x="366" y="95" width="32" height="77"/>
+                                <rect key="frame" x="366" y="118.66666666666669" width="32" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="77" id="2e1-Ak-fIv"/>
+                                    <constraint firstAttribute="height" constant="30" id="2e1-Ak-fIv"/>
                                     <constraint firstAttribute="width" constant="32" id="D6q-nN-7y7"/>
                                 </constraints>
-                                <state key="normal" image="向右箭头-1"/>
+                                <state key="normal" image="arrow_right"/>
                                 <connections>
                                     <action selector="goDetailPage:" destination="6aY-yC-FGU" eventType="touchUpInside" id="6hb-dG-qdu"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="游箱号输入横线" translatesAutoresizingMaskIntoConstraints="NO" id="gsT-sD-MQa">
-                                <rect key="frame" x="20" y="163" width="374" height="1"/>
+                                <rect key="frame" x="20" y="163" width="374" height="3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="QPU-Wn-Ga8"/>
+                                    <constraint firstAttribute="height" constant="3" id="QPU-Wn-Ga8"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索icon" translatesAutoresizingMaskIntoConstraints="NO" id="Zib-B4-JcO">
@@ -46,7 +46,7 @@
                                     <constraint firstAttribute="height" constant="26" id="4Aj-yp-mSc"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入6位游箱号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
                                 <rect key="frame" x="67" y="116" width="289" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hag-b1-6NK"/>
@@ -57,11 +57,11 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="XXV-IG-2gI" firstAttribute="centerY" secondItem="bwx-eX-FB1" secondAttribute="centerY" id="0Jw-mV-10P"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="bwx-eX-FB1" secondAttribute="bottom" constant="12" id="5jG-q1-uCW"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="trailing" secondItem="qOP-M1-Utm" secondAttribute="trailingMargin" id="7oV-vA-ihP"/>
                             <constraint firstItem="bwx-eX-FB1" firstAttribute="leading" secondItem="Zib-B4-JcO" secondAttribute="trailing" constant="25" id="8Co-aI-naO"/>
                             <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="Zib-B4-JcO" secondAttribute="bottom" constant="17" id="Dx8-hJ-T2C"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="XXV-IG-2gI" secondAttribute="bottom" constant="-9" id="Fff-Xc-MxK"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" constant="100" id="GEY-zN-FY9"/>
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
@@ -96,7 +96,7 @@
     </scenes>
     <resources>
         <image name="Background_Blue_Long" width="375" height="950"/>
-        <image name="向右箭头-1" width="53" height="59"/>
+        <image name="arrow_right" width="88" height="70"/>
         <image name="搜索icon" width="51" height="53"/>
         <image name="游箱号输入横线" width="297" height="2"/>
     </resources>
