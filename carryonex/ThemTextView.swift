@@ -41,7 +41,15 @@ class ThemTextView: UITextView {
         //self.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
         setupCursor()
         self.addSubview(underlineView)
-        underlineView.addConstraints(left: self.leftAnchor, top: self.bottomAnchor, right: self.rightAnchor, bottom: nil, leftConstent: underlineLeft, topConstent: underlineTopY, rightConstent: underlineRight, bottomConstent: 0, width: 0, height: underlineHeigh)
+        underlineView.addConstraints(left: self.leftAnchor,
+                                     top: self.bottomAnchor,
+                                     right: self.rightAnchor,
+                                     bottom: nil,
+                                     leftConstent: underlineLeft,
+                                     topConstent: underlineTopY,
+                                     rightConstent: underlineRight,
+                                     bottomConstent: 0,
+                                     width: 0, height: underlineHeigh)
     }
     
     private func setupCursor(){

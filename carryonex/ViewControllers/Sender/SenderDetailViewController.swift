@@ -644,6 +644,7 @@ extension SenderDetailViewController: UITextViewDelegate {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
             isTextViewBeenEdited = false
+            messageTextView.isActive = false
         }
     }
     
@@ -651,6 +652,7 @@ extension SenderDetailViewController: UITextViewDelegate {
         if !isTextViewBeenEdited {
             textView.text = ""
             textView.textColor = .black
+            messageTextView.isActive = true
         }
     }
     
