@@ -52,7 +52,7 @@
                                         <real key="value" value="-50"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineRight">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="-40"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineHeigh">
                                         <real key="value" value="3"/>
@@ -69,6 +69,7 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="cursorColor">
                                         <color key="value" red="0.69489037990000002" green="0.98665767910000002" blue="0.92136847970000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                         </subviews>

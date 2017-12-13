@@ -17,28 +17,13 @@ class ThemTextField: UITextField {
         return v
     }()
     
+    // constraints:
+    @IBInspectable var underlineLeft: CGFloat = 0
+    @IBInspectable var underlineRight: CGFloat = 0
+    @IBInspectable var underlineHeigh: CGFloat = 1
+    @IBInspectable var underlineTopY: CGFloat = 0
     
-    @IBInspectable var underlineLeft: CGFloat = 0 {
-        didSet{
-            updateUnderline()
-        }
-    }
-    @IBInspectable var underlineRight: CGFloat = 0 {
-        didSet{
-            updateUnderline()
-        }
-    }
-    @IBInspectable var underlineHeigh: CGFloat = 1 {
-        didSet{
-            updateUnderline()
-        }
-    }
-    @IBInspectable var underlineTopY: CGFloat = 0 {
-        didSet{
-            updateUnderline()
-        }
-    }
-    
+    // colors:
     @IBInspectable var cursorColor: UIColor = colorTheamRed
     @IBInspectable var defaultLineColor: UIColor = colorTextFieldUnderLineLightGray
     @IBInspectable var activeLineColor: UIColor = colorTheamRed
@@ -48,8 +33,17 @@ class ThemTextField: UITextField {
         self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidBegin)
         self.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
         setupCursor()
-        updateUnderline()
         self.addSubview(underlineView)
+        underlineView.addConstraints(left: self.leftAnchor,
+                                     top: self.bottomAnchor,
+                                     right: self.rightAnchor,
+                                     bottom: nil,
+                                     leftConstent: underlineLeft,
+                                     topConstent: underlineTopY,
+                                     rightConstent: underlineRight,
+                                     bottomConstent: 0,
+                                     width: 0,
+                                     height: underlineHeigh)
     }
     
     private func setupCursor(){
@@ -59,13 +53,6 @@ class ThemTextField: UITextField {
     
     private func setupUnderlineView(startOffset: CGFloat = 0, endOffset: CGFloat = 0, topOffset: CGFloat = 0, heigh h: CGFloat){
         underlineView.frame = CGRect(x: 0 + startOffset, y: self.bounds.height + topOffset, width: self.bounds.width + endOffset, height: h)
-    }
-    
-    private func updateUnderline(){
-        setupUnderlineView(startOffset: underlineLeft,
-                           endOffset: underlineRight,
-                           topOffset: underlineTopY,
-                           heigh: underlineHeigh)
     }
     
     public func editingDidBegin(){
