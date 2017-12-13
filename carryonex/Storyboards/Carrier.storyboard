@@ -119,11 +119,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="所在地区" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v90-S0-7EZ">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v90-S0-7EZ">
                                                     <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.30053696036338806" green="0.34458458423614502" blue="0.38212773203849792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="beginLcationTapped:" destination="Llg-DT-bEq" eventType="editingDidBegin" id="Csv-ze-RHU"/>
@@ -145,7 +145,7 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZD-rO-Wxa">
                                                     <rect key="frame" x="19.5" y="53" width="261" height="1"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" red="0.75082153080000003" green="0.81908339259999996" blue="0.86505109069999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="yiD-O5-riX"/>
                                                     </constraints>
@@ -181,11 +181,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="所在地区" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aF3-fl-Whw">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aF3-fl-Whw">
                                                     <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="endLocationTapped:" destination="Llg-DT-bEq" eventType="editingDidEnd" id="MhC-6N-xCe"/>
@@ -207,7 +207,7 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWy-WR-zzC">
                                                     <rect key="frame" x="19.5" y="53" width="261" height="1"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" red="0.75082153081893921" green="0.81908339262008667" blue="0.86505109071731567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="lG7-kW-hOg"/>
                                                     </constraints>
@@ -245,8 +245,8 @@
                                                     <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.30445957183837891" green="0.34850695729255676" blue="0.38605034351348877" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="timeTextFieldTapped:" destination="Llg-DT-bEq" eventType="editingDidBegin" id="5Rt-tj-XEO"/>
@@ -260,7 +260,7 @@
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZV9-2N-1cT">
                                                     <rect key="frame" x="19" y="53" width="261" height="1"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" red="0.75082153081893921" green="0.81908339262008667" blue="0.86505109071731567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="ZQb-MD-6Ld"/>
                                                     </constraints>
@@ -302,20 +302,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址详细信息，注意事项等" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wek-kC-mch">
-                                                    <rect key="frame" x="19.5" y="12" width="171.5" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="19.5" y="12" width="196" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.74204939603805542" green="0.74256473779678345" blue="0.75648868083953857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zBc-vd-RWA">
                                                     <rect key="frame" x="19.5" y="12" width="261" height="56"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.74689972400665283" green="0.81516140699386597" blue="0.8611292839050293" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHy-fl-KWO">
                                                     <rect key="frame" x="19.5" y="73" width="261" height="1"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" red="0.75082153080000003" green="0.81908339259999996" blue="0.86505109069999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="sBn-FZ-zyV"/>
                                                     </constraints>
