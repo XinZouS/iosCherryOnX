@@ -57,7 +57,7 @@ enum TripKeyInDB : String {
     case carrierRealName  = "carrier_real_name"
     case carrierRating    = "carrier_rating"
     case carrierPhone     = "carrier_phone"
-    case carrierImageUrl  = "carrier_image"
+    case carrierImageUrl  = "carrier_imgurl"
 }
 
 class Trip : NSObject, Unboxable, Identifiable {
