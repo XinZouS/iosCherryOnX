@@ -10,29 +10,16 @@ import UIKit
 import CoreLocation
 import BPCircleActivityIndicator
 
-extension UIColor {
-    struct MyTheme {
-        static var darkGreen: UIColor  { return UIColor(red: 0.1549919546, green: 0.2931276262, blue: 0.3640816808, alpha: 1) }
-        static var purple: UIColor { return UIColor(red: 0.8728510737, green: 0.758017838, blue: 0.8775048256, alpha: 1) }
-        static var grey : UIColor{ return UIColor(red: 0.7805191875, green: 0.7680291533, blue: 0.8010284305, alpha: 1)}
-        static var littleGreen : UIColor{ return UIColor(red: 0.7296996117, green: 0.8510946035, blue: 0.8725016713, alpha: 1)}
-        static var mediumGreen : UIColor{ return UIColor(red: 0.2490211129, green: 0.277058661, blue: 0.4886234403, alpha: 1)}
-        static var cyan : UIColor{ return UIColor(red: 0.261000365, green: 0.6704152226, blue: 0.7383304834, alpha: 1)}
-        static var darkBlue : UIColor{ return UIColor(red: 0.2614160776, green: 0.2736201882, blue: 0.4685304761, alpha: 1)}
-    }
-}
-
 class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
-    enum timeEnum: Int{
-        case morning = 6
-        case noon = 12
-        case afternoon = 14
-        case night = 18
+    enum TimeEnum: Int{
+        case morning = 4
+        case noon = 10
+        case afternoon = 16
+        case night = 20
     }
     
-    var nowHour :String = ""
-    var timeStatus :String = "" //TODO: make it an enum
+    var timeStatus: TimeEnum = TimeEnum.noon
     var gradientLayer: CAGradientLayer!
     // paramter to send to other field
     var imageurl = ""
@@ -64,7 +51,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         //ApiServers.shared.getConfig()
         
         setupNowHour()
-        setupBackGroundColor()
         addObservers()
         setupLocation()
     }
@@ -131,35 +117,53 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let strNowTime = timeFormatter.string(from: date) as String
         let StartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 8)
         let endIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 9)
-        nowHour = String(strNowTime[StartIndex]) + String(strNowTime[endIndex])
+        let nowHour = String(strNowTime[StartIndex]) + String(strNowTime[endIndex])
         if let nowHourInt = Int(nowHour){
-            if nowHourInt >= timeEnum.night.rawValue || nowHourInt < timeEnum.morning.rawValue { // night
-                timeStatus = "night"
-            } else if nowHourInt >= timeEnum.afternoon.rawValue {
-                timeStatus = "afternoon"
-            } else if nowHourInt >= timeEnum.noon.rawValue{
-                timeStatus = "noon"
+            if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
+                setupBackGroundColor(dayTime: .night)
+                timeStatus = .night
+
+            } else if nowHourInt >= TimeEnum.afternoon.rawValue {
+                setupBackGroundColor(dayTime: .afternoon)
+                timeStatus = .afternoon
+
+            } else if nowHourInt >= TimeEnum.noon.rawValue{
+                setupBackGroundColor(dayTime: .noon)
+                timeStatus = .noon
+
             } else {
-                timeStatus = "morning"
+                setupBackGroundColor(dayTime: .morning)
+                timeStatus = .morning
             }
         }
     }
     
-    private func setupBackGroundColor(){
+    private func setupBackGroundColor(dayTime: TimeEnum){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
+        var beginColor = UIColor.MyTheme.nightBlue
+        var endColor = UIColor.MyTheme.nightCyan
+        
         switch timeStatus {
-        case "night":
-            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-            let beginColor :UIColor = UIColor.MyTheme.darkGreen
-            let endColor :UIColor = UIColor.MyTheme.purple
-            gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
-        default:
-            let beginColor :UIColor = UIColor.MyTheme.grey
-            let endColor :UIColor = UIColor.MyTheme.littleGreen
-            gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
+        case .morning, .afternoon:
+            helloLabel.textColor = .white
+            beginColor = UIColor.MyTheme.afternoonBlue
+            endColor = UIColor.MyTheme.afternoonWhite
+            
+        case .noon:
+            helloLabel.textColor = .black
+            beginColor = UIColor.MyTheme.noonYellow
+            endColor = UIColor.MyTheme.noonWhite
+
+        case .night:
+            helloLabel.textColor = .white
+            beginColor = UIColor.MyTheme.nightBlue //darkGreen
+            endColor = UIColor.MyTheme.nightCyan //purple
+            
         }
+        gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
+        gradientLayer.endPoint = CGPoint(x: 1.4, y: 1.6)
+        gradientLayer.colors = [beginColor.cgColor, endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -201,18 +205,18 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         }
         if let currUserName  = currUser.realName,currUserName != ""{
             var greeting = "你好"
-            if let timeState = AppDelegate.shared().mainTabViewController?.homeViewController?.timeStatus{
-                switch timeState {
-                case "night":
+            //if let timeState = timeStatus { // AppDelegate.shared().mainTabViewController?.homeViewController?.timeStatus{
+                switch timeStatus {
+                case .night:
                     greeting = "晚上好，"
-                case "afternoon":
+                case .afternoon:
                     greeting = "下午好，"
-                case "noon":
+                case .noon:
                     greeting = "中午好，"
                 default:
                     greeting = "早上好，"
                 }
-            }
+            //}
             let labelDisplay = greeting+currUserName
             helloLabel.text = labelDisplay
         }
