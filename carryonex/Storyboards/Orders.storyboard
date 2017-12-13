@@ -62,7 +62,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-sp-soC">
-                                <rect key="frame" x="0.0" y="206" width="375" height="412"/>
+                                <rect key="frame" x="-400" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardShiperCell" rowHeight="467" id="5Jd-nC-ZmP" customClass="OrderListCardShiperCell" customModule="carryonex" customModuleProvider="target">
@@ -713,7 +713,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="1" estimatedRowHeight="200" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMK-Xr-LQ1">
-                                <rect key="frame" x="375" y="206" width="375" height="412"/>
+                                <rect key="frame" x="-25" y="206" width="375" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListCardSenderCell" rowHeight="467" id="cO5-L0-lPg" customClass="OrderListCardSenderCell" customModule="carryonex" customModuleProvider="target">
@@ -804,7 +804,7 @@
                                                                     <color key="textColor" red="1" green="0.4149920642375946" blue="0.40575286746025085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addressDotDash" translatesAutoresizingMaskIntoConstraints="NO" id="9nF-KN-6yT">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addressDotDash" translatesAutoresizingMaskIntoConstraints="NO" id="9nF-KN-6yT">
                                                                     <rect key="frame" x="118" y="42" width="15" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="9nF-KN-6yT" secondAttribute="height" multiplier="5:13" id="2Mp-g1-Q4Q"/>
@@ -1250,7 +1250,7 @@
                             <constraint firstItem="E7e-sp-soC" firstAttribute="width" secondItem="z2e-bx-5Cc" secondAttribute="width" id="1nA-Mi-mma"/>
                             <constraint firstItem="QUR-20-iwi" firstAttribute="bottom" secondItem="4Zb-lX-Fnf" secondAttribute="bottom" constant="-4" id="28G-Fq-ZOQ"/>
                             <constraint firstItem="Bk5-gs-o2U" firstAttribute="leading" secondItem="RDL-q7-LHv" secondAttribute="leading" id="3Xo-8T-mdD"/>
-                            <constraint firstItem="E7e-sp-soC" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="8sQ-5z-FnD"/>
+                            <constraint firstItem="E7e-sp-soC" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" constant="-400" id="8sQ-5z-FnD"/>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="top" secondItem="z2e-bx-5Cc" secondAttribute="top" id="9Vl-Rw-eMo"/>
                             <constraint firstItem="E7e-sp-soC" firstAttribute="bottom" secondItem="gNp-Kw-G8B" secondAttribute="bottom" id="ERT-1Y-h8y"/>
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="width" secondItem="E7e-sp-soC" secondAttribute="width" id="Ic3-c7-85Z"/>

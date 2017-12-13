@@ -29,3 +29,4 @@ Breakpoints_v2.xcbkptlist
 Pods
 !Podfile
 Podfile.lock
+!BPCircleActivityIndicator.swift

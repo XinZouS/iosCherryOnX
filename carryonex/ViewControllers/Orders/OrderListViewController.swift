@@ -284,7 +284,7 @@ extension OrderListViewController: UIScrollViewDelegate {
         let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
         if (bottomEdge >= scrollView.contentSize.height) {
             if !isFetching {
-                print("Hit bottom")
+                print("Hit bottom 1: scrollViewDidEndDecelerating")
                 isFetching = true
                 TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
                     self.reloadData()
@@ -294,21 +294,22 @@ extension OrderListViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if decelerate {
-            let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
-            if (bottomEdge >= scrollView.contentSize.height) {
-                if !isFetching {
-                    print("Hit bottom")
-                    isFetching = true
-                    TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
-                        self.reloadData()
-                        self.isFetching = false
-                    })
-                }
-            }
-        }
-    }
+    // if use both func, screen will flash twice more for both func are been call; try to use only one; - Xin
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if decelerate {
+//            let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+//            if (bottomEdge >= scrollView.contentSize.height) {
+//                if !isFetching {
+//                    print("Hit bottom 2: scrollViewDidEndDragging")
+//                    isFetching = true
+//                    TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
+//                        self.reloadData()
+//                        self.isFetching = false
+//                    })
+//                }
+//            }
+//        }
+//    }
     
     private func currentTableView() -> UITableView {
         return (listType == .carrier) ? tableViewShiper : tableViewSender
