@@ -57,7 +57,7 @@ class TripOrderDataStore: NSObject {
         let carrierSortedItems = prioritySortedRequests(category: .carrier)
         let senderSortedItems = prioritySortedRequests(category: .sender)
         
-        if carrierSortedItems?.count == 0 && senderSortedItems?.count == 0 {
+        if carrierSortedItems == nil && senderSortedItems == nil {
             return nil
         
         } else if carrierSortedItems != nil && senderSortedItems == nil {

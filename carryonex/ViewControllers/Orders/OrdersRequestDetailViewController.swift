@@ -507,10 +507,10 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         
         //Stop user for leaving comment if it's been commented
         if request.isCommented == 1 && finishButton.transaction == .allowRating {
-            finishButton.isEnabled = false
+            finishButton.isUserInteractionEnabled = false
             finishButton.alpha = 0.3
         } else {
-            finishButton.isEnabled = true
+            finishButton.isUserInteractionEnabled = true
             finishButton.alpha = 1
         }
         
