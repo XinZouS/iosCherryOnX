@@ -484,6 +484,15 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             }
         }
         
+        //Stop user for leaving comment if it's been commented
+        if request.isCommented == 1 && finishButton.transaction == .allowRating {
+            finishButton.isEnabled = false
+            finishButton.alpha = 0.3
+        } else {
+            finishButton.isEnabled = true
+            finishButton.alpha = 1
+        }
+        
         //To prevent grid lock because of loading issue, re-enable button again upon
         //setting transaction
         isLoadingStatus = false

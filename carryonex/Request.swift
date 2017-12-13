@@ -18,6 +18,7 @@ class Request: Unboxable, Identifiable {
     var startAddress: Address?
     var endAddress: Address?
     var statusId: Int?
+    var isCommented: Int
     
     var name: String?
     var timestamp: Int?
@@ -52,6 +53,7 @@ class Request: Unboxable, Identifiable {
         self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
         self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
+        self.isCommented = try unboxer.unbox(key: RequestKeyInDB.isCommented.rawValue)
         
         self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
@@ -123,6 +125,8 @@ enum RequestKeyInDB : String {
     case priceStd = "price_std"
     case currency = "currency"
     case createdTimestamp = "created_timestamp"
+    case isCommented = "is_commented"
+    
     //case items = [String]? TODO = do we still need this?? BUG: Expected element type
     case ownerRating = "owner_rating"
     case ownerImageUrl = "owner_image"
