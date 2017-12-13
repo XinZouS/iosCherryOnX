@@ -120,20 +120,20 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let nowHour = String(strNowTime[StartIndex]) + String(strNowTime[endIndex])
         if let nowHourInt = Int(nowHour){
             if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
-                setupBackGroundColor(dayTime: .night)
                 timeStatus = .night
+                setupBackGroundColor(dayTime: .night)
 
             } else if nowHourInt >= TimeEnum.afternoon.rawValue {
-                setupBackGroundColor(dayTime: .afternoon)
                 timeStatus = .afternoon
+                setupBackGroundColor(dayTime: .afternoon)
 
             } else if nowHourInt >= TimeEnum.noon.rawValue{
-                setupBackGroundColor(dayTime: .noon)
                 timeStatus = .noon
+                setupBackGroundColor(dayTime: .noon)
 
             } else {
-                setupBackGroundColor(dayTime: .morning)
                 timeStatus = .morning
+                setupBackGroundColor(dayTime: .morning)
             }
         }
     }
@@ -159,7 +159,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.nightBlue //darkGreen
             endColor = UIColor.MyTheme.nightCyan //purple
-            
+
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
         gradientLayer.endPoint = CGPoint(x: 1.4, y: 1.6)
