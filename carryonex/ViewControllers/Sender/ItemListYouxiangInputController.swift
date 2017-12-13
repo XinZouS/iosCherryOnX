@@ -63,7 +63,7 @@ class ItemListYouxiangInputController: UIViewController {
     private func setupTextFields(){
         textFieldAddToolBar(youxiangcodeTextField)
         youxiangcodeTextField.autocapitalizationType = .allCharacters
-        let att = [NSForegroundColorAttributeName: UIColor.white]
+        let att = [NSForegroundColorAttributeName: UIColor.lightGray]
         youxiangcodeTextField.attributedPlaceholder = NSAttributedString(string: "输入6位游箱号", attributes: att)
     }
     
