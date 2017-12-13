@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,12 +32,6 @@
                                     <action selector="goDetailPage:" destination="6aY-yC-FGU" eventType="touchUpInside" id="6hb-dG-qdu"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="游箱号输入横线" translatesAutoresizingMaskIntoConstraints="NO" id="gsT-sD-MQa">
-                                <rect key="frame" x="20" y="163" width="374" height="3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="QPU-Wn-Ga8"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索icon" translatesAutoresizingMaskIntoConstraints="NO" id="Zib-B4-JcO">
                                 <rect key="frame" x="16" y="120" width="26" height="26"/>
                                 <constraints>
@@ -46,7 +39,7 @@
                                     <constraint firstAttribute="height" constant="26" id="4Aj-yp-mSc"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                 <rect key="frame" x="67" y="116" width="289" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hag-b1-6NK"/>
@@ -54,18 +47,38 @@
                                 <color key="textColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="alert" returnKeyType="go" smartDashesType="no"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineLeft">
+                                        <real key="value" value="-50"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineRight">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHeigh">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineTopY">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultLineColor">
+                                        <color key="value" red="0.69489037990000002" green="0.98665767910000002" blue="0.92136847970000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="activeLineColor">
+                                        <color key="value" red="0.69489037990000002" green="0.98665767910000002" blue="0.92136847970000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="cursorColor">
+                                        <color key="value" red="0.69489037990000002" green="0.98665767910000002" blue="0.92136847970000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="centerY" secondItem="bwx-eX-FB1" secondAttribute="centerY" id="0Jw-mV-10P"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="bwx-eX-FB1" secondAttribute="bottom" constant="12" id="5jG-q1-uCW"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="trailing" secondItem="qOP-M1-Utm" secondAttribute="trailingMargin" id="7oV-vA-ihP"/>
                             <constraint firstItem="bwx-eX-FB1" firstAttribute="leading" secondItem="Zib-B4-JcO" secondAttribute="trailing" constant="25" id="8Co-aI-naO"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="top" secondItem="Zib-B4-JcO" secondAttribute="bottom" constant="17" id="Dx8-hJ-T2C"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" constant="100" id="GEY-zN-FY9"/>
+                            <constraint firstItem="bwx-eX-FB1" firstAttribute="centerY" secondItem="Zib-B4-JcO" secondAttribute="centerY" id="GyB-eF-HHl"/>
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
-                            <constraint firstItem="gsT-sD-MQa" firstAttribute="leading" secondItem="qOP-M1-Utm" secondAttribute="leadingMargin" id="bUi-Ci-3rK"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" id="fpf-Ja-DgK"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="top" secondItem="qOP-M1-Utm" secondAttribute="top" id="gzQ-wn-Nj4"/>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
@@ -98,6 +111,5 @@
         <image name="Background_Blue_Long" width="375" height="950"/>
         <image name="arrow_right" width="88" height="70"/>
         <image name="搜索icon" width="51" height="53"/>
-        <image name="游箱号输入横线" width="297" height="2"/>
     </resources>
 </document>

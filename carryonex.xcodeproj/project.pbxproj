@@ -115,6 +115,7 @@
 		665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F61F3A0B70004DDB88 /* Assets.xcassets */; };
 		665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */; };
 		6664C98A1F59A71B0088A9F5 /* RequestInfoView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */; };
+		666E01E71FE1A9500066BF6A /* ThemTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E01E61FE1A9500066BF6A /* ThemTextView.swift */; };
 		667266661F6715700010FDEC /* CheckingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266651F6715700010FDEC /* CheckingAccount.swift */; };
 		667266681F67158F0010FDEC /* CreditAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667266671F67158F0010FDEC /* CreditAccount.swift */; };
 		667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667810641FBB48F100E1880E /* PhoneNumViewController.swift */; };
@@ -175,6 +176,7 @@
 		66B31C0E1F72A60A005A4382 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31C0D1F72A60A005A4382 /* FBSDKLoginKit.framework */; };
 		66B31C1F1F743843005A4382 /* LocationSearchTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B31C1E1F743843005A4382 /* LocationSearchTableController.swift */; };
 		66BB08341F48967600935950 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB08331F48967600935950 /* ItemCategory.swift */; };
+		66C047E21FE18362000665A1 /* ThemTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C047E11FE18362000665A1 /* ThemTextField.swift */; };
 		66C138C21FABA36500755754 /* OrdersBasePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C11FABA36500755754 /* OrdersBasePageCell.swift */; };
 		66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C31FACBB4300755754 /* ReachabilityManager.swift */; };
 		66C3EA891FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */; };
@@ -440,6 +442,7 @@
 		665DE4F91F3A0B70004DDB88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		665DE4FB1F3A0B70004DDB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6664C9891F59A71B0088A9F5 /* RequestInfoView++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestInfoView++.swift"; sourceTree = "<group>"; };
+		666E01E61FE1A9500066BF6A /* ThemTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemTextView.swift; sourceTree = "<group>"; };
 		667266651F6715700010FDEC /* CheckingAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckingAccount.swift; sourceTree = "<group>"; };
 		667266671F67158F0010FDEC /* CreditAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditAccount.swift; sourceTree = "<group>"; };
 		667810641FBB48F100E1880E /* PhoneNumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumViewController.swift; sourceTree = "<group>"; };
@@ -501,6 +504,7 @@
 		66B31C171F72B5CC005A4382 /* carryonex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = carryonex.entitlements; sourceTree = "<group>"; };
 		66B31C1E1F743843005A4382 /* LocationSearchTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableController.swift; sourceTree = "<group>"; };
 		66BB08331F48967600935950 /* ItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
+		66C047E11FE18362000665A1 /* ThemTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemTextField.swift; sourceTree = "<group>"; };
 		66C138C11FABA36500755754 /* OrdersBasePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersBasePageCell.swift; sourceTree = "<group>"; };
 		66C138C31FACBB4300755754 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersYouxiangInfo.storyboard; sourceTree = "<group>"; };
@@ -1112,12 +1116,14 @@
 				4D4D14151FC940AB00B9A1EB /* APIServerChecker.swift */,
 				660BFEE21F979BDF0066F9E9 /* ProfileManager.swift */,
 				6642D11F1F990DFF00C3AE29 /* CategoryManager.swift */,
+				E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */,
 				6681310A1F92F2810022AEED /* UIColor++.swift */,
 				66A16AF11F3A5F8100B32AD3 /* UIView++.swift */,
-				E52FFBA91FAA2C4800E79CDF /* UIViewController++.swift */,
 				66E5204E1F4C76EC008E521D /* UILabel++.swift */,
 				6604605B1F50976F00E5DC4C /* UIButton++.swift */,
 				66F065C21FC88D280072A42D /* UIImage++.swift */,
+				66C047E11FE18362000665A1 /* ThemTextField.swift */,
+				666E01E61FE1A9500066BF6A /* ThemTextView.swift */,
 				664C5F2C1F6C12E700FE55FE /* UIActivityIndicatorCustomizeView.swift */,
 				66D9A2511F81E0D5007216A5 /* Date++.swift */,
 				66A142E01FD870C00067EBDA /* Double++.swift */,
@@ -1962,6 +1968,7 @@
 				66421C721F65E7AD0034D9DC /* OnboardingPage++.swift in Sources */,
 				FF66FE2B1FAA417700B4FA41 /* CommentViewCell++.swift in Sources */,
 				669518231F60D79100BFC37B /* CreditController++.swift in Sources */,
+				66C047E21FE18362000665A1 /* ThemTextField.swift in Sources */,
 				FF21384F1F9136F8008C5E16 /* RegisterMainController++.swift in Sources */,
 				663121EF1F539E04000F7ACB /* WaitingController.swift in Sources */,
 				FF62245F1FB0F59400280FDA /* OrderDetailCommentTitleCell.swift in Sources */,
@@ -2165,6 +2172,7 @@
 				66D9A2521F81E0D5007216A5 /* Date++.swift in Sources */,
 				660F4F7F1F57227E00F4820D /* PostBaseCell++.swift in Sources */,
 				66988DA01F9C5B6D000B14F5 /* CustomerServersController.swift in Sources */,
+				666E01E71FE1A9500066BF6A /* ThemTextView.swift in Sources */,
 				660F4F791F5719D400F4820D /* AddressBaseCell++.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

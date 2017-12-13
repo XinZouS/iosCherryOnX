@@ -12,7 +12,7 @@ import BPCircleActivityIndicator
 
 class ItemListYouxiangInputController: UIViewController {
     
-    @IBOutlet weak var youxiangcodeTextField: UITextField!
+    @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
     
     @IBAction func goDetailPage(_ sender: Any) {
