@@ -176,8 +176,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
             
-            let topRequests = TripOrderDataStore.shared.getTopRequests()
-            if topRequests.count > 0 {
+            if let topRequests = TripOrderDataStore.shared.getCardItems(), topRequests.count > 0 {
                 self?.userCardOne?.category = topRequests.first?.1
                 self?.userCardOne?.request = topRequests.first?.0
                 if topRequests.count > 1 {

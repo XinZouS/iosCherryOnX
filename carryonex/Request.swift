@@ -257,6 +257,66 @@ enum RequestStatus: Int {
         }
     }
     
+    func prioritySortIndex(category: TripCategory) -> Int {
+        if category == .carrier {
+            switch self {
+            case .waiting:
+                return 2
+            case .rejected:
+                return -1
+            case .accepted:
+                return 1
+            case .cancelled:
+                return -1
+            case .paid:
+                return 2
+            case .inDelivery:
+                return 1
+            case .delivered:
+                return -1
+            case .deliveryConfirmed:
+                return 0
+            case .invalid:
+                return -2
+            case .badId:
+                return -2
+            case .initiate:
+                return -2
+            }
+            
+        } else {
+            switch self {
+            case .waiting:
+                return 1
+            case .rejected:
+                return 0
+            case .accepted:
+                return 2
+            case .cancelled:
+                return -1
+            case .paid:
+                return -1
+            case .inDelivery:
+                return 1
+            case .delivered:
+                return 2
+            case .deliveryConfirmed:
+                return 0
+            case .invalid:
+                return -1
+            case .badId:
+                return -1
+            case .initiate:
+                return -1
+            }
+        }
+    }
+    
+    /*
+     出行人
+     High Priority = waiting, accepted,
+     */
+    
     func displayColor(category: TripCategory) -> UIColor {
         switch self {
         case .waiting:
