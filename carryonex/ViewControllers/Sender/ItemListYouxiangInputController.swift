@@ -38,6 +38,7 @@ class ItemListYouxiangInputController: UIViewController {
 
     override func viewDidLoad() {
         UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupNavigationBar()
         setupTextFields()
         setupActivityIndicator()
@@ -47,6 +48,11 @@ class ItemListYouxiangInputController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         youxiangcodeTextField.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        youxiangcodeTextField.resignFirstResponder()        
     }
     
     private func setupNavigationBar(){
