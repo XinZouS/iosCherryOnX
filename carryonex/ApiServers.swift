@@ -389,7 +389,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func getUserInfo(_ infoType: UsersInfoUpdate, completion: @escaping (Any?, Error?) -> Void) {
+    func getUserInfo(_ infoType: UsersInfoUpdate, userId: Int? = nil, completion: @escaping (Any?, Error?) -> Void) {
         guard ProfileManager.shared.isLoggedIn() else {
             print("getUserInfo (single) \(infoType.rawValue), please login to post update on user info")
             completion(false, nil)
@@ -404,12 +404,16 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/users/" + infoType.rawValue
         
-        let params:[String: Any] = [
+        var params:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.username.rawValue : username,
             ServerKey.userToken.rawValue: userToken,
             ServerKey.timestamp.rawValue: Date.getTimestampNow()
         ]
+        
+        if let userId = userId {
+            params["user_id"] = userId
+        }
         
         getDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {

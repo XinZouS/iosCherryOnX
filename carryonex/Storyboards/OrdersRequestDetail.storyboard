@@ -341,7 +341,6 @@
                                                 </constraints>
                                                 <state key="normal" image="phone_gray"/>
                                                 <connections>
-                                                    <action selector="PhoneButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="3LW-GH-BjE"/>
                                                     <action selector="recipientPhoneCallButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="Iqb-Lk-5hf"/>
                                                 </connections>
                                             </button>

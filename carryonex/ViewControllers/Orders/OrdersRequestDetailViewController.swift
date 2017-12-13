@@ -84,12 +84,21 @@ class OrdersRequestDetailViewController: UIViewController {
     let toShipperViewSegue = "toOtherShipperView"
     let postRateSegue = "PostRateSegue"
     
+    var targetUserPhone: String?
+    
     @IBAction func moreImageTapped(_ sender: Any) {
         
     }
     
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
-        
+        if let targetPhone = targetUserPhone, let url = URL(string:"tel://" + targetPhone) {
+            //根据iOS系统版本，分别处理
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
@@ -97,17 +106,10 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
-    
-    }
-    
-    @IBAction func PhoneButtonTapped(_ sender: Any) {        
-        if let PhoneNumberUrl = recipientPhoneLabel.text,let url = URL(string:"tel://"+PhoneNumberUrl) {
+        if let receipientPhone = request.endAddress?.phoneNumber, let url = URL(string:"tel://" + receipientPhone) {
             //根据iOS系统版本，分别处理
             if #available(iOS 10, *) {
-                UIApplication.shared.open(url, options: [:],
-                                          completionHandler: {
-                                            (success) in
-                })
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
                 UIApplication.shared.openURL(url)
             }
@@ -198,6 +200,25 @@ class OrdersRequestDetailViewController: UIViewController {
         setupCollectionView()
         setupPaymentMenuView()
         addObservers()
+        
+        
+        //Load Phone
+        var targetUserId: Int
+        if category == .carrier {
+            targetUserId = request.ownerId
+        } else {
+            targetUserId = trip.carrierId
+        }
+        
+        ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
+            if let error = error {
+                print("Get phone error: \(error.localizedDescription)")
+                return
+            }
+            if let phone = phone as? String {
+                self.targetUserPhone = phone
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -482,6 +503,15 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             default:
                 break
             }
+        }
+        
+        //Stop user for leaving comment if it's been commented
+        if request.isCommented == 1 && finishButton.transaction == .allowRating {
+            finishButton.isEnabled = false
+            finishButton.alpha = 0.3
+        } else {
+            finishButton.isEnabled = true
+            finishButton.alpha = 1
         }
         
         //To prevent grid lock because of loading issue, re-enable button again upon

@@ -52,20 +52,93 @@ class TripOrderDataStore: NSObject {
         return targetRequests[requestId]
     }
     
+    func getCardItems() -> [(Request, TripCategory)]? {
+        
+        let carrierSortedItems = prioritySortedRequests(category: .carrier)
+        let senderSortedItems = prioritySortedRequests(category: .sender)
+        
+        if carrierSortedItems?.count == 0 && senderSortedItems?.count == 0 {
+            return nil
+        
+        } else if carrierSortedItems != nil && senderSortedItems == nil {
+            return carrierSortedItems
+        
+        } else if senderSortedItems != nil && carrierSortedItems == nil {
+            return senderSortedItems
+        
+        } else {
+            let carrierSorted = carrierSortedItems!
+            let senderSorted = senderSortedItems!
+            if carrierSorted.count > 1 {
+                let secondCarrierItem = carrierSorted[1]
+                if secondCarrierItem.0.status().prioritySortIndex(category: .carrier) > senderSorted.first!.0.status().prioritySortIndex(category: .sender) {
+                    return carrierSorted
+                }
+            }
+            
+            if senderSorted.count > 1 {
+                let secondSenderItem = senderSorted[1]
+                if secondSenderItem.0.status().prioritySortIndex(category: .sender) > carrierSorted.first!.0.status().prioritySortIndex(category: .carrier) {
+                    return senderSorted
+                }
+            }
+            return [carrierSorted.first!, senderSorted.first!]
+        }
+    }
+    
+    private func prioritySortedRequests(category: TripCategory) -> [(Request, TripCategory)]? {
+        
+        let requests = (category == .carrier) ? carrierRequests : senderRequests
+        
+        if requests.count == 0 {
+            return nil
+        }
+        
+        return requests.values.sorted { (r1, r2) -> Bool in
+            return r1.status().prioritySortIndex(category: category) > r1.status().prioritySortIndex(category: category)
+        }.map { (req) -> (Request, TripCategory) in
+            return (req, category)
+        }
+    }
+    
     func getTopRequests() -> [(Request, TripCategory)] {
-        let highPriorityCarrier = carrierRequests.values.filter({ (req) -> Bool in
+        
+        //CARRIER: HIGH PRIORITY
+        let carrierHighTuple = carrierRequests.values.filter({ (req) -> Bool in
             if let statusId = req.statusId {
                 return statusId == RequestStatus.waiting.rawValue ||
                     statusId == RequestStatus.paid.rawValue
             }
             return false
-        })
-        
-        let carrierHighTuple = highPriorityCarrier.map { (req) -> (Request, TripCategory) in
+        }).map { (req) -> (Request, TripCategory) in
             return (req, .carrier)
         }
         
-        let highPrioritySender = senderRequests.values.filter({ (req) -> Bool in
+        //CARRIER: NORMAL PRIORITY
+        let carrierNormalTuple = carrierRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.accepted.rawValue ||
+                    statusId == RequestStatus.inDelivery.rawValue ||
+                    statusId == RequestStatus.deliveryConfirmed.rawValue
+            }
+            return false
+        }) .map { (req) -> (Request, TripCategory) in
+            return (req, .carrier)
+        }
+        
+        //CARRIER: LOW PRIORITY
+        let carrierLowTuple = carrierRequests.values.filter({ (req) -> Bool in
+            if let statusId = req.statusId {
+                return statusId == RequestStatus.rejected.rawValue ||
+                    statusId == RequestStatus.cancelled.rawValue
+            }
+            return false
+        }).map { (req) -> (Request, TripCategory) in
+            return (req, .carrier)
+        }
+        
+        //SENDER HIGH PRIORITY
+        let senderHighTuples = senderRequests.values.filter({ (req) -> Bool in
             if let statusId = req.statusId {
                 return statusId == RequestStatus.accepted.rawValue ||
                     statusId == RequestStatus.rejected.rawValue ||
@@ -73,37 +146,35 @@ class TripOrderDataStore: NSObject {
                     statusId == RequestStatus.delivered.rawValue
             }
             return false
-        })
-        
-        let senderHighTuples = highPrioritySender.map { (req) -> (Request, TripCategory) in
+        }).map { (req) -> (Request, TripCategory) in
             return (req, .sender)
         }
         
-        let normalPriorityCarrier = carrierRequests.values.filter({ (req) -> Bool in
+        //SENDER NORMAL PRIORITY
+        let senderNormalTuple = senderRequests.values.filter({ (req) -> Bool in
             if let statusId = req.statusId {
-                return statusId == RequestStatus.accepted.rawValue ||
-                    statusId == RequestStatus.inDelivery.rawValue ||
+                return statusId == RequestStatus.waiting.rawValue ||
                     statusId == RequestStatus.deliveryConfirmed.rawValue
             }
             return false
-        })
-        
-        let carrierNormalTuple = normalPriorityCarrier.map { (req) -> (Request, TripCategory) in
-            return (req, .carrier)
+        }).map { (req) -> (Request, TripCategory) in
+            return (req, .sender)
         }
         
-        let normalPrioritySender = senderRequests.values.filter({ (req) -> Bool in
+        //SENDER LOW PRIORITY
+        let senderLowTuple = senderRequests.values.filter({ (req) -> Bool in
             if let statusId = req.statusId {
-                return statusId == RequestStatus.waiting.rawValue
+                return statusId == RequestStatus.cancelled.rawValue ||
+                    statusId == RequestStatus.paid.rawValue
             }
             return false
-        })
-        
-        let senderNormalTuple = normalPrioritySender.map { (req) -> (Request, TripCategory) in
-            return (req, .carrier)
+        }).map { (req) -> (Request, TripCategory) in
+            return (req, .sender)
         }
         
-        return Array(carrierHighTuple) + Array(senderHighTuples) + Array(carrierNormalTuple) + Array(senderNormalTuple)
+        return Array(carrierHighTuple) + Array(senderHighTuples) +
+            Array(carrierNormalTuple) + Array(senderNormalTuple) +
+            Array(carrierLowTuple) + Array(senderLowTuple)
     }
     
     func pullNextPage(category: TripCategory, completion:(() -> Void)?) {

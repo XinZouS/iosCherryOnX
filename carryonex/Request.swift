@@ -18,6 +18,7 @@ class Request: Unboxable, Identifiable {
     var startAddress: Address?
     var endAddress: Address?
     var statusId: Int?
+    var isCommented: Int
     
     var name: String?
     var timestamp: Int?
@@ -52,6 +53,7 @@ class Request: Unboxable, Identifiable {
         self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
         self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
+        self.isCommented = try unboxer.unbox(key: RequestKeyInDB.isCommented.rawValue)
         
         self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
@@ -123,6 +125,8 @@ enum RequestKeyInDB : String {
     case priceStd = "price_std"
     case currency = "currency"
     case createdTimestamp = "created_timestamp"
+    case isCommented = "is_commented"
+    
     //case items = [String]? TODO = do we still need this?? BUG: Expected element type
     case ownerRating = "owner_rating"
     case ownerImageUrl = "owner_image"
@@ -252,6 +256,66 @@ enum RequestStatus: Int {
             return "寄件创建"
         }
     }
+    
+    func prioritySortIndex(category: TripCategory) -> Int {
+        if category == .carrier {
+            switch self {
+            case .waiting:
+                return 2
+            case .rejected:
+                return -1
+            case .accepted:
+                return 1
+            case .cancelled:
+                return -1
+            case .paid:
+                return 2
+            case .inDelivery:
+                return 1
+            case .delivered:
+                return -1
+            case .deliveryConfirmed:
+                return 0
+            case .invalid:
+                return -2
+            case .badId:
+                return -2
+            case .initiate:
+                return -2
+            }
+            
+        } else {
+            switch self {
+            case .waiting:
+                return 1
+            case .rejected:
+                return 0
+            case .accepted:
+                return 2
+            case .cancelled:
+                return -1
+            case .paid:
+                return -1
+            case .inDelivery:
+                return 1
+            case .delivered:
+                return 2
+            case .deliveryConfirmed:
+                return 0
+            case .invalid:
+                return -1
+            case .badId:
+                return -1
+            case .initiate:
+                return -1
+            }
+        }
+    }
+    
+    /*
+     出行人
+     High Priority = waiting, accepted,
+     */
     
     func displayColor(category: TripCategory) -> UIColor {
         switch self {
