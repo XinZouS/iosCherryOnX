@@ -754,7 +754,7 @@
                                                                         <constraint firstAttribute="width" constant="52" id="WHz-u6-Mya"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="0.3748701810836792" green="0.41589349508285522" blue="0.44791269302368164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -792,7 +792,7 @@
                                                                         <constraint firstAttribute="width" constant="46" id="P7q-Cf-ogY"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7s-y6-O4A">
@@ -817,7 +817,7 @@
                                                                         <constraint firstAttribute="height" constant="16" id="4sS-xT-VYM"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="0.3748701810836792" green="0.41589349508285522" blue="0.44791269302368164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美国，加利福尼亚州，旧金山" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3M-Yq-eaX">
@@ -826,7 +826,7 @@
                                                                         <constraint firstAttribute="height" constant="16" id="q0H-0c-B4k"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="0.3748701810836792" green="0.41589349508285522" blue="0.44791269302368164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -922,7 +922,7 @@
                                                                         <constraint firstAttribute="height" constant="30" id="wJ8-BI-8nV"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRx-na-qCD">
@@ -943,7 +943,7 @@
                                                                         <constraint firstAttribute="height" constant="21" id="Xeh-2j-rBz"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="0.34991636872291565" green="0.38734182715415955" blue="0.41980886459350586" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="390-yx-reG">
@@ -969,7 +969,7 @@
                                                                                 <constraint firstAttribute="height" constant="21" id="vpP-9j-N8V"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.32886022329330444" green="0.37083303928375244" blue="0.40358331799507141" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件价格" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qp-dT-isa">
@@ -978,7 +978,7 @@
                                                                                 <constraint firstAttribute="height" constant="21" id="eRG-Bx-dBy"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.32886022329330444" green="0.37083303928375244" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物品价值" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAE-lr-fSo">
@@ -987,7 +987,7 @@
                                                                                 <constraint firstAttribute="height" constant="21" id="zTv-GK-ftL"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.32886022329330444" green="0.37083303928375244" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -1004,7 +1004,7 @@
                                                                                 <constraint firstAttribute="height" constant="30" id="RXN-WM-6vX"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$56.80" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrj-DA-ojy">
@@ -1013,7 +1013,7 @@
                                                                                 <constraint firstAttribute="height" constant="30" id="Pss-UA-SeJ"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$66.66" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ij-uE-6L0">
@@ -1022,7 +1022,7 @@
                                                                                 <constraint firstAttribute="height" constant="30" id="60l-WG-HUX"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
