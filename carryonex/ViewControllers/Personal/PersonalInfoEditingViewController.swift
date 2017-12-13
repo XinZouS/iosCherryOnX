@@ -123,8 +123,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     private func setupNavigationBar(){
         title = "编辑个人资料"
-        let save = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveButtonTapped))
-        navigationItem.rightBarButtonItem = save
+        //let save = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveButtonTapped))
+        //navigationItem.rightBarButtonItem = save
     }
     
     @objc private func saveButtonTapped(){
@@ -157,7 +157,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         if success{
                             self.circleIndicator.isHidden = true
                             self.circleIndicator.stop()
-                            self.navigationController?.popViewController(animated: true)
+                            //self.navigationController?.popViewController(animated: true)
+                            self.dismissVC()
                         }else{
                             debugPrint("change profile error")
                         }
@@ -212,17 +213,22 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveButtonTapped()
-        dismissVC()
     }
     
     private func dismissVC(){
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromBottom
-        view.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: true, completion: nil)
+        // FIXME: 个人资料设置好后点击保存，dismiss VC时页面闪了下。
+        // plan A: customize transition:
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//        transition.type = kCATransitionPush
+//        transition.subtype = kCATransitionFromBottom
+//        view.layer.add(transition, forKey: kCATransition)
+//        DispatchQueue.main.async {
+        
+        // plan B: use dismiss ONLY: -- not working....
+            self.dismiss(animated: true, completion: nil)
+//        }
     }
     
 }

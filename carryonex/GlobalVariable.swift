@@ -55,6 +55,7 @@ let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, bl
 let colorCheckmarkGreen = #colorLiteral(red: 0.2326686382, green: 0.6842908263, blue: 0.2634965777, alpha: 1)
 let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0.8190833926, blue: 0.8650510907, alpha: 1)
 let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
+let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1)
 
 
 // wechat login judge

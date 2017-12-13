@@ -27,6 +27,7 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0) // t,l,b,r
+        tableView.separatorColor = colorTableCellSeparatorLightGray
     }
     
 }

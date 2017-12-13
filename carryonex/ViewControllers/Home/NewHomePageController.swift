@@ -152,7 +152,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             
         case .noon:
             helloLabel.textColor = .black
-            beginColor = UIColor.MyTheme.noonYellow
+            beginColor = UIColor.MyTheme.noonBlue
             endColor = UIColor.MyTheme.noonWhite
 
         case .night:
