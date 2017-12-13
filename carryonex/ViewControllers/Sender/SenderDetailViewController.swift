@@ -55,16 +55,16 @@ class SenderDetailViewController: UIViewController{
     
     // detail info card
     @IBOutlet weak var senderInfoCardView: UIView!
-    @IBOutlet weak var nameTextField: UITextField!      // 0
-    @IBOutlet weak var phoneTextField: UITextField!     // 1
-    @IBOutlet weak var addressTextField: UITextField!   // 2
+    @IBOutlet weak var nameTextField: ThemTextField!      // 0
+    @IBOutlet weak var phoneTextField: ThemTextField!     // 1
+    @IBOutlet weak var addressTextField: ThemTextField!   // 2
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var messageTitleLabel: UILabel!
-    @IBOutlet weak var messageTextView: UITextView!   // 3
+    @IBOutlet weak var messageTextView: ThemTextView!   // 3
     
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
-    @IBOutlet weak var priceValueTextField: UITextField! // 4
+    @IBOutlet weak var priceValueTextField: ThemTextField! // 4
     @IBOutlet weak var priceValueTextFieldLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var currencyTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var priceMinLabel: UILabel!
@@ -644,6 +644,7 @@ extension SenderDetailViewController: UITextViewDelegate {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
             isTextViewBeenEdited = false
+            messageTextView.isActive = false
         }
     }
     
@@ -651,6 +652,7 @@ extension SenderDetailViewController: UITextViewDelegate {
         if !isTextViewBeenEdited {
             textView.text = ""
             textView.textColor = .black
+            messageTextView.isActive = true
         }
     }
     

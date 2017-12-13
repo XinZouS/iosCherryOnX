@@ -50,9 +50,11 @@ let colorOkYelow = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.
 let colorOkgreen = #colorLiteral(red: 0.2061403394, green: 0.6508488059, blue: 0.72418648, alpha: 1)
 let colorErroRed = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
 let colorErrGray = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-let colorTheamRed = #colorLiteral(red: 1, green: 0.4149920642, blue: 0.4057528675, alpha: 1)
+let colorTheamRed = #colorLiteral(red: 1, green: 0.4189302325, blue: 0.4186580479, alpha: 1)
 let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
 let colorCheckmarkGreen = #colorLiteral(red: 0.2326686382, green: 0.6842908263, blue: 0.2634965777, alpha: 1)
+let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0.8190833926, blue: 0.8650510907, alpha: 1)
+let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
 
 
 // wechat login judge
