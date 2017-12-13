@@ -59,6 +59,10 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var phoneTextField: ThemTextField!     // 1
     @IBOutlet weak var addressTextField: ThemTextField!   // 2
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewMaskImageView: UIImageView!
+    @IBOutlet weak var collectionViewMaskIcon: UIImageView!
+    @IBOutlet weak var collectionViewMaskLabel: UILabel!
+    @IBOutlet weak var collectionViewMaskButton: UIButton!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageTextView: ThemTextView!   // 3
     
@@ -80,6 +84,11 @@ class SenderDetailViewController: UIViewController{
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
         //TODO: open sender personal page;
+    }
+    
+    
+    @IBAction func collectionViewMaskButtonTapped(_ sender: Any) {
+        openALCameraController()
     }
     
     @IBAction func currencyTypeSegmentValueChanged(_ sender: Any) {
@@ -466,7 +475,7 @@ extension SenderDetailViewController: UICollectionViewDataSource, UICollectionVi
         } else {
             cell.cancelButton.isHidden = true
             //cell.cancelButton.isEnabled = false
-            cell.imageView.image = #imageLiteral(resourceName: "CarryonEx_UploadID") // upload ID image
+            cell.imageView.image = #imageLiteral(resourceName: "imageUploadPlaceholder") // upload ID image
         }
         return cell
     }
@@ -494,6 +503,7 @@ extension SenderDetailViewController: UICollectionViewDelegate {
                 images.remove(at: i)
                 imageUploadingSet.remove(imgName)
                 imageUploadSequence.removeValue(forKey: imgName)
+                collectionViewMasksHide(imageUploadingSet.count != 0)
                 print("OK, remove file success: \(imgName)")
                 return
             }
@@ -528,6 +538,7 @@ extension SenderDetailViewController {
         self.imageUploadSequence[imageName] = localFileUrl
         self.imageUploadingSet.insert(imageName)
         self.images.append(ImageNamePair(name: imageName, image: image))
+        collectionViewMasksHide(imageUploadingSet.count != 0)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -610,6 +621,14 @@ extension SenderDetailViewController {
         print("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
+    
+    fileprivate func collectionViewMasksHide(_ isHide: Bool){
+        collectionViewMaskImageView.isHidden = isHide
+        collectionViewMaskButton.isHidden = isHide
+        collectionViewMaskLabel.isHidden = isHide
+        collectionViewMaskIcon.isHidden = isHide
+    }
+    
 }
 
 

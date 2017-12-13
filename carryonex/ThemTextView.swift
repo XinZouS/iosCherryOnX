@@ -57,9 +57,6 @@ class ThemTextView: UITextView {
         traits.setValue(cursorColor, forKey: "insertionPointColor")
     }
     
-    private func setupUnderlineView(startOffset: CGFloat = 0, endOffset: CGFloat = 0, topOffset: CGFloat = 0, heigh h: CGFloat){
-        underlineView.frame = CGRect(x: 0 + startOffset, y: self.frame.height + topOffset, width: self.frame.width + endOffset, height: h)
-    }
     
 }
 

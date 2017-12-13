@@ -15,15 +15,19 @@ import ALCameraViewController
 import Photos
 
 class PersonalPageViewController: UIViewController{
+    
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileNameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
+    
     var personInfoEditCtl: PersonalInfoEditingViewController!
     var loginViewController = LoginViewController()
+    
     @IBOutlet weak var tableView: UITableView!
     
+    let scoreLabelHintText = "综合评分 "
     let titles = ["钱包","帮助","设置"]
     let subTitles = ["收付款，查看余额，提现", "", "", ""]
     let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]
@@ -48,6 +52,7 @@ class PersonalPageViewController: UIViewController{
         tableView.dataSource = self
         tableView.tableFooterView = UIView() // remove empty rows;
         tableView.isScrollEnabled = true
+        tableView.separatorColor = colorTableCellSeparatorLightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,7 +95,7 @@ class PersonalPageViewController: UIViewController{
             userProfileNameLabel.text = currUserName
         }
         if let profileInfo = ProfileManager.shared.homeProfileInfo{
-            scoreLabel.text = String(format: "%.1f", profileInfo.rating)
+            scoreLabel.text = scoreLabelHintText + String(format: "%.1f", profileInfo.rating)
             scoreColorBarWidthConstraint.constant = CGFloat( profileInfo.rating*25)
         }
     }

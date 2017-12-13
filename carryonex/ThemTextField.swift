@@ -50,11 +50,7 @@ class ThemTextField: UITextField {
         let traits = self.value(forKey: "textInputTraits") as AnyObject
         traits.setValue(cursorColor, forKey: "insertionPointColor")
     }
-    
-    private func setupUnderlineView(startOffset: CGFloat = 0, endOffset: CGFloat = 0, topOffset: CGFloat = 0, heigh h: CGFloat){
-        underlineView.frame = CGRect(x: 0 + startOffset, y: self.bounds.height + topOffset, width: self.bounds.width + endOffset, height: h)
-    }
-    
+        
     public func editingDidBegin(){
         underlineView.backgroundColor = activeLineColor
     }

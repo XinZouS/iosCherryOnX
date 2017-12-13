@@ -57,7 +57,8 @@ extension UIColor {
         
         static let noonYellow = #colorLiteral(red: 0.9843137255, green: 0.5725490196, blue: 0.0862745098, alpha: 1)
         static let noonWhite = #colorLiteral(red: 0.8078431373, green: 0.8588235294, blue: 0.8901960784, alpha: 1)
-        
+        static let noonBlue = #colorLiteral(red: 0.2980392157, green: 0.6196078431, blue: 0.8352941176, alpha: 1)
+
         static let afternoonBlue = #colorLiteral(red: 0, green: 0.3294117647, blue: 0.5803921569, alpha: 1)
         static let afternoonWhite = #colorLiteral(red: 0.9058823529, green: 0.9215686275, blue: 0.9294117647, alpha: 1)
         
