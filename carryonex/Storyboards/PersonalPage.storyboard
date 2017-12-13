@@ -59,7 +59,7 @@
                                             <constraint firstAttribute="width" constant="160" id="A79-Qy-xFh"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.14027225971221924" green="0.16835430264472961" blue="0.1892305314540863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-Zo-mBg">
@@ -89,7 +89,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="查看历史评价">
-                                            <color key="titleColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.37847167253494263" green="0.43869155645370483" blue="0.48046982288360596" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="seeAllCommentsButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="euQ-Cm-li8"/>
@@ -190,7 +190,7 @@
                                     <constraint firstAttribute="height" constant="30" id="FoB-p7-UjB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.13636553287506104" green="0.16451326012611389" blue="0.18124786019325256" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-lW-r8p">
