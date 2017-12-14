@@ -72,7 +72,7 @@ class AlipayCashExtract: UIViewController {
         // TODO: get real value from server:
         //var input: Double = 233.6666666
         //ApiServers.shared.getUserAccountCashValue()
-        //cashAvailable = input.roundUp2Decimal()
+        //cashAvailable = input.roundUp2Decimal()   //DONT DO THIS
     }
 
     

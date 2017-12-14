@@ -109,29 +109,15 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     private func setupTimePicker(){
         let date = Date()
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+        timeFormatter.dateFormat = "yyyy年MM月dd日"
         let strNowTime = timeFormatter.string(from: date) as String
-        let calendar = Calendar.current
-        var maxComponents = calendar.dateComponents([.day,.month,.year], from: Date())
-        let YearStartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 0)
-        let YearEndIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 3)
-        let MonthStartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 4)
-        let MonthendIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 5)
-        let DayStartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 6)
-        let DayendIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 7)
-        let nowYear = Int(strNowTime[YearStartIndex...YearEndIndex])
-        let nowMonth = Int(strNowTime[MonthStartIndex...MonthendIndex])
-        let nowDay = Int(strNowTime[DayStartIndex...DayendIndex])
-        maxComponents.day = nowDay
-        maxComponents.month = nowMonth
-        maxComponents.year = nowYear! + 2   //Give a bit of breathing room
-        if let maxDate: Date = calendar.date(from: maxComponents) {
+        if let maxDate: Date = Date.getFutureDateFromNow(year: 2) {
             timePicker.maximumDate = maxDate
         }
         timePicker.datePickerMode = UIDatePickerMode.date
         timePicker.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
-        timeTextField.text = strNowTime[YearStartIndex...YearEndIndex] + "年"                            + strNowTime[MonthStartIndex...MonthendIndex] + "月" + strNowTime[DayStartIndex...DayendIndex] + "日"
+        timeTextField.text = strNowTime
         pickUpDate = date.timeIntervalSince1970
     }
     

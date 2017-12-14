@@ -140,7 +140,6 @@
 		E5A2A79D1FE2E57100A51BDC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A78D1FE2E57100A51BDC /* Request.swift */; };
 		E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A78E1FE2E57100A51BDC /* TripRequest.swift */; };
 		E5A2A7AA1FE2E5B300A51BDC /* Date++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A79F1FE2E5B200A51BDC /* Date++.swift */; };
-		E5A2A7AB1FE2E5B300A51BDC /* Double++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A01FE2E5B200A51BDC /* Double++.swift */; };
 		E5A2A7AC1FE2E5B300A51BDC /* Notifications++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A11FE2E5B200A51BDC /* Notifications++.swift */; };
 		E5A2A7AD1FE2E5B300A51BDC /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A21FE2E5B200A51BDC /* UIButton++.swift */; };
 		E5A2A7AE1FE2E5B300A51BDC /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A31FE2E5B200A51BDC /* UIColor++.swift */; };
@@ -322,7 +321,6 @@
 		E5A2A78D1FE2E57100A51BDC /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		E5A2A78E1FE2E57100A51BDC /* TripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripRequest.swift; sourceTree = "<group>"; };
 		E5A2A79F1FE2E5B200A51BDC /* Date++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date++.swift"; sourceTree = "<group>"; };
-		E5A2A7A01FE2E5B200A51BDC /* Double++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double++.swift"; sourceTree = "<group>"; };
 		E5A2A7A11FE2E5B200A51BDC /* Notifications++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notifications++.swift"; sourceTree = "<group>"; };
 		E5A2A7A21FE2E5B200A51BDC /* UIButton++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		E5A2A7A31FE2E5B200A51BDC /* UIColor++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
@@ -420,7 +418,6 @@
 			isa = PBXGroup;
 			children = (
 				E5A2A79F1FE2E5B200A51BDC /* Date++.swift */,
-				E5A2A7A01FE2E5B200A51BDC /* Double++.swift */,
 				E5A2A7A11FE2E5B200A51BDC /* Notifications++.swift */,
 				E5A2A7A61FE2E5B200A51BDC /* String++.swift */,
 				E5A2A7A21FE2E5B200A51BDC /* UIButton++.swift */,
@@ -1198,7 +1195,6 @@
 				4D0472F41FD7B2D700A4EA6C /* DeeplinkNavigator.swift in Sources */,
 				FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */,
 				E5A2A7771FE2E44000A51BDC /* ThemTextView.swift in Sources */,
-				E5A2A7AB1FE2E5B300A51BDC /* Double++.swift in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
 				FF7ECEDE1FC9570900F76ED8 /* PersonalTable.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
@@ -1442,6 +1438,7 @@
 					"\"WechatConnector\"",
 					"-lxml2",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1549,6 +1546,7 @@
 					"\"WechatConnector\"",
 					"-lxml2",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
