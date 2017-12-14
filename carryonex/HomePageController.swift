@@ -124,6 +124,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     let userInfoMenuView = UserInfoMenuView()
     var userInfoMenuRightConstraint : NSLayoutConstraint?
     
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -144,7 +145,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
         setupBlackBackgroundView()
         setupUserInfoMenuView()
         setupActivityIndicator()
-        addNotificationObservers()
+        addObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -292,7 +293,7 @@ class HomePageController: UIViewController, UISearchResultsUpdating,UICollection
     
     //MARK: - Notification Handlers
     
-    private func addNotificationObservers() {
+    private func addObservers() {
         
         /**  微信通知  */
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:"WXLoginSuccessNotification"), object: nil, queue: nil) { [weak self] notification in

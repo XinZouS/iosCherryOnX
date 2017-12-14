@@ -12,7 +12,7 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
-    private let pullPageCount = 4
+    private let pullPageCount = 6
     
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
@@ -95,7 +95,7 @@ class TripOrderDataStore: NSObject {
         }
         
         return requests.values.sorted { (r1, r2) -> Bool in
-            return r1.status().prioritySortIndex(category: category) > r1.status().prioritySortIndex(category: category)
+            return r1.status().prioritySortIndex(category: category) > r2.status().prioritySortIndex(category: category)
         }.map { (req) -> (Request, TripCategory) in
             return (req, category)
         }

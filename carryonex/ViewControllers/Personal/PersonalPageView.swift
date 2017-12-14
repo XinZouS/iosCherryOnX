@@ -38,13 +38,16 @@ class PersonalPageViewController: UIViewController{
     let segueIdEditProfile = "editProfile"
     let personalInfoVCId = "PersonalInfoEditingViewController"
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "我"
         setupTableView()
         setupNavigationBar()
-        addUserUpdateNotificationObservers()
+        addObservers()
         loadUserProfile()
     }
     private func setupTableView(){
@@ -78,7 +81,7 @@ class PersonalPageViewController: UIViewController{
         navigationController?.isNavigationBarHidden = false
     }
     
-    private func addUserUpdateNotificationObservers(){
+    private func addObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.loadUserProfile()
         }

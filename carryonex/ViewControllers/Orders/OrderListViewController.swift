@@ -85,7 +85,12 @@ class OrderListViewController: UIViewController {
     var refreshShipperControl: TGRefreshSwift!
     var refreshSenderControl: TGRefreshSwift!
 
+    
     //MARK: - View Cycle
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

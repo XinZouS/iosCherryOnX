@@ -39,6 +39,10 @@ class LoginViewController: UIViewController {
     
     let segueIdChangePw = "changePassword"
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

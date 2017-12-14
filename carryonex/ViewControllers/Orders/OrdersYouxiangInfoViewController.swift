@@ -64,6 +64,10 @@ class OrdersYouxiangInfoViewController: UIViewController {
         return viewController
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "游箱信息"

@@ -61,6 +61,10 @@ class PhoneNumViewController: UIViewController {
     }()
     
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,12 +77,13 @@ class PhoneNumViewController: UIViewController {
         setupActivityIndicator()
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
+        
+        addObservers()
     }
     
     // for keyboard notification:
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupKeyboardObserver()
         _ = phoneNumTextField.becomeFirstResponder()
         navigationController?.isNavigationBarHidden = isModifyPhoneNumber
     }
@@ -319,7 +324,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         }
     }
     
-    func setupKeyboardObserver(){
+    func addObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }

@@ -44,6 +44,10 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - View Cycle
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -192,6 +196,10 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             
             self?.userCardTwo?.category = .carrier
             self?.userCardTwo?.request = nil
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: nil) { [weak self] _ in
+            self?.setupNowHour()
         }
     }
     
