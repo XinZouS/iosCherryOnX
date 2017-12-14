@@ -78,6 +78,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
     @IBOutlet weak var priceMaxInfoButton: UIButton!
+    @IBOutlet weak var priceMaxInfoIconLabel: UILabel!
     @IBOutlet weak var priceMaxValueHintLabel: UILabel!
     var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
         didSet{
@@ -735,7 +736,13 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == textFieldTag.price.rawValue {
-            scrollViewMove(offset: 210)
+            DispatchQueue.main.async(execute: {
+                //self.scrollViewMove(offset: 210)
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                    let currY = self.scrollView.contentOffset.y
+                    self.scrollView.contentOffset = CGPoint(x: 0, y: currY + 210)
+                }, completion: nil)
+            })
             //priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
             //animateUIifNeeded()
         }
@@ -747,16 +754,11 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 //priceValueTextFieldLeftConstraint.constant = 0
                 //animateUIifNeeded()
             } else {
-                let pz = Double(textField.text ?? "0.1") ?? 0.1
-                if pz > priceMaxValueLimit {
-                    textField.text = "\(priceMaxValueLimit)"
-                    priceMaxValueHintLabel.isHidden = false
-                } else {
-                    priceMaxValueHintLabel.isHidden = true
-                }
                 preparePriceIn(textField)
             }
-            scrollViewMove(offset: -210)
+            if scrollView.contentOffset.y > 200 {
+                scrollViewMove(offset: -210)
+            }
         }
     }
     
@@ -808,6 +810,20 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func preparePriceIn(_ textField: UITextField){
         if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text, let d = Double(v) {
+            
+            if d > priceMaxValueLimit {
+                textField.text = "\(priceMaxValueLimit)"
+                //priceMaxValueHintLabel.isHidden = true // TODO: for now, we don't need this to show;
+                priceMaxInfoButton.setTitleColor(colorTheamRed, for: .normal)
+                priceMaxInfoIconLabel.backgroundColor = colorTheamRed
+                priceMaxInfoIconLabel.textColor = .white
+            } else {
+                //priceMaxValueHintLabel.isHidden = true // TODO: for now, we don't need this to show;
+                priceMaxInfoButton.setTitleColor(.lightGray, for: .normal)
+                priceMaxInfoIconLabel.backgroundColor = colorLineLightGray
+                priceMaxInfoIconLabel.textColor = .gray
+            }
+            
             priceValue = d
             updatePriceContentsFor(newPrice: d)
         }

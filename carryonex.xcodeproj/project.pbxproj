@@ -103,7 +103,7 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
-		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		E542F2741FB6053D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB011FCC6B5A00B87608 /* STBalance.swift */; };
 		E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */; };
 		E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB051FCC6B8C00B87608 /* STPayout.swift */; };
@@ -1005,20 +1005,14 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/FlickrKit/FlickrKit.framework",
 				"${BUILT_PRODUCTS_DIR}/JXPhotoBrowser/JXPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
-				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/TGRefreshSwift/TGRefreshSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
-				"${BUILT_PRODUCTS_DIR}/paper-onboarding/paper_onboarding.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1033,20 +1027,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlickrKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGRefreshSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/paper_onboarding.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1172,7 +1160,7 @@
 				E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
-				E542F2741FB6053D0072BB31 /* (null) in Sources */,
+				E542F2741FB6053D0072BB31 /* BuildFile in Sources */,
 				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */,
