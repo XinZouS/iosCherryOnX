@@ -77,7 +77,14 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceSlider: UISlider!
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
-    
+    @IBOutlet weak var priceMaxInfoButton: UIButton!
+    @IBOutlet weak var priceMaxValueHintLabel: UILabel!
+    var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
+        didSet{
+            priceMaxValueHintLabel.text = "小提示：寄送物品价值至多\(priceMaxValueLimit)元"
+        }
+    }
+        
     // DONE!
     @IBOutlet weak var submitButton: UIButton!
     // MARK: - actions forcontents
@@ -94,6 +101,12 @@ class SenderDetailViewController: UIViewController{
     @IBAction func currencyTypeSegmentValueChanged(_ sender: Any) {
         currencyType = currencyTypeSegmentControl.selectedSegmentIndex == 0 ? .USD : .CNY
         updatePriceContentsFor(newPrice: priceValue)
+    }
+    
+    
+    @IBAction func priceMaxInfoButtonTapped(_ sender: Any) {
+        // TODO: connect url for price info, now using fake url:
+        gotoWebview(title: "物品价值说明", url: "\(userGuideWebHoster)/doc_privacy")
     }
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
@@ -734,6 +747,13 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 //priceValueTextFieldLeftConstraint.constant = 0
                 //animateUIifNeeded()
             } else {
+                let pz = Double(textField.text ?? "0.1") ?? 0.1
+                if pz > priceMaxValueLimit {
+                    textField.text = "\(priceMaxValueLimit)"
+                    priceMaxValueHintLabel.isHidden = false
+                } else {
+                    priceMaxValueHintLabel.isHidden = true
+                }
                 preparePriceIn(textField)
             }
             scrollViewMove(offset: -210)
@@ -791,6 +811,13 @@ extension SenderDetailViewController: UITextFieldDelegate {
             priceValue = d
             updatePriceContentsFor(newPrice: d)
         }
+    }
+    
+    fileprivate func gotoWebview(title: String, url: String) {
+        let webVC = WebController()
+        self.navigationController?.pushViewController(webVC, animated: true)
+        webVC.title = title
+        webVC.url = URL(string: url)
     }
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {

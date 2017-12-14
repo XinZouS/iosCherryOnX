@@ -84,6 +84,14 @@
                                     <action selector="doneButtonTapped:" destination="u7d-VV-M09" eventType="touchUpInside" id="jja-4C-nBb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTB-gJ-AVE">
+                                <rect key="frame" x="0.0" y="30" width="100" height="50"/>
+                                <state key="normal" title="取消"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="u7d-VV-M09" eventType="touchUpInside" id="fsr-vI-Uk6"/>
+                                    <action selector="doneButtonTapped:" destination="u7d-VV-M09" eventType="touchUpInside" id="Dyt-BL-Sfc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -92,20 +100,25 @@
                             <constraint firstItem="e4E-X0-MtB" firstAttribute="top" secondItem="WfQ-uM-WJt" secondAttribute="top" constant="5" id="H8D-UV-wEU"/>
                             <constraint firstItem="ELf-Gn-Olo" firstAttribute="centerY" secondItem="5Ce-ko-VoG" secondAttribute="centerY" id="IYK-gD-PUf"/>
                             <constraint firstItem="WfQ-uM-WJt" firstAttribute="leading" secondItem="JWn-cE-5cX" secondAttribute="leading" constant="20" id="Nf6-un-mHf"/>
+                            <constraint firstItem="rTB-gJ-AVE" firstAttribute="height" secondItem="s2T-wP-QfL" secondAttribute="height" id="O8i-uU-5kk"/>
                             <constraint firstItem="e4E-X0-MtB" firstAttribute="leading" secondItem="WfQ-uM-WJt" secondAttribute="trailing" constant="15" id="Pms-zT-VVv"/>
                             <constraint firstItem="JWn-cE-5cX" firstAttribute="bottom" secondItem="Fjg-e4-EPs" secondAttribute="bottom" id="gGb-oM-dBi"/>
                             <constraint firstItem="JWn-cE-5cX" firstAttribute="trailing" secondItem="s2T-wP-QfL" secondAttribute="trailing" id="gZ1-Lp-sQa"/>
                             <constraint firstItem="5Ce-ko-VoG" firstAttribute="top" secondItem="e4E-X0-MtB" secondAttribute="bottom" constant="10" id="goa-PI-2yA"/>
+                            <constraint firstItem="rTB-gJ-AVE" firstAttribute="top" secondItem="s2T-wP-QfL" secondAttribute="top" id="gou-r3-vKL"/>
                             <constraint firstItem="Fjg-e4-EPs" firstAttribute="leading" secondItem="JWn-cE-5cX" secondAttribute="leading" id="h4c-2n-h45"/>
                             <constraint firstItem="5Ce-ko-VoG" firstAttribute="leading" secondItem="e4E-X0-MtB" secondAttribute="leading" id="kSP-oQ-tyo"/>
                             <constraint firstItem="ELf-Gn-Olo" firstAttribute="leading" secondItem="5Ce-ko-VoG" secondAttribute="trailing" id="qLk-um-weD"/>
                             <constraint firstItem="JWn-cE-5cX" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ELf-Gn-Olo" secondAttribute="trailing" constant="20" id="qMA-fp-m3i"/>
                             <constraint firstItem="Fjg-e4-EPs" firstAttribute="top" secondItem="5Ce-ko-VoG" secondAttribute="bottom" constant="60" id="siq-TY-qtj"/>
+                            <constraint firstItem="rTB-gJ-AVE" firstAttribute="width" secondItem="s2T-wP-QfL" secondAttribute="width" id="thX-q9-5PE"/>
                             <constraint firstItem="JWn-cE-5cX" firstAttribute="trailing" secondItem="Fjg-e4-EPs" secondAttribute="trailing" id="wbb-a5-dAw"/>
+                            <constraint firstItem="rTB-gJ-AVE" firstAttribute="leading" secondItem="4y7-dk-0xL" secondAttribute="leading" id="yIk-Eb-wTM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JWn-cE-5cX"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="rTB-gJ-AVE" id="rlZ-xd-UAf"/>
                         <outlet property="doneButton" destination="s2T-wP-QfL" id="OEc-dd-4LJ"/>
                         <outlet property="imageButton" destination="WfQ-uM-WJt" id="XXs-S9-fIc"/>
                         <outlet property="nameLabel" destination="e4E-X0-MtB" id="8eo-aL-6ud"/>

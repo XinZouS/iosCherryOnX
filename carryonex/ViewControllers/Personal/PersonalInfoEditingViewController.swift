@@ -21,6 +21,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var circleIndicator: BPCircleActivityIndicator!
     var user: ProfileUser?
@@ -134,8 +135,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @objc private func saveButtonTapped(){
         if let childVC = self.childViewControllers.first as? PersonalTable {
-            circleIndicator.isHidden = false
-            circleIndicator.animate()
             var genderString = ""
             let emailString = childVC.emailTextField.text
             if let gender = childVC.genderTextField.text {
@@ -158,17 +157,19 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                     let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
                                                  "email": emailString ?? "",
                                                  "gender": genderString ]
+                    circleIndicator.isHidden = false
+                    circleIndicator.animate()
                     ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
+                        self.circleIndicator.isHidden = true
+                        self.circleIndicator.stop()
                         if success{
-                            self.circleIndicator.isHidden = true
-                            self.circleIndicator.stop()
                             //self.navigationController?.popViewController(animated: true)
                             self.dismissVC()
                         }else{
                             debugPrint("change profile error")
                         }
                     })
-                }else{
+                } else {
                     let errMsg = "资料保存失败:请输入正确的电子邮箱格式"
                     displayGlobalAlert(title: "资料保存失败", message: errMsg, action: "好的", completion: {
                         if let childVC = self.childViewControllers.first as? PersonalTable {
@@ -218,6 +219,9 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveButtonTapped()
+    }
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func dismissVC(){

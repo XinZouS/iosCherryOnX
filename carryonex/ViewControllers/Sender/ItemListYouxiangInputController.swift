@@ -118,7 +118,7 @@ class ItemListYouxiangInputController: UIViewController {
                 AudioManager.shared.playSond(named: .failed)
                 let m = "您搜索的游箱号不存在，或已被出行人关闭"
                 self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
-                    self.youxiangcodeTextField.becomeFirstResponder()
+                    self.youxiangcodeTextField.text = ""
                 })
                 print(err)
                 return
@@ -157,6 +157,11 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
             return
         }
         fetchTripByYouxiangcode(code)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowChar = NSCharacterSet.alphanumerics
+        return string.rangeOfCharacter(from: allowChar) != nil
     }
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {

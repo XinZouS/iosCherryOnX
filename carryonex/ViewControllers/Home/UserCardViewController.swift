@@ -14,7 +14,8 @@ protocol UserCardDelegate: class {
 
 class UserCardViewController: UIViewController {
     
-    @IBOutlet weak var UserStatus: UILabel!
+    @IBOutlet weak var userStatus: UILabel!
+    @IBOutlet weak var userStatusIcon: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var requestImageView: UIImageView!
     @IBOutlet weak var ItemStatusBtn: UIButton!
@@ -52,7 +53,8 @@ class UserCardViewController: UIViewController {
     }
     
     private func setupCardView(){
-        UserStatus.text = (self.category == .carrier) ? "出行订单" : "寄件订单"
+        userStatus.text = (self.category == .carrier) ? "出行订单" : "寄件订单"
+        userStatusIcon.image = (self.category == .carrier) ? #imageLiteral(resourceName: "home_shipper_cardicon") : #imageLiteral(resourceName: "home_sender_cardicon")
         requestImageView.image = (self.category == .carrier) ? #imageLiteral(resourceName: "empty2") : #imageLiteral(resourceName: "empty1")
         beginLocationLabel.text = "暂时没有位置信息"
         endLocationLabel.text = "暂时没有位置信息"
