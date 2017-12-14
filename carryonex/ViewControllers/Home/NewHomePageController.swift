@@ -116,29 +116,23 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     private func setupNowHour(){
         let date = Date()
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-        let strNowTime = timeFormatter.string(from: date) as String
-        let StartIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 8)
-        let endIndex = strNowTime.index(strNowTime.startIndex, offsetBy: 9)
-        let nowHour = String(strNowTime[StartIndex]) + String(strNowTime[endIndex])
-        if let nowHourInt = Int(nowHour){
-            if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
-                timeStatus = .night
-                setupBackGroundColor(dayTime: .night)
+        let calendar = Calendar.current
+        let nowHourInt = calendar.component(.hour, from: date)
+        if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
+            timeStatus = .night
+            setupBackGroundColor(dayTime: .night)
 
-            } else if nowHourInt >= TimeEnum.afternoon.rawValue {
-                timeStatus = .afternoon
-                setupBackGroundColor(dayTime: .afternoon)
+        } else if nowHourInt >= TimeEnum.afternoon.rawValue {
+            timeStatus = .afternoon
+            setupBackGroundColor(dayTime: .afternoon)
 
-            } else if nowHourInt >= TimeEnum.noon.rawValue{
-                timeStatus = .noon
-                setupBackGroundColor(dayTime: .noon)
+        } else if nowHourInt >= TimeEnum.noon.rawValue{
+            timeStatus = .noon
+            setupBackGroundColor(dayTime: .noon)
 
-            } else {
-                timeStatus = .morning
-                setupBackGroundColor(dayTime: .morning)
-            }
+        } else {
+            timeStatus = .morning
+            setupBackGroundColor(dayTime: .morning)
         }
     }
     

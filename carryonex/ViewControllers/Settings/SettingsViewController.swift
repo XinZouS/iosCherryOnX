@@ -44,7 +44,8 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell {
-            cell.titleLabel.text = titles[indexPath.row]
+            let title: String = titles[indexPath.row]
+            cell.titleLabel.text = title
             if indexPath.row == 4 {
                 cell.detailLabel.isHidden = true
             }

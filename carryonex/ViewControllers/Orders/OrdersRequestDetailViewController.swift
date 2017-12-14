@@ -198,13 +198,11 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "订单详情"
-        navigationController?.isNavigationBarHidden = false
         setupScrollView()
         setupView()
         setupCollectionView()
         setupPaymentMenuView()
         addObservers()
-        
         
         //Load Phone
         var targetUserId: Int
@@ -252,6 +250,11 @@ class OrdersRequestDetailViewController: UIViewController {
                 viewController.phoneNumber = trip.carrierPhone
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func setupPaymentMenuView(){
@@ -654,6 +657,8 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
         mapView.showsScale = true
         mapView.showsPointsOfInterest = true
         mapView.showsUserLocation = true
+        mapView.mapType = .hybrid
+        mapView.showsCompass = true
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
