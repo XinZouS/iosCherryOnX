@@ -190,6 +190,10 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()

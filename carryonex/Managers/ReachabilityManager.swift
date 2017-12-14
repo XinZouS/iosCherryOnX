@@ -23,33 +23,8 @@ extension ReachabilityManager {
         }
     }
     
-    /*
-    func startObserving(completionHandler: @escaping(Bool) -> Void){
-        
-        /*
-        NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: reachability, queue: nil) { notification in
-            
-            guard let reachability = notification.object as? Reachability else { return }
-            switch reachability.connection {
-            case .wifi:
-                print("ReachabilityManager: Reachable via WiFi")
-                completionHandler(true)
-                
-            case .cellular:
-                print("ReachabilityManager: Reachable via Cellular")
-                completionHandler(true)
-
-            case .none:
-                print("ReachabilityManager: Network not reachable")
-                completionHandler(false)
-            }
-         */
-        }
-    }
-    */
     func stopObserving(){
-        //reachability.stopNotifier()
-        //NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
+        //Stop
     }
     
 }

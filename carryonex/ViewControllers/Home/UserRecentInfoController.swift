@@ -17,12 +17,17 @@ class UserRecentInfoController: UIViewController{
     @IBOutlet weak var levelImage: UIImageView!
     @IBOutlet weak var starView: UIImageView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addNotificationObservers()
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    private func addNotificationObservers(){
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addObservers()
+    }
+    
+    private func addObservers(){
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.getUserRecentInfo()
         }

@@ -27,11 +27,16 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
     
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         setupUser()
         setupNavigationBar()
         setupActivityIndicator()
-        addWeChatObservers()
+        addObservers()
         setupTextField()
         setupIndicator()
     }
@@ -57,7 +62,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         nameTextField.resignFirstResponder()
     }
     
-    fileprivate func addWeChatObservers() {
+    fileprivate func addObservers() {
         /**  微信通知  */
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.ChangeProfileImg, object: nil, queue: nil) { [weak self] notification in
             
