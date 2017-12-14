@@ -8,7 +8,9 @@
 
 import UIKit
 
-class InviteFriendController: WaitingController {
+class InviteFriendController: UIViewController {
+    
+    /*
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,6 @@ class InviteFriendController: WaitingController {
     override func dismissView() {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    */
 }
 

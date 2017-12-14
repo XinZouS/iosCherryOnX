@@ -34,11 +34,6 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
             //self.request = requestCtl?.request
         }
     }
-    weak var postTripCtl : PostTripController? {
-        didSet{
-            trip = postTripCtl?.trip
-        }
-    }
     
     let mapView : MKMapView = {
         let m = MKMapView()

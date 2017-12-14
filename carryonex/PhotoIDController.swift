@@ -14,8 +14,6 @@ import BPCircleActivityIndicator
 
 class PhotoIDController: UIViewController {
     
-    var homePageController: HomePageController?
-    
     enum IDSelectionTypeString: String {
         case idCard = "身份证 🔽"
         case passport = "护照 🔽"

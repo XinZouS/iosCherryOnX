@@ -15,8 +15,6 @@ target 'carryonex' do
   pod 'AlamofireImage'
   pod 'M13Checkbox', '3.1.1'
   pod 'SMSSDK', '3.0.1'
-  pod 'FSCalendar', '2.7.9'
-  pod 'paper-onboarding', '2.0.1'
   pod 'ALCameraViewController', '2.0.3'
 
   # AWS S3 for image storage
@@ -65,15 +63,11 @@ target 'carryonex' do
   # Mob sharing -----------------------------------------------------
 
   # Facebook login and sharing
-  pod 'FacebookCore', '0.2.0'
-  pod 'FacebookLogin', '0.2.0'
-  pod 'FacebookShare', '0.2.0'
   pod 'FBSDKCoreKit', '4.22.1'
   pod 'FBSDKLoginKit', '4.22.1'
   pod 'FBSDKShareKit', '4.22.1'
 
   #UI design
-  pod 'Material', '2.10.2'
   pod 'JXPhotoBrowser', '0.3.7'
 
   #Network connection detactor
@@ -95,7 +89,6 @@ target 'carryonex' do
   
   # indicator
   pod 'BPCircleActivityIndicator'
-
   pod 'TGRefreshSwift'
 
 end

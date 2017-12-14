@@ -8,7 +8,6 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKShareKit
-import FacebookShare
 
 class ShareViewFactory: UIView {
     

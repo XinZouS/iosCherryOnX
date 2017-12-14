@@ -335,11 +335,11 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
-        userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.height)/2)
+        userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.bounds.height)/2)
         circle.layer.masksToBounds = true
-        circle.layer.cornerRadius = CGFloat(Int(circle.height)/2)
-        circle.borderColor = .white
-        circle.borderWidth = 2
+        circle.layer.cornerRadius = CGFloat(Int(circle.bounds.height)/2)
+        circle.layer.borderColor = UIColor.white.cgColor
+        circle.layer.borderWidth = 2
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {

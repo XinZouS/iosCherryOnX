@@ -33,11 +33,11 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         mapView.setRegion(viewRegion, animated: false)
         
         // not yet setup any address, then show current GPS location
-        if request?.endAddress == nil && postTripCtl?.addressDestinat == nil {
-            DispatchQueue.main.async {
-                self.locationManager.startUpdatingLocation()
-            }
-        }
+//        if request?.endAddress == nil && postTripCtl?.addressDestinat == nil {
+//            DispatchQueue.main.async {
+//                self.locationManager.startUpdatingLocation()
+//            }
+//        }
     }
     
 
@@ -249,12 +249,14 @@ extension AddressSearchController : MKMapViewDelegate {
         case AddressSearchType.requestDestination:
             requestCtl?.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
-        case AddressSearchType.tripStarting:
-            postTripCtl?.addressStarting = self.address
-            postTripCtl?.setupStartingAddress(string: add)
-        case AddressSearchType.tripDestination:
-            postTripCtl?.addressDestinat = self.address
-            postTripCtl?.setupEndAddress(string: add)
+        default:
+            print("Do nothing")
+//        case AddressSearchType.tripStarting:
+//            postTripCtl?.addressStarting = self.address
+//            postTripCtl?.setupStartingAddress(string: add)
+//        case AddressSearchType.tripDestination:
+//            postTripCtl?.addressDestinat = self.address
+//            postTripCtl?.setupEndAddress(string: add)
         }
     }
     
@@ -275,7 +277,9 @@ extension AddressSearchController {
                 if let currAdd = request?.endAddress {
                     setupCurrentAddress(currAdd)
                 }
-            
+            default:
+                print("Print default message")
+            /*
             case AddressSearchType.tripStarting:
                 if let currAdd = postTripCtl?.addressStarting {
                     setupCurrentAddress(currAdd)
@@ -285,6 +289,7 @@ extension AddressSearchController {
                 if let currAdd = postTripCtl?.addressDestinat {
                     setupCurrentAddress(currAdd)
                 }
-        }
+             */
+ }
     }
 }

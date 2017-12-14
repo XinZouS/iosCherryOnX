@@ -4,9 +4,6 @@
 
 #import <SMS_SDK/SMSSDK.h>
 
-#import "FSCalendar/FSCalendar.h"
-
-
 // MOB sharing SDK
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>

@@ -72,8 +72,8 @@ extension PaymentController {
             //ApiServers.shared.sentOrderInformation(address: endAddress)
         //}
         
-        let waitingCtl = WaitingController()
-        waitingCtl.isForShipper = false
+//        let waitingCtl = WaitingController()
+//        waitingCtl.isForShipper = false
         
         // paging transition animation for waitingController
         let transition: CATransition = CATransition()
