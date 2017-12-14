@@ -201,10 +201,10 @@ extension RequestController: UITextFieldDelegate {
     }
     
     private func destinationTextFieldTapped(){
-        let addressSearchCtl = AddressSearchController()
-        addressSearchCtl.searchType = AddressSearchType.requestDestination
-        addressSearchCtl.requestCtl = self
-        navigationController?.pushViewController(addressSearchCtl, animated: true)
+//        let addressSearchCtl = AddressSearchController()
+//        addressSearchCtl.searchType = AddressSearchType.requestDestination
+//        addressSearchCtl.requestCtl = self
+//        navigationController?.pushViewController(addressSearchCtl, animated: true)
     }
     
     func setupDestinationAddress(string: String){

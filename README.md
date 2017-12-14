@@ -112,23 +112,6 @@ var ordersLogAsShipper: [String]? // [ADD] IDs of request I take in
 var isShipper: Bool?
 ~~~
 
-### ** ItemCategory ** [ADD：for price info, GET ONLY]
-~~~swift
-class ItemCategory: NSObject {
-
-    var id : String!
-
-    var nameCN : String?
-    var nameEN : String?
-
-    var isEnable: Bool?
-
-    var icon   : UIImage?
-
-    var count : Int = 0 // for category page display and selection
-    var prize : Double = 1.0 // parse to Int when upload to server
-}
-~~~
 
 ### class Trip
 ~~~swift
