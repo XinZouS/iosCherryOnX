@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9GN-Q6-B5Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9GN-Q6-B5Q">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -268,7 +272,7 @@
                                                 <color key="textColor" red="1" green="0.34066224099999998" blue="0.37820503119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="i" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-DU-moM">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="i" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-DU-moM">
                                                 <rect key="frame" x="292" y="394" width="26" height="26"/>
                                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -723,6 +727,7 @@
                         <outlet property="priceFinalHintLabel" destination="7h8-eT-uPI" id="P0v-ZX-o5K"/>
                         <outlet property="priceFinalLabel" destination="rV8-hG-yHT" id="2hd-Lv-rRb"/>
                         <outlet property="priceMaxInfoButton" destination="FVK-dl-Vpp" id="dK4-Bl-8V5"/>
+                        <outlet property="priceMaxInfoIconLabel" destination="IO8-DU-moM" id="TAB-cE-ffW"/>
                         <outlet property="priceMaxLabel" destination="EXv-g9-HqW" id="Nrh-wU-ygs"/>
                         <outlet property="priceMaxValueHintLabel" destination="pdK-j9-hh5" id="uxw-Nd-gDr"/>
                         <outlet property="priceMidLabel" destination="S3D-Ji-qp7" id="9uO-nq-ead"/>
