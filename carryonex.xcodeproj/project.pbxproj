@@ -114,7 +114,6 @@
 		E567BB121FCC6DA600B87608 /* STSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB111FCC6DA600B87608 /* STSource.swift */; };
 		E58FDC9B1FA5A226000C126E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FDC9A1FA5A226000C126E /* ServiceManager.swift */; };
 		E59154BF1FD5E56F00333585 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59154BE1FD5E56E00333585 /* ShareManager.swift */; };
-		E5A2A76C1FE2DB8200A51BDC /* PhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A76B1FE2DB8200A51BDC /* PhotoBrowserCollectionViewCell.swift */; };
 		E5A2A76F1FE2E3D200A51BDC /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A76E1FE2E3D200A51BDC /* ProfileManager.swift */; };
 		E5A2A7711FE2E41300A51BDC /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7701FE2E41300A51BDC /* GlobalVariable.swift */; };
 		E5A2A7761FE2E44000A51BDC /* ThemTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7731FE2E44000A51BDC /* ThemTextField.swift */; };
@@ -151,6 +150,7 @@
 		E5A2A7D41FE2E6B100A51BDC /* DisclaimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7B91FE2E68200A51BDC /* DisclaimerController.swift */; };
 		E5A2A7D51FE2E81F00A51BDC /* PhotoIDController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C01FE2E68200A51BDC /* PhotoIDController++.swift */; };
 		E5A2A7D61FE2E81F00A51BDC /* PhotoIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C11FE2E68200A51BDC /* PhotoIDController.swift */; };
+		E5D020031FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */; };
 		E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F303551FCF5785008AF2E8 /* UIColor+App.swift */; };
 		FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */; };
 		FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */; };
@@ -294,7 +294,6 @@
 		E567BB111FCC6DA600B87608 /* STSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSource.swift; sourceTree = "<group>"; };
 		E58FDC9A1FA5A226000C126E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		E59154BE1FD5E56E00333585 /* ShareManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
-		E5A2A76B1FE2DB8200A51BDC /* PhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A2A76E1FE2E3D200A51BDC /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		E5A2A7701FE2E41300A51BDC /* GlobalVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		E5A2A7731FE2E44000A51BDC /* ThemTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemTextField.swift; sourceTree = "<group>"; };
@@ -343,6 +342,7 @@
 		E5A2A7C21FE2E68200A51BDC /* ShipperAvailableController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShipperAvailableController++.swift"; sourceTree = "<group>"; };
 		E5A2A7C31FE2E68200A51BDC /* ShipperAvailableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipperAvailableController.swift; sourceTree = "<group>"; };
 		E5A2A7C41FE2E68200A51BDC /* SilenceCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SilenceCarouselView.swift; sourceTree = "<group>"; };
+		E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5F303551FCF5785008AF2E8 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
 		FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletedController.swift; sourceTree = "<group>"; };
@@ -696,7 +696,6 @@
 		E542F2641FB4B6590072BB31 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
-				E5A2A76B1FE2DB8200A51BDC /* PhotoBrowserCollectionViewCell.swift */,
 				4DE6BDDB1FBA929B00900DF8 /* OrderListViewController.swift */,
 				4DE6BDDD1FBA951000900DF8 /* OrderListHeaderCell.swift */,
 				4DE6BDDF1FBA952000900DF8 /* OrderListCell.swift */,
@@ -709,6 +708,7 @@
 				66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */,
 				66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */,
 				66C3EA901FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift */,
+				E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1101,13 +1101,13 @@
 				4D7932801FD676D90081BBE2 /* WalletManager.swift in Sources */,
 				FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */,
 				E5A2A7931FE2E57100A51BDC /* User.swift in Sources */,
+				E5D020031FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift in Sources */,
 				E5A2A79B1FE2E57100A51BDC /* ProfileUser.swift in Sources */,
 				E5A2A7B31FE2E5B300A51BDC /* UILabel++.swift in Sources */,
 				E5A2A7761FE2E44000A51BDC /* ThemTextField.swift in Sources */,
 				E5A2A7D51FE2E81F00A51BDC /* PhotoIDController++.swift in Sources */,
 				E5A2A7951FE2E57100A51BDC /* TripOrder.swift in Sources */,
 				4D79327E1FD676D90081BBE2 /* WalletManager+AliPay.swift in Sources */,
-				E5A2A76C1FE2DB8200A51BDC /* PhotoBrowserCollectionViewCell.swift in Sources */,
 				660252741FC4B91E00277617 /* SettingsViewController.swift in Sources */,
 				4D7932A81FD689920081BBE2 /* APBizContent.swift in Sources */,
 				66CE22561FBE246300DCC274 /* OrderListCardShiperCell.swift in Sources */,
