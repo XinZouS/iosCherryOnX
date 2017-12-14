@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Material
 
 class RegistrationViewController: UIViewController {
     
@@ -15,7 +14,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     
-    @IBOutlet weak var registerButton: Button!
+    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var agreeButton: UIButton!
     @IBOutlet weak var bottomImageView: UIImageView!
     
@@ -159,7 +158,7 @@ class RegistrationViewController: UIViewController {
         let ok = isPasswordValid && nameOk
         registerButton.isEnabled = ok
         registerButton.backgroundColor = ok ? colorOkgreen : colorErrGray
-        registerButton.titleColor = .white
+        registerButton.setTitleColor(.white, for: .normal)
     }
     
     
@@ -170,7 +169,7 @@ class RegistrationViewController: UIViewController {
     
 }
 
-extension RegistrationViewController: TextFieldDelegate {
+extension RegistrationViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dismissKeyboards()

@@ -105,7 +105,7 @@ class PersonalPageViewController: UIViewController{
     
     private func setupUserImageView(){
         userProfileImage.layer.masksToBounds = true
-        userProfileImage.layer.cornerRadius = CGFloat(Int(userProfileImage.height)/2)
+        userProfileImage.layer.cornerRadius = CGFloat(Int(userProfileImage.bounds.height)/2)
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {

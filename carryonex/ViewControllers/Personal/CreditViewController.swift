@@ -81,8 +81,8 @@ class CreditViewController: UIViewController {
     }
     
     func paymentTypeBarButtonTapped(){
-        let paymentPage = PaymentController()
-        self.navigationController?.pushViewController(paymentPage, animated: true)
+        //let paymentPage = PaymentController()
+        //self.navigationController?.pushViewController(paymentPage, animated: true)
     }
     
 }

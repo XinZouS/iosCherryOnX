@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class DisclaimerController: UIViewController {
     
     private let contentTextView: UITextView = {

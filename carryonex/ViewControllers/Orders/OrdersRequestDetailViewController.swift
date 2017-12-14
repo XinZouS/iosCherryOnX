@@ -278,7 +278,7 @@ class OrdersRequestDetailViewController: UIViewController {
         b.boxLineWidth = 2
         b.tintColor = colorCheckmarkGreen // selected
         b.secondaryTintColor = UIColor.lightGray // unselected
-        b.borderColor = UIColor.lightGray
+        //b.borderColor = UIColor.lightGray //TODO: FIX THIS
     }
 
     private func setupCollectionView(){

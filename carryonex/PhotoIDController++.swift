@@ -268,7 +268,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             ProfileManager.shared.updateUserInfo(.imageUrl, value: urlStr, completion: { (success) in
                 if success {
                     URLCache.shared.removeAllCachedResponses()
-                    self.homePageController?.userInfoMenuView.userProfileView.setupProfileImageFromAws()
+                    //self.homePageController?.userInfoMenuView.userProfileView.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
                 }
                 self.didFinishedUploadImagesToAws(allSuccess: success)
@@ -308,7 +308,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         let layer = navigationController?.viewControllers.count ?? 1
         if layer == 1 {
             self.dismiss(animated: false, completion: nil)
-            homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
+            //homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
         }else{
             let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
             displayGlobalAlert(title: "✅上传成功", message: msg, action: "朕知道了", completion: {

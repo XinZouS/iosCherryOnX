@@ -148,16 +148,6 @@ class LoginViewController: UIViewController {
         openFlagPicker()
     }
     
-    func goToVerificationPage(isModifyPhone: Bool) {
-        if let phone = phoneField.text {
-            let verifiCtl = VerificationController()
-            verifiCtl.isModifyPhoneNumber = isModifyPhone
-            verifiCtl.zoneCodeInput = self.countryCode
-            verifiCtl.phoneInput = phone
-            self.navigationController?.pushViewController(verifiCtl, animated: true)
-        }
-    }
-    
     
     //MARK - Helper Method
     

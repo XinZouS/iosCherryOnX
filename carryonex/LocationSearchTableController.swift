@@ -19,9 +19,9 @@ protocol HandleMapSearch {
 
 class LocationSearchTableController : UITableViewController {
     
-    weak var homePageController : HomePageController?
+//    weak var homePageController : HomePageController?
     weak var requestController  : RequestController?
-    weak var postTripController : PostTripController?
+//    weak var postTripController : PostTripController?
     
     var handleMapSearchDelegate : HandleMapSearch?
     
@@ -86,11 +86,11 @@ class LocationSearchTableController : UITableViewController {
         handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
         
-        if let homePage = homePageController {
-            let loc = selectedItem.coordinate
-            let viewRegion = MKCoordinateRegionMakeWithDistance(loc, 200, 200)
-            homePage.mapView.setRegion(viewRegion, animated: false)
-        }
+//        if let homePage = homePageController {
+//            let loc = selectedItem.coordinate
+//            let viewRegion = MKCoordinateRegionMakeWithDistance(loc, 200, 200)
+//            homePage.mapView.setRegion(viewRegion, animated: false)
+//        }
     }
     
 }

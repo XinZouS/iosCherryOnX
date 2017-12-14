@@ -235,13 +235,6 @@ extension RequestController: UITextFieldDelegate {
             displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
             return
         }
-        
-        //uploadImagesToAwsAndGetUrls()
-        
-        //let paymentController = PaymentController()
-        //paymentController.request = self.request
-        //paymentController.requestCtl = self
-        //navigationController?.pushViewController(paymentController, animated: true)
     }
     
     @objc fileprivate func handleSubmissionButton() {

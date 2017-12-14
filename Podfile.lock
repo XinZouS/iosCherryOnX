@@ -18,19 +18,6 @@ PODS:
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
-  - FacebookCore (0.2.0):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.15)
-  - FacebookLogin (0.2.0):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.2)
-    - FBSDKCoreKit (~> 4.15)
-    - FBSDKLoginKit (~> 4.15)
-  - FacebookShare (0.2.0):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.2)
-    - FBSDKCoreKit (~> 4.15)
-    - FBSDKShareKit (~> 4.15)
   - FBSDKCoreKit (4.22.1):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.22.1):
@@ -38,16 +25,11 @@ PODS:
   - FBSDKShareKit (4.22.1):
     - FBSDKCoreKit
   - FlickrKit (1.0.9)
-  - FSCalendar (2.7.9)
   - JXPhotoBrowser (0.3.7):
     - Kingfisher (~> 3.13.1)
   - Kingfisher (3.13.1)
   - M13Checkbox (3.1.1)
-  - Material (2.10.2):
-    - Material/Core (= 2.10.2)
-  - Material/Core (2.10.2)
   - MOBFoundation (3.0.6)
-  - paper-onboarding (2.0.1)
   - ReachabilitySwift (4.1.0)
   - ShareSDK3 (4.0.3):
     - MOBFoundation
@@ -86,19 +68,13 @@ DEPENDENCIES:
   - BPCircleActivityIndicator
   - Crashlytics
   - Fabric
-  - FacebookCore (= 0.2.0)
-  - FacebookLogin (= 0.2.0)
-  - FacebookShare (= 0.2.0)
   - FBSDKCoreKit (= 4.22.1)
   - FBSDKLoginKit (= 4.22.1)
   - FBSDKShareKit (= 4.22.1)
   - FlickrKit (= 1.0.9)
-  - FSCalendar (= 2.7.9)
   - JXPhotoBrowser (= 0.3.7)
   - M13Checkbox (= 3.1.1)
-  - Material (= 2.10.2)
   - MOBFoundation (= 3.0.6)
-  - paper-onboarding (= 2.0.1)
   - ReachabilitySwift
   - ShareSDK3 (= 4.0.3)
   - ShareSDK3/ShareSDKConfigurationFile (= 4.0.3)
@@ -123,20 +99,14 @@ SPEC CHECKSUMS:
   BPCircleActivityIndicator: 8ec5d896c8a05fc916203f990f0037f78d223256
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
-  FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
-  FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
-  FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
   FBSDKCoreKit: 9c2daf0162214d6d2e21cf8208a9c6c2a2e42b9c
   FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
   FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
   FlickrKit: 79ffaf64a12293ba2b1aa8a2e53a4958cb113256
-  FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
   JXPhotoBrowser: f3d8e07ecc6e5deecc19c8e5ecbdbb4c33e4549b
   Kingfisher: ed9707a409cc47fddafbcd12a43a9757e3600af5
   M13Checkbox: 64a49ded40e7047e0bef255b73c8c533b7c66bdd
-  Material: 8265a77332acfb7872a7fd0f4f2023f080d25d1f
   MOBFoundation: 6f6ec1c2513278551f1a808b5692e983d99e5069
-  paper-onboarding: a8e001214d9ce9decf78e160b3823f396dbd51ac
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   ShareSDK3: cdbebbde1166baec75b6003248bedbf33e8404c8
   SMSSDK: a811c8ea6e89393097037b7cf6493248a40e50f0
@@ -145,6 +115,6 @@ SPEC CHECKSUMS:
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
   ZendeskSDK: 2cda4db2ba6b10ba89aeb8dddaa94e97c85946a0
 
-PODFILE CHECKSUM: 82e23c3fa747b3b0ca51c8f2b06ca01fb2019113
+PODFILE CHECKSUM: 2d0ef3594c7de9d65c7084557938df11a05ec2b1
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
