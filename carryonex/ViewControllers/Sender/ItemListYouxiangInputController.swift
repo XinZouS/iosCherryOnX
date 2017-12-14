@@ -102,6 +102,7 @@ class ItemListYouxiangInputController: UIViewController {
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
             displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
                 self.isLoading = false
+                self.youxiangcodeTextField.text = ""
                 self.youxiangcodeTextField.becomeFirstResponder()
             })
             return
@@ -160,7 +161,14 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let allowChar = NSCharacterSet.alphanumerics
+        // check for backspace key
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if (isBackSpace == -92) {
+                return true
+            }
+        }
+        let allowChar = CharacterSet(charactersIn: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
         return string.rangeOfCharacter(from: allowChar) != nil
     }
     
