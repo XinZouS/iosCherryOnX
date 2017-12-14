@@ -58,9 +58,6 @@ extension UIView{
         
         layer.addSublayer(lineLayer)
     }
-    
-    
-    
 }
 
 

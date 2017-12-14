@@ -27,55 +27,57 @@ class AwsServerManager {
 extension AwsServerManager {
     
     public func uploadFile(fileName: String, imgIdType: ImageTypeOfID, localUrl: URL, completion: @escaping(Error?, URL?) -> Void) {
-        print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
+        //print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         let countryCode = currUser.phoneCountryCode ?? "noCtyCode"
         let phone = currUser.phone ?? "noPhoneNum"
         let userPhone = countryCode + "-" + phone
         
         // setup AWS Transfer Manager Request:
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        if imgIdType == .profile {
-            uploadRequest?.acl = .publicReadWrite
-            uploadRequest?.bucket = "\(awsPublicBucketName)/userProfileImages/\(userPhone)" // no / at the end of bucket
-        } else if imgIdType == .requestImages {
-            uploadRequest?.acl = .publicReadWrite
-            uploadRequest?.bucket = "\(awsPublicBucketName)/RequestPhotos/\(userPhone)" // no / at the end of bucket
-        } else {
-            uploadRequest?.acl = .private
-            uploadRequest?.bucket = "\(awsBucketName)/userIdPhotos/\(userPhone)" // no / at the end of bucket
-        }
-        uploadRequest?.key = fileName // MUST NOT change this!!
-        uploadRequest?.body = localUrl //imageUploadSequence[imgIdType]!! 
-        uploadRequest?.contentType = "image/jpeg"
-        
-        guard let request = uploadRequest else {
-            print("error: uploadFile(fileName: -get nil in AWSS3TransferManagerUploadRequest, returning...")
+        guard let uploadRequest = AWSS3TransferManagerUploadRequest() else {
+            print("Unable to initiate upload request")
             return
         }
-        
-        let transferManager = AWSS3TransferManager.default()
-        transferManager.upload(request).continueWith { (task: AWSTask) -> Any? in
+        if imgIdType == .profile {
+            uploadRequest.acl = .publicReadWrite
+            uploadRequest.bucket = "\(awsPublicBucketName)/userProfileImages/\(userPhone)" // no / at the end of bucket
+            
+        } else if imgIdType == .requestImages {
+            uploadRequest.acl = .publicReadWrite
+            uploadRequest.bucket = "\(awsPublicBucketName)/RequestPhotos/\(userPhone)" // no / at the end of bucket
+            
+        } else {
+            uploadRequest.acl = .private
+            uploadRequest.bucket = "\(awsBucketName)/userIdPhotos/\(userPhone)" // no / at the end of bucket
+        }
+        uploadRequest.key = fileName // MUST NOT change this!!
+        uploadRequest.body = localUrl //imageUploadSequence[imgIdType]!!
+        uploadRequest.contentType = "image/jpeg"
+
+        AWSS3TransferManager.default().upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
             
             DispatchQueue.main.async(execute: {
                 UIApplication.shared.endIgnoringInteractionEvents()
             })
             
-            if let err = task.error, let req = uploadRequest {
-                print("performFileUpload(): task.error = \(err), target bucket = \(req.bucket.debugDescription)")
-                completion(err, nil)
+            if let error = task.error {
+                print("performFileUpload(): task.error = \(error.localizedDescription), target bucket = \(uploadRequest.bucket.debugDescription)")
+                completion(error, nil)
                 return nil
             }
+            
             if task.result != nil {
-                let url = AWSS3.default().configuration.endpoint.url
-                if let publicURL = url?.appendingPathComponent(request.bucket!).appendingPathComponent(request.key!) {
+                if let url = AWSS3.default().configuration.endpoint.url,
+                    let bucket = uploadRequest.bucket,
+                    let key = uploadRequest.key {
+                    let publicURL = url.appendingPathComponent(bucket).appendingPathComponent(key)
                     print("AwsServerManager: task.result get publicURL.str = \(publicURL.absoluteString)")
                     completion(nil, publicURL)
                 }
             }else{
-                print("errrorrr!!! task.result is nil, !!!! did not upload")
+                print("Error: task.result is nil. Unable to upload")
+                completion(nil, nil)
             }
-            
             return nil
         }
     }

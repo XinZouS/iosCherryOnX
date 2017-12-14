@@ -313,7 +313,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.cellCategory = .carrier
             cell.carrierDelegate = self
             
-            let trip = carrierTrips[indexPath.row]
+            let trip: Trip = carrierTrips[indexPath.row]
             cell.trip = trip
             cell.indexPath = indexPath
             return cell
@@ -324,17 +324,19 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.cellCategory = .sender
             cell.indexPath = indexPath
             
-            let request = senderRequests[indexPath.row]
+            let request: Request = senderRequests[indexPath.row]
             cell.request = request
-            
-            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
-            cell.startAddressLabel.text = trip?.startAddress?.fullAddressString()
-            cell.endAddressLabel.text = trip?.endAddress?.fullAddressString()
-            cell.dateMonthLabel.text = trip?.getMonthString()
-            cell.dateDayLabel.text = trip?.getDayString()
             cell.itemNumLabel.text = "\(request.images.count)件"
+            
             if let image = request.images.first?.imageUrl, let imageUrl = URL(string: image) {
                 cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
+            }
+            
+            if let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId) {
+                cell.startAddressLabel.text = trip.startAddress?.fullAddressString()
+                cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
+                cell.dateMonthLabel.text = trip.getMonthString()
+                cell.dateDayLabel.text = trip.getDayString()
             }
             
             return cell
