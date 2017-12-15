@@ -10,7 +10,6 @@ import UIKit
 import FBSDKCoreKit
 import Fabric
 import Crashlytics
-import AWSCognito
 import ZendeskSDK
 import FlickrKit
 import UserNotifications
@@ -21,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static var appToken : String? // singleton for app to login server
     static var timestamp: String?
+    var mainNavigationController: UINavigationController?
     var mainTabViewController: MainTabBarController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -39,16 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WXApi.registerApp(WX_APPID, enableMTA: true)
         
         // setup Fabric
-        Fabric.with([Crashlytics.self, AWSCognito.self])
+        Fabric.with([Crashlytics.self])
 
         //setup Zendesk
         ZDKConfig.instance()
             .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
                         zendeskUrl: "https://carryonex.zendesk.com",
                         clientId: "mobile_sdk_client_fe7793872b8aa3992ec1")
-        
-        let identity = ZDKAnonymousIdentity()
-        ZDKConfig.instance().userIdentity = identity
+        ZDKConfig.instance().userIdentity = ZDKAnonymousIdentity()
         
         //setup Flickr SDK
         FlickrKit.shared().initialize(withAPIKey: "de264bf38194171ee76392fba833bbab", sharedSecret: "2410000e87f5a329")
@@ -59,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Setup push notifications
         registerForPushNotifications()
         
-        if let mainNavigationController = self.window?.rootViewController {
+        if let mainNavigationController = self.window?.rootViewController as? UINavigationController {
+            self.mainNavigationController = mainNavigationController
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
         }
         return true
