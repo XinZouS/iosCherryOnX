@@ -74,6 +74,7 @@ class ItemListYouxiangInputController: UIViewController {
     private func setupTextFields(){
         textFieldAddToolBar(youxiangcodeTextField)
         youxiangcodeTextField.autocapitalizationType = .allCharacters
+        youxiangcodeTextField.clearButtonMode = .whileEditing
         let att = [NSForegroundColorAttributeName: UIColor(white: 0.9, alpha: 1)]
         youxiangcodeTextField.attributedPlaceholder = NSAttributedString(string: "输入6位游箱号", attributes: att)
     }
@@ -174,8 +175,14 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
                 return true
             }
         }
+        
         let allowChar = CharacterSet(charactersIn: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
         return string.rangeOfCharacter(from: allowChar) != nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldDidChanged()
+        return false
     }
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {

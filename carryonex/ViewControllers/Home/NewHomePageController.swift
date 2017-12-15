@@ -75,6 +75,8 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // TODO: what's the different of all these with the same id ???
         if (segue.identifier == "shiper"){
             if let destVC = segue.destination as? UserCardViewController {
                 userCardOne = destVC
@@ -353,6 +355,9 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
 extension NewHomePageController: UserCardDelegate {
     
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
+        // show navigation bar for other pages;
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
         let request: [String: Any] = ["request": request, "category": category]
         performSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
     }
