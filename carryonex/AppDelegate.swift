@@ -16,7 +16,7 @@ import FlickrKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var appToken : String? // singleton for app to login server
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         FlickrKit.shared().initialize(withAPIKey: "de264bf38194171ee76392fba833bbab", sharedSecret: "2410000e87f5a329")
         
         //Setup Stripe
-        WalletManager.shared.initializeStripe()
+        //WalletManager.shared.initializeStripe()
         
         //Setup push notifications
         registerForPushNotifications()
@@ -82,17 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             onImport: {(platform : SSDKPlatformType) -> Void in
                 switch platform
                 {
-                case SSDKPlatformType.typeSinaWeibo:
-                    ShareSDKConnector.connectWeibo(WeiboSDK.classForCoder())
-                case SSDKPlatformType.typeWechat:
-                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
-                    //case SSDKPlatformType.typeQQ:
-                //    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
-                default:
-                    break
+                    case SSDKPlatformType.typeSinaWeibo:
+                        ShareSDKConnector.connectWeibo(WeiboSDK.classForCoder())
+                    case SSDKPlatformType.typeWechat:
+                        ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+                    default:
+                        break
                 }
-        },
-            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
+                
+        }, onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
                 switch platform{
                 case SSDKPlatformType.typeSinaWeibo:
                     //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
@@ -115,16 +113,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
                 }
         })
         
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -155,13 +143,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         print("Failed to register for push notification: \(error.localizedDescription)")
     }
     
-    
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
-    }
-    
     /// WeChat API connection
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
@@ -169,44 +150,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             DeeplinkNavigator.handleDeeplink(url)
             
         } else if url.host == "safepay" {
-            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
-                if let result = result {
-                    WalletManager.shared.aliPayProcessOrderCallbackHandler(result: result)
-                    print("OpenURL callback result: \(result)")
-                }
-            })
-            
-            AlipaySDK.defaultService().processAuth_V2Result(url, standbyCallback: { (result) in
-                var authCode: String? = nil
-                if let resultValue = result?["result"] as? String {
-                    if resultValue.count > 0 {
-                        let resultArr = resultValue.components(separatedBy: "&")
-                        for subResult in resultArr {
-                            if subResult.count > 10 && subResult.hasPrefix("auth_code=") {
-                                let index = subResult.index(subResult.endIndex, offsetBy: -10)
-                                authCode = subResult.substring(from: index)
-                                break
-                            }
-                        }
-                    }
-                }
-                
-                if let authCode = authCode {
-                    print("Authorization result: \(authCode)")
-                }
-            })
+            WalletManager.shared.aliPayHandleOrderUrl(url)
         }
         
         FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-        WXApi.handleOpen(url, delegate: self)
+        WXApi.handleOpen(url, delegate: WeChatAPIManager.shared)
         
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        WXApi.handleOpen(url, delegate: self)
-
+        WXApi.handleOpen(url, delegate: WeChatAPIManager.shared)
         return true
     }
     
@@ -225,31 +179,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     
     
-    // MARK: - WeChat Authentication Support
-    
-    // WXApiDelegate: [3] 现在，你的程序要实现和微信终端交互的具体请求与回应，因此需要实现WXApiDelegate协议的两个方法, 具体在此两方法中所要完成的内容由你定义.
-    // from: https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=1417694084&token=&lang=zh_CN
-    func onReq(_ req: BaseReq!) {
-        print("TODO: 微信终端向第三方程序发起请求，要求第三方程序响应。第三方程序响应完后必须调用sendRsp返回。在调用sendRsp返回时，会切回到微信终端程序界面。")
-    }
-    
-    func onResp(_ resp: BaseResp!) {
-        if resp.errCode == 0  {
-            if let resp = resp as? SendAuthResp {
-                if wxloginStatus == "fillProfile"{
-                    NotificationCenter.default.post(name: Notification.Name.WeChat.ChangeProfileImg, object: resp)
-                }else{
-                    NotificationCenter.default.post(name: Notification.Name.WeChat.Authenticated, object: resp)
-                }
-            }
-        } else {
-            NotificationCenter.default.post(name: Notification.Name.WeChat.AuthenticationFailed, object: resp)
-        }
-    }
-    
     //MARK: - Push Notifications
     
-    func registerForPushNotifications() {
+    private func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             (granted, error) in
             if let error = error {
@@ -260,7 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         }
     }
     
-    func getNotificationSettings() {
+    private func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             //print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else {
@@ -272,7 +204,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             }
         }
     }
-    static func shared() -> AppDelegate {
+    
+    static public func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
 }

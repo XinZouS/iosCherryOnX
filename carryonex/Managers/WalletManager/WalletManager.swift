@@ -15,7 +15,5 @@ class WalletManager: NSObject {
     //Stripe
     var stripePaymentContext: STPPaymentContext?
     weak var delegate: WalletStripeDelegate?
-    
-    //AliPay
 }
 
