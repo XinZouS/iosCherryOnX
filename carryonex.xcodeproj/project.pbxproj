@@ -31,6 +31,8 @@
 		4D7932A41FD680DC0081BBE2 /* APAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */; };
 		4D7932A61FD689040081BBE2 /* APOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A51FD689040081BBE2 /* APOrderInfo.swift */; };
 		4D7932A81FD689920081BBE2 /* APBizContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A71FD689920081BBE2 /* APBizContent.swift */; };
+		4D80C3F41FE454B2000D3B01 /* WalletManager+WeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C3F31FE454B2000D3B01 /* WalletManager+WeChat.swift */; };
+		4D80C3F61FE45FD9000D3B01 /* WeChatAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */; };
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
 		4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */; };
 		4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */; };
@@ -206,6 +208,8 @@
 		4D7932A31FD680DC0081BBE2 /* APAuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAuthInfo.swift; sourceTree = "<group>"; };
 		4D7932A51FD689040081BBE2 /* APOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOrderInfo.swift; sourceTree = "<group>"; };
 		4D7932A71FD689920081BBE2 /* APBizContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBizContent.swift; sourceTree = "<group>"; };
+		4D80C3F31FE454B2000D3B01 /* WalletManager+WeChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletManager+WeChat.swift"; sourceTree = "<group>"; };
+		4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatAPIManager.swift; sourceTree = "<group>"; };
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationViewController.swift; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 			children = (
 				4D7932A21FD67FF00081BBE2 /* AliPay */,
 				4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */,
+				4D80C3F31FE454B2000D3B01 /* WalletManager+WeChat.swift */,
 				4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */,
 				4D79327D1FD676D90081BBE2 /* WalletManager.swift */,
 			);
@@ -782,6 +787,7 @@
 				66CC1E361FBCC6D50080C80B /* AudioManager.swift */,
 				66CE22571FBE602200DCC274 /* FlickrImageManager.swift */,
 				4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */,
+				4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1163,6 +1169,7 @@
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
+				4D80C3F61FE45FD9000D3B01 /* WeChatAPIManager.swift in Sources */,
 				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */,
@@ -1184,6 +1191,7 @@
 				E5A2A7771FE2E44000A51BDC /* ThemTextView.swift in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
 				FF7ECEDE1FC9570900F76ED8 /* PersonalTable.swift in Sources */,
+				4D80C3F41FE454B2000D3B01 /* WalletManager+WeChat.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
 				E5A2A7961FE2E57100A51BDC /* HomeProfileInfo.swift in Sources */,
 				E5A2A77B1FE2E46500A51BDC /* APIServerChecker.swift in Sources */,
@@ -1424,7 +1432,7 @@
 					"\"WechatConnector\"",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=300 -Xfrontend -warn-long-expression-type-checking=300";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1533,7 +1541,7 @@
 					"\"WechatConnector\"",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -warn-long-function-bodies=300 -Xfrontend -warn-long-expression-type-checking=300";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carryontech.carryonex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
