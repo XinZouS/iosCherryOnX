@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "WechatIMG3737.jpeg",
+      "filename" : "arrow_down_gray.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "WechatIMG3737-2.jpeg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "WechatIMG3737-1.jpeg",
       "scale" : "3x"
     }
   ],
