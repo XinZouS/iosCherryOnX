@@ -174,6 +174,7 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
                 return true
             }
         }
+        
         let allowChar = CharacterSet(charactersIn: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
         return string.rangeOfCharacter(from: allowChar) != nil
     }
