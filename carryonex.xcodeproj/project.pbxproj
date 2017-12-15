@@ -39,6 +39,7 @@
 		4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */; };
 		4DC043DD1FB7933400F6C3F0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC043DC1FB7933400F6C3F0 /* Login.storyboard */; };
 		4DC23FA11FC66E69002181B5 /* RequestTransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC23FA01FC66E69002181B5 /* RequestTransactionButton.swift */; };
+		4DD6DE751FE3C295004FA0DA /* URL++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6DE741FE3C295004FA0DA /* URL++.swift */; };
 		4DE6BDDA1FBA7FB100900DF8 /* UserRecentInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDB6841FBA42FE00B3B968 /* UserRecentInfoController.swift */; };
 		4DE6BDDC1FBA929B00900DF8 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6BDDB1FBA929B00900DF8 /* OrderListViewController.swift */; };
 		4DE6BDDE1FBA951000900DF8 /* OrderListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6BDDD1FBA951000900DF8 /* OrderListHeaderCell.swift */; };
@@ -103,7 +104,7 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
-		E542F2741FB6053D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB011FCC6B5A00B87608 /* STBalance.swift */; };
 		E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */; };
 		E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB051FCC6B8C00B87608 /* STPayout.swift */; };
@@ -216,6 +217,7 @@
 		4DC043D81FB7700500F6C3F0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4DC043DC1FB7933400F6C3F0 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		4DC23FA01FC66E69002181B5 /* RequestTransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransactionButton.swift; sourceTree = "<group>"; };
+		4DD6DE741FE3C295004FA0DA /* URL++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL++.swift"; sourceTree = "<group>"; };
 		4DE6BDDB1FBA929B00900DF8 /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
 		4DE6BDDD1FBA951000900DF8 /* OrderListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListHeaderCell.swift; sourceTree = "<group>"; };
 		4DE6BDDF1FBA952000900DF8 /* OrderListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCell.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				E5A2A7A51FE2E5B200A51BDC /* UserDefaults++.swift */,
 				4D6571BB1FCFF4900075305F /* Type+Extension.swift */,
 				4D0472F31FD7B2D700A4EA6C /* DeeplinkNavigator.swift */,
+				4DD6DE741FE3C295004FA0DA /* URL++.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1056,7 +1059,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1160,7 +1163,7 @@
 				E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
-				E542F2741FB6053D0072BB31 /* BuildFile in Sources */,
+				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,
 				66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */,
@@ -1170,6 +1173,7 @@
 				E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */,
 				FF9108531FC238FA00558A2B /* TripController.swift in Sources */,
 				4DC043C31FB7642E00F6C3F0 /* NewHomePageController.swift in Sources */,
+				4DD6DE751FE3C295004FA0DA /* URL++.swift in Sources */,
 				66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */,
 				FF7ECEE21FC9583D00F76ED8 /* PersonalPageView.swift in Sources */,
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,

@@ -165,7 +165,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     /// WeChat API connection
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        if url.host == "safepay" {
+        if url.scheme == "carryonex" {
+            DeeplinkNavigator.handleDeeplink(url)
+            
+        } else if url.host == "safepay" {
             AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
                 if let result = result {
                     WalletManager.shared.aliPayProcessOrderCallbackHandler(result: result)

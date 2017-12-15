@@ -11,6 +11,8 @@ import BPCircleActivityIndicator
 
 class ItemListYouxiangInputController: UIViewController {
     
+    var tripCode: String?
+    
     @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
     
@@ -42,6 +44,10 @@ class ItemListYouxiangInputController: UIViewController {
         setupTextFields()
         setupActivityIndicator()
         youxiangcodeTextField.keyboardType = .emailAddress
+        
+        if let tripCode = tripCode {
+            youxiangcodeTextField.text = tripCode
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
