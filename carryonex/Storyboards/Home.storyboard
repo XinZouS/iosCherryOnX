@@ -97,7 +97,6 @@
                                                 </variation>
                                                 <connections>
                                                     <action selector="senderButtonTapped:" destination="V1Q-cB-PhT" eventType="touchUpInside" id="K0D-6u-bAy"/>
-                                                    <segue destination="4oN-xC-jo2" kind="show" id="sdV-U2-oMN"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="早上好" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjM-F8-bvr">
@@ -312,7 +311,6 @@
                         <outlet property="senderButton" destination="P6J-p5-57s" id="Zng-1v-hek"/>
                         <outlet property="shiperButton" destination="zzJ-f5-BBS" id="mb3-4H-XsF"/>
                         <outlet property="userProfileImageBtn" destination="1Jk-1D-Ewz" id="rdY-zs-MV5"/>
-                        <segue destination="tne-a3-sE6" kind="show" identifier="carrierSegue" id="66u-bD-f5w"/>
                         <segue destination="r9p-vd-rdi" kind="show" identifier="OrdersRequestDetailSegue" id="9HR-f4-sF7"/>
                     </connections>
                 </viewController>

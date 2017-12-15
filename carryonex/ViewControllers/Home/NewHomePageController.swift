@@ -93,24 +93,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             }
         }
         
-        if (segue.identifier == "sender"){
-            if let destVC = segue.destination as? TripController {
-                tripController = destVC
-            }
-        }
-        
-        if (segue.identifier == ordersRequestDetailSegue) {
-            if let viewController = segue.destination as? OrdersRequestDetailViewController {
-                if let requestInfo = sender as? [String: Any] {
-                    guard let request = requestInfo["request"] as? Request, let category = requestInfo["category"] as? TripCategory else { return }
-                    viewController.request = request
-                    viewController.category = category
-                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
-                        viewController.trip = trip
-                    }
-                }
-            }
-        }
     }
     
     
@@ -339,16 +321,43 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
-    }
-    
-    @IBAction func shiperButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "carrierSegue", sender: self)
-    }
-    
-    @IBAction func senderButtonTapped(_ sender: Any) {
         
     }
     
+    @IBAction func shiperButtonTapped(_ sender: Any) {
+        //performSegue(withIdentifier: "carrierSegue", sender: self)
+        handleNavigation(segue: .addTrip, sender: nil)
+    }
+    
+    @IBAction func senderButtonTapped(_ sender: Any) {
+        handleNavigation(segue: .addRequest, sender: nil)
+    }
+    
+    
+}
+
+extension NewHomePageController: MainNavigationProtocol {
+    
+    func handleNavigation(segue: MainNavigationSegue, sender: Any?) {
+        
+        //var sender: Any? = nil
+        AppDelegate.shared().handleMainNavigation(navigationSegue: segue, sender: sender)
+        
+        /*
+        if (segue.identifier == ordersRequestDetailSegue) {
+            if let viewController = segue.destination as? OrdersRequestDetailViewController {
+                if let requestInfo = sender as? [String: Any] {
+                    guard let request = requestInfo["request"] as? Request, let category = requestInfo["category"] as? TripCategory else { return }
+                    viewController.request = request
+                    viewController.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                        viewController.trip = trip
+                    }
+                }
+            }
+        }
+         */
+    }
     
 }
 
@@ -356,10 +365,11 @@ extension NewHomePageController: UserCardDelegate {
     
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
         // show navigation bar for other pages;
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         let request: [String: Any] = ["request": request, "category": category]
-        performSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
+        handleNavigation(segue: .orderList, sender: request)
+        //erformSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
     }
 }
 

@@ -20,8 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static var appToken : String? // singleton for app to login server
     static var timestamp: String?
-    var mainNavigationController: UINavigationController?
-    var mainTabViewController: MainTabBarController?
+    var mainNavigationController: UINavigationController!
+    var mainTabViewController: MainTabBarController!
+    
+    static public func shared() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
          
@@ -42,10 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
 
         //setup Zendesk
-        ZDKConfig.instance()
-            .initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
-                        zendeskUrl: "https://carryonex.zendesk.com",
-                        clientId: "mobile_sdk_client_fe7793872b8aa3992ec1")
+        ZDKConfig.instance().initialize(withAppId: "9c9a18f374b6017ce85429d7576ebf68c84b42ad8399da76",
+                                        zendeskUrl: "https://carryonex.zendesk.com",
+                                        clientId: "mobile_sdk_client_fe7793872b8aa3992ec1")
         ZDKConfig.instance().userIdentity = ZDKAnonymousIdentity()
         
         //setup Flickr SDK
@@ -204,8 +207,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    static public func shared() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
+    //MARK: Global Navigation
+    
+    public func handleMainNavigation(navigationSegue: MainNavigationSegue, sender: Any?) {
+        mainTabViewController.handleMainNavigationSegue(segue: navigationSegue, sender: sender)
     }
 }
 

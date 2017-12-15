@@ -16,6 +16,17 @@ enum TabViewIndex: Int {
     case settings
 }
 
+enum MainNavigationSegue: String {
+    case addTrip = "AddTripSegue"
+    case addRequest = "AddRequestSegue"
+    case orderList = "OrderList"
+    case requestDetail = "RequestDetail"
+}
+
+protocol MainNavigationProtocol {
+    func handleNavigation(segue: MainNavigationSegue, sender: Any?)
+}
+
 class MainTabBarController: UITabBarController {
     
     var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
@@ -52,11 +63,35 @@ class MainTabBarController: UITabBarController {
         loadingDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let segueId = segue.identifier, let navigationSegue = MainNavigationSegue(rawValue: segueId) {
+            switch navigationSegue {
+            case .addTrip:
+                print("Add Trip")
+            case .addRequest:
+                print("Add Request")
+            case .requestDetail:
+                print("Request Detail")
+            case .orderList:
+                print("Order list")
+            }
+        }
+    }
+    
     
     //MARK: - Helpers
     
-    func selectTabIndex(index: TabViewIndex) {
+    public func selectTabIndex(index: TabViewIndex) {
         self.selectedIndex = index.rawValue
+    }
+    
+    public func handleMainNavigationSegue(segue: MainNavigationSegue, sender: Any?) {
+        self.performSegue(withIdentifier: segue.rawValue, sender: sender)
     }
     
     private func setupActivityIndicator(){
@@ -68,7 +103,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
-            showLogin(animated)
+            //showLogin(animated)
         }
     }
     
