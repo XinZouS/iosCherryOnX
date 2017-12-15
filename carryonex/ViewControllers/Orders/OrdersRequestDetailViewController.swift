@@ -513,17 +513,49 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         }
         
         //Stop user for leaving comment if it's been commented
-        if request.isCommented == 1 && finishButton.transaction == .allowRating {
-            finishButton.isUserInteractionEnabled = false
-            finishButton.alpha = 0.3
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else {
+            return
+        }
+        
+        if finishButton.transaction == .allowRating {
+            if let commentStatus = CommentStatus(rawValue: request.commentStatus)  {
+                switch commentStatus {
+                case .NoComment:
+                    enableFinishButton()
+                case .CarrierCommented:
+                    if self.trip.carrierId == userId {
+                        disableFinishButton()
+                    } else {
+                        enableFinishButton()
+                    }
+                case .SenderCommented:
+                    if request.ownerId == userId {
+                        disableFinishButton()
+                    } else {
+                        enableFinishButton()
+                    }
+                case .Completed:
+                    disableFinishButton()
+                }
+            }
+            
         } else {
-            finishButton.isUserInteractionEnabled = true
-            finishButton.alpha = 1
+            enableFinishButton()
         }
         
         //To prevent grid lock because of loading issue, re-enable button again upon
         //setting transaction
         isLoadingStatus = false
+    }
+    
+    func enableFinishButton() {
+        finishButton.isUserInteractionEnabled = true
+        finishButton.alpha = 1
+    }
+    
+    func disableFinishButton() {
+        finishButton.isUserInteractionEnabled = false
+        finishButton.alpha = 0.3
     }
     
     func updateRequestInfoAppearance(request: Request) {

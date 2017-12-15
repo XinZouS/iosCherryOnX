@@ -8,6 +8,13 @@
 
 import Unbox
 
+enum CommentStatus: Int {
+    case NoComment = 0
+    case CarrierCommented = 1
+    case SenderCommented = 2
+    case Completed = 3
+}
+
 class Request: Unboxable, Identifiable {
     var id: Int = 0
     var tripId: Int = -1
@@ -18,7 +25,7 @@ class Request: Unboxable, Identifiable {
     var startAddress: Address?
     var endAddress: Address?
     var statusId: Int?
-    var isCommented: Int
+    var commentStatus: Int
     
     var name: String?
     var timestamp: Int?
@@ -53,7 +60,7 @@ class Request: Unboxable, Identifiable {
         self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
         self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
-        self.isCommented = try unboxer.unbox(key: RequestKeyInDB.isCommented.rawValue)
+        self.commentStatus = try unboxer.unbox(key: RequestKeyInDB.commentStatus.rawValue)
         
         self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
@@ -125,7 +132,7 @@ enum RequestKeyInDB : String {
     case priceStd = "price_std"
     case currency = "currency"
     case createdTimestamp = "created_timestamp"
-    case isCommented = "is_commented"
+    case commentStatus = "is_commented"
     
     //case items = [String]? TODO = do we still need this?? BUG: Expected element type
     case ownerRating = "owner_rating"
