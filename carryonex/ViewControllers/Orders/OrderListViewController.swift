@@ -259,7 +259,7 @@ class OrderListViewController: UIViewController {
         animateListMoveRight()
     }
     
-    private func animateListMoveRight(){
+    func animateListMoveRight(){
         if tableViewLeftConstraint.constant == 0 {
             tableViewLeftConstraint.constant = -(self.view.bounds.width)
             sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
@@ -270,7 +270,7 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    private func animateListMoveLeft(){
+    func animateListMoveLeft(){
         if tableViewLeftConstraint.constant < 0 {
             tableViewLeftConstraint.constant = 0
             sliderBarCenterConstraint.constant = 0
