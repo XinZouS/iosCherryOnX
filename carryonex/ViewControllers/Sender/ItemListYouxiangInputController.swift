@@ -13,6 +13,7 @@ class ItemListYouxiangInputController: UIViewController {
     
     var tripCode: String?
     
+    @IBOutlet weak var youxiangcodeLabel: UILabel!
     @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
     
@@ -72,6 +73,7 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupTextFields(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         textFieldAddToolBar(youxiangcodeTextField)
         youxiangcodeTextField.autocapitalizationType = .allCharacters
         youxiangcodeTextField.clearButtonMode = .never
@@ -161,10 +163,13 @@ class ItemListYouxiangInputController: UIViewController {
 extension ItemListYouxiangInputController: UITextFieldDelegate {
     
     func textFieldDidChanged(){
-        guard let code = youxiangcodeTextField.text, code.count == 6 else {
+        guard let code = youxiangcodeTextField.text else {
             return
         }
-        fetchTripByYouxiangcode(code)
+        youxiangcodeLabel.text = code.uppercased()
+        if code.count == 6 {
+            fetchTripByYouxiangcode(code)
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -181,8 +186,13 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textFieldDidChanged()
+        guard let code = youxiangcodeTextField.text else { return false }
+        fetchTripByYouxiangcode(code)
         return false
+    }
+    
+    public func keyboardDidShow(){
+        youxiangcodeTextField.isSecureTextEntry = true
     }
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {
