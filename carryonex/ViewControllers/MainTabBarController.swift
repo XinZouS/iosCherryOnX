@@ -9,11 +9,27 @@
 import UIKit
 import Reachability
 import BPCircleActivityIndicator
+import ZendeskSDK
 
 enum TabViewIndex: Int {
     case home = 0
     case order
     case settings
+}
+
+enum MainNavigationSegue: String {
+    case addTrip = "AddTripSegue"
+    case addRequest = "AddRequestSegue"
+    case requestDetail = "RequestDetailSegue"
+    case orderTripInfo = "OrderTripInfoSegue"
+    case historyComment = "HistoryCommentSegue"
+    case creditView = "CreditViewSegue"
+    case settings = "SettingsSegue"
+    case helpCenter = "HelpCenterSegue"
+}
+
+protocol MainNavigationProtocol {
+    func handleNavigation(segue: MainNavigationSegue, sender: Any?)
 }
 
 class MainTabBarController: UITabBarController {
@@ -52,11 +68,70 @@ class MainTabBarController: UITabBarController {
         loadingDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueId = segue.identifier, let navigationSegue = MainNavigationSegue(rawValue: segueId) else { return }
+        
+        switch navigationSegue {
+        case .addTrip:
+            print("Add Trip")
+            
+        case .addRequest:
+            print("Add Request")
+            
+        case .requestDetail:
+            print("Open user detail")
+            if let viewController = segue.destination as? OrdersRequestDetailViewController {
+                if let request = sender as? Request, let category = request.category() {
+                    viewController.request = request
+                    viewController.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                        viewController.trip = trip
+                    }
+                }
+            }
+        case .orderTripInfo:
+            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
+                tripInfoViewController.trip = trip
+                tripInfoViewController.category = .carrier
+            }
+            print("Open trip list")
+        case .creditView:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("Credit View")
+        case .historyComment:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("History Comment")
+        case .settings:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("Settings")
+        default:
+            print("Others")
+        }
+    }
     
     //MARK: - Helpers
     
-    func selectTabIndex(index: TabViewIndex) {
+    public func selectTabIndex(index: TabViewIndex) {
         self.selectedIndex = index.rawValue
+    }
+    
+    public func handleMainNavigationSegue(segue: MainNavigationSegue, sender: Any?) {
+        
+        //Special Handle for Zen Help Center
+        if segue == .helpCenter {
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+            return
+        }
+        
+        self.performSegue(withIdentifier: segue.rawValue, sender: sender)
+        
     }
     
     private func setupActivityIndicator(){
@@ -68,7 +143,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
-            showLogin(animated)
+            //showLogin(animated)   TODO: PUT LOGIN BACK!!!!!
         }
     }
     

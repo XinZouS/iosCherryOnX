@@ -168,7 +168,7 @@
 		FF7ECED81FC9568200F76ED8 /* ChangePersonalProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7ECED71FC9568100F76ED8 /* ChangePersonalProfile.storyboard */; };
 		FF7ECEDE1FC9570900F76ED8 /* PersonalTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */; };
 		FF7ECEE01FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */; };
-		FF7ECEE21FC9583D00F76ED8 /* PersonalPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEE11FC9583C00F76ED8 /* PersonalPageView.swift */; };
+		FF7ECEE21FC9583D00F76ED8 /* PersonalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */; };
 		FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF855FCC1FC7778600210F1C /* changePassword.storyboard */; };
 		FF9108531FC238FA00558A2B /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9108521FC238FA00558A2B /* TripController.swift */; };
 		FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAA73151FD0A34200516161 /* STCustomers.swift */; };
@@ -365,7 +365,7 @@
 		FF7ECED71FC9568100F76ED8 /* ChangePersonalProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChangePersonalProfile.storyboard; sourceTree = "<group>"; };
 		FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTable.swift; sourceTree = "<group>"; };
 		FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoEditingViewController.swift; sourceTree = "<group>"; };
-		FF7ECEE11FC9583C00F76ED8 /* PersonalPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPageView.swift; sourceTree = "<group>"; };
+		FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
 		FF855FCC1FC7778600210F1C /* changePassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = changePassword.storyboard; sourceTree = "<group>"; };
 		FF9108521FC238FA00558A2B /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FFAA73151FD0A34200516161 /* STCustomers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCustomers.swift; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 			children = (
 				E5A2A7C01FE2E68200A51BDC /* PhotoIDController++.swift */,
 				E5A2A7C11FE2E68200A51BDC /* PhotoIDController.swift */,
-				FF7ECEE11FC9583C00F76ED8 /* PersonalPageView.swift */,
+				FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */,
 				FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */,
 				FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */,
 				665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */,
@@ -1181,7 +1181,7 @@
 				4DC043C31FB7642E00F6C3F0 /* NewHomePageController.swift in Sources */,
 				4DD6DE751FE3C295004FA0DA /* URL++.swift in Sources */,
 				66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */,
-				FF7ECEE21FC9583D00F76ED8 /* PersonalPageView.swift in Sources */,
+				FF7ECEE21FC9583D00F76ED8 /* PersonalPageViewController.swift in Sources */,
 				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
 				E567BB121FCC6DA600B87608 /* STSource.swift in Sources */,
 				E5A2A7941FE2E57100A51BDC /* Comment.swift in Sources */,
@@ -1339,13 +1339,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 42AU2524CN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1448,13 +1448,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 42AU2524CN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

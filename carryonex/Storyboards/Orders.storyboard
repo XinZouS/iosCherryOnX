@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOn-km-Alh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jOn-km-Alh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -1288,29 +1288,11 @@
                         <outlet property="tableViewLeftConstraint" destination="8sQ-5z-FnD" id="gVd-rE-f3t"/>
                         <outlet property="tableViewSender" destination="XMK-Xr-LQ1" id="noQ-qf-x7Z"/>
                         <outlet property="tableViewShiper" destination="E7e-sp-soC" id="mEf-pV-qzt"/>
-                        <segue destination="FVD-Oq-j2e" kind="show" identifier="gotoOrdersYouxiangInfo" id="BgW-qT-SJz"/>
-                        <segue destination="Bup-Hf-zBA" kind="show" identifier="gotoOrdersRequestDetail" id="p3E-TJ-8Ys"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIz-pA-Udb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="511.59420289855075" y="169.56521739130437"/>
-        </scene>
-        <!--OrdersYouxiangInfo-->
-        <scene sceneID="esx-RL-XzS">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OrdersYouxiangInfo" id="FVD-Oq-j2e" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uPn-by-POj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1181" y="107"/>
-        </scene>
-        <!--OrdersRequestDetail-->
-        <scene sceneID="iH1-Tb-g1Z">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OrdersRequestDetail" id="Bup-Hf-zBA" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VjM-eF-HtH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1321" y="169"/>
         </scene>
     </scenes>
     <resources>

@@ -22,7 +22,6 @@ class PersonalPageViewController: UIViewController{
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
     
-    var personInfoEditCtl: PersonalInfoEditingViewController!
     var loginViewController = LoginViewController()
     
     @IBOutlet weak var tableView: UITableView!
@@ -64,14 +63,6 @@ class PersonalPageViewController: UIViewController{
         setupNavigationBar()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueIdEditProfile {
-            if let destVC = segue.destination as? PersonalInfoEditingViewController {
-                personInfoEditCtl = destVC
-            }
-        }
-    }
-    
     private func setupNavigationBar(){
         UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
@@ -109,18 +100,14 @@ class PersonalPageViewController: UIViewController{
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        //performSegue(withIdentifier: segueIdEditProfile, sender: self) default push, change to :
-        presentEditProfileVC(bySubtype: kCATransitionFromTop)
-    }
-    @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
-        // TODO: navigate to see comments page;
-    }
-    
-    private func presentEditProfileVC(bySubtype: String){
         let sb = UIStoryboard(name: "ChangePersonalProfile", bundle: nil)
         if let vc = sb.instantiateViewController(withIdentifier: personalInfoVCId) as? PersonalInfoEditingViewController {
             self.present(vc, animated: true, completion: nil)
-        }        
+        }
+    }
+    
+    @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
+        AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
     }
     
 }
@@ -130,14 +117,13 @@ extension PersonalPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            performSegue(withIdentifier: segueIdWalletPage, sender: self)
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .creditView, sender: nil)
             
         case 1:
-            let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
-            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .helpCenter, sender: nil)
 
         case 2:
-            performSegue(withIdentifier: segueIdSettingPage, sender: self)
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .settings, sender: nil)
             
         default:
             print("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")

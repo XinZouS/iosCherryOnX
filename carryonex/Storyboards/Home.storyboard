@@ -97,7 +97,6 @@
                                                 </variation>
                                                 <connections>
                                                     <action selector="senderButtonTapped:" destination="V1Q-cB-PhT" eventType="touchUpInside" id="K0D-6u-bAy"/>
-                                                    <segue destination="4oN-xC-jo2" kind="show" id="sdV-U2-oMN"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="早上好" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjM-F8-bvr">
@@ -312,29 +311,11 @@
                         <outlet property="senderButton" destination="P6J-p5-57s" id="Zng-1v-hek"/>
                         <outlet property="shiperButton" destination="zzJ-f5-BBS" id="mb3-4H-XsF"/>
                         <outlet property="userProfileImageBtn" destination="1Jk-1D-Ewz" id="rdY-zs-MV5"/>
-                        <segue destination="tne-a3-sE6" kind="show" identifier="carrierSegue" id="66u-bD-f5w"/>
-                        <segue destination="r9p-vd-rdi" kind="show" identifier="OrdersRequestDetailSegue" id="9HR-f4-sF7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvg-8M-6ND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="500.625" y="166.90140845070422"/>
-        </scene>
-        <!--Carrier-->
-        <scene sceneID="1SL-zD-qF2">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Carrier" id="tne-a3-sE6" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nc9-kf-Wa0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1132" y="-152"/>
-        </scene>
-        <!--Sender-->
-        <scene sceneID="b7g-S6-k2M">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Sender" id="4oN-xC-jo2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QAn-iM-ABC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1146" y="-61"/>
         </scene>
         <!--User Recent Info Controller-->
         <scene sceneID="Zc5-fk-ude">
@@ -650,14 +631,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HZ-Jy-qSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1260.9375" y="402.99295774647885"/>
-        </scene>
-        <!--OrdersRequestDetail-->
-        <scene sceneID="ccN-TO-qMq">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OrdersRequestDetail" id="r9p-vd-rdi" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D0F-cy-6GX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1267" y="706"/>
         </scene>
     </scenes>
     <resources>
