@@ -19,7 +19,12 @@ enum TabViewIndex: Int {
 enum MainNavigationSegue: String {
     case addTrip = "AddTripSegue"
     case addRequest = "AddRequestSegue"
-    case requestDetail = "RequestDetail"
+    case requestDetail = "RequestDetailSegue"
+    case orderTripInfo = "OrderTripInfoSegue"
+    case historyComment = "HistoryCommentSegue"
+    case changeProfile = "ChangeProfileSegue"
+    case creditView = "CreditViewSegue"
+    case settings = "SettingsSegue"
 }
 
 protocol MainNavigationProtocol {
@@ -88,9 +93,18 @@ class MainTabBarController: UITabBarController {
                     }
                 }
             }
+        case .orderTripInfo:
+            print("Open trip list")
+        case .changeProfile:
+            print("Change profile")
+        case .creditView:
+            print("Credit View")
+        case .historyComment:
+            print("History Comment")
+        case .settings:
+            print("Settings")
         }
     }
-    
     
     //MARK: - Helpers
     
