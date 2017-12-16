@@ -1339,7 +1339,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1856822E24F8F9F9D9D689E7 /* Pods-carryonex.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;
@@ -1448,7 +1448,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = carryonex/carryonex.entitlements;

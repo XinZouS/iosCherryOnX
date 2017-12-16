@@ -106,6 +106,13 @@ class Request: Unboxable, Identifiable {
         }
         return .invalid
     }
+    
+    func category() -> TripCategory? {
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else {
+            return nil
+        }
+        return (userId == ownerId) ? .sender : .carrier
+    }
 }
 
 enum RequestKeyInDB : String {

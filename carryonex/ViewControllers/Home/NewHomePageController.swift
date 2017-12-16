@@ -339,24 +339,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
 extension NewHomePageController: MainNavigationProtocol {
     
     func handleNavigation(segue: MainNavigationSegue, sender: Any?) {
-        
-        //var sender: Any? = nil
         AppDelegate.shared().handleMainNavigation(navigationSegue: segue, sender: sender)
-        
-        /*
-        if (segue.identifier == ordersRequestDetailSegue) {
-            if let viewController = segue.destination as? OrdersRequestDetailViewController {
-                if let requestInfo = sender as? [String: Any] {
-                    guard let request = requestInfo["request"] as? Request, let category = requestInfo["category"] as? TripCategory else { return }
-                    viewController.request = request
-                    viewController.category = category
-                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
-                        viewController.trip = trip
-                    }
-                }
-            }
-        }
-         */
     }
     
 }
@@ -364,12 +347,7 @@ extension NewHomePageController: MainNavigationProtocol {
 extension NewHomePageController: UserCardDelegate {
     
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
-        // show navigation bar for other pages;
-        //self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        let request: [String: Any] = ["request": request, "category": category]
-        handleNavigation(segue: .orderList, sender: request)
-        //erformSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
+        handleNavigation(segue: .requestDetail, sender: request)
     }
 }
 

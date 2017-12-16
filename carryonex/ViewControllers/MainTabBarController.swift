@@ -19,7 +19,6 @@ enum TabViewIndex: Int {
 enum MainNavigationSegue: String {
     case addTrip = "AddTripSegue"
     case addRequest = "AddRequestSegue"
-    case orderList = "OrderList"
     case requestDetail = "RequestDetail"
 }
 
@@ -69,16 +68,25 @@ class MainTabBarController: UITabBarController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let segueId = segue.identifier, let navigationSegue = MainNavigationSegue(rawValue: segueId) {
-            switch navigationSegue {
-            case .addTrip:
-                print("Add Trip")
-            case .addRequest:
-                print("Add Request")
-            case .requestDetail:
-                print("Request Detail")
-            case .orderList:
-                print("Order list")
+        guard let segueId = segue.identifier, let navigationSegue = MainNavigationSegue(rawValue: segueId) else { return }
+        
+        switch navigationSegue {
+        case .addTrip:
+            print("Add Trip")
+            
+        case .addRequest:
+            print("Add Request")
+            
+        case .requestDetail:
+            print("Open user detail")
+            if let viewController = segue.destination as? OrdersRequestDetailViewController {
+                if let request = sender as? Request, let category = request.category() {
+                    viewController.request = request
+                    viewController.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                        viewController.trip = trip
+                    }
+                }
             }
         }
     }
