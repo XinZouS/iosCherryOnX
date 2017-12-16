@@ -92,13 +92,13 @@ class OrderCommentRateController: UIViewController {
                 }
                 print("Comment success!")
                 
-                self.displayAlert(title: "提交成功", message: "谢谢你的评价", action: "好", completion: { [weak self] _ in
+                self.displayAlert(title: "评价成功", message: "对方已收到您的评价", action: L("action.ok"), completion: { [weak self] _ in
                     self?.navigationController?.popViewController(animated: true)
                 })
             }
             
         } else {
-            displayAlert(title: "评价不能为空", message: "请输入您对该用户的客观评价。", action: "好", completion: { [weak self] _ in
+            displayAlert(title: "评价不能为空", message: "请输入您对该用户的客观评价", action: L("action.ok"), completion: { [weak self] _ in
                 self?.commentTextField.becomeFirstResponder()
             })
         }

@@ -192,7 +192,7 @@ class MainTabBarController: UITabBarController {
         
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
-            self?.displayAlert(title: "账号异常", message: "登入账号出现异常，请重新登入。", action: "好") {
+            self?.displayAlert(title: "登录异常", message: "登录设备曾经变更，请重新登录", action: "重新登录") {
                 ProfileManager.shared.logoutUser()
             }
         }
@@ -200,8 +200,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: nil, queue: nil) { [weak self] notification in
             guard let reachabilityObject = notification.object as? Reachability, let strongSelf = self else { return }
             if !reachabilityObject.isReachable {
-                let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
-                strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
+                strongSelf.displayAlert(title: "网络连接出错", message: "由于网络连接有问题，您的请求无法发送，请重试", action: "重试")
             }
         }
     }

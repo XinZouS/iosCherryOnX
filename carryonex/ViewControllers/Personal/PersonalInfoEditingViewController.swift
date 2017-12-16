@@ -69,7 +69,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
+                    self?.displayAlert(title: "微信资料获取失败", message: "请重新跳转微信", action: L("action.ok"))
                     return
                 }
                 

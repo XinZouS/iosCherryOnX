@@ -225,28 +225,24 @@ extension RequestController: UITextFieldDelegate {
         
         print("TODO: upload Request() to server")
         
-        let t = "‼️您还没填完信息"
-        let ok = "朕知道了"
         if !is02DestinationSet {
-            displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
+            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
             return
         }
         if imageUploadingSet.count == 0 {
-            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
             return
         }
     }
     
     @objc fileprivate func handleSubmissionButton() {
         
-        let t = "‼️您还没填完信息"
-        let ok = "朕知道了"
         if is02DestinationSet == false {
-            displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
+            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
             return
         }
         if imageUploadingSet.count == 0 {
-            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
             return
         }
         

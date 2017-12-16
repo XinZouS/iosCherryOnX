@@ -138,7 +138,7 @@ class OrdersRequestDetailViewController: UIViewController {
         let tripId = trip.id
         let requestId = request.id
         let requestCategory = category
-        displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
+        displayAlertOkCancel(title: "确认提交", message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
                 self?.isLoadingStatus = true
                 ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
@@ -363,7 +363,7 @@ class OrdersRequestDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
             if let status = notification.object as? AliPayResultStatus {
                 if status == .success || status == .processing {
-                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: "好", completion: { [weak self] _ in
+                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: L("action.ok"), completion: { [weak self] _ in
                         guard let strongSelf = self else { return }
                         
                         self?.backgroundViewHide()
@@ -728,7 +728,7 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("get errrorroro HomePageController++ locationManager didFailWithError: \(error)")
-        displayAlert(title: "‼️无法获取GPS", message: "定位失败，请打开您的GPS。错误信息：\(error)", action: "朕知道了")
+        displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
     }
     
     func updateSearchResults(for searchController: UISearchController) {

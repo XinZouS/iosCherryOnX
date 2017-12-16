@@ -143,7 +143,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     func prepareVerifyPhoneNum() {
         guard let newPhone = phoneNumTextField.text else {
             let m = "您还没填写电话号码呢！"
-            displayGlobalAlert(title: "❓缺少信息", message: m, action: "朕知道了", completion: nil)
+            displayGlobalAlert(title: "❓缺少信息", message: m, action: L("action.ok"), completion: nil)
             return
         }
         
@@ -199,7 +199,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             if let err = err {
                 print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
                 let msg = "未能发送验证码，请确认手机号与地区码输入正确，换个姿势稍后重试。错误信息：\(String(describing: err))"
-                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: "OK", completion: nil)
+                self.displayGlobalAlert(title: "获取验证码失败", message: msg, action: L("action.ok"), completion: nil)
                 return
             }
             self.goToVerificationPage()
