@@ -12,7 +12,7 @@ import TGRefreshSwift
 
 class OrderListViewController: UIViewController {
     
-    let tripInfoSegue = "gotoOrdersYouxiangInfo"
+//    let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
     let shiperCellId = "OrderListCardShiperCell"
     let senderCellId = "OrderListCardSenderCell"
@@ -126,23 +126,6 @@ class OrderListViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         invalidateImageTimer()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == tripInfoSegue {
-            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
-                tripInfoViewController.trip = trip
-                tripInfoViewController.category = .carrier
-            }
-            
-        } else if segue.identifier == requestDetailSegue {
-            if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
-                requestDetailViewController.trip = tripRequest.0
-                requestDetailViewController.request = tripRequest.1
-                requestDetailViewController.category = .sender
-            }
-        }
     }
     
     //MARK: - Helper Methods
@@ -362,8 +345,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == TripCategory.sender.rawValue {
             let request = senderRequests[indexPath.row]
-            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
-            performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
+            //let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
+            //performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
         }
     }
 }
@@ -372,7 +356,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath){
         let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
-        performSegue(withIdentifier: tripInfoSegue, sender: trip)
+        AppDelegate.shared().handleMainNavigation(navigationSegue: .orderTripInfo, sender: trip)
     }
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {

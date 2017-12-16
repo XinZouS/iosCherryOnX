@@ -9,6 +9,7 @@
 import UIKit
 import Reachability
 import BPCircleActivityIndicator
+import ZendeskSDK
 
 enum TabViewIndex: Int {
     case home = 0
@@ -22,9 +23,9 @@ enum MainNavigationSegue: String {
     case requestDetail = "RequestDetailSegue"
     case orderTripInfo = "OrderTripInfoSegue"
     case historyComment = "HistoryCommentSegue"
-    case changeProfile = "ChangeProfileSegue"
     case creditView = "CreditViewSegue"
     case settings = "SettingsSegue"
+    case helpCenter = "HelpCenterSegue"
 }
 
 protocol MainNavigationProtocol {
@@ -94,15 +95,22 @@ class MainTabBarController: UITabBarController {
                 }
             }
         case .orderTripInfo:
+            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
+                tripInfoViewController.trip = trip
+                tripInfoViewController.category = .carrier
+            }
             print("Open trip list")
-        case .changeProfile:
-            print("Change profile")
         case .creditView:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("Credit View")
         case .historyComment:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("History Comment")
         case .settings:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("Settings")
+        default:
+            print("Others")
         }
     }
     
@@ -113,7 +121,17 @@ class MainTabBarController: UITabBarController {
     }
     
     public func handleMainNavigationSegue(segue: MainNavigationSegue, sender: Any?) {
+        
+        //Special Handle for Zen Help Center
+        if segue == .helpCenter {
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+            return
+        }
+        
         self.performSegue(withIdentifier: segue.rawValue, sender: sender)
+        
     }
     
     private func setupActivityIndicator(){
@@ -125,7 +143,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
-            //showLogin(animated)
+            //showLogin(animated)   TODO: PUT LOGIN BACK!!!!!
         }
     }
     

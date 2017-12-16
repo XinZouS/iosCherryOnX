@@ -93,7 +93,6 @@
                                         </state>
                                         <connections>
                                             <action selector="seeAllCommentsButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="euQ-Cm-li8"/>
-                                            <segue destination="w24-tR-KPy" kind="show" id="Dll-w8-Pk1"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -134,7 +133,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_gray" translatesAutoresizingMaskIntoConstraints="NO" id="zsn-vI-gqX">
-                                                    <rect key="frame" x="545" y="15" width="30" height="30"/>
+                                                    <rect key="frame" x="320" y="15" width="30" height="30"/>
                                                     <color key="tintColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="fOT-4T-952"/>
@@ -142,7 +141,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KW-gB-Yzh">
-                                                    <rect key="frame" x="20" y="20" width="505" height="20"/>
+                                                    <rect key="frame" x="20" y="20" width="280" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="wm6-w4-5RC"/>
                                                     </constraints>
@@ -151,7 +150,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="子标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jH-nP-MXD">
-                                                    <rect key="frame" x="20" y="40" width="505" height="20"/>
+                                                    <rect key="frame" x="20" y="40" width="280" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="kzc-bd-cty"/>
                                                     </constraints>
@@ -234,46 +233,11 @@
                         <outlet property="userProfileImage" destination="Muc-lW-r8p" id="rGa-Za-VMm"/>
                         <outlet property="userProfileNameLabel" destination="ueD-kw-dQa" id="a3M-bU-xIM"/>
                         <outlet property="viewAllCommentsButton" destination="5jW-M4-Hh1" id="FrX-tM-qHJ"/>
-                        <segue destination="8e3-v7-MZQ" kind="show" identifier="pushSettingPageSegue" id="816-em-gYx"/>
-                        <segue destination="d0Q-Mq-eMb" kind="show" identifier="editProfile" id="gQ6-hm-xS3"/>
-                        <segue destination="RNw-WB-w1Z" kind="show" identifier="creditViewController" id="VYo-pe-ZEt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IxM-00-QIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="64.799999999999997" y="91.304347826086968"/>
-        </scene>
-        <!--ChangePersonalProfile-->
-        <scene sceneID="94N-Pe-AfJ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ChangePersonalProfile" id="d0Q-Mq-eMb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tIb-y2-Jvh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1001" y="212"/>
-        </scene>
-        <!--HistoryComment-->
-        <scene sceneID="DS5-mn-Xdm">
-            <objects>
-                <viewControllerPlaceholder storyboardName="HistoryComment" id="w24-tR-KPy" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SEK-MT-VU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="801" y="-158"/>
-        </scene>
-        <!--CreditViewController-->
-        <scene sceneID="OZc-f3-yN6">
-            <objects>
-                <viewControllerPlaceholder storyboardName="CreditViewController" id="RNw-WB-w1Z" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ox4-Bf-2ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="918" y="11"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="gtZ-xg-STa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="8e3-v7-MZQ" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GEb-hl-sx3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="732" y="318"/>
         </scene>
     </scenes>
     <resources>
