@@ -185,20 +185,12 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     /// - MARK: upload all images to aws
     
     func submitButtonTapped(){
-        
-//        if nameTextField.text == nil || nameTextField.text == "" {
-//            displayAlert(title: "您还没写名字呢", message: "启禀皇上，请在姓名栏里输入您的昵称！", action: "朕知道了")
-//            return
-            //        }else // NOTE: temperary not using profile image;
-//        if !profileReady {
-//            displayAlert(title: "您还没有头像哦", message: "请拍摄正面清晰照作为您的真人头像以保障您的账户信息完整，谢谢！", action: "嗯，平身吧")
-//            return
-//        }else
     if idType == .passport && !passportReady {
             displayAlert(title: "您选好护照了吗？", message: "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！", action: "这就选")
             return
-        }else if idType == .idCard && (!idCardAReady || !idCardBReady) {
-            displayAlert(title: "身份证少了一面？", message: "别闹！都说了身份证要传两面才行，你故意的吗？", action: "是啊，来打我呀")
+        
+    } else if idType == .idCard && (!idCardAReady || !idCardBReady) {
+            displayAlert(title: "身份证少了一面？", message: "别闹！都说了身份证要传两面才行，你故意的吗？", action: L("action.ok"))
             return
         }
         
@@ -310,21 +302,17 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             self.dismiss(animated: false, completion: nil)
             //homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
         }else{
-            let msg = "已成功上传您的证件照片，我们将尽快审核，谢谢！若有问题我们将会短信通知您。现在继续发现旅程吧😊"
-            displayGlobalAlert(title: "✅上传成功", message: msg, action: "朕知道了", completion: {
-                self.navigationController?.popToRootViewController(animated: false)
+            displayGlobalAlert(title: "上传成功", message: "已成功上传您的证件照片", action: L("action.ok"), completion: { [weak self] in _
+                self?.navigationController?.popToRootViewController(animated: false)
             })
         }
     }
     
     private func displayAlertForUploadFailed(error: Error?){
-        //UIApplication.shared.endIgnoringInteractionEvents() error: .endIgnoringInteractionEvents() must be used from main thread only - Xin
-        
-        if let nav = self.navigationController {
-            nav.popViewController(animated: true)
-            let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(error.debugDescription)"
-            displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "换个姿势再来一次", completion: nil)
+        if let error = error {
+            debugPrint("Upload failed: \(error.localizedDescription)")
         }
+        displayGlobalAlert(title: "出错", message: "照片上传失败", action: "重新提交", completion: nil)
     }
     
     // MARK: - Image Saving and Loading to fileSystem

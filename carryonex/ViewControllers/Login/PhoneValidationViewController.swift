@@ -116,7 +116,7 @@ class PhoneValidationViewController: UIViewController {
             if err == nil {
                 self.verifySuccess()
             } else {
-                self.verifyFaildAlert(err?.localizedDescription)
+                self.verifyFaildAlert(err)
             }
         })
     }
@@ -136,7 +136,7 @@ class PhoneValidationViewController: UIViewController {
                     self.confirmPhoneInServer()
                 } else if let err = err {
                     print("failed in VerificationController++, verifySuccess(), msg = ", err)
-                    self.verifyFaildAlert(err.localizedDescription)
+                    self.verifyFaildAlert(err)
                 }
             })
         } else {
@@ -170,13 +170,13 @@ class PhoneValidationViewController: UIViewController {
     
     
     private func confirmPhoneInServer(){
-        ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, err) in
-            if let err = err {
-                print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(err.localizedDescription)")
+        ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, error) in
+            if let error = error {
+                print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(error.localizedDescription)")
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.verifyFaildAlert(err.localizedDescription)
+                self.verifyFaildAlert(error)
                 return
             }
             if success {
@@ -185,22 +185,17 @@ class PhoneValidationViewController: UIViewController {
         }
     }
 
-    private func verifyFaildAlert(_ msg: String?){
-        let errMsg = "您的短信验证码有误，请重新获取验证码"
-        print("VerificationController++: verifyFaild(): 验证失败，error: \(errMsg)")
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
-        AudioManager.shared.playSond(named: .failed)
-        displayGlobalAlert(title: "验证失败", message: errMsg, action: "重发验证码", completion: {
-            self.navigationController?.popViewController(animated: true)
-        })
+    private func verifyFaildAlert(_ error: Error?){
+        if let error = error {
+            print("VerificationController++: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
+            AudioManager.shared.playSond(named: .failed)
+            displayGlobalAlert(title: "验证失败", message: "错误信息 \(error.localizedDescription)", action: "重新发送验证码", completion: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            })
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 
 

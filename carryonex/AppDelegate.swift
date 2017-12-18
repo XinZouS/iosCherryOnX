@@ -173,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let mainViewController = self.mainTabViewController {
             if let page = userInfo["page"] as? String, let aps = userInfo["aps"] as? [String: Any], let title = aps["alert"] as? String {
                 let category: TripCategory = (page == "carrier") ? .sender : .carrier
-                mainViewController.displayGlobalAlert(title: "寄件状态更新", message: title, action: "好", completion: {
+                mainViewController.displayGlobalAlert(title: "寄件状态已更新", message: title, action: L("action.ok"), completion: {
                     TripOrderDataStore.shared.pull(category: category, completion: nil)
                 })
             }

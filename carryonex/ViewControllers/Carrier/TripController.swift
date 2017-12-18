@@ -66,7 +66,7 @@ class TripController: UIViewController{
         if let childVC = self.childViewControllers.first as? TripTableController {
             
             if childVC.pickUpDate < (Date().timeIntervalSince1970 - 86400) {    //86400 seconds/day
-                self.displayAlert(title: "出行日期有误", message: "出行日期不能早于今天，请重新输入", action: "好")
+                self.displayAlert(title: "出行日期有误", message: "出行日期不能为过去时间，请重新输入", action: L("action.ok"))
                 return
             }
             

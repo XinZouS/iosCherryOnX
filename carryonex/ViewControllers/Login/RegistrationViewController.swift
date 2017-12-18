@@ -94,13 +94,13 @@ class RegistrationViewController: UIViewController {
                                                         self.dismiss(animated: true, completion: nil)
                                                     })
                                                 } else {
-                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重发验证码", completion: { [weak self] _ in
+                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重新发送验证码", completion: { [weak self] _ in
                                                         self?.navigationController?.popToRootViewController(animated: true)
                                                     })
                                                 }
                                             }
                                         } else {
-                                            self.displayGlobalAlert(title: "注册失败", message: (err?.localizedDescription ?? "不能注册"), action: "好", completion: { [weak self] _ in
+                                            self.displayGlobalAlert(title: "注册失败", message:  "错误信息: \(err?.localizedDescription ?? "不能注册")", action: L("action-ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }

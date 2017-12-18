@@ -109,7 +109,7 @@ class ItemListYouxiangInputController: UIViewController {
         }
         guard code.count == 6 else {
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
-            displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+            displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: {
                 self.isLoading = false
                 self.youxiangcodeTextField.text = ""
                 self.youxiangcodeTextField.becomeFirstResponder()
@@ -121,16 +121,14 @@ class ItemListYouxiangInputController: UIViewController {
 
         ApiServers.shared.getTripInfo(id: code, completion: { (success, getTrip, error) in
             self.isLoading = false
-            let t = "查询失败"
             if let err = error, getTrip == nil {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                let m = "您搜索的游箱号不存在，或已被出行人关闭"
-                self.displayGlobalAlert(title: t, message: m, action: "重新输入", completion: {
-                    self.youxiangcodeTextField.text = ""
+                self.displayGlobalAlert(title: "游箱号异常", message: "您搜索的游箱号不存在，或已被出行人关闭", action: "重新输入", completion: { [weak self] _ in
+                    self?.youxiangcodeTextField.text = ""
                 })
-                print(err)
+                print(err.localizedDescription)
                 return
             }
             if success {
@@ -139,19 +137,16 @@ class ItemListYouxiangInputController: UIViewController {
                         let generator = UIImpactFeedbackGenerator(style: .heavy)
                         generator.impactOccurred()
                         AudioManager.shared.playSond(named: .failed)
-                        self.displayAlert(title: "游箱错误", message: "你不能新增寄件到自己开启的游箱。", action: "知道了")
+                        self.displayAlert(title: "游箱号异常", message: "你不能使用自己的游箱号下单", action: L("action.ok"))
                         return
                     }
                     self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
                 }
             } else {
-                let m = "暂时无法连接服务器，请保持手机网络通畅，稍后再试。"
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.displayGlobalAlert(title: t, message: m, action: "好，回主页", completion: {
-                    self.navigationController?.popToRootViewController(animated: true)
-                })
+                self.displayGlobalAlert(title: "游箱号异常", message: "由于网络连接有问题，您的请求无法发送，请重试", action: L("action.ok"), completion: nil)
             }
             self.goDetailButton.isEnabled = true
         })

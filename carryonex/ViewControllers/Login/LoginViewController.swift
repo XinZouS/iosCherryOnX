@@ -131,7 +131,7 @@ class LoginViewController: UIViewController {
             if success {
                 self.dismiss(animated: true, completion: nil)
             } else {
-                self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: "好")
+                self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: L("action.ok"))
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
@@ -185,7 +185,8 @@ extension LoginViewController {
         dismissKeyboard()
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
             if let response = notification.object as? SendAuthResp {
-                self?.displayAlert(title: "WeChat 登入失败", message: "错误号码：\(response.errCode)\n，错误信息：\(response.errStr)", action: "好")
+                debugPrint("Wechat error: \(response.errCode): \(response.errStr)")
+                self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
             }
         }
     }
@@ -230,7 +231,7 @@ extension LoginViewController {
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
+                    self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
                     return
                 }
                 
