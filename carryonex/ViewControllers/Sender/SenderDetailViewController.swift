@@ -326,11 +326,9 @@ class SenderDetailViewController: UIViewController{
     
     private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
         ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
-            let tt = "⚠️服务器数据错误"
             guard success else {
-                let m = "获取价格参数失败，错误信息：\(msg ?? " 通信错误"), 请再试一次，对此给您带来的不便请谅解。"
-                self.displayGlobalAlert(title: tt, message: m, action: "好，朕知道了", completion: {
-                    self.navigationController?.popViewController(animated: true)
+                self.displayGlobalAlert(title: "出错了", message: "价格参数获取失败", action: L("action.ok"), completion: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: true)
                 })
                 return
             }
@@ -360,49 +358,51 @@ class SenderDetailViewController: UIViewController{
 
 
     @objc fileprivate func handleSubmissionButton() {
-        let t = "‼️您还没填完信息"
-        let ok = "朕知道了"
         guard let name = nameTextField.text, name.count != 0 else {
-            let m = "请填写收件人【姓名】。"
-            displayGlobalAlert(title: t, message: m, action: ok, completion: {
-                self.nameTextField.becomeFirstResponder()
+            self.displayGlobalAlert(title: "信息不足", message: "请填写收件人姓名", action: L("action.ok"), completion: { [weak self] _ in
+                self?.nameTextField.becomeFirstResponder()
             })
             return
         }
+        
         guard let phone = phoneTextField.text, phone.count > 5 else {
-            let m = "请填写正确的收件人【手机号】，方便出行人联系收件人。"
-            displayGlobalAlert(title: t, message: m, action: ok, completion: {
-                self.phoneTextField.becomeFirstResponder()
+            self.displayGlobalAlert(title: "信息不足", message: "请填写手机号", action: L("action.ok"), completion: { [weak self] _ in
+                self?.phoneTextField.becomeFirstResponder()
             })
             return
         }
+        
         guard let destAddressStr = addressTextField.text, destAddressStr.count > 0 else {
-            let m = "请填写完整的【收件地址】，方便出行人顺利送达。"
-            displayGlobalAlert(title: t, message: m, action: ok, completion: {
-                self.addressTextField.becomeFirstResponder()
+            self.displayGlobalAlert(title: "信息不足", message: "请填写收件信息", action: L("action.ok"), completion: { [weak self] _ in
+                self?.addressTextField.becomeFirstResponder()
             })
             return
         }
+        
         guard imageUploadingSet.count != 0 else {
-            displayGlobalAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok, completion: nil)
+            displayGlobalAlert(title: t, message: "请提交您的物品照片，便于出行人了解详情", action: L("action.ok"), completion: nil)
             return
         }
+        
         guard let price = priceValueTextField.text, price != "" else {
-            displayGlobalAlert(title: t, message: "请正确设置您的货物价值，和具有吸引力的报价给出行人。", action: ok, completion: nil)
+            displayGlobalAlert(title: t, message: "请准确填写您的货物价值，和运费报价给出行人", action: L("action.ok"), completion: nil)
             return
         }
+        
         guard isLoading == false else {
             return
         }
+        
         isLoading = true
+        
         uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             self?.isLoading = false
             guard let strongSelf = self else { return }
             
             if let err = error {
                 strongSelf.isLoading = false
-                let m = "上传照片失败啦，错误信息：\(err.localizedDescription)"
-                strongSelf.displayGlobalAlert(title: "哎呀", message: m, action: "稍后再试一次", completion: nil)
+                debugPrint("Error: \(err.localizedDescription)")
+                strongSelf.displayGlobalAlert(title: "出错", message: "照片上传失败", action: "重新提交", completion: nil)
                 return
             }
             
@@ -426,14 +426,19 @@ class SenderDetailViewController: UIViewController{
                                                     strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
                                                     let m = "发布请求失败啦！请确保您的网络连接正常，稍后再试一次。错误：\(serverErr.desplayString())"
-                                                    strongSelf.displayGlobalAlert(title: "⚠️遇到错误", message: m, action: ok, completion: nil)
+                                                    strongSelf.displayGlobalAlert(title: "出错",
+                                                                                  message: "发布请求失败，请确保您的网络连接正常，稍后再试",
+                                                                                  action: L("action.ok"),
+                                                                                  completion: nil)
                                                     return
                                                 }
-                                                print("Post request success!")
+                                                
                                                 strongSelf.isLoading = false
                                                 strongSelf.removeAllImageFromLocal()
-                                                let m = "您已成功发送寄件，请随时关注订单状态。"
-                                                strongSelf.displayGlobalAlert(title: "🎉发布成功", message: m, action: "好，回主页", completion: { [weak self] _ in
+                                                strongSelf.displayGlobalAlert(title: "订单发布成功",
+                                                                              message: "订单提交成功，请及时关注订单状态",
+                                                                              action: L("action.ok"),
+                                                                              completion: { [weak self] _ in
                                                     self?.navigationController?.popToRootViewController(animated: true)
                                                 })
                                                 
@@ -460,9 +465,8 @@ class SenderDetailViewController: UIViewController{
     }
     
     fileprivate func getTripErrorAndReturnPrePage(){
-        let m = "出行人的行程信息不完整，请确保您填写的游箱号正确。"
-        self.displayGlobalAlert(title: "⛔️获取行程失败", message: m, action: "重新填写游箱号", completion: {
-            self.navigationController?.popViewController(animated: true)
+        self.displayGlobalAlert(title: "游箱号有误", message: "无法查到对方出行信息", action: "重新填写游箱号", completion: { [weak self] in _
+            self?.navigationController?.popViewController(animated: true)
         })
     }
 
@@ -491,10 +495,8 @@ extension SenderDetailViewController: UICollectionViewDataSource, UICollectionVi
             cell.imageFileName = images[indexPath.item].name ?? "no_imgname"
             cell.imageView.image = images[indexPath.item].image ?? UIImage()
             cell.cancelButton.isHidden = false
-            //cell.cancelButton.isEnabled = true
         } else {
             cell.cancelButton.isHidden = true
-            //cell.cancelButton.isEnabled = false
             cell.imageView.image = #imageLiteral(resourceName: "imageUploadPlaceholder") // upload ID image
         }
         return cell
@@ -505,7 +507,6 @@ extension SenderDetailViewController: UICollectionViewDataSource, UICollectionVi
         return CGSize(width: s, height: s)
     }
 
-    
 }
 
 extension SenderDetailViewController: UICollectionViewDelegate {
@@ -529,7 +530,6 @@ extension SenderDetailViewController: UICollectionViewDelegate {
             }
         }
     }
-    
     
 }
 
@@ -576,8 +576,7 @@ extension SenderDetailViewController {
                     
                     if let err = err {
                         print("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
-                        let m = "无法上传图片到服务器，请确保您的网络连接正常，稍后再试一次。错误信息：" + err.localizedDescription
-                        self.displayGlobalAlert(title: "⚠️上传图片失败", message: m, action: "朕知道了", completion: nil)
+                        self.displayGlobalAlert(title: "出错", message: "照片上传失败", action: L("action.ok"), completion: nil)
                         completion(nil, err)
                         return
                     }
@@ -597,8 +596,7 @@ extension SenderDetailViewController {
                 
             } else {
                 print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
-                let m = "无法找到要上传的图片，请用手机拍照或从相册中选取。"
-                self.displayGlobalAlert(title: "⚠️选择图片失败", message: m, action: "朕知道了", completion: nil)
+                self.displayGlobalAlert(title: "出错", message: "照片上传失败", action: L("action.ok"), completion: nil)
                 completion(nil, nil)
             }
         }

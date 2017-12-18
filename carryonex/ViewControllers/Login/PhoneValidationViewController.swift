@@ -191,8 +191,8 @@ class PhoneValidationViewController: UIViewController {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             AudioManager.shared.playSond(named: .failed)
-            displayGlobalAlert(title: "验证失败", message: "错误信息 \(error.localizedDescription)", action: "重发验证码", completion: {
-                self.navigationController?.popViewController(animated: true)
+            displayGlobalAlert(title: "验证失败", message: "错误信息 \(error.localizedDescription)", action: "重新发送验证码", completion: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             })
         }
     }

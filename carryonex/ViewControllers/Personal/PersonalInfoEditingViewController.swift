@@ -34,19 +34,16 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     override func viewDidLoad() {
+        title = "编辑个人资料"
+        
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
+        activityIndicator.isHidden = true
+        view.addSubview(activityIndicator)
+        
         setupUser()
-        setupNavigationBar()
-        setupActivityIndicator()
         addObservers()
         setupTextField()
-        setupIndicator()
-    }
-    
-    private func setupIndicator(){
-        circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
-        circleIndicator.isHidden = true
-        view.addSubview(circleIndicator)
     }
     
     private func setupTextField(){
@@ -120,17 +117,12 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                 }
             }
         } else {
-            let m = "请保持网络连接，稍后再试一次。"
-            displayGlobalAlert(title: "⚠️获取信息失败", message: m, action: "OK", completion: {
-                print("TODO: handle error when GET user failed in PersonalInfoEditingViewController;")
-            })
+            displayGlobalAlert(title: "获取信息失败", message: "请检查设备是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            //TODO: handle error when GET user failed in PersonalInfoEditingViewController
         }
     }
     
     private func setupNavigationBar(){
-        title = "编辑个人资料"
-        //let save = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveButtonTapped))
-        //navigationItem.rightBarButtonItem = save
     }
     
     @objc private func saveButtonTapped(){
@@ -170,9 +162,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         }
                     })
                 } else {
-                    let errMsg = "资料保存失败:请输入正确的电子邮箱格式"
-                    displayGlobalAlert(title: "资料保存失败", message: errMsg, action: "好的", completion: {
-                        if let childVC = self.childViewControllers.first as? PersonalTable {
+                    displayGlobalAlert(title: "资料保存失败", message: "资料保存失败:请输入正确的电子邮箱格式", action: L("action.ok"), completion: { [weak self] in _
+                        if let childVC = self?.childViewControllers.first as? PersonalTable {
                             childVC.emailTextField.becomeFirstResponder()
                         }
                     })
@@ -181,12 +172,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                 debugPrint("unwrap failure")
             }
         }
-    }
-    private func setupActivityIndicator(){
-        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
-        activityIndicator.isHidden = true
-        view.addSubview(activityIndicator)
     }
     
     @IBAction func PenTapped(_ sender: Any) {
@@ -302,9 +287,10 @@ extension PersonalInfoEditingViewController{
             activityIndicator.isHidden = true
             activityIndicator.stop()
             UIApplication.shared.endIgnoringInteractionEvents()
-            let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
-            self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
+            self.displayGlobalAlert(title: "照片上传出错", message: "请检查手机是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            debugPrint("Upload image failed")
         }
+        
         if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
             print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
             ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
@@ -317,7 +303,7 @@ extension PersonalInfoEditingViewController{
                 }
             })
         }else{
-            print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
+            debugPrint("Error: uploadAllImagesToAws(): task.result is nil. Unable to upload.")
         }
     }
     
@@ -328,7 +314,7 @@ extension PersonalInfoEditingViewController{
         if let imgData = UIImageJPEGRepresentation(img, imageCompress) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
-        print("save image to DocumentDirectory: \(profileImgLocalUrl)")
+        debugPrint("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
     
@@ -336,12 +322,12 @@ extension PersonalInfoEditingViewController{
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         if let filePath = documentUrl.path {
-            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            debugPrint("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
             do {
                 try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+                debugPrint("OK remove file at path: \(filePath), fileName = \(fileName)")
             } catch let err {
-                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+                debugPrint("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
             }
         }
     }

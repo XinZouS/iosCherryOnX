@@ -384,11 +384,11 @@ class OrdersRequestDetailViewController: UIViewController {
                     })
                     
                 } else {
-                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: "好")
+                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: L("action.ok"))
                 }
                 
             } else {
-                self?.displayAlert(title: "支付失败", message: "未知错误", action: "好")
+                self?.displayAlert(title: "支付失败", message: "未知错误", action: L("action.ok"))
             }
         }
         

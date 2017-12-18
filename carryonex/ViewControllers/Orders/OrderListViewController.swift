@@ -362,10 +362,10 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard cell.isActive else {
-            displayGlobalAlertActions(title: "⚠️分享游箱？", message: "您的游箱已锁，请先解锁再分享。", actions: ["保持锁定","解锁并分享"], completion: { (tag) in
+            displayGlobalAlertActions(title: "分享游箱", message: "游箱号在锁定状态无法分享", actions: ["保持锁定","解锁"], completion: { [weak self] (tag) in
                 if tag == 1 { // unlock and share
-                    self.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
-                        self.orderListCarrierCodeShareTapped(indexPath: indexPath)
+                    self?.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
+                        self?.orderListCarrierCodeShareTapped(indexPath: indexPath)
                     })
                 }
             })
@@ -393,17 +393,15 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             cell.lockButton.isEnabled = true
             self.isFetching = false
             if let err = error {
-                print("error: cannot postTripActive by id, error = \(err)")
-                let m = "哎呀暂时无法设置锁定状态，请保持网络连接，稍后再试。错误信息：\(err.localizedDescription)"
-                self.displayGlobalAlert(title: "⚠️锁定失败", message: m, action: "朕知道了", completion: nil)
+                print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
+                self.displayGlobalAlert(title: "锁定失败", message: "游箱锁设定失败，请检查手机是否连接网络", action: L("action.ok"), completion: nil)
                 return
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
-                    print("get error when get TripActive: err = \(err)")
-                    let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
-                    self.displayGlobalAlert(title: "⛔️锁定失败", message: m, action: "重新登陆", completion: {
-                        self.navigationController?.popToRootViewController(animated: false)
+                    print("get error when get TripActive: err = \(err.localizedDescription)")
+                    self.displayGlobalAlert(title: "锁定失败", message: "您的账户登陆信息已过期", action: "重新登陆", completion: { [weak self] _ in
+                        self?.navigationController?.popToRootViewController(animated: false)
                         ProfileManager.shared.logoutUser()
                     })
                     return

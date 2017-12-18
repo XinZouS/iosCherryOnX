@@ -109,7 +109,7 @@ class ItemListYouxiangInputController: UIViewController {
         }
         guard code.count == 6 else {
             let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
-            displayGlobalAlert(title: "💡小提示", message: m, action: "好，朕知道了", completion: {
+            displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: {
                 self.isLoading = false
                 self.youxiangcodeTextField.text = ""
                 self.youxiangcodeTextField.becomeFirstResponder()
@@ -125,10 +125,10 @@ class ItemListYouxiangInputController: UIViewController {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.displayGlobalAlert(title: "游箱号异常", message: "您搜索的游箱号不存在，或已被出行人关闭", action: "重新输入", completion: {
-                    self.youxiangcodeTextField.text = ""
+                self.displayGlobalAlert(title: "游箱号异常", message: "您搜索的游箱号不存在，或已被出行人关闭", action: "重新输入", completion: { [weak self] _ in
+                    self?.youxiangcodeTextField.text = ""
                 })
-                print(err)
+                print(err.localizedDescription)
                 return
             }
             if success {
