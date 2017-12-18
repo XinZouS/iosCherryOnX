@@ -425,7 +425,6 @@ class SenderDetailViewController: UIViewController{
                                                 if let error = error {
                                                     strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
-                                                    let m = "发布请求失败啦！请确保您的网络连接正常，稍后再试一次。错误：\(serverErr.desplayString())"
                                                     strongSelf.displayGlobalAlert(title: "出错",
                                                                                   message: "发布请求失败，请确保您的网络连接正常，稍后再试",
                                                                                   action: L("action.ok"),

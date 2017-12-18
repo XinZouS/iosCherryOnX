@@ -33,6 +33,7 @@
 		4D7932A81FD689920081BBE2 /* APBizContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7932A71FD689920081BBE2 /* APBizContent.swift */; };
 		4D80C3F41FE454B2000D3B01 /* WalletManager+WeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C3F31FE454B2000D3B01 /* WalletManager+WeChat.swift */; };
 		4D80C3F61FE45FD9000D3B01 /* WeChatAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */; };
+		4DA0FC241FE7A3F90062637A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA0FC231FE7A3F90062637A /* AnalyticsManager.swift */; };
 		4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */; };
 		4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */; };
 		4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */; };
@@ -210,6 +211,7 @@
 		4D7932A71FD689920081BBE2 /* APBizContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBizContent.swift; sourceTree = "<group>"; };
 		4D80C3F31FE454B2000D3B01 /* WalletManager+WeChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletManager+WeChat.swift"; sourceTree = "<group>"; };
 		4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatAPIManager.swift; sourceTree = "<group>"; };
+		4DA0FC231FE7A3F90062637A /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationViewController.swift; sourceTree = "<group>"; };
@@ -788,6 +790,7 @@
 				66CE22571FBE602200DCC274 /* FlickrImageManager.swift */,
 				4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */,
 				4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */,
+				4DA0FC231FE7A3F90062637A /* AnalyticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1117,6 +1120,7 @@
 				FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */,
 				4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */,
 				66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */,
+				4DA0FC241FE7A3F90062637A /* AnalyticsManager.swift in Sources */,
 				E567BB0E1FCC6D4E00B87608 /* STCharge.swift in Sources */,
 				E5A2A77E1FE2E4F300A51BDC /* WebController.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,

@@ -283,12 +283,13 @@ extension PersonalInfoEditingViewController{
     }
     
     func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
-        if let err = error {
+        if let error = error {
             activityIndicator.isHidden = true
             activityIndicator.stop()
             UIApplication.shared.endIgnoringInteractionEvents()
             self.displayGlobalAlert(title: "照片上传出错", message: "请检查手机是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
-            debugPrint("Upload image failed")
+            debugPrint("Upload image failed: \(error.localizedDescription)")
+            return
         }
         
         if let publicUrl = awsUrl, publicUrl.absoluteString != "" {

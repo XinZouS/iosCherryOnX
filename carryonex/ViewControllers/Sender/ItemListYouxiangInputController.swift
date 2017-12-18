@@ -108,11 +108,10 @@ class ItemListYouxiangInputController: UIViewController {
             return
         }
         guard code.count == 6 else {
-            let m = "亲，游箱号是6位数字哦，😃请填写符合格式的号码。"
-            displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: {
-                self.isLoading = false
-                self.youxiangcodeTextField.text = ""
-                self.youxiangcodeTextField.becomeFirstResponder()
+           self.displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: { [weak self] _ in
+                self?.isLoading = false
+                self?.youxiangcodeTextField.text = ""
+                self?.youxiangcodeTextField.becomeFirstResponder()
             })
             return
         }
