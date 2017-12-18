@@ -52,6 +52,8 @@ class LoginViewController: UIViewController {
         setupFlagPicker()
         setupIndicator()
         setupGifImage()
+        
+        AnalyticsManager.shared.startTimeTrackingKey(.loginProcessTime)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +66,12 @@ class LoginViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
     }
     
     
@@ -130,6 +138,8 @@ class LoginViewController: UIViewController {
         ProfileManager.shared.login(phone: phone, password: password) { (success) in
             if success {
                 self.dismiss(animated: true, completion: nil)
+                AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
+                AnalyticsManager.shared.trackCount(.loginByEmailCount)
             } else {
                 self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: L("action.ok"))
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -182,18 +192,16 @@ extension LoginViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        dismissKeyboard()
+        
+        phoneField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
             if let response = notification.object as? SendAuthResp {
                 debugPrint("Wechat error: \(response.errCode): \(response.errStr)")
                 self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
             }
         }
-    }
-    
-    private func dismissKeyboard(){
-        phoneField.resignFirstResponder()
-        passwordField.resignFirstResponder()
     }
 }
 
@@ -294,7 +302,9 @@ extension LoginViewController: UITextFieldDelegate {
                                     if success {
                                         self?.circleIndicator.stop()
                                         //if update success close
-                                        AppDelegate.shared().mainTabViewController?.dismissLogin()
+                                        self?.dismiss(animated: true, completion: nil)
+                                        AnalyticsManager.shared.trackCount(.loginByWeChatCount)
+                                        AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                                     } else {
                                         debugPrint("Wechat registration update user info failed at user exists")
                                     }
@@ -312,6 +322,8 @@ extension LoginViewController: UITextFieldDelegate {
                                         if updateSuccess {
                                             self?.circleIndicator.stop()
                                             self?.dismiss(animated: true, completion: nil)
+                                            AnalyticsManager.shared.trackCount(.registerByWeChatCount)
+                                            AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
                                         } else {
                                             debugPrint("Wechat registration update user info failed at new registration")
                                         }
