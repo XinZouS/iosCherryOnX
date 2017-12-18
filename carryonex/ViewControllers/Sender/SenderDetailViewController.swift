@@ -380,12 +380,12 @@ class SenderDetailViewController: UIViewController{
         }
         
         guard imageUploadingSet.count != 0 else {
-            displayGlobalAlert(title: t, message: "请提交您的物品照片，便于出行人了解详情", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: "信息不足", message: "请提交您的物品照片，便于出行人了解详情", action: L("action.ok"), completion: nil)
             return
         }
         
         guard let price = priceValueTextField.text, price != "" else {
-            displayGlobalAlert(title: t, message: "请准确填写您的货物价值，和运费报价给出行人", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: "信息不足", message: "请准确填写您的货物价值，和运费报价给出行人", action: L("action.ok"), completion: nil)
             return
         }
         
@@ -465,7 +465,7 @@ class SenderDetailViewController: UIViewController{
     }
     
     fileprivate func getTripErrorAndReturnPrePage(){
-        self.displayGlobalAlert(title: "游箱号有误", message: "无法查到对方出行信息", action: "重新填写游箱号", completion: { [weak self] in _
+        self.displayGlobalAlert(title: "游箱号有误", message: "无法查到对方出行信息", action: "重新填写游箱号", completion: { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         })
     }
