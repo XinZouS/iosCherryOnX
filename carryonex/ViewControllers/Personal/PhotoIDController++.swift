@@ -302,7 +302,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             self.dismiss(animated: false, completion: nil)
             //homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
         }else{
-            displayGlobalAlert(title: "上传成功", message: "已成功上传您的证件照片", action: L("action.ok"), completion: { [weak self] in _
+            displayGlobalAlert(title: "上传成功", message: "已成功上传您的证件照片", action: L("action.ok"), completion: { [weak self] _ in
                 self?.navigationController?.popToRootViewController(animated: false)
             })
         }
