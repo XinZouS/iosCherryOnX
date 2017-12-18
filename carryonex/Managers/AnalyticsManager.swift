@@ -15,6 +15,8 @@ enum AnalyticsTimeKey: String {
 }
 
 enum AnalyticsCountKey: String {
+    case registerByWeChatCount = "register-by-wechat-count"
+    case registerByEmailCount = "register-by-email-count"
     case loginByWeChatCount = "login-by-wechat-count"
     case loginByEmailCount = "login-by-email-count"
 }
@@ -34,7 +36,7 @@ class AnalyticsManager: NSObject {
 
 extension AnalyticsManager {
     
-    func startTimeTrackingKey(_ key: AnalyticsTimeKey) {
+    public func startTimeTrackingKey(_ key: AnalyticsTimeKey) {
         switch key {
         case .registrationProcessTime:
             registrationTime = Date.getTimestampNow()
@@ -43,20 +45,29 @@ extension AnalyticsManager {
         }
     }
     
-    func endTimeTrackingKey(_ key: AnalyticsTimeKey) {
+    public func finishTimeTrackingKey(_ key: AnalyticsTimeKey) {
         var keyTime: Int = -1
         switch key {
         case .registrationProcessTime:
             keyTime = registrationTime
-            registrationTime = -1
         case .loginProcessTime:
             keyTime = loginTime
-            loginTime = -1
         }
         
         if keyTime != -1 {
             let timeSpent: Int = Date.getTimestampNow() - keyTime
             Answers.logCustomEvent(withName: key.rawValue, customAttributes: ["time": timeSpent])
+        }
+        
+        clearTimeTrackingKey(key)
+    }
+    
+    public func clearTimeTrackingKey(_ key: AnalyticsTimeKey) {
+        switch key {
+        case .registrationProcessTime:
+            registrationTime = -1
+        case .loginProcessTime:
+            loginTime = -1
         }
     }
     
