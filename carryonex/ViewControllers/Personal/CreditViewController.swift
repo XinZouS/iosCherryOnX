@@ -39,7 +39,7 @@ class CreditViewController: UIViewController {
         let webVC = WebController()
         self.navigationController?.pushViewController(webVC, animated: true)
         webVC.title = title
-        if let url = URL(string: "\(userGuideWebHoster)/doc_wallet_info") {
+        if let url = URL(string: "\(ApiServers.shared.host)/doc_wallet_info") {
             webVC.url = url
         }
     }

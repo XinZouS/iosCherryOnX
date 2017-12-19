@@ -143,7 +143,7 @@ class MainTabBarController: UITabBarController {
     
     private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
-            //showLogin(animated)   TODO: PUT LOGIN BACK!!!!!
+            showLogin(animated)
         }
     }
     

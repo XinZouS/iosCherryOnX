@@ -107,7 +107,7 @@ class SenderDetailViewController: UIViewController{
     
     @IBAction func priceMaxInfoButtonTapped(_ sender: Any) {
         // TODO: connect url for price info, now using fake url:
-        gotoWebview(title: "物品价值说明", url: "\(userGuideWebHoster)/doc_privacy")
+        gotoWebview(title: "物品价值说明", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {

@@ -103,7 +103,7 @@ class ApiServers : NSObject {
     
     //private let host = "http://0.0.0.0:5000"       // local host on this laptop you are looking at
     //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    private let host = "http://52.45.237.30:80"  // testing host on AWS
+    let host = "http://52.45.237.30:80"  // testing host on AWS
     
     private let hostVersion = "/api/1.0"
     
