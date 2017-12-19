@@ -407,6 +407,7 @@ class SenderDetailViewController: UIViewController{
             
             if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
                 
+                let msg = (strongSelf.messageTextView.textColor == .lightGray) ? "" : strongSelf.messageTextView.text
                 let totalValue = Double(strongSelf.priceValue)
                 let cost = strongSelf.priceFinal
                 address.recipientName = name
@@ -418,7 +419,7 @@ class SenderDetailViewController: UIViewController{
                                               destination: address,
                                               trip: trip,
                                               imageUrls: urls,
-                                              description: strongSelf.messageTextView.text,
+                                              description: msg ?? "",
                                               completion: { (success, error, serverErr) in
                                                 
                                                 if let error = error {

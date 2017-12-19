@@ -13,6 +13,7 @@ class ItemListYouxiangInputController: UIViewController {
     
     var tripCode: String?
     
+    @IBOutlet weak var youxiangcodeLabel: UILabel!
     @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
     
@@ -43,12 +44,10 @@ class ItemListYouxiangInputController: UIViewController {
         setupNavigationBar()
         setupTextFields()
         setupActivityIndicator()
-        youxiangcodeTextField.keyboardType = .emailAddress
-        youxiangcodeTextField.textColor = UIColor.white
         
         if let code = tripCode {
             youxiangcodeTextField.text = code
-            if code.count >= 6 {
+            if code.count == 6 {
                 fetchTripByYouxiangcode(code)
             }
         }
@@ -83,6 +82,7 @@ class ItemListYouxiangInputController: UIViewController {
         youxiangcodeTextField.autocapitalizationType = .allCharacters
         youxiangcodeTextField.clearButtonMode = .never
         youxiangcodeTextField.placeholder = "输入6位游箱号"
+        youxiangcodeTextField.textColor = UIColor(r: 0, g: 0, b: 0, a: 0)
     }
     
     private func setupActivityIndicator(){
@@ -115,8 +115,7 @@ class ItemListYouxiangInputController: UIViewController {
         guard code.count >= 6 else {
             self.isLoading = false
             self.displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: { [weak self] _ in
-                self?.youxiangcodeTextField.text = ""
-                self?.youxiangcodeTextField.becomeFirstResponder()
+                self?.resetTextField()
             })
             return
         }
@@ -131,8 +130,7 @@ class ItemListYouxiangInputController: UIViewController {
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
                 self.displayGlobalAlert(title: "游箱号异常", message: "您搜索的游箱号不存在，或已被出行人关闭", action: "重新输入", completion: { [weak self] _ in
-                    self?.youxiangcodeTextField.text = ""
-                    self?.youxiangcodeTextField.becomeFirstResponder()
+                    self?.resetTextField()
                 })
                 return
             }
@@ -161,12 +159,19 @@ class ItemListYouxiangInputController: UIViewController {
         })
     }
     
+    private func resetTextField(){
+        youxiangcodeLabel.text = ""
+        youxiangcodeTextField.tintColor = colorTextFieldUnderLineCyan
+        youxiangcodeTextField.text = ""
+        youxiangcodeTextField.becomeFirstResponder()
+    }
 
 }
 
 extension ItemListYouxiangInputController: UITextFieldDelegate {
     
     func textFieldDidChanged(){
+        youxiangcodeLabel.text = youxiangcodeTextField.text?.uppercased() ?? ""
         guard let code = youxiangcodeTextField.text else {
             return
         }

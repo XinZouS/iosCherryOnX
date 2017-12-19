@@ -394,10 +394,23 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     func orderListCarrierLockerButtonTapped(indexPath: IndexPath, completion: (() -> Void)?) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard let id = cell.trip?.id else { return }
+        let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
+
+        if isActive {
+            displayGlobalAlertActions(title: "当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+                if tag == 0 { // do lock;
+                    self.setYouxiangLockStatusAt(cell, id: id, true, completion: completion)
+                } else {
+                    return // cancel to lock;
+                }
+            })
+        } else { // do unlock;
+            setYouxiangLockStatusAt(cell, id: id, false, completion: completion)
+        }
+    }
+    private func setYouxiangLockStatusAt(_ cell: OrderListCardShiperCell, id: Int, _ isActive: Bool, completion: (() -> Void)?) {
         cell.lockButton.isEnabled = false
         isFetching = true
-        
-        let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
         ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
             cell.lockButton.isEnabled = true
             self.isFetching = false

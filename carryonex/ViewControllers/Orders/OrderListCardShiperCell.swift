@@ -125,7 +125,7 @@ class OrderListCardShiperCell: OrderListCardCell {
             
         } else if sender == lockButton {
             carrierDelegate?.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: nil)
-            
+
         } else if sender == finishButton {
             if status == .waiting { // so the button is .carrierAccept, then
                 AnalyticsManager.shared.trackCount(.requestAcceptCount) //订单接受次数
