@@ -214,7 +214,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         let dateString = "\(self.getMonthString()), \(self.getDayString())"
         let title = "我的游箱号:\(self.tripCode)"
         let message = "我的游箱号:\(self.tripCode) \n【\(dateString)】 \n【\(self.startAddress?.fullAddressString() ?? "未知地址")-\(self.endAddress?.fullAddressString() ?? "未知地址")】"
-        let url = "https://www.carryonex.com/" // TODO: change this for link to appstore or inside app page;
+        let url = "carryonex://request?trip_code=\(self.tripCode)" // TODO: change this for link to appstore or inside app page;
         return (title, message, url)
     }
     

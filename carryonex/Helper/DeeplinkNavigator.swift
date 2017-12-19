@@ -40,9 +40,11 @@ class DeeplinkNavigator: NSObject {
             if let tripCode = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "trip_code") {
                 startNewRequest(tripCode: tripCode)
             }
-        /*
         case .requestDetail:
-        */
+            if let requestId = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "request_id"), let id = Int(requestId) {
+                navigateToRequest(id)
+            }
+            
         default: //home
             print("Do nothing")
         }
@@ -56,6 +58,18 @@ class DeeplinkNavigator: NSObject {
                 requestViewController.tripCode = tripCode
                 navigation.pushViewController(requestViewController, animated: true)
             }
+        }
+    }
+    
+    static private func navigateToRequest(_ requestId: Int) {
+        let tabViewController = AppDelegate.shared().mainTabViewController!
+        tabViewController.selectTabIndex(index: TabViewIndex.order)
+        
+        if let request = TripOrderDataStore.shared.getRequest(category: .carrier, requestId: requestId) {
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+            
+        } else if let request = TripOrderDataStore.shared.getRequest(category: .sender, requestId: requestId) {
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
         }
     }
     
@@ -77,14 +91,10 @@ class DeeplinkNavigator: NSObject {
     static private func selectOrder(category: TripCategory) {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.order)
-        if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
+        if let navigation = tabViewController.viewControllers![1] as? UINavigationController {
             navigation.popToRootViewController(animated: false)
             if let orderListViewController = navigation.viewControllers.first as? OrderListViewController {
-                if category == .carrier {
-                    orderListViewController.animateListMoveLeft()
-                } else {
-                    orderListViewController.animateListMoveRight()
-                }
+                orderListViewController.listType = category
             }
         }
     }

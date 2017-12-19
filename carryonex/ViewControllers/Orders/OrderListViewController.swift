@@ -123,10 +123,19 @@ class OrderListViewController: UIViewController {
         TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if listType == .sender {
+            animateListMoveRight()
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         invalidateImageTimer()
     }
+    
     
     //MARK: - Helper Methods
     
