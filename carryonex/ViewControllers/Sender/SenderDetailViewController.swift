@@ -68,12 +68,14 @@ class SenderDetailViewController: UIViewController{
     
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
+    @IBOutlet weak var priceCurrencyTypeLabel: UILabel!
     @IBOutlet weak var priceValueTextField: ThemTextField! // 4
     @IBOutlet weak var priceValueTextFieldLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var currencyTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var priceMinLabel: UILabel!
     @IBOutlet weak var priceMidLabel: UILabel!
     @IBOutlet weak var priceMaxLabel: UILabel!
+    @IBOutlet weak var pricePrePaySwitch: UISwitch!
     @IBOutlet weak var priceSlider: UISlider!
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
@@ -110,10 +112,19 @@ class SenderDetailViewController: UIViewController{
         gotoWebview(title: "物品价值说明", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
+    @IBAction func pricePrePaySwitchChanged(_ sender: Any) {
+        if pricePrePaySwitch.isOn {
+            priceFinal += priceValue
+        } else {
+            priceFinal -= priceValue
+        }
+    }
+    
     @IBAction func priceSliderValueChanged(_ sender: Any) {
         guard priceMiddl > 0 else { return }
+        let prePayVal: Double = pricePrePaySwitch.isOn ? priceValue : 0.0
+        priceFinal = Double(priceSlider.value) + prePayVal
         priceValueTextField.resignFirstResponder()
-        priceFinal = Double(priceSlider.value)        
         let pc = (priceFinal - priceMiddl) * 100.0 / priceMiddl
         let lv = pc < 0 ? "低于" : "高于"
         priceFinalHintLabel.text = lv + "标准价\(Int(pc))%"
@@ -407,7 +418,7 @@ class SenderDetailViewController: UIViewController{
             
             if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
                 
-                let msg = (strongSelf.messageTextView.textColor == .lightGray) ? "" : strongSelf.messageTextView.text
+                let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
                 let totalValue = Double(strongSelf.priceValue)
                 let cost = strongSelf.priceFinal
                 address.recipientName = name
@@ -681,8 +692,8 @@ extension SenderDetailViewController: UITextViewDelegate {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
             isTextViewBeenEdited = false
-            messageTextView.isActive = false
         }
+        messageTextView.isActive = false
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -865,14 +876,14 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
-        priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
+        priceValueTitleLabel.text = "物品价值: " //+ currencyType.rawValue
         let pMin: Double = 0.1
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
-        priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
-        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", priceMiddl)
+        priceMaxLabel.text = currencyType.rawValue + String(format: "%.0f", pMax)
+        priceMidLabel.text = currencyType.rawValue + String(format: "%.0f", priceMiddl)
 
         priceSlider.minimumValue = Float(pMin)
         priceSlider.maximumValue = Float(pMax)
