@@ -16,6 +16,7 @@ enum NavigationPage: String {
     case carrierList = "carrier-list"
     case senderList = "sender-list"
     case settings = "settings"
+    case comments = "comments"
 }
 
 class DeeplinkNavigator: NSObject {
@@ -29,28 +30,39 @@ class DeeplinkNavigator: NSObject {
         
         switch page {
         case .trip:
-            startNewTrip()
+            navigateToNewTrip()
         case .carrierList:
-            selectOrder(category: .carrier)
+            navigateToOrderList(category: .carrier)
         case .senderList:
-            selectOrder(category: .sender)
+            navigateToOrderList(category: .sender)
         case .settings:
-            goSettings()
+            navigateToSettings()
         case .request:
             if let tripCode = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "trip_code") {
-                startNewRequest(tripCode: tripCode)
+                navigateToNewRequest(tripCode: tripCode)
             }
         case .requestDetail:
             if let requestId = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "request_id"), let id = Int(requestId) {
                 navigateToRequest(id)
             }
-            
+        case .comments:
+            navigateToComment()
         default: //home
             print("Do nothing")
         }
     }
     
-    static private func startNewRequest(tripCode: String) {
+    static private func navigateToComment() {
+        let tabViewController = AppDelegate.shared().mainTabViewController!
+        tabViewController.selectTabIndex(index: TabViewIndex.home)
+        if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
+            if let commentViewController = UIStoryboard.init(name: "HistoryComment", bundle: nil).instantiateInitialViewController() as? PersonalCommentController {
+                navigation.pushViewController(commentViewController, animated: true)
+            }
+        }
+    }
+    
+    static private func navigateToNewRequest(tripCode: String) {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.home)
         if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
@@ -73,12 +85,12 @@ class DeeplinkNavigator: NSObject {
         }
     }
     
-    static private func goSettings() {
+    static private func navigateToSettings() {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.settings)
     }
     
-    static private func startNewTrip() {
+    static private func navigateToNewTrip() {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.home)
         if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
@@ -88,7 +100,7 @@ class DeeplinkNavigator: NSObject {
         }
     }
     
-    static private func selectOrder(category: TripCategory) {
+    static private func navigateToOrderList(category: TripCategory) {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.order)
         if let navigation = tabViewController.viewControllers![1] as? UINavigationController {
