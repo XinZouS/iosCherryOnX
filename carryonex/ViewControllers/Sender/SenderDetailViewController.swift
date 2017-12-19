@@ -394,7 +394,7 @@ class SenderDetailViewController: UIViewController{
         AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
         AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailTotalTime)
         
-        uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
+        self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             self?.isLoading = false
             guard let strongSelf = self else { return }
             

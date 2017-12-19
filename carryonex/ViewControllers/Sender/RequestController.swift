@@ -246,14 +246,14 @@ extension RequestController: UITextFieldDelegate {
             return
         }
         
-        uploadImagesToAwsAndGetUrls { (urls, error) in
+        self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             if let urls = urls {
-                if let totalValueString = self.cellTotalValue?.textField.text,
+                if let totalValueString = self?.cellTotalValue?.textField.text,
                     let totalValue = Double(totalValueString),
-                    let costString = self.cell07Cost?.textField.text,
+                    let costString = self?.cell07Cost?.textField.text,
                     let cost = Double(costString),
-                    let endAddress = self.endAddress,
-                    let trip = self.trip {
+                    let endAddress = self?.endAddress,
+                    let trip = self?.trip {
                     
                     //TODO: Put in description.
                     ApiServers.shared.postRequest(totalValue: totalValue,
@@ -274,8 +274,6 @@ extension RequestController: UITextFieldDelegate {
                     
                 }
             }
-            
-            
         }
     }
 }
@@ -329,13 +327,6 @@ extension RequestController {
                         
                         if urls.count == self.imageUploadSequence.count {
                             urls.sort {$0 < $1}
-                            // TODO: upload urls dictionary to our Server;
-//                            print("\n\n search this senten to locate in code to get dictionary - Xin")
-//                            print("get dictionary ready for uploading to Server = ")
-//                            for pair in imageUrlsDictionary {
-//                                print("key = \(pair.key), val = \(pair.value)")
-//                            }
-                            
                             completion(urls, nil)
                             // then remove the images from cache
                             self.removeAllImageFromLocal()

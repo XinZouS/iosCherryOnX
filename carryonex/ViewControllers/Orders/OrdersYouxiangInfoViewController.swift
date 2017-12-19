@@ -112,12 +112,12 @@ class OrdersYouxiangInfoViewController: UIViewController {
         isLoading = true
         
         let id = trip.id
-        //isActive = (trip.active == TripActive.active.rawValue)
+        
         ApiServers.shared.postTripActive(tripId: "\(id)", isActive: toLock, completion: { (success, error) in
             self.isLoading = false
             self.lockerButton.isEnabled = true
             if let err = error {
-                print("error: cannot postTripActive by id, error = \(err)")
+                print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
                 self.displayGlobalAlert(title: "锁定失败", message: "游箱锁设定失败，请检查手机是否连接网络", action: L("action.ok"), completion: nil)
                 return
             }
