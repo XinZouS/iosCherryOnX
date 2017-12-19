@@ -350,6 +350,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func senderButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.startTimeTrackingKey(.senderDetailTotalTime)
         handleNavigation(segue: .addRequest, sender: nil)
     }
     

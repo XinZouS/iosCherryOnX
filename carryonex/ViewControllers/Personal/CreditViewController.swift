@@ -45,6 +45,8 @@ class CreditViewController: UIViewController {
     }
     
     @IBAction func extractCashButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.trackCount(.cashOutCount)
+        AnalyticsManager.shared.startTimeTrackingKey(.cashOutTime)
         // TODO: extractCash button tapped;
     }
     
@@ -59,6 +61,12 @@ class CreditViewController: UIViewController {
         setupNavigationBar()
         loadTransactionInfo()
         setupDateFormatter()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
+        AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
     private func setupNavigationBar(){ // TODO: not need this in testing phase;

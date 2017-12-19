@@ -52,6 +52,7 @@ class ItemListYouxiangInputController: UIViewController {
                 fetchTripByYouxiangcode(code)
             }
         }
+        AnalyticsManager.shared.startTimeTrackingKey(.senderCompleteTripidTime)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,7 +63,8 @@ class ItemListYouxiangInputController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        youxiangcodeTextField.resignFirstResponder()        
+        youxiangcodeTextField.resignFirstResponder()
+        AnalyticsManager.shared.finishTimeTrackingKey(.senderCompleteTripidTime)
     }
     
     private func setupNavigationBar(){

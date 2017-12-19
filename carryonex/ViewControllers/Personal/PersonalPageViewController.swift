@@ -108,6 +108,7 @@ class PersonalPageViewController: UIViewController{
     
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
         AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
+        AnalyticsManager.shared.trackCount(.historicCommentCheckCount)
     }
     
 }
@@ -118,6 +119,7 @@ extension PersonalPageViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             AppDelegate.shared().handleMainNavigation(navigationSegue: .creditView, sender: nil)
+            AnalyticsManager.shared.trackCount(.walletOpenCount)
             
         case 1:
             AppDelegate.shared().handleMainNavigation(navigationSegue: .helpCenter, sender: nil)

@@ -102,6 +102,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.trackCount(.otherProfileVisitCount) //查看对方个人页面次数
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
@@ -117,7 +118,14 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func goToPaymentHandler(_ sender: Any) {
-        WalletManager.shared.aliPayAuth(request: request)
+        if paymentType == .alipay {
+            AnalyticsManager.shared.trackCount(.alipayPayCount)
+            WalletManager.shared.aliPayAuth(request: request)
+            
+        }else if paymentType == .wechatPay {
+            AnalyticsManager.shared.trackCount(.wechatPayCount)
+            //TODO: use wechat pay
+        }
     }
     
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
@@ -428,6 +436,7 @@ class OrdersRequestDetailViewController: UIViewController {
                 self.backgroundView.alpha = 1
             }, completion: nil)
         }
+        AnalyticsManager.shared.startTimeTrackingKey(.requestPayTime)
     }
     
     public func backgroundViewHide(){

@@ -38,7 +38,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     var indexPath: IndexPath = IndexPath()
     var cellCategory: TripCategory = .carrier
     
-    private var status: RequestStatus = .invalid {
+    internal var status: RequestStatus = .invalid {
         didSet {
             updateButtonAppearance(status: status)
             statusLabel.text = status.displayString()

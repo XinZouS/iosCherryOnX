@@ -165,15 +165,7 @@ class SenderDetailViewController: UIViewController{
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
         }
     }
-    enum textFieldTag: Int {
-        case name = 0
-        case phone = 1
-        case address = 2
-        case message = 3
-        case price = 4
-        case countryCode = 5
-    }
-    
+
     var keyboardHeight: CGFloat = 160
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var isLoading: Bool = false {
@@ -221,6 +213,11 @@ class SenderDetailViewController: UIViewController{
         super.viewDidAppear(animated)
         updateSubmitButtonStatus()
         setupCountryCodeTextField()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
     }
     
     private func setupCardView(){
@@ -394,6 +391,8 @@ class SenderDetailViewController: UIViewController{
         }
         
         isLoading = true
+        AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
+        AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailTotalTime)
         
         uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             self?.isLoading = false
@@ -586,6 +585,7 @@ extension SenderDetailViewController {
                         if urls.count == self.imageUploadSequence.count {
                             urls.sort {$0 < $1}
                             completion(urls, nil)
+                            AnalyticsManager.shared.track(.viewImageCount, attributes: ["imageCount": urls.count])
                         }
                         
                     } else {
@@ -690,6 +690,7 @@ extension SenderDetailViewController: UITextViewDelegate {
             textView.textColor = .black
             messageTextView.isActive = true
         }
+        AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -718,7 +719,7 @@ extension SenderDetailViewController: UITextViewDelegate {
 extension SenderDetailViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.tag == textFieldTag.name.rawValue {
+        if textField == nameTextField {
             phoneTextField.becomeFirstResponder()
             return false
         }
@@ -732,7 +733,24 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == textFieldTag.price.rawValue {
+        
+        if textField == nameTextField ||
+            textField == phoneTextField ||
+            textField == addressTextField { // make sure is target textFields, then check text:
+            if (nameTextField.text?.isEmpty ?? true) &&
+                (phoneTextField.text?.isEmpty ?? true) &&
+                (addressTextField.text?.isEmpty ?? true) { // all [empty], then fire timmer, otherwise it already running;
+                AnalyticsManager.shared.startTimeTrackingKey(.senderDetailFillTime)
+            }
+        }
+        if textField == priceValueTextField {
+            if (priceValueTextField.text?.isEmpty ?? true) {
+                AnalyticsManager.shared.startTimeTrackingKey(.senderAddPriceTime)
+                AnalyticsManager.shared.startTimeTrackingKey(.senderPlacePriceTime)
+                
+            } else {
+                AnalyticsManager.shared.trackCount(.senderPlacePriceCount)
+            }
             DispatchQueue.main.async(execute: {
                 //self.scrollViewMove(offset: 210)
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
@@ -742,15 +760,27 @@ extension SenderDetailViewController: UITextFieldDelegate {
             })
             //priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
             //animateUIifNeeded()
+        } else {
+            AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == textFieldTag.price.rawValue {
+        if textField == nameTextField ||
+            textField == phoneTextField ||
+            textField == addressTextField { // make sure is target textFields, then check text:
+            if !(nameTextField.text?.isEmpty ?? true) &&
+                !(phoneTextField.text?.isEmpty ?? true) &&
+                !(addressTextField.text?.isEmpty ?? true) { // all [filled], then stop timmer, otherwise it already stopped;
+                AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailFillTime)
+            }
+        }
+        if textField == priceValueTextField {
             if (priceValueTextField.text == nil || priceValueTextField.text == "") {
                 //priceValueTextFieldLeftConstraint.constant = 0
                 //animateUIifNeeded()
             } else {
+                AnalyticsManager.shared.finishTimeTrackingKey(.senderAddPriceTime)
                 preparePriceIn(textField)
             }
             if scrollView.contentOffset.y > 200 {
@@ -806,7 +836,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func preparePriceIn(_ textField: UITextField){
-        if textField.tag == textFieldTag.price.rawValue, let v = priceValueTextField.text, let d = Double(v) {
+        if textField == priceValueTextField, let v = priceValueTextField.text, let d = Double(v) {
             
             if d > priceMaxValueLimit {
                 textField.text = "\(priceMaxValueLimit)"

@@ -155,7 +155,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         self.activityIndicator.stop()
                         if success{
                             //self.navigationController?.popViewController(animated: true)
-                            self.dismissVC()
+                            self.dismiss(animated: true, completion: nil)
                         }else{
                             debugPrint("change profile error")
                         }
@@ -204,6 +204,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         }
         
         present(attachmentMenu, animated: true, completion: nil)
+        AnalyticsManager.shared.startTimeTrackingKey(.profileImageSettingTime)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
@@ -212,22 +213,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func dismissVC(){
-        // FIXME: 个人资料设置好后点击保存，dismiss VC时页面闪了下。
-        // plan A: customize transition:
-//        let transition = CATransition()
-//        transition.duration = 0.5
-//        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromBottom
-//        view.layer.add(transition, forKey: kCATransition)
-//        DispatchQueue.main.async {
-        
-        // plan B: use dismiss ONLY: -- not working....
-            self.dismiss(animated: true, completion: nil)
-//        }
     }
     
 }
@@ -257,6 +242,7 @@ extension PersonalInfoEditingViewController{
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
         dismiss(animated: true, completion: nil)
     }
     
@@ -267,6 +253,9 @@ extension PersonalInfoEditingViewController{
             if let image = getImg {
                 self.setupProfileImage(image)
                 self.uploadImageToAws(getImg: image)
+                
+            } else { // unable to set image, then reset timer;
+                AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
             }
             self.dismiss(animated: true, completion: nil)
         })
@@ -284,6 +273,7 @@ extension PersonalInfoEditingViewController{
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
             self.handleAwsServerImageUploadCompletion(err, awsUrl)
         })
+        AnalyticsManager.shared.finishTimeTrackingKey(.profileImageSettingTime)
         self.dismiss(animated: true, completion: nil)
     }
     
