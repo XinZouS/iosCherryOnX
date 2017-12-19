@@ -9,11 +9,27 @@
 import UIKit
 import Reachability
 import BPCircleActivityIndicator
+import ZendeskSDK
 
 enum TabViewIndex: Int {
     case home = 0
     case order
     case settings
+}
+
+enum MainNavigationSegue: String {
+    case addTrip = "AddTripSegue"
+    case addRequest = "AddRequestSegue"
+    case requestDetail = "RequestDetailSegue"
+    case orderTripInfo = "OrderTripInfoSegue"
+    case historyComment = "HistoryCommentSegue"
+    case creditView = "CreditViewSegue"
+    case settings = "SettingsSegue"
+    case helpCenter = "HelpCenterSegue"
+}
+
+protocol MainNavigationProtocol {
+    func handleNavigation(segue: MainNavigationSegue, sender: Any?)
 }
 
 class MainTabBarController: UITabBarController {
@@ -52,16 +68,75 @@ class MainTabBarController: UITabBarController {
         loadingDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueId = segue.identifier, let navigationSegue = MainNavigationSegue(rawValue: segueId) else { return }
+        
+        switch navigationSegue {
+        case .addTrip:
+            print("Add Trip")
+            
+        case .addRequest:
+            print("Add Request")
+            
+        case .requestDetail:
+            print("Open user detail")
+            if let viewController = segue.destination as? OrdersRequestDetailViewController {
+                if let request = sender as? Request, let category = request.category() {
+                    viewController.request = request
+                    viewController.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                        viewController.trip = trip
+                    }
+                }
+            }
+        case .orderTripInfo:
+            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
+                tripInfoViewController.trip = trip
+                tripInfoViewController.category = .carrier
+            }
+            print("Open trip list")
+        case .creditView:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("Credit View")
+        case .historyComment:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("History Comment")
+        case .settings:
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            print("Settings")
+        default:
+            print("Others")
+        }
+    }
     
     //MARK: - Helpers
     
-    func selectTabIndex(index: TabViewIndex) {
+    public func selectTabIndex(index: TabViewIndex) {
         self.selectedIndex = index.rawValue
+    }
+    
+    public func handleMainNavigationSegue(segue: MainNavigationSegue, sender: Any?) {
+        
+        //Special Handle for Zen Help Center
+        if segue == .helpCenter {
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+            return
+        }
+        
+        self.performSegue(withIdentifier: segue.rawValue, sender: sender)
+        
     }
     
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.frame = CGRect(x:view.center.x - 15, y:view.center.y - 20, width: 0, height: 0)
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }
@@ -117,7 +192,7 @@ class MainTabBarController: UITabBarController {
         
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
-            self?.displayAlert(title: "账号异常", message: "登入账号出现异常，请重新登入。", action: "好") {
+            self?.displayAlert(title: "登录异常", message: "登录设备曾经变更，请重新登录", action: "重新登录") {
                 ProfileManager.shared.logoutUser()
             }
         }
@@ -125,8 +200,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: nil, queue: nil) { [weak self] notification in
             guard let reachabilityObject = notification.object as? Reachability, let strongSelf = self else { return }
             if !reachabilityObject.isReachable {
-                let msg = "⚠️您的网络不可用，为了更准确即时地更新您的数据信息，请确保手机能使用WiFi或流量数据。对此给您带来的不便只好忍忍了，反正您也不能来打我。"
-                strongSelf.displayAlert(title: "无法链接到服务器", message: msg, action: "来人！给我拿下！")
+                strongSelf.displayAlert(title: "网络连接出错", message: "由于网络连接有问题，您的请求无法发送，请重试", action: "重试")
             }
         }
     }

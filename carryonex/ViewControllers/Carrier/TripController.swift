@@ -18,11 +18,13 @@ class TripController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.shared.startTimeTrackingKey(.carrierDetailFillTime)
         setupNavigationBar()
         setupcomfirmTripButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupBackgroundColor()
     }
     
@@ -66,9 +68,13 @@ class TripController: UIViewController{
         if let childVC = self.childViewControllers.first as? TripTableController {
             
             if childVC.pickUpDate < (Date().timeIntervalSince1970 - 86400) {    //86400 seconds/day
-                self.displayAlert(title: "出行日期有误", message: "出行日期不能早于今天，请重新输入", action: "好")
+                self.displayAlert(title: "出行日期有误", message: "出行日期不能为过去时间，请重新输入", action: L("action.ok"))
                 return
             }
+            AnalyticsManager.shared.finishTimeTrackingKey(.carrierDetailFillTime)
+            
+            let days = Date(timeIntervalSince1970: childVC.pickUpDate).days(from: Date())
+            AnalyticsManager.shared.track(.carrierPrePublishDay, attributes: ["days": days])
             
             trip.endAddress?.state = childVC.endState
             trip.endAddress?.city = childVC.endCity

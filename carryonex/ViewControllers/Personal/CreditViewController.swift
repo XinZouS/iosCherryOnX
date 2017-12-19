@@ -39,12 +39,14 @@ class CreditViewController: UIViewController {
         let webVC = WebController()
         self.navigationController?.pushViewController(webVC, animated: true)
         webVC.title = title
-        if let url = URL(string: "\(userGuideWebHoster)/doc_wallet_info") {
+        if let url = URL(string: "\(ApiServers.shared.host)/doc_wallet_info") {
             webVC.url = url
         }
     }
     
     @IBAction func extractCashButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.trackCount(.cashOutCount)
+        AnalyticsManager.shared.startTimeTrackingKey(.cashOutTime)
         // TODO: extractCash button tapped;
     }
     
@@ -61,7 +63,15 @@ class CreditViewController: UIViewController {
         setupDateFormatter()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
+        AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
+    }
+    
     private func setupNavigationBar(){ // TODO: not need this in testing phase;
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         //let btn = UIBarButtonItem(title: "付款方式", style: .plain, target: self, action: #selector(paymentTypeBarButtonTapped))
         //self.navigationItem.rightBarButtonItem = btn
     }

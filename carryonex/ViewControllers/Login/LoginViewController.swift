@@ -52,6 +52,8 @@ class LoginViewController: UIViewController {
         setupFlagPicker()
         setupIndicator()
         setupGifImage()
+        
+        AnalyticsManager.shared.startTimeTrackingKey(.loginProcessTime)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +66,12 @@ class LoginViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
     }
     
     
@@ -130,8 +138,10 @@ class LoginViewController: UIViewController {
         ProfileManager.shared.login(phone: phone, password: password) { (success) in
             if success {
                 self.dismiss(animated: true, completion: nil)
+                AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
+                AnalyticsManager.shared.trackCount(.loginByEmailCount)
             } else {
-                self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: "好")
+                self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: L("action.ok"))
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
@@ -182,17 +192,16 @@ extension LoginViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        dismissKeyboard()
-        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
-            if let response = notification.object as? SendAuthResp {
-                self?.displayAlert(title: "WeChat 登入失败", message: "错误号码：\(response.errCode)\n，错误信息：\(response.errStr)", action: "好")
-            }
-        }
-    }
-    
-    private func dismissKeyboard(){
+        
         phoneField.resignFirstResponder()
         passwordField.resignFirstResponder()
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
+            if let response = notification.object as? SendAuthResp {
+                debugPrint("Wechat error: \(response.errCode): \(response.errStr)")
+                self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
+            }
+        }
     }
 }
 
@@ -230,7 +239,7 @@ extension LoginViewController {
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
+                    self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
                     return
                 }
                 
@@ -253,15 +262,15 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        gotoWebview(title: "用户协议", url: "\(userGuideWebHoster)/doc_agreement")
+        gotoWebview(title: "用户协议", url: "\(ApiServers.shared.host)/doc_agreement")
     }
     
     @IBAction func handleAppAgreementButton(_ sender: Any) {
-        gotoWebview(title: "软件使用协议", url: "\(userGuideWebHoster)/doc_license")
+        gotoWebview(title: "软件使用协议", url: "\(ApiServers.shared.host)/doc_license")
     }
     
     @IBAction func handlePrivacyPolicyButton(_ sender: Any) {
-        gotoWebview(title: "隐私政策", url: "\(userGuideWebHoster)/doc_privacy")
+        gotoWebview(title: "隐私政策", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
     private func gotoWebview(title: String, url: String) {
@@ -293,7 +302,9 @@ extension LoginViewController: UITextFieldDelegate {
                                     if success {
                                         self?.circleIndicator.stop()
                                         //if update success close
-                                        AppDelegate.shared().mainTabViewController?.dismissLogin()
+                                        self?.dismiss(animated: true, completion: nil)
+                                        AnalyticsManager.shared.trackCount(.loginByWeChatCount)
+                                        AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                                     } else {
                                         debugPrint("Wechat registration update user info failed at user exists")
                                     }
@@ -311,6 +322,8 @@ extension LoginViewController: UITextFieldDelegate {
                                         if updateSuccess {
                                             self?.circleIndicator.stop()
                                             self?.dismiss(animated: true, completion: nil)
+                                            AnalyticsManager.shared.trackCount(.registerByWeChatCount)
+                                            AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
                                         } else {
                                             debugPrint("Wechat registration update user info failed at new registration")
                                         }

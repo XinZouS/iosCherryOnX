@@ -10,6 +10,8 @@ import Foundation
 
 let usernameKey = "com.carryonex.user-default.key.username"
 let deviceTokenKey = "com.carryonex.user-default.key.device-token"
+let hasSpotlightHome = "hasSpotlightHome"
+let hasSpotlightOrderList = "hasSpotlightOrderList"
 
 extension UserDefaults {
     
@@ -36,4 +38,14 @@ extension UserDefaults {
         UserDefaults.standard.set(token, forKey: deviceTokenKey)
         UserDefaults.standard.synchronize()
     }
+    
+    // Spotlight
+    static func setHasSpotlighHome(isFinished: Bool) {
+        UserDefaults.standard.set(isFinished, forKey: hasSpotlightHome)
+    }
+    
+    static func getHasSoptlightHome() -> Bool {
+        return UserDefaults.standard.bool(forKey: hasSpotlightHome)
+    }
+    
 }

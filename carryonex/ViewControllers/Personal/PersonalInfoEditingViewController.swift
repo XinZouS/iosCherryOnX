@@ -23,7 +23,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var circleIndicator: BPCircleActivityIndicator!
     var user: ProfileUser?
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
@@ -34,19 +33,16 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     override func viewDidLoad() {
+        title = "编辑个人资料"
+        
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.isHidden = true
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        
         setupUser()
-        setupNavigationBar()
-        setupActivityIndicator()
         addObservers()
         setupTextField()
-        setupIndicator()
-    }
-    
-    private func setupIndicator(){
-        circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
-        circleIndicator.isHidden = true
-        view.addSubview(circleIndicator)
     }
     
     private func setupTextField(){
@@ -69,7 +65,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "Error", message: "Invalid response state, please try to relogin with WeChat.", action: "OK")
+                    self?.displayAlert(title: "微信资料获取失败", message: "请重新跳转微信", action: L("action.ok"))
                     return
                 }
                 
@@ -120,17 +116,12 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                 }
             }
         } else {
-            let m = "请保持网络连接，稍后再试一次。"
-            displayGlobalAlert(title: "⚠️获取信息失败", message: m, action: "OK", completion: {
-                print("TODO: handle error when GET user failed in PersonalInfoEditingViewController;")
-            })
+            displayGlobalAlert(title: "获取信息失败", message: "请检查设备是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            //TODO: handle error when GET user failed in PersonalInfoEditingViewController
         }
     }
     
     private func setupNavigationBar(){
-        title = "编辑个人资料"
-        //let save = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveButtonTapped))
-        //navigationItem.rightBarButtonItem = save
     }
     
     @objc private func saveButtonTapped(){
@@ -157,22 +148,21 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                     let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
                                                  "email": emailString ?? "",
                                                  "gender": genderString ]
-                    circleIndicator.isHidden = false
-                    circleIndicator.animate()
+                    activityIndicator.isHidden = false
+                    activityIndicator.animate()
                     ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
-                        self.circleIndicator.isHidden = true
-                        self.circleIndicator.stop()
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stop()
                         if success{
                             //self.navigationController?.popViewController(animated: true)
-                            self.dismissVC()
+                            self.dismiss(animated: true, completion: nil)
                         }else{
                             debugPrint("change profile error")
                         }
                     })
                 } else {
-                    let errMsg = "资料保存失败:请输入正确的电子邮箱格式"
-                    displayGlobalAlert(title: "资料保存失败", message: errMsg, action: "好的", completion: {
-                        if let childVC = self.childViewControllers.first as? PersonalTable {
+                    displayGlobalAlert(title: "资料保存失败", message: "资料保存失败:请输入正确的电子邮箱格式", action: L("action.ok"), completion: { [weak self] _ in
+                        if let childVC = self?.childViewControllers.first as? PersonalTable {
                             childVC.emailTextField.becomeFirstResponder()
                         }
                     })
@@ -182,12 +172,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             }
         }
     }
-    private func setupActivityIndicator(){
-        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
-        activityIndicator.isHidden = true
-        view.addSubview(activityIndicator)
-    }
     
     @IBAction func PenTapped(_ sender: Any) {
         nameTextField.becomeFirstResponder()
@@ -195,49 +179,40 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @IBAction func imageButtonTapped(_ sender: Any) {
         let attachmentMenu = UIAlertController(title: "选择图片来源", message: "从相册选择头像或现在拍一张吧", preferredStyle: .actionSheet)
+        
         let openLibrary = UIAlertAction(title: "相册选择", style: .default) { (action) in
             self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
         }
+        
         let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
             self.openALCameraController()
         }
+        
         let wechatLogin = UIAlertAction(title: "微信获得信息", style: .default) { (action) in
             self.wechatButtonTapped()
         }
-        let cancelSelect = UIAlertAction(title: "取消", style: .cancel) { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }
+        
+        let cancelSelect = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
         attachmentMenu.addAction(openLibrary)
         attachmentMenu.addAction(openCamera)
         attachmentMenu.addAction(wechatLogin)
         attachmentMenu.addAction(cancelSelect)
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             attachmentMenu.popoverPresentationController?.sourceView = self.nameTextField
         }
+        
         present(attachmentMenu, animated: true, completion: nil)
+        AnalyticsManager.shared.startTimeTrackingKey(.profileImageSettingTime)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveButtonTapped()
     }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func dismissVC(){
-        // FIXME: 个人资料设置好后点击保存，dismiss VC时页面闪了下。
-        // plan A: customize transition:
-//        let transition = CATransition()
-//        transition.duration = 0.5
-//        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromBottom
-//        view.layer.add(transition, forKey: kCATransition)
-//        DispatchQueue.main.async {
-        
-        // plan B: use dismiss ONLY: -- not working....
-            self.dismiss(animated: true, completion: nil)
-//        }
     }
     
 }
@@ -267,6 +242,7 @@ extension PersonalInfoEditingViewController{
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
         dismiss(animated: true, completion: nil)
     }
     
@@ -277,6 +253,9 @@ extension PersonalInfoEditingViewController{
             if let image = getImg {
                 self.setupProfileImage(image)
                 self.uploadImageToAws(getImg: image)
+                
+            } else { // unable to set image, then reset timer;
+                AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
             }
             self.dismiss(animated: true, completion: nil)
         })
@@ -294,17 +273,20 @@ extension PersonalInfoEditingViewController{
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
             self.handleAwsServerImageUploadCompletion(err, awsUrl)
         })
+        AnalyticsManager.shared.finishTimeTrackingKey(.profileImageSettingTime)
         self.dismiss(animated: true, completion: nil)
     }
     
     func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
-        if let err = error {
+        if let error = error {
             activityIndicator.isHidden = true
             activityIndicator.stop()
             UIApplication.shared.endIgnoringInteractionEvents()
-            let msg = "请检查您的网络设置或重新登陆，也可联系客服获取更多帮助，为此给您带来的不便我们深表歉意！出现错误：\(err)"
-            self.displayGlobalAlert(title: "⛔️上传出错了", message: msg, action: "朕知道了", completion: nil)
+            self.displayGlobalAlert(title: "照片上传出错", message: "请检查手机是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            debugPrint("Upload image failed: \(error.localizedDescription)")
+            return
         }
+        
         if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
             print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
             ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
@@ -317,7 +299,7 @@ extension PersonalInfoEditingViewController{
                 }
             })
         }else{
-            print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
+            debugPrint("Error: uploadAllImagesToAws(): task.result is nil. Unable to upload.")
         }
     }
     
@@ -328,7 +310,7 @@ extension PersonalInfoEditingViewController{
         if let imgData = UIImageJPEGRepresentation(img, imageCompress) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
-        print("save image to DocumentDirectory: \(profileImgLocalUrl)")
+        debugPrint("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
     
@@ -336,12 +318,12 @@ extension PersonalInfoEditingViewController{
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         if let filePath = documentUrl.path {
-            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            debugPrint("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
             do {
                 try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+                debugPrint("OK remove file at path: \(filePath), fileName = \(fileName)")
             } catch let err {
-                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+                debugPrint("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
             }
         }
     }

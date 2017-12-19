@@ -134,9 +134,6 @@ let awsPublicBucketName = "carryonexpublicimage"
 
 let imageCompress: CGFloat = 0.1
 
-/// for more info display in MenuController
-let userGuideWebHoster = "http://54.245.216.35:5000"
-
 //Secrets
 let carryonSalt = "MkzpN2J4GnoaiQsCOE23"
 

@@ -12,7 +12,7 @@ import TGRefreshSwift
 
 class OrderListViewController: UIViewController {
     
-    let tripInfoSegue = "gotoOrdersYouxiangInfo"
+//    let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
     let shiperCellId = "OrderListCardShiperCell"
     let senderCellId = "OrderListCardSenderCell"
@@ -123,27 +123,19 @@ class OrderListViewController: UIViewController {
         TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if listType == .sender {
+            animateListMoveRight()
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         invalidateImageTimer()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == tripInfoSegue {
-            if let tripInfoViewController = segue.destination as? OrdersYouxiangInfoViewController, let trip = sender as? Trip {
-                tripInfoViewController.trip = trip
-                tripInfoViewController.category = .carrier
-            }
-            
-        } else if segue.identifier == requestDetailSegue {
-            if let requestDetailViewController = segue.destination as? OrdersRequestDetailViewController, let tripRequest = sender as? (Trip, Request) {
-                requestDetailViewController.trip = tripRequest.0
-                requestDetailViewController.request = tripRequest.1
-                requestDetailViewController.category = .sender
-            }
-        }
-    }
     
     //MARK: - Helper Methods
     
@@ -259,7 +251,7 @@ class OrderListViewController: UIViewController {
         animateListMoveRight()
     }
     
-    private func animateListMoveRight(){
+    func animateListMoveRight(){
         if tableViewLeftConstraint.constant == 0 {
             tableViewLeftConstraint.constant = -(self.view.bounds.width)
             sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
@@ -270,7 +262,7 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    private func animateListMoveLeft(){
+    func animateListMoveLeft(){
         if tableViewLeftConstraint.constant < 0 {
             tableViewLeftConstraint.constant = 0
             sliderBarCenterConstraint.constant = 0
@@ -362,8 +354,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == TripCategory.sender.rawValue {
             let request = senderRequests[indexPath.row]
-            let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
-            performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
+            //let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
+            //performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
         }
     }
 }
@@ -372,16 +365,16 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     
     func orderListCarrierGotoTripDetailButtonTapped(indexPath: IndexPath){
         let trip = carrierTrips[indexPath.row]  //Fix just pass trip id
-        performSegue(withIdentifier: tripInfoSegue, sender: trip)
+        AppDelegate.shared().handleMainNavigation(navigationSegue: .orderTripInfo, sender: trip)
     }
     
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard cell.isActive else {
-            displayGlobalAlertActions(title: "⚠️分享游箱？", message: "您的游箱已锁，请先解锁再分享。", actions: ["保持锁定","解锁并分享"], completion: { (tag) in
+            displayGlobalAlertActions(title: "分享游箱", message: "游箱号在锁定状态无法分享", actions: ["保持锁定","解锁"], completion: { [weak self] (tag) in
                 if tag == 1 { // unlock and share
-                    self.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
-                        self.orderListCarrierCodeShareTapped(indexPath: indexPath)
+                    self?.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
+                        self?.orderListCarrierCodeShareTapped(indexPath: indexPath)
                     })
                 }
             })
@@ -401,25 +394,36 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     func orderListCarrierLockerButtonTapped(indexPath: IndexPath, completion: (() -> Void)?) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard let id = cell.trip?.id else { return }
+        let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
+
+        if isActive {
+            displayGlobalAlertActions(title: "当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+                if tag == 0 { // do lock;
+                    self.setYouxiangLockStatusAt(cell, id: id, true, completion: completion)
+                } else {
+                    return // cancel to lock;
+                }
+            })
+        } else { // do unlock;
+            setYouxiangLockStatusAt(cell, id: id, false, completion: completion)
+        }
+    }
+    private func setYouxiangLockStatusAt(_ cell: OrderListCardShiperCell, id: Int, _ isActive: Bool, completion: (() -> Void)?) {
         cell.lockButton.isEnabled = false
         isFetching = true
-        
-        let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
         ApiServers.shared.postTripActive(tripId: "\(id)", isActive: !isActive, completion: { (success, error) in
             cell.lockButton.isEnabled = true
             self.isFetching = false
             if let err = error {
-                print("error: cannot postTripActive by id, error = \(err)")
-                let m = "哎呀暂时无法设置锁定状态，请保持网络连接，稍后再试。错误信息：\(err.localizedDescription)"
-                self.displayGlobalAlert(title: "⚠️锁定失败", message: m, action: "朕知道了", completion: nil)
+                print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
+                self.displayGlobalAlert(title: "锁定失败", message: "游箱锁设定失败，请检查手机是否连接网络", action: L("action.ok"), completion: nil)
                 return
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
-                    print("get error when get TripActive: err = \(err)")
-                    let m = "您的账户登陆信息已过期，为保障您的数据安全，请重新登入以修改您的行程。"
-                    self.displayGlobalAlert(title: "⛔️锁定失败", message: m, action: "重新登陆", completion: {
-                        self.navigationController?.popToRootViewController(animated: false)
+                    print("get error when get TripActive: err = \(err.localizedDescription)")
+                    self.displayGlobalAlert(title: "锁定失败", message: "您的账户登陆信息已过期", action: "重新登陆", completion: { [weak self] _ in
+                        self?.navigationController?.popToRootViewController(animated: false)
                         ProfileManager.shared.logoutUser()
                     })
                     return

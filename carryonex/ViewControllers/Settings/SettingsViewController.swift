@@ -73,7 +73,7 @@ extension SettingsViewController: UITableViewDelegate {
             print("TODO: selection 账号信息")
             
         case 3:
-            let url = "\(userGuideWebHoster)/doc_license"
+            let url = "\(ApiServers.shared.host)/doc_license"
             let webCtl = WebController()
             webCtl.url = URL(string: url) ?? URL(string: "https://www.carryonex.com/")
             navigationController?.pushViewController(webCtl, animated: true)

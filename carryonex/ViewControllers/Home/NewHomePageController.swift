@@ -72,9 +72,12 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         super.viewDidAppear(animated)
         setupUserImageView()
         //checkForUpdate()
+        setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // TODO: what's the different of all these with the same id ???
         if (segue.identifier == "shiper"){
             if let destVC = segue.destination as? UserCardViewController {
                 userCardOne = destVC
@@ -91,24 +94,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             }
         }
         
-        if (segue.identifier == "sender"){
-            if let destVC = segue.destination as? TripController {
-                tripController = destVC
-            }
-        }
-        
-        if (segue.identifier == ordersRequestDetailSegue) {
-            if let viewController = segue.destination as? OrdersRequestDetailViewController {
-                if let requestInfo = sender as? [String: Any] {
-                    guard let request = requestInfo["request"] as? Request, let category = requestInfo["category"] as? TripCategory else { return }
-                    viewController.request = request
-                    viewController.category = category
-                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
-                        viewController.trip = trip
-                    }
-                }
-            }
-        }
     }
     
     
@@ -241,6 +226,25 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    private func setupSportlight(){
+        if UserDefaults.getHasSoptlightHome() {
+            return
+        }
+        let f1 = shiperButton.frame
+        let f2 = senderButton.frame
+        let f3 = CGRect(x: 20, y: view.bounds.maxY * 0.46, width: view.bounds.maxX - 40, height: view.bounds.maxY * 0.56)
+        
+        let s1 = Spotlight(withRect: f1, shape: .roundRectangle, text: "TODO: spotlight1 text", isAllowPassTouchesThroughSpotlight: true)
+        let s2 = Spotlight(withRect: f2, shape: .roundRectangle, text: "TODO: spotlight2 text", isAllowPassTouchesThroughSpotlight: true)
+        let s3 = Spotlight(withRect: f3, shape: .roundRectangle, text: "TODO: this is your trip card;", isAllowPassTouchesThroughSpotlight: true)
+
+        let spotlightView = SpotlightView(frame: UIScreen.main.bounds, spotlight: [s1,s2,s3])
+        view.addSubview(spotlightView)
+        spotlightView.start()
+        UserDefaults.setHasSpotlighHome(isFinished: true)
+    }
+
+    
     private func checkForUpdate() {
         guard let updatedVersion = ApiServers.shared.config?.iosVersion,
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
@@ -251,7 +255,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let currentVersion = version + "." + build
         if updatedVersion != currentVersion {
             print("Current: \(currentVersion), Updated to: \(updatedVersion)")
-            self.displayGlobalAlertActions(title: "有新版本更新", message: "版本 \(updatedVersion) 已经推出，请往 AppStore 下载游箱最新版本。", actions: ["前往 AppStore"], completion: { (index) in
+            self.displayGlobalAlertActions(title: "版本较低", message: "请更新最新版本", actions: ["前往 AppStore"], completion: { (index) in
                 //TODO: Update to carryonex app URL
                 let appStoreLink = "https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
                 if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
@@ -337,24 +341,34 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
-    }
-    
-    @IBAction func shiperButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "carrierSegue", sender: self)
-    }
-    
-    @IBAction func senderButtonTapped(_ sender: Any) {
         
     }
     
+    @IBAction func shiperButtonTapped(_ sender: Any) {
+        //performSegue(withIdentifier: "carrierSegue", sender: self)
+        handleNavigation(segue: .addTrip, sender: nil)
+    }
+    
+    @IBAction func senderButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.startTimeTrackingKey(.senderDetailTotalTime)
+        handleNavigation(segue: .addRequest, sender: nil)
+    }
+    
+    
+}
+
+extension NewHomePageController: MainNavigationProtocol {
+    
+    func handleNavigation(segue: MainNavigationSegue, sender: Any?) {
+        AppDelegate.shared().handleMainNavigation(navigationSegue: segue, sender: sender)
+    }
     
 }
 
 extension NewHomePageController: UserCardDelegate {
     
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
-        let request: [String: Any] = ["request": request, "category": category]
-        performSegue(withIdentifier: ordersRequestDetailSegue, sender: request)
+        handleNavigation(segue: .requestDetail, sender: request)
     }
 }
 
@@ -384,4 +398,5 @@ extension UIAlertController {
         preferredAction = skipAction
     }
 }
+
 

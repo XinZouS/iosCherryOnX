@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "wallet_gray.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "WalletNewIcon.png",
       "scale" : "2x"
     },
     {

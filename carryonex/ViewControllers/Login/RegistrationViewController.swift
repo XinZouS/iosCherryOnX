@@ -28,13 +28,7 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTextFields()
-        setupGifImage()
-    }
-
-    
-    private func setupTextFields() {
+        
         nameField.delegate = self
         passwordField.delegate = self
         confirmPasswordField.delegate = self
@@ -46,13 +40,19 @@ class RegistrationViewController: UIViewController {
         nameField.addTarget(self, action: #selector(checkRegistrationButtonReady), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
-    }
-
-    private func setupGifImage(){
-        let gifImg = UIImage.gifImageWithName("Login_animated_loop_png")
-        bottomImageView.image = gifImg
+        
+        bottomImageView.image = UIImage.gifImageWithName("Login_animated_loop_png")
+        
+        AnalyticsManager.shared.startTimeTrackingKey(.registrationProcessTime)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AnalyticsManager.shared.clearTimeTrackingKey(.registrationProcessTime)
+    }
+    
+    
+    //MARK: Action Handler
     
     @IBAction func handleRegisterButton(sender: UIButton) {
         
@@ -60,14 +60,12 @@ class RegistrationViewController: UIViewController {
             AudioManager.shared.playSond(named: .failed)
             return
         }
-//        if !isPasswordValidate() {
-//            AudioManager.shared.playSond(named: .failed)
-//            return
-//        }
+        
         guard isPasswordValid else {
             AudioManager.shared.playSond(named: .failed)
             return 
         }
+        
         guard let password = passwordField.text else { 
             AudioManager.shared.playSond(named: .failed)
             return 
@@ -79,6 +77,9 @@ class RegistrationViewController: UIViewController {
         }
         registerUser(name: userName, password: password, phone: phone, countryCode: countryCode)
     }
+    
+    
+    //MARK: Helper
     
     private func registerUser(name: String, password: String, phone: String, countryCode: String){
         ProfileManager.shared.register(username: phone,
@@ -92,15 +93,16 @@ class RegistrationViewController: UIViewController {
                                                 if success {
                                                     ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
                                                         self.dismiss(animated: true, completion: nil)
+                                                        AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
                                                     })
                                                 } else {
-                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重发验证码", completion: { [weak self] _ in
+                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重新发送验证码", completion: { [weak self] _ in
                                                         self?.navigationController?.popToRootViewController(animated: true)
                                                     })
                                                 }
                                             }
                                         } else {
-                                            self.displayGlobalAlert(title: "注册失败", message: (err?.localizedDescription ?? "不能注册"), action: "好", completion: { [weak self] _ in
+                                            self.displayGlobalAlert(title: "注册失败", message:  "错误信息: \(err?.localizedDescription ?? "不能注册")", action: L("action-ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }
@@ -181,9 +183,4 @@ extension RegistrationViewController: UITextFieldDelegate {
         return true
     }
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }

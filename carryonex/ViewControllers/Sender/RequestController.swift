@@ -225,39 +225,35 @@ extension RequestController: UITextFieldDelegate {
         
         print("TODO: upload Request() to server")
         
-        let t = "‼️您还没填完信息"
-        let ok = "朕知道了"
         if !is02DestinationSet {
-            displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
+            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
             return
         }
         if imageUploadingSet.count == 0 {
-            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
             return
         }
     }
     
     @objc fileprivate func handleSubmissionButton() {
         
-        let t = "‼️您还没填完信息"
-        let ok = "朕知道了"
         if is02DestinationSet == false {
-            displayAlert(title: t, message: "请从地图上选择您的快件寄送【收货地址】，我们将为您找到帮您送件的客户。", action: ok)
+            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
             return
         }
         if imageUploadingSet.count == 0 {
-            displayAlert(title: t, message: "请拍摄您的物品照片，便于出行人了解详情。", action: ok)
+            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
             return
         }
         
-        uploadImagesToAwsAndGetUrls { (urls, error) in
+        self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             if let urls = urls {
-                if let totalValueString = self.cellTotalValue?.textField.text,
+                if let totalValueString = self?.cellTotalValue?.textField.text,
                     let totalValue = Double(totalValueString),
-                    let costString = self.cell07Cost?.textField.text,
+                    let costString = self?.cell07Cost?.textField.text,
                     let cost = Double(costString),
-                    let endAddress = self.endAddress,
-                    let trip = self.trip {
+                    let endAddress = self?.endAddress,
+                    let trip = self?.trip {
                     
                     //TODO: Put in description.
                     ApiServers.shared.postRequest(totalValue: totalValue,
@@ -278,8 +274,6 @@ extension RequestController: UITextFieldDelegate {
                     
                 }
             }
-            
-            
         }
     }
 }
@@ -333,13 +327,6 @@ extension RequestController {
                         
                         if urls.count == self.imageUploadSequence.count {
                             urls.sort {$0 < $1}
-                            // TODO: upload urls dictionary to our Server;
-//                            print("\n\n search this senten to locate in code to get dictionary - Xin")
-//                            print("get dictionary ready for uploading to Server = ")
-//                            for pair in imageUrlsDictionary {
-//                                print("key = \(pair.key), val = \(pair.value)")
-//                            }
-                            
                             completion(urls, nil)
                             // then remove the images from cache
                             self.removeAllImageFromLocal()

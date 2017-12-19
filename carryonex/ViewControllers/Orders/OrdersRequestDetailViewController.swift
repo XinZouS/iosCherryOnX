@@ -102,6 +102,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
+        AnalyticsManager.shared.trackCount(.otherProfileVisitCount) //查看对方个人页面次数
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
@@ -117,7 +118,14 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func goToPaymentHandler(_ sender: Any) {
-        WalletManager.shared.aliPayAuth(request: request)
+        if paymentType == .alipay {
+            AnalyticsManager.shared.trackCount(.alipayPayCount)
+            WalletManager.shared.aliPayAuth(request: request)
+            
+        }else if paymentType == .wechatPay {
+            AnalyticsManager.shared.trackCount(.wechatPayCount)
+            //TODO: use wechat pay
+        }
     }
     
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
@@ -138,7 +146,7 @@ class OrdersRequestDetailViewController: UIViewController {
         let tripId = trip.id
         let requestId = request.id
         let requestCategory = category
-        displayAlertOkCancel(title: "确认操作", message: transaction.confirmDescString()) { [weak self] (style) in
+        displayAlertOkCancel(title: "确认提交", message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
                 self?.isLoadingStatus = true
                 ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
@@ -200,6 +208,7 @@ class OrdersRequestDetailViewController: UIViewController {
         title = "订单详情"
         setupScrollView()
         setupView()
+        setupNavigationBar()
         setupCollectionView()
         setupPaymentMenuView()
         addObservers()
@@ -255,6 +264,15 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func setupPaymentMenuView(){
@@ -363,7 +381,7 @@ class OrdersRequestDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
             if let status = notification.object as? AliPayResultStatus {
                 if status == .success || status == .processing {
-                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: "好", completion: { [weak self] _ in
+                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: L("action.ok"), completion: { [weak self] _ in
                         guard let strongSelf = self else { return }
                         
                         self?.backgroundViewHide()
@@ -384,11 +402,11 @@ class OrdersRequestDetailViewController: UIViewController {
                     })
                     
                 } else {
-                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: "好")
+                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: L("action.ok"))
                 }
                 
             } else {
-                self?.displayAlert(title: "支付失败", message: "未知错误", action: "好")
+                self?.displayAlert(title: "支付失败", message: "未知错误", action: L("action.ok"))
             }
         }
         
@@ -418,6 +436,7 @@ class OrdersRequestDetailViewController: UIViewController {
                 self.backgroundView.alpha = 1
             }, completion: nil)
         }
+        AnalyticsManager.shared.startTimeTrackingKey(.requestPayTime)
     }
     
     public func backgroundViewHide(){
@@ -513,17 +532,49 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         }
         
         //Stop user for leaving comment if it's been commented
-        if request.isCommented == 1 && finishButton.transaction == .allowRating {
-            finishButton.isUserInteractionEnabled = false
-            finishButton.alpha = 0.3
+        guard let userId = ProfileManager.shared.getCurrentUser()?.id else {
+            return
+        }
+        
+        if finishButton.transaction == .allowRating {
+            if let commentStatus = CommentStatus(rawValue: request.commentStatus)  {
+                switch commentStatus {
+                case .NoComment:
+                    enableFinishButton()
+                case .CarrierCommented:
+                    if self.trip.carrierId == userId {
+                        disableFinishButton()
+                    } else {
+                        enableFinishButton()
+                    }
+                case .SenderCommented:
+                    if request.ownerId == userId {
+                        disableFinishButton()
+                    } else {
+                        enableFinishButton()
+                    }
+                case .Completed:
+                    disableFinishButton()
+                }
+            }
+            
         } else {
-            finishButton.isUserInteractionEnabled = true
-            finishButton.alpha = 1
+            enableFinishButton()
         }
         
         //To prevent grid lock because of loading issue, re-enable button again upon
         //setting transaction
         isLoadingStatus = false
+    }
+    
+    func enableFinishButton() {
+        finishButton.isUserInteractionEnabled = true
+        finishButton.alpha = 1
+    }
+    
+    func disableFinishButton() {
+        finishButton.isUserInteractionEnabled = false
+        finishButton.alpha = 0.3
     }
     
     func updateRequestInfoAppearance(request: Request) {
@@ -696,7 +747,7 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("get errrorroro HomePageController++ locationManager didFailWithError: \(error)")
-        displayAlert(title: "‼️无法获取GPS", message: "定位失败，请打开您的GPS。错误信息：\(error)", action: "朕知道了")
+        displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
     }
     
     func updateSearchResults(for searchController: UISearchController) {

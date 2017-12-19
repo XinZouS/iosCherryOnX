@@ -49,6 +49,7 @@ extension WalletManager {
         let total = String(format: "%.2f", (Double(request.priceBySender) / 100.0))
         ApiServers.shared.postWalletAliPay(totalAmount: total, userId: userId, requestId: requestId) { (orderString, error) in
             if let error = error {
+                AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
                 print("aliPayAuth: \(error.localizedDescription)")
                 return
             }
@@ -56,6 +57,8 @@ extension WalletManager {
             AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (result) in
                 if let result = result {
                     print("Result Dict: \(result)")
+                } else {
+                    AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
                 }
             }
         }
@@ -71,7 +74,39 @@ extension WalletManager {
      AnyHashable("memo"): ]
      */
     
-    func aliPayProcessOrderCallbackHandler(result: [AnyHashable: Any]) {
+    func aliPayHandleOrderUrl(_ url: URL) {
+        
+        AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
+            if let result = result {
+                self.aliPayProcessOrderCallbackHandler(result: result)
+                AnalyticsManager.shared.finishTimeTrackingKey(.requestPayTime)
+                print("OpenURL callback result: \(result)")
+            }
+        })
+        
+        AlipaySDK.defaultService().processAuth_V2Result(url, standbyCallback: { (result) in
+            var authCode: String? = nil
+            if let resultValue = result?["result"] as? String {
+                if resultValue.count > 0 {
+                    let resultArr = resultValue.components(separatedBy: "&")
+                    for subResult in resultArr {
+                        if subResult.count > 10 && subResult.hasPrefix("auth_code=") {
+                            let index = subResult.index(subResult.endIndex, offsetBy: -10)
+                            authCode = subResult.substring(from: index)
+                            break
+                        }
+                    }
+                }
+            }
+            
+            if let authCode = authCode {
+                print("Authorization result: \(authCode)")
+            }
+        })
+    }
+    
+    
+    private func aliPayProcessOrderCallbackHandler(result: [AnyHashable: Any]) {
         if let resultStatus = result["resultStatus"] as? String {
             if let status = AliPayResultStatus(rawValue: resultStatus) {
                 NotificationCenter.default.post(name: Notification.Name.Alipay.PaymentProcessed, object: status)

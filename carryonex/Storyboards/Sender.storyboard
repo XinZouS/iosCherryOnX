@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6aY-yC-FGU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6aY-yC-FGU">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,14 +15,14 @@
             <objects>
                 <viewController id="6aY-yC-FGU" customClass="ItemListYouxiangInputController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qOP-M1-Utm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background_Blue_Long" translatesAutoresizingMaskIntoConstraints="NO" id="poo-GA-ALk">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-IG-2gI">
-                                <rect key="frame" x="552" y="118.5" width="32" height="30"/>
+                                <rect key="frame" x="327" y="118.5" width="32" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="2e1-Ak-fIv"/>
                                     <constraint firstAttribute="width" constant="32" id="D6q-nN-7y7"/>
@@ -28,6 +32,12 @@
                                     <action selector="goDetailPage:" destination="6aY-yC-FGU" eventType="touchUpInside" id="6hb-dG-qdu"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVZ-td-Suy">
+                                <rect key="frame" x="67" y="116" width="250" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索icon" translatesAutoresizingMaskIntoConstraints="NO" id="Zib-B4-JcO">
                                 <rect key="frame" x="16" y="120" width="26" height="26"/>
                                 <constraints>
@@ -36,13 +46,14 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-eX-FB1" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
-                                <rect key="frame" x="67" y="116" width="475" height="35"/>
+                                <rect key="frame" x="67" y="116" width="250" height="35"/>
+                                <color key="tintColor" red="0.69489037990000002" green="0.98665767910000002" blue="0.92136847970000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hag-b1-6NK"/>
                                 </constraints>
-                                <color key="textColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" keyboardAppearance="alert" returnKeyType="go" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" keyboardAppearance="alert" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineLeft">
                                         <real key="value" value="-50"/>
@@ -72,12 +83,16 @@
                         <constraints>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="centerY" secondItem="bwx-eX-FB1" secondAttribute="centerY" id="0Jw-mV-10P"/>
                             <constraint firstItem="bwx-eX-FB1" firstAttribute="leading" secondItem="Zib-B4-JcO" secondAttribute="trailing" constant="25" id="8Co-aI-naO"/>
+                            <constraint firstItem="SVZ-td-Suy" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="leading" id="8zY-H5-uX2"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="top" secondItem="pAC-CP-FJo" secondAttribute="top" constant="100" id="GEY-zN-FY9"/>
                             <constraint firstItem="bwx-eX-FB1" firstAttribute="centerY" secondItem="Zib-B4-JcO" secondAttribute="centerY" id="GyB-eF-HHl"/>
+                            <constraint firstItem="SVZ-td-Suy" firstAttribute="top" secondItem="bwx-eX-FB1" secondAttribute="top" id="Ikh-0X-LkF"/>
+                            <constraint firstItem="SVZ-td-Suy" firstAttribute="trailing" secondItem="bwx-eX-FB1" secondAttribute="trailing" id="Oy3-Jb-y4H"/>
                             <constraint firstItem="pAC-CP-FJo" firstAttribute="trailing" secondItem="XXV-IG-2gI" secondAttribute="trailing" constant="16" id="Sx4-mq-isR"/>
                             <constraint firstItem="Zib-B4-JcO" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" constant="16" id="T3I-98-swB"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="leading" secondItem="pAC-CP-FJo" secondAttribute="leading" id="fpf-Ja-DgK"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="top" secondItem="qOP-M1-Utm" secondAttribute="top" id="gzQ-wn-Nj4"/>
+                            <constraint firstItem="SVZ-td-Suy" firstAttribute="bottom" secondItem="bwx-eX-FB1" secondAttribute="bottom" id="j00-fw-5q3"/>
                             <constraint firstItem="XXV-IG-2gI" firstAttribute="leading" secondItem="bwx-eX-FB1" secondAttribute="trailing" constant="10" id="nIO-AL-ioO"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="bottom" secondItem="pAC-CP-FJo" secondAttribute="bottom" id="oYh-6E-vjZ"/>
                             <constraint firstItem="poo-GA-ALk" firstAttribute="trailing" secondItem="pAC-CP-FJo" secondAttribute="trailing" id="r1b-2p-Q3r"/>
@@ -87,13 +102,14 @@
                     <navigationItem key="navigationItem" id="fBd-s8-K2Y"/>
                     <connections>
                         <outlet property="goDetailButton" destination="XXV-IG-2gI" id="lhn-Bf-kX6"/>
+                        <outlet property="youxiangcodeLabel" destination="SVZ-td-Suy" id="GOl-kz-Luq"/>
                         <outlet property="youxiangcodeTextField" destination="bwx-eX-FB1" id="dfc-kq-GYP"/>
                         <segue destination="oMI-QC-oIz" kind="show" identifier="goToSenderDetailInfoPage" id="7rd-4A-EhO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3QA-4S-1pf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501.44927536231887" y="167.11956521739131"/>
+            <point key="canvasLocation" x="500" y="166.8665667166417"/>
         </scene>
         <!--SenderDetailInfo-->
         <scene sceneID="8Sp-jx-Bth">

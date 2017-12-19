@@ -68,6 +68,7 @@ class TripCompletedController : UIViewController{
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         if let trip = trip {
+            AnalyticsManager.shared.startTimeTrackingKey(.carrierShareTime)
             let sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
             if UIDevice.current.userInterfaceIdiom != .phone {
                 sharingAlertVC.popoverPresentationController?.sourceView = self.shareButton

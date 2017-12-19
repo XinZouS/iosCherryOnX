@@ -65,14 +65,13 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("errorroro: AddressSearchController++: locationManager(didFailWithError), err = \(error)")
-        displayAlert(title: "无法获取GPS", message: "定位失败，请打开您的GPS。错误信息：\(error)", action: "朕知道了")
+        displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
     }
+    
     // for UISearchResultsUpdating delegate
     func updateSearchResults(for searchController: UISearchController) {
         
     }
-    
-
     
     /// HandleMapSearch delegate:
     func dropPinZoomIn(placemark:MKPlacemark){
@@ -130,7 +129,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) -> Void in
             
             guard let placeArray = placemarks as [CLPlacemark]!, placeArray.count != 0 else {
-                self.displayAlert(title: "‼️找不到地图信息", message: "地图加载失败。请确保手机有网络信号并打开GPS。", action: "OK")
+                self.displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
                 return
             }
             // Place details

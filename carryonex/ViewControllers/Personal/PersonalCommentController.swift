@@ -30,11 +30,13 @@ class PersonalCommentController: UIViewController{
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return l
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupIndicator()
         fetchComment()
         setupTableView()
+        setupNavigationBar()
     }
     
     private func setupIndicator(){
@@ -56,7 +58,13 @@ class PersonalCommentController: UIViewController{
     private func setupTableView(){
         commentTableView.tableFooterView = setupLoadMoreView()
         commentTableView.allowsSelection = true
+    }
+    
+    private func setupNavigationBar(){
         title = "我的评价"
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func setupLoadMoreView() ->UIView{
