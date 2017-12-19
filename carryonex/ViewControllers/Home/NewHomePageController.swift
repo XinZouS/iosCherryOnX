@@ -72,6 +72,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         super.viewDidAppear(animated)
         setupUserImageView()
         //checkForUpdate()
+        setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -225,6 +226,25 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    private func setupSportlight(){
+        if UserDefaults.getHasSoptlightHome() {
+            return
+        }
+        let f1 = shiperButton.frame
+        let f2 = senderButton.frame
+        let f3 = CGRect(x: 20, y: view.bounds.maxY * 0.46, width: view.bounds.maxX - 40, height: view.bounds.maxY * 0.56)
+        
+        let s1 = Spotlight(withRect: f1, shape: .roundRectangle, text: "TODO: spotlight1 text", isAllowPassTouchesThroughSpotlight: true)
+        let s2 = Spotlight(withRect: f2, shape: .roundRectangle, text: "TODO: spotlight2 text", isAllowPassTouchesThroughSpotlight: true)
+        let s3 = Spotlight(withRect: f3, shape: .roundRectangle, text: "TODO: this is your trip card;", isAllowPassTouchesThroughSpotlight: true)
+
+        let spotlightView = SpotlightView(frame: UIScreen.main.bounds, spotlight: [s1,s2,s3])
+        view.addSubview(spotlightView)
+        spotlightView.start()
+        UserDefaults.setHasSpotlighHome(isFinished: true)
+    }
+
+    
     private func checkForUpdate() {
         guard let updatedVersion = ApiServers.shared.config?.iosVersion,
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
@@ -377,4 +397,5 @@ extension UIAlertController {
         preferredAction = skipAction
     }
 }
+
 

@@ -58,6 +58,8 @@
 		663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */; };
 		665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */; };
 		665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */; };
+		665B37E61FE869EF00A5926A /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B37E51FE869EF00A5926A /* Spotlight.swift */; };
+		665B37E81FE86A0A00A5926A /* SpotlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B37E71FE86A0A00A5926A /* SpotlightView.swift */; };
 		665DE4ED1F3A0B70004DDB88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */; };
 		665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F61F3A0B70004DDB88 /* Assets.xcassets */; };
 		665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */; };
@@ -239,6 +241,8 @@
 		665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "carryonex-Bridging-Header.h"; sourceTree = "<group>"; };
 		665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageTableCell.swift; sourceTree = "<group>"; };
 		665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShiperInfo.storyboard; sourceTree = "<group>"; };
+		665B37E51FE869EF00A5926A /* Spotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spotlight.swift; sourceTree = "<group>"; };
+		665B37E71FE86A0A00A5926A /* SpotlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightView.swift; sourceTree = "<group>"; };
 		665DE4E91F3A0B70004DDB88 /* carryonex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carryonex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		665DE4F61F3A0B70004DDB88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -506,6 +510,15 @@
 			path = Personal;
 			sourceTree = "<group>";
 		};
+		665B37E41FE866B700A5926A /* AwesomeSpotlightView */ = {
+			isa = PBXGroup;
+			children = (
+				665B37E51FE869EF00A5926A /* Spotlight.swift */,
+				665B37E71FE86A0A00A5926A /* SpotlightView.swift */,
+			);
+			path = AwesomeSpotlightView;
+			sourceTree = "<group>";
+		};
 		665DE4E01F3A0B70004DDB88 = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +621,7 @@
 		E53791E61FABC047009647CD /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				665B37E41FE866B700A5926A /* AwesomeSpotlightView */,
 				E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */,
 			);
 			path = Vendor;
@@ -1067,7 +1081,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF6224581FB0D55500280FDA /* ShellScript */ = {
@@ -1096,6 +1110,7 @@
 				E5A2A7D41FE2E6B100A51BDC /* DisclaimerController.swift in Sources */,
 				4D7932A61FD689040081BBE2 /* APOrderInfo.swift in Sources */,
 				E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */,
+				665B37E61FE869EF00A5926A /* Spotlight.swift in Sources */,
 				E567BB101FCC6D5F00B87608 /* STBankAccount.swift in Sources */,
 				4D7932801FD676D90081BBE2 /* WalletManager.swift in Sources */,
 				FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */,
@@ -1130,6 +1145,7 @@
 				E5A2A7781FE2E44000A51BDC /* UIActivityIndicatorCustomizeView.swift in Sources */,
 				E5A2A7911FE2E57100A51BDC /* Address.swift in Sources */,
 				4DE6BDDE1FBA951000900DF8 /* OrderListHeaderCell.swift in Sources */,
+				665B37E81FE86A0A00A5926A /* SpotlightView.swift in Sources */,
 				4DE6BDDC1FBA929B00900DF8 /* OrderListViewController.swift in Sources */,
 				FF13DE201FCF317F0012C4BC /* PersonalCommentCell.swift in Sources */,
 				E567BB0C1FCC6D3600B87608 /* STDispute.swift in Sources */,
