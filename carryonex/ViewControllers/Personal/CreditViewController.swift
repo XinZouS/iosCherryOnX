@@ -62,6 +62,8 @@ class CreditViewController: UIViewController {
     }
     
     private func setupNavigationBar(){ // TODO: not need this in testing phase;
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         //let btn = UIBarButtonItem(title: "付款方式", style: .plain, target: self, action: #selector(paymentTypeBarButtonTapped))
         //self.navigationItem.rightBarButtonItem = btn
     }
