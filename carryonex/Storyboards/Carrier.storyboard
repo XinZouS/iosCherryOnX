@@ -312,7 +312,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v90-S0-7EZ">
-                                                    <rect key="frame" x="23" y="32" width="309" height="16"/>
+                                                    <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.30053696036338806" green="0.34458458423614502" blue="0.38212773203849792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -322,21 +322,21 @@
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQN-Am-M9b">
-                                                    <rect key="frame" x="8" y="24" width="339" height="32"/>
+                                                    <rect key="frame" x="7" y="24" width="286" height="32"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <connections>
                                                         <action selector="tobeginTextField:" destination="Llg-DT-bEq" eventType="touchUpInside" id="qg5-LE-wb6"/>
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down_gray" translatesAutoresizingMaskIntoConstraints="NO" id="QXe-WP-yrE">
-                                                    <rect key="frame" x="322" y="30" width="20" height="20"/>
+                                                    <rect key="frame" x="270.5" y="30" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="0Jm-vI-dvR"/>
                                                         <constraint firstAttribute="width" constant="20" id="F7P-ZV-tF7"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZD-rO-Wxa">
-                                                    <rect key="frame" x="23" y="53" width="309" height="1"/>
+                                                    <rect key="frame" x="19.5" y="53" width="261" height="1"/>
                                                     <color key="backgroundColor" red="0.75082153080000003" green="0.81908339259999996" blue="0.86505109069999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="yiD-O5-riX"/>
@@ -374,7 +374,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aF3-fl-Whw">
-                                                    <rect key="frame" x="23" y="32" width="309" height="16"/>
+                                                    <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -385,20 +385,20 @@
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sqo-kN-Soq">
-                                                    <rect key="frame" x="8" y="24.5" width="339" height="32"/>
+                                                    <rect key="frame" x="7" y="24.5" width="286" height="32"/>
                                                     <connections>
                                                         <action selector="toEndTextField:" destination="Llg-DT-bEq" eventType="touchUpInside" id="8qA-37-UWh"/>
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down_gray" translatesAutoresizingMaskIntoConstraints="NO" id="5la-UF-Nxx">
-                                                    <rect key="frame" x="322" y="29.5" width="20" height="20"/>
+                                                    <rect key="frame" x="270.5" y="29.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Qqp-zP-Xjp"/>
                                                         <constraint firstAttribute="width" constant="20" id="c7e-hM-w2X"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWy-WR-zzC">
-                                                    <rect key="frame" x="23" y="53" width="309" height="1"/>
+                                                    <rect key="frame" x="19.5" y="53" width="261" height="1"/>
                                                     <color key="backgroundColor" red="0.75082153081893921" green="0.81908339262008667" blue="0.86505109071731567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="lG7-kW-hOg"/>
@@ -434,7 +434,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uXF-qR-Cjr">
-                                                    <rect key="frame" x="23" y="32" width="309" height="16"/>
+                                                    <rect key="frame" x="19.5" y="32" width="261" height="16"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.30445957183837891" green="0.34850695729255676" blue="0.38605034351348877" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -445,20 +445,20 @@
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rh7-zI-wJG">
-                                                    <rect key="frame" x="8" y="24.5" width="339" height="32"/>
+                                                    <rect key="frame" x="7" y="24.5" width="286" height="32"/>
                                                     <connections>
                                                         <action selector="toTimeTextField:" destination="Llg-DT-bEq" eventType="touchUpInside" id="XPo-ZX-geP"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZV9-2N-1cT">
-                                                    <rect key="frame" x="22.5" y="53" width="309" height="1"/>
+                                                    <rect key="frame" x="19" y="53" width="261" height="1"/>
                                                     <color key="backgroundColor" red="0.75082153081893921" green="0.81908339262008667" blue="0.86505109071731567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="ZQb-MD-6Ld"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down_gray" translatesAutoresizingMaskIntoConstraints="NO" id="vC9-e1-Wzs">
-                                                    <rect key="frame" x="322" y="30.5" width="20" height="20"/>
+                                                    <rect key="frame" x="270.5" y="30.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="BXq-uo-ulv"/>
                                                         <constraint firstAttribute="height" constant="20" id="YCH-be-tUO"/>
@@ -494,20 +494,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址详细信息，注意事项等" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wek-kC-mch">
-                                                    <rect key="frame" x="23" y="12" width="196" height="19.5"/>
+                                                    <rect key="frame" x="19.5" y="12" width="196" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.74204939603805542" green="0.74256473779678345" blue="0.75648868083953857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zBc-vd-RWA">
-                                                    <rect key="frame" x="23" y="12" width="309" height="56"/>
+                                                    <rect key="frame" x="19.5" y="12" width="261" height="56"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" red="0.74689972400665283" green="0.81516140699386597" blue="0.8611292839050293" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHy-fl-KWO">
-                                                    <rect key="frame" x="23" y="73" width="309" height="1"/>
+                                                    <rect key="frame" x="19.5" y="73" width="261" height="1"/>
                                                     <color key="backgroundColor" red="0.75082153080000003" green="0.81908339259999996" blue="0.86505109069999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="sBn-FZ-zyV"/>
