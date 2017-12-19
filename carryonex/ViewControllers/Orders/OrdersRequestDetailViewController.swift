@@ -200,6 +200,7 @@ class OrdersRequestDetailViewController: UIViewController {
         title = "订单详情"
         setupScrollView()
         setupView()
+        setupNavigationBar()
         setupCollectionView()
         setupPaymentMenuView()
         addObservers()
@@ -255,6 +256,15 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func setupPaymentMenuView(){

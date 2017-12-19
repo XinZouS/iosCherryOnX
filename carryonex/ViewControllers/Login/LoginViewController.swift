@@ -262,15 +262,15 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        gotoWebview(title: "用户协议", url: "\(userGuideWebHoster)/doc_agreement")
+        gotoWebview(title: "用户协议", url: "\(ApiServers.shared.host)/doc_agreement")
     }
     
     @IBAction func handleAppAgreementButton(_ sender: Any) {
-        gotoWebview(title: "软件使用协议", url: "\(userGuideWebHoster)/doc_license")
+        gotoWebview(title: "软件使用协议", url: "\(ApiServers.shared.host)/doc_license")
     }
     
     @IBAction func handlePrivacyPolicyButton(_ sender: Any) {
-        gotoWebview(title: "隐私政策", url: "\(userGuideWebHoster)/doc_privacy")
+        gotoWebview(title: "隐私政策", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
     private func gotoWebview(title: String, url: String) {
