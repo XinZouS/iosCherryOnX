@@ -23,7 +23,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var circleIndicator: BPCircleActivityIndicator!
     var user: ProfileUser?
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
@@ -37,8 +36,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         title = "编辑个人资料"
         
         activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
         activityIndicator.isHidden = true
+        activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         
         setupUser()
@@ -149,11 +148,11 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                     let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
                                                  "email": emailString ?? "",
                                                  "gender": genderString ]
-                    circleIndicator.isHidden = false
-                    circleIndicator.animate()
+                    activityIndicator.isHidden = false
+                    activityIndicator.animate()
                     ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
-                        self.circleIndicator.isHidden = true
-                        self.circleIndicator.stop()
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stop()
                         if success{
                             //self.navigationController?.popViewController(animated: true)
                             self.dismissVC()
@@ -180,31 +179,37 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @IBAction func imageButtonTapped(_ sender: Any) {
         let attachmentMenu = UIAlertController(title: "选择图片来源", message: "从相册选择头像或现在拍一张吧", preferredStyle: .actionSheet)
+        
         let openLibrary = UIAlertAction(title: "相册选择", style: .default) { (action) in
             self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
         }
+        
         let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
             self.openALCameraController()
         }
+        
         let wechatLogin = UIAlertAction(title: "微信获得信息", style: .default) { (action) in
             self.wechatButtonTapped()
         }
-        let cancelSelect = UIAlertAction(title: "取消", style: .cancel) { (action) in
-            self.dismiss(animated: true, completion: nil)
-        }
+        
+        let cancelSelect = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
         attachmentMenu.addAction(openLibrary)
         attachmentMenu.addAction(openCamera)
         attachmentMenu.addAction(wechatLogin)
         attachmentMenu.addAction(cancelSelect)
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             attachmentMenu.popoverPresentationController?.sourceView = self.nameTextField
         }
+        
         present(attachmentMenu, animated: true, completion: nil)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveButtonTapped()
     }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
