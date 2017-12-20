@@ -1230,6 +1230,13 @@
                                     <constraint firstAttribute="height" constant="3" id="N3H-WL-wBh"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-oI-Owc">
+                                <rect key="frame" x="0.0" y="189" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="neR-pQ-Q1M"/>
+                                </constraints>
+                            </view>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-gs-o2U">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
                                 <userDefinedRuntimeAttributes>
@@ -1267,9 +1274,12 @@
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="leading" secondItem="E7e-sp-soC" secondAttribute="trailing" id="h4g-tG-Cvv"/>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="hK0-yC-uKJ"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="top" secondItem="4Zb-lX-Fnf" secondAttribute="top" id="hci-QD-GtJ"/>
+                            <constraint firstItem="lHg-oI-Owc" firstAttribute="bottom" secondItem="QUR-20-iwi" secondAttribute="bottom" id="hyj-Qc-Zhq"/>
+                            <constraint firstItem="gNp-Kw-G8B" firstAttribute="trailing" secondItem="lHg-oI-Owc" secondAttribute="trailing" id="jzI-XK-6Gg"/>
                             <constraint firstItem="gNp-Kw-G8B" firstAttribute="trailing" secondItem="uSa-Hc-dgJ" secondAttribute="trailing" constant="30" id="oG7-bX-1rp">
                                 <variation key="heightClass=regular-widthClass=regular" constant="130"/>
                             </constraint>
+                            <constraint firstItem="lHg-oI-Owc" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="q1d-0c-S3l"/>
                             <constraint firstItem="Bk5-gs-o2U" firstAttribute="bottom" secondItem="RDL-q7-LHv" secondAttribute="bottom" id="qFr-rn-0hP"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="uBU-AP-mDa"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="xjG-Qs-1nx"/>

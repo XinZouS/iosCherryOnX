@@ -32,6 +32,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var shiperButton: UIButton!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var circle: UIImageView!
+    @IBOutlet weak var circle2: UIImageView!
     
     var locationManager : CLLocationManager!
     var currLocation : CLLocation!
@@ -337,7 +338,12 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         circle.layer.masksToBounds = true
         circle.layer.cornerRadius = CGFloat(Int(circle.bounds.height)/2)
         circle.layer.borderColor = UIColor.white.cgColor
-        circle.layer.borderWidth = 2
+        circle.layer.borderWidth = 5
+        
+        circle2.layer.masksToBounds = true
+        circle2.layer.cornerRadius = CGFloat(Int(circle2.bounds.height)/2)
+        circle2.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        circle2.layer.borderWidth = 1
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
