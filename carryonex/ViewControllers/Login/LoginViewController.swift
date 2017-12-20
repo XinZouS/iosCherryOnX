@@ -170,7 +170,7 @@ class LoginViewController: UIViewController {
             loginButton.isEnabled = isMatch
             loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
             let msg = isMatch ? "密码正确" : "密码错误"
-            print(msg)
+            debugPrint(msg)
         } else {
             loginButton.isEnabled = false
             loginButton.backgroundColor = colorErrGray

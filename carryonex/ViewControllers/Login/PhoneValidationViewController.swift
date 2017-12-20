@@ -71,7 +71,7 @@ class PhoneValidationViewController: UIViewController {
     }
     
     private func setupUserPhoneShow(){
-        hintLabel.text = "短信验证码已发送至\(zoneCodeInput+" "+phoneInput)，请输入"
+        hintLabel.text = "短信验证码已发送至" + zoneCodeInput + " " + phoneInput + "，请输入"
     }
     
     private func setupVerifyTextField(){ // hide it under the screen
@@ -135,7 +135,7 @@ class PhoneValidationViewController: UIViewController {
                     currUser.phone = self.phoneInput
                     self.confirmPhoneInServer()
                 } else if let err = err {
-                    print("failed in VerificationController++, verifySuccess(), msg = ", err)
+                    debugPrint("failed in VerificationController++, verifySuccess(), msg = ", err)
                     self.verifyFaildAlert(err)
                 }
             })
@@ -172,7 +172,7 @@ class PhoneValidationViewController: UIViewController {
     private func confirmPhoneInServer(){
         ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, error) in
             if let error = error {
-                print("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(error.localizedDescription)")
+                debugPrint("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(error.localizedDescription)")
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
@@ -187,7 +187,7 @@ class PhoneValidationViewController: UIViewController {
 
     private func verifyFaildAlert(_ error: Error?){
         if let error = error {
-            print("VerificationController++: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
+            debugPrint("VerificationController++: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             AudioManager.shared.playSond(named: .failed)

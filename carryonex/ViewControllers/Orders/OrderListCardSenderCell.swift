@@ -79,7 +79,7 @@ class OrderListCardSenderCell: OrderListCardCell {
         case .delivered:
             finishButton.transaction = .shipperConfirm
         case .deliveryConfirmed:
-            finishButton.setTitle("给与评价", for: .normal) //TODO: need to see how it fits in.
+            finishButton.setTitle("写评价", for: .normal) //TODO: need to see how it fits in.
         default:
             break
         }
