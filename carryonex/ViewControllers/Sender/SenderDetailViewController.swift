@@ -204,6 +204,8 @@ class SenderDetailViewController: UIViewController{
             submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
         }
     }
+    // textField editing with scrollView animation
+    var isTextFieldBeginEditing = false
     // textView placeholder text status
     var isTextViewBeenEdited = false
     let messageWordsLimite: Int = 140
@@ -763,6 +765,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        animateScrollViewToShow(textField)
         
         if textField == nameTextField ||
             textField == phoneTextField ||
@@ -781,15 +784,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
             } else {
                 AnalyticsManager.shared.trackCount(.senderPlacePriceCount)
             }
-            DispatchQueue.main.async(execute: {
-                //self.scrollViewMove(offset: 210)
-                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                    let currY = self.scrollView.contentOffset.y
-                    self.scrollView.contentOffset = CGPoint(x: 0, y: currY + 210)
-                }, completion: nil)
-            })
-            //priceValueTextFieldLeftConstraint.constant = priceValueTitleLabel.bounds.width
-            //animateUIifNeeded()
         } else {
             AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
         }
@@ -815,17 +809,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
             }
         }
     }
-    
-    private func scrollViewMove(offset: CGFloat){
-        let currY = scrollView.contentOffset.y
-        guard currY > 60 else {
-            return
-        }
-        let newY: CGFloat = currY + offset
-        let offset = CGPoint(x: 0, y: newY)
-        scrollView.setContentOffset(offset, animated: true)
-    }
-    
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField?, _ textView: UITextView?) {
         let bar = UIToolbar()
@@ -928,6 +911,17 @@ extension SenderDetailViewController: UITextFieldDelegate {
         priceValueTextField.resignFirstResponder()
     }
 
+    private func animateScrollViewToShow(_ textField: UITextField){
+        isTextFieldBeginEditing = true // for scrollview content offset adjustment
+        let locOnScreen = textField.convert(CGPoint(x: 0, y: 0), to: view)
+        let offsetY = locOnScreen.y - 120
+        let newLoc = CGPoint(x: 0, y: scrollView.contentOffset.y + offsetY)
+        scrollView.setContentOffset(newLoc, animated: true)
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (timer) in
+            self.isTextFieldBeginEditing = false // for scrollview content offset adjustment
+        })
+    }
+    
     fileprivate func animateUIifNeeded(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -938,10 +932,9 @@ extension SenderDetailViewController: UITextFieldDelegate {
 extension SenderDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if priceValueTextField.isEditing {
-            return
+        if !isTextFieldBeginEditing {
+            keyboardDismiss()
         }
-        keyboardDismiss()
     }
 }
 
