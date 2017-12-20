@@ -122,9 +122,9 @@ class OrdersRequestDetailViewController: UIViewController {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request)
             
-        }else if paymentType == .wechatPay {
+        } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
-            //TODO: use wechat pay
+            WalletManager.shared.wechatPayAuth(request: request)
         }
     }
     

@@ -19,6 +19,7 @@ enum WalletKeyInDB: String {
     case currency = "currency"
     
     case orderString = "order_string" //alipay
+    case prepayId = "prepay_id" //Wechat
 }
 
 class Wallet : NSObject, Unboxable {
@@ -51,7 +52,4 @@ class Wallet : NSObject, Unboxable {
     }
     
 }
-
-
-
 

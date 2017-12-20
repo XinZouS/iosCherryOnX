@@ -103,7 +103,7 @@ class ApiServers : NSObject {
     
     //private let host = "http://0.0.0.0:5000"       // local host on this laptop you are looking at
     //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    let host = "http://52.45.237.30:80"  // testing host on AWS
+    let host = "http://52.45.237.30:5000"  // testing host on AWS
     
     private let hostVersion = "/api/1.0"
     
@@ -1201,7 +1201,7 @@ class ApiServers : NSObject {
     func postWalletAliPay(totalAmount: String, userId: String, requestId: String, completion: ((String?, Error?) -> Void)?) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            debugLog("Profile user empty, pleaes login to get user's stripe id")
+            debugLog("Profile user empty, pleaes login to get user's id")
             completion?(nil, nil)
             return
         }
@@ -1237,6 +1237,58 @@ class ApiServers : NSObject {
                 let orderString = data[WalletKeyInDB.orderString.rawValue] as? String {
                 debugPrint("Order String: \(orderString)")
                 completion?(orderString, nil)
+            } else {
+                debugPrint("Unable to get order string")
+                completion?(nil, nil)
+            }
+        }
+    }
+    
+    //WXPay
+    func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?) -> Void)?) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's id")
+            completion?(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/wxpay/pay"
+        
+        let requestDict: [String: Any] = [
+            "total_amount": totalAmount,
+            "user_id": userId,
+            "request_id": requestId
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("postWalletAliPay update response error: \(error.localizedDescription)")
+                }
+                completion?(nil, nil)
+                return
+            }
+            
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let order: WXOrder = try unbox(dictionary: data)
+                    completion?(order, nil)
+                    
+                } catch let error {
+                    completion?(nil, error)
+                    print("Get error when postWalletWXPay. Error = \(error.localizedDescription)")
+                }
             } else {
                 debugPrint("Unable to get order string")
                 completion?(nil, nil)
