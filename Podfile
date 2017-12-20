@@ -91,4 +91,7 @@ target 'carryonex' do
   pod 'BPCircleActivityIndicator'
   pod 'TGRefreshSwift'
   
+  # Design
+  pod 'Material', '2.10.2'
+  
 end
