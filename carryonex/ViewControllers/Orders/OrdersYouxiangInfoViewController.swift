@@ -108,12 +108,24 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     private func setTripToLocked(_ toLock: Bool, completion: (() -> Void)?){
+        if isActive {
+            displayGlobalAlertActions(title: "⚠️当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+                if tag == 0 { // do lock;
+                    self.setYouxiangLockStatusAt(id: self.trip.id, toActive: false, completion: completion)
+                } else {
+                    return // cancel to lock;
+                }
+            })
+        } else { // do unlock;
+            setYouxiangLockStatusAt(id: trip.id, toActive: true, completion: completion)
+        }
+    }
+    
+    private func setYouxiangLockStatusAt(id: Int, toActive: Bool, completion: (() -> Void)?) {
         lockerButton.isEnabled = false
         isLoading = true
-        
-        let id = trip.id
-        
-        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: toLock, completion: { (success, error) in
+
+        ApiServers.shared.postTripActive(tripId: "\(id)", isActive: toActive, completion: { (success, error) in
             self.isLoading = false
             self.lockerButton.isEnabled = true
             if let err = error {

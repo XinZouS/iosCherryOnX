@@ -68,12 +68,16 @@ class SenderDetailViewController: UIViewController{
     
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
+    @IBOutlet weak var priceCurrencyTypeLabel: UILabel!
     @IBOutlet weak var priceValueTextField: ThemTextField! // 4
     @IBOutlet weak var priceValueTextFieldLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var currencyTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var priceMinLabel: UILabel!
     @IBOutlet weak var priceMidLabel: UILabel!
     @IBOutlet weak var priceMaxLabel: UILabel!
+    @IBOutlet weak var pricePrePaySwitch: UISwitch!
+    @IBOutlet weak var priceShipingFeeLabel: UILabel!
+    @IBOutlet weak var priceShipingFeeHintLabel: UILabel!
     @IBOutlet weak var priceSlider: UISlider!
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
@@ -101,7 +105,7 @@ class SenderDetailViewController: UIViewController{
     
     @IBAction func currencyTypeSegmentValueChanged(_ sender: Any) {
         currencyType = currencyTypeSegmentControl.selectedSegmentIndex == 0 ? .USD : .CNY
-        updatePriceContentsFor(newPrice: priceValue)
+        updatePriceContentsFor(newPrice: priceShipFee)
     }
     
     
@@ -110,13 +114,31 @@ class SenderDetailViewController: UIViewController{
         gotoWebview(title: "物品价值说明", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
+    @IBAction func pricePrePaySwitchChanged(_ sender: Any) {
+        if pricePrePaySwitch.isOn {
+            priceFinal += priceShipFee
+        } else {
+            priceFinal -= priceShipFee
+        }
+    }
+    
     @IBAction func priceSliderValueChanged(_ sender: Any) {
         guard priceMiddl > 0 else { return }
+        let currVal = Double(priceSlider.value)
+        // shiping fee hint:
+        priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", currVal)
+        let mid = Double(priceSlider.minimumValue + priceSlider.maximumValue) / 2.0
+        let pc1 = (currVal - mid) * 100.0 / mid
+        let lv1 = pc1 < 0 ? "低于" : "高于"
+        priceShipingFeeHintLabel.text = lv1 + "标准价\(Int(abs(pc1)))%"
+        
+        // final price hint:
+        let prePayVal: Double = pricePrePaySwitch.isOn ? priceShipFee : 0.0
+        priceFinal = currVal + prePayVal
         priceValueTextField.resignFirstResponder()
-        priceFinal = Double(priceSlider.value)        
-        let pc = (priceFinal - priceMiddl) * 100.0 / priceMiddl
-        let lv = pc < 0 ? "低于" : "高于"
-        priceFinalHintLabel.text = lv + "标准价\(Int(pc))%"
+        //let pc2 = (priceFinal - priceMiddl) * 100.0 / priceMiddl
+        //let lv2 = pc2 < 0 ? "低于" : "高于"
+        //priceFinalHintLabel.text = lv2 + "标准价\(Int(pc2))%"
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
@@ -158,10 +180,12 @@ class SenderDetailViewController: UIViewController{
     }
 
     var currencyType: CurrencyType = .CNY
-    var priceValue: Double = 0.1
+    var priceShipingFee: Double = 0.1
+    var priceShipFee: Double = 0.1
     var priceMiddl: Double = 2.5
     var priceFinal: Double = 5 {
         didSet {
+            priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", Double(priceSlider.value))
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
         }
     }
@@ -271,6 +295,11 @@ class SenderDetailViewController: UIViewController{
         textFieldAddToolBar(priceValueTextField, nil)
         textFieldAddToolBar(countryCodeTextField,nil)
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = "USD"
+        let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
+        priceValueTextField.placeholder = "输入价值（不超过￥\(limiteStr)）"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -343,7 +372,7 @@ class SenderDetailViewController: UIViewController{
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
         case .linear:
-            return priceValue * priceParamA + (Double(priceParamB) / 100)
+            return priceShipFee * priceParamA + (Double(priceParamB) / 100)
         case .logarithmic:
             print("TODO: logarithmic func for price")
             return 10
@@ -407,8 +436,8 @@ class SenderDetailViewController: UIViewController{
             
             if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
                 
-                let msg = (strongSelf.messageTextView.textColor == .lightGray) ? "" : strongSelf.messageTextView.text
-                let totalValue = Double(strongSelf.priceValue)
+                let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
+                let totalValue = Double(strongSelf.priceShipFee)
                 let cost = strongSelf.priceFinal
                 address.recipientName = name
                 address.phoneNumber = strongSelf.zoneCodeInput + phone
@@ -681,8 +710,8 @@ extension SenderDetailViewController: UITextViewDelegate {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
             isTextViewBeenEdited = false
-            messageTextView.isActive = false
         }
+        messageTextView.isActive = false
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -784,9 +813,6 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 AnalyticsManager.shared.finishTimeTrackingKey(.senderAddPriceTime)
                 preparePriceIn(textField)
             }
-            if scrollView.contentOffset.y > 200 {
-                scrollViewMove(offset: -210)
-            }
         }
     }
     
@@ -852,7 +878,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 priceMaxInfoIconLabel.textColor = .gray
             }
             
-            priceValue = d
+            priceShipFee = d
             updatePriceContentsFor(newPrice: d)
         }
     }
@@ -865,19 +891,19 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
-        priceValueTitleLabel.text = "物品价值: " + currencyType.rawValue
+        priceValueTitleLabel.text = "物品价值: " //+ currencyType.rawValue
         let pMin: Double = 0.1
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
         priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
-        priceMaxLabel.text = currencyType.rawValue + String(format: "%.2f", pMax)
-        priceMidLabel.text = currencyType.rawValue + String(format: "%.2f", priceMiddl)
+        priceMaxLabel.text = currencyType.rawValue + String(format: "%.0f", pMax)
+        priceMidLabel.text = currencyType.rawValue + String(format: "%.0f", priceMiddl)
 
         priceSlider.minimumValue = Float(pMin)
         priceSlider.maximumValue = Float(pMax)
         priceSlider.setValue(Float(priceMiddl), animated: false)
-        priceFinal = priceMiddl
+        priceFinal = pricePrePaySwitch.isOn ? (priceMiddl + newPrice) : priceMiddl
     }
     
     public func keyboardWillShow(_ notification: Notification) {

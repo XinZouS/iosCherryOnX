@@ -87,11 +87,8 @@
                                     <constraint firstAttribute="width" secondItem="3Ny-4w-Ijb" secondAttribute="height" multiplier="4:5" id="meO-nn-kY0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="纽约州纽约市" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqW-op-hBk">
-                                <rect key="frame" x="154.5" y="67.5" width="155.5" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="cju-Ge-FFY"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="纽约州纽约市" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqW-op-hBk">
+                                <rect key="frame" x="154.5" y="57.5" width="155.5" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.83529411764705885" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -246,6 +243,7 @@
                             <constraint firstItem="hLH-4g-2fK" firstAttribute="leading" secondItem="akL-Sf-um5" secondAttribute="leading" constant="20" id="Tnh-nN-eJW"/>
                             <constraint firstItem="hLH-4g-2fK" firstAttribute="top" secondItem="bpB-Ld-Bb6" secondAttribute="bottom" constant="5" id="TyR-RF-Ul8"/>
                             <constraint firstItem="Fvh-eF-8yz" firstAttribute="top" secondItem="2fV-0g-kk8" secondAttribute="bottom" constant="-0.5" id="U1K-c0-Uyb"/>
+                            <constraint firstItem="YqW-op-hBk" firstAttribute="top" secondItem="JjM-F8-bvr" secondAttribute="bottom" constant="-5" id="Vvf-Rr-enR"/>
                             <constraint firstItem="bpB-Ld-Bb6" firstAttribute="top" secondItem="9Pw-4V-LoM" secondAttribute="bottom" constant="5" id="WJL-TU-3MH"/>
                             <constraint firstItem="JjM-F8-bvr" firstAttribute="leading" secondItem="1Jk-1D-Ewz" secondAttribute="trailing" constant="15" id="WOB-il-DQO"/>
                             <constraint firstItem="Lfx-FT-ZVJ" firstAttribute="top" secondItem="hLH-4g-2fK" secondAttribute="top" id="WUg-by-se6"/>
