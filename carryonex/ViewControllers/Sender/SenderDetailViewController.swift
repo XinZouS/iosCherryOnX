@@ -129,8 +129,12 @@ class SenderDetailViewController: UIViewController{
         priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", currVal)
         let mid = Double(priceSlider.minimumValue + priceSlider.maximumValue) / 2.0
         let pc1 = (currVal - mid) * 100.0 / mid
-        let lv1 = pc1 < 0 ? "低于" : "高于"
-        priceShipingFeeHintLabel.text = lv1 + "标准价" + "\(Int(abs(pc1)))%"
+        if pc1 > -1 && pc1 < 1 {
+            priceShipingFeeHintLabel.text = "标准价"
+        } else {
+            let lv1 = pc1 < 0 ? "低于" : "高于"
+            priceShipingFeeHintLabel.text = lv1 + "标准价" + "\(Int(abs(pc1)))%"
+        }
         
         // final price hint:
         let prePayVal: Double = pricePrePaySwitch.isOn ? priceShipFee : 0.0
@@ -299,9 +303,8 @@ class SenderDetailViewController: UIViewController{
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
-        priceValueTextField.placeholder = "不超过" + currencyType.rawValue + "\(limiteStr)"
+        priceValueTextField.placeholder = "输入价值(不超过￥" + "\(limiteStr)" + ")"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -883,9 +886,9 @@ extension SenderDetailViewController: UITextFieldDelegate {
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
-        priceMinLabel.text = currencyType.rawValue + String(format: "%.2f", pMin)
-        priceMaxLabel.text = currencyType.rawValue + String(format: "%.0f", pMax)
-        priceMidLabel.text = currencyType.rawValue + String(format: "%.0f", priceMiddl)
+        priceMinLabel.text = String(format: "%.2f", pMin)
+        priceMaxLabel.text = String(format: "%.0f", pMax)
+        priceMidLabel.text = String(format: "%.0f", priceMiddl)
 
         priceSlider.minimumValue = Float(pMin)
         priceSlider.maximumValue = Float(pMax)
