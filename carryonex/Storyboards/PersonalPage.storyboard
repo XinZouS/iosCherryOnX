@@ -46,7 +46,7 @@
                                 <color key="tintColor" red="0.99952524900436401" green="0.48895609378814697" blue="0.49113517999649048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="编辑个人资料"/>
                                 <connections>
-                                    <action selector="editProfileButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="e0C-57-4eM"/>
+                                    <segue destination="ExU-gw-DTM" kind="presentation" id="dxl-UF-VNm"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W84-E3-MmT">
@@ -238,6 +238,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IxM-00-QIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="64.799999999999997" y="91.304347826086968"/>
+        </scene>
+        <!--ChangePersonalProfile-->
+        <scene sceneID="Seb-Zc-n7y">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChangePersonalProfile" id="ExU-gw-DTM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvb-5M-ZHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="780" y="67"/>
         </scene>
     </scenes>
     <resources>
