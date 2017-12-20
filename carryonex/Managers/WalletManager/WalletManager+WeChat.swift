@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Unbox
 
 enum WechatResultStatus: Int {
     case success = 0
@@ -28,25 +29,66 @@ enum WechatResultStatus: Int {
 //WeChat
 extension WalletManager {
     func wechatPayAuth(request: Request) {
-        //let userId = String(request.ownerId)
-        //let requestId = String(request.id)
-        //let total = String(request.priceBySender)
         
-        //Get needed value from backend
-        let request = PayReq()
-        request.openID = "wx9dc6e6f4fe161a4f"
-        request.partnerId = ""
-        request.prepayId = ""
-        request.package = "Sign=WXPay"
-        request.nonceStr = ""
-        request.timeStamp = 0
-        request.sign = ""
-        WXApi.send(request)
+        ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error) in
+            
+            guard let wxOrder = wxOrder else {
+                if let error = error {
+                    print("wechatPayAuth Error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            self.processingPackage = wxOrder.prepayId
+            
+            let request = PayReq()
+            request.openID = wxOrder.appId
+            request.partnerId = wxOrder.mchId
+            request.prepayId = wxOrder.prepayId
+            request.package = wxOrder.prepayId
+            request.nonceStr = wxOrder.nonceStr
+            request.timeStamp = UInt32(Date.getTimestampNow())
+            request.sign = wxOrder.sign
+            WXApi.send(request)
+            
+        }
     }
 }
 
-extension WalletManager: WXApiDelegate {
-    func onResp(_ resp: BaseResp!) {
-        
+enum WXOrderKey: String {
+    case nonceStr = "nonce_str"
+    case resultCode = "result_code"
+    case mchId = "mch_id"
+    case appId = "app_id"
+    case returnMsg = "return_msg"
+    case tradeType = "trade_type"
+    case sign = "sigin"
+    case returnCode = "return_code"
+    case prepayId = "prepay_id"
+}
+
+struct WXOrder {
+    let nonceStr: String
+    let resultCode: String
+    let mchId: String
+    let appId: String
+    let returnMsg: String
+    let tradeType: String
+    let sign: String
+    let returnCode: String
+    let prepayId: String
+}
+
+extension WXOrder: Unboxable {
+    init(unboxer: Unboxer) throws {
+        self.nonceStr = try unboxer.unbox(key: WXOrderKey.nonceStr.rawValue)
+        self.resultCode = try unboxer.unbox(key: WXOrderKey.resultCode.rawValue)
+        self.mchId = try unboxer.unbox(key: WXOrderKey.mchId.rawValue)
+        self.appId = try unboxer.unbox(key: WXOrderKey.appId.rawValue)
+        self.returnMsg = try unboxer.unbox(key: WXOrderKey.returnMsg.rawValue)
+        self.tradeType = try unboxer.unbox(key: WXOrderKey.tradeType.rawValue)
+        self.sign = try unboxer.unbox(key: WXOrderKey.sign.rawValue)
+        self.returnCode = try unboxer.unbox(key: WXOrderKey.returnCode.rawValue)
+        self.prepayId = try unboxer.unbox(key: WXOrderKey.prepayId.rawValue)
     }
 }
