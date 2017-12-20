@@ -49,6 +49,7 @@ class ItemListYouxiangInputController: UIViewController {
             youxiangcodeTextField.text = code
             if code.count == 6 {
                 fetchTripByYouxiangcode(code)
+                return
             }
         }
         AnalyticsManager.shared.startTimeTrackingKey(.senderCompleteTripidTime)
@@ -112,7 +113,7 @@ class ItemListYouxiangInputController: UIViewController {
             return
         }
         
-        guard code.count >= 6 else {
+        guard code.count == 6 else {
             self.isLoading = false
             self.displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: { [weak self] _ in
                 self?.resetTextField()
@@ -143,6 +144,7 @@ class ItemListYouxiangInputController: UIViewController {
                         generator.impactOccurred()
                         AudioManager.shared.playSond(named: .failed)
                         self.displayAlert(title: "游箱号异常", message: "你不能使用自己的游箱号下单", action: L("action.ok"))
+                        self.resetTextField()
                         return
                     }
                     
@@ -154,8 +156,8 @@ class ItemListYouxiangInputController: UIViewController {
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
                 self.displayGlobalAlert(title: "游箱号异常", message: "由于网络连接有问题，您的请求无法发送，请重试", action: L("action.ok"), completion: nil)
+                self.goDetailButton.isEnabled = true
             }
-            self.goDetailButton.isEnabled = true
         })
     }
     
@@ -164,6 +166,7 @@ class ItemListYouxiangInputController: UIViewController {
         youxiangcodeTextField.tintColor = colorTextFieldUnderLineCyan
         youxiangcodeTextField.text = ""
         youxiangcodeTextField.becomeFirstResponder()
+        goDetailButton.isEnabled = true
     }
 
 }
