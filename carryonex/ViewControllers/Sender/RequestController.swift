@@ -34,7 +34,7 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     var imageUploadingSet: Set<String> = []
     var imageUploadSequence: [String : URL] = [:]
 
-    let labelNames = [ "收货地址:", "货物价值", "货物清晰照:", "运货费用:"]
+    let labelNames = [ "收货地址", "货物价值", "货物清晰照:", "运货费用"]
     let placeholders = ["请选择货物送达位置", "输入货物价格"]
 
     let basicCellId = "basicCellId"
@@ -90,7 +90,6 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     
     private func setupNavigationBar(){
         title = "发货请求"
-        //let rightItemButton = UIBarButtonItem(title: "支付方式", style: .plain, target: self, action: #selector(paymentButtonTapped))
         let rightItemButton = UIBarButtonItem(title: "提交", style: .done, target: self, action: #selector(handleSubmissionButton))
         navigationItem.rightBarButtonItem = rightItemButton
     }
@@ -218,21 +217,6 @@ extension RequestController: UITextFieldDelegate {
         guard touches.first != nil else { return }
         
         textFieldsInAllCellResignFirstResponder()
-    }
-    
-    /// OK button at bottom of page
-    func paymentButtonTapped() {
-        
-        print("TODO: upload Request() to server")
-        
-        if !is02DestinationSet {
-            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
-            return
-        }
-        if imageUploadingSet.count == 0 {
-            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
-            return
-        }
     }
     
     @objc fileprivate func handleSubmissionButton() {

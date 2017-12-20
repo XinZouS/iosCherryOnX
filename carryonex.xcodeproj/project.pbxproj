@@ -109,7 +109,7 @@
 		E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26A1FB4B7A60072BB31 /* Carrier.storyboard */; };
 		E542F26D1FB4B7B40072BB31 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26C1FB4B7B40072BB31 /* Settings.storyboard */; };
 		E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F26E1FB4B7C00072BB31 /* Orders.storyboard */; };
-		E542F2741FB6053D0072BB31 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E542F2741FB6053D0072BB31 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB011FCC6B5A00B87608 /* STBalance.swift */; };
 		E567BB041FCC6B7600B87608 /* STBalanceTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB031FCC6B7600B87608 /* STBalanceTransaction.swift */; };
 		E567BB061FCC6B8C00B87608 /* STPayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E567BB051FCC6B8C00B87608 /* STPayout.swift */; };
@@ -153,7 +153,6 @@
 		E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A71FE2E5B200A51BDC /* UIViewController++.swift */; };
 		E5A2A7B31FE2E5B300A51BDC /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A81FE2E5B200A51BDC /* UILabel++.swift */; };
 		E5A2A7B41FE2E5B300A51BDC /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7A91FE2E5B300A51BDC /* UIView++.swift */; };
-		E5A2A7D41FE2E6B100A51BDC /* DisclaimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7B91FE2E68200A51BDC /* DisclaimerController.swift */; };
 		E5A2A7D51FE2E81F00A51BDC /* PhotoIDController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C01FE2E68200A51BDC /* PhotoIDController++.swift */; };
 		E5A2A7D61FE2E81F00A51BDC /* PhotoIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C11FE2E68200A51BDC /* PhotoIDController.swift */; };
 		E5D020031FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */; };
@@ -341,7 +340,6 @@
 		E5A2A7B61FE2E68200A51BDC /* AddressSearchController++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AddressSearchController++.swift"; sourceTree = "<group>"; };
 		E5A2A7B71FE2E68200A51BDC /* AddressSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressSearchController.swift; sourceTree = "<group>"; };
 		E5A2A7B81FE2E68200A51BDC /* DetailBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBarView.swift; sourceTree = "<group>"; };
-		E5A2A7B91FE2E68200A51BDC /* DisclaimerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclaimerController.swift; sourceTree = "<group>"; };
 		E5A2A7BA1FE2E68200A51BDC /* GiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftController.swift; sourceTree = "<group>"; };
 		E5A2A7BB1FE2E68200A51BDC /* GiftPrizeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftPrizeCell.swift; sourceTree = "<group>"; };
 		E5A2A7BC1FE2E68200A51BDC /* GiftYoupiaoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftYoupiaoCell.swift; sourceTree = "<group>"; };
@@ -739,7 +737,6 @@
 		E542F2651FB4B6710072BB31 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E5A2A7B91FE2E68200A51BDC /* DisclaimerController.swift */,
 				4DC043B21FB7456D00F6C3F0 /* LoginViewController.swift */,
 				667810641FBB48F100E1880E /* PhoneNumViewController.swift */,
 				4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */,
@@ -1034,6 +1031,7 @@
 				"${BUILT_PRODUCTS_DIR}/JXPhotoBrowser/JXPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/TGRefreshSwift/TGRefreshSwift.framework",
@@ -1056,6 +1054,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGRefreshSwift.framework",
@@ -1107,7 +1106,6 @@
 				6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */,
 				FFBCB0C61FC8891900DCDD52 /* ChangePasswordController.swift in Sources */,
 				667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */,
-				E5A2A7D41FE2E6B100A51BDC /* DisclaimerController.swift in Sources */,
 				4D7932A61FD689040081BBE2 /* APOrderInfo.swift in Sources */,
 				E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */,
 				665B37E61FE869EF00A5926A /* Spotlight.swift in Sources */,
@@ -1188,7 +1186,7 @@
 				E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */,
 				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
-				E542F2741FB6053D0072BB31 /* BuildFile in Sources */,
+				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				4D80C3F61FE45FD9000D3B01 /* WeChatAPIManager.swift in Sources */,
 				4D0472F21FD77F3600A4EA6C /* APUtilities.swift in Sources */,
 				FF3E69001FBB86E9006AA440 /* UserCardViewController.swift in Sources */,

@@ -77,7 +77,7 @@ extension SettingsViewController: UITableViewDelegate {
             let webCtl = WebController()
             webCtl.url = URL(string: url) ?? URL(string: "https://www.carryonex.com/")
             navigationController?.pushViewController(webCtl, animated: true)
-            webCtl.title = "服务条款"
+            webCtl.title = titles[indexPath.row]
             
         case 4:
             print("版本 info, do nothing;")

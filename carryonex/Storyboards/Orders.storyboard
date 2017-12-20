@@ -43,7 +43,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="RDL-q7-LHv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -56,7 +56,7 @@
                                     </constraint>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -157,7 +157,7 @@
                                                                         <constraint firstAttribute="height" constant="50" id="J3G-Yz-sRx"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
                                                                             <real key="value" value="3"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
@@ -186,7 +186,7 @@
                                                                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                             <real key="value" value="6"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
@@ -237,19 +237,19 @@
                                                                 <constraint firstItem="n0h-SX-spe" firstAttribute="top" secondItem="gtQ-rv-GP4" secondAttribute="bottom" constant="-15" id="ueL-pX-v6G"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                     <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                                     <size key="value" width="1" height="1"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
@@ -366,13 +366,13 @@
                                                                         <constraint firstItem="92W-bj-Eac" firstAttribute="leading" secondItem="8XQ-ai-s7c" secondAttribute="trailing" constant="5" id="yuK-Xa-0CC"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                             <color key="value" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                             <real key="value" value="3"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
@@ -411,7 +411,7 @@
                                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
                                                                             <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
@@ -427,7 +427,7 @@
                                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
                                                                             <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
@@ -465,19 +465,19 @@
                                                                 <constraint firstItem="ii8-gM-yH8" firstAttribute="centerY" secondItem="Mj2-cH-qJW" secondAttribute="centerY" id="xvl-85-dyi"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                     <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                                     <size key="value" width="1" height="1"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
@@ -755,13 +755,13 @@
                                                                     <color key="textColor" red="0.3748701810836792" green="0.41589349508285522" blue="0.44791269302368164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                             <color key="value" red="1" green="0.41499206420000001" blue="0.4057528675" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                             <real key="value" value="10"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
@@ -777,7 +777,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                             <color key="value" red="0.36461547950000001" green="0.93886037249999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
@@ -858,19 +858,19 @@
                                                                 <constraint firstItem="cdE-8Y-gSe" firstAttribute="height" secondItem="zIO-v4-xYT" secondAttribute="height" id="spm-O8-z5M"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                     <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                                     <size key="value" width="1" height="1"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
@@ -1040,7 +1040,7 @@
                                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
                                                                             <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
@@ -1059,7 +1059,7 @@
                                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
                                                                             <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
@@ -1100,19 +1100,19 @@
                                                                 <constraint firstItem="ExB-mb-qSL" firstAttribute="leading" secondItem="9MZ-wr-9NZ" secondAttribute="leading" constant="23" id="xk2-rb-rq4"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                     <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                                     <size key="value" width="1" height="1"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
@@ -1230,10 +1230,17 @@
                                     <constraint firstAttribute="height" constant="3" id="N3H-WL-wBh"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-oI-Owc">
+                                <rect key="frame" x="0.0" y="189" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.96862745098039216" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="neR-pQ-Q1M"/>
+                                </constraints>
+                            </view>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NY_skyline" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-gs-o2U">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
                                         <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -1267,9 +1274,12 @@
                             <constraint firstItem="XMK-Xr-LQ1" firstAttribute="leading" secondItem="E7e-sp-soC" secondAttribute="trailing" id="h4g-tG-Cvv"/>
                             <constraint firstItem="RDL-q7-LHv" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="hK0-yC-uKJ"/>
                             <constraint firstItem="uSa-Hc-dgJ" firstAttribute="top" secondItem="4Zb-lX-Fnf" secondAttribute="top" id="hci-QD-GtJ"/>
+                            <constraint firstItem="lHg-oI-Owc" firstAttribute="bottom" secondItem="QUR-20-iwi" secondAttribute="bottom" id="hyj-Qc-Zhq"/>
+                            <constraint firstItem="gNp-Kw-G8B" firstAttribute="trailing" secondItem="lHg-oI-Owc" secondAttribute="trailing" id="jzI-XK-6Gg"/>
                             <constraint firstItem="gNp-Kw-G8B" firstAttribute="trailing" secondItem="uSa-Hc-dgJ" secondAttribute="trailing" constant="30" id="oG7-bX-1rp">
                                 <variation key="heightClass=regular-widthClass=regular" constant="130"/>
                             </constraint>
+                            <constraint firstItem="lHg-oI-Owc" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="q1d-0c-S3l"/>
                             <constraint firstItem="Bk5-gs-o2U" firstAttribute="bottom" secondItem="RDL-q7-LHv" secondAttribute="bottom" id="qFr-rn-0hP"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="trailing" secondItem="gNp-Kw-G8B" secondAttribute="trailing" id="uBU-AP-mDa"/>
                             <constraint firstItem="pio-pR-OLJ" firstAttribute="leading" secondItem="gNp-Kw-G8B" secondAttribute="leading" id="xjG-Qs-1nx"/>

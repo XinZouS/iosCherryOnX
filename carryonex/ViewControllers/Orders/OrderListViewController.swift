@@ -397,7 +397,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
         let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
 
         if isActive {
-            displayGlobalAlertActions(title: "当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+            displayGlobalAlertActions(title: "⚠️当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
                 if tag == 0 { // do lock;
                     self.setYouxiangLockStatusAt(cell, id: id, true, completion: completion)
                 } else {

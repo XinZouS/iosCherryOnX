@@ -46,7 +46,7 @@
                                 <color key="tintColor" red="0.99952524900436401" green="0.48895609378814697" blue="0.49113517999649048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="编辑个人资料"/>
                                 <connections>
-                                    <action selector="editProfileButtonTapped:" destination="xmT-DD-0vi" eventType="touchUpInside" id="e0C-57-4eM"/>
+                                    <segue destination="ExU-gw-DTM" kind="presentation" id="dxl-UF-VNm"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W84-E3-MmT">
@@ -76,7 +76,7 @@
                                             <constraint firstAttribute="height" constant="25" id="pnf-so-rZn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                            <userDefinedRuntimeAttribute type="number" keyPath="zPosition">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
@@ -110,13 +110,13 @@
                                     <constraint firstItem="yqc-Zo-mBg" firstAttribute="leading" secondItem="D7T-3b-Rvy" secondAttribute="leading" constant="2" id="j5M-fv-hrh"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" red="0.88501030209999998" green="0.92518097160000001" blue="0.95436698200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -180,7 +180,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未设置用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueD-kw-dQa">
@@ -199,8 +199,8 @@
                                     <constraint firstAttribute="width" constant="80" id="YJU-jF-7IK"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="40"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -239,10 +239,18 @@
             </objects>
             <point key="canvasLocation" x="64.799999999999997" y="91.304347826086968"/>
         </scene>
+        <!--ChangePersonalProfile-->
+        <scene sceneID="Seb-Zc-n7y">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChangePersonalProfile" id="ExU-gw-DTM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvb-5M-ZHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="780" y="67"/>
+        </scene>
     </scenes>
     <resources>
         <image name="PersonalIcon_80x80" width="26" height="26"/>
-        <image name="setting_gray" width="96" height="96"/>
+        <image name="setting_gray" width="122" height="122"/>
         <image name="starts5Mask" width="827" height="165"/>
     </resources>
 </document>

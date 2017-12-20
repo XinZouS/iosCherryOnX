@@ -26,7 +26,7 @@ class PersonalPageViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    let scoreLabelHintText = "综合评分 "
+    let scoreLabelHintText = "综合评分"
     let titles = ["钱包","帮助","设置"]
     let subTitles = ["收付款，查看余额，提现", "", "", ""]
     let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]
@@ -97,13 +97,6 @@ class PersonalPageViewController: UIViewController{
     private func setupUserImageView(){
         userProfileImage.layer.masksToBounds = true
         userProfileImage.layer.cornerRadius = CGFloat(Int(userProfileImage.bounds.height)/2)
-    }
-    
-    @IBAction func editProfileButtonTapped(_ sender: Any) {
-        let sb = UIStoryboard(name: "ChangePersonalProfile", bundle: nil)
-        if let vc = sb.instantiateViewController(withIdentifier: personalInfoVCId) as? PersonalInfoEditingViewController {
-            self.present(vc, animated: true, completion: nil)
-        }
     }
     
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
