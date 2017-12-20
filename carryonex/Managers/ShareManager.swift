@@ -179,7 +179,7 @@ class ShareViewFactory: UIView {
             message.mediaObject = web
             message.title = title
             message.description = self.message
-            message.setThumbImage(#imageLiteral(resourceName: "CarryonExIcon-29"))
+            message.setThumbImage(#imageLiteral(resourceName: "empty2"))
             
             req.bText = false
             req.message = message

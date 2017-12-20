@@ -26,7 +26,7 @@ class PersonalPageViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    let scoreLabelHintText = "综合评分 "
+    let scoreLabelHintText = "综合评分"
     let titles = ["钱包","帮助","设置"]
     let subTitles = ["收付款，查看余额，提现", "", "", ""]
     let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]

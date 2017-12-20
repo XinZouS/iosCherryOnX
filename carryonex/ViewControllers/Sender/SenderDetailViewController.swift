@@ -86,7 +86,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceMaxValueHintLabel: UILabel!
     var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
         didSet{
-            priceMaxValueHintLabel.text = "小提示：寄送物品价值至多\(priceMaxValueLimit)元"
+            priceMaxValueHintLabel.text = "小提示：寄送物品价值限制至多" + "\(currencyType.rawValue)\(priceMaxValueLimit)"
         }
     }
         
@@ -130,7 +130,7 @@ class SenderDetailViewController: UIViewController{
         let mid = Double(priceSlider.minimumValue + priceSlider.maximumValue) / 2.0
         let pc1 = (currVal - mid) * 100.0 / mid
         let lv1 = pc1 < 0 ? "低于" : "高于"
-        priceShipingFeeHintLabel.text = lv1 + "标准价\(Int(abs(pc1)))%"
+        priceShipingFeeHintLabel.text = lv1 + "标准价" + "\(Int(abs(pc1)))%"
         
         // final price hint:
         let prePayVal: Double = pricePrePaySwitch.isOn ? priceShipFee : 0.0
@@ -301,7 +301,7 @@ class SenderDetailViewController: UIViewController{
         formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
-        priceValueTextField.placeholder = "输入价值（不超过￥\(limiteStr)）"
+        priceValueTextField.placeholder = "不超过" + currencyType.rawValue + "\(limiteStr)"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -355,8 +355,12 @@ class SenderDetailViewController: UIViewController{
     private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
         ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
             guard success else {
-                self.displayGlobalAlert(title: "出错了", message: "价格参数获取失败", action: L("action.ok"), completion: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: true)
+                self.displayGlobalAlertActions(title: "出错了", message: "价格参数获取失败", actions: [L("action.cancel"),L("action.redo")], completion: { [weak self] (tag) in
+                    if tag == 0 { // cancel, go back
+                        self?.navigationController?.popViewController(animated: true)
+                    } else {
+                        self?.getPriceFunctionFromServer()
+                    }
                 })
                 return
             }
@@ -707,7 +711,7 @@ extension SenderDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let placeholderTxt = "给出行人的注意事项或特殊要求，字数在\(messageWordsLimite)字以内。"
+        let placeholderTxt = "给出行人的注意事项或特殊要求，字数限制在" + "\(messageWordsLimite)"
         if textView.text == "" {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
@@ -742,7 +746,7 @@ extension SenderDetailViewController: UITextViewDelegate {
     
     private func isInputTextInLimiteWords(_ textView: UITextView) -> Bool {
         let ok = textView.text.count <= messageWordsLimite
-        messageTitleLabel.text = ok ? "留言" : "留言字数应在\(messageWordsLimite)字以内"
+        messageTitleLabel.text = ok ? "留言" : ("留言字数限制" + "\(messageWordsLimite)")
         return ok
     }
 
@@ -832,7 +836,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
             tv.delegate = self
             tv.inputAccessoryView = bar
             tv.textColor = .lightGray
-            tv.text = "给出行人的注意事项或特殊要求，字数在\(messageWordsLimite)字以内。"
+            tv.text = "给出行人的注意事项或特殊要求，字数限制: \(messageWordsLimite)"
         }
     }
     
@@ -874,7 +878,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
-        priceValueTitleLabel.text = "物品价值: " //+ currencyType.rawValue
+        priceValueTitleLabel.text = "物品价值" //+ currencyType.rawValue
         let pMin: Double = 0.1
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet

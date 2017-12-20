@@ -131,7 +131,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         if let commentDictionary = commentDict{
             rateLabel.text = String(format: "%.1f",commentDictionary.rank)
             rateViewWidth.constant = CGFloat(commentDictionary.rank*20)
-            commentLabel.text = "总共\(commentDictionary.commentsLength)条评价"
+            commentLabel.text = "总共" + "\(commentDictionary.commentsLength)" + "条评价"
         }
     }
     

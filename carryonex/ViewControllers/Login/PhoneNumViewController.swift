@@ -221,11 +221,6 @@ extension PhoneNumViewController: PhoneNumberDelegate {
         }
     }
     
-    func showUserAgreementPage(){
-        let disCtrlView = DisclaimerController()
-        self.navigationController?.pushViewController(disCtrlView, animated: true)
-    }
-    
     func goToVerificationPage(){
         let info: [String:String] = [
             "countryCode" : zoneCodeInput,

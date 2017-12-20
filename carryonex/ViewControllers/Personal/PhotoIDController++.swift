@@ -186,7 +186,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     func submitButtonTapped(){
     if idType == .passport && !passportReady {
-            displayAlert(title: "您选好护照了吗？", message: "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！", action: "这就选")
+            displayAlert(title: "您选好护照了吗？", message: "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！", action: L("action.ok"))
             return
         
     } else if idType == .idCard && (!idCardAReady || !idCardBReady) {

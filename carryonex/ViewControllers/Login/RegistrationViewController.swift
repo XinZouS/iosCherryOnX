@@ -102,7 +102,7 @@ class RegistrationViewController: UIViewController {
                                                 }
                                             }
                                         } else {
-                                            self.displayGlobalAlert(title: "注册失败", message:  "错误信息: \(err?.localizedDescription ?? "不能注册")", action: L("action-ok"), completion: { [weak self] _ in
+                                            self.displayGlobalAlert(title: "注册失败", message:  "注册出现错误: \(err?.localizedDescription ?? "不能注册")", action: L("action-ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }
@@ -165,10 +165,16 @@ class RegistrationViewController: UIViewController {
     
     
     @IBAction func agreeButtonTapped(_ sender: Any) {
-        let disCtrlView = DisclaimerController()
-        self.navigationController?.pushViewController(disCtrlView, animated: true)
+        gotoWebview(title: "用户协议", url: "\(ApiServers.shared.host)/doc_agreement")
     }
     
+    private func gotoWebview(title: String, url: String) {
+        let webVC = WebController()
+        self.navigationController?.pushViewController(webVC, animated: true)
+        webVC.title = title
+        webVC.url = URL(string: url)
+    }
+
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
