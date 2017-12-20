@@ -99,13 +99,6 @@ class PersonalPageViewController: UIViewController{
         userProfileImage.layer.cornerRadius = CGFloat(Int(userProfileImage.bounds.height)/2)
     }
     
-    @IBAction func editProfileButtonTapped(_ sender: Any) {
-        let sb = UIStoryboard(name: "ChangePersonalProfile", bundle: nil)
-        if let vc = sb.instantiateViewController(withIdentifier: personalInfoVCId) as? PersonalInfoEditingViewController {
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
-    
     @IBAction func seeAllCommentsButtonTapped(_ sender: Any) {
         AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
         AnalyticsManager.shared.trackCount(.historicCommentCheckCount)

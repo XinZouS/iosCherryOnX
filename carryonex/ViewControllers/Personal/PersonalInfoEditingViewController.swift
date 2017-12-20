@@ -20,8 +20,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     
     var user: ProfileUser?
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
@@ -33,7 +31,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     override func viewDidLoad() {
-        title = "编辑个人资料"
+        super.viewDidLoad()
         
         activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.isHidden = true
@@ -119,9 +117,6 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             displayGlobalAlert(title: "获取信息失败", message: "请检查设备是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
             //TODO: handle error when GET user failed in PersonalInfoEditingViewController
         }
-    }
-    
-    private func setupNavigationBar(){
     }
     
     @objc private func saveButtonTapped(){
