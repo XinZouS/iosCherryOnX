@@ -42,6 +42,7 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
         didSet {
             updateButtonAppearance(status: status)
             statusLabel.text = status.displayString()
+            statusLabel.textColor = status.displayTextColor(category: cellCategory)
             statusLabel.backgroundColor = status.displayColor(category: cellCategory)
         }
     }

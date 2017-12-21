@@ -322,14 +322,27 @@ enum RequestStatus: Int {
             return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .accepted:
             return category == .carrier ? UIColor.carryon_passiveStatus : UIColor.carryon_aciveStatus
-//        case .pendingRefund:
-//            return category == .carrier ? UIColor.carryon_aciveStatus : UIColor.carryon_passiveStatus
         case .delivered:
             return category == .carrier ? UIColor.carryon_normalStatus : UIColor.carryon_aciveStatus
         case .paid, .inDelivery, .initiate, .deliveryConfirmed:  //.refundCompleted
             return UIColor.carryon_normalStatus
         case .rejected, .cancelled, .invalid, .badId:
             return UIColor.carryon_endedStatus
+        }
+    }
+    
+    func displayTextColor(category: TripCategory) -> UIColor {
+        switch self {
+        case .waiting:
+            return category == .carrier ? UIColor.carryon_textActiveStatus : UIColor.carryon_textPassiveStatus
+        case .accepted:
+            return category == .carrier ? UIColor.carryon_textPassiveStatus : UIColor.carryon_textActiveStatus
+        case .delivered:
+            return category == .carrier ? UIColor.carryon_textNormalStatus : UIColor.carryon_textActiveStatus
+        case .paid, .inDelivery, .initiate, .deliveryConfirmed:  //.refundCompleted
+            return UIColor.carryon_textNormalStatus
+        case .rejected, .cancelled, .invalid, .badId:
+            return UIColor.carryon_textEndedStatus
         }
     }
 }
