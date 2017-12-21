@@ -12,7 +12,7 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
-    private let pullPageCount = 6
+    private let pullPageCount = 2
     
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
