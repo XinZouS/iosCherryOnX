@@ -1284,6 +1284,7 @@ class ApiServers : NSObject {
             }
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                print("Validation Response data: \(data)")
                 completion?(true, nil)
             } else {
                 completion?(false, nil)

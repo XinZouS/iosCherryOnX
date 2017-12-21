@@ -600,6 +600,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             updateButtonAppearance(status: status)
             updateMapViewToShow(status == .inDelivery)
             statusLabel.text = status.displayString()
+            statusLabel.textColor = status.displayTextColor(category: category)
             statusLabel.backgroundColor = status.displayColor(category: category)
         }
     }
