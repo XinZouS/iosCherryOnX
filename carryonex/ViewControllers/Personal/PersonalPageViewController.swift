@@ -65,10 +65,6 @@ class PersonalPageViewController: UIViewController{
     
     private func setupNavigationBar(){
         UIApplication.shared.statusBarStyle = .default
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = false
     }
     

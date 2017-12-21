@@ -38,7 +38,6 @@ class TripController: UIViewController{
     
     private func setupNavigationBar(){
         title = "出行"
-        //UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.barTintColor = .white

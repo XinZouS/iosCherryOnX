@@ -60,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Setup push notifications
         registerForPushNotifications()
         
+        //Setup navigation bar
+        setupNavigationBar()
+        
         if let mainNavigationController = self.window?.rootViewController as? UINavigationController {
             self.mainNavigationController = mainNavigationController
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
@@ -178,6 +181,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
             }
         }
+    }
+    
+    //MARK: - UI
+    private func setupNavigationBar() {
+        UINavigationBar.appearance().barTintColor = .white
+        UINavigationBar.appearance().tintColor = .black
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        UINavigationBar.appearance().isTranslucent = false
     }
     
     

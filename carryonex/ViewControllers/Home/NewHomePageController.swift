@@ -104,13 +104,16 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let date = Date()
         let calendar = Calendar.current
         let nowHourInt = calendar.component(.hour, from: date)
+        UIApplication.shared.statusBarStyle = .default
         if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
             timeStatus = .night
             setupBackGroundColor(dayTime: .night)
+            UIApplication.shared.statusBarStyle = .lightContent
 
         } else if nowHourInt >= TimeEnum.afternoon.rawValue {
             timeStatus = .afternoon
             setupBackGroundColor(dayTime: .afternoon)
+            
 
         } else if nowHourInt >= TimeEnum.noon.rawValue{
             timeStatus = .noon
