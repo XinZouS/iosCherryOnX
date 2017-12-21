@@ -1245,11 +1245,11 @@ class ApiServers : NSObject {
     }
     
     //WXPay
-    func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?) -> Void)?) {
+    func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?, Int) -> Void)?) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             debugLog("Profile user empty, pleaes login to get user's id")
-            completion?(nil, nil)
+            completion?(nil, nil, -1)
             return
         }
         
@@ -1261,11 +1261,12 @@ class ApiServers : NSObject {
             "request_id": requestId
         ]
         
+        let timestamp = Date.getTimestampNow()
         let parameters: [String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
-            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.timestamp.rawValue: timestamp,
             ServerKey.data.rawValue: requestDict
         ]
         
@@ -1275,23 +1276,24 @@ class ApiServers : NSObject {
                 if let error = error {
                     print("postWalletAliPay update response error: \(error.localizedDescription)")
                 }
-                completion?(nil, nil)
+                completion?(nil, nil, -1)
                 return
             }
             
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+            if let data = response[ServerKey.data.rawValue] as? [String: Any],
+                let orderData = data[WalletKeyInDB.orderString.rawValue] as? [String: Any] {
                 do {
-                    let order: WXOrder = try unbox(dictionary: data)
-                    completion?(order, nil)
+                    let order: WXOrder = try unbox(dictionary: orderData)
+                    completion?(order, nil, timestamp)
                     
                 } catch let error {
-                    completion?(nil, error)
+                    completion?(nil, error, -1)
                     print("Get error when postWalletWXPay. Error = \(error.localizedDescription)")
                 }
             } else {
                 debugPrint("Unable to get order string")
-                completion?(nil, nil)
+                completion?(nil, nil, -1)
             }
         }
     }

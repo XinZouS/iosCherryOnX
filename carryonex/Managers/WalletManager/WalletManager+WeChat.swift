@@ -30,7 +30,7 @@ enum WechatResultStatus: Int {
 extension WalletManager {
     func wechatPayAuth(request: Request) {
         
-        ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error) in
+        ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error, timestamp) in
             
             guard let wxOrder = wxOrder else {
                 if let error = error {
@@ -47,10 +47,9 @@ extension WalletManager {
             request.prepayId = wxOrder.prepayId
             request.package = wxOrder.prepayId
             request.nonceStr = wxOrder.nonceStr
-            request.timeStamp = UInt32(Date.getTimestampNow())
+            request.timeStamp = UInt32(timestamp)
             request.sign = wxOrder.sign
             WXApi.send(request)
-            
         }
     }
 }
@@ -59,10 +58,10 @@ enum WXOrderKey: String {
     case nonceStr = "nonce_str"
     case resultCode = "result_code"
     case mchId = "mch_id"
-    case appId = "app_id"
+    case appId = "appid"
     case returnMsg = "return_msg"
     case tradeType = "trade_type"
-    case sign = "sigin"
+    case sign = "sign"
     case returnCode = "return_code"
     case prepayId = "prepay_id"
 }
