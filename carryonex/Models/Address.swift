@@ -11,8 +11,8 @@ import Unbox
 import MapKit
 
 enum Country: String, UnboxableEnum {
-    case China = "中国大陆"
-    case UnitedStates = "United States"
+    case China = "中国"
+    case UnitedStates = "USA"
 }
 
 enum AddressKeyInDB : String {
