@@ -100,11 +100,8 @@ class ApiServers : NSObject {
     
     
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
-    
-    //private let host = "http://0.0.0.0:5000"       // local host on this laptop you are looking at
-    //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    let host = "http://52.45.237.30:5000"  // testing host on AWS
-    
+
+    let host = "https://www.carryonx.com"
     private let hostVersion = "/api/1.0"
     
     var config: Config?
@@ -1243,6 +1240,99 @@ class ApiServers : NSObject {
             }
         }
     }
+    
+    func postWalletAliPayValidation(response: [String: Any], sign: String, isSuccess: Bool, completion: ((Bool, Error?) -> Void)?) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's id")
+            completion?(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/alipay/verify"
+        
+        var requestDict: [String: Any] = response
+        requestDict["sign"] = sign
+        
+        if isSuccess {
+            requestDict["trade_status"] = "TRADE_SUCCESS"
+        } else {
+            requestDict["trade_status"] = "TRADE_FINISHED"
+        }
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("postWalletAliPayValidation update response error: \(error.localizedDescription)")
+                    completion?(false, error)
+                } else {
+                    completion?(false, nil)
+                }
+                return
+            }
+            
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode != 200 {
+                completion?(true, nil)
+            } else {
+                completion?(false, nil)
+            }
+        }
+    }
+    
+    
+    //TODO fix this...need to put in user's payee account. Here default as XingJiu's payout account
+    func postWalletAliPayout(payeeAccount: String = "2088821540881344", amount: Int, completion: ((Bool, Error?) -> Void)?) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser(), let userId = profileUser.id else {
+            debugLog("Profile user empty, pleaes login to get user's id")
+            completion?(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/alipay/payout"
+        
+        let requestDict: [String: Any] = [
+            "amount": amount,
+            "user_id": userId,
+            "payee_type": "ALIPAY_USERID",
+            "payee_account": payeeAccount
+        ]
+        
+        let timestamp = Date.getTimestampNow()
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: timestamp,
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("postWalletAliPay update response error: \(error.localizedDescription)")
+                    completion?(false, error)
+                }
+                return
+            }
+            
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode != 200 {
+                completion?(true, nil)
+            } else {
+                completion?(false, nil)
+            }
+        }
+    }
+    
     
     //WXPay
     func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?, Int) -> Void)?) {

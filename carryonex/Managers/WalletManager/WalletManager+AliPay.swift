@@ -47,6 +47,7 @@ extension WalletManager {
         let userId = String(request.ownerId)
         let requestId = String(request.id)
         let total = String(format: "%.2f", (Double(request.priceBySender) / 100.0))
+        
         ApiServers.shared.postWalletAliPay(totalAmount: total, userId: userId, requestId: requestId) { (orderString, error) in
             if let error = error {
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
@@ -57,6 +58,25 @@ extension WalletManager {
             AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (result) in
                 if let result = result {
                     print("Result Dict: \(result)")
+                    
+                    var isSuccess = false
+                    if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
+                        isSuccess = true
+                    }
+                    
+                    if let responseResult = result["result"] as? [String: Any], let response = responseResult["alipay_trade_app_pay_response"] as? [String: Any],
+                        let sign = responseResult["sign"] as? String {
+                        ApiServers.shared.postWalletAliPayValidation(response: response,
+                                                                     sign: sign,
+                                                                     isSuccess: isSuccess,
+                                                                     completion: { (success, error) in
+                            if let error = error {
+                                print("Error: \(error.localizedDescription)")
+                                return
+                            }
+                            print("Validation success")
+                        })
+                    }
                 } else {
                     AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
                 }

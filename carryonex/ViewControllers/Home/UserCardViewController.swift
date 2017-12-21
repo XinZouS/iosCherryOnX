@@ -67,6 +67,7 @@ class UserCardViewController: UIViewController {
         let status = request.status()
         ItemStatusBtn.isHidden = false
         ItemStatusBtn.backgroundColor = status.displayColor(category: category)
+        ItemStatusBtn.setTitleColor(status.displayTextColor(category: category), for: .normal)
         ItemStatusBtn.setTitle(status.displayString(), for: .normal)
         
         if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
