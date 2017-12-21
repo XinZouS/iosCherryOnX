@@ -13,7 +13,6 @@ class ItemListYouxiangInputController: UIViewController {
     
     var tripCode: String?
     
-    @IBOutlet weak var youxiangcodeLabel: UILabel!
     @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
     
@@ -82,7 +81,7 @@ class ItemListYouxiangInputController: UIViewController {
         youxiangcodeTextField.autocapitalizationType = .allCharacters
         youxiangcodeTextField.clearButtonMode = .never
         youxiangcodeTextField.placeholder = "输入6位游箱号"
-        youxiangcodeTextField.textColor = UIColor(r: 0, g: 0, b: 0, a: 0)
+        youxiangcodeTextField.textColor = .white
     }
     
     private func setupActivityIndicator(){
@@ -161,7 +160,6 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func resetTextField(){
-        youxiangcodeLabel.text = ""
         youxiangcodeTextField.tintColor = colorTextFieldUnderLineCyan
         youxiangcodeTextField.text = ""
         youxiangcodeTextField.becomeFirstResponder()
@@ -173,7 +171,6 @@ class ItemListYouxiangInputController: UIViewController {
 extension ItemListYouxiangInputController: UITextFieldDelegate {
     
     func textFieldDidChanged(){
-        youxiangcodeLabel.text = youxiangcodeTextField.text?.uppercased() ?? ""
         guard let code = youxiangcodeTextField.text else {
             return
         }
