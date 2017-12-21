@@ -29,7 +29,7 @@ extension UIColor {
     //status
     private class var carryon_teal: UIColor { return UIColor.rgb(128, 250, 235) }
     private class var carryon_yellow: UIColor { return UIColor.rgb(249, 226, 120) }
-    private class var carryon_red: UIColor { return UIColor.rgb(225, 107, 107) }
+    private class var carryon_red: UIColor { return UIColor.rgb(255, 106, 104) }
     private class var carryon_lightGray: UIColor { return UIColor.rgb(229, 235, 239) }
     
     //UI Components
