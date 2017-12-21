@@ -100,11 +100,7 @@ class ApiServers : NSObject {
     
     
     private let appToken: String = "0123456789012345678901234567890123456789012345678901234567890123"
-    
-    //private let host = "http://0.0.0.0:5000"       // local host on this laptop you are looking at
-    //private let host = "http://192.168.0.119:5000"  //  /api/1.0" // local host on Siyuan's laptop
-    let host = "http://52.45.237.30:5000"  // testing host on AWS
-    
+    let host = "https://www.carryonx.com"
     private let hostVersion = "/api/1.0"
     
     var config: Config?
