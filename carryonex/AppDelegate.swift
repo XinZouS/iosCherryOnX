@@ -183,6 +183,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if let url = userActivity.webpageURL {
+            if let newUrl = URL(string: url.absoluteString.replacingOccurrences(of: "https://www.carryonx.com/", with: "carryonex://")) {
+                DeeplinkNavigator.handleDeeplink(newUrl)
+            }
+        }
+        
+        return true
+    }
+    
     //MARK: - UI
     private func setupNavigationBar() {
         UINavigationBar.appearance().barTintColor = .white
@@ -224,4 +234,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainTabViewController.handleMainNavigationSegue(segue: navigationSegue, sender: sender)
     }
 }
-
