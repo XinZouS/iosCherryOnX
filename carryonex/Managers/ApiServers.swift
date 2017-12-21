@@ -1244,6 +1244,54 @@ class ApiServers : NSObject {
         }
     }
     
+    func postWalletAliPayValidation(response: [String: Any], sign: String, isSuccess: Bool, completion: ((Bool, Error?) -> Void)?) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, pleaes login to get user's id")
+            completion?(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/alipay/pay/verify"
+        
+        var requestDict: [String: Any] = response
+        requestDict["sign"] = sign
+        
+        if isSuccess {
+            requestDict["trade_status"] = "TRADE_SUCCESS"
+        } else {
+            requestDict["trade_status"] = "TRADE_FINISHED"
+        }
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: requestDict
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("postWalletAliPayValidation update response error: \(error.localizedDescription)")
+                    completion?(false, error)
+                } else {
+                    completion?(false, nil)
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                completion?(true, nil)
+            } else {
+                completion?(false, nil)
+            }
+        }
+    }
+    
+    
     //WXPay
     func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?, Int) -> Void)?) {
         
