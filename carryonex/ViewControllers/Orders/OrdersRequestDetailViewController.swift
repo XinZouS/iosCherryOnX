@@ -410,10 +410,27 @@ class OrdersRequestDetailViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated,
-                                               object: nil, queue: nil, using: { [weak self] (notification) in
-                                                self?.reloadData()
+        NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil, using: { [weak self] (notification) in
+            self?.reloadData()
         })
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PaySuccess, object: nil, queue: nil) { [weak self] (notification) in
+            guard let payResp = notification.object as? PayResp else {
+                print("Wechat Pay response empty")
+                return
+            }
+            //TODO: Update message
+            self?.displayAlert(title: "微信支付成功", message: payResp.returnKey, action: L("action.ok"))
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
+            guard let payResp = notification.object as? PayResp else {
+                print("Wechat Pay response empty")
+                return
+            }
+            //TODO: Update message
+            self?.displayAlert(title: "微信支付失败", message: payResp.returnKey, action: L("action.ok"))
+        }
     }
     
     private func reloadData() {
@@ -583,6 +600,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             updateButtonAppearance(status: status)
             updateMapViewToShow(status == .inDelivery)
             statusLabel.text = status.displayString()
+            statusLabel.textColor = status.displayTextColor(category: category)
             statusLabel.backgroundColor = status.displayColor(category: category)
         }
     }

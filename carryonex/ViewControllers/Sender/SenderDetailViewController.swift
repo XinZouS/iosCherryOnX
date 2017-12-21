@@ -15,7 +15,6 @@ import ALCameraViewController
 import BPCircleActivityIndicator
 import AlamofireImage
 
-
 struct ImageNamePair {
     var name : String?
     var image: UIImage?
@@ -24,7 +23,6 @@ struct ImageNamePair {
         self.name = name
         self.image = image
     }
-    
 }
 
 class SenderDetailViewController: UIViewController{
@@ -84,6 +82,9 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceMaxInfoButton: UIButton!
     @IBOutlet weak var priceMaxInfoIconLabel: UILabel!
     @IBOutlet weak var priceMaxValueHintLabel: UILabel!
+    
+    let kShippInfoSegue = "ShipperInfoSegue"
+    
     var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
         didSet{
             priceMaxValueHintLabel.text = "小提示：寄送物品价值限制至多" + "\(currencyType.rawValue)\(priceMaxValueLimit)"
@@ -95,7 +96,7 @@ class SenderDetailViewController: UIViewController{
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
-        //TODO: open sender personal page;
+        self.performSegue(withIdentifier: kShippInfoSegue, sender: nil)
     }
     
     
@@ -215,7 +216,7 @@ class SenderDetailViewController: UIViewController{
     let messageWordsLimite: Int = 140
 
     
-    //MARK: - Methods Start Here
+    //MARK: - View Cycle
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -231,7 +232,6 @@ class SenderDetailViewController: UIViewController{
         setupActivityIndicator()
         setupSlider()
         getPriceFunctionFromServer()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -250,6 +250,19 @@ class SenderDetailViewController: UIViewController{
         AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == kShippInfoSegue {
+            if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = trip {
+                shipperInfoViewController.commenteeId = trip.carrierId
+                shipperInfoViewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
+                shipperInfoViewController.commenteeImage = trip.carrierImageUrl
+                shipperInfoViewController.phoneNumber = trip.carrierPhone
+            }
+        }
+    }
+    
+    //MARK: View Setup
+    
     private func setupCardView(){
         if let endCountry = trip?.endAddress?.country?.rawValue,
             let endState = trip?.endAddress?.state,
@@ -259,7 +272,7 @@ class SenderDetailViewController: UIViewController{
             let startCity = trip?.startAddress?.city {
             if let imageUrl = trip?.carrierImageUrl,let url = URL(string:imageUrl){
                 senderProfileImageButton.af_setImage(for: .normal, url: url)
-            }else{
+            } else {
                 senderProfileImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }
             endAddressLabel.text = endCountry+" "+endState+" "+endCity

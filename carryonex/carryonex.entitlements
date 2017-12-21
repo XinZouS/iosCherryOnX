@@ -6,7 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:52.45.237.30:80</string>
+		<string>applinks:carryonx.com</string>
+		<string>applinks:www.carryonx.com</string>
 	</array>
 	<key>com.apple.developer.in-app-payments</key>
 	<array/>
