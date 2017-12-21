@@ -625,7 +625,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出发地" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPI-Qv-VBy">
-                                                <rect key="frame" x="102" y="64" width="292" height="16"/>
+                                                <rect key="frame" x="102" y="64" width="282" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="iJr-L0-Yvq"/>
                                                 </constraints>
@@ -634,7 +634,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目的地" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRz-fU-z4l">
-                                                <rect key="frame" x="102" y="88" width="292" height="16"/>
+                                                <rect key="frame" x="102" y="88" width="282" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="cdh-cH-qUH"/>
                                                 </constraints>
@@ -669,10 +669,10 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QlH-Ts-fWb">
-                                                <rect key="frame" x="314" y="20" width="50" height="50"/>
+                                                <rect key="frame" x="314" y="15" width="50" height="50"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="QlH-Ts-fWb" secondAttribute="height" multiplier="1:1" id="FhM-er-VNM"/>
-                                                    <constraint firstAttribute="height" constant="50" id="vC5-qm-LbO"/>
+                                                    <constraint firstAttribute="height" constant="50" id="eix-H6-J6Z"/>
+                                                    <constraint firstAttribute="width" constant="50" id="exh-Ut-e9B"/>
                                                 </constraints>
                                                 <state key="normal" image="yadianwenqing"/>
                                                 <userDefinedRuntimeAttributes>
@@ -701,12 +701,11 @@
                                             <constraint firstItem="v2j-9K-ZTe" firstAttribute="leading" secondItem="YwH-Re-pyt" secondAttribute="leading" id="0Qm-Hw-9Yu"/>
                                             <constraint firstItem="bUA-d7-VZu" firstAttribute="top" secondItem="vWf-mR-YBb" secondAttribute="top" constant="15" id="3Mq-5s-nVI"/>
                                             <constraint firstItem="NRz-fU-z4l" firstAttribute="leading" secondItem="KPI-Qv-VBy" secondAttribute="leading" id="4ou-aq-BxN"/>
-                                            <constraint firstItem="QlH-Ts-fWb" firstAttribute="top" secondItem="vWf-mR-YBb" secondAttribute="top" constant="20" id="5n0-TL-i3G"/>
-                                            <constraint firstAttribute="trailing" secondItem="KPI-Qv-VBy" secondAttribute="trailing" id="FRP-8E-fLE"/>
+                                            <constraint firstAttribute="trailing" secondItem="KPI-Qv-VBy" secondAttribute="trailing" constant="10" id="FRP-8E-fLE"/>
                                             <constraint firstItem="v2j-9K-ZTe" firstAttribute="top" secondItem="YwH-Re-pyt" secondAttribute="bottom" constant="5" id="OOL-ul-SqJ"/>
                                             <constraint firstItem="Kgf-Vm-TNn" firstAttribute="leading" secondItem="vWf-mR-YBb" secondAttribute="leading" constant="20" id="OlO-0h-aKS"/>
                                             <constraint firstItem="NRz-fU-z4l" firstAttribute="bottom" secondItem="v2j-9K-ZTe" secondAttribute="bottom" id="Qyr-pU-H2z"/>
-                                            <constraint firstAttribute="trailing" secondItem="NRz-fU-z4l" secondAttribute="trailing" id="SaG-NK-GTb"/>
+                                            <constraint firstAttribute="trailing" secondItem="NRz-fU-z4l" secondAttribute="trailing" constant="10" id="SaG-NK-GTb"/>
                                             <constraint firstItem="7PK-Z1-Xae" firstAttribute="centerY" secondItem="bUA-d7-VZu" secondAttribute="centerY" id="UWY-wA-7IT"/>
                                             <constraint firstItem="YwH-Re-pyt" firstAttribute="top" secondItem="7PK-Z1-Xae" secondAttribute="bottom" id="Ui8-cb-eDl"/>
                                             <constraint firstAttribute="bottom" secondItem="Kgf-Vm-TNn" secondAttribute="bottom" constant="5" id="dAZ-ZP-YPH"/>
@@ -714,6 +713,7 @@
                                             <constraint firstItem="YwH-Re-pyt" firstAttribute="leading" secondItem="7PK-Z1-Xae" secondAttribute="leading" id="fEr-XO-EgL"/>
                                             <constraint firstItem="Kgf-Vm-TNn" firstAttribute="top" secondItem="NRz-fU-z4l" secondAttribute="bottom" constant="5" id="gE5-Pq-DCB"/>
                                             <constraint firstItem="7PK-Z1-Xae" firstAttribute="leading" secondItem="bUA-d7-VZu" secondAttribute="trailing" constant="20" id="gL1-TL-knQ"/>
+                                            <constraint firstItem="QlH-Ts-fWb" firstAttribute="top" secondItem="vWf-mR-YBb" secondAttribute="top" constant="15" id="gju-uZ-HlD"/>
                                             <constraint firstAttribute="trailing" secondItem="Kgf-Vm-TNn" secondAttribute="trailing" constant="20" id="hPe-VQ-RZG"/>
                                             <constraint firstItem="bUA-d7-VZu" firstAttribute="leading" secondItem="vWf-mR-YBb" secondAttribute="leading" constant="16" id="hyd-Q3-KKd"/>
                                             <constraint firstItem="e9v-an-219" firstAttribute="top" secondItem="bUA-d7-VZu" secondAttribute="bottom" id="r2U-yu-Wa5"/>
@@ -809,11 +809,20 @@
                         <outlet property="tripNoteLabel" destination="Kgf-Vm-TNn" id="bjw-eL-b3c"/>
                         <outlet property="tripNoteLabelHeighConstraint" destination="cAN-vN-Z2k" id="Waz-dN-lSe"/>
                         <outlet property="youxiangCodeLabel" destination="YwH-Re-pyt" id="E04-Cw-uvh"/>
+                        <segue destination="tJL-9h-Hd8" kind="show" identifier="ShipperInfoSegue" id="PEl-52-Rvt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow9-C6-7K2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="345.60000000000002" y="149.32533733133434"/>
+        </scene>
+        <!--ShiperInfo-->
+        <scene sceneID="oqm-nb-ikK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ShiperInfo" id="tJL-9h-Hd8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L2S-eT-Iry" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983" y="-175"/>
         </scene>
     </scenes>
     <resources>
