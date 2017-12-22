@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_grey" translatesAutoresizingMaskIntoConstraints="NO" id="qFC-RB-cPd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="qFC-RB-cPd">
                                 <rect key="frame" x="105" y="83" width="110" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="PBe-J1-Ywa"/>
@@ -52,7 +52,7 @@
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Mx-Og-epF">
                                 <rect key="frame" x="30" y="344" width="260" height="50"/>
-                                <color key="backgroundColor" red="0.20421111580000001" green="0.65066361429999997" blue="0.72686475520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="t8f-pS-zbv"/>
                                 </constraints>
@@ -107,8 +107,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Loginnnnn" width="264" height="95"/>
         <image name="Verification_sucess" width="288" height="208"/>
         <image name="backgroundImage" width="421" height="162"/>
-        <image name="logo_grey" width="206" height="86"/>
     </resources>
 </document>

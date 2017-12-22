@@ -64,7 +64,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LLc-ya-YRW">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="LLc-ya-YRW">
                                 <rect key="frame" x="127.5" y="53.5" width="120" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="Z0Y-JM-7HO"/>
@@ -93,14 +93,14 @@
                             </textField>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20c-1B-UgT">
                                 <rect key="frame" x="30" y="288.5" width="315" height="40"/>
-                                <color key="backgroundColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="900" constant="50" id="6Zl-qQ-DRB"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="DpB-aa-rbd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="登录">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -117,7 +117,7 @@
                                         <size key="value" width="0.0" height="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -126,7 +126,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaT-uk-PVx">
                                 <rect key="frame" x="30" y="338.5" width="315" height="40"/>
-                                <color key="backgroundColor" red="0.20421111580000001" green="0.65066361429999997" blue="0.72686475520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="使用微信登陆">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -185,7 +185,7 @@
                                     <action selector="handleForgetButtonWithSender:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="gZz-Yw-dQA"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -223,7 +223,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="用户协议、">
-                                    <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="handleUserAgreementButton:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="NeB-kN-arU"/>
@@ -276,7 +276,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="软件使用协议">
-                                    <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="handleAppAgreementButton:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="YKL-iy-F8O"/>
@@ -290,14 +290,14 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="隐私政策">
-                                    <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="handlePrivacyPolicyButton:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="Dbx-X7-qWI"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.96068006753921509" green="0.96084433794021606" blue="0.96066969633102417" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hgu-IH-Ro0" firstAttribute="bottom" secondItem="J80-6R-1fK" secondAttribute="bottom" id="2cW-b9-VhX"/>
                             <constraint firstItem="EoR-q1-IZ8" firstAttribute="centerX" secondItem="GUr-9Z-UXw" secondAttribute="centerX" id="3Om-UF-g5e"/>
@@ -390,10 +390,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Loginnnnn" width="264" height="95"/>
         <image name="Password" width="26" height="32"/>
         <image name="Phone9999" width="34" height="34"/>
         <image name="backgroundImage" width="421" height="162"/>
-        <image name="login_icon" width="775" height="501"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vqK-Qm-Ecg"/>
