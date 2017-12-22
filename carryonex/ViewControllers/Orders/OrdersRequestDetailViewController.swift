@@ -142,10 +142,10 @@ class OrdersRequestDetailViewController: UIViewController {
             return
         }
         
-        if transaction == .shipperPay {
-            showPaymentView(true)
-            return
-        }
+       if transaction == .shipperPay {
+           showPaymentView(true)
+           return
+       }
         
         displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {

@@ -47,6 +47,7 @@
                         <segue destination="wI3-6d-Fpi" kind="show" identifier="HistoryCommentSegue" id="3Qt-VO-MM1"/>
                         <segue destination="L5y-RD-9eC" kind="show" identifier="CreditViewSegue" id="Mx3-ZG-LZy"/>
                         <segue destination="nsu-zs-ixO" kind="show" identifier="SettingsSegue" id="M4i-mG-WcL"/>
+                        <segue destination="idf-2x-GCx" kind="show" identifier="ShipperProfileSegue" id="rps-K6-21m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UVK-cN-Yzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,6 +77,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ehI-Fn-DUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="793" y="75"/>
+        </scene>
+        <!--ShiperInfo-->
+        <scene sceneID="HXp-w4-tYd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ShiperInfo" id="idf-2x-GCx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xgu-UZ-PQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="-61"/>
         </scene>
         <!--HistoryComment-->
         <scene sceneID="xr2-7X-Y9e">

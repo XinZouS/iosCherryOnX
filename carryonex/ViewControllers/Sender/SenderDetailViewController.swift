@@ -83,7 +83,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceMaxInfoIconLabel: UILabel!
     @IBOutlet weak var priceMaxValueHintLabel: UILabel!
     
-    let kShippInfoSegue = "ShipperInfoSegue"
+//    let kShippInfoSegue = "ShipperInfoSegue"
     
     var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
         didSet{
@@ -96,7 +96,7 @@ class SenderDetailViewController: UIViewController{
     // MARK: - actions forcontents
     
     @IBAction func senderProfileImageButtonTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: kShippInfoSegue, sender: nil)
+        AppDelegate.shared().handleMainNavigation(navigationSegue: .shipperProfile, sender: trip)
     }
     
     
@@ -232,11 +232,20 @@ class SenderDetailViewController: UIViewController{
         setupActivityIndicator()
         setupSlider()
         getPriceFunctionFromServer()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         setupCardView()
+        
+        //Get realname
+        if let targetUserId = trip?.carrierId {
+            ApiServers.shared.getUserInfo(.realName, userId: targetUserId) { (realName, error) in
+                if let error = error {
+                    print("Get real name error: \(error.localizedDescription)")
+                    return
+                }
+                if let realName = realName as? String {
+                    self.trip?.carrierRealName = realName
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -247,19 +256,21 @@ class SenderDetailViewController: UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        //Redo this analytics
         AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == kShippInfoSegue {
-            if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = trip {
-                shipperInfoViewController.commenteeId = trip.carrierId
-                shipperInfoViewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
-                shipperInfoViewController.commenteeImage = trip.carrierImageUrl
-                shipperInfoViewController.phoneNumber = trip.carrierPhone
-            }
-        }
-    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == kShippInfoSegue {
+//            if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = trip {
+//                shipperInfoViewController.commenteeId = trip.carrierId
+//                shipperInfoViewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
+//                shipperInfoViewController.commenteeImage = trip.carrierImageUrl
+//                shipperInfoViewController.phoneNumber = trip.carrierPhone
+//            }
+//        }
+//    }
     
     //MARK: View Setup
     
