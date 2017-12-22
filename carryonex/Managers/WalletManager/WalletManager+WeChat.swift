@@ -28,6 +28,7 @@ enum WechatResultStatus: Int {
 
 //WeChat
 extension WalletManager {
+    
     func wechatPayAuth(request: Request) {
         
         ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error, timestamp) in
@@ -47,7 +48,7 @@ extension WalletManager {
             request.prepayId = wxOrder.prepayId
             request.package = wxOrder.prepayId
             request.nonceStr = wxOrder.nonceStr
-            request.timeStamp = UInt32(timestamp)
+            request.timeStamp = UInt32(wxOrder.timestamp)
             request.sign = wxOrder.sign
             WXApi.send(request)
         }
@@ -64,6 +65,7 @@ enum WXOrderKey: String {
     case sign = "sign"
     case returnCode = "return_code"
     case prepayId = "prepay_id"
+    case timestamp = "timestamp"
 }
 
 struct WXOrder {
@@ -76,6 +78,7 @@ struct WXOrder {
     let sign: String
     let returnCode: String
     let prepayId: String
+    let timestamp: Int
 }
 
 extension WXOrder: Unboxable {
@@ -89,5 +92,6 @@ extension WXOrder: Unboxable {
         self.sign = try unboxer.unbox(key: WXOrderKey.sign.rawValue)
         self.returnCode = try unboxer.unbox(key: WXOrderKey.returnCode.rawValue)
         self.prepayId = try unboxer.unbox(key: WXOrderKey.prepayId.rawValue)
+        self.timestamp = try unboxer.unbox(key: WXOrderKey.timestamp.rawValue)
     }
 }

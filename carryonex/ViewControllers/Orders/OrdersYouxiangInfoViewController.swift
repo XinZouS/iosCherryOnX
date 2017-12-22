@@ -70,8 +70,13 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = L("orders.ui.title.youxiang-info")
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.black] // Title color
         
         //Setup table view
         tableView.delegate = self

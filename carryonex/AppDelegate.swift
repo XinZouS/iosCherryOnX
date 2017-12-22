@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-         
-        UIApplication.shared.statusBarStyle = .default
         
         //Set up reachability
         ReachabilityManager.shared.startObserving()
@@ -199,6 +197,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         UINavigationBar.appearance().isTranslucent = false
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     
