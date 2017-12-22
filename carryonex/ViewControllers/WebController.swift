@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import BPCircleActivityIndicator
 
 class WebController: UIViewController, WKNavigationDelegate {
     

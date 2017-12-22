@@ -10,7 +10,6 @@ import UIKit
 
 import AWSCognito
 import AWSS3
-import BPCircleActivityIndicator
 
 class PhotoIDController: UIViewController {
     

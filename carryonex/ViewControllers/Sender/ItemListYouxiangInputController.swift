@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BPCircleActivityIndicator
 
 class ItemListYouxiangInputController: UIViewController {
     
@@ -87,7 +86,7 @@ class ItemListYouxiangInputController: UIViewController {
     
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator()
-        activityIndicator.center = view.center
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }

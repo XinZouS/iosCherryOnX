@@ -88,7 +88,6 @@ target 'carryonex' do
   pod 'Stripe'
   
   # indicator
-  pod 'BPCircleActivityIndicator'
   pod 'TGRefreshSwift'
   
   # Design

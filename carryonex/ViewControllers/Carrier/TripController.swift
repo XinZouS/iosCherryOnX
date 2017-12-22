@@ -30,7 +30,7 @@ class TripController: UIViewController{
     var addressArray = [[String: AnyObject]]()
     
     var isNoteFilled = false
-    let textViewPlaceholder = "目的地地址详细信息，寄件人需知的注意事项等"
+    let textViewPlaceholder = L("carrier.ui.placeholder.note")
     
     //MARK: - 选择的国家索引
     var startCountryIndex = 0
@@ -99,6 +99,16 @@ class TripController: UIViewController{
     private func setupScrollView(){
         scrollView.layer.cornerRadius = 10
         scrollView.layer.masksToBounds = true
+        let font = UIFont.systemFont(ofSize: 20)
+        startAddressTitleLabel.font = font
+        endAddressTitleLabel.font = font
+        startDateTitleLabel.font = font
+        noteTitleLabel.font = font
+        startAddressTitleLabel.text = L("carrier.ui.title.startAddress")
+        endAddressTitleLabel.text = L("carrier.ui.title.endAddress")
+        startDateTitleLabel.text = L("carrier.ui.title.startDate")
+        noteTitleLabel.text = L("carrier.ui.title.note")
+
     }
 
     private func setupTextFields(){
@@ -230,10 +240,12 @@ extension TripController: UITextFieldDelegate {
         bar.sizeToFit()
         
         if let tf = textField {
+            tf.font = UIFont.systemFont(ofSize: 16)
             tf.delegate = self
             tf.inputAccessoryView = bar
         }
         if let tv = textView {
+            tv.font = UIFont.systemFont(ofSize: 16)
             tv.delegate = self
             tv.inputAccessoryView = bar
             tv.textColor = .lightGray

@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import BPCircleActivityIndicator
 
 class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     

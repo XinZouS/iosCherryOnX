@@ -8,7 +8,6 @@
 
 import UIKit
 import MessageUI
-import BPCircleActivityIndicator
 
 class ShipperInfoViewController: UIViewController,MFMessageComposeViewControllerDelegate{
     
