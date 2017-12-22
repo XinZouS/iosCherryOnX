@@ -12,7 +12,6 @@ import AWSCognito
 import AWSCore
 import AWSS3
 import ALCameraViewController
-import BPCircleActivityIndicator
 
 class RequestController: UICollectionViewController, UIGestureRecognizerDelegate {
     

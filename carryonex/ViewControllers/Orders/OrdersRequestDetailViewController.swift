@@ -11,7 +11,6 @@ import AlamofireImage
 import JXPhotoBrowser
 import M13Checkbox
 import MapKit
-import BPCircleActivityIndicator
 
 class OrdersRequestDetailViewController: UIViewController {
     

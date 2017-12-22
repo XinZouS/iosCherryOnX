@@ -8,7 +8,6 @@
 
 import UIKit
 import Reachability
-import BPCircleActivityIndicator
 import ZendeskSDK
 
 enum TabViewIndex: Int {

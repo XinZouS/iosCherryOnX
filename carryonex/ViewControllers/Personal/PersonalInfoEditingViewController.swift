@@ -13,7 +13,6 @@ import AWSCore
 import AWSS3
 import ALCameraViewController
 import Photos
-import BPCircleActivityIndicator
 
 class PersonalInfoEditingViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     

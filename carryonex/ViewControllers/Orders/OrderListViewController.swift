@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BPCircleActivityIndicator
 import TGRefreshSwift
 
 class OrderListViewController: UIViewController {

@@ -8,7 +8,6 @@
 
 import UIKit
 import AlamofireImage
-import BPCircleActivityIndicator
 
 class PersonalCommentController: UIViewController{
     

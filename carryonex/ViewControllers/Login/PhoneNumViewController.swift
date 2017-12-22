@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BPCircleActivityIndicator
 
 class PhoneNumViewController: UIViewController {
     
