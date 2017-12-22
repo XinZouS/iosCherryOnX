@@ -120,7 +120,11 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func goToPaymentHandler(_ sender: Any) {
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
-            WalletManager.shared.aliPayAuth(request: request)
+            WalletManager.shared.aliPayAuth(request: request, completion: { (success) in
+                if success {
+                    self.processTransaction(.shipperPay)
+                }
+            })
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
@@ -138,35 +142,41 @@ class OrdersRequestDetailViewController: UIViewController {
             return
         }
         
-        if transaction == .shipperPay {
-            showPaymentView(true)
-            return
+       if transaction == .shipperPay {
+           showPaymentView(true)
+           return
+       }
+        
+        displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
+            if style == .default {
+                self?.processTransaction(transaction)
+            }
+            self?.backgroundViewHide()
         }
+    }
+    
+    private func processTransaction(_ transaction: RequestTransaction) {
         
         let tripId = trip.id
         let requestId = request.id
         let requestCategory = category
-        displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
-            if style == .default {
-                self?.isLoadingStatus = true
-                ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
-                    if (success) {
-                        if let statusId = statusId {
-                            print("New status: \(statusId)")
-                            TripOrderDataStore.shared.pull(category: requestCategory, delay: 1, completion: {
-                                self?.isLoadingStatus = false
-                            })
-                        } else {
-                            debugPrint("No status found, bad call")
-                            self?.isLoadingStatus = false
-                        }
-                    } else {
-                        self?.isLoadingStatus = false
-                    }
-                })
+        
+        self.isLoadingStatus = true
+        ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
+            if (success) {
+                if let statusId = statusId {
+                    print("New status: \(statusId)")
+                    TripOrderDataStore.shared.pull(category: requestCategory, delay: 1, completion: {
+                        self.isLoadingStatus = false
+                    })
+                } else {
+                    debugPrint("No status found, bad call")
+                    self.isLoadingStatus = false
+                }
+            } else {
+                self.isLoadingStatus = false
             }
-            self?.backgroundViewHide()
-        }
+        })
     }
     
     // MARK: - Data models
@@ -419,17 +429,21 @@ class OrdersRequestDetailViewController: UIViewController {
                 print("Wechat Pay response empty")
                 return
             }
+            print("Wechat Pay response returnkey: \(payResp.returnKey)")
             //TODO: Update message
-            self?.displayAlert(title: L("orders.confirm.title.wechatpay"), message: payResp.returnKey, action: L("action.ok"))
+            self?.displayAlert(title: L("orders.confirm.title.wechatpay"), message: "", action: L("action.ok"), completion: {
+                self?.processTransaction(.shipperPay)
+            })
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
             guard let payResp = notification.object as? PayResp else {
-                print("Wechat Pay response empty")
+                print("Wechat Pay response empty: ()")
                 return
             }
+            print("Wechat Pay response returnkey: \(payResp.returnKey)")
             //TODO: Update message
-            self?.displayAlert(title: L("orders.error.title.wechatpay"), message: payResp.returnKey, action: L("action.ok"))
+            self?.displayAlert(title: L("orders.error.title.wechatpay"), message: "", action: L("action.ok"))
         }
     }
     

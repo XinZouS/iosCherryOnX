@@ -10,11 +10,11 @@ import Foundation
 import MapKit
 import Unbox
 
-enum Transportation : Int, UnboxableEnum {
-    case trunk = 1
-    case luggage = 2
+enum Transportation : String, UnboxableEnum {
+    case trunk = "Trunk"
+    case luggage = "Luggage"
     
-    func string() -> String {
+    func rawValueCN() -> String {
         switch self {
         case .trunk:
             return L("carrier.ui.transportation.trunk") // "后备箱"

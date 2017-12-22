@@ -26,6 +26,7 @@ enum MainNavigationSegue: String {
     case creditView = "CreditViewSegue"
     case settings = "SettingsSegue"
     case helpCenter = "HelpCenterSegue"
+    case shipperProfile = "ShipperProfileSegue"
 }
 
 protocol MainNavigationProtocol {
@@ -109,6 +110,14 @@ class MainTabBarController: UITabBarController {
         case .settings:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("Settings")
+        case .shipperProfile:
+            print("Shipper Profile")
+            if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = sender as? Trip {
+                shipperInfoViewController.commenteeId = trip.carrierId
+                shipperInfoViewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
+                shipperInfoViewController.commenteeImage = trip.carrierImageUrl
+                shipperInfoViewController.phoneNumber = trip.carrierPhone
+            }
         default:
             print("Others")
         }
