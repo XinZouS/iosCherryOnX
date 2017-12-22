@@ -48,6 +48,7 @@ class OrderListCardShiperCell: OrderListCardCell {
     var isActive = true {
         didSet{
             setupYouxiangLokcerStatus(isActive: isActive)
+            setupButtonAppearance(isActive: isActive)
         }
     }
     var trip: Trip? {
@@ -55,6 +56,7 @@ class OrderListCardShiperCell: OrderListCardCell {
             let isActive: Bool = (trip?.active == TripActive.active.rawValue)
             youxiangCodeLabel.text = trip?.tripCode
             setupYouxiangLokcerStatus(isActive: isActive)
+            setupButtonAppearance(isActive: isActive)
             startAddressLabel.text = trip?.startAddress?.fullAddressString()
             endAddressLabel.text = trip?.endAddress?.fullAddressString()
             dateMonthLabel.text = trip?.getMonthString()
@@ -66,12 +68,21 @@ class OrderListCardShiperCell: OrderListCardCell {
         super.awakeFromNib()
         cellCategory = .carrier
         setupYouxiangLokcerStatus(isActive: true)
+        setupButtonAppearance(isActive: true)
     }
 
     private func setupYouxiangLokcerStatus(isActive: Bool){
         lockLabel.isHidden = isActive
         lockImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
     }
+    
+    private func setupButtonAppearance(isActive: Bool) {
+        gotoTripDetailButton.layer.borderColor = colorTheamRed.cgColor
+        gotoTripDetailButton.layer.borderWidth = isActive ? 0 : 2
+        gotoTripDetailButton.backgroundColor = isActive ? colorTheamRed : UIColor.white
+        gotoTripDetailButton.setTitleColor(isActive ? UIColor.white : colorTheamRed, for: .normal)
+    }
+
     
     override func updateRequestInfoAppearance(request: Request) {
         super.updateRequestInfoAppearance(request: request)
