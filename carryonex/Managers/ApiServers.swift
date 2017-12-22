@@ -1335,11 +1335,11 @@ class ApiServers : NSObject {
     
     
     //WXPay
-    func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?, Int) -> Void)?) {
+    func postWalletWXPay(totalAmount: Int, userId: Int, requestId: Int, completion: ((WXOrder?, Error?) -> Void)?) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            debugLog("Profile user empty, pleaes login to get user's id")
-            completion?(nil, nil, -1)
+            debugLog("Profile user empty, please login to get user's id")
+            completion?(nil, nil)
             return
         }
         
@@ -1365,25 +1365,24 @@ class ApiServers : NSObject {
             guard let response = response else {
                 if let error = error {
                     print("postWalletAliPay update response error: \(error.localizedDescription)")
+                    completion?(nil, error)
                 }
-                completion?(nil, nil, -1)
                 return
             }
             
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any],
-                let orderData = data[WalletKeyInDB.orderString.rawValue] as? [String: Any] {
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 do {
-                    let order: WXOrder = try unbox(dictionary: orderData)
-                    completion?(order, nil, timestamp)
+                    let order: WXOrder = try unbox(dictionary: data)
+                    completion?(order, nil)
                     
                 } catch let error {
-                    completion?(nil, error, -1)
+                    completion?(nil, error)
                     print("Get error when postWalletWXPay. Error = \(error.localizedDescription)")
                 }
             } else {
-                debugPrint("Unable to get order string")
-                completion?(nil, nil, -1)
+                debugPrint("Unable to get data")
+                completion?(nil, nil)
             }
         }
     }
