@@ -141,7 +141,7 @@ class LoginViewController: UIViewController {
                 AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                 AnalyticsManager.shared.trackCount(.loginByEmailCount)
             } else {
-                self.displayAlert(title: "登入失败", message: "电话号码或密码有误，请重新输入", action: L("action.ok"))
+                self.displayAlert(title: L("login.error.title.failed"), message: L("login.error.message.failed"), action: L("action.ok"))
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
@@ -199,7 +199,7 @@ extension LoginViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
             if let response = notification.object as? SendAuthResp {
                 debugPrint("Wechat error: \(response.errCode): \(response.errStr)")
-                self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
+                self?.displayAlert(title: L("login.error.wechat.title"), message: L("login.error.wechat.message"), action: L("action.ok"))
             }
         }
     }
@@ -239,7 +239,7 @@ extension LoginViewController {
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "微信登入失败", message: "请检查微信功能是否正常运行", action: L("action.ok"))
+                    self?.displayAlert(title: L("login.error.wechat.title"), message: L("login.error.wechat.message"), action: L("action.ok"))
                     return
                 }
                 
@@ -262,15 +262,15 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        gotoWebview(title: "用户协议", url: "\(ApiServers.shared.host)/doc_agreement")
+        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement")
     }
     
     @IBAction func handleAppAgreementButton(_ sender: Any) {
-        gotoWebview(title: "软件使用协议", url: "\(ApiServers.shared.host)/doc_license")
+        gotoWebview(title: L("login.ui.license.title"), url: "\(ApiServers.shared.host)/doc_license")
     }
     
     @IBAction func handlePrivacyPolicyButton(_ sender: Any) {
-        gotoWebview(title: "隐私政策", url: "\(ApiServers.shared.host)/doc_privacy")
+        gotoWebview(title: L("login.ui.privacy.title"), url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
     private func gotoWebview(title: String, url: String) {

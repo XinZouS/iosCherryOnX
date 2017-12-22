@@ -56,19 +56,19 @@ class ShareViewFactory: UIView {
         facebookButton.addTarget(self, action: #selector(shareToFacebook), for: .touchUpInside)
         
         let wechatLabel = UILabel()
-        wechatLabel.text = "微信"
+        wechatLabel.text = L("managers.ui.title.wechat")
         wechatLabel.font = UIFont(name: "Avenir-Light", size: 10.0)
         
         let momentLabel = UILabel()
-        momentLabel.text = "朋友圈"
+        momentLabel.text = L("managers.ui.title.moment")
         momentLabel.font = UIFont(name: "Avenir-Light", size: 10.0)
         
         let weiboLabel = UILabel()
-        weiboLabel.text = "微博"
+        weiboLabel.text = L("managers.ui.title.weibo")
         weiboLabel.font = UIFont(name: "Avenir-Light", size: 10.0)
         
         let facebookLabel = UILabel()
-        facebookLabel.text = "Facebook"
+        facebookLabel.text = L("managers.ui.title.facebook")
         facebookLabel.font = UIFont(name: "Avenir-Light", size: 10.0)
         
         self.addSubview(wechatButton)
@@ -105,7 +105,7 @@ class ShareViewFactory: UIView {
         weiboLabel.addConstraints(left: nil, top: weiboButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         facebookLabel.addConstraints(left: nil, top: facebookButton.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: t, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: nil)
         alertController.view.addSubview(self)
         alertController.addAction(cancelAction)
         
@@ -114,14 +114,14 @@ class ShareViewFactory: UIView {
     }
     
     @objc func shareToWechat(){
-        let title: String = "CarryonEx 帮你把思念带回家"
+        let title: String = L("managers.confirm.title.share")
         let msg: String = ""
         shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
     }
     
     @objc private func shareToMoment(){
-        let title: String = "CarryonEx 帮你把思念带回家"
-        let msg: String = "关注我们的网站获取更多活动信息：https://www.carryonex.com/"
+        let title: String = L("managers.confirm.title.share")
+        let msg: String = L("managers.confirm.message.share") + "：https://www.carryonex.com/"
         shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
     }
     
@@ -168,7 +168,7 @@ class ShareViewFactory: UIView {
                 message.mediaObject = imgObj
                 message.title=nil
                 message.description=nil
-                message.mediaTagName = "CarryonEx[游箱]"
+                message.mediaTagName = L("managers.confirm.message.share-media-tag")
             }
             req.bText = false
             req.message = message
@@ -179,7 +179,7 @@ class ShareViewFactory: UIView {
             message.mediaObject = web
             message.title = title
             message.description = self.message
-            message.setThumbImage(#imageLiteral(resourceName: "empty2"))
+            message.setThumbImage(#imageLiteral(resourceName: "login_icon"))
             
             req.bText = false
             req.message = message

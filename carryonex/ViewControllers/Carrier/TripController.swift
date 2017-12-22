@@ -37,7 +37,7 @@ class TripController: UIViewController{
     }
     
     private func setupNavigationBar(){
-        title = "出行"
+        title = L("carrier.ui.title.trip")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.barTintColor = .white
@@ -67,7 +67,7 @@ class TripController: UIViewController{
         if let childVC = self.childViewControllers.first as? TripTableController {
             
             if childVC.pickUpDate < (Date().timeIntervalSince1970 - 86400) {    //86400 seconds/day
-                self.displayAlert(title: "出行日期有误", message: "出行日期不能为过去时间，请重新输入", action: L("action.ok"))
+                self.displayAlert(title: L("carrier.error.title.date"), message: L("carrier.error.message.date"), action: L("action.ok"))
                 return
             }
             AnalyticsManager.shared.finishTimeTrackingKey(.carrierDetailFillTime)

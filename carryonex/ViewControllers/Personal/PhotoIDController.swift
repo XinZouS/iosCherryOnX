@@ -17,6 +17,15 @@ class PhotoIDController: UIViewController {
     enum IDSelectionTypeString: String {
         case idCard = "身份证 🔽"
         case passport = "护照 🔽"
+        
+        func string() -> String {
+            switch self {
+            case .idCard:
+                return L("personal.ui.title.id")
+            case .passport:
+                return L("personal.ui.title.passport")
+            }
+        }
     }
     
     var idType: IDSelectionTypeString = .passport
@@ -48,7 +57,7 @@ class PhotoIDController: UIViewController {
     let titleLabel: UILabel = {
         let t = UILabel()
         t.textAlignment = .center
-        t.text = "我们需要验证您的个人信息以确保货物安全"
+        t.text = L("personal.ui.message.photo-id")
         t.textColor = textThemeColor
         t.font = UIFont.boldSystemFont(ofSize: 16)
         return t
@@ -65,7 +74,7 @@ class PhotoIDController: UIViewController {
         let t = UILabel()
         //t.backgroundColor = .orange
         t.textAlignment = .left
-        t.text = "姓名："
+        t.text = L("personal.ui.title.name")
         t.font = t.font.withSize(16)
         return t
     }()
@@ -73,7 +82,7 @@ class PhotoIDController: UIViewController {
         let t = UITextField()
         //t.backgroundColor = .green
         t.textAlignment = .right
-        t.placeholder = "请输入您的姓名"
+        t.placeholder = L("personal.ui.placeholder.name")
         t.font = UIFont.init(name: (t.font?.fontName)!, size: 16)!
         t.returnKeyType = .done
         t.delegate = self
@@ -89,7 +98,7 @@ class PhotoIDController: UIViewController {
         let t = UILabel()
         //t.backgroundColor = .orange
         t.textAlignment = .left
-        t.text = "证件类型："
+        t.text = L("personal.ui.title.upload-type")
         t.font = t.font.withSize(16)
         return t
     }()
@@ -126,7 +135,7 @@ class PhotoIDController: UIViewController {
         let t = UILabel()
         //t.backgroundColor = .green
         t.textAlignment = .left
-        t.text = "上传护照个人信息页照片："
+        t.text = L("personal.ui.title.upload-passport")
         t.font = t.font.withSize(16)
         return t
     }()
@@ -151,7 +160,7 @@ class PhotoIDController: UIViewController {
         let t = UILabel()
         //t.backgroundColor = .green
         t.textAlignment = .left
-        t.text = "上传身份证正面照片："
+        t.text = L("personal.ui.title.upload-id-a")
         t.font = t.font.withSize(16)
         return t
     }()
@@ -169,7 +178,7 @@ class PhotoIDController: UIViewController {
         let t = UILabel()
         //t.backgroundColor = .green
         t.textAlignment = .left
-        t.text = "上传身份证背面照片："
+        t.text = L("personal.ui.title.upload-id-b")
         t.font = t.font.withSize(16)
         return t
     }()
@@ -185,7 +194,7 @@ class PhotoIDController: UIViewController {
     
     let profileUploadLabel: UILabel = {
         let t = UILabel()
-        t.text = "上传真人大头照："
+        t.text = L("personal.ui.title.upload-profile")
         t.textAlignment = .left
         t.font = t.font.withSize(16)
         return t
@@ -208,7 +217,7 @@ class PhotoIDController: UIViewController {
         //b.setTitle("完成验证", for: .normal)
         let att = [NSFontAttributeName: UIFont.systemFont(ofSize: 16),
                    NSForegroundColorAttributeName: UIColor.white]
-        let str = NSAttributedString(string: "完成验证", attributes: att)
+        let str = NSAttributedString(string: L("personal.ui.action.finishing-verify"), attributes: att)
         b.setAttributedTitle(str, for: .normal)
         b.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         return b
@@ -229,14 +238,14 @@ class PhotoIDController: UIViewController {
     
     
     private func setupNavigationBar(){
-        title = "验证信息"
+        title = L("personal.ui.title.verify-info")
         let layer = navigationController?.viewControllers.count ?? 1
         if layer == 1 { // self. is rootController
             UINavigationBar.appearance().tintColor = buttonColorWhite
             navigationController?.navigationBar.tintColor = buttonColorWhite
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: buttonColorWhite]
             
-            let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelButtonTapped))
+            let cancelButton = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(cancelButtonTapped))
             navigationItem.leftBarButtonItem = cancelButton
         }else{ // is enter from SettingController
             // do nothing, do NOT change bar setups;

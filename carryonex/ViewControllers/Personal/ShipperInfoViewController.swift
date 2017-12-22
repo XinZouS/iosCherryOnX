@@ -35,7 +35,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
 
     var doneLabel: UILabel = {
         let l = UILabel()
-        l.text = "暂时没有来自别人的评论"
+        l.text = L("personal.ui.placeholder.comment")
         l.textAlignment = .center
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
@@ -46,7 +46,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "用户评价"
+        title = L("personal.ui.title.shiperinfo-comments")
         setupIndicator()
         getShipperCommentInformation()
         setupTableView()
@@ -131,7 +131,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         if let commentDictionary = commentDict{
             rateLabel.text = String(format: "%.1f",commentDictionary.rank)
             rateViewWidth.constant = CGFloat(commentDictionary.rank*20)
-            commentLabel.text = "总共" + "\(commentDictionary.commentsLength)" + "条评价"
+            commentLabel.text = "\(L("personal.ui.title.comments-all-p1")) \(commentDictionary.commentsLength) \(L("personal.ui.title.comments-all-p2"))"
         }
     }
     
@@ -158,20 +158,24 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
             //设置联系人
             let str = phoneNum
             //创建一个弹出框提示用户
-            let alertController = UIAlertController(title: "发短信", message: "是否给\(str)发送短信?", preferredStyle: .alert)
-            let cancleAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            let sendAction = UIAlertAction(title: "确定", style: .default) { (alertController) in
+            let alertController = UIAlertController(title: L("personal.confirm.title.send-message"),
+                                                    message: L("personal.confirm.message.send-message-p1") + "\(str)" + L("personal.confirm.message.send-message-p2"), preferredStyle: .alert)
+            let cancleAction = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: nil)
+            let sendAction = UIAlertAction(title: L("action.ok"), style: .default) { (alertController) in
                 //判断设备是否能发短信(真机还是模拟器)
                 if MFMessageComposeViewController.canSendText() {
                     let controller = MFMessageComposeViewController()
                     //短信的内容,可以不设置
-                    controller.body = "你好"
+                    controller.body = L("personal.confirm.message.send-body")
                     //联系人列表
                     controller.recipients = [str]
                     controller.messageComposeDelegate = self
                     self.present(controller, animated: true,completion: nil)
                 } else {
                     print("本设备不能发短信")
+                    self.displayGlobalAlertActions(title: L("sender.error.title.upload"),
+                                                   message: L("personal.error.message.send-message"),
+                                                   actions: [L("action.ok")], completion: nil)
                 }
             }
             alertController.addAction(cancleAction)
@@ -248,7 +252,7 @@ extension ShipperInfoViewController: UITableViewDelegate, UITableViewDataSource{
             
             if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
                 let dateFormat = DateFormatter()
-                dateFormat.dateFormat = "yyyy年MM日dd日"
+                dateFormat.dateFormat = L("personal.ui.dateformat.cn")
                 let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
                 cell.timeLabel.text = dateFormat.string(from: date)
             }

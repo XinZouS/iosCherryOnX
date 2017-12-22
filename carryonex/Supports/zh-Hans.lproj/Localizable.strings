@@ -9,8 +9,14 @@
 // MARK: - General action messages
 "action.ok" = "知道了";
 "action.done" = "完成";
+"action.submit" = "提交";
 "action.cancel" = "取消";
 "action.redo" = "重试";
+
+// MARK: - Trip
+"trip.ui.message.share" = "还有行李箱空间可以带东西，飞快来我的游箱提交信息吧：";
+"trip.ui.message.empty-address" = "未知地址";
+
 
 // MARK: - Login
 "login.error.title.phone" = "手机号码有误";
@@ -40,11 +46,30 @@
 "register.error.message.verify-phone" = "手机验证失败";
 "register.error.action.verify" = "重新发送验证码";
 "register.error.title.failed" = "注册失败";
-"register.error.message.failed" = "注册出现错误: ";
+"register.error.message.failed" = "注册出现错误";
 "register.ui.message.hint1" = "短信验证码已发送至";
 "register.ui.message.hint2" = "，请输入";
 "register.ui.message.resend-verify-code" = "发送验证码";
-"register.ui.message.resend-time" = "秒后重新发送";
+"register.ui.message.resend-time" = "秒后重新发送"; // "\(resetTime)秒后重新发送"
+
+// MARK: - Home
+"home.ui.greeting.hello" = "你好";
+"home.ui.greeting.night" = "晚上好，";
+"home.ui.greeting.afternoon" = "下午好，";
+"home.ui.greeting.noon" = "中午好，";
+"home.ui.greeting.morning" = "早上好，";
+"home.ui.spotlight.trip" = "『出行』把你的行程发布并分享给好友";
+"home.ui.spotlight.send" = "『寄件』找到好友的行程后可以让TA帮你带东西啦";
+"home.ui.spotlight.card" = "『游箱卡』我的最新行程与寄件信息动态第一时间看到";
+"home.confirm.title.version" = "版本较低";
+"home.confirm.message.version" = "请更新最新版本";
+"home.confirm.action.version" = "前往 AppStore";
+"home.ui.card.trip" = "出行订单";
+"home.ui.card.send" = "寄件订单";
+"home.ui.card.location-empty" = "暂时没有位置信息";
+"home.ui.card.trip-empty" = "无行程信息";
+"" = "";
+
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "寄件";
@@ -59,16 +84,19 @@
 "sender.ui.sessiontitle.address-destination" = "收货地址";
 "sender.ui.sessionhint.address-destination" = "请选择货物送达位置";
 "sender.ui.sessiontitle.item-value" = "货物价值";
+"sender.ui.placeholder.price-value-max" = "输入价值(不超过￥";
 "sender.ui.sessionhint.item-value" = "输入货物价格";
 "sender.ui.sessiontitle.item-photos" = "货物清晰照";
 "sender.ui.sessiontitle.item-shipfee" = "运货费用";
+"sender.ui.currencytype.unit" = "元";
+"sender.ui.title.new-request" = "发货请求";
 "sender.error.title.info" = "信息不足";
 "sender.error.message.recipient" = "请填写收件人姓名";
 "sender.error.message.phone" = "请填写手机号";
 "sender.error.message.address" = "请填写收件信息";
 "sender.error.message.photo-miss" = "请提交您的物品照片，便于出行人了解详情";
 "sender.error.message.price" = "请准确填写您的货物价值，和运费报价给出行人";
-"sender.error.title.upload-photo" = "❗️出错";
+"sender.error.title.upload" = "❗️出错";
 "sender.error.message.upload-photo" = "照片上传失败";
 "sender.error.action.upload-photo" = "重新提交";
 "sender.error.message.post-failed" = "发布请求失败，请确保您的网络连接正常，稍后再试";
@@ -85,15 +113,65 @@
 "sender.ui.message.price-higher-than" = "高于";
 "sender.ui.message.price-standard" = "标准价";
 "sender.ui.placeholder.price-lower-than" = "不超过";
-"sender.error.title.price-arguements" = "出错了";
+"sender.error.title.price-arguements" = "❗️出错了";
 "sender.error.message.price-arguements" = "价格参数获取失败";
 "sender.ui.title.note-ok" = "留言";
 "sender.ui.title.note-overflow" = "留言字数限制";
 
 // MARK: - Carrier
+"carrier.ui.title.trip" = "出行";
 "carrier.error.title.date" = "出行日期有误";
 "carrier.error.message.date" = "出行日期不能为过去时间，请重新输入";
 "carrier.ui.formatter.date" = "yyyy年MM月dd日";
+"carrier.ui.transportation.trunk" = "后备箱";
+"carrier.ui.transportation.luggage" = "行李箱";
+"carrier.confirm.title.share-info" = "我的游箱号:";
+"carrier.confirm.message.share-info" = "愿意分享行李箱空间，请有需要带东西的及时提交信息到我游箱里"; // I can share my luggate space Feel Free to add reuest order by my CarryonEx code
+
+
+// MARK: - Address
+"address.ui.description.empty" = "无地区";
+
+// MARK: - Request
+"request.ui.status.waiting" = "等待接受";
+"request.ui.status.rejected" = "已拒绝";
+"request.ui.status.accepted" = "等待付款";
+"request.ui.status.cancelled" = "已取消";
+"request.ui.status.paid" = "已付款";
+"request.ui.status.indelivery" = "正在派送";
+"request.ui.status.delivered" = "已交付";
+"request.ui.status.delivery-confirmed" = "已确认送达";
+"request.ui.status.invalid" = "状态无效";
+"request.ui.status.bad-id" = "错误单号";
+"request.ui.status.initiate" = "寄件创建";
+"request.ui.transaction.carrier-reject" = "拒绝订单";
+"request.ui.transaction.carrier-accept" = "接受订单";
+"request.ui.transaction.carrier-cancel" = "取消订单";
+"request.ui.transaction.carrier-receive" = "已揽件";
+"request.ui.transaction.carrier-deliver" = "当面交付";
+"request.ui.transaction.carrier-ship" = "快递交付";
+"request.ui.transaction.shipper-pairing" = "再次提醒";
+"request.ui.transaction.shipper-cancel" = "取消订单";
+"request.ui.transaction.shipper-pay" = "订单付款";
+"request.ui.transaction.shipper-confirm" = "确认收货";
+"request.ui.transaction.allow-rating" = "给予评价";
+"request.ui.transaction.default" = "错误行动";
+"request.ui.confirm.carrier-reject" = "确认拒绝订单？";
+"request.ui.confirm.carrier-accept" = "确认接受订单？";
+"request.ui.confirm.carrier-cancel" = "确认取消订单？";
+"request.ui.confirm.carrier-receive" = "确认已揽件？";
+"request.ui.confirm.carrier-deliver" = "确认当面交付？";
+"request.ui.confirm.carrier-ship" = "确认快递交付？";
+"request.ui.confirm.shipper-pairing" = "确认再次提醒？";
+"request.ui.confirm.shipper-cancel" = "确认取消订单？";
+"request.ui.confirm.shipper-pay" = "确认订单付款？";
+"request.ui.confirm.shipper-confirm" = "确认收货？";
+"request.ui.confirm.allow-rating" = "确认给与评价?";
+"request.ui.confirm.default" = "出现错误";
+
+// MARK: - Transaction
+"transaction.ui.status.pending" = "处理中";
+"transaction.ui.status.finished" = "交易完成";
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "出行订单";
@@ -106,7 +184,7 @@
 "orders.confirm.title.lock" = "⚠️当前游箱将上锁";
 "orders.confirm.message.lock" = "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？";
 "orders.confirm.action.lock" = "锁定";
-"orders.error.title.lock-fail" = "锁定失败";
+"orders.error.title.lock-fail" = "⚠️锁定失败";
 "orders.error.message.lock-fail-network" = "游箱锁设定失败，请检查手机是否连接网络";
 "orders.error.message.lock-fail-account" = "您的账户登陆信息已过期";
 "orders.error.action.lock-fail-account" = "重新登陆";
@@ -129,6 +207,8 @@
 "orders.ui.placeholder.note-msg" = "留言：";
 "orders.confirm.title.payment" = "支付成功";
 "orders.error.title.payment" = "支付失败";
+"orders.confirm.title.wechatpay" = "微信支付成功";
+"orders.error.title.wechatpay" = "微信支付失败";
 "orders.error.message.payment" = "未知错误";
 "orders.confirm.title.save-image" = "保存图片";
 "orders.error.title.gps" = "定位失败";
@@ -144,7 +224,7 @@
 
 // MARK: - Personal
 "personal.confirm.title.select-image" = "选择图片来源";
-"personal.confirm.message.select-image" = "从相册选择头像或现在拍一张吧";
+"personal.confirm.message.select-image" = "选择证件清晰照或拍摄证件上传以验证身份";
 "personal.confirm.action.galary" = "相册选择";
 "personal.confirm.action.camera" = "打开相机";
 "personal.confirm.action.wechat" = "微信获得信息";
@@ -180,7 +260,7 @@
 "personal.error.title.network" = "获取信息失败";
 "personal.error.message.network" = "请检查设备是否连接网络，稍后再试一次";
 "personal.error.title.upload-email" = "资料保存失败";
-"personal.error.message.upload-email" = "资料保存失败:请输入正确的电子邮箱格式";
+"personal.error.message.upload-email" = "请输入正确的电子邮箱格式";
 "personal.ui.title.gender-unknow" = "未知";
 "personal.ui.title.gender-male" = "男";
 "personal.ui.title.gender-female" = "女";
@@ -193,6 +273,8 @@
 "personal.confirm.message.send-message-p1" = "是否给";
 "personal.confirm.message.send-message-p2" = "发送短信?";
 "personal.confirm.message.send-body" = "你好";
+"personal.error.message.send-message" = "本设备不能发短信";
+"personal.ui.dateformat.cn" = "yyyy年MM日dd日";
 "personal.ui.title.my-comments" = "我的评价";
 "personal.ui.title.cash-extractable" = "可提现金额：";
 "personal.ui.title.alipay" = "支付宝提现";
@@ -203,7 +285,7 @@
 "managers.ui.title.weibo" = "微博";
 "managers.ui.title.facebook" = "Facebook";
 "managers.confirm.title.share" = "CarryonEx 帮你把思念带回家";
-"managers.confirm.message.share" = "关注我们的网站获取更多活动信息：https://www.carryonex.com/";
+"managers.confirm.message.share" = "关注我们的网站获取更多活动信息";
 "managers.confirm.message.share-media-tag" = "CarryonEx[游箱]";
 
 

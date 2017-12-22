@@ -56,6 +56,8 @@
 		663121F71F548C6F000F7ACB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663121F61F548C6F000F7ACB /* MapKit.framework */; };
 		6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */; };
 		663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */; };
+		66454F561FEC4ABD00DF5342 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F541FEC4ABC00DF5342 /* launch_logo.png */; };
+		66454F571FEC4ABD00DF5342 /* launch_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F551FEC4ABC00DF5342 /* launch_text.png */; };
 		665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */; };
 		665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */; };
 		665B37E61FE869EF00A5926A /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B37E51FE869EF00A5926A /* Spotlight.swift */; };
@@ -237,6 +239,8 @@
 		6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardSenderCell.swift; sourceTree = "<group>"; };
 		663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellCollectionCell.swift; sourceTree = "<group>"; };
 		663F1C931F44ABEB00E866C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		66454F541FEC4ABC00DF5342 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_logo.png; sourceTree = "<group>"; };
+		66454F551FEC4ABC00DF5342 /* launch_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_text.png; sourceTree = "<group>"; };
 		665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "carryonex-Bridging-Header.h"; sourceTree = "<group>"; };
 		665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageTableCell.swift; sourceTree = "<group>"; };
 		665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShiperInfo.storyboard; sourceTree = "<group>"; };
@@ -508,6 +512,16 @@
 			path = Personal;
 			sourceTree = "<group>";
 		};
+		66454F581FEC4AD900DF5342 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
+				66454F541FEC4ABC00DF5342 /* launch_logo.png */,
+				66454F551FEC4ABC00DF5342 /* launch_text.png */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		665B37E41FE866B700A5926A /* AwesomeSpotlightView */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,7 +572,7 @@
 				665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */,
 				663F1C931F44ABEB00E866C2 /* README.md */,
 				665DE4F61F3A0B70004DDB88 /* Assets.xcassets */,
-				665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */,
+				66454F581FEC4AD900DF5342 /* LaunchScreen */,
 				665DE4FB1F3A0B70004DDB88 /* Info.plist */,
 			);
 			path = carryonex;
@@ -954,6 +968,7 @@
 				6686BFFB1FDC791A00F23DDD /* Login_animated_loop_png.gif in Resources */,
 				FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */,
 				E542F26B1FB4B7A60072BB31 /* Carrier.storyboard in Resources */,
+				66454F561FEC4ABD00DF5342 /* launch_logo.png in Resources */,
 				E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */,
 				CF24D93F1FC364800036FB4E /* NewSettingPage.storyboard in Resources */,
 				665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */,
@@ -968,6 +983,7 @@
 				FF7ECED81FC9568200F76ED8 /* ChangePersonalProfile.storyboard in Resources */,
 				66C3EA8B1FCF330E00D9F582 /* OrdersRequestDetail.storyboard in Resources */,
 				66CC1E3C1FBCCBD40080C80B /* success.mp3 in Resources */,
+				66454F571FEC4ABD00DF5342 /* launch_text.png in Resources */,
 				4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */,
 				66F964C91FDB5CED0024768D /* Login_illustration_animated_loop.gif in Resources */,
 				665DE4F71F3A0B70004DDB88 /* Assets.xcassets in Resources */,

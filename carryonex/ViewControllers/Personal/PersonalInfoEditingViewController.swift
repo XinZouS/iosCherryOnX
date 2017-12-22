@@ -63,7 +63,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             
             if let response = notification.object as? SendAuthResp {
                 guard let state = response.state, state == self?.wechatAuthorizationState else {
-                    self?.displayAlert(title: "微信资料获取失败", message: "请重新跳转微信", action: L("action.ok"))
+                    self?.displayAlert(title: L("personal.error.title.wechat"), message: L("personal.error.message.wechat"), action: L("action.ok"))
                     return
                 }
                 
@@ -114,7 +114,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                 }
             }
         } else {
-            displayGlobalAlert(title: "获取信息失败", message: "请检查设备是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: L("personal.error.title.network"), message: L("personal.error.message.network"), action: L("action.ok"), completion: nil)
             //TODO: handle error when GET user failed in PersonalInfoEditingViewController
         }
     }
@@ -156,7 +156,10 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                         }
                     })
                 } else {
-                    displayGlobalAlert(title: "资料保存失败", message: "资料保存失败:请输入正确的电子邮箱格式", action: L("action.ok"), completion: { [weak self] _ in
+                    displayGlobalAlert(title: L("personal.error.message.network"),
+                                       message: L("personal.error.message.upload-email"),
+                                       action: L("action.ok"),
+                                       completion: { [weak self] _ in
                         if let childVC = self?.childViewControllers.first as? PersonalTable {
                             childVC.emailTextField.becomeFirstResponder()
                         }
@@ -173,21 +176,23 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
     @IBAction func imageButtonTapped(_ sender: Any) {
-        let attachmentMenu = UIAlertController(title: "选择图片来源", message: "从相册选择头像或现在拍一张吧", preferredStyle: .actionSheet)
+        let attachmentMenu = UIAlertController(title: L("personal.confirm.title.select-image"),
+                                               message: L("personal.confirm.message.select-image"),
+                                               preferredStyle: .actionSheet)
         
-        let openLibrary = UIAlertAction(title: "相册选择", style: .default) { (action) in
+        let openLibrary = UIAlertAction(title: L("personal.confirm.action.galary"), style: .default) { (action) in
             self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
         }
         
-        let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
+        let openCamera = UIAlertAction(title: L("personal.confirm.action.camera"), style: .default) { (action) in
             self.openALCameraController()
         }
         
-        let wechatLogin = UIAlertAction(title: "微信获得信息", style: .default) { (action) in
+        let wechatLogin = UIAlertAction(title: L("personal.confirm.action.wechat"), style: .default) { (action) in
             self.wechatButtonTapped()
         }
         
-        let cancelSelect = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let cancelSelect = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: nil)
         
         attachmentMenu.addAction(openLibrary)
         attachmentMenu.addAction(openCamera)
@@ -277,7 +282,10 @@ extension PersonalInfoEditingViewController{
             activityIndicator.isHidden = true
             activityIndicator.stop()
             UIApplication.shared.endIgnoringInteractionEvents()
-            self.displayGlobalAlert(title: "照片上传出错", message: "请检查手机是否连接网络，稍后再试一次", action: L("action.ok"), completion: nil)
+            self.displayGlobalAlert(title: L("personal.error.title.upload-ids"),
+                                    message: L("personal.error.message.upload-ids"),
+                                    action: L("action.ok"),
+                                    completion: nil)
             debugPrint("Upload image failed: \(error.localizedDescription)")
             return
         }

@@ -69,16 +69,18 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     /// open menu to select image source
     func imageIDsButtonTapped(){
-        let attachmentMenu = UIAlertController(title: "选择图片来源", message: "选择证件清晰照或拍摄证件上传以验证身份", preferredStyle: .actionSheet)
-        let openLibrary = UIAlertAction(title: "相册选择", style: .default) { (action) in
+        let attachmentMenu = UIAlertController(title: L("personal.confirm.title.select-image"),
+                                               message: L("personal.confirm.message.select-image"),
+                                               preferredStyle: .actionSheet)
+        let openLibrary = UIAlertAction(title: L("personal.confirm.action.galary"), style: .default) { (action) in
             self.openImagePickerWith(source: .photoLibrary, isAllowEditing: self.imagePickedType == ImageTypeOfID.profile)
         }
-        let openCamera = UIAlertAction(title: "打开相机", style: .default) { (action) in
+        let openCamera = UIAlertAction(title: L("personal.confirm.action.camera"), style: .default) { (action) in
             //self.openImagePickerWith(source: .camera, isAllowEditing: self.imagePickedType == ImageTypeOfID.profile)
             // ------ replace above by customized cameraView: ------
             self.openALCameraController()
         }
-        let cancelSelect = UIAlertAction(title: "取消", style: .cancel) { (action) in
+        let cancelSelect = UIAlertAction(title: L("action.cancel"), style: .cancel) { (action) in
             self.dismiss(animated: true, completion: nil)
         }
         attachmentMenu.addAction(openLibrary)
@@ -186,11 +188,15 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     func submitButtonTapped(){
     if idType == .passport && !passportReady {
-            displayAlert(title: "您选好护照了吗？", message: "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！", action: L("action.ok"))
+            displayAlert(title: L("personal.error.title.passport"),
+                         message: L("personal.error.message.passport"),
+                         action: L("action.ok"))
             return
         
     } else if idType == .idCard && (!idCardAReady || !idCardBReady) {
-            displayAlert(title: "身份证少了一面？", message: "别闹！都说了身份证要传两面才行，你故意的吗？", action: L("action.ok"))
+            displayAlert(title: L("personal.error.title.id"),
+                         message: L("personal.error.message.id"),
+                         action: L("action.ok"))
             return
         }
         
@@ -302,7 +308,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             self.dismiss(animated: false, completion: nil)
             //homePageController?.showAlertFromPhotoIdController(isUploadSuccess: true)
         }else{
-            displayGlobalAlert(title: "上传成功", message: "已成功上传您的证件照片", action: L("action.ok"), completion: { [weak self] _ in
+            displayGlobalAlert(title: L("personal.confirm.title.ids"),
+                               message: L("personal.confirm.message.ids"),
+                               action: L("action.ok"),
+                               completion: { [weak self] _ in
                 self?.navigationController?.popToRootViewController(animated: false)
             })
         }
@@ -312,7 +321,10 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         if let error = error {
             debugPrint("Upload failed: \(error.localizedDescription)")
         }
-        displayGlobalAlert(title: "出错", message: "照片上传失败", action: "重新提交", completion: nil)
+        displayGlobalAlert(title: L("personal.error.title.upload-ids"),
+                           message: L("personal.error.message.upload-ids"),
+                           action: L("personal.error.action.upload-ids"),
+                           completion: nil)
     }
     
     // MARK: - Image Saving and Loading to fileSystem

@@ -12,6 +12,15 @@ import Unbox
 enum TransactionStatus : String, UnboxableEnum {
     case pending = "处理中"
     case finished = "交易完成"
+    
+    func string() -> String {
+        switch self {
+        case .pending:
+            return L("transaction.ui.status.pending") //"处理中"
+        case .finished:
+            return L("transaction.ui.status.finished") //"交易完成"
+        }
+    }
 }
 
 enum TransactionKeyInDB: String {

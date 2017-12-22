@@ -232,27 +232,27 @@ enum RequestStatus: Int {
     func displayString() -> String {
         switch self {
         case .waiting:
-            return "等待接受"
+            return L("request.ui.status.waiting") // "等待接受"
         case .rejected:
-            return "已拒绝"
+            return L("request.ui.status.rejected") //"已拒绝"
         case .accepted:
-            return "等待付款"
+            return L("request.ui.status.accepted") // "等待付款"
         case .cancelled:
-            return "已取消"
+            return L("request.ui.status.cancelled") // "已取消"
         case .paid:
-            return "已付款"
+            return L("request.ui.status.paid") // "已付款"
         case .inDelivery:
-            return "正在派送"
+            return L("request.ui.status.indelivery") // "正在派送"
         case .delivered:
-            return "已交付"
+            return L("request.ui.status.delivered") // "已交付"
         case .deliveryConfirmed:
-            return "已确认送达"
+            return L("request.ui.status.delivery-confirmed") // "已确认送达"
         case .invalid:
-            return "状态无效"
+            return L("request.ui.status.invalid") // "状态无效"
         case .badId:
-            return "错误单号"
+            return L("request.ui.status.bad-id") // "错误单号"
         case .initiate:
-            return "寄件创建"
+            return L("request.ui.status.initiate") // "寄件创建"
         }
     }
     
@@ -398,58 +398,58 @@ enum RequestTransaction {
     func displayString() -> String {
         switch self {
         case .carrierReject:
-            return "拒绝订单"
+            return L("request.ui.transaction.carrier-reject") //"拒绝订单"
         case .carrierAccept:
-            return "接受订单"
+            return L("request.ui.transaction.carrier-accept") // "接受订单"
         case .carrierCancel:
-            return "取消订单"
+            return L("request.ui.transaction.carrier-cancel") // "取消订单"
         case .carrierReceive:
-            return "已揽件"
+            return L("request.ui.transaction.carrier-receive") // "已揽件"
         case .carrierDeliver:
-            return "当面交付"
+            return L("request.ui.transaction.carrier-deliver") // "当面交付"
         case .carrierShip:
-            return "快递交付"
+            return L("request.ui.transaction.carrier-ship") // "快递交付"
         case .shipperPairing:
-            return "再次提醒"
+            return L("request.ui.transaction.shipper-pairing") // "再次提醒"
         case .shipperCancel:
-            return "取消订单"
+            return L("request.ui.transaction.shipper-cancel") // "取消订单"
         case .shipperPay:
-            return "订单付款"
+            return L("request.ui.transaction.shipper-pay") // "订单付款"
         case .shipperConfirm:
-            return "确认收货"
+            return L("request.ui.transaction.shipper-confirm") // "确认收货"
         case .allowRating:
-            return "给与评价"
+            return L("request.ui.transaction.allow-rating") // "给予评价"
         default:
-            return "错误行动"
+            return L("request.ui.transaction.default") // "错误行动"
         }
     }
     
     func confirmDescString() -> String {
         switch self {
         case .carrierReject:
-            return "确认拒绝订单？"
+            return L("request.ui.confirm.carrier-reject") // "确认拒绝订单？"
         case .carrierAccept:
-            return "确认接受订单？"
+            return L("request.ui.confirm.carrier-accept") // "确认接受订单？"
         case .carrierCancel:
-            return "确认取消订单？"
+            return L("request.ui.confirm.carrier-cancel") // "确认取消订单？"
         case .carrierReceive:
-            return "确认已揽件？"
+            return L("request.ui.confirm.carrier-receive") // "确认已揽件？"
         case .carrierDeliver:
-            return "确认当面交付？"
+            return L("request.ui.confirm.carrier-deliver") // "确认当面交付？"
         case .carrierShip:
-            return "确认快递交付？"
+            return L("request.ui.confirm.carrier-ship") // "确认快递交付？"
         case .shipperPairing:
-            return "确认再次提醒？"
+            return L("request.ui.confirm.shipper-pairing") // "确认再次提醒？"
         case .shipperCancel:
-            return "确认取消订单？"
+            return L("request.ui.confirm.shipper-cancel") // "确认取消订单？"
         case .shipperPay:
-            return "确认订单付款？"
+            return L("request.ui.confirm.shipper-pay") // "确认订单付款？"
         case .shipperConfirm:
-            return "确认收货？"
+            return L("request.ui.confirm.shipper-confirm") // "确认收货？"
         case .allowRating:
-            return "确认给与评价?"
+            return L("request.ui.confirm.allow-rating") // "确认给与评价?"
         default:
-            return "出现错误"
+            return L("request.ui.confirm.default") // "出现错误"
         }
     }
     

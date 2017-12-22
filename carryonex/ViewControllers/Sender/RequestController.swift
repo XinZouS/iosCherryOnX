@@ -34,8 +34,9 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     var imageUploadingSet: Set<String> = []
     var imageUploadSequence: [String : URL] = [:]
 
-    let labelNames = [ "收货地址", "货物价值", "货物清晰照:", "运货费用"]
-    let placeholders = ["请选择货物送达位置", "输入货物价格"]
+    //               [ "收货地址", "货物价值", "货物清晰照:", "运货费用"]
+    let labelNames = [ L("sender.ui.sessiontitle.address-destination"), L("sender.ui.sessiontitle.item-value"), L("sender.ui.sessiontitle.item-photos"), L("sender.ui.sessiontitle.item-shipfee")]
+    let placeholders = [L("sender.ui.sessionhint.address-destination"), L("sender.ui.sessionhint.item-value")] //["请选择货物送达位置", "输入货物价格"]
 
     let basicCellId = "basicCellId"
     let imageCellId = "imageCellId"
@@ -53,7 +54,7 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
         l.textColor = textThemeColor
         l.font = UIFont.boldSystemFont(ofSize: 24)
         l.textAlignment = .right
-        l.text = "元"
+        l.text = L("sender.ui.currencytype.unit")
         return l
     }()
     
@@ -89,8 +90,8 @@ class RequestController: UICollectionViewController, UIGestureRecognizerDelegate
     }
     
     private func setupNavigationBar(){
-        title = "发货请求"
-        let rightItemButton = UIBarButtonItem(title: "提交", style: .done, target: self, action: #selector(handleSubmissionButton))
+        title = L("sender.ui.title.new-request")
+        let rightItemButton = UIBarButtonItem(title: L("action.submit"), style: .done, target: self, action: #selector(handleSubmissionButton))
         navigationItem.rightBarButtonItem = rightItemButton
     }
     
@@ -222,11 +223,11 @@ extension RequestController: UITextFieldDelegate {
     @objc fileprivate func handleSubmissionButton() {
         
         if is02DestinationSet == false {
-            displayAlert(title: "信息不完整", message: "请从地图上选择您的快件寄送【收货地址】", action: L("action.ok"))
+            displayAlert(title: L("sender.error.title.info"), message: L("sender.ui.sessionhint.address-destination"), action: L("action.ok"))
             return
         }
         if imageUploadingSet.count == 0 {
-            displayAlert(title: "信息不完整", message: "请提交您的物品照片，便于出行人了解物品信息", action: L("action.ok"))
+            displayAlert(title: L("sender.error.title.info"), message: L("sender.error.message.photo-miss"), action: L("action.ok"))
             return
         }
         
