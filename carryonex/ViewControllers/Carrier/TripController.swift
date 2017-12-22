@@ -260,10 +260,12 @@ extension TripController: UITextFieldDelegate {
         default:
             print("no picker")
         }
+        dismissKeyboard()
         judgeButtonState()
     }
+    
     func textFieldCancelButtonTapped(){
-        noteTextView.resignFirstResponder()
+        dismissKeyboard()
     }
     
     fileprivate func dismissKeyboard(){
@@ -441,12 +443,16 @@ extension TripController: UIPickerViewDelegate {
     }
 
     @objc fileprivate func datePickerValueChanged(){
+        let getDate = timePicker.date
+        guard getDate.days(from: Date()) >= 0 else {
+            timePicker.setDate(Date(), animated: true)
+            return
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = L("carrier.ui.formatter.date") // "yyyy年MM月dd日"
-        let date = timePicker.date
-        let dateText = formatter.string(from: date)
+        let dateText = formatter.string(from: getDate)
         startDateTextField.text = dateText
-        pickUpDate = date.timeIntervalSince1970
+        pickUpDate = getDate.timeIntervalSince1970
     }
     
     fileprivate func judgeButtonState(){
