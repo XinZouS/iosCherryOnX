@@ -63,7 +63,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLe-7o-RX7">
                                 <rect key="frame" x="30" y="310" width="260" height="50"/>
-                                <color key="backgroundColor" red="0.20421111580000001" green="0.65066361429999997" blue="0.72686475520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7Vd-aM-fjy"/>
                                 </constraints>
@@ -84,7 +84,7 @@
                                     <action selector="sendButtonTapped:" destination="eRT-V6-pbO" eventType="touchUpInside" id="Fvw-G0-HOX"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon" translatesAutoresizingMaskIntoConstraints="NO" id="nzc-eN-7XS">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="nzc-eN-7XS">
                                 <rect key="frame" x="100" y="100" width="120" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="6gz-IC-NgY"/>
@@ -134,7 +134,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96068006753921509" green="0.96084433794021606" blue="0.96066969633102417" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Yd3-fA-05w" firstAttribute="leading" secondItem="0ql-dn-o2I" secondAttribute="leading" id="1uh-Oy-fAT"/>
                             <constraint firstItem="0ql-dn-o2I" firstAttribute="trailing" secondItem="fLe-7o-RX7" secondAttribute="trailing" id="4Cn-2l-Y21"/>
@@ -194,9 +194,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Loginnnnn" width="264" height="95"/>
         <image name="Phone" width="34" height="34"/>
         <image name="backgroundImage" width="421" height="162"/>
-        <image name="login_icon" width="775" height="501"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BgH-EX-Oqe"/>
