@@ -38,7 +38,8 @@ class ItemListYouxiangInputController: UIViewController {
     
 
     override func viewDidLoad() {
-        UIApplication.shared.statusBarStyle = .lightContent
+        super.viewDidLoad()
+        
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupNavigationBar()
         setupTextFields()
