@@ -71,7 +71,7 @@ class PhoneValidationViewController: UIViewController {
     }
     
     private func setupUserPhoneShow(){
-        hintLabel.text = "短信验证码已发送至" + zoneCodeInput + " " + phoneInput + "，请输入"
+        hintLabel.text = L("register.ui.message.hint1") + zoneCodeInput + " " + phoneInput + L("register.ui.message.hint2")
     }
     
     private func setupVerifyTextField(){ // hide it under the screen
@@ -96,10 +96,10 @@ class PhoneValidationViewController: UIViewController {
         resendButton.isEnabled = (resetTime == 0)
         if resetTime == 0 {
             resetTimer?.invalidate()
-            resendButton.setTitle("发送验证码", for: .normal)
+            resendButton.setTitle(L("register.ui.message.resend-verify-code"), for: .normal)
         }else{
             resetTime -= 1
-            resendButton.setTitle("\(resetTime)秒后重新发送", for: .normal)
+            resendButton.setTitle("\(resetTime)" + L("register.ui.message.resend-time"), for: .normal)
         }
     }
     
@@ -191,7 +191,7 @@ class PhoneValidationViewController: UIViewController {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             AudioManager.shared.playSond(named: .failed)
-            displayGlobalAlert(title: "验证失败", message: "错误信息 \(error.localizedDescription)", action: "重新发送验证码", completion: { [weak self] _ in
+            displayGlobalAlert(title: L("register.error.title.verify"), message: L("register.error.message.verify") + " \(error.localizedDescription)", action: L("register.error.action.verify"), completion: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
             })
         }

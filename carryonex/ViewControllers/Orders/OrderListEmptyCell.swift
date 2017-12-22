@@ -15,7 +15,7 @@ class OrderListEmptyCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        emptyLabel.text = "此游箱尚未有寄件"
+        emptyLabel.text = L("orders.ui.placeholder.youxiang-empty")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

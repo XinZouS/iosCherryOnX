@@ -188,7 +188,7 @@ class OrderListViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        title = "出行订单"
+        title = L("orders.ui.title.orderlist") //"出行订单"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
@@ -211,9 +211,9 @@ class OrderListViewController: UIViewController {
         footView.addSubview(hintLabel)
         switch tag {
         case 0:
-            hintLabel.text = "你还没有出行记录，快发布你的行程吧"
+            hintLabel.text = L("orders.ui.placeholder.trip")
         default:
-            hintLabel.text = "你还没有寄件记录，快寄送些东西吧"
+            hintLabel.text = L("orders.ui.placeholder.send")
         }
         hintLabel.addConstraints(left: nil, top: BlankNotice.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         hintLabel.centerXAnchor.constraint(equalTo: BlankNotice.centerXAnchor).isActive = true
@@ -318,7 +318,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let request: Request = senderRequests[indexPath.row]
             cell.request = request
-            cell.itemNumLabel.text = "\(request.images.count)件"
+            cell.itemNumLabel.text = "\(request.images.count)" + L("orders.ui.message.request-image-count")
             
             if let image = request.images.first?.imageUrl, let imageUrl = URL(string: image) {
                 cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
@@ -371,7 +371,10 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
     func orderListCarrierCodeShareTapped(indexPath: IndexPath) {
         guard let cell = tableViewShiper.cellForRow(at: indexPath) as? OrderListCardShiperCell else { return }
         guard cell.isActive else {
-            displayGlobalAlertActions(title: "分享游箱", message: "游箱号在锁定状态无法分享", actions: ["保持锁定","解锁"], completion: { [weak self] (tag) in
+            displayGlobalAlertActions(title: L("orders.error.title.share"),
+                                      message: L("orders.error.message.share"),
+                                      actions: [L("orders.error.action.share-lock"), L("orders.error.action.share-unlock")],
+                                      completion: { [weak self] (tag) in
                 if tag == 1 { // unlock and share
                     self?.orderListCarrierLockerButtonTapped(indexPath: indexPath, completion: {
                         self?.orderListCarrierCodeShareTapped(indexPath: indexPath)
@@ -397,7 +400,10 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
         let isActive = (carrierTrips[indexPath.row].active == TripActive.active.rawValue)
 
         if isActive {
-            displayGlobalAlertActions(title: "⚠️当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+            displayGlobalAlertActions(title: L("orders.confirm.title.lock"),
+                                      message: L("orders.confirm.message.lock"),
+                                      actions: [L("orders.confirm.action.lock"), L("action.cancel")],
+                                      completion: { (tag) in
                 if tag == 0 { // do lock;
                     self.setYouxiangLockStatusAt(cell, id: id, true, completion: completion)
                 } else {
@@ -416,13 +422,18 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             self.isFetching = false
             if let err = error {
                 print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
-                self.displayGlobalAlert(title: "锁定失败", message: "游箱锁设定失败，请检查手机是否连接网络", action: L("action.ok"), completion: nil)
+                self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
+                                        message: L("orders.error.message.lock-fail-network"),
+                                        action: L("action.ok"), completion: nil)
                 return
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
                     print("get error when get TripActive: err = \(err.localizedDescription)")
-                    self.displayGlobalAlert(title: "锁定失败", message: "您的账户登陆信息已过期", action: "重新登陆", completion: { [weak self] _ in
+                    self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
+                                            message: L("orders.error.message.lock-fail-account"),
+                                            action: L("orders.error.action.lock-fail-account"),
+                                            completion: { [weak self] _ in
                         self?.navigationController?.popToRootViewController(animated: false)
                         ProfileManager.shared.logoutUser()
                     })

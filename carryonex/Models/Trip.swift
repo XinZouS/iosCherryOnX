@@ -10,16 +10,16 @@ import Foundation
 import MapKit
 import Unbox
 
-enum Transportation : String, UnboxableEnum {
-    case trunk = "Trunk"
-    case luggage = "Luggage"
+enum Transportation : Int, UnboxableEnum {
+    case trunk = 1
+    case luggage = 2
     
-    func rawValueCN() -> String {
+    func string() -> String {
         switch self {
         case .trunk:
-            return "后备箱"
+            return L("carrier.ui.transportation.trunk") // "后备箱"
         case .luggage:
-            return "行李箱"
+            return L("carrier.ui.transportation.luggage") //"行李箱"
         }
     }
 }
@@ -212,9 +212,11 @@ class Trip : NSObject, Unboxable, Identifiable {
     
     func shareInfo() -> (String, String, String) {  //title, message, url
         let dateString = "\(self.getMonthString()), \(self.getDayString())"
-        let title = "我的游箱号:\(self.tripCode)"
-        let message = "我的游箱号:\(self.tripCode) \n【\(dateString)】 \n【\(self.startAddress?.fullAddressString() ?? "未知地址")-\(self.endAddress?.fullAddressString() ?? "未知地址")】"
-        let url = "carryonex://request?trip_code=\(self.tripCode)" // TODO: change this for link to appstore or inside app page;
+        let title = L("carrier.confirm.title.share-info") + "\(self.tripCode)"
+        let noteStr = (note?.isEmpty ?? true) ? L("trip.ui.message.share") : note!
+        let unknowAdd = L("trip.ui.message.empty-address")
+        let message = "\(dateString), \(self.startAddress?.city ?? unknowAdd)-\(self.endAddress?.city ?? unknowAdd)\n" + noteStr
+        let url = "carryonex://request?trip_code=\(self.tripCode)"
         return (title, message, url)
     }
     

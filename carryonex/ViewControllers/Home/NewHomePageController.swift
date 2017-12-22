@@ -194,17 +194,17 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
         if let currUserName  = currUser.realName,currUserName != ""{
-            var greeting = "你好"
+            var greeting = L("home.ui.greeting.hello")
             //if let timeState = timeStatus { // AppDelegate.shared().mainTabViewController?.homeViewController?.timeStatus{
                 switch timeStatus {
                 case .night:
-                    greeting = "晚上好，"
+                    greeting = L("home.ui.greeting.night")
                 case .afternoon:
-                    greeting = "下午好，"
+                    greeting = L("home.ui.greeting.afternoon")
                 case .noon:
-                    greeting = "中午好，"
+                    greeting = L("home.ui.greeting.noon")
                 default:
-                    greeting = "早上好，"
+                    greeting = L("home.ui.greeting.morning")
                 }
             //}
             let labelDisplay = greeting+currUserName
@@ -238,9 +238,9 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let f2 = senderButton.frame
         let f3 = CGRect(x: 20, y: view.bounds.maxY * 0.46, width: view.bounds.maxX - 40, height: view.bounds.maxY * 0.56)
         
-        let s1 = Spotlight(withRect: f1, shape: .roundRectangle, text: "『纯音』TODO:spotlight1 text", isAllowPassTouchesThroughSpotlight: true)
-        let s2 = Spotlight(withRect: f2, shape: .roundRectangle, text: "『纯音』TODO: spotlight2 text", isAllowPassTouchesThroughSpotlight: true)
-        let s3 = Spotlight(withRect: f3, shape: .roundRectangle, text: "『纯音』TODO: this is your trip card;", isAllowPassTouchesThroughSpotlight: true)
+        let s1 = Spotlight(withRect: f1, shape: .roundRectangle, text: L("home.ui.spotlight.trip"), isAllowPassTouchesThroughSpotlight: true)
+        let s2 = Spotlight(withRect: f2, shape: .roundRectangle, text: L("home.ui.spotlight.send"), isAllowPassTouchesThroughSpotlight: true)
+        let s3 = Spotlight(withRect: f3, shape: .roundRectangle, text: L("home.ui.spotlight.card"), isAllowPassTouchesThroughSpotlight: true)
 
         let spotlightView = SpotlightView(frame: UIScreen.main.bounds, spotlight: [s1,s2,s3])
         view.addSubview(spotlightView)
@@ -259,7 +259,7 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         let currentVersion = version + "." + build
         if updatedVersion != currentVersion {
             print("Current: \(currentVersion), Updated to: \(updatedVersion)")
-            self.displayGlobalAlertActions(title: "版本较低", message: "请更新最新版本", actions: ["前往 AppStore"], completion: { (index) in
+            self.displayGlobalAlertActions(title: L("home.confirm.title.version"), message: L("home.confirm.message.version"), actions: [L("home.confirm.action.version")], completion: { (index) in
                 //TODO: Update to carryonex app URL
                 let appStoreLink = "https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
                 if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {

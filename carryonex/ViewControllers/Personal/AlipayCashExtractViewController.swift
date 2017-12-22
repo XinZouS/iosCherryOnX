@@ -34,7 +34,7 @@ class AlipayCashExtract: UIViewController {
     }
     var cashAvailable: Double = 0.0 {
         didSet{
-            cashAvailableLabel.text = "可提现金额：" + String(format: "%.2f", cashAvailable)
+            cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + String(format: "%.2f", cashAvailable)
         }
     }
     
@@ -47,7 +47,7 @@ class AlipayCashExtract: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "支付宝提现"
+        title = L("personal.ui.title.cash-extractable")
         
         setupUnderlines()
         setupTextFields()
@@ -97,8 +97,8 @@ class AlipayCashExtract: UIViewController {
         bar.isTranslucent = true
         bar.tintColor = .black
         
-        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped(_:)))
-        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped(_:)))
+        let doneBtn = UIBarButtonItem(title: L("action.done"), style: .done, target: self, action: #selector(textFieldDoneButtonTapped(_:)))
+        let cancelBtn = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(textFieldCancelButtonTapped(_:)))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
         bar.isUserInteractionEnabled = true

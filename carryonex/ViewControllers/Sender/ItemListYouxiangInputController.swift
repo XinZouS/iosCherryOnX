@@ -67,7 +67,7 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        title = "寄件"
+        title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true
@@ -80,7 +80,7 @@ class ItemListYouxiangInputController: UIViewController {
         textFieldAddToolBar(youxiangcodeTextField)
         youxiangcodeTextField.autocapitalizationType = .allCharacters
         youxiangcodeTextField.clearButtonMode = .never
-        youxiangcodeTextField.placeholder = "输入6位游箱号"
+        youxiangcodeTextField.placeholder = L("sender.ui.placeholder.new-code")
         youxiangcodeTextField.textColor = .white
     }
     
@@ -113,7 +113,7 @@ class ItemListYouxiangInputController: UIViewController {
         
         guard code.count == 6 else {
             self.isLoading = false
-            self.displayGlobalAlert(title: "游箱号错误", message: "游箱号由6位数字或字母组成", action: L("action.ok"), completion: { [weak self] _ in
+            self.displayGlobalAlert(title: L("sender.error.title.youxiangcode-type"), message: L("sender.error.message.youxiangcode-type"), action: L("action.ok"), completion: { [weak self] _ in
                 self?.resetTextField()
             })
             return
@@ -128,7 +128,7 @@ class ItemListYouxiangInputController: UIViewController {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.displayGlobalAlert(title: "游箱号异常", message: "您搜索的游箱号不存在，或已被出行人关闭", action: "重新输入", completion: { [weak self] _ in
+                self.displayGlobalAlert(title: L("sender.error.title.youxiangcode"), message: L("sender.error.message.youxiangcode-invalidate"), action: L("sender.error.action.youxiangcode-invalidate"), completion: { [weak self] _ in
                     self?.resetTextField()
                 })
                 return
@@ -141,7 +141,7 @@ class ItemListYouxiangInputController: UIViewController {
                         let generator = UIImpactFeedbackGenerator(style: .heavy)
                         generator.impactOccurred()
                         AudioManager.shared.playSond(named: .failed)
-                        self.displayAlert(title: "游箱号异常", message: "你不能使用自己的游箱号下单", action: L("action.ok"))
+                        self.displayAlert(title: L("sender.error.title.youxiangcode"), message: L("sender.error.message.youxiangcode-self-deny"), action: L("action.ok"))
                         self.resetTextField()
                         return
                     }
@@ -153,7 +153,7 @@ class ItemListYouxiangInputController: UIViewController {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.displayGlobalAlert(title: "游箱号异常", message: "由于网络连接有问题，您的请求无法发送，请重试", action: L("action.ok"), completion: nil)
+                self.displayGlobalAlert(title: L("sender.error.title.youxiangcode"), message: L("sender.error.message.youxiangcode-network"), action: L("action.ok"), completion: nil)
                 self.goDetailButton.isEnabled = true
             }
         })
@@ -191,8 +191,8 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
         bar.isTranslucent = true
         bar.tintColor = .black
         
-        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
-        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let doneBtn = UIBarButtonItem(title: L("action.done"), style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
         bar.isUserInteractionEnabled = true

@@ -57,7 +57,7 @@ class CreditViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "钱包"
+        title = L("personal.ui.title.wallet")
         setupNavigationBar()
         loadTransactionInfo()
         setupDateFormatter()

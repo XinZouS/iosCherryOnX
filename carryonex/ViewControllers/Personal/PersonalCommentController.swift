@@ -24,7 +24,7 @@ class PersonalCommentController: UIViewController{
     
     var doneLabel: UILabel = {
         let l = UILabel()
-        l.text = "暂时没有来自别人的评论"
+        l.text = L("personal.ui.placeholder.comment")
         l.textAlignment = .center
         l.isHidden = true
         l.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
@@ -61,7 +61,7 @@ class PersonalCommentController: UIViewController{
     }
     
     private func setupNavigationBar(){
-        title = "我的评价"
+        title = L("personal.ui.title.my-comments")
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.isNavigationBarHidden = false
@@ -175,7 +175,7 @@ extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
             
             if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
                 let dateFormat = DateFormatter()
-                dateFormat.dateFormat = "yyyy年MM日dd日"
+                dateFormat.dateFormat = L("personal.ui.dateformat.cn")
                 let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
                 cell.timeLabel.text = dateFormat.string(from: date)
             }

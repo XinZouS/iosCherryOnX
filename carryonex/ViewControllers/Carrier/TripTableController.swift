@@ -109,7 +109,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     private func setupTimePicker(){
         let date = Date()
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "yyyy年MM月dd日"
+        timeFormatter.dateFormat = L("carrier.ui.formatter.date") //"yyyy年MM月dd日"
         let strNowTime = timeFormatter.string(from: date) as String
         if let maxDate: Date = Date.getFutureDateFromNow(year: 2) {
             timePicker.maximumDate = maxDate
@@ -264,7 +264,7 @@ class TripTableController: UITableViewController,UIPickerViewDelegate,UIPickerVi
     
     @objc private func datePickerValueChanged(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日"
+        formatter.dateFormat = L("carrier.ui.formatter.date") // "yyyy年MM月dd日"
         let date = timePicker.date
         let dateText = formatter.string(from: date)
         timeTextField.text = dateText

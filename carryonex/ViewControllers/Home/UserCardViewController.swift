@@ -53,12 +53,12 @@ class UserCardViewController: UIViewController {
     }
     
     private func setupCardView(){
-        userStatus.text = (self.category == .carrier) ? "出行订单" : "寄件订单"
+        userStatus.text = (self.category == .carrier) ? L("home.ui.card.trip") : L("home.ui.card.send")
         userStatusIcon.image = (self.category == .carrier) ? #imageLiteral(resourceName: "home_shipper_cardicon") : #imageLiteral(resourceName: "home_sender_cardicon")
         requestImageView.image = (self.category == .carrier) ? #imageLiteral(resourceName: "empty2") : #imageLiteral(resourceName: "empty1")
-        beginLocationLabel.text = "暂时没有位置信息"
-        endLocationLabel.text = "暂时没有位置信息"
-        timeLabel.text = "无行程信息"
+        beginLocationLabel.text = L("home.ui.card.location-empty")
+        endLocationLabel.text = L("home.ui.card.location-empty")
+        timeLabel.text = L("home.ui.card.trip-empty")
         guard let request = request, let category = category else {
             ItemStatusBtn.isHidden = true
             return

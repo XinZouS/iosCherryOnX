@@ -146,7 +146,7 @@ class OrdersRequestDetailViewController: UIViewController {
         let tripId = trip.id
         let requestId = request.id
         let requestCategory = category
-        displayAlertOkCancel(title: "确认提交", message: transaction.confirmDescString()) { [weak self] (style) in
+        displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {
                 self?.isLoadingStatus = true
                 ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
@@ -205,7 +205,7 @@ class OrdersRequestDetailViewController: UIViewController {
     // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "订单详情"
+        title = L("orders.ui.title.order-request-detail")
         setupScrollView()
         setupView()
         setupNavigationBar()
@@ -326,7 +326,7 @@ class OrdersRequestDetailViewController: UIViewController {
         if category == .carrier {
             profileImageString = request.ownerImageUrl
             senderNameLabel.text = request.ownerRealName
-            senderDescLabel.text = "寄件人评分"
+            senderDescLabel.text = L("orders.ui.message.sender-desc-sender")
             recipientPhoneCallButton.isHidden = false
             senderScoreWidthConstraint.constant = CGFloat(request.ownerRating * 20) //*(100/5)
             updateMapViewToShow(false) // map for sender to see carrier
@@ -334,7 +334,7 @@ class OrdersRequestDetailViewController: UIViewController {
         } else {
             profileImageString = trip.carrierImageUrl
             senderNameLabel.text = trip.carrierRealName
-            senderDescLabel.text = "出行人评分"
+            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
             recipientPhoneCallButton.isHidden = true
             senderScoreWidthConstraint.constant = CGFloat(trip.carrierRating * 20) //*(100/5)
         }
@@ -366,11 +366,11 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func messageAttributeText(msg: String?) -> NSAttributedString {
-        var m = "TA还没有写留言"
+        var m = L("orders.ui.placeholder.note-empty")
         if let getMsg = msg {
             m = getMsg
         }
-        let title = "留言："
+        let title = L("orders.ui.placeholder.note-msg")
         let titleAtt = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
         let msgAtt = NSMutableAttributedString(string: m, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
         titleAtt.append(msgAtt)
@@ -381,7 +381,7 @@ class OrdersRequestDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
             if let status = notification.object as? AliPayResultStatus {
                 if status == .success || status == .processing {
-                    self?.displayAlert(title: "支付成功", message: status.statusDescription(), action: L("action.ok"), completion: { [weak self] _ in
+                    self?.displayAlert(title: L("orders.confirm.title.payment"), message: status.statusDescription(), action: L("action.ok"), completion: { [weak self] _ in
                         guard let strongSelf = self else { return }
                         
                         self?.backgroundViewHide()
@@ -402,11 +402,11 @@ class OrdersRequestDetailViewController: UIViewController {
                     })
                     
                 } else {
-                    self?.displayAlert(title: "支付失败", message: status.statusDescription(), action: L("action.ok"))
+                    self?.displayAlert(title: L("orders.error.title.payment"), message: status.statusDescription(), action: L("action.ok"))
                 }
                 
             } else {
-                self?.displayAlert(title: "支付失败", message: "未知错误", action: L("action.ok"))
+                self?.displayAlert(title: L("orders.error.title.payment"), message: L("orders.error.message.payment"), action: L("action.ok"))
             }
         }
         
@@ -420,7 +420,7 @@ class OrdersRequestDetailViewController: UIViewController {
                 return
             }
             //TODO: Update message
-            self?.displayAlert(title: "微信支付成功", message: payResp.returnKey, action: L("action.ok"))
+            self?.displayAlert(title: L("orders.confirm.title.wechatpay"), message: payResp.returnKey, action: L("action.ok"))
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
@@ -429,7 +429,7 @@ class OrdersRequestDetailViewController: UIViewController {
                 return
             }
             //TODO: Update message
-            self?.displayAlert(title: "微信支付失败", message: payResp.returnKey, action: L("action.ok"))
+            self?.displayAlert(title: L("orders.error.title.wechatpay"), message: payResp.returnKey, action: L("action.ok"))
         }
     }
     
@@ -687,10 +687,10 @@ extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
     /// 长按图片
     func photoBrowser(_ photoBrowser: PhotoBrowser, didLongPressForIndex index: Int, image: UIImage) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let saveImageAction = UIAlertAction(title: "保存图片", style: .default) { (_) in
+        let saveImageAction = UIAlertAction(title: L("orders.confirm.title.save-image"), style: .default) { (_) in
             print("保存图片：\(image)")
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: nil)
         
         actionSheet.addAction(saveImageAction)
         actionSheet.addAction(cancelAction)
@@ -765,7 +765,7 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("get errrorroro HomePageController++ locationManager didFailWithError: \(error)")
-        displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
+        displayAlert(title: L("orders.error.title.gps"), message: L("orders.error.message.gps"), action: L("action.ok"))
     }
     
     func updateSearchResults(for searchController: UISearchController) {
