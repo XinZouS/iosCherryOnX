@@ -120,7 +120,8 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func goToPaymentHandler(_ sender: Any) {
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
-            WalletManager.shared.aliPayAuth(request: request)
+            //WalletManager.shared.aliPayAuth(request: request)
+            
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
@@ -138,10 +139,10 @@ class OrdersRequestDetailViewController: UIViewController {
             return
         }
         
-        if transaction == .shipperPay {
-            showPaymentView(true)
-            return
-        }
+//        if transaction == .shipperPay {
+//            showPaymentView(true)
+//            return
+//        }
         
         let tripId = trip.id
         let requestId = request.id

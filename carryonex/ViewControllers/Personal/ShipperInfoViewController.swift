@@ -46,14 +46,17 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = L("personal.ui.title.shiperinfo-comments")
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.black] // Title color
+        
         setupIndicator()
         getShipperCommentInformation()
         setupTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         setupView()
     }
     
