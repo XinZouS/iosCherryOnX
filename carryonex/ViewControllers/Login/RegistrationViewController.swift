@@ -96,13 +96,13 @@ class RegistrationViewController: UIViewController {
                                                         AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
                                                     })
                                                 } else {
-                                                    self.displayGlobalAlert(title: "验证失败", message: "手机验证失败", action: "重新发送验证码", completion: { [weak self] _ in
+                                                    self.displayGlobalAlert(title: L("register.error.title.verify"), message: L("register.error.message.verify-phone"), action: L("register.error.action.verify"), completion: { [weak self] _ in
                                                         self?.navigationController?.popToRootViewController(animated: true)
                                                     })
                                                 }
                                             }
                                         } else {
-                                            self.displayGlobalAlert(title: "注册失败", message:  "注册出现错误: \(err?.localizedDescription ?? "不能注册")", action: L("action-ok"), completion: { [weak self] _ in
+                                            self.displayGlobalAlert(title: L("register.error.title.failed"), message: L("register.error.message.failed") + ": \(err?.localizedDescription ?? L("register.error.title.failed"))", action: L("action-ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }
@@ -165,7 +165,7 @@ class RegistrationViewController: UIViewController {
     
     
     @IBAction func agreeButtonTapped(_ sender: Any) {
-        gotoWebview(title: "用户协议", url: "\(ApiServers.shared.host)/doc_agreement")
+        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement")
     }
     
     private func gotoWebview(title: String, url: String) {

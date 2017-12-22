@@ -142,7 +142,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     
     func prepareVerifyPhoneNum() {
         guard let newPhone = phoneNumTextField.text else {
-            displayGlobalAlert(title: "信息不足", message: "手机号码未填写", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: L("register.error.title.miss-phone"), message: L("register.error.message.miss-phone"), action: L("action.ok"), completion: nil)
             return
         }
         
@@ -184,7 +184,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     }
     
     private func loginByPasswordInput(){
-        displayGlobalAlert(title: "无法重复注册", message: "您输入的手机号码已被注册", action: "直接登录") { [weak self] _ in
+        displayGlobalAlert(title: L("register.error.title.duplicate"), message: L("register.error.message.duplicate"), action: L("register.error.action.duplicate")) { [weak self] _ in
             self?.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -196,7 +196,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             self.isLoading = false
             if let err = err {
                 print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
-                self.displayGlobalAlert(title: "获取验证码失败", message: "未能发送验证码，请检查手机号及区号是否正确", action: L("action.ok"), completion: nil)
+                self.displayGlobalAlert(title: L("register.error.title.get-verify-code"), message: L("register.error.message.get-verify-code"), action: L("action.ok"), completion: nil)
                 return
             }
             self.goToVerificationPage()

@@ -32,7 +32,7 @@ class OrderCommentRateController: UIViewController {
         realNameLabel.text = commenteeRealName
         
         if let category = category {
-            categoryLabel.text = (category == .carrier) ? "寄件人" : "出行人"
+            categoryLabel.text = (category == .carrier) ? L("orders.ui.action.category-sender") : L("orders.ui.action.category-carrier")
         }
         
         //Set profile image
@@ -45,7 +45,7 @@ class OrderCommentRateController: UIViewController {
         let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
         doneToolbar.barStyle = UIBarStyle.blackTranslucent
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
         doneToolbar.items = [flexSpace,done]
         doneToolbar.sizeToFit()
         self.commentTextField.inputAccessoryView = doneToolbar
@@ -92,13 +92,15 @@ class OrderCommentRateController: UIViewController {
                 }
                 print("Comment success!")
                 
-                self.displayAlert(title: "评价成功", message: "对方已收到您的评价", action: L("action.ok"), completion: { [weak self] _ in
+                self.displayAlert(title: L("orders.confirm.title.comment"),
+                                  message: L("orders.confirm.message.comment"),
+                                  action: L("action.ok"), completion: { [weak self] _ in
                     self?.navigationController?.popViewController(animated: true)
                 })
             }
             
         } else {
-            displayAlert(title: "评价不能为空", message: "请输入您对该用户的客观评价", action: L("action.ok"), completion: { [weak self] _ in
+            displayAlert(title: L("orders.error.title.comment"), message: L("orders.error.message.comment"), action: L("action.ok"), completion: { [weak self] _ in
                 self?.commentTextField.becomeFirstResponder()
             })
         }

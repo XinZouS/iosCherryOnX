@@ -19,7 +19,10 @@ class PersonalTable: UITableViewController,UIPickerViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerData = ["未知","男", "女", "其他"]
+        pickerData = [L("personal.ui.title.gender-unknow"),
+                      L("personal.ui.title.gender-male"),
+                      L("personal.ui.title.gender-female"),
+                      L("personal.ui.title.gender-other")] // ["未知","男", "女", "其他"]
         self.genderPickerView.delegate = self
         self.genderPickerView.dataSource = self
         setupTextField()
@@ -32,7 +35,7 @@ class PersonalTable: UITableViewController,UIPickerViewDataSource{
         let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
         doneToolbar.barStyle = UIBarStyle.blackTranslucent
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
         doneToolbar.items = [flexSpace,done]
         doneToolbar.sizeToFit()
         self.genderTextField.inputAccessoryView = doneToolbar

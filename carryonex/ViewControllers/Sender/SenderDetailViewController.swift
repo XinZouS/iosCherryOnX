@@ -87,7 +87,7 @@ class SenderDetailViewController: UIViewController{
     
     var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
         didSet{
-            priceMaxValueHintLabel.text = "小提示：寄送物品价值限制至多" + "\(currencyType.rawValue)\(priceMaxValueLimit)"
+            priceMaxValueHintLabel.text = L("sender.ui.message.item-value-max") + "\(currencyType.rawValue)\(priceMaxValueLimit)"
         }
     }
         
@@ -112,7 +112,7 @@ class SenderDetailViewController: UIViewController{
     
     @IBAction func priceMaxInfoButtonTapped(_ sender: Any) {
         // TODO: connect url for price info, now using fake url:
-        gotoWebview(title: "物品价值说明", url: "\(ApiServers.shared.host)/doc_privacy")
+        gotoWebview(title: "sender.ui.title.item-value-info", url: "\(ApiServers.shared.host)/doc_privacy")
     }
     
     @IBAction func pricePrePaySwitchChanged(_ sender: Any) {
@@ -131,10 +131,10 @@ class SenderDetailViewController: UIViewController{
         let mid = Double(priceSlider.minimumValue + priceSlider.maximumValue) / 2.0
         let pc1 = (currVal - mid) * 100.0 / mid
         if pc1 > -1 && pc1 < 1 {
-            priceShipingFeeHintLabel.text = "标准价"
+            priceShipingFeeHintLabel.text = L("sender.ui.message.price-standard") // "标准价"
         } else {
-            let lv1 = pc1 < 0 ? "低于" : "高于"
-            priceShipingFeeHintLabel.text = lv1 + "标准价" + "\(Int(abs(pc1)))%"
+            let lv1 = pc1 < 0 ? L("sender.ui.message.price-lower-than") : L("sender.ui.message.price-higher-than")
+            priceShipingFeeHintLabel.text = lv1 + L("sender.ui.message.price-standard") + "\(Int(abs(pc1)))%"
         }
         
         // final price hint:
@@ -203,7 +203,7 @@ class SenderDetailViewController: UIViewController{
                 activityIndicator.isHidden = false
                 activityIndicator.animate()
             } else {
-                activityIndicator.isHidden = true
+                activityIndicator.isHidden = true //BUG: TODO: UIView.hidden must be used from main thread only
                 activityIndicator.stop()
             }
             submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
@@ -224,7 +224,7 @@ class SenderDetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "寄件"
+        title = L("sender.ui.title.new-request")
         currencyTypeSegmentControl.isHidden = true // TODO: for now, only support .CNY
         scrollView.delegate = self
         setupCollectionView()
@@ -317,7 +317,7 @@ class SenderDetailViewController: UIViewController{
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
-        priceValueTextField.placeholder = "输入价值(不超过￥" + "\(limiteStr)" + ")"
+        priceValueTextField.placeholder = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -371,7 +371,10 @@ class SenderDetailViewController: UIViewController{
     private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
         ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
             guard success else {
-                self.displayGlobalAlertActions(title: "出错了", message: "价格参数获取失败", actions: [L("action.cancel"),L("action.redo")], completion: { [weak self] (tag) in
+                self.displayGlobalAlertActions(title: L("sender.error.title.price-arguements"),
+                                               message: L("sender.error.message.price-arguements"),
+                                               actions: [L("action.cancel"),L("action.redo")],
+                                               completion: { [weak self] (tag) in
                     if tag == 0 { // cancel, go back
                         self?.navigationController?.popViewController(animated: true)
                     } else {
@@ -407,33 +410,33 @@ class SenderDetailViewController: UIViewController{
 
     @objc fileprivate func handleSubmissionButton() {
         guard let name = nameTextField.text, name.count != 0 else {
-            self.displayGlobalAlert(title: "信息不足", message: "请填写收件人姓名", action: L("action.ok"), completion: { [weak self] _ in
+            self.displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.recipient"), action: L("action.ok"), completion: { [weak self] _ in
                 self?.nameTextField.becomeFirstResponder()
             })
             return
         }
         
         guard let phone = phoneTextField.text, phone.count > 5 else {
-            self.displayGlobalAlert(title: "信息不足", message: "请填写手机号", action: L("action.ok"), completion: { [weak self] _ in
+            self.displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.phone"), action: L("action.ok"), completion: { [weak self] _ in
                 self?.phoneTextField.becomeFirstResponder()
             })
             return
         }
         
         guard let destAddressStr = addressTextField.text, destAddressStr.count > 0 else {
-            self.displayGlobalAlert(title: "信息不足", message: "请填写收件信息", action: L("action.ok"), completion: { [weak self] _ in
+            self.displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.address"), action: L("action.ok"), completion: { [weak self] _ in
                 self?.addressTextField.becomeFirstResponder()
             })
             return
         }
         
         guard imageUploadingSet.count != 0 else {
-            displayGlobalAlert(title: "信息不足", message: "请提交您的物品照片，便于出行人了解详情", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.photo-miss"), action: L("action.ok"), completion: nil)
             return
         }
         
         guard let price = priceValueTextField.text, price != "" else {
-            displayGlobalAlert(title: "信息不足", message: "请准确填写您的货物价值，和运费报价给出行人", action: L("action.ok"), completion: nil)
+            displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.price"), action: L("action.ok"), completion: nil)
             return
         }
         
@@ -452,7 +455,10 @@ class SenderDetailViewController: UIViewController{
             if let err = error {
                 strongSelf.isLoading = false
                 debugPrint("Error: \(err.localizedDescription)")
-                strongSelf.displayGlobalAlert(title: "出错", message: "照片上传失败", action: "重新提交", completion: nil)
+                strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
+                                              message: L("sender.error.message.upload-photo"),
+                                              action: L("sender.error.action.upload-photo"),
+                                              completion: nil)
                 return
             }
             
@@ -476,8 +482,8 @@ class SenderDetailViewController: UIViewController{
                                                 if let error = error {
                                                     strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
-                                                    strongSelf.displayGlobalAlert(title: "出错",
-                                                                                  message: "发布请求失败，请确保您的网络连接正常，稍后再试",
+                                                    strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
+                                                                                  message: L("sender.error.message.post-failed"),
                                                                                   action: L("action.ok"),
                                                                                   completion: nil)
                                                     return
@@ -485,8 +491,8 @@ class SenderDetailViewController: UIViewController{
                                                 
                                                 strongSelf.isLoading = false
                                                 strongSelf.removeAllImageFromLocal()
-                                                strongSelf.displayGlobalAlert(title: "订单发布成功",
-                                                                              message: "订单提交成功，请及时关注订单状态",
+                                                strongSelf.displayGlobalAlert(title: L("sender.confirm.title.post"),
+                                                                              message: L("sender.confirm.message.post"),
                                                                               action: L("action.ok"),
                                                                               completion: { [weak self] _ in
                                                     self?.navigationController?.popToRootViewController(animated: true)
@@ -515,7 +521,10 @@ class SenderDetailViewController: UIViewController{
     }
     
     fileprivate func getTripErrorAndReturnPrePage(){
-        self.displayGlobalAlert(title: "游箱号有误", message: "无法查到对方出行信息", action: "重新填写游箱号", completion: { [weak self] _ in
+        self.displayGlobalAlert(title: L("sender.error.title.youxiang-miss"),
+                                message: L("sender.error.message.youxiang-miss"),
+                                action: L("sender.error.action.youxiang-miss"),
+                                completion: { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         })
     }
@@ -626,7 +635,7 @@ extension SenderDetailViewController {
                     
                     if let err = err {
                         print("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
-                        self.displayGlobalAlert(title: "出错", message: "照片上传失败", action: L("action.ok"), completion: nil)
+                        self.displayGlobalAlert(title: L("sender.error.title.upload"), message: L("sender.error.message.upload-photo"), action: L("action.ok"), completion: nil)
                         completion(nil, err)
                         return
                     }
@@ -647,7 +656,7 @@ extension SenderDetailViewController {
                 
             } else {
                 print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
-                self.displayGlobalAlert(title: "出错", message: "照片上传失败", action: L("action.ok"), completion: nil)
+                self.displayGlobalAlert(title: L("sender.error.title.upload"), message: L("sender.error.message.upload-photo"), action: L("action.ok"), completion: nil)
                 completion(nil, nil)
             }
         }
@@ -727,7 +736,7 @@ extension SenderDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let placeholderTxt = "给出行人的注意事项或特殊要求，字数限制在" + "\(messageWordsLimite)"
+        let placeholderTxt = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
         if textView.text == "" {
             textView.text = placeholderTxt
             textView.textColor = .lightGray
@@ -762,7 +771,7 @@ extension SenderDetailViewController: UITextViewDelegate {
     
     private func isInputTextInLimiteWords(_ textView: UITextView) -> Bool {
         let ok = textView.text.count <= messageWordsLimite
-        messageTitleLabel.text = ok ? "留言" : ("留言字数限制" + "\(messageWordsLimite)")
+        messageTitleLabel.text = ok ? L("sender.ui.title.note-ok") : (L("sender.ui.title.note-overflow") + "\(messageWordsLimite)")
         return ok
     }
 
@@ -836,8 +845,8 @@ extension SenderDetailViewController: UITextFieldDelegate {
         bar.isTranslucent = true
         bar.tintColor = .black
         
-        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
-        let cancelBtn = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let doneBtn = UIBarButtonItem(title: L("action.done"), style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
         let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
         bar.isUserInteractionEnabled = true
@@ -852,7 +861,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
             tv.delegate = self
             tv.inputAccessoryView = bar
             tv.textColor = .lightGray
-            tv.text = "给出行人的注意事项或特殊要求，字数限制: \(messageWordsLimite)"
+            tv.text = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
         }
     }
     
@@ -894,7 +903,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     }
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
-        priceValueTitleLabel.text = "物品价值" //+ currencyType.rawValue
+        priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
         let pMin: Double = 0.1
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet

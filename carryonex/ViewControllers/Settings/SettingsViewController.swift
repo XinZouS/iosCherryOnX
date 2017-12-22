@@ -13,12 +13,18 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let titles = ["消息设置","定位权限","账号信息","服务条款","Version 1.0","退出"]
-    
+    //let titles = ["消息设置","定位权限","账号信息","服务条款","Version 1.0","退出"]
+    let titles = [L("settings.ui.title.message"),
+                  L("settings.ui.title.gps"),
+                  L("settings.ui.title.account"),
+                  L("settings.ui.title.policy"),
+                  "Version 1.0",
+                  L("settings.ui.title.logout")
+                  ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "设置"
+        title = L("settings.ui.title.settings") // "设置"
         setupTableView()
     }
     

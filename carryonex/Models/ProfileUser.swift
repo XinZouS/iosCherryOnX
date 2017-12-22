@@ -47,13 +47,13 @@ enum ProfileGender: String {
     func displayString() -> String {
         switch self {
         case .male:
-            return "男"
+            return L("personal.ui.title.gender-male")
         case .female:
-            return "女"
+            return L("personal.ui.title.gender-female")
         case .other:
-            return "其他"
+            return L("personal.ui.title.gender-other")
         case .undefined:
-            return "未知"
+            return L("personal.ui.title.gender-unknow")
         }
     }
 }

@@ -70,7 +70,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "游箱信息"
+        title = L("orders.ui.title.youxiang-info")
         navigationController?.isNavigationBarHidden = false
         
         //Setup table view
@@ -109,7 +109,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     private func setTripToLocked(_ toLock: Bool, completion: (() -> Void)?){
         if isActive {
-            displayGlobalAlertActions(title: "⚠️当前游箱将上锁", message: "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？", actions: ["锁定","取消"], completion: { (tag) in
+            displayGlobalAlertActions(title: L("orders.confirm.title.lock"), message: L("orders.confirm.message.lock"), actions: [L("orders.confirm.action.lock"),L("action.cancel")], completion: { (tag) in
                 if tag == 0 { // do lock;
                     self.setYouxiangLockStatusAt(id: self.trip.id, toActive: false, completion: completion)
                 } else {
@@ -130,13 +130,18 @@ class OrdersYouxiangInfoViewController: UIViewController {
             self.lockerButton.isEnabled = true
             if let err = error {
                 print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
-                self.displayGlobalAlert(title: "锁定失败", message: "游箱锁设定失败，请检查手机是否连接网络", action: L("action.ok"), completion: nil)
+                self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
+                                        message: L("orders.error.message.lock-fail-network"),
+                                        action: L("action.ok"), completion: nil)
                 return
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
                     print("get error when get TripActive: err = \(err.localizedDescription)")
-                    self.displayGlobalAlert(title: "锁定失败", message: "您的账户登陆信息已过期", action: "重新登陆", completion: { [weak self] _ in
+                    self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
+                                            message: L("orders.error.message.lock-fail-account"),
+                                            action: L("orders.error.action.lock-fail-account"),
+                                            completion: { [weak self] _ in
                         self?.navigationController?.popToRootViewController(animated: false)
                         ProfileManager.shared.logoutUser()
                     })
@@ -154,7 +159,10 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     func shareYouxiangCode() {
         guard isActive else {
-            self.displayGlobalAlertActions(title: "分享游箱", message: "游箱号在锁定状态无法分享", actions: ["保持锁定", "解锁]"], completion: { [weak self] (tag) in
+            self.displayGlobalAlertActions(title: L("orders.error.title.share"),
+                                           message: L("orders.error.message.share"),
+                                           actions: [L("orders.error.action.share-lock"), L("orders.error.action.share-unlock")],
+                                           completion: { [weak self] (tag) in
                 if tag == 1 { // unlock and share
                     self?.setTripToLocked(true, completion: {
                         self?.shareYouxiangCode()
