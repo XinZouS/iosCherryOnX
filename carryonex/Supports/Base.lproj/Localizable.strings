@@ -3,7 +3,7 @@
  carryonex
  
  Created by Zian Chen on 11/11/17.
- Copyright © 2017 Xin Zou. All rights reserved.
+ Copyright © 2017 CarryonEx. All rights reserved.
  */
 
 // MARK: - General action messages
@@ -45,7 +45,7 @@
 "register.error.message.verify" = "Verification Error: ";
 "register.error.message.verify-phone" = "Unable to verify the phone number.";
 "register.error.action.verify" = "Resend";
-"register.error.title.failed" = "Registration Failed;
+"register.error.title.failed" = "Registration Failed";
 "register.error.message.failed" = "Failed to register.";
 "register.ui.message.hint1" = "Verification code has been sent to";
 "register.ui.message.hint2" = "，please enter";
@@ -68,7 +68,6 @@
 "home.ui.card.send" = "Request";
 "home.ui.card.location-empty" = "Unable to locate";
 "home.ui.card.trip-empty" = "No trip information";
-"" = "";
 
 
 // MARK: - Sender
@@ -82,13 +81,13 @@
 "sender.error.message.youxiangcode-self-deny" = "You cannot add request to your own trip.";
 "sender.error.message.youxiangcode-network" = "Please check your internet connection.";
 "sender.ui.sessiontitle.address-destination" = "Delivery Address";
-"sender.ui.sessionhint.address-destination" = "Please choose the delivery address.";
+"sender.ui.sessionhint.address-destination" = "Please enter the delivery address.";
 "sender.ui.sessiontitle.item-value" = "Item Value";
 "sender.ui.placeholder.price-value-max" = "Max Price (<￥";
 "sender.ui.sessionhint.item-value" = "Enter item value";
 "sender.ui.sessiontitle.item-photos" = "Item pictures";
 "sender.ui.sessiontitle.item-shipfee" = "Shipping fee";
-"sender.ui.currencytype.unit" = "Dollor;
+"sender.ui.currencytype.unit" = "Dollor";
 "sender.ui.title.new-request" = "New Request";
 "sender.error.title.info" = "Insufficient Information";
 "sender.error.message.recipient" = "Please enter recipient's name.";
@@ -121,7 +120,7 @@
 // MARK: - Carrier
 "carrier.ui.title.trip" = "Trip";
 "carrier.ui.title.startAddress" = "Departure";
-"carrier.ui.title.endAddress" = "Arrival"
+"carrier.ui.title.endAddress" = "Arrival";
 "carrier.ui.title.startDate" = "Departure Date";
 "carrier.ui.title.note" = "Note";
 "carrier.error.title.date" = "Departure Date Error";
@@ -182,116 +181,116 @@
 "orders.ui.title.orderlist" = "Request List";
 "orders.ui.placeholder.trip" = "You do not have trip record, go ahead and create one!";
 "orders.ui.placeholder.send" = "You do not have request record, go ahead and send something!";
-"orders.error.title.share" = "Share;
+"orders.error.title.share" = "Share";
 "orders.error.message.share" = "Unable to share trip code while locked.";
-"orders.error.action.share-lock" = "保持锁定";
-"orders.error.action.share-unlock" = "解锁";
-"orders.confirm.title.lock" = "⚠️当前游箱将上锁";
-"orders.confirm.message.lock" = "游箱锁定后不会再收到寄件订单，确实要锁定这个游箱吗？";
-"orders.confirm.action.lock" = "锁定";
-"orders.error.title.lock-fail" = "⚠️锁定失败";
-"orders.error.message.lock-fail-network" = "游箱锁设定失败，请检查手机是否连接网络";
-"orders.error.message.lock-fail-account" = "您的账户登陆信息已过期";
-"orders.error.action.lock-fail-account" = "重新登陆";
-"orders.status.message.changing" = "更改状态";
-"orders.ui.placeholder.youxiang-empty" = "此游箱尚未有寄件";
-"orders.ui.action.comment" = "写评价";
-"orders.ui.action.category-sender" = "寄件人";
-"orders.ui.action.category-carrier" = "出行人";
-"orders.confirm.title.comment" = "评价成功";
-"orders.confirm.message.comment" = "对方已收到您的评价";
-"orders.error.title.comment" = "评价不能为空";
-"orders.error.message.comment" = "请输入您对该用户的客观评价";
-"orders.ui.title.youxiang-info" = "游箱信息";
-"orders.ui.message.request-image-count" = "张";
-"orders.confirm.title.submit" = "确认提交";
-"orders.ui.title.order-request-detail" = "订单详情";
-"orders.ui.message.sender-desc-sender" = "寄件人评分";
-"orders.ui.message.sender-desc-carrier" = "出行人评分";
-"orders.ui.placeholder.note-empty" = "TA还没有写留言";
-"orders.ui.placeholder.note-msg" = "留言：";
-"orders.confirm.title.payment" = "支付成功";
-"orders.error.title.payment" = "支付失败";
-"orders.confirm.title.wechatpay" = "微信支付成功";
-"orders.error.title.wechatpay" = "微信支付失败";
-"orders.error.message.payment" = "未知错误";
-"orders.confirm.title.save-image" = "保存图片";
-"orders.error.title.gps" = "定位失败";
-"orders.error.message.gps" = "请检查您的GPS定位服务是否开启";
+"orders.error.action.share-lock" = "Lock";
+"orders.error.action.share-unlock" = "Unlock";
+"orders.confirm.title.lock" = "Locking the trip";
+"orders.confirm.message.lock" = "You will not receive request for trip anymore once the trip is locked. Do you want to continue?";
+"orders.confirm.action.lock" = "Lock";
+"orders.error.title.lock-fail" = "Lock Error";
+"orders.error.message.lock-fail-network" = "Unable to lock the trip, please check your internet connection.";
+"orders.error.message.lock-fail-account" = "Your login has expired.";
+"orders.error.action.lock-fail-account" = "Relogin";
+"orders.status.message.changing" = "Change status";
+"orders.ui.placeholder.youxiang-empty" = "No Request";
+"orders.ui.action.comment" = "Comment";
+"orders.ui.action.category-sender" = "Sender";
+"orders.ui.action.category-carrier" = "Carrier";
+"orders.confirm.title.comment" = "Comment Success";
+"orders.confirm.message.comment" = "Your comment is posted.";
+"orders.error.title.comment" = "Empty Comment";
+"orders.error.message.comment" = "Please enter your comment to this user.";
+"orders.ui.title.youxiang-info" = "Trip Info";
+"orders.ui.message.request-image-count" = "";
+"orders.confirm.title.submit" = "Confirm to Submit";
+"orders.ui.title.order-request-detail" = "Request Detail";
+"orders.ui.message.sender-desc-sender" = "Sender's Rating";
+"orders.ui.message.sender-desc-carrier" = "Carrier's Rating";
+"orders.ui.placeholder.note-empty" = "Empty note";
+"orders.ui.placeholder.note-msg" = "Your message note";
+"orders.confirm.title.payment" = "Payment Success";
+"orders.error.title.payment" = "Payment Error";
+"orders.confirm.title.wechatpay" = "WeChat Payment Success";
+"orders.error.title.wechatpay" = "WeChat Error";
+"orders.error.message.payment" = "Unknown Error";
+"orders.confirm.title.save-image" = "Save Image";
+"orders.error.title.gps" = "Location Error";
+"orders.error.message.gps" = "Please check your location service settings.";
 
 // MARK: - Settings
-"settings.ui.title.message" = "消息设置";
-"settings.ui.title.gps" = "定位权限";
-"settings.ui.title.account" = "账号信息";
-"settings.ui.title.policy" = "服务条款";
-"settings.ui.title.logout" = "退出";
-"settings.ui.title.settings" = "设置";
+"settings.ui.title.message" = "Message";
+"settings.ui.title.gps" = "Location";
+"settings.ui.title.account" = "Account";
+"settings.ui.title.policy" = "Privacy Polocy";
+"settings.ui.title.logout" = "Log Out";
+"settings.ui.title.settings" = "Settings";
 
 // MARK: - Personal
-"personal.confirm.title.select-image" = "选择图片来源";
-"personal.confirm.message.select-image" = "选择证件清晰照或拍摄证件上传以验证身份";
-"personal.confirm.action.galary" = "相册选择";
-"personal.confirm.action.camera" = "打开相机";
-"personal.confirm.action.wechat" = "微信获得信息";
-"personal.error.title.passport" = "您选好护照了吗？";
-"personal.error.message.passport" = "为保障您和他人的货物安全，请选择护照个人信息页作为实名验证信息，谢谢！";
-"personal.error.title.id" = "身份证少了一面";
-"personal.error.message.id" = "为保障您和他人的货物安全，请上传身份证两面的清晰照";
-"personal.confirm.title.ids" = "上传成功";
-"personal.confirm.message.ids" = "已成功上传您的证件照片";
-"personal.error.title.upload-ids" = "照片上传出错";
-"personal.error.message.upload-ids" = "请检查手机是否连接网络，稍后再试一次";
-"personal.error.action.upload-ids" = "重新提交";
-"personal.ui.title.id" = "身份证";
-"personal.ui.title.passport" = "护照";
-"personal.ui.message.photo-id" = "我们需要验证您的个人信息以确保货物安全";
-"personal.ui.title.name" = "姓名";
-"personal.ui.placeholder.name" = "请输入您的姓名";
-"personal.ui.title.upload-type" = "证件类型";
-"personal.ui.title.upload-passport" = "上传护照个人信息页照片";
-"personal.ui.title.upload-id-a" = "上传身份证正面照片";
-"personal.ui.title.upload-id-b" = "上传身份证背面照片";
-"personal.ui.title.upload-profile" = "上传真人大头照";
-"personal.ui.action.finishing-verify" = "完成验证";
-"personal.ui.title.verify-info" = "验证信息";
-"personal.ui.title.score" = "综合评分";
-"personal.ui.title.wallet" = "钱包";
-"personal.ui.title.help" = "帮助";
-"personal.ui.title.settings" = "设置";
-"personal.ui.title.wallet-description" = "收付款，查看余额，提现";
-"personal.ui.title.me" = "我";
-"personal.error.title.wechat" = "微信资料获取失败";
-"personal.error.message.wechat" = "请重新跳转微信";
-"personal.error.title.network" = "获取信息失败";
-"personal.error.message.network" = "请检查设备是否连接网络，稍后再试一次";
-"personal.error.title.upload-email" = "资料保存失败";
-"personal.error.message.upload-email" = "请输入正确的电子邮箱格式";
-"personal.ui.title.gender-unknow" = "未知";
-"personal.ui.title.gender-male" = "男";
-"personal.ui.title.gender-female" = "女";
-"personal.ui.title.gender-other" = "其他";
-"personal.ui.placeholder.comment" = "暂时没有来自别人的评论";
-"personal.ui.title.shiperinfo-comments" = "用户评价";
-"personal.ui.title.comments-all-p1" = "总共";
-"personal.ui.title.comments-all-p2" = "条评价";
-"personal.confirm.title.send-message" = "发短信";
-"personal.confirm.message.send-message-p1" = "是否给";
-"personal.confirm.message.send-message-p2" = "发送短信?";
-"personal.confirm.message.send-body" = "你好";
-"personal.error.message.send-message" = "本设备不能发短信";
-"personal.ui.dateformat.cn" = "yyyy年MM日dd日";
-"personal.ui.title.my-comments" = "我的评价";
-"personal.ui.title.cash-extractable" = "可提现金额：";
-"personal.ui.title.alipay" = "支付宝提现";
+"personal.confirm.title.select-image" = "Select Image";
+"personal.confirm.message.select-image" = "Please upload ID photos to verify your identify.";
+"personal.confirm.action.galary" = "Photos";
+"personal.confirm.action.camera" = "Camera";
+"personal.confirm.action.wechat" = "Connect to WeChat";
+"personal.error.title.passport" = "Passport Photo";
+"personal.error.message.passport" = "Please upload your passport photo.";
+"personal.error.title.id" = "Missing photo from your ID, please submit the other side.";
+"personal.error.message.id" = "Please submit both side of your ID for verification.";
+"personal.confirm.title.ids" = "Upload Success";
+"personal.confirm.message.ids" = "Your ID photo has been updated successfully.";
+"personal.error.title.upload-ids" = "Upload Error";
+"personal.error.message.upload-ids" = "Please check your internet connection and try again.";
+"personal.error.action.upload-ids" = "Resubmit";
+"personal.ui.title.id" = "ID";
+"personal.ui.title.passport" = "Passport";
+"personal.ui.message.photo-id" = "We need to verify your identity to safe guard the delivery.";
+"personal.ui.title.name" = "Name";
+"personal.ui.placeholder.name" = "Please enter your name.";
+"personal.ui.title.upload-type" = "ID Type";
+"personal.ui.title.upload-passport" = "Upload your passport image.";
+"personal.ui.title.upload-id-a" = "Upload the front of your ID.";
+"personal.ui.title.upload-id-b" = "Upload the back of your ID.";
+"personal.ui.title.upload-profile" = "Upload your profile image.";
+"personal.ui.action.finishing-verify" = "Complete Verification";
+"personal.ui.title.verify-info" = "Verifying Info";
+"personal.ui.title.score" = "Score";
+"personal.ui.title.wallet" = "Wallet";
+"personal.ui.title.help" = "Help";
+"personal.ui.title.settings" = "Settings";
+"personal.ui.title.wallet-description" = "Receive money, making payment, check your balance, payout.";
+"personal.ui.title.me" = "Me";
+"personal.error.title.wechat" = "WeChat Error";
+"personal.error.message.wechat" = "Please open WeChat once again.";
+"personal.error.title.network" = "Network Error";
+"personal.error.message.network" = "Please check your internet connection and try again.";
+"personal.error.title.upload-email" = "Data save failed";
+"personal.error.message.upload-email" = "Please enter the correct email format.";
+"personal.ui.title.gender-unknow" = "Unknown";
+"personal.ui.title.gender-male" = "Male";
+"personal.ui.title.gender-female" = "Female";
+"personal.ui.title.gender-other" = "Others";
+"personal.ui.placeholder.comment" = "No comments";
+"personal.ui.title.shiperinfo-comments" = "User Comments";
+"personal.ui.title.comments-all-p1" = "Total of";
+"personal.ui.title.comments-all-p2" = "comments";
+"personal.confirm.title.send-message" = "Send message";
+"personal.confirm.message.send-message-p1" = "Are you sending message to ";
+"personal.confirm.message.send-message-p2" = "";
+"personal.confirm.message.send-body" = "Hi";
+"personal.error.message.send-message" = "Unable to send WeChat message on this device.";
+"personal.ui.dateformat.cn" = "MM-dd-yyyy";
+"personal.ui.title.my-comments" = "My Comments";
+"personal.ui.title.cash-extractable" = "Cash Available:";
+"personal.ui.title.alipay" = "Alipay Payout";
 
 // MARK: - Managers
-"managers.ui.title.wechat" = "微信";
-"managers.ui.title.moment" = "朋友圈";
-"managers.ui.title.weibo" = "微博";
+"managers.ui.title.wechat" = "WeChat";
+"managers.ui.title.moment" = "The Moment";
+"managers.ui.title.weibo" = "Weibo";
 "managers.ui.title.facebook" = "Facebook";
-"managers.confirm.title.share" = "CarryonEx 帮你把思念带回家";
-"managers.confirm.message.share" = "关注我们的网站获取更多活动信息";
-"managers.confirm.message.share-media-tag" = "CarryonEx[游箱]";
+"managers.confirm.title.share" = "Carryon deliver to your love ones.";
+"managers.confirm.message.share" = "Subscribe to your website to get more information";
+"managers.confirm.message.share-media-tag" = "#carryonex";
 
 
 
