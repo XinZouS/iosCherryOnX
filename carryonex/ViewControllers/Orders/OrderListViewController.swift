@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import TGRefreshSwift
+//import TGRefreshSwift
 
 class OrderListViewController: UIViewController {
     
@@ -81,8 +81,8 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var refreshShipperControl: TGRefreshSwift!
-    var refreshSenderControl: TGRefreshSwift!
+    var refreshShipperControl: UIActivityIndicatorView! // TGRefreshSwift!
+    var refreshSenderControl:  UIActivityIndicatorView! // TGRefreshSwift!
 
     
     //MARK: - View Cycle
@@ -140,30 +140,28 @@ class OrderListViewController: UIViewController {
     
     private func setupRefreshController(){
         //添加刷新
-        refreshShipperControl = TGRefreshSwift()
-        refreshShipperControl.addTarget(self, action: #selector(refreshData),
-                                 for: .valueChanged)
+        refreshShipperControl = UIActivityIndicatorView() // TGRefreshSwift()
+        //refreshShipperControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         tableViewShiper.addSubview(refreshShipperControl)
         
-        refreshSenderControl = TGRefreshSwift()
-        refreshSenderControl.addTarget(self, action: #selector(refreshData),
-                                        for: .valueChanged)
+        refreshSenderControl = UIActivityIndicatorView() // TGRefreshSwift()
+        //refreshSenderControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         tableViewSender.addSubview(refreshSenderControl)
     }
     
     func refreshData(){
         if listType == .carrier {
-            refreshShipperControl.beginRefreshing()
+            refreshShipperControl.startAnimating() //.beginRefreshing()
         } else {
-            refreshSenderControl.beginRefreshing()
+            refreshSenderControl.startAnimating() //.beginRefreshing()
         }
         TripOrderDataStore.shared.pull(category: listType, completion: {
             let time: TimeInterval = 1.0
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
                 if self.listType == .carrier {
-                    self.refreshShipperControl.endRefreshing()
+                    self.refreshShipperControl.stopAnimating() //.endRefreshing()
                 } else {
-                    self.refreshSenderControl.endRefreshing()
+                    self.refreshSenderControl.stopAnimating() //.endRefreshing()
                 }
             }
         })
@@ -199,14 +197,13 @@ class OrderListViewController: UIViewController {
         tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender,tag:1)
     }
     
-    private func setupLoadMoreView(tableView:UITableView,tag:Int) ->UIView{
-        let footView = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height,
-                                        width:tableView.bounds.size.width, height: 150))
-        let BlankNotice = UIImageView()
+    private func setupLoadMoreView(tableView:UITableView,tag:Int) -> UIView{
+        let footView = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height, width:tableView.bounds.size.width, height: 150))
+        let blankNoticeImg = UIImageView()
         let hintLabel = UILabel()
-        footView.addSubview(BlankNotice)
-        BlankNotice.frame = CGRect(x:footView.center.x-50,y:footView.center.y-30,width:100,height:60)
-        BlankNotice.image = #imageLiteral(resourceName: "EmptyOrder")
+        footView.addSubview(blankNoticeImg)
+        blankNoticeImg.frame = CGRect(x:footView.center.x-50,y:footView.center.y-30,width:100,height:60)
+        blankNoticeImg.image = #imageLiteral(resourceName: "EmptyOrder")
         footView.addSubview(hintLabel)
         switch tag {
         case 0:
@@ -214,8 +211,8 @@ class OrderListViewController: UIViewController {
         default:
             hintLabel.text = L("orders.ui.placeholder.send")
         }
-        hintLabel.addConstraints(left: nil, top: BlankNotice.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        hintLabel.centerXAnchor.constraint(equalTo: BlankNotice.centerXAnchor).isActive = true
+        hintLabel.addConstraints(left: nil, top: blankNoticeImg.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+        hintLabel.centerXAnchor.constraint(equalTo: blankNoticeImg.centerXAnchor).isActive = true
         return footView
     }
     

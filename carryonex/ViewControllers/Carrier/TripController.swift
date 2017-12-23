@@ -170,7 +170,7 @@ class TripController: UIViewController{
         trip.startAddress?.city = startCity
         trip.startAddress?.country = Country(rawValue: startCountry)
         trip.pickupDate = pickUpDate
-        trip.note = noteTextView.text
+        trip.note = isNoteFilled ? noteTextView.text : ""
     
         ApiServers.shared.postTripInfo(trip: trip) { (success, msg, tripCode) in
             if success, let tripCode = tripCode {
