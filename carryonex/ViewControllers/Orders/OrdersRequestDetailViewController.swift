@@ -120,11 +120,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func goToPaymentHandler(_ sender: Any) {
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
-            WalletManager.shared.aliPayAuth(request: request, completion: { (success) in
-                if success {
-                    self.processTransaction(.shipperPay)
-                }
-            })
+            WalletManager.shared.aliPayAuth(request: request)
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
@@ -163,18 +159,13 @@ class OrdersRequestDetailViewController: UIViewController {
         
         self.isLoadingStatus = true
         ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
+            self.isLoadingStatus = false
             if (success) {
                 if let statusId = statusId {
-                    print("New status: \(statusId)")
-                    TripOrderDataStore.shared.pull(category: requestCategory, delay: 1, completion: {
-                        self.isLoadingStatus = false
-                    })
+                    TripOrderDataStore.shared.updateRequestToStatus(category: requestCategory, requestId: self.request.id, status: statusId)
                 } else {
                     debugPrint("No status found, bad call")
-                    self.isLoadingStatus = false
                 }
-            } else {
-                self.isLoadingStatus = false
             }
         })
     }
@@ -347,7 +338,9 @@ class OrdersRequestDetailViewController: UIViewController {
             senderNameLabel.text = request.ownerRealName
             senderDescLabel.text = L("orders.ui.message.sender-desc-sender")
             recipientPhoneCallButton.isHidden = false
-            senderScoreWidthConstraint.constant = CGFloat(request.ownerRating * 20) //*(100/5)
+            if let rating = request.ownerRating {
+                senderScoreWidthConstraint.constant = CGFloat(rating * 20) //*(100/5)
+            }
             updateMapViewToShow(false) // map for sender to see carrier
             
         } else {
@@ -377,8 +370,8 @@ class OrdersRequestDetailViewController: UIViewController {
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
         blockerWidth.constant = UIScreen.main.bounds.width - 155
-        if request.images.count > 2{
-            imageCountButton.setTitle("+\(request.images.count - 2)", for: .normal)
+        if request.getImages().count > 2{
+            imageCountButton.setTitle("+\(request.getImages().count-2)", for: .normal)
         }else{
             imageCountButton.setTitle("", for: .normal)
         }
@@ -399,25 +392,12 @@ class OrdersRequestDetailViewController: UIViewController {
     private func addObservers() {
         NotificationCenter.default.addObserver(forName: Notification.Name.Alipay.PaymentProcessed, object: nil, queue: nil) { [weak self] (notification) in
             if let status = notification.object as? AliPayResultStatus {
+                
                 if status == .success || status == .processing {
                     self?.displayAlert(title: L("orders.confirm.title.payment"), message: status.statusDescription(), action: L("action.ok"), completion: { [weak self] _ in
                         guard let strongSelf = self else { return }
-                        
-                        self?.backgroundViewHide()
-                        
-                        let tripId = strongSelf.trip.id
-                        let requestId = strongSelf.request.id
-                        let requestCategory = strongSelf.category
-                        ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: .shipperPay, completion: { (success, error, statusId) in
-                            if (success) {
-                                if let statusId = statusId {
-                                    print("New status: \(statusId)")
-                                    TripOrderDataStore.shared.pull(category: requestCategory, completion: nil)
-                                } else {
-                                    debugPrint("No status found, bad call")
-                                }
-                            }
-                        })
+                        strongSelf.backgroundViewHide()
+                        strongSelf.processTransaction(.shipperPay)
                     })
                     
                 } else {
@@ -648,12 +628,12 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return request.images.count
+        return request.getImages().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId, for: indexPath) as! PhotoBrowserCollectionViewCell
-        cell.imageView.af_setImage(withURL: URL(string: request.images[indexPath.row].imageUrl)!)
+        cell.imageView.af_setImage(withURL: URL(string: request.getImages()[indexPath.row].imageUrl)!)
         return cell
     }
 }
@@ -670,9 +650,9 @@ extension OrdersRequestDetailViewController: UICollectionViewDelegate {
         let vc = PhotoBrowser(showByViewController: self, delegate: self)
         // 装配PageControl，提供了两种PageControl实现，若需要其它样式，可参照着自由定制
         if arc4random_uniform(2) % 2 == 0 {
-            vc.pageControlDelegate = PhotoBrowserDefaultPageControlDelegate(numberOfPages: request.images.count)
+            vc.pageControlDelegate = PhotoBrowserDefaultPageControlDelegate(numberOfPages: request.getImages().count)
         } else {
-            vc.pageControlDelegate = PhotoBrowserNumberPageControlDelegate(numberOfPages: request.images.count)
+            vc.pageControlDelegate = PhotoBrowserNumberPageControlDelegate(numberOfPages: request.getImages().count)
         }
         vc.show(index: indexPath.item)
     }
@@ -683,7 +663,7 @@ extension OrdersRequestDetailViewController: UICollectionViewDelegate {
 extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
     
     func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
-        return request.images.count
+        return request.getImages().count
     }
     
     /// 缩放起始视图

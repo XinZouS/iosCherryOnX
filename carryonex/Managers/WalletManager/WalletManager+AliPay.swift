@@ -43,7 +43,7 @@ enum AliPayResultStatus: String {
 //Ali Pay
 extension WalletManager {
     
-    func aliPayAuth(request: Request, completion: @escaping (Bool) -> Void) {
+    func aliPayAuth(request: Request) {
         let userId = String(request.ownerId)
         let requestId = String(request.id)
         let total = String(format: "%.2f", (Double(request.priceBySender) / 100.0))
@@ -52,38 +52,9 @@ extension WalletManager {
             if let error = error {
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
                 print("aliPayAuth: \(error.localizedDescription)")
-                completion(false)
                 return
             }
-            
-            AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex") { (result) in
-                if let result = result {
-                    print("Result Dict: \(result)")
-                    var isSuccess = false
-                    if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
-                        isSuccess = true
-                    }
-                    
-                    completion(isSuccess)   //don't wait for validation
-                    
-                    if let responseResult = result["result"] as? [String: Any], let response = responseResult["alipay_trade_app_pay_response"] as? [String: Any],
-                        let sign = responseResult["sign"] as? String {
-                        ApiServers.shared.postWalletAliPayValidation(response: response,
-                                                                     sign: sign,
-                                                                     isSuccess: isSuccess,
-                                                                     completion: { (success, error) in
-                            if let error = error {
-                                print("Error: \(error.localizedDescription)")
-                                return
-                            }
-                            print("Validation success")
-                        })
-                    }
-                    
-                } else {
-                    AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
-                }
-            }
+            AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex", callback: nil)
         }
     }
     
@@ -100,11 +71,40 @@ extension WalletManager {
     func aliPayHandleOrderUrl(_ url: URL) {
         
         AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
+            
             if let result = result {
+                print("Result Dict: \(result)")
+                var isSuccess = false
+                if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
+                    isSuccess = true
+                }
                 self.aliPayProcessOrderCallbackHandler(result: result)
                 AnalyticsManager.shared.finishTimeTrackingKey(.requestPayTime)
-                print("OpenURL callback result: \(result)")
+                
+                //Validation
+                let responseResult = result["result"] as? [String: Any]
+                let response = responseResult?["alipay_trade_app_pay_response"] as? [String: Any]
+                let sign = responseResult?["sign"] as? String
+                
+                /*
+                if responseResult!, response!, sign! {
+                    ApiServers.shared.postWalletAliPayValidation(response: response,
+                                                                 sign: sign,
+                                                                 isSuccess: isSuccess,
+                                                                 completion: { (success, error) in
+                                                                    if let error = error {
+                                                                        print("Error: \(error.localizedDescription)")
+                                                                        return
+                                                                    }
+                                                                    print("Validation success")
+                    })
+                }
+                */
+                
+            } else {
+                AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
             }
+            
         })
         
         AlipaySDK.defaultService().processAuth_V2Result(url, standbyCallback: { (result) in
