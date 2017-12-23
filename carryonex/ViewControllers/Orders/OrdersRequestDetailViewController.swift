@@ -30,7 +30,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     
     // request info
-    @IBOutlet weak var senderPhoneButton: UIButton!
+    @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
@@ -42,7 +42,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var recipientNameLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
-    @IBOutlet weak var recipientPhoneCallButton: UIButton!
+    @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     internal let locationManager = CLLocationManager()
@@ -52,17 +52,18 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
-    @IBOutlet weak var statusLoadingIndicator: BPCircleActivityIndicator!
+    
+    var activityIndicator = BPCircleActivityIndicator()
     var isLoadingStatus = false {
         didSet {
             if isLoadingStatus {
-                statusLoadingIndicator.isHidden = false
-                statusLoadingIndicator.animate()
+                activityIndicator.isHidden = false
+                activityIndicator.animate()
                 finishButton.isEnabled = false
                 finishButton2.isEnabled = false
             } else {
-                statusLoadingIndicator.stop()
-                statusLoadingIndicator.isHidden = true
+                activityIndicator.stop()
+                activityIndicator.isHidden = true
                 finishButton.isEnabled = true
                 finishButton2.isEnabled = true
             }
@@ -220,6 +221,7 @@ class OrdersRequestDetailViewController: UIViewController {
         setupNavigationBar()
         setupCollectionView()
         setupPaymentMenuView()
+        setupActivityIndicator()
         addObservers()
         
         //Load Phone
@@ -300,6 +302,14 @@ class OrdersRequestDetailViewController: UIViewController {
         backgroundView.addGestureRecognizer(tapRgr)
     }
     
+    private func setupActivityIndicator(){
+        view.addSubview(activityIndicator)
+        activityIndicator.center = CGPoint(x: view.center.x - 10, y: view.center.y - 80)
+        activityIndicator.isHidden = true
+        activityIndicator.stop()
+    }
+
+    
     private func setupPaymentCheckbox(_ b: M13Checkbox){
         b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
         b.markType = .checkmark
@@ -366,9 +376,9 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
-        blockerWidth.constant = UIScreen.main.bounds.width-150
+        blockerWidth.constant = UIScreen.main.bounds.width - 155
         if request.images.count > 2{
-            imageCountButton.setTitle("+\(request.images.count-2)", for: .normal)
+            imageCountButton.setTitle("+\(request.images.count - 2)", for: .normal)
         }else{
             imageCountButton.setTitle("", for: .normal)
         }

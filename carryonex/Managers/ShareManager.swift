@@ -179,7 +179,7 @@ class ShareViewFactory: UIView {
             message.mediaObject = web
             message.title = title
             message.description = self.message
-            message.setThumbImage(#imageLiteral(resourceName: "login_icon"))
+            message.setThumbImage(#imageLiteral(resourceName: "logo_square"))
             
             req.bText = false
             req.message = message

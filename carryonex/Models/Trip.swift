@@ -215,7 +215,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         let title = L("carrier.confirm.title.share-info") + "\(self.tripCode)"
         let noteStr = (note?.isEmpty ?? true) ? L("trip.ui.message.share") : note!
         let unknowAdd = L("trip.ui.message.empty-address")
-        let message = "\(dateString), \(self.startAddress?.city ?? unknowAdd)-\(self.endAddress?.city ?? unknowAdd)\n" + noteStr
+        let message = "【\(dateString), \(self.startAddress?.city ?? unknowAdd)-\(self.endAddress?.city ?? unknowAdd)】 \n" + noteStr
         let url = "carryonex://request?trip_code=\(self.tripCode)"
         return (title, message, url)
     }

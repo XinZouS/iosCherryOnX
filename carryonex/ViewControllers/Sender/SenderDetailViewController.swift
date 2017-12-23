@@ -325,7 +325,6 @@ class SenderDetailViewController: UIViewController{
         textFieldAddToolBar(countryCodeTextField,nil)
         
         let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
         priceValueTextField.placeholder = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
