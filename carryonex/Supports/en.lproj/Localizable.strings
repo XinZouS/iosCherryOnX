@@ -54,25 +54,24 @@
 
 // MARK: - Home
 "home.ui.greeting.hello" = "Hello";
-"home.ui.greeting.night" = "Good Night";
-"home.ui.greeting.afternoon" = "Good Afternoon，";
-"home.ui.greeting.noon" = "Good Afternoon，";
-"home.ui.greeting.morning" = "Good Morning，";
+"home.ui.greeting.night" = "Good Night ";
+"home.ui.greeting.afternoon" = "Good Afternoon ";
+"home.ui.greeting.noon" = "Good Afternoon ";
+"home.ui.greeting.morning" = "Good Morning ";
 "home.ui.spotlight.trip" = "Create a Trip and share with your friends.";
 "home.ui.spotlight.send" = "Create a Request for your friend to deliver";
 "home.ui.spotlight.card" = "Check out your latest trip and activities.";
 "home.confirm.title.version" = "New version is out";
 "home.confirm.message.version" = "Please update to the latest version of CarryonEx.";
 "home.confirm.action.version" = "Go to AppStore";
-"home.ui.card.trip" = "Trip";
-"home.ui.card.send" = "Request";
+"home.ui.card.trip" = "Carrier Request";
+"home.ui.card.send" = "Sender Request";
 "home.ui.card.location-empty" = "Unable to locate";
 "home.ui.card.trip-empty" = "No trip information";
 
-
 // MARK: - Sender
 "sender.ui.title.new-request" = "New Request";
-"sender.ui.placeholder.new-code" = "Please enter 6 characters trip code.";
+"sender.ui.placeholder.new-code" = "6-char trip code.";
 "sender.error.title.youxiangcode-type" = "Trip Code Error";
 "sender.error.message.youxiangcode-type" = "Trip code contains 6 characters including alphabets and numbers.";
 "sender.error.title.youxiangcode" = "Trip Code Error";
@@ -139,7 +138,7 @@
 // MARK: - Request
 "request.ui.status.waiting" = "Waiting";
 "request.ui.status.rejected" = "Rejected";
-"request.ui.status.accepted" = "Acccepted";
+"request.ui.status.accepted" = "Accepted";
 "request.ui.status.cancelled" = "Cancelled";
 "request.ui.status.paid" = "Paid";
 "request.ui.status.indelivery" = "In Delivery";
@@ -291,4 +290,3 @@
 "managers.confirm.title.share" = "Carryon deliver to your love ones.";
 "managers.confirm.message.share" = "Subscribe to your website to get more information";
 "managers.confirm.message.share-media-tag" = "#carryonex";
-
