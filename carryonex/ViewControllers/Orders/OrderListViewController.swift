@@ -11,7 +11,6 @@ import UIKit
 
 class OrderListViewController: UIViewController {
     
-//    let tripInfoSegue = "gotoOrdersYouxiangInfo"
     let requestDetailSegue = "gotoOrdersRequestDetail"
     let shiperCellId = "OrderListCardShiperCell"
     let senderCellId = "OrderListCardSenderCell"
@@ -41,15 +40,15 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var activityIndicator: BPCircleActivityIndicator!
+    var refresherShiper: UIRefreshControl!
+    var refresherSender: UIRefreshControl!
+    
     var isFetching: Bool = false {
         didSet{
             if isFetching {
-                activityIndicator.isHidden = false
-                activityIndicator.animate()
+                
             } else {
-                activityIndicator.stop()
-                activityIndicator.isHidden = true
+                refresherShiper.endRefreshing()
             }
         }
     }
@@ -81,9 +80,7 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    var refreshShipperControl: UIActivityIndicatorView! // TGRefreshSwift!
-    var refreshSenderControl:  UIActivityIndicatorView! // TGRefreshSwift!
-
+    
     
     //MARK: - View Cycle
     
@@ -96,17 +93,10 @@ class OrderListViewController: UIViewController {
         
         setupSwipeGestureRecognizer()
         
-        //FIXME: Find out why table view constraint is wrong
-        //TODO: constraints are ok, if nothing wrong then remove both lines when you see this; - Xin
         tableViewLeftConstraint.constant = 0
         sliderBarCenterConstraint.constant = 0
         setupTableViews()
-        setupRefreshController()
-        //Setup activity indicator
-        activityIndicator = BPCircleActivityIndicator()
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
-        activityIndicator.isHidden = true
-        view.addSubview(activityIndicator)
+        setupTableViewRefreshers()
         reloadData()
         
         loadImageUrlsOfCurrentCity()
@@ -136,40 +126,12 @@ class OrderListViewController: UIViewController {
     }
     
     
-    //MARK: - Helper Methods
-    
-    private func setupRefreshController(){
-        //添加刷新
-        refreshShipperControl = UIActivityIndicatorView() // TGRefreshSwift()
-        //refreshShipperControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        tableViewShiper.addSubview(refreshShipperControl)
-        
-        refreshSenderControl = UIActivityIndicatorView() // TGRefreshSwift()
-        //refreshSenderControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        tableViewSender.addSubview(refreshSenderControl)
-    }
-    
-    func refreshData(){
-        if listType == .carrier {
-            refreshShipperControl.startAnimating() //.beginRefreshing()
-        } else {
-            refreshSenderControl.startAnimating() //.beginRefreshing()
-        }
-        TripOrderDataStore.shared.pull(category: listType, completion: {
-            let time: TimeInterval = 1.0
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-                if self.listType == .carrier {
-                    self.refreshShipperControl.stopAnimating() //.endRefreshing()
-                } else {
-                    self.refreshSenderControl.stopAnimating() //.endRefreshing()
-                }
-            }
-        })
-    }
     
     func reloadData() {
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
         senderRequests = TripOrderDataStore.shared.getSenderRequests()
+        refresherShiper.endRefreshing()
+        refresherSender.endRefreshing()
         if carrierTrips.count != 0{
             tableViewShiper.tableFooterView = nil
         }
@@ -193,10 +155,22 @@ class OrderListViewController: UIViewController {
     private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
-        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper,tag:0)
-        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender,tag:1)
+        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper, tag:0)
+        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender, tag:1)
     }
     
+    private func setupTableViewRefreshers(){
+        refresherSender = UIRefreshControl()
+        refresherSender.tintColor = colorTheamRed
+        refresherSender.addTarget(self, action: #selector(pullNextPage), for: .valueChanged)
+        self.tableViewSender.addSubview(refresherSender)
+        //
+        refresherShiper = UIRefreshControl()
+        refresherShiper.tintColor = colorTheamRed
+        refresherShiper.addTarget(self, action: #selector(pullNextPage), for: .valueChanged)
+        self.tableViewShiper.addSubview(refresherShiper)
+    }
+
     private func setupLoadMoreView(tableView:UITableView,tag:Int) -> UIView{
         let footView = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height, width:tableView.bounds.size.width, height: 150))
         let blankNoticeImg = UIImageView()
@@ -276,14 +250,18 @@ extension OrderListViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
         if (bottomEdge >= scrollView.contentSize.height) {
-            if !isFetching {
-                print("Hit bottom 1: scrollViewDidEndDecelerating")
-                isFetching = true
-                TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
-                    self.reloadData()
-                    self.isFetching = false
-                })
-            }
+            pullNextPage()
+        }
+    }
+    
+    public func pullNextPage(){
+        if !isFetching {
+            print("Hit bottom 1: scrollViewDidEndDecelerating")
+            isFetching = true
+            TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
+                self.reloadData()
+                self.isFetching = false
+            })
         }
     }
     
