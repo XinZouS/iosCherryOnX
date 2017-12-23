@@ -72,7 +72,7 @@ extension WalletManager {
         
         AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
             
-            if let result = result {
+            if let result = result as? [String: Any]{
                 print("Result Dict: \(result)")
                 var isSuccess = false
                 if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
@@ -82,12 +82,10 @@ extension WalletManager {
                 AnalyticsManager.shared.finishTimeTrackingKey(.requestPayTime)
                 
                 //Validation
-                let responseResult = result["result"] as? [String: Any]
-                let response = responseResult?["alipay_trade_app_pay_response"] as? [String: Any]
-                let sign = responseResult?["sign"] as? String
                 
-                /*
-                if responseResult!, response!, sign! {
+                if let responseResult = result["result"] as? [String: Any],
+                    let response = responseResult["alipay_trade_app_pay_response"] as? [String: Any],
+                    let sign = responseResult["sign"] as? String {
                     ApiServers.shared.postWalletAliPayValidation(response: response,
                                                                  sign: sign,
                                                                  isSuccess: isSuccess,
@@ -99,7 +97,6 @@ extension WalletManager {
                                                                     print("Validation success")
                     })
                 }
-                */
                 
             } else {
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
