@@ -153,9 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DeeplinkNavigator.handleDeeplink(url)
         }
         
-        if url.host == "safepay" {
-            WalletManager.shared.aliPayHandleOrderUrl(url)
-        }
+        WalletManager.shared.aliPayHandleOrderUrl(url)
         
         FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         WXApi.handleOpen(url, delegate: WeChatAPIManager.shared)
