@@ -151,8 +151,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if url.scheme == "carryonex" {
             DeeplinkNavigator.handleDeeplink(url)
-            
-        } else if url.host == "safepay" {
+        }
+        
+        if url.host == "safepay" {
             WalletManager.shared.aliPayHandleOrderUrl(url)
         }
         
@@ -172,10 +173,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Show alert when push notification is recieved
         if let mainViewController = self.mainTabViewController {
-            if let page = userInfo["page"] as? String, let aps = userInfo["aps"] as? [String: Any], let title = aps["alert"] as? String {
+            if let page = userInfo["page"] as? String,
+                let aps = userInfo["aps"] as? [String: Any],
+                let title = aps["alert"] as? String {
                 let category: TripCategory = (page == "carrier") ? .sender : .carrier
                 mainViewController.displayGlobalAlert(title: "寄件状态已更新", message: title, action: L("action.ok"), completion: {
-                    TripOrderDataStore.shared.pull(category: category, completion: nil)
+                    if let statusId = userInfo["request_status_id"] as? Int,
+                        let url = userInfo["url"] as? String,
+                        let requestIdString = URL.getQueryStringParameter(url: url, param: "request_id"),
+                        let requestId = Int(requestIdString) {
+                        TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
+                    }
                 })
             }
         }

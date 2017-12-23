@@ -33,11 +33,11 @@ class Request: Unboxable, Identifiable {
     var priceStd: Int?
     var currency: String?
     var createdTimestamp: Int
-    var images: [RequestImage] = []
+    var images: [RequestImage]? = []
     
     let ownerId: Int
     let ownerUsername: String
-    let ownerRating: Double
+    let ownerRating: Double?
     var ownerImageUrl: String?
     var ownerRealName: String?
 
@@ -59,10 +59,10 @@ class Request: Unboxable, Identifiable {
         self.priceStd = try? unboxer.unbox(key: RequestKeyInDB.priceStd.rawValue)
         self.currency = try? unboxer.unbox(key: RequestKeyInDB.currency.rawValue)
         self.createdTimestamp = try unboxer.unbox(key: RequestKeyInDB.createdTimestamp.rawValue)
-        self.images = try unboxer.unbox(key: RequestKeyInDB.images.rawValue)
+        self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         self.commentStatus = try unboxer.unbox(key: RequestKeyInDB.commentStatus.rawValue)
         
-        self.ownerRating = try! unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
+        self.ownerRating = try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue) ?? 0.0
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
     }
@@ -112,6 +112,13 @@ class Request: Unboxable, Identifiable {
             return nil
         }
         return (userId == ownerId) ? .sender : .carrier
+    }
+    
+    func getImages() -> [RequestImage] {
+        if let requestImages = self.images {
+            return requestImages
+        }
+        return [RequestImage]()
     }
 }
 

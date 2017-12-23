@@ -951,24 +951,20 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let code = response[ServerKey.statusCode.rawValue] as? Int {
-                if code == 200 && response[ServerKey.data.rawValue] != nil {
-                    print("Code 200, update successful")
-                    completion(true, nil, requestId)
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                
+                do {
+                    let request: Request = try unbox(dictionary: data, atKey: "request")
+                    completion(true, nil, request.statusId)
                     
-                } else {
-                    if let data = response[ServerKey.data.rawValue] as? [String: Any], let statusCode = data[RequestKeyInDB.status.rawValue] as? Int {
-                        completion(false, nil, statusCode)
-                        
-                    } else {
-                        debugPrint("Transmission \(code) and missing data...")
-                        completion(false, nil, nil)
-                    }
+                } catch let error {
+                    completion(false, error, nil)
+                    print("Get error when postRequestTransaction. Error = \(error.localizedDescription)")
                 }
                 
             } else {
-                print("Code is missing, update failed")
                 completion(false, nil, nil)
+                print("postRequestTransaction no data error")
             }
         }
     }

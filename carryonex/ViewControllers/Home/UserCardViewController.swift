@@ -74,7 +74,7 @@ class UserCardViewController: UIViewController {
             timeLabel.text = trip.cardDisplayTime()
             beginLocationLabel.text = trip.startAddress?.fullAddressString()
             endLocationLabel.text = trip.endAddress?.fullAddressString()
-            if request.images.count > 0, let imageUrl = URL(string: request.images[0].imageUrl) {
+            if request.getImages().count > 0, let imageUrl = URL(string: request.getImages().first!.imageUrl) {
                 if category == .carrier{
                     requestImageView.af_setImage(withURL: imageUrl, placeholderImage: #imageLiteral(resourceName: "empty1"))
                 }else{
