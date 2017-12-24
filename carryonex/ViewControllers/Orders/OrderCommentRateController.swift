@@ -90,8 +90,11 @@ class OrderCommentRateController: UIViewController {
                     print("Comment error: \(error.localizedDescription)")
                     return
                 }
-                print("Comment success!")
                 
+                if let category = self.category {
+                    TripOrderDataStore.shared.updateRequestToCommented(category: category, requestId: self.requestId)
+                }
+                                            
                 self.displayAlert(title: L("orders.confirm.title.comment"),
                                   message: L("orders.confirm.message.comment"),
                                   action: L("action.ok"), completion: { [weak self] _ in

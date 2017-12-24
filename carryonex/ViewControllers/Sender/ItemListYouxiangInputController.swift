@@ -10,7 +10,17 @@ import UIKit
 
 class ItemListYouxiangInputController: UIViewController {
     
-    var tripCode: String?
+    var tripCode: String? {
+        didSet {
+            if youxiangcodeTextField != nil {
+                youxiangcodeTextField.text = tripCode
+                if let tripCode = tripCode, tripCode.count == 6 {
+                    fetchTripByYouxiangcode(tripCode)
+                    return
+                }
+            }
+        }
+    }
     
     @IBOutlet weak var youxiangcodeTextField: ThemTextField!
     @IBOutlet weak var goDetailButton: UIButton!
