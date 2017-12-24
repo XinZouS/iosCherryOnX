@@ -167,22 +167,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
         print("Remote notification: \(userInfo)")
+        
+        guard let url = userInfo["url"] as? String,
+            let deeplink = URL(string: url),
+            let host = deeplink.host,
+            let navPage = NavigationPage(rawValue: host) else {
+                print("Invalid Deeplink")
+                return
+        }
         
         //Show alert when push notification is recieved
         if let mainViewController = self.mainTabViewController {
-            if let page = userInfo["page"] as? String,
-                let aps = userInfo["aps"] as? [String: Any],
-                let title = aps["alert"] as? String {
-                let category: TripCategory = (page == "carrier") ? .sender : .carrier
-                mainViewController.displayGlobalAlert(title: "寄件状态已更新", message: title, action: L("action.ok"), completion: {
-                    if let statusId = userInfo["request_status_id"] as? Int,
-                        let url = userInfo["url"] as? String,
-                        let requestIdString = URL.getQueryStringParameter(url: url, param: "request_id"),
-                        let requestId = Int(requestIdString) {
-                        TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
-                    }
-                })
+            if navPage == .requestDetail {
+                if let page = userInfo["page"] as? String,
+                    let aps = userInfo["aps"] as? [String: Any],
+                    let title = aps["alert"] as? String {
+                    let category: TripCategory = (page == "carrier") ? .sender : .carrier
+                    mainViewController.displayGlobalAlert(title: "寄件状态已更新", message: title, action: L("action.ok"), completion: {
+                        if let statusId = userInfo["request_status_id"] as? Int,
+                            let url = userInfo["url"] as? String,
+                            let requestIdString = URL.getQueryStringParameter(url: url, param: "request_id"),
+                            let requestId = Int(requestIdString) {
+                            
+                            if statusId == RequestStatus.waiting.rawValue {    //New item
+                                TripOrderDataStore.shared.pull(category: category, completion: {
+                                    if let deeplinkUrl = URL(string: url) {
+                                        DeeplinkNavigator.handleDeeplink(deeplinkUrl)
+                                    }
+                                    TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
+                                })
+                                
+                            } else {
+                                if let deeplinkUrl = URL(string: url) {
+                                    DeeplinkNavigator.handleDeeplink(deeplinkUrl)
+                                }
+                                TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
+                            }
+                        }
+                    })
+                }
+                
+            } else if navPage == .comments {
+                if let aps = userInfo["aps"] as? [String: Any],
+                    let message = aps["alert"] as? String {
+                    mainViewController.displayGlobalAlert(title: "收到新评价", message: message, action: L("action.ok"), completion: {
+                        DeeplinkNavigator.handleDeeplink(deeplink)
+                    })
+                }
             }
         }
     }

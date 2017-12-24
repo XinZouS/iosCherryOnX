@@ -12,9 +12,9 @@ enum NavigationPage: String {
     case home = "home"
     case trip = "trip"
     case request = "request"
-    case requestDetail = "request-detail"
-    case carrierList = "carrier-list"
-    case senderList = "sender-list"
+    case requestDetail = "request_detail"
+    case carrierList = "carrier_list"
+    case senderList = "sender_list"
     case settings = "settings"
     case comments = "comments"
 }
@@ -63,6 +63,12 @@ class DeeplinkNavigator: NSObject {
     }
     
     static private func navigateToNewRequest(tripCode: String) {
+        
+        if let newRequestCodeViewController = UIViewController.topViewController() as? ItemListYouxiangInputController {
+            newRequestCodeViewController.tripCode = tripCode
+            return
+        }
+        
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.home)
         if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
@@ -74,6 +80,11 @@ class DeeplinkNavigator: NSObject {
     }
     
     static private func navigateToRequest(_ requestId: Int) {
+        
+        if UIViewController.topViewController() as? OrdersRequestDetailViewController != nil {
+            return
+        }
+        
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.order)
         
@@ -82,6 +93,11 @@ class DeeplinkNavigator: NSObject {
             
         } else if let request = TripOrderDataStore.shared.getRequest(category: .sender, requestId: requestId) {
             AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+        
+        } else {
+            TripOrderDataStore.shared.pullAll(completion: {
+                self.navigateToRequest(requestId)
+            })
         }
     }
     

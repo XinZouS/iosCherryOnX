@@ -47,7 +47,7 @@ extension UIViewController {
         
         v.addAction(action)
         
-        if let topVC = topViewController(base: self) {
+        if let topVC = UIViewController.topViewController(base: self) {
             topVC.present(v, animated: true, completion: nil)
         }
     }
@@ -62,12 +62,12 @@ extension UIViewController {
             v.addAction(action)
         }
         
-        if let topVC = topViewController(base: self) {
+        if let topVC = UIViewController.topViewController(base: self) {
             topVC.present(v, animated: true, completion: nil)
         }
     }
 
-    func topViewController(base: UIViewController? = ((UIApplication.shared).delegate as! AppDelegate).window?.rootViewController) -> UIViewController? {
+    static func topViewController(base: UIViewController? = ((UIApplication.shared).delegate as! AppDelegate).window?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
         }
