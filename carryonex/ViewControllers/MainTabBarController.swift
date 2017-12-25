@@ -190,6 +190,11 @@ class MainTabBarController: UITabBarController {
             self?.showLogin(true)
         }
         
+        NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            self?.circleIndicator.stop()
+            self?.circleIndicator.isHidden = true
+        }
+        
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
             self?.displayAlert(title: "登录异常", message: "登录设备曾经变更，请重新登录", action: "重新登录") {

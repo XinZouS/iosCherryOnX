@@ -10,9 +10,9 @@ import Foundation
 import MapKit
 import Unbox
 
-enum Transportation : String, UnboxableEnum {
-    case trunk = "Trunk"
-    case luggage = "Luggage"
+enum Transportation : Int {
+    case trunk = 0
+    case luggage = 1
     
     func rawValueCN() -> String {
         switch self {
@@ -64,7 +64,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     
     var id: Int = -999
     var tripCode: String = ""
-    var transportation: Transportation = .trunk
+    var transportation: Int = 0
     
     var totalLength: Double = 0.0
     var totalWidth:  Double = 0.0
@@ -103,7 +103,6 @@ class Trip : NSObject, Unboxable, Identifiable {
     
     override init() {
         super.init()
-        self.transportation = .trunk
         self.startAddress = Address()
         self.endAddress = Address()
         self.pickupTimeStart = Date().timeIntervalSince1970
@@ -113,7 +112,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     required init(unboxer: Unboxer) {
         self.id = (try? unboxer.unbox(key: TripKeyInDB.id.rawValue)) ?? -1
         self.tripCode = (try? unboxer.unbox(key: TripKeyInDB.tripCode.rawValue)) ?? "no_code"
-        self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? Transportation.trunk
+        self.transportation = (try? unboxer.unbox(key: TripKeyInDB.transportation.rawValue)) ?? 0
 
         self.startAddress = try? unboxer.unbox(key: TripKeyInDB.startAddress.rawValue)
         self.endAddress = try? unboxer.unbox(key: TripKeyInDB.endAddress.rawValue)
@@ -138,7 +137,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     func packAsDictionaryForDB() -> [String: Any] {
         var json = [String: Any]()
         
-        json[TripKeyInDB.transportation.rawValue] = transportation.rawValue
+        json[TripKeyInDB.transportation.rawValue] = transportation
         
         json[TripKeyInDB.startAddress.rawValue] = startAddress?.packAsDictionaryForDB()
         json[TripKeyInDB.endAddress.rawValue] = endAddress?.packAsDictionaryForDB()
