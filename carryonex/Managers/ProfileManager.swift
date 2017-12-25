@@ -89,9 +89,8 @@ class ProfileManager: NSObject {
                 return
             }
             
-            guard userToken == nil else {
-                let msg = "Unable to retrieve token"
-                print(msg)
+            guard userToken != nil else {
+                print("Unable to retrieve token")
                 completion(false, error, .userAlreadyExist)
                 return
             }
