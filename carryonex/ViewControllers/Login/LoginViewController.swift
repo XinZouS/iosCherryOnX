@@ -136,9 +136,7 @@ class LoginViewController: UIViewController {
         
         ProfileManager.shared.login(phone: phone, password: password) { (success) in
             if success {
-                self.dismiss(animated: true, completion: {
-                    TripOrderDataStore.shared.pullAll(completion: nil)
-                })
+                self.dismiss(animated: true, completion: nil)
                 AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                 AnalyticsManager.shared.trackCount(.loginByEmailCount)
             } else {

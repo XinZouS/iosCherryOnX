@@ -279,6 +279,7 @@ class ProfileManager: NSObject {
         }
         
         NotificationCenter.default.post(name: .UserDidUpdate, object: nil)
+        TripOrderDataStore.shared.pullAll(completion: nil)
     }
     
     private func saveUserTokenToKeychain(username: String, userToken: String) {
