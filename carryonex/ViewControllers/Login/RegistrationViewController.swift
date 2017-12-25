@@ -106,12 +106,6 @@ class RegistrationViewController: UIViewController {
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
                                         }
-//                                        else {
-//                                            let e1 = "您所使用的手机号已注册，请使用密码登陆即可。"
-//                                            let e2 = "注册出现错误，请确保所填信息正确，稍后再试一次。\n错误: \(err.debugDescription)"
-//                                            let msg = (errType == ErrorType.userAlreadyExist ? e1 : e2)
-//
-//                                        }
         })
     }
     

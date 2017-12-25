@@ -89,30 +89,14 @@ class ProfileManager: NSObject {
                 return
             }
             
-            guard let userToken = userToken else {
+            guard userToken == nil else {
                 let msg = "Unable to retrieve token"
                 print(msg)
                 completion(false, error, .userAlreadyExist)
                 return
             }
             
-            ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
-                if let error = error {
-                    let msg = "loadLocalUser Error: \(error.localizedDescription)"
-                    print(msg)
-                    completion(false, error, .userLoadLocalFail)
-                    return
-                }
-                
-                if let profileInfo = homeProfileInfo {
-                    self.updateHomeProfileInfo(profileInfo, writeToKeychain: true)
-                    completion(true, error, .noError)
-                } else {
-                    let msg = "return user info is nil"
-                    print(msg)
-                    completion(false, error, .userInfoNull)
-                }
-            })
+            completion(true, nil, .noError)
         }
     }
     
