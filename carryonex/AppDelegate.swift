@@ -66,21 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
         }
         
-        initialDataLoad()
-        
         return true
-    }
-    
-    private func initialDataLoad() {
-        ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-            if isSuccess {
-                APIServerChecker.testAPIServers()
-            }
-        })
-        
-        TripOrderDataStore.shared.pullAll(completion: {
-            print("Pull ALL completed")
-        })
     }
     
     /**
