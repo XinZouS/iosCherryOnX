@@ -34,7 +34,6 @@ protocol MainNavigationProtocol {
 
 class MainTabBarController: UITabBarController {
     
-    var activityIndicator: UIActivityIndicatorCustomizeView! // UIActivityIndicatorView!
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
     var loginViewController: LoginViewController?
@@ -49,6 +48,8 @@ class MainTabBarController: UITabBarController {
         
         addObservers()
         setupActivityIndicator()
+        initialDataLoad()
+        
         if let viewControllers = self.viewControllers as? [UINavigationController] {
             for navigationController in viewControllers {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
@@ -117,7 +118,24 @@ class MainTabBarController: UITabBarController {
         }
     }
     
+    
     //MARK: - Helpers
+    
+    private func initialDataLoad() {
+        self.circleIndicator.isHidden = false
+        self.circleIndicator.animate()
+        ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+            if isSuccess {
+                APIServerChecker.testAPIServers()
+            }
+        })
+        
+        TripOrderDataStore.shared.pullAll(completion: {
+            print("Pull ALL completed")
+            self.circleIndicator.isHidden = true
+            self.circleIndicator.stop()
+        })
+    }
     
     public func selectTabIndex(index: TabViewIndex) {
         self.selectedIndex = index.rawValue
