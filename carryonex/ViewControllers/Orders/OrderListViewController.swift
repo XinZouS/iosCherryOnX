@@ -109,7 +109,7 @@ class OrderListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        TripOrderDataStore.shared.pull(category: listType, completion: nil)
+        //TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

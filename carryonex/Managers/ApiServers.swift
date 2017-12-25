@@ -542,7 +542,8 @@ class ApiServers : NSObject {
     
     
     func getUsersTrips(userType: TripCategory, offset: Int = -1, pageCount: Int = -1, sinceTime: Int = -1, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+        
+        guard let username = ProfileManager.shared.username, let token = ProfileManager.shared.userToken else {
             print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
             completion(nil, nil)
             return
@@ -551,8 +552,8 @@ class ApiServers : NSObject {
         let route = hostVersion + "/users/trips"
         var parameters : [String: Any] = [
             ServerKey.appToken.rawValue : appToken,
-            ServerKey.userToken.rawValue: profileUser.token ?? "",
-            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.username.rawValue: username,
+            ServerKey.userToken.rawValue: token,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
             ServerKey.userType.rawValue: userType.stringValue
         ]
