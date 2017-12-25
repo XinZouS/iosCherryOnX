@@ -65,7 +65,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.mainNavigationController = mainNavigationController
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
         }
+        
+        initialDataLoad()
+        
         return true
+    }
+    
+    private func initialDataLoad() {
+        ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+            if isSuccess {
+                APIServerChecker.testAPIServers()
+            }
+        })
+        
+        TripOrderDataStore.shared.pullAll(completion: {
+            print("Pull ALL completed")
+        })
     }
     
     /**
@@ -121,10 +136,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         
-        //Pull when app comes to foreground, refresh store
-        TripOrderDataStore.shared.pullAll(completion: {
-            print("Pull ALL completed")
-        })
+        if ProfileManager.shared.isLoggedIn() {
+            //Pull when app comes to foreground, refresh store
+            TripOrderDataStore.shared.pullAll(completion: {
+                print("Pull ALL completed")
+            })
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

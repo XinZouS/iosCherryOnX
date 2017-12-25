@@ -12,7 +12,7 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
-    private let pullPageCount = 2
+    private let pullPageCount = 4
     
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
@@ -161,11 +161,22 @@ class TripOrderDataStore: NSObject {
     }
     
     func pullAll(delay: Int = 0, completion:(() -> Void)?) {
-        pull(category: .carrier, shouldNotify: false) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.pull(category: .sender, shouldNotify: true, completion: {
-                completion?()
-            })
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        pull(category: .carrier, shouldNotify: false) { _ in
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        pull(category: .sender, shouldNotify: false) { _ in
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+            completion?()
         }
     }
     
@@ -181,30 +192,27 @@ class TripOrderDataStore: NSObject {
     
     private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, delay: Int = 0, completion:(([TripOrder]?) -> Void)?) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(delay)) {
+        print("PULL CATEGORY: \(category)")
+        
+        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
+            if let error = error {
+                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                return
+            }
             
-            print("PULL CATEGORY: \(category)")
+            if let tripOrders = tripOrders {
+                completion?(tripOrders)
+            } else {
+                completion?(nil)
+                print("No new update since: \(sinceTime)")
+            }
             
-            ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
-                if let error = error {
-                    print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
-                    return
-                }
-                
-                if let tripOrders = tripOrders {
-                    completion?(tripOrders)
-                } else {
-                    completion?(nil)
-                    print("No new update since: \(sinceTime)")
-                }
-                
-                if category == .carrier {
-                    self.lastCarrierFetchTime = Date.getTimestampNow()
-                    print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
-                } else {
-                    self.lastSenderFetchTime = Date.getTimestampNow()
-                    print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
-                }
+            if category == .carrier {
+                self.lastCarrierFetchTime = Date.getTimestampNow()
+                print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
+            } else {
+                self.lastSenderFetchTime = Date.getTimestampNow()
+                print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
             }
         }
     }

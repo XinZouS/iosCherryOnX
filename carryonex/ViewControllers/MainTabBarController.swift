@@ -63,11 +63,6 @@ class MainTabBarController: UITabBarController {
         isItHaveLogIn(false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadingDisplay()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -155,32 +150,11 @@ class MainTabBarController: UITabBarController {
         }
     }
     
-    private func loadingDisplay(){
-        if !appDidLaunch {
-            self.circleIndicator.isHidden = false
-            DispatchQueue.main.async(execute: {
-                self.circleIndicator.animate()
-            })
-            ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
-                if isSuccess {
-                    APIServerChecker.testAPIServers()
-                    TripOrderDataStore.shared.pullAll(completion: {
-                        print("Pull ALL completed")
-                    })
-                }
-                self.circleIndicator.stop()
-                self.circleIndicator.isHidden = true
-                appDidLaunch = true
-            })
-        }
-    }
-    
     private func showLogin(_ animated: Bool) {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
             self.present(loginViewContainer, animated: animated) { [weak self]_ in
                 self?.selectedIndex = 0
                 self?.circleIndicator.stop()
-                appDidLaunch = false
             }
         } else {
             debugLog("Something is wrong with the Login storyboard, please check.")
