@@ -856,7 +856,7 @@ class ApiServers : NSObject {
         if imageUrls.count > 0 {
             var requestImages = [Any]()
             for url in imageUrls {
-                let item = ["url": url]
+                let item = ["image_url": url, "thumbnail_url": url] //Use thumbnail url for thumbnail image
                 requestImages.append(item)
             }
             requestDict[RequestKeyInDB.images.rawValue] = requestImages
