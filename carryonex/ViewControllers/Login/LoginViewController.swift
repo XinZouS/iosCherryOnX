@@ -285,21 +285,32 @@ extension LoginViewController {
 
 extension LoginViewController: UITextFieldDelegate {
      func registerWeChatUser(openId: String, accessToken: String) {
+        
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
+        
+        self.circleIndicator.isHidden = false
+        self.circleIndicator.animate()
+        
         self.quickDataFromUrl(url: requestUrl) { [weak self] jsonResult in
-            self?.circleIndicator.stop()
-            self?.circleIndicator.isHidden = true
+            
             guard let jsonResult = jsonResult else { return }
+            
             if let username = jsonResult["openid"] as? String,
                 let imgUrl = jsonResult["headimgurl"] as? String,
                 let realName = jsonResult["nickname"] as? String {
+                
                 ApiServers.shared.getIsUserExisted(phoneInput: username, completion: { (success, err) in
+                    
                     if success {
                         ProfileManager.shared.login(username: username, password: username.quickTossPassword(), completion: { (success) in
+                            
                             if success {
                                 ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
+                                    
+                                    self?.circleIndicator.stop()
+                                    self?.circleIndicator.isHidden = true
+                                    
                                     if success {
-                                        self?.circleIndicator.stop()
                                         //if update success close
                                         self?.dismiss(animated: true, completion: nil)
                                         AnalyticsManager.shared.trackCount(.loginByWeChatCount)
@@ -308,18 +319,23 @@ extension LoginViewController: UITextFieldDelegate {
                                         debugPrint("Wechat registration update user info failed at user exists")
                                     }
                                 })
+                            
                             } else {
+                                self?.circleIndicator.stop()
+                                self?.circleIndicator.isHidden = true
                                 debugPrint("User exists login failed")
                             }
                         })
+                        
                     } else {
                         let password = username.quickTossPassword()
                         ProfileManager.shared.register(username: username, password: password, name: realName, completion: { (success, err, errType) in
                             if success {
                                 ProfileManager.shared.login(username: username, password: password, completion: { (success) in
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (updateSuccess) in
+                                        self?.circleIndicator.stop()
+                                        self?.circleIndicator.isHidden = true
                                         if updateSuccess {
-                                            self?.circleIndicator.stop()
                                             self?.dismiss(animated: true, completion: nil)
                                             AnalyticsManager.shared.trackCount(.registerByWeChatCount)
                                             AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
@@ -329,6 +345,8 @@ extension LoginViewController: UITextFieldDelegate {
                                     })
                                 })
                             } else {
+                                self?.circleIndicator.stop()
+                                self?.circleIndicator.isHidden = true
                                 if let error = err {
                                     debugPrint("Wechat registration error: \(error.localizedDescription). Error Type: \(errType)")
                                 } else {
@@ -338,7 +356,10 @@ extension LoginViewController: UITextFieldDelegate {
                         })
                     }
                 })
+                
             } else {
+                self?.circleIndicator.stop()
+                self?.circleIndicator.isHidden = true
                 debugPrint("Invalid JSON result: \(jsonResult)")
             }
         }
