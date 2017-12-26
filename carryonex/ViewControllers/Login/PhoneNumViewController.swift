@@ -302,8 +302,8 @@ extension PhoneNumViewController: UITextFieldDelegate {
         sendButton.isEnabled = isFormatOK
         sendButton.backgroundColor = sendButton.isEnabled ? colorOkgreen : colorErrGray
         
-        let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
-        print(msg + ": \(zoneCodeInput) \(phoneInput)")
+        //let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
+        //print(msg + ": \(zoneCodeInput) \(phoneInput)")
     }
     
     private func updateNextButton(){

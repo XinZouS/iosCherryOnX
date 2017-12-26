@@ -89,7 +89,7 @@ class ProfileManager: NSObject {
                 return
             }
             
-            guard userToken != nil else {
+            if userToken == nil {
                 print("Unable to retrieve token")
                 completion(false, error, .userAlreadyExist)
                 return
@@ -202,7 +202,8 @@ class ProfileManager: NSObject {
         
         ApiServers.shared.postUpdateUserInfo(type, value: value) { (success, error) in
             if let error = error {
-                print("updateImageUrl Error: \(error.localizedDescription)")
+                print("updateUserInfo Error: \(error.localizedDescription)")
+                return
             }
             
             if success {
