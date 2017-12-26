@@ -88,20 +88,31 @@ class RegistrationViewController: UIViewController {
                                        password: password,
                                        name: name,
                                        completion: { (success, err, errType) in
+                                        
                                         if success {
-                                            ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
+                                            print("注册成功...")
+                                            ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
                                                 if success {
-                                                    ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
-                                                        self.dismiss(animated: true, completion: nil)
-                                                        AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
-                                                    })
+                                                    print("注册后登入成功...")
+                                                    ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
+                                                        if success {
+                                                            self.dismiss(animated: true, completion: nil)
+                                                            AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
+                                                        } else {
+                                                            self.displayGlobalAlert(title: L("register.error.title.verify"),
+                                                                                    message: L("register.error.message.verify-phone"),
+                                                                                    action: L("register.error.action.verify"), completion: nil)
+                                                        }
+                                                    }
                                                 } else {
-                                                    self.displayGlobalAlert(title: L("register.error.title.verify"), message: L("register.error.message.verify-phone"), action: L("register.error.action.verify"), completion: { [weak self] _ in
-                                                        self?.navigationController?.popToRootViewController(animated: true)
-                                                    })
+                                                    print("登入失败")
+                                                    self.displayGlobalAlert(title: "登入失败",
+                                                                            message: "注册成功但登入失败，请检查你的网络。",
+                                                                            action: L("action.ok"), completion: nil)
                                                 }
-                                            }
+                                            })
                                         } else {
+                                            print("注册失败")
                                             self.displayGlobalAlert(title: L("register.error.title.failed"), message: L("register.error.message.failed") + ": \(err?.localizedDescription ?? L("register.error.title.failed"))", action: L("action.ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
