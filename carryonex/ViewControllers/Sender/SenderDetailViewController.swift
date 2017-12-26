@@ -199,10 +199,8 @@ class SenderDetailViewController: UIViewController{
     var isLoading: Bool = false {
         didSet{
             if isLoading {
-                activityIndicator.isHidden = false
                 activityIndicator.animate()
             } else {
-                activityIndicator.isHidden = true //BUG: TODO: UIView.hidden must be used from main thread only
                 activityIndicator.stop()
             }
             submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
@@ -253,13 +251,6 @@ class SenderDetailViewController: UIViewController{
         setupCountryCodeTextField()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //Redo this analytics
-        AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
-    }
-//
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == kShippInfoSegue {
 //            if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = trip {
@@ -459,6 +450,7 @@ class SenderDetailViewController: UIViewController{
         
         self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             self?.isLoading = false
+            self?.activityIndicator.isHidden = true
             guard let strongSelf = self else { return }
             
             if let err = error {
@@ -472,7 +464,15 @@ class SenderDetailViewController: UIViewController{
             }
             
             if let urls = urls, let trip = strongSelf.trip, let address = trip.endAddress {
-                
+                var imgUrls: [String] = []
+                var thumbnails: [String] = []
+                for url in urls {
+                    if url.contains("thumbnail") {
+                        thumbnails.append(url)
+                    }else{
+                        imgUrls.append(url)
+                    }
+                }
                 let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
                 let totalValue = Double(strongSelf.priceShipFee)
                 let cost = strongSelf.priceFinal
@@ -484,10 +484,13 @@ class SenderDetailViewController: UIViewController{
                                               cost: cost,
                                               destination: address,
                                               trip: trip,
-                                              imageUrls: urls,
+                                              imageUrls: imgUrls,
+                                              imageThumbnails: thumbnails,
                                               description: msg ?? "",
                                               completion: { (success, error, serverErr) in
                                                 
+                                                AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
+
                                                 if let error = error {
                                                     strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
@@ -587,11 +590,16 @@ extension SenderDetailViewController: UICollectionViewDelegate {
     
     func removeImagePairOfName(imgName: String) {
         for i in 0..<images.count {
-            print("get imageName = \(images[i].name!), target name = \(imgName), trying to remove it...")
+            debugPrint("get imageName = \(images[i].name!), target name = \(imgName), trying to remove it...")
             if images[i].name! == imgName {
                 images.remove(at: i)
                 imageUploadingSet.remove(imgName)
                 imageUploadSequence.removeValue(forKey: imgName)
+                if let baseName = imgName.components(separatedBy: ".").first {
+                    debugPrint("get imageName = \(imgName), target name = \(baseName)_thumbnail.JPG, trying to remove it...")
+                    imageUploadingSet.remove("\(baseName)_thumbnail.JPG")
+                    imageUploadSequence.removeValue(forKey: "\(baseName)_thumbnail.JPG")
+                }
                 collectionViewMasksHide(imageUploadingSet.count != 0)
                 print("OK, remove file success: \(imgName)")
                 return
@@ -612,16 +620,18 @@ extension SenderDetailViewController {
             if let img = getImg {
                 let formatter = DateFormatter()
                 formatter.timeZone = TimeZone.current
-                formatter.dateFormat = "yyyy_MM_dd_hhmmss"
-                let imgName = "\(formatter.string(from: Date())).JPG"
-                self.presentImageIntoCellCollectionView(img, imageName: imgName)
+                formatter.dateFormat = "yyyy_MM_dd_HHmmss"
+                let dateTimeStr: String = formatter.string(from: Date())
+                self.presentImageIntoCellCollectionView(img, baseName: dateTimeStr)
             }
             self.dismiss(animated: true, completion: nil)
         })
         self.present(cameraViewController, animated: true, completion: nil)
     }
     
-    private func presentImageIntoCellCollectionView(_ image: UIImage, imageName: String){
+    private func presentImageIntoCellCollectionView(_ image: UIImage, baseName: String){
+        // for original image uploading:
+        let imageName = baseName + ".JPG"
         let localFileUrl = self.saveImageToDocumentDirectory(img: image, name: imageName)
         self.imageUploadSequence[imageName] = localFileUrl
         self.imageUploadingSet.insert(imageName)
@@ -630,11 +640,20 @@ extension SenderDetailViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
+        // for thumbnail image uploading:
+        if let thumbnail: UIImage = image.getThumbnailImg(compression: 0.3, maxPixelSize: 200) {
+            let thumbnailName = baseName + "_thumbnail.JPG"
+            let localThumbnailUrl = self.saveImageToDocumentDirectory(img: thumbnail, name: thumbnailName)
+            self.imageUploadSequence[thumbnailName] = localThumbnailUrl
+            self.imageUploadingSet.insert(thumbnailName)
+        }else{
+            debugPrint("Error: SenderDetailViewController::saveThumbnailOf() unable to get thumbnail from image: ", baseName)
+        }
     }
     
     internal func uploadImagesToAwsAndGetUrls(completion: @escaping([String]?, Error?) -> Void) {
         
-        var urls = [String]()
+        var urls: [String] = []
         
         for pair in imageUploadSequence {
             let imageName = pair.key
@@ -654,12 +673,12 @@ extension SenderDetailViewController {
                         
                         if urls.count == self.imageUploadSequence.count {
                             urls.sort {$0 < $1}
-                            completion(urls, nil)
+                            completion(urls, err)
                             AnalyticsManager.shared.track(.viewImageCount, attributes: ["imageCount": urls.count])
                         }
                         
                     } else {
-                        completion(nil, nil)
+                        completion(nil, err)
                     }
                 })
                 
@@ -688,11 +707,17 @@ extension SenderDetailViewController {
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         
-        guard let filePath = documentUrl.path else { return }
-        print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+        guard let filePath = documentUrl.path, fileManager.fileExists(atPath: "\(filePath)/\(fileName)") else { return }
+        print("\ntry to removeImageWithUrlInLocalFileDirectory fileName = \(fileName), fileExistsAtPath== TRUE,")
         do {
-            try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-            print("OK remove file at path: \(filePath), fileName = \(fileName)")
+            if fileManager.fileExists(atPath: "\(filePath)/\(fileName)"){
+                try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
+                debugPrint("OK remove file at path: \(filePath), fileName = \(fileName)")
+            }
+            if let baseName = fileName.components(separatedBy: ".").first, fileManager.fileExists(atPath: "\(filePath)/\(baseName)_thumbnail.JPG") {
+                try fileManager.removeItem(atPath: "\(filePath)/\(baseName)_thumbnail.JPG")
+                debugPrint("OK remove thumbnail at path: \(filePath), fileName = \(baseName)_thumbnail.JPG")
+            }
         }catch let err {
             print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
         }

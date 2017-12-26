@@ -245,6 +245,7 @@ extension RequestController: UITextFieldDelegate {
                                                   destination: endAddress,
                                                   trip: trip,
                                                   imageUrls: urls,
+                                                  imageThumbnails: urls, // TODO: for now we don't use this RequestController, so put urls instead of thumbnails;
                                                   description: "",
                                                   completion: { (success, error, serverError) in
                         if let error = error {

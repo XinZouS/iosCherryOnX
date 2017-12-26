@@ -32,6 +32,20 @@ extension UIImage {
         return newImg
     }
     
+    func getThumbnailImg(compression: CGFloat, maxPixelSize: Int = 300) -> UIImage? {
+        let data = UIImageJPEGRepresentation(self, compression)! as CFData
+        if let source = CGImageSourceCreateWithData(data, nil) {
+            let options = [
+                kCGImageSourceCreateThumbnailWithTransform: true,
+                kCGImageSourceCreateThumbnailFromImageAlways: true,
+                kCGImageSourceThumbnailMaxPixelSize: maxPixelSize
+                ] as CFDictionary
+            if let imgRef = CGImageSourceCreateThumbnailAtIndex(source, 0, options){
+                return UIImage(cgImage: imgRef)
+            }
+        }
+        return nil
+    }
     
     // MARK: - Gif image
     
