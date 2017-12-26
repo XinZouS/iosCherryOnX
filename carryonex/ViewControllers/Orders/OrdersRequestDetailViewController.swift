@@ -611,7 +611,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     fileprivate func updateMapViewToShow(_ showMap: Bool){
         finishButtonStackViewHeighConstraint.constant = showMap ? 0 : 44
         mapViewHeighConstraint.constant = showMap ? mapView.bounds.width * 0.56 : 0 // 9:16 = 0.56
-        print("done, now buton heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
+        print("done, now button heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
         }
@@ -725,51 +725,26 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     func zoomToUserLocation(){
         
-        mapView.delegate = self
-        mapView.showsScale = true
         mapView.showsPointsOfInterest = true
-        mapView.showsUserLocation = true
         mapView.mapType = .hybrid
-        mapView.showsCompass = true
         
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        }
-        locationManager.requestLocation()
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        
-        // zoom in to user location
-        guard let loc = locationManager.location?.coordinate else { return }
-        let viewRegion = MKCoordinateRegionMakeWithDistance(loc, 600, 600)
-        mapView.setRegion(viewRegion, animated: false)
-        
-        DispatchQueue.main.async {
-            self.locationManager.startUpdatingLocation()
+        ApiServers.shared.getUserGPS(userId: trip.carrierId) { (gpsObject, error) in
+            if let error = error {
+                print("Order request get gps object error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let gps = gpsObject, let latitude = gps.latitude, let longitude = gps.longitude else {
+                print("No GPS values found.")
+                return
+            }
+            
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            let viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 600, 600)
+            self.mapView.setRegion(viewRegion, animated: false)
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            //print("update location: \(location)") // will do update every 1sec
-            let span = MKCoordinateSpanMake(0.03, 0.03)
-            let region = MKCoordinateRegionMake(location.coordinate, span)
-            mapView.setRegion(region, animated: true)
-            locationManager.stopUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("get errrorroro HomePageController++ locationManager didFailWithError: \(error)")
-        displayAlert(title: L("orders.error.title.gps"), message: L("orders.error.message.gps"), action: L("action.ok"))
-    }
     
     func updateSearchResults(for searchController: UISearchController) {
         print("TODO: updateSearchResults...")
@@ -799,44 +774,5 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
             let region = MKCoordinateRegionMake(placemark.coordinate, span)
             self.mapView.setRegion(region, animated: true)
         }
-    }
-    
-}
-
-
-// setup pin on the Map: MKMapViewDelegate, setup pin and its callout view
-extension OrdersRequestDetailViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            return nil //return nil so map view draws "blue dot" for standard user location
-        }
-        // Customized pinView:
-//        let reusePinId = "HomeMapPinId"
-//        //        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reusePinId, for: annotation)
-//        //        pinView.tintColor = .orange
-//        //        pinView.canShowCallout = true
-//
-//        var pinView: MKAnnotationView?
-//        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reusePinId) {
-//            pinView = dequeuedAnnotationView
-//            pinView?.annotation = annotation
-//        }else {
-//            pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reusePinId)
-//            pinView?.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
-//        }
-//        // customize annotationView image
-//        pinView?.canShowCallout = true
-//        //pinView?.image = #imageLiteral(resourceName: "CarryonEx_Wechat_Icon")
-//
-//        // add left button on info view of pin
-//        //        let sz = CGSize(width: 30, height: 30)
-//        //        let button = UIButton(frame: CGRect(origin: .zero, size: sz))
-//        //        button.setBackgroundImage(#imageLiteral(resourceName: "CarryonEx_A"), for: .normal)
-//        //        //button.addTarget(self, action: #selector(getDirections), for: .touchUpInside) // driving nav API
-//        //        pinView?.leftCalloutAccessoryView = button
-//
-//        return pinView
-        return nil
     }
 }

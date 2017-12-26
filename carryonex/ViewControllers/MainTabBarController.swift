@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 import Reachability
 import ZendeskSDK
 
@@ -38,6 +39,7 @@ class MainTabBarController: UITabBarController {
     var personInfoController: PersonalPageViewController?
     var loginViewController: LoginViewController?
     var circleIndicator: BPCircleActivityIndicator!
+    var locationManager : CLLocationManager!
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -49,6 +51,7 @@ class MainTabBarController: UITabBarController {
         addObservers()
         setupActivityIndicator()
         initialDataLoad()
+        setupLocationManager()
         
         if let viewControllers = self.viewControllers as? [UINavigationController] {
             for navigationController in viewControllers {
@@ -127,6 +130,7 @@ class MainTabBarController: UITabBarController {
         ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
             if isSuccess {
                 APIServerChecker.testAPIServers()
+                self.locationManager.startUpdatingLocation()
             }
         })
         
@@ -208,5 +212,68 @@ class MainTabBarController: UITabBarController {
                 strongSelf.displayAlert(title: "网络连接出错", message: "由于网络连接有问题，您的请求无法发送，请重试", action: "重试")
             }
         }
+    }
+}
+
+extension MainTabBarController: CLLocationManagerDelegate {
+    
+    fileprivate func setupLocationManager(){
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.distanceFilter = kCLLocationAccuracyKilometer
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    
+    //MARK: - Location
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //取得locations数组的最后一个
+        guard let currentLocation = locations.last else {
+            print("Unable to obtain location")
+            return
+        }
+        
+        if (currentLocation.horizontalAccuracy > 0){
+            //let lat = Double(String(format: "%.1f", location.coordinate.latitude))
+            //let long = Double(String(format: "%.1f", location.coordinate.longitude))
+            
+            CLGeocoder().reverseGeocodeLocation(currentLocation) { (placemark, error) -> Void in
+                if let error = error {
+                    print("Get location error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let placemark = placemark, placemark.count > 0 {
+                    var locationString = String()
+                    let mark = placemark[0]
+                    if let city = mark.addressDictionary?["City"] as? String {
+                        locationString += city
+                    }
+                    
+                    if let state = mark.addressDictionary?["State"] as? String {
+                        locationString += (" " + state)
+                    }
+                    
+                    if let country = mark.addressDictionary?["Country"] as? String {
+                        locationString += (" " + country)
+                    }
+                    
+                    self.homeViewController?.locationLabel.text = locationString
+                }
+            }
+            
+            ApiServers.shared.postUserGPS(longitude: currentLocation.coordinate.longitude,
+                                          latitude: currentLocation.coordinate.latitude,
+                                          completion: nil)
+            
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    //FIXME:  获取位置信息失败
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location failed: \(error.localizedDescription)")
     }
 }
