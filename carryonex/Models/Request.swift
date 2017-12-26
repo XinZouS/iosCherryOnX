@@ -62,7 +62,7 @@ class Request: Unboxable, Identifiable {
         self.images = try? unboxer.unbox(key: RequestKeyInDB.images.rawValue)
         self.commentStatus = try unboxer.unbox(key: RequestKeyInDB.commentStatus.rawValue)
         
-        self.ownerRating = try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue) ?? 0.0
+        self.ownerRating = try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
     }
