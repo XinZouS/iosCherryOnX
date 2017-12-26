@@ -52,7 +52,7 @@ class Request: Unboxable, Identifiable {
         self.note = try? unboxer.unbox(key: RequestKeyInDB.note.rawValue)
         self.startAddress = try? unboxer.unbox(key: RequestKeyInDB.startAddress.rawValue)
         self.endAddress = try? unboxer.unbox(key: RequestKeyInDB.endAddress.rawValue)
-        self.statusId = try? unboxer.unbox(keyPath: "status.id")
+        self.statusId = try? unboxer.unbox(keyPath: "status_id")
         
         self.name = try? unboxer.unbox(key: RequestKeyInDB.name.rawValue)
         self.requestEta = try? unboxer.unbox(key: RequestKeyInDB.requestEta.rawValue)
