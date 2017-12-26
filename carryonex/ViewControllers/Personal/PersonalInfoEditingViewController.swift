@@ -120,52 +120,35 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     @objc private func saveButtonTapped(){
         if let childVC = self.childViewControllers.first as? PersonalTable {
-            var genderString = ""
+            let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.rawValue
             let emailString = childVC.emailTextField.text
-            if let gender = childVC.genderTextField.text {
-            switch gender {
-            case ProfileGender.male.displayString() :
-                    genderString = ProfileGender.male.rawValue
-            case ProfileGender.female.displayString():
-                    genderString = ProfileGender.female.rawValue
-            case ProfileGender.other.displayString():
-                    genderString = ProfileGender.other.rawValue
-                default:
-                    genderString = ProfileGender.undefined.rawValue
-                }
-            }
             let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
             let matcher = MyRegex(emailPattern)
-            if let maybeEmail = emailString {
-                let isMatch = matcher.match(input: maybeEmail)
-                if isMatch {
-                    let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
-                                                 "email": emailString ?? "",
-                                                 "gender": genderString ]
-                    activityIndicator.isHidden = false
-                    activityIndicator.animate()
-                    ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
-                        self.activityIndicator.isHidden = true
-                        self.activityIndicator.stop()
-                        if success{
-                            //self.navigationController?.popViewController(animated: true)
-                            self.dismiss(animated: true, completion: nil)
-                        }else{
-                            debugPrint("change profile error")
-                        }
-                    })
-                } else {
-                    displayGlobalAlert(title: L("personal.error.message.network"),
-                                       message: L("personal.error.message.upload-email"),
-                                       action: L("action.ok"),
-                                       completion: { [weak self] _ in
-                        if let childVC = self?.childViewControllers.first as? PersonalTable {
-                            childVC.emailTextField.becomeFirstResponder()
-                        }
-                    })
-                }
+            if let maybeEmail = emailString, matcher.match(input: maybeEmail) {
+                let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
+                                             "email": emailString ?? "",
+                                             "gender": genderString ]
+                activityIndicator.isHidden = false
+                activityIndicator.animate()
+                ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stop()
+                    if success{
+                        //self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true, completion: nil)
+                    }else{
+                        debugPrint("change profile error")
+                    }
+                })
             } else {
-                debugPrint("unwrap failure")
+                displayGlobalAlert(title: L("personal.error.message.network"),
+                                   message: L("personal.error.message.upload-email"),
+                                   action: L("action.ok"),
+                                   completion: { [weak self] _ in
+                                    if let childVC = self?.childViewControllers.first as? PersonalTable {
+                                        childVC.emailTextField.becomeFirstResponder()
+                                    }
+                })
             }
         }
     }
@@ -231,7 +214,7 @@ extension PersonalInfoEditingViewController{
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var getImg : UIImage = #imageLiteral(resourceName: "CarryonEx_User")
+        var getImg : UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
         if let editedImg = info[UIImagePickerControllerEditedImage] as? UIImage {
             getImg = editedImg
         }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -261,8 +244,11 @@ extension PersonalInfoEditingViewController{
         self.present(cameraViewController, animated: true, completion: nil)
     }
 }
-/// MARK: - Image upload to AWS
+
+// MARK: - Image upload to AWS
+
 extension PersonalInfoEditingViewController{
+    
     func uploadImageToAws(getImg: UIImage){
         activityIndicator.isHidden = false
         activityIndicator.animate()
@@ -270,6 +256,7 @@ extension PersonalInfoEditingViewController{
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
+            self.setupProfileImage(getImg)
             self.handleAwsServerImageUploadCompletion(err, awsUrl)
         })
         AnalyticsManager.shared.finishTimeTrackingKey(.profileImageSettingTime)
@@ -277,10 +264,11 @@ extension PersonalInfoEditingViewController{
     }
     
     func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
+        activityIndicator.isHidden = true
+        activityIndicator.stop()
+        UIApplication.shared.endIgnoringInteractionEvents()
+
         if let error = error {
-            activityIndicator.isHidden = true
-            activityIndicator.stop()
-            UIApplication.shared.endIgnoringInteractionEvents()
             self.displayGlobalAlert(title: L("personal.error.title.upload-ids"),
                                     message: L("personal.error.message.upload-ids"),
                                     action: L("action.ok"),
@@ -290,14 +278,10 @@ extension PersonalInfoEditingViewController{
         }
         
         if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
-            print("HomePageController++: uploadImage get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
             ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
                 if success {
                     self.setupProfileImageFromAws()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stop()
-                    UIApplication.shared.endIgnoringInteractionEvents()
                 }
             })
         }else{
@@ -309,7 +293,8 @@ extension PersonalInfoEditingViewController{
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = "\(idType.rawValue).JPG" // UserDefaultKey.profileImageLocalName.rawValue
         let profileImgLocalUrl = documentUrl.appendingPathComponent(fileName)
-        if let imgData = UIImageJPEGRepresentation(img, imageCompress) {
+        let uploadImg = img.getThumbnailImg(compression: imageCompress, maxPixelSize: 200) ?? img
+        if let imgData = UIImageJPEGRepresentation(uploadImg, 1) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
         debugPrint("save image to DocumentDirectory: \(profileImgLocalUrl)")
@@ -332,6 +317,7 @@ extension PersonalInfoEditingViewController{
 }
 // WECHAT lOGIN
 extension PersonalInfoEditingViewController{
+    
     func wechatButtonTapped(){
         wxloginStatus = "fillProfile"
         let urlStr = "weixin://"
