@@ -13,8 +13,6 @@ enum HomeProfileKey: String {
     case tripCount = "trip_count"
     case rating = "rating"
     case requestCount = "request_count"
-    case request = "request"
-    case trip = "trip"
 }
     
 struct HomeProfileInfo {
@@ -22,8 +20,6 @@ struct HomeProfileInfo {
     let tripCount: Int
     let rating: Float
     let requestCount: Int
-    let request: HomeOrderCardInfo
-    let trip: HomeOrderCardInfo
 }
 
 extension HomeProfileInfo: Unboxable {
@@ -32,35 +28,6 @@ extension HomeProfileInfo: Unboxable {
         self.tripCount = try unboxer.unbox(key: HomeProfileKey.tripCount.rawValue)
         self.rating = try unboxer.unbox(key: HomeProfileKey.rating.rawValue)
         self.requestCount = try unboxer.unbox(key: HomeProfileKey.requestCount.rawValue)
-        self.request = try unboxer.unbox(key: HomeProfileKey.request.rawValue)
-        self.trip = try unboxer.unbox(key: HomeProfileKey.trip.rawValue)
     }
 }
 
-
-struct HomeOrderCardInfo {
-    var id: Int
-    var timestamp: Int
-    var image: String
-    var startAddress: Address
-    var endAddress: Address
-    var statusId: Int
-    
-    func displayTime() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd"
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-        return formatter.string(from: date)
-    }
-}
-
-extension HomeOrderCardInfo: Unboxable {
-    init(unboxer: Unboxer) throws {
-        self.id = try unboxer.unbox(key: "id")
-        self.timestamp = try unboxer.unbox(key: "timestamp")
-        self.image = try unboxer.unbox(key: "image")
-        self.startAddress = try unboxer.unbox(key: "start_address")
-        self.endAddress = try unboxer.unbox(key: "end_address")
-        self.statusId = try unboxer.unbox(key: "status_id")
-    }
-}
