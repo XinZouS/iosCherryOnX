@@ -88,7 +88,7 @@ class MainTabBarController: UITabBarController {
                 if let request = sender as? Request, let category = request.category() {
                     viewController.request = request
                     viewController.category = category
-                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.id) {
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
                         viewController.trip = trip
                     }
                 }

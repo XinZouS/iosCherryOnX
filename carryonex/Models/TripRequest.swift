@@ -23,7 +23,7 @@ struct RequestImage {
     let id: String?
     let requestId: String?
     let imageUrl: String
-    let thumbnailUrl: String?
+    let thumbnailUrl: String
 }
 
 extension RequestImage: Unboxable {
@@ -31,6 +31,6 @@ extension RequestImage: Unboxable {
         id = try? unboxer.unbox(key: "id")
         requestId = try? unboxer.unbox(key: "request_id")
         imageUrl = try unboxer.unbox(key: "image_url")
-        thumbnailUrl = try? unboxer.unbox(key: "thumbnail_url")
+        thumbnailUrl = try unboxer.unbox(key: "thumbnail_url")
     }
 }

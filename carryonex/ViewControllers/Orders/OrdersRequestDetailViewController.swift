@@ -341,7 +341,7 @@ class OrdersRequestDetailViewController: UIViewController {
             if let rating = request.ownerRating {
                 senderScoreWidthConstraint.constant = CGFloat(rating * 20) //*(100/5)
             }
-            updateMapViewToShow(false) // map for sender to see carrier
+            updateMapViewToShow(false)
             
         } else {
             profileImageString = trip.carrierImageUrl
@@ -540,8 +540,6 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
             case .accepted:
                 finishButton.transaction = .shipperPay
                 finishButton2.transaction = .shipperCancel
-            case .inDelivery:
-                updateMapViewToShow(true) // map for sender to see carrier
             case .delivered:
                 finishButton.transaction = .shipperConfirm
             case .deliveryConfirmed:
@@ -726,7 +724,7 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     func zoomToUserLocation(){
         
         mapView.showsPointsOfInterest = true
-        mapView.mapType = .hybrid
+        mapView.mapType = .standard
         
         ApiServers.shared.getUserGPS(userId: trip.carrierId) { (gpsObject, error) in
             if let error = error {
@@ -742,6 +740,11 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 600, 600)
             self.mapView.setRegion(viewRegion, animated: false)
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = self.trip.carrierRealName
+            self.mapView.addAnnotation(annotation)
         }
     }
     
