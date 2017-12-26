@@ -617,6 +617,102 @@ class ApiServers : NSObject {
         }
     }
     
+    func getUserGPS(userId: Int, completion: @escaping (GPS?, Error?) -> Void) {
+        guard ProfileManager.shared.isLoggedIn() else {
+            print("Please log in to get GPS for user id: \(userId)")
+            completion(nil, nil)
+            return
+        }
+        
+        guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
+            print("Please get username and token to get GPS")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/gps"
+        
+        let params:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : username,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.userId.rawValue: userId
+        ]
+        
+        getDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getGPS response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let gps:GPS = try unbox(dictionary: data)
+                    completion(gps, nil)
+                } catch let error as NSError {
+                    print("getGPS error: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+            } else {
+                print("getGPS: Empty data field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
+    func postUserGPS(longitude: Double, latitude: Double, completion: ((Bool, Error?) -> Void)?) {
+        
+        guard ProfileManager.shared.isLoggedIn() else {
+            print("Please log in to post GPS")
+            completion?(false, nil)
+            return
+        }
+        
+        guard let username = ProfileManager.shared.username,
+            let userToken = ProfileManager.shared.userToken,
+            let userId = ProfileManager.shared.getCurrentUser()?.id else {
+            print("Please get username and token to post GPS")
+            completion?(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/users/gps"
+        
+        let params : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.username.rawValue: username,
+            ServerKey.userToken.rawValue: userToken,
+            ServerKey.data.rawValue : [
+                ServerKey.userId.rawValue: userId,
+                GPSKeyInDB.longitude.rawValue: longitude,
+                GPSKeyInDB.latitude.rawValue: latitude,
+            ]
+        ]
+        
+        postDataWithUrlRoute(route, parameters: params) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postGPS response error: \(error.localizedDescription)")
+                }
+                completion?(false, error)
+                return
+            }
+            
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                print("Post GPS success")
+                completion?(true, nil)
+                
+            } else{
+                print("Post GPS failed")
+                completion?(false, nil)
+            }
+        }
+    }
+    
     
     //MARK: - Config API
     func getConfig() {
@@ -671,7 +767,7 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let statusCode = response["status_code"] as? Int {
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int {
                 if statusCode == 401 {
                     print("No trip is found")
                     completion(false, nil, nil)

@@ -74,11 +74,11 @@ class UserCardViewController: UIViewController {
             timeLabel.text = trip.cardDisplayTime()
             beginLocationLabel.text = trip.startAddress?.fullAddressString()
             endLocationLabel.text = trip.endAddress?.fullAddressString()
-            if request.getImages().count > 0, let imageUrl = URL(string: request.getImages().first!.imageUrl) {
+            if request.getImages().count > 0, let thumbnailUrl = URL(string: request.getImages().first!.thumbnailUrl) {
                 if category == .carrier{
-                    requestImageView.af_setImage(withURL: imageUrl, placeholderImage: #imageLiteral(resourceName: "empty1"))
+                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "empty1"))
                 }else{
-                    requestImageView.af_setImage(withURL: imageUrl, placeholderImage: #imageLiteral(resourceName: "empty2"))
+                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "empty2"))
                 }
             }
         }

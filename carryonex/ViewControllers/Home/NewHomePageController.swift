@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import CoreLocation
 
-class NewHomePageController: UIViewController, CLLocationManagerDelegate {
+class NewHomePageController: UIViewController {
     
     enum TimeEnum: Int{
         case morning = 4
@@ -33,9 +32,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var circle: UIImageView!
     @IBOutlet weak var circle2: UIImageView!
     
-    var locationManager : CLLocationManager!
-    var currLocation : CLLocation!
-    
     weak var userCardOne: UserCardViewController?
     weak var userCardTwo: UserCardViewController?
     weak var tripController: TripController?
@@ -56,7 +52,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         
         setupNowHour()
         addObservers()
-        setupLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +84,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
                 destVC.category = .sender
             }
         }
-        
     }
     
     
@@ -207,24 +201,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    private func setupLocation(){
-        //初始化位置管理器
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        //设备使用电池供电时最高的精度
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //精确到1000米,距离过滤器，定义了设备移动后获得位置信息的最小距离
-        locationManager.distanceFilter = kCLLocationAccuracyKilometer
-        if ios8() {
-            //如果是IOS8及以上版本需调用这个方法
-            locationManager.requestAlwaysAuthorization()
-            //使用应用程序期间允许访问位置数据
-            locationManager.requestWhenInUseAuthorization();
-            //启动定位
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
     private func setupSportlight(){
         if UserDefaults.getHasSoptlightHome() {
             return
@@ -267,67 +243,6 @@ class NewHomePageController: UIViewController, CLLocationManagerDelegate {
                 }
             })
         }
-    }
-    
-    //MARK: - Location
-    
-    //FIXME: CoreLocationManagerDelegate 中获取到位置信息的处理函数
-    func  locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //取得locations数组的最后一个
-        if let location = locations.last {
-            currLocation = location
-        }
-        
-        if(currLocation.horizontalAccuracy > 0){
-            //let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            //let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            //print("纬度:\(long!)")
-            //print("经度:\(lat!)")
-            LonLatToCity()
-            //停止定位
-            
-            locationManager.stopUpdatingLocation()
-        }
-    }
-    
-    func LonLatToCity() {
-        let geocoder: CLGeocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(currLocation) { (placemark, error) -> Void in
-            if let error = error {
-                print("Get location error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placemark = placemark, placemark.count > 0 {
-                var locationString = String()
-                let mark = placemark[0]
-                if let city = mark.addressDictionary?["City"] as? String {
-                    locationString += city
-                }
-                
-                if let state = mark.addressDictionary?["State"] as? String {
-                    locationString += (" " + state)
-                }
-                
-                if let country = mark.addressDictionary?["Country"] as? String {
-                    locationString += (" " + country)
-                }
-                
-                self.locationLabel.text = locationString
-            }
-        }
-    }
-    
-    //FIXME:  获取位置信息失败
-    private func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
-    }
-    
-    func ios8() -> Bool {
-        let versionCode:String = UIDevice.current.systemVersion
-        let version = NSString(string:  versionCode).doubleValue
-        return version >= 8.0
     }
     
     private func setupUserImageView(){
@@ -374,6 +289,7 @@ extension NewHomePageController: UserCardDelegate {
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
         handleNavigation(segue: .requestDetail, sender: request)
     }
+    
 }
 
 
@@ -402,5 +318,3 @@ extension UIAlertController {
         preferredAction = skipAction
     }
 }
-
-

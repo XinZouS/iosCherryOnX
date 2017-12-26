@@ -114,3 +114,20 @@ class Address: NSObject, Unboxable {
         }
     }
 }
+
+enum GPSKeyInDB : String {
+    case longitude = "longitude"
+    case latitude = "latitude"
+}
+
+struct GPS {
+    let longitude: Double?
+    let latitude: Double?
+}
+
+extension GPS: Unboxable {
+    init(unboxer: Unboxer) throws {
+        self.longitude = try? unboxer.unbox(key: "longitude")
+        self.latitude = try? unboxer.unbox(key: "latitude")
+    }
+}
