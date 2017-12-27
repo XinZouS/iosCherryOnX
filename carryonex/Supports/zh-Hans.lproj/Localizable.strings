@@ -169,7 +169,7 @@
 "request.ui.confirm.carrier-ship" = "确认快递交付？";
 "request.ui.confirm.shipper-pairing" = "确认再次提醒？";
 "request.ui.confirm.shipper-cancel" = "确认取消订单？";
-"request.ui.confirm.shipper-pay" = "确认订单付款？";
+"request.ui.confirm.shipper-pay" = "确认订单付款？（测试中无需付款流程）";
 "request.ui.confirm.shipper-confirm" = "确认收货？";
 "request.ui.confirm.allow-rating" = "确认给与评价?";
 "request.ui.confirm.default" = "出现错误";
