@@ -29,11 +29,12 @@ class AddressSearchController : UIViewController, UISearchResultsUpdating, UIGes
     var request: Request?
     var trip   : Trip?
     
-    weak var requestCtl : RequestController? {
-        didSet{
-            //self.request = requestCtl?.request
-        }
-    }
+    // its parent controller, for now we dont need it
+//    weak var requestCtl : RequestController? {
+//        didSet{
+//            //self.request = requestCtl?.request
+//        }
+//    }
     
     let mapView : MKMapView = {
         let m = MKMapView()

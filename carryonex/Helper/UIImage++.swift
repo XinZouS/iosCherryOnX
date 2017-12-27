@@ -32,6 +32,64 @@ extension UIImage {
         return newImg
     }
     
+    public func getThumbnailImg(compression: CGFloat, maxPixelSize: Int = 300) -> UIImage? {
+        let data = UIImageJPEGRepresentation(self.squareCrop(), compression)! as CFData
+        if let source = CGImageSourceCreateWithData(data, nil) {
+            let options = [
+                kCGImageSourceCreateThumbnailWithTransform: true,
+                kCGImageSourceCreateThumbnailFromImageAlways: true,
+                kCGImageSourceThumbnailMaxPixelSize: maxPixelSize
+                ] as CFDictionary
+            if let imgRef = CGImageSourceCreateThumbnailAtIndex(source, 0, options){
+                return UIImage(cgImage: imgRef)
+            }
+        }
+        return nil
+    }
+    
+    public func squareCrop() -> UIImage {
+        let originalWidth = self.size.width
+        let originalHeigh = self.size.height
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        var edge: CGFloat = 0
+        
+        if (originalWidth > originalHeigh){ // landscape
+            edge = originalHeigh
+            x = (originalWidth - edge) / 2.0
+            
+        }else if (originalWidth < originalHeigh) { // portrait
+            edge = originalWidth
+            y = (originalHeigh - edge) / 2.0
+            
+        }else{ // square
+            edge = originalWidth
+        }
+        
+        let cropSquare = CGRect(x: x, y: y, width: edge, height: edge)
+        if let cgImg = self.cgImage, let img = cgImg.cropping(to: cropSquare) {
+            return UIImage(cgImage: img)
+        }
+        // if cgImage fail, then return original image
+        return self
+    }
+    
+    public func resizeTo(_ sz: CGSize) -> UIImage {
+        let selfW = self.size.width
+        let selfH = self.size.height
+        let ratioW = sz.width / selfW
+        let ratioH = sz.height / selfH
+        
+        let newSize = (ratioW > ratioH) ? CGSize(width: selfW * ratioH, height: selfH * ratioW) : CGSize(width: selfW * ratioW, height: selfH * ratioH)
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImg ?? self
+    }
     
     // MARK: - Gif image
     

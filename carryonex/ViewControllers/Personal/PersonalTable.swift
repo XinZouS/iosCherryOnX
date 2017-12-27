@@ -10,6 +10,7 @@ import UIKit
 
 class PersonalTable: UITableViewController,UIPickerViewDataSource{
     
+    @IBOutlet weak var genderButton: UIButton!
     @IBOutlet weak var genderTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
@@ -32,16 +33,25 @@ class PersonalTable: UITableViewController,UIPickerViewDataSource{
     
     private func setupTextField(){
         genderTextField.inputView = genderPickerView
-        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        let traits = genderTextField.value(forKey: "textInputTraits") as AnyObject
+        traits.setValue(UIColor.clear, forKey: "insertionPointColor")
+
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
         doneToolbar.items = [flexSpace,done]
         doneToolbar.sizeToFit()
+        
         self.genderTextField.inputAccessoryView = doneToolbar
         self.emailTextField.inputAccessoryView = doneToolbar
     }
     
+    @IBAction func genderButtonTapped(_ sender: Any) {
+        genderTextField.becomeFirstResponder()
+    }
+    
+        
 }
 
 extension PersonalTable: UIPickerViewDelegate {

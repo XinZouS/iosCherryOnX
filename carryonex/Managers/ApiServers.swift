@@ -931,6 +931,7 @@ class ApiServers : NSObject {
                      destination: Address,
                      trip: Trip,
                      imageUrls: [String],
+                     imageThumbnails: [String],
                      description: String,
                      completion: @escaping (Bool, Error?, ServerError) -> Void) {
         
@@ -950,9 +951,10 @@ class ApiServers : NSObject {
         ]
         
         if imageUrls.count > 0 {
-            var requestImages = [Any]()
-            for url in imageUrls {
-                let item = ["image_url": url, "thumbnail_url": url] //Use thumbnail url for thumbnail image
+            var requestImages = [Any]() //as [Dictionary] = [item,item...] = [[img_url: url, thm_url: url], [img_url: url, thm_url: url]...]
+            for i in 0..<imageUrls.count {
+                let thumbnailUrl = (i < imageThumbnails.count ? imageThumbnails[i] : "")
+                let item = ["image_url": imageUrls[i], "thumbnail_url": thumbnailUrl] //Use thumbnail url for thumbnail image
                 requestImages.append(item)
             }
             requestDict[RequestKeyInDB.images.rawValue] = requestImages

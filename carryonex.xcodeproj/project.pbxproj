@@ -51,11 +51,9 @@
 		660252741FC4B91E00277617 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660252731FC4B91D00277617 /* SettingsViewController.swift */; };
 		660ABC5F1FC359BB00B81076 /* SenderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */; };
 		660ABC611FC35CC000B81076 /* SenderDetailInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */; };
-		661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661C821A1F4A08C40064D1FB /* RequestController.swift */; };
 		662C277E1FAEC1B400D90E08 /* AwsServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */; };
 		663121F71F548C6F000F7ACB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663121F61F548C6F000F7ACB /* MapKit.framework */; };
 		6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */; };
-		663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */; };
 		66454F561FEC4ABD00DF5342 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F541FEC4ABC00DF5342 /* launch_logo.png */; };
 		66454F571FEC4ABD00DF5342 /* launch_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F551FEC4ABC00DF5342 /* launch_text.png */; };
 		665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */; };
@@ -70,7 +68,6 @@
 		6691BAA81FED974100B98BDF /* BPCircleActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */; };
 		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
 		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
-		66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A9FADD1F89743800BDC36F /* ImageCell.swift */; };
 		66B31BF81F71B22D005A4382 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31BF71F71B22D005A4382 /* libicucore.tbd */; };
 		66B31BF91F71B24D005A4382 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B1CA8F1F41FA4700EA0A43 /* libz.tbd */; };
 		66B31BFA1F71B25E005A4382 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B1CA901F41FA7000EA0A43 /* libstdc++.tbd */; };
@@ -96,7 +93,6 @@
 		66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE22571FBE602200DCC274 /* FlickrImageManager.swift */; };
 		66E2C9821FB66755000B250E /* PhoneVerify.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E2C9811FB66755000B250E /* PhoneVerify.storyboard */; };
 		66E2C98E1FBA4DEA000B250E /* PhoneNum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */; };
-		66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */; };
 		66EF6FE01FEDBBED00EE7EF8 /* PhoneMsgButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EF6FDF1FEDBBED00EE7EF8 /* PhoneMsgButton.swift */; };
 		66F964C91FDB5CED0024768D /* Login_illustration_animated_loop.gif in Resources */ = {isa = PBXBuildFile; fileRef = 66F964C81FDB5CEC0024768D /* Login_illustration_animated_loop.gif */; };
 		90D4C228BA0130B57100B4AD /* Pods_carryonex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */; };
@@ -234,11 +230,9 @@
 		660252731FC4B91D00277617 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderDetailViewController.swift; sourceTree = "<group>"; };
 		660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SenderDetailInfo.storyboard; sourceTree = "<group>"; };
-		661C821A1F4A08C40064D1FB /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsServerManager.swift; sourceTree = "<group>"; };
 		663121F61F548C6F000F7ACB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardSenderCell.swift; sourceTree = "<group>"; };
-		663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellCollectionCell.swift; sourceTree = "<group>"; };
 		663F1C931F44ABEB00E866C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		66454F541FEC4ABC00DF5342 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_logo.png; sourceTree = "<group>"; };
 		66454F551FEC4ABC00DF5342 /* launch_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_text.png; sourceTree = "<group>"; };
@@ -257,7 +251,6 @@
 		6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPCircleActivityIndicator.swift; sourceTree = "<group>"; };
 		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
 		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
-		66A9FADD1F89743800BDC36F /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		66B1CA8F1F41FA4700EA0A43 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		66B1CA901F41FA7000EA0A43 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		66B31BF71F71B22D005A4382 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -284,7 +277,6 @@
 		66CE22571FBE602200DCC274 /* FlickrImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImageManager.swift; sourceTree = "<group>"; };
 		66E2C9811FB66755000B250E /* PhoneVerify.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneVerify.storyboard; sourceTree = "<group>"; };
 		66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneNum.storyboard; sourceTree = "<group>"; };
-		66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBaseCell.swift; sourceTree = "<group>"; };
 		66EF6FDF1FEDBBED00EE7EF8 /* PhoneMsgButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMsgButton.swift; sourceTree = "<group>"; };
 		66F964C81FDB5CEC0024768D /* Login_illustration_animated_loop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Login_illustration_animated_loop.gif; sourceTree = "<group>"; };
 		8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carryonex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -703,10 +695,6 @@
 			isa = PBXGroup;
 			children = (
 				FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */,
-				661C821A1F4A08C40064D1FB /* RequestController.swift */,
-				66E5203F1F4B6B22008E521D /* RequestBaseCell.swift */,
-				66A9FADD1F89743800BDC36F /* ImageCell.swift */,
-				663B9A001F8BD3A6006CFBDA /* ImageCellCollectionCell.swift */,
 				660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */,
 			);
 			path = Sender;
@@ -1171,7 +1159,6 @@
 				4D79327F1FD676D90081BBE2 /* WalletManager+Stripe.swift in Sources */,
 				66C3EA911FCF3D6600D9F582 /* OrdersRequestDetailViewController.swift in Sources */,
 				E5A2A7981FE2E57100A51BDC /* Config.swift in Sources */,
-				661C821B1F4A08C40064D1FB /* RequestController.swift in Sources */,
 				4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */,
 				6602526E1FC48BB300277617 /* ShipperInfoViewController.swift in Sources */,
 				E5A2A79D1FE2E57100A51BDC /* Request.swift in Sources */,
@@ -1192,7 +1179,6 @@
 				E5A2A7AE1FE2E5B300A51BDC /* UIColor++.swift in Sources */,
 				E5A2A7921FE2E57100A51BDC /* Wallet.swift in Sources */,
 				FF13DE1E1FCF2FFA0012C4BC /* PersonalCommentController.swift in Sources */,
-				66A9FADE1F89743800BDC36F /* ImageCell.swift in Sources */,
 				4DE6BDE01FBA952000900DF8 /* OrderListCell.swift in Sources */,
 				4DC043B31FB7456D00F6C3F0 /* LoginViewController.swift in Sources */,
 				4D6571BC1FCFF4900075305F /* Type+Extension.swift in Sources */,
@@ -1201,7 +1187,6 @@
 				E5A2A7991FE2E57100A51BDC /* CheckingAccount.swift in Sources */,
 				E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */,
 				E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */,
-				66E520401F4B6B22008E521D /* RequestBaseCell.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,
 				4D80C3F61FE45FD9000D3B01 /* WeChatAPIManager.swift in Sources */,
@@ -1217,7 +1202,6 @@
 				4DD6DE751FE3C295004FA0DA /* URL++.swift in Sources */,
 				66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */,
 				FF7ECEE21FC9583D00F76ED8 /* PersonalPageViewController.swift in Sources */,
-				663B9A011F8BD3A6006CFBDA /* ImageCellCollectionCell.swift in Sources */,
 				E567BB121FCC6DA600B87608 /* STSource.swift in Sources */,
 				E5A2A7941FE2E57100A51BDC /* Comment.swift in Sources */,
 				4DE6BDDA1FBA7FB100900DF8 /* UserRecentInfoController.swift in Sources */,

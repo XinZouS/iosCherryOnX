@@ -53,7 +53,7 @@
                                     <action selector="imageButtonTapped:" destination="u7d-VV-M09" eventType="touchUpInside" id="yGc-cD-B7x"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4E-X0-MtB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4E-X0-MtB">
                                 <rect key="frame" x="105" y="45" width="35.5" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="e4E-X0-MtB" secondAttribute="height" multiplier="21:10" id="6nL-dh-CGi"/>
@@ -158,18 +158,28 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="性别" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="niQ-6i-hDB">
-                                                    <rect key="frame" x="141" y="12" width="224" height="20"/>
+                                                    <rect key="frame" x="141" y="7" width="224" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awX-cV-8p5">
+                                                    <rect key="frame" x="141" y="7" width="224" height="30"/>
+                                                    <connections>
+                                                        <action selector="genderButtonTapped:" destination="X6j-Ou-XEY" eventType="touchUpInside" id="M53-Ip-cZT"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="niQ-6i-hDB" firstAttribute="leading" secondItem="TyP-ak-4Rf" secondAttribute="trailing" constant="84" id="1tJ-jS-Utw"/>
                                                 <constraint firstItem="TyP-ak-4Rf" firstAttribute="leading" secondItem="kyk-VZ-6v0" secondAttribute="leading" constant="20" id="66n-aj-Vng"/>
+                                                <constraint firstItem="awX-cV-8p5" firstAttribute="leading" secondItem="niQ-6i-hDB" secondAttribute="leading" id="8mK-uh-P5F"/>
+                                                <constraint firstItem="awX-cV-8p5" firstAttribute="bottom" secondItem="niQ-6i-hDB" secondAttribute="bottom" id="CGK-0K-oe5"/>
+                                                <constraint firstItem="awX-cV-8p5" firstAttribute="trailing" secondItem="niQ-6i-hDB" secondAttribute="trailing" id="TRE-20-Wpv"/>
                                                 <constraint firstAttribute="trailing" secondItem="niQ-6i-hDB" secondAttribute="trailing" constant="10" id="gIm-XA-tey"/>
                                                 <constraint firstItem="TyP-ak-4Rf" firstAttribute="centerY" secondItem="kyk-VZ-6v0" secondAttribute="centerY" id="oGS-q5-zI8"/>
                                                 <constraint firstItem="niQ-6i-hDB" firstAttribute="centerY" secondItem="TyP-ak-4Rf" secondAttribute="centerY" id="vmC-fg-KDF"/>
+                                                <constraint firstItem="awX-cV-8p5" firstAttribute="top" secondItem="niQ-6i-hDB" secondAttribute="top" id="zzW-U8-vKB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -253,6 +263,7 @@
                     </tableView>
                     <connections>
                         <outlet property="emailTextField" destination="vz8-hX-VwH" id="Tdh-T6-pTy"/>
+                        <outlet property="genderButton" destination="awX-cV-8p5" id="lk5-oz-2Rf"/>
                         <outlet property="genderTextField" destination="niQ-6i-hDB" id="gGW-vN-Fes"/>
                         <outlet property="submitButton" destination="6OG-f5-ShA" id="XJv-c1-Sfs"/>
                     </connections>
