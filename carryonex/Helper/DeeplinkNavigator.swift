@@ -46,19 +46,9 @@ class DeeplinkNavigator: NSObject {
                 navigateToRequest(id)
             }
         case .comments:
-            navigateToComment()
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
         default: //home
             print("Do nothing")
-        }
-    }
-    
-    static private func navigateToComment() {
-        let tabViewController = AppDelegate.shared().mainTabViewController!
-        tabViewController.selectTabIndex(index: TabViewIndex.home)
-        if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
-            if let commentViewController = UIStoryboard.init(name: "HistoryComment", bundle: nil).instantiateInitialViewController() as? PersonalCommentController {
-                navigation.pushViewController(commentViewController, animated: true)
-            }
         }
     }
     
