@@ -22,6 +22,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     
     var user: ProfileUser?
     var newProfile: UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
+    var isProfileImageChanged = false
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
     
@@ -37,11 +38,12 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         addObservers()
         setupTextField()
         setupActivityIndicator()
+        imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
     }
     
     private func setupTextField(){
-        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
         doneToolbar.items = [flexSpace,done]
@@ -90,9 +92,11 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         if let currentUser = ProfileManager.shared.getCurrentUser() {
             user = currentUser
             if let imageUrlString = currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
-                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage:#imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+//                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage:#imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+                imageButton.af_setBackgroundImage(for: .normal, url: imageUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
             }else{
-                imageButton.setImage(newProfile, for: .normal)
+//                imageButton.setImage(newProfile, for: .normal)
+                imageButton.setBackgroundImage(newProfile, for: .normal)
             }
             
             nameTextField.text = currentUser.realName
@@ -129,18 +133,20 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             debugPrint("error: unable to get PersonalInfoEditingVC.childViewController as PersonalTable, abording...")
             return
         }
-        let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.rawValue
+        let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.displayString()
         let emailString = childVC.emailTextField.text
         let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
         let matcher = MyRegex(emailPattern)
         if let getEmail = emailString, matcher.match(input: getEmail) {
             let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
                                          "email": getEmail,
-                                         "gender": genderString ]
+                                         "gender": genderString] // FIX BUG here, transform string to enum.rawvalue;
             activityIndicator.isHidden = false
             activityIndicator.animate()
             
-            uploadImageToAws(getImg: newProfile)
+            if isProfileImageChanged {
+                uploadImageToAws(getImg: newProfile)
+            }
             ProfileManager.shared.updateUserInfo(info: profile, completion: { (success) in
                 DispatchQueue.main.async {
                     self.activityIndicator.isHidden = true
@@ -303,7 +309,7 @@ extension PersonalInfoEditingViewController {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = "\(idType.rawValue).JPG" // UserDefaultKey.profileImageLocalName.rawValue
         let profileImgLocalUrl = documentUrl.appendingPathComponent(fileName)
-        let uploadImg = img.getThumbnailImg(compression: imageCompress, maxPixelSize: 200) ?? img
+        let uploadImg = img.getThumbnailImg(compression: imageCompress, maxPixelSize: 300) ?? img
         if let imgData = UIImageJPEGRepresentation(uploadImg, 1) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
@@ -394,7 +400,7 @@ extension PersonalInfoEditingViewController {
     internal func setupProfileImageFromAws(){
         guard let homeVC = AppDelegate.shared().mainTabViewController?.homeViewController,
             let personalVC = AppDelegate.shared().mainTabViewController?.personInfoController else {
-            debugPrint("\nerror: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
+            debugPrint("\n[ERROR]: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
             return
         }
         if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl, let imgUrl = URL(string: imageUrlString) {
@@ -404,7 +410,8 @@ extension PersonalInfoEditingViewController {
                 _ = imageCache2.removeImage(for: urlRequest, withIdentifier: nil)
             }
             
-            self.imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+//            imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            imageButton.af_setBackgroundImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
             homeVC.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             personalVC.userProfileImage.af_setImage(withURL: imgUrl)
             
@@ -418,13 +425,18 @@ extension PersonalInfoEditingViewController {
 
     internal func setupProfileImage(_ img: UIImage){
         let sqr = img.squareCrop()
-        imageButton.setImage(sqr, for: .normal)
+//        imageButton.setImage(sqr, for: .normal)
+        imageButton.setBackgroundImage(sqr, for: .normal)
         newProfile = sqr
+        isProfileImageChanged = true
     }
     
     internal func setupWechatImg(){
-        let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
-        imageButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+        guard let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "") else {
+            return
+        }
+//        imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+        imageButton.af_setBackgroundImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
         newProfile = imageButton.currentImage ?? #imageLiteral(resourceName: "blankUserHeadImage")
     }
 }
