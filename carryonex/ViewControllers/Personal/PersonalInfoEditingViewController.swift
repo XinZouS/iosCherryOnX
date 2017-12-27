@@ -21,6 +21,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     @IBOutlet weak var nameTextField: UITextField!
     
     var user: ProfileUser?
+    var newProfile: UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
     
@@ -32,14 +33,10 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.isHidden = true
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        
         setupUser()
         addObservers()
         setupTextField()
+        setupActivityIndicator()
     }
     
     private func setupTextField(){
@@ -92,8 +89,10 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     private func setupUser(){
         if let currentUser = ProfileManager.shared.getCurrentUser() {
             user = currentUser
-            if let imageUrlString =  currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
+            if let imageUrlString = currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
                 imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage:#imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            }else{
+                imageButton.setImage(newProfile, for: .normal)
             }
             
             nameTextField.text = currentUser.realName
@@ -118,38 +117,50 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         }
     }
     
+    private func setupActivityIndicator(){
+        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator.isHidden = true
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+    }
+
     @objc private func saveButtonTapped(){
-        if let childVC = self.childViewControllers.first as? PersonalTable {
-            let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.rawValue
-            let emailString = childVC.emailTextField.text
-            let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
-            let matcher = MyRegex(emailPattern)
-            if let maybeEmail = emailString, matcher.match(input: maybeEmail) {
-                let profile :[String:Any] = ["real_name":nameTextField.text ?? "",
-                                             "email": emailString ?? "",
-                                             "gender": genderString ]
-                activityIndicator.isHidden = false
-                activityIndicator.animate()
-                ProfileManager.shared.updateUserInfo(info:profile, completion: { (success) in
+        guard let childVC = self.childViewControllers.first as? PersonalTable else {
+            debugPrint("error: unable to get PersonalInfoEditingVC.childViewController as PersonalTable, abording...")
+            return
+        }
+        let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.rawValue
+        let emailString = childVC.emailTextField.text
+        let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+        let matcher = MyRegex(emailPattern)
+        if let getEmail = emailString, matcher.match(input: getEmail) {
+            let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
+                                         "email": getEmail,
+                                         "gender": genderString ]
+            activityIndicator.isHidden = false
+            activityIndicator.animate()
+            
+            uploadImageToAws(getImg: newProfile)
+            ProfileManager.shared.updateUserInfo(info: profile, completion: { (success) in
+                DispatchQueue.main.async {
                     self.activityIndicator.isHidden = true
                     self.activityIndicator.stop()
-                    if success{
-                        //self.navigationController?.popViewController(animated: true)
-                        self.dismiss(animated: true, completion: nil)
-                    }else{
-                        debugPrint("change profile error")
-                    }
-                })
-            } else {
-                displayGlobalAlert(title: L("personal.error.message.network"),
-                                   message: L("personal.error.message.upload-email"),
-                                   action: L("action.ok"),
-                                   completion: { [weak self] _ in
-                                    if let childVC = self?.childViewControllers.first as? PersonalTable {
-                                        childVC.emailTextField.becomeFirstResponder()
-                                    }
-                })
-            }
+                }
+                if success{
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    debugPrint("error: ProfileManager.shared.updateUserInfo unsuccess...")
+                }
+            })
+        } else { // email invalide:
+            displayGlobalAlert(title: L("personal.error.message.network"),
+                               message: L("personal.error.message.upload-email"),
+                               action: L("action.ok"),
+                               completion: { [weak self] _ in
+                                if let childVC = self?.childViewControllers.first as? PersonalTable {
+                                    childVC.emailTextField.becomeFirstResponder()
+                                }
+            })
         }
     }
     
@@ -198,9 +209,13 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     }
     
 }
+
+
 /// MARK: - ALCameraView or ImagePicker setup
+
 extension PersonalInfoEditingViewController{
-    func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool){
+    
+    func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = source
         imagePicker.allowsEditing = isAllowEditing
@@ -214,13 +229,13 @@ extension PersonalInfoEditingViewController{
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var getImg : UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
         if let editedImg = info[UIImagePickerControllerEditedImage] as? UIImage {
-            getImg = editedImg
+            newProfile = editedImg
         }else if let originalImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            getImg = originalImg
+            newProfile = originalImg
         }
-        uploadImageToAws(getImg: getImg)
+        setupProfileImage(newProfile)
+        dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -234,12 +249,10 @@ extension PersonalInfoEditingViewController{
             
             if let image = getImg {
                 self.setupProfileImage(image)
-                self.uploadImageToAws(getImg: image)
                 
             } else { // unable to set image, then reset timer;
                 AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
             }
-            self.dismiss(animated: true, completion: nil)
         })
         self.present(cameraViewController, animated: true, completion: nil)
     }
@@ -247,46 +260,43 @@ extension PersonalInfoEditingViewController{
 
 // MARK: - Image upload to AWS
 
-extension PersonalInfoEditingViewController{
+extension PersonalInfoEditingViewController {
     
-    func uploadImageToAws(getImg: UIImage){
+    func uploadImageToAws(getImg: UIImage) {
         activityIndicator.isHidden = false
         activityIndicator.animate()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
-        AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (err, awsUrl) in
-            self.setupProfileImage(getImg)
-            self.handleAwsServerImageUploadCompletion(err, awsUrl)
+        
+        AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (error, awsUrl) in
+            DispatchQueue.main.async {
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stop()
+            }
+            if let error = error {
+                self.displayGlobalAlert(title: L("personal.error.title.upload-ids"),
+                                        message: L("personal.error.message.upload-ids") + error.localizedDescription,
+                                        action: L("action.ok"),
+                                        completion: nil)
+                debugPrint("Upload image failed: \(error.localizedDescription)")
+            }
+            
+            if let publicUrl = awsUrl, !publicUrl.absoluteString.isEmpty {
+                self.setupProfileImageFromAws()
+                ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
+                    if success {
+                        self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        debugPrint("error: updateUserProfileUrl() unsuccess, abording....")
+                    }
+                })
+            } else {
+                debugPrint("Error: uploadAllImagesToAws(): publicUrl.absoluteString.isEmpty, Unable to upload.")
+            }
         })
         AnalyticsManager.shared.finishTimeTrackingKey(.profileImageSettingTime)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func handleAwsServerImageUploadCompletion(_ error: Error?, _ awsUrl: URL?){
-        activityIndicator.isHidden = true
-        activityIndicator.stop()
-        UIApplication.shared.endIgnoringInteractionEvents()
-
-        if let error = error {
-            self.displayGlobalAlert(title: L("personal.error.title.upload-ids"),
-                                    message: L("personal.error.message.upload-ids"),
-                                    action: L("action.ok"),
-                                    completion: nil)
-            debugPrint("Upload image failed: \(error.localizedDescription)")
-            return
-        }
-        
-        if let publicUrl = awsUrl, publicUrl.absoluteString != "" {
-            ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
-                if success {
-                    self.setupProfileImageFromAws()
-                    self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
-                }
-            })
-        }else{
-            debugPrint("Error: uploadAllImagesToAws(): task.result is nil. Unable to upload.")
-        }
     }
     
     func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {
@@ -363,8 +373,10 @@ extension PersonalInfoEditingViewController{
         }
     }
 }
+
 // document operation
-extension PersonalInfoEditingViewController{
+extension PersonalInfoEditingViewController {
+    
     private func getDocumentUrl() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
@@ -380,19 +392,23 @@ extension PersonalInfoEditingViewController{
     }
     
     internal func setupProfileImageFromAws(){
-        if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl,let imgUrl = URL(string:imageUrlString){
-            let urlRequst = URLRequest.init(url: imgUrl)
-            _ = UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: urlRequst, withIdentifier: nil)
+        guard let homeVC = AppDelegate.shared().mainTabViewController?.homeViewController,
+            let personalVC = AppDelegate.shared().mainTabViewController?.personInfoController else {
+            debugPrint("\nerror: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
+            return
+        }
+        if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl, let imgUrl = URL(string: imageUrlString) {
+            // Clear what is in the cache, this will force a refresh to ensure fresh image is loaded next time
+            let urlRequest = URLRequest(url: imgUrl)
+            if let imageCache2 = UIImageView.af_sharedImageDownloader.imageCache {
+                _ = imageCache2.removeImage(for: urlRequest, withIdentifier: nil)
+            }
+            
             self.imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            homeVC.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            personalVC.userProfileImage.af_setImage(withURL: imgUrl)
             
-            if let homeController = AppDelegate.shared().mainTabViewController?.homeViewController {
-                homeController.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            }
-            
-            if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
-                personalController.userProfileImage.af_setImage(withURL: imgUrl)
-            }
-        } else {
+        } else { // unable to get image url:
             if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
                 personalController.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
             }
@@ -401,12 +417,15 @@ extension PersonalInfoEditingViewController{
     
 
     internal func setupProfileImage(_ img: UIImage){
-        imageButton.setImage(img, for: .normal)
+        let sqr = img.squareCrop()
+        imageButton.setImage(sqr, for: .normal)
+        newProfile = sqr
     }
     
     internal func setupWechatImg(){
         let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "")
         imageButton.af_setImage(for: .normal, url: imgUrl!, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+        newProfile = imageButton.currentImage ?? #imageLiteral(resourceName: "blankUserHeadImage")
     }
 }
 

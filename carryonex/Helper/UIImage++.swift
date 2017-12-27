@@ -33,7 +33,7 @@ extension UIImage {
     }
     
     public func getThumbnailImg(compression: CGFloat, maxPixelSize: Int = 300) -> UIImage? {
-        let data = UIImageJPEGRepresentation(self, compression)! as CFData
+        let data = UIImageJPEGRepresentation(self.squareCrop(), compression)! as CFData
         if let source = CGImageSourceCreateWithData(data, nil) {
             let options = [
                 kCGImageSourceCreateThumbnailWithTransform: true,
