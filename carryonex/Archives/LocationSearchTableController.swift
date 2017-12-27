@@ -20,7 +20,7 @@ protocol HandleMapSearch {
 class LocationSearchTableController : UITableViewController {
     
 //    weak var homePageController : HomePageController?
-    weak var requestController  : RequestController?
+//    weak var requestController  : RequestController?
 //    weak var postTripController : PostTripController?
     
     var handleMapSearchDelegate : HandleMapSearch?
