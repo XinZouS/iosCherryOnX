@@ -3,7 +3,7 @@
 //  carryonex
 //
 //  Created by zxbMacPro on 2017/11/19.
-//  Copyright © 2017年 CarryonEx. All rights reserved.
+//  Copyright © 2017 CarryonEx. All rights reserved.
 //
 
 import UIKit

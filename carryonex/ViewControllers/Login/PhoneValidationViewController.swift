@@ -3,7 +3,7 @@
 //  carryonex
 //
 //  Created by Zian Chen on 11/11/17.
-//  Copyright © 2017 Xin Zou. All rights reserved.
+//  Copyright © 2017 CarryonEx. All rights reserved.
 //
 
 import UIKit
