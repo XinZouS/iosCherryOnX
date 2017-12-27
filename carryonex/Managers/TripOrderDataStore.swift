@@ -101,13 +101,24 @@ class TripOrderDataStore: NSObject {
     
     public func updateRequestToCommented(category: TripCategory, requestId: Int) {
         if let request = getRequest(category: category, requestId: requestId) {
-            request.commentStatus = 1
             
             if category == .carrier {
+                if request.commentStatus == CommentStatus.SenderCommented.rawValue {
+                    request.commentStatus = CommentStatus.Completed.rawValue
+                } else {
+                    request.commentStatus = CommentStatus.CarrierCommented.rawValue
+                }
                 carrierRequests[request.id] = request
+                
             } else {
+                if request.commentStatus == CommentStatus.CarrierCommented.rawValue {
+                    request.commentStatus = CommentStatus.Completed.rawValue
+                } else {
+                    request.commentStatus = CommentStatus.SenderCommented.rawValue
+                }
                 senderRequests[request.id] = request
             }
+            
             NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
         }
     }

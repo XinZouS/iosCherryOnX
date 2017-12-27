@@ -3,7 +3,7 @@
 //  carryonex
 //
 //  Created by zxbMacPro on 2017/11/24.
-//  Copyright © 2017年 CarryonEx. All rights reserved.
+//  Copyright © 2017 CarryonEx. All rights reserved.
 //
 
 import UIKit
@@ -18,6 +18,7 @@ class OrderCommentRateController: UIViewController {
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var realNameLabel: UILabel!
+    
     var rate: Float = 5
     var commenteeId: Int = 0
     var commenteeRealName: String?

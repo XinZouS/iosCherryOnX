@@ -3,7 +3,7 @@
 //  carryonex
 //
 //  Created by zxbMacPro on 2017/12/7.
-//  Copyright © 2017年 CarryonEx. All rights reserved.
+//  Copyright © 2017 CarryonEx. All rights reserved.
 //
 
 class ShipperInfoViewCell: UITableViewCell {
