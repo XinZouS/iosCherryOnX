@@ -81,6 +81,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
         //Setup table view
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView() // remove empty lines
         
         //Setup activity indicator

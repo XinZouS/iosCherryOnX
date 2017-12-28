@@ -590,8 +590,11 @@ extension SenderDetailViewController: UICollectionViewDelegate {
     
     func removeImagePairOfName(imgName: String) {
         for i in 0..<images.count {
-            debugPrint("get imageName = \(images[i].name!), target name = \(imgName), trying to remove it...")
-            if images[i].name! == imgName {
+            guard let getImgName = images[i].name else {
+                continue
+            }
+            debugPrint("get imageName = \(getImgName), target name = \(imgName), trying to remove it...")
+            if getImgName == imgName {
                 images.remove(at: i)
                 imageUploadingSet.remove(imgName)
                 imageUploadSequence.removeValue(forKey: imgName)
