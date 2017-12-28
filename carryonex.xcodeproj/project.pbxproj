@@ -67,6 +67,7 @@
 		6691BAA81FED974100B98BDF /* BPCircleActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */; };
 		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
 		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
+		66A573D91FF5759300DF3656 /* RegistrationSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A573D81FF5759300DF3656 /* RegistrationSuccessViewController.swift */; };
 		66B31BF81F71B22D005A4382 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31BF71F71B22D005A4382 /* libicucore.tbd */; };
 		66B31BF91F71B24D005A4382 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B1CA8F1F41FA4700EA0A43 /* libz.tbd */; };
 		66B31BFA1F71B25E005A4382 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B1CA901F41FA7000EA0A43 /* libstdc++.tbd */; };
@@ -249,6 +250,7 @@
 		6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPCircleActivityIndicator.swift; sourceTree = "<group>"; };
 		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
 		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
+		66A573D81FF5759300DF3656 /* RegistrationSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationSuccessViewController.swift; sourceTree = "<group>"; };
 		66B1CA8F1F41FA4700EA0A43 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		66B1CA901F41FA7000EA0A43 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		66B31BF71F71B22D005A4382 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -741,6 +743,7 @@
 				667810641FBB48F100E1880E /* PhoneNumViewController.swift */,
 				4DC043B61FB7459000F6C3F0 /* PhoneValidationViewController.swift */,
 				4DC043B41FB7457D00F6C3F0 /* RegistrationViewController.swift */,
+				66A573D81FF5759300DF3656 /* RegistrationSuccessViewController.swift */,
 				FFBCB0C51FC8891900DCDD52 /* ChangePasswordController.swift */,
 			);
 			path = Login;
@@ -1173,6 +1176,7 @@
 				E5A2A7711FE2E41300A51BDC /* GlobalVariable.swift in Sources */,
 				E5A2A7AC1FE2E5B300A51BDC /* Notifications++.swift in Sources */,
 				E5A2A7AE1FE2E5B300A51BDC /* UIColor++.swift in Sources */,
+				66A573D91FF5759300DF3656 /* RegistrationSuccessViewController.swift in Sources */,
 				E5A2A7921FE2E57100A51BDC /* Wallet.swift in Sources */,
 				FF13DE1E1FCF2FFA0012C4BC /* PersonalCommentController.swift in Sources */,
 				4DE6BDE01FBA952000900DF8 /* OrderListCell.swift in Sources */,

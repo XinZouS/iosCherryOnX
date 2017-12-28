@@ -201,15 +201,17 @@ class MainTabBarController: UITabBarController {
         
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
-            self?.displayAlert(title: "登录异常", message: "登录设备曾经变更，请重新登录", action: "重新登录") {
+            UIApplication.shared.endIgnoringInteractionEvents()
+            self?.displayAlert(title: L("maintapbar.error.title.login"), message: L("maintapbar.error.message.login"), action: L("maintapbar.error.action.login")) {
                 ProfileManager.shared.logoutUser()
             }
         }
         
         NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: nil, queue: nil) { [weak self] notification in
+            UIApplication.shared.endIgnoringInteractionEvents()
             guard let reachabilityObject = notification.object as? Reachability, let strongSelf = self else { return }
             if !reachabilityObject.isReachable {
-                strongSelf.displayAlert(title: "网络连接出错", message: "由于网络连接有问题，您的请求无法发送，请重试", action: "重试")
+                strongSelf.displayAlert(title: L("maintapbar.error.title.network"), message: L("maintapbar.error.message.network"), action: L("maintapbar.error.action.network"))
             }
         }
     }

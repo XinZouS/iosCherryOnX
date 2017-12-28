@@ -185,7 +185,7 @@
                                     <action selector="handleForgetButtonWithSender:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="gZz-Yw-dQA"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Login_animated_loop_png.gif" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -374,6 +374,7 @@
                         <outlet property="textFieldsContainerView" destination="FvG-Qb-kd7" id="a5H-HL-fQA"/>
                         <outlet property="wechatLoginButton" destination="oaT-uk-PVx" id="Em4-fL-b7q"/>
                         <segue destination="ZP0-kR-7bM" kind="show" identifier="changePassword" id="vqK-Qm-Ecg"/>
+                        <segue destination="v72-Dx-Frd" kind="show" identifier="phoneVerifySuccessSegue" id="urS-3p-aQT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJc-px-FrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -388,12 +389,20 @@
             </objects>
             <point key="canvasLocation" x="519" y="107"/>
         </scene>
+        <!--PhoneVerifyResult-->
+        <scene sceneID="849-ym-PdZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhoneVerifyResult" id="v72-Dx-Frd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="beJ-wm-J7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="555" y="-36"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Login_animated_loop_png.gif" width="1421" height="543"/>
         <image name="Loginnnnn" width="794" height="286"/>
         <image name="Password" width="26" height="32"/>
         <image name="Phone9999" width="34" height="34"/>
-        <image name="backgroundImage" width="421" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vqK-Qm-Ecg"/>

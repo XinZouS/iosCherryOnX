@@ -13,6 +13,14 @@
 "action.cancel" = "取消";
 "action.redo" = "重试";
 
+// MARK: - MainTapBarVC
+"maintapbar.error.title.login" = "登录异常";
+"maintapbar.error.message.login" = "登录设备曾经变更，请重新登录";
+"maintapbar.error.action.login" = "重新登录";
+"maintapbar.error.title.network" = "网络连接出错";
+"maintapbar.error.message.network" = "由于网络连接有问题，您的请求无法发送，请重试";
+"maintapbar.error.action.network" = "重试";
+
 // MARK: - Trip
 "trip.ui.message.share" = "还有行李箱空间可以带东西，飞快来我的游箱提交信息吧：";
 "trip.ui.message.empty-address" = "未知地址";
@@ -51,6 +59,7 @@
 "register.ui.message.hint2" = "，请输入";
 "register.ui.message.resend-verify-code" = "发送验证码";
 "register.ui.message.resend-time" = "秒后重新发送"; // "\(resetTime)秒后重新发送"
+"register.ui.title.success" = "注册成功 🎉";
 
 // MARK: - Home
 "home.ui.greeting.hello" = "你好";
