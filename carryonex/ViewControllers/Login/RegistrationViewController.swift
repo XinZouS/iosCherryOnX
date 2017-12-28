@@ -19,6 +19,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var bottomImageView: UIImageView!
     
     var registerUserInfo : [String:String]?
+    let registerSuccessSegueId = "registerSuccessSegue"
     
     var isPasswordValid = false {
         didSet{
@@ -96,7 +97,8 @@ class RegistrationViewController: UIViewController {
                                                     print("注册后登入成功...")
                                                     ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
                                                         if success {
-                                                            self.dismiss(animated: true, completion: nil)
+                                                            //self.dismiss(animated: true, completion: nil)
+                                                            self.performSegue(withIdentifier: self.registerSuccessSegueId, sender: self)
                                                             AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
                                                         } else {
                                                             self.displayGlobalAlert(title: L("register.error.title.verify"),

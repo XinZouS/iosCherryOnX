@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -415,18 +414,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.40186572074890137" green="0.4660794734954834" blue="0.51202297210693359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件次数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-WW-GVF">
                                 <rect key="frame" x="146.5" y="15" width="62" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.40186572074890137" green="0.4660794734954834" blue="0.51202297210693359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="综合评价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="9cO-tc-v6Q">
                                 <rect key="frame" x="253.5" y="15" width="61.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.40186572069999998" green="0.46607947350000001" blue="0.51202297210000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="De1-dp-x5f">
                                 <rect key="frame" x="55.5" y="38" width="30.5" height="33.5"/>
@@ -546,9 +554,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="161.5" height="67.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是寄件人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="SdW-0A-pDb">
-                                        <rect key="frame" x="36" y="10" width="109.5" height="16.5"/>
+                                        <rect key="frame" x="60" y="15" width="61.5" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="SdW-0A-pDb" secondAttribute="height" multiplier="20:3" id="4wm-wZ-tXz"/>
+                                            <constraint firstAttribute="height" constant="20" id="RJX-Xv-3L2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.62345987558364868" green="0.6235695481300354" blue="0.62345290184020996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -558,7 +566,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/06" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MO-JA-Zff">
-                                        <rect key="frame" x="60" y="32.5" width="43" height="32"/>
+                                        <rect key="frame" x="60" y="41" width="43" height="23.5"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="17"/>
                                         <color key="textColor" red="0.18821030855178833" green="0.18824970722198486" blue="0.18820786476135254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -567,7 +575,7 @@
                                         </variation>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_sender_cardicon" translatesAutoresizingMaskIntoConstraints="NO" id="SSr-bB-YdE">
-                                        <rect key="frame" x="25.5" y="5.5" width="26" height="26"/>
+                                        <rect key="frame" x="31" y="12.5" width="26" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="546-rn-RVx"/>
                                             <constraint firstAttribute="width" secondItem="SSr-bB-YdE" secondAttribute="height" multiplier="1:1" id="WKH-hW-AbH"/>
@@ -576,16 +584,15 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="SdW-0A-pDb" firstAttribute="top" secondItem="vHm-a6-OjY" secondAttribute="top" constant="10" id="0UG-sZ-SR4"/>
+                                    <constraint firstItem="SdW-0A-pDb" firstAttribute="top" secondItem="vHm-a6-OjY" secondAttribute="top" constant="15" id="0UG-sZ-SR4"/>
                                     <constraint firstAttribute="bottom" secondItem="2MO-JA-Zff" secondAttribute="bottom" constant="3" id="AOh-ut-9w1">
                                         <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                     </constraint>
+                                    <constraint firstItem="SdW-0A-pDb" firstAttribute="centerX" secondItem="vHm-a6-OjY" secondAttribute="centerX" constant="10" id="Dkl-4K-Ihs"/>
                                     <constraint firstItem="SSr-bB-YdE" firstAttribute="centerY" secondItem="SdW-0A-pDb" secondAttribute="centerY" id="UzZ-vB-iKT"/>
-                                    <constraint firstItem="SdW-0A-pDb" firstAttribute="leading" secondItem="vHm-a6-OjY" secondAttribute="leading" constant="36" id="btv-3P-lE6"/>
-                                    <constraint firstItem="SSr-bB-YdE" firstAttribute="trailing" secondItem="SdW-0A-pDb" secondAttribute="centerX" constant="-40" id="dgA-Uq-Ibg"/>
+                                    <constraint firstItem="SSr-bB-YdE" firstAttribute="trailing" secondItem="SdW-0A-pDb" secondAttribute="leading" constant="-3" id="dgA-Uq-Ibg"/>
                                     <constraint firstItem="2MO-JA-Zff" firstAttribute="centerX" secondItem="vHm-a6-OjY" secondAttribute="centerX" constant="0.25" id="hhL-q7-KSz"/>
                                     <constraint firstItem="2MO-JA-Zff" firstAttribute="top" secondItem="SdW-0A-pDb" secondAttribute="bottom" constant="6" id="k8r-Qf-BV8"/>
-                                    <constraint firstAttribute="trailing" secondItem="SdW-0A-pDb" secondAttribute="trailing" constant="16" id="rQN-gQ-Z9O"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>

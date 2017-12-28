@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VRc-Tp-qWH">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Registration Success View Controller-->
         <scene sceneID="R2U-tF-6vM">
             <objects>
-                <viewController storyboardIdentifier="PhoneVerifyResult" id="VRc-Tp-qWH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhoneVerifyResult" id="VRc-Tp-qWH" customClass="RegistrationSuccessViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eq6-S5-gHC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="qFC-RB-cPd">
-                                <rect key="frame" x="105" y="83" width="110" height="46"/>
+                                <rect key="frame" x="127.5" y="128.5" width="120" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="PBe-J1-Ywa"/>
-                                    <constraint firstAttribute="width" constant="110" id="eiY-rA-GbA"/>
+                                    <constraint firstAttribute="height" constant="50" id="PBe-J1-Ywa"/>
+                                    <constraint firstAttribute="width" secondItem="qFC-RB-cPd" secondAttribute="height" multiplier="12:5" id="z2c-hY-t4W"/>
                                 </constraints>
                             </imageView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-Fk-idC">
-                                <rect key="frame" x="100" y="139" width="120" height="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-Fk-idC">
+                                <rect key="frame" x="151" y="198.5" width="73.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="4ko-YD-LQk"/>
-                                    <constraint firstAttribute="width" constant="120" id="w6r-Uc-AVS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.18821030855178833" green="0.18824970722198486" blue="0.18820786476135254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Soj-fZ-OAx">
-                                <rect key="frame" x="0.0" y="445" width="320" height="123"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="b2B-M9-b4I"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Verification_sucess" translatesAutoresizingMaskIntoConstraints="NO" id="eTu-CJ-UpT">
-                                <rect key="frame" x="76" y="184" width="168" height="120"/>
+                                <rect key="frame" x="103.5" y="253.5" width="168" height="120"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="1M0-rf-7xW"/>
+                                    <constraint firstAttribute="height" constant="120" id="1M0-rf-7xW">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="180"/>
+                                    </constraint>
                                     <constraint firstAttribute="width" secondItem="eTu-CJ-UpT" secondAttribute="height" multiplier="7:5" id="A5h-qM-xJv"/>
                                 </constraints>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Mx-Og-epF">
-                                <rect key="frame" x="30" y="344" width="260" height="50"/>
+                                <rect key="frame" x="30" y="413.5" width="315" height="50"/>
                                 <color key="backgroundColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="t8f-pS-zbv"/>
@@ -73,33 +68,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="bottom" secondItem="z25-m4-kEL" secondAttribute="bottom" id="1uj-V1-0ea"/>
-                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="top" secondItem="Yks-Fk-idC" secondAttribute="bottom" constant="20" id="2Dn-U5-aGg">
-                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                            </constraint>
-                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Mx-Og-epF" secondAttribute="bottom" constant="20" id="2e3-Xp-iFt"/>
                             <constraint firstItem="5Mx-Og-epF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eTu-CJ-UpT" secondAttribute="bottom" constant="10" id="3Er-VJ-B3k"/>
                             <constraint firstItem="Yks-Fk-idC" firstAttribute="top" secondItem="qFC-RB-cPd" secondAttribute="bottom" priority="500" constant="67.5" id="42K-G2-7qF"/>
-                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="centerY" secondItem="eq6-S5-gHC" secondAttribute="centerY" constant="-40" id="75z-c2-pxJ"/>
-                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="width" secondItem="Soj-fZ-OAx" secondAttribute="height" multiplier="26:10" id="7T1-uR-IzV"/>
-                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="trailing" secondItem="z25-m4-kEL" secondAttribute="trailing" id="8yg-iC-6vS"/>
+                            <constraint firstItem="eTu-CJ-UpT" firstAttribute="centerY" secondItem="eq6-S5-gHC" secondAttribute="centerY" constant="-20" id="75z-c2-pxJ"/>
                             <constraint firstItem="5Mx-Og-epF" firstAttribute="leading" secondItem="z25-m4-kEL" secondAttribute="leading" constant="30" id="9o7-Gw-yXe">
                                 <variation key="heightClass=regular-widthClass=regular" constant="180"/>
                             </constraint>
                             <constraint firstItem="qFC-RB-cPd" firstAttribute="top" secondItem="z25-m4-kEL" secondAttribute="top" priority="800" constant="180" id="9oM-7b-Ss0"/>
-                            <constraint firstItem="Soj-fZ-OAx" firstAttribute="leading" secondItem="z25-m4-kEL" secondAttribute="leading" id="DyZ-uZ-fEd"/>
                             <constraint firstItem="qFC-RB-cPd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="z25-m4-kEL" secondAttribute="top" priority="900" constant="10" id="GDL-Pm-MTb"/>
                             <constraint firstItem="Yks-Fk-idC" firstAttribute="centerX" secondItem="eTu-CJ-UpT" secondAttribute="centerX" id="Kzf-tl-G26"/>
                             <constraint firstItem="z25-m4-kEL" firstAttribute="trailing" secondItem="5Mx-Og-epF" secondAttribute="trailing" constant="30" id="OdL-YW-Zmx">
                                 <variation key="heightClass=regular-widthClass=regular" constant="180"/>
                             </constraint>
                             <constraint firstItem="5Mx-Og-epF" firstAttribute="top" secondItem="eTu-CJ-UpT" secondAttribute="bottom" priority="800" constant="40" id="TLi-hy-Ujl"/>
+                            <constraint firstItem="z25-m4-kEL" firstAttribute="centerY" secondItem="Yks-Fk-idC" secondAttribute="bottom" constant="120" id="U62-ZD-xCy"/>
                             <constraint firstItem="qFC-RB-cPd" firstAttribute="centerX" secondItem="eTu-CJ-UpT" secondAttribute="centerX" id="hy2-kk-vzK"/>
                             <constraint firstItem="eTu-CJ-UpT" firstAttribute="centerX" secondItem="eq6-S5-gHC" secondAttribute="centerX" id="rXN-k3-crc"/>
-                            <constraint firstItem="Yks-Fk-idC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qFC-RB-cPd" secondAttribute="bottom" constant="10" id="xNm-T8-2Kf"/>
+                            <constraint firstItem="Yks-Fk-idC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qFC-RB-cPd" secondAttribute="bottom" constant="20" id="xNm-T8-2Kf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z25-m4-kEL"/>
                     </view>
+                    <connections>
+                        <outlet property="checkmarkImageHeighConstraint" destination="1M0-rf-7xW" id="hjW-wu-Jbo"/>
+                        <outlet property="checkmarkImageView" destination="eTu-CJ-UpT" id="ESp-SD-Lty"/>
+                        <outlet property="titleLabel" destination="Yks-Fk-idC" id="l57-Iu-yVL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N6v-yy-6Lw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,8 +100,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Loginnnnn" width="264" height="95"/>
+        <image name="Loginnnnn" width="794" height="286"/>
         <image name="Verification_sucess" width="288" height="208"/>
-        <image name="backgroundImage" width="421" height="162"/>
     </resources>
 </document>

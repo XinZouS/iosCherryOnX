@@ -13,6 +13,14 @@
 "action.cancel" = "Cancel";
 "action.redo" = "Retry";
 
+// MARK: - MainTapBarVC
+"maintapbar.error.title.login" = "User Invalidated"; // 2017-12-28 Xin ---------
+"maintapbar.error.message.login" = "Your account had login from other device, please relogin";
+"maintapbar.error.action.login" = "Relogin";
+"maintapbar.error.title.network" = "Disconnected";
+"maintapbar.error.message.network" = "Unable to send your request due to network failed，please make sure you have the Internet access and try again";
+"maintapbar.error.action.network" = "Try again";
+
 // MARK: - Trip
 "trip.ui.message.share" = "There is still room in my luggage! Come and submit a request:";
 "trip.ui.message.empty-address" = "Unknown Address";
@@ -51,6 +59,7 @@
 "register.ui.message.hint2" = "，please enter";
 "register.ui.message.resend-verify-code" = "Resend verification code.";
 "register.ui.message.resend-time" = "seconds wait before resending the code."; // "\(resetTime)秒后重新发送"
+"register.ui.title.success" = "Register Success 🎉";
 
 // MARK: - Home
 "home.ui.greeting.hello" = "Hello";

@@ -59,6 +59,7 @@ class NewHomePageController: UIViewController {
         addObservers()
         setupTextContents()
         setupPlaceholderView(toShow: true)
+        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,9 +129,8 @@ class NewHomePageController: UIViewController {
     }
 
     private func setupPlaceholderView(toShow: Bool){
+        UIApplication.shared.endIgnoringInteractionEvents()
         orderTitleLabel.text = L("home.ui.card.title")
-        orderTitleLabel.isHidden = toShow
-        orderPlaceholderView.isHidden = !toShow
         if toShow {
             orderPlaceholderLabel.text = L("home.ui.card.placeholder")
             orderPlaceholderButton.layer.masksToBounds = true
@@ -139,6 +139,15 @@ class NewHomePageController: UIViewController {
             orderPlaceholderButton.layer.shadowOpacity = 0.7
             orderPlaceholderButton.layer.shadowRadius = 6
             orderPlaceholderButton.layer.masksToBounds = false
+        }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.orderTitleLabel.alpha = toShow ? 0 : 1
+                self.orderPlaceholderView.alpha = toShow ? 1 : 0
+            }) { (complete) in
+                self.orderTitleLabel.isHidden = toShow
+                self.orderPlaceholderView.isHidden = !toShow
+            }
         }
     }
     

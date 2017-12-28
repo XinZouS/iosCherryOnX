@@ -151,6 +151,7 @@ class LoginViewController: UIViewController {
     @IBAction func handleForgetButton(sender: UIButton) {
         let status :String = "changePassword"
         performSegue(withIdentifier: "changePassword", sender: status)
+        //        performSegue(withIdentifier: "phoneVerifySuccessSegue", sender: nil) // TODO: this line is for testing the phoneVerifySuccessVC;
     }
     
     @IBAction func countryCodeButtonTapped(_ sender: Any) {
