@@ -24,6 +24,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var wechatLoginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
+    @IBOutlet weak var hintLabel1: UILabel!
+    @IBOutlet weak var hintLabel2: UILabel!
+    @IBOutlet weak var userAgreementButton: UIButton!
+    @IBOutlet weak var appAgreementButton: UIButton!
+    @IBOutlet weak var hintLabel3Button: UIButton!
+    @IBOutlet weak var privacyPolicyButton: UIButton!
     
     var circleIndicator: BPCircleActivityIndicator!
     
@@ -50,6 +56,7 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
         setupFlagPicker()
         setupIndicator()
+        setupContentsText()
         setupGifImage()
         
         AnalyticsManager.shared.startTimeTrackingKey(.loginProcessTime)
@@ -83,6 +90,21 @@ class LoginViewController: UIViewController {
     }
     //MARK: - View custom set up
     
+    private func setupContentsText() {
+        phoneField.placeholder = L("login.ui.placeholder.phone")
+        passwordField.placeholder = L("login.ui.placeholder.password")
+        loginButton.setTitle(L("login.ui.button.login"), for: .normal)
+        wechatLoginButton.setTitle(L("login.ui.button.wechat"), for: .normal)
+        forgetButton.setTitle(L("login.ui.button.forgot-password"), for: .normal)
+        registrationButton.setTitle(L("login.ui.button.register"), for: .normal)
+        hintLabel1.text = L("login.ui.message.hint1")
+        hintLabel2.text = L("login.ui.message.hint2")
+        userAgreementButton.setTitle(L("login.ui.agreement.title") + "、", for: .normal)
+        appAgreementButton.setTitle(L("login.ui.license.title"), for: .normal)
+        hintLabel3Button.setTitle(L("login.ui.message.hint3"), for: .normal)
+        privacyPolicyButton.setTitle(L("login.ui.privacy.title"), for: .normal)
+    }
+
     private func setupGifImage(){
         let gifImg = UIImage.gifImageWithName("Login_animated_loop_png")
         bottomImageView.image = gifImg
