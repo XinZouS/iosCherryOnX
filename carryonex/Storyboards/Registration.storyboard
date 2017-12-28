@@ -14,16 +14,17 @@
         <!--Registration View Controller-->
         <scene sceneID="E23-h1-2Ot">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EZ7-bp-Skm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="mDl-U5-fKM" customClass="RegistrationViewController" customModule="carryonex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rok-2Q-5Ns">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="U8G-nb-RGM">
-                                <rect key="frame" x="133" y="74.5" width="109" height="109"/>
+                                <rect key="frame" x="117.5" y="93.5" width="140" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="109" id="3Eo-X5-V4h"/>
-                                    <constraint firstAttribute="height" constant="109" id="aoe-0h-32p"/>
+                                    <constraint firstAttribute="width" constant="140" id="3Eo-X5-V4h"/>
+                                    <constraint firstAttribute="width" secondItem="U8G-nb-RGM" secondAttribute="height" multiplier="14:5" id="6ox-8Q-Tem"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2G-R8-Xax">
@@ -147,8 +148,8 @@
                                     <action selector="handleRegisterButtonWithSender:" destination="mDl-U5-fKM" eventType="touchUpInside" id="8Nf-G2-4kc"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行登陆操作即代表您已阅读并同意" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nd-jr-NXv">
-                                <rect key="frame" x="54.5" y="477.5" width="206" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行登陆操作即代表您已阅读并同意" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nd-jr-NXv">
+                                <rect key="frame" x="54.5" y="427.5" width="206" height="21"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" summaryElement="YES"/>
                                 </accessibility>
@@ -157,13 +158,13 @@
                                     <constraint firstAttribute="height" constant="21" id="yU0-4s-Cuz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1h-va-ykd">
-                                <rect key="frame" x="260.5" y="472.5" width="50" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1h-va-ykd">
+                                <rect key="frame" x="260.5" y="417.5" width="50" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Sps-ko-IHw"/>
+                                    <constraint firstAttribute="height" constant="40" id="Sps-ko-IHw"/>
                                     <constraint firstAttribute="width" constant="50" id="Vkq-C1-vKO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -174,15 +175,25 @@
                                     <action selector="agreeButtonTapped:" destination="mDl-U5-fKM" eventType="touchUpInside" id="5lq-92-fFc"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Login_animated_loop_png.gif" translatesAutoresizingMaskIntoConstraints="NO" id="fO3-pV-lya">
+                                <rect key="frame" x="0.0" y="523" width="375" height="144"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fO3-pV-lya" secondAttribute="height" multiplier="26:10" id="4wa-Th-Jxm"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="w1h-va-ykd" firstAttribute="leading" secondItem="7nd-jr-NXv" secondAttribute="trailing" id="2sJ-Sv-iWb"/>
                             <constraint firstItem="7nd-jr-NXv" firstAttribute="centerX" secondItem="psg-kF-wZU" secondAttribute="centerX" constant="-30" id="2zm-iq-tnB"/>
-                            <constraint firstItem="T2G-R8-Xax" firstAttribute="top" secondItem="U8G-nb-RGM" secondAttribute="bottom" id="5gr-Ny-bjI"/>
-                            <constraint firstItem="7nd-jr-NXv" firstAttribute="top" secondItem="DHQ-KY-uMK" secondAttribute="bottom" constant="80" id="5qO-of-sEd"/>
+                            <constraint firstItem="fO3-pV-lya" firstAttribute="bottom" secondItem="psg-kF-wZU" secondAttribute="bottom" id="31k-ys-z1X"/>
+                            <constraint firstItem="T2G-R8-Xax" firstAttribute="top" secondItem="U8G-nb-RGM" secondAttribute="bottom" constant="40" id="5gr-Ny-bjI"/>
+                            <constraint firstItem="7nd-jr-NXv" firstAttribute="top" secondItem="DHQ-KY-uMK" secondAttribute="bottom" constant="30" id="5qO-of-sEd"/>
                             <constraint firstItem="DHQ-KY-uMK" firstAttribute="trailing" secondItem="T2G-R8-Xax" secondAttribute="trailing" id="EoF-vn-EmW"/>
+                            <constraint firstItem="fO3-pV-lya" firstAttribute="trailing" secondItem="psg-kF-wZU" secondAttribute="trailing" id="GTj-Yc-FhR"/>
                             <constraint firstItem="T2G-R8-Xax" firstAttribute="leading" secondItem="psg-kF-wZU" secondAttribute="leading" constant="30" id="Jq3-qr-nVZ"/>
+                            <constraint firstItem="fO3-pV-lya" firstAttribute="leading" secondItem="psg-kF-wZU" secondAttribute="leading" id="KPJ-4s-3VV"/>
                             <constraint firstItem="DHQ-KY-uMK" firstAttribute="centerX" secondItem="Rok-2Q-5Ns" secondAttribute="centerX" id="Kco-kl-JW0"/>
                             <constraint firstItem="DHQ-KY-uMK" firstAttribute="leading" secondItem="T2G-R8-Xax" secondAttribute="leading" id="PkR-kW-osY"/>
                             <constraint firstItem="U8G-nb-RGM" firstAttribute="centerX" secondItem="Rok-2Q-5Ns" secondAttribute="centerX" id="T8W-7r-7ah"/>
@@ -195,6 +206,7 @@
                     </view>
                     <connections>
                         <outlet property="agreeButton" destination="w1h-va-ykd" id="La5-cb-EM2"/>
+                        <outlet property="bottomImageView" destination="fO3-pV-lya" id="4UI-VW-Wdq"/>
                         <outlet property="confirmPasswordField" destination="3VD-UV-r78" id="E3u-2X-BTd"/>
                         <outlet property="nameField" destination="5PC-N5-ckb" id="r8N-WX-lsJ"/>
                         <outlet property="passwordField" destination="0mW-tW-Iqv" id="QVm-3u-9Rz"/>
@@ -202,7 +214,6 @@
                         <segue destination="fEg-54-vZQ" kind="show" identifier="registerSuccessSegue" id="z7Y-1j-E3A"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EZ7-bp-Skm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-188" y="70.614692653673174"/>
         </scene>
@@ -216,6 +227,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Login_animated_loop_png.gif" width="1421" height="543"/>
         <image name="Loginnnnn" width="794" height="286"/>
         <image name="Password" width="26" height="32"/>
         <image name="userIcon" width="154" height="148"/>

@@ -39,6 +39,15 @@
 "register.error.message.password" = "密码错误，请检查密码与验证密码";
 "login.error.wechat.title" = "微信登入失败";
 "login.error.wechat.message" = "请检查微信功能是否正常运行";
+"login.ui.placeholder.phone" = "手机号"; // 2017-12-28 - Xin
+"login.ui.placeholder.password" = "密码"; // 2017-12-28 - Xin
+"login.ui.button.login" = "登录"; // 2017-12-28 - Xin
+"login.ui.button.wechat" = "使用微信登录"; // 2017-12-28 - Xin
+"login.ui.button.forgot-password" = "忘记密码"; // 2017-12-28 - Xin
+"login.ui.button.register" = "新用户注册"; // 2017-12-28 - Xin
+"login.ui.message.hint1" = "轻点\"登录\"、\"使用微信登录\"或\"新用户注册\"即代表"; // 2017-12-28 - Xin
+"login.ui.message.hint2" = "我同意游箱的"; // 2017-12-28 - Xin
+"login.ui.message.hint3" = "及"; // 2017-12-28 - Xin
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
 "login.ui.privacy.title" = "隐私政策";
