@@ -23,7 +23,7 @@ class NewHomePageController: UIViewController {
     var imageurl = ""
     var realname = ""
     var isStoreUpdated: Bool = false
-    
+    // user contents
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var userProfileImageBtn: UIButton!
     @IBOutlet weak var senderButton: UIButton!
@@ -31,6 +31,11 @@ class NewHomePageController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var circle: UIImageView!
     @IBOutlet weak var circle2: UIImageView!
+    // youxiang cards
+    @IBOutlet weak var orderTitleLabel: UILabel!
+    @IBOutlet weak var orderPlaceholderView: UIView!
+    @IBOutlet weak var orderPlaceholderLabel: UILabel!
+    @IBOutlet weak var orderPlaceholderButton: UIButton!
     
     weak var userCardOne: UserCardViewController?
     weak var userCardTwo: UserCardViewController?
@@ -52,6 +57,8 @@ class NewHomePageController: UIViewController {
         
         setupNowHour()
         addObservers()
+        setupTextContents()
+        setupPlaceholderView(toShow: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +121,27 @@ class NewHomePageController: UIViewController {
         }
     }
     
+    private func setupTextContents() {
+        shiperButton.setTitle(L("home.ui.title.triper"), for: .normal)
+        senderButton.setTitle(L("home.ui.title.sender"), for: .normal)
+        orderTitleLabel.text = L("home.ui.card.title")
+    }
+
+    private func setupPlaceholderView(toShow: Bool){
+        orderTitleLabel.text = L("home.ui.card.title")
+        orderTitleLabel.isHidden = toShow
+        orderPlaceholderView.isHidden = !toShow
+        if toShow {
+            orderPlaceholderLabel.text = L("home.ui.card.placeholder")
+            orderPlaceholderButton.layer.masksToBounds = true
+            orderPlaceholderButton.layer.shadowColor = colorTheamRed.cgColor
+            orderPlaceholderButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+            orderPlaceholderButton.layer.shadowOpacity = 0.7
+            orderPlaceholderButton.layer.shadowRadius = 6
+            orderPlaceholderButton.layer.masksToBounds = false
+        }
+    }
+    
     private func setupBackGroundColor(dayTime: TimeEnum){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
@@ -158,7 +186,10 @@ class NewHomePageController: UIViewController {
                 if topRequests.count > 1 {
                     self?.userCardTwo?.category = topRequests[1].1
                     self?.userCardTwo?.request = topRequests[1].0
+                    self?.setupPlaceholderView(toShow: false)
                 }
+            } else {
+                self?.setupPlaceholderView(toShow: true)
             }
         }
         
