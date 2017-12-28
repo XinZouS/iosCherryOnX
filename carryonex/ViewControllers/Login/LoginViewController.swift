@@ -167,7 +167,8 @@ class LoginViewController: UIViewController {
         if let maybePassword = passwordField.text {
             let isMatch = matcher.match(input: maybePassword)
             loginButton.isEnabled = isMatch
-            loginButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
+            loginButton.setTitleColor((isMatch ? UIColor.white : colorTheamRed), for: .normal)
+            loginButton.backgroundColor = isMatch ? colorTheamRed : UIColor.white
             let msg = isMatch ? "密码正确" : "密码错误"
             debugPrint(msg)
         } else {

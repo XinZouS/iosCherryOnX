@@ -65,10 +65,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loginnnnn" translatesAutoresizingMaskIntoConstraints="NO" id="LLc-ya-YRW">
-                                <rect key="frame" x="127.5" y="53.5" width="120" height="75"/>
+                                <rect key="frame" x="117.5" y="78" width="140" height="50.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="Z0Y-JM-7HO"/>
-                                    <constraint firstAttribute="width" secondItem="LLc-ya-YRW" secondAttribute="height" multiplier="8:5" id="p0C-3i-tJf"/>
+                                    <constraint firstAttribute="width" constant="140" id="Z0Y-JM-7HO"/>
+                                    <constraint firstAttribute="width" secondItem="LLc-ya-YRW" secondAttribute="height" multiplier="13.9:5" id="p0C-3i-tJf"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="woj-xs-lls">
@@ -185,7 +185,7 @@
                                     <action selector="handleForgetButtonWithSender:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="gZz-Yw-dQA"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-lI-cZA">
                                 <rect key="frame" x="0.0" y="523" width="375" height="144"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -390,7 +390,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Loginnnnn" width="264" height="95"/>
+        <image name="Loginnnnn" width="794" height="286"/>
         <image name="Password" width="26" height="32"/>
         <image name="Phone9999" width="34" height="34"/>
         <image name="backgroundImage" width="421" height="162"/>
