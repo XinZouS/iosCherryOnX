@@ -68,8 +68,13 @@
 "home.ui.card.send" = "寄件订单";
 "home.ui.card.location-empty" = "暂时没有位置信息";
 "home.ui.card.trip-empty" = "无行程信息";
-"" = "";
-
+"home.ui.card.title" = "最新订单"; // 2017-12-28 Xin
+"home.ui.card.placeholder" = "还没有出行订单"; // 2017-12-28 Xin
+"home.ui.title.trip-count" = "出行次数"; // 2017-12-28 Xin
+"home.ui.title.send-count" = "寄件次数"; // 2017-12-28 Xin
+"home.ui.title.comments" = "综合评价"; // 2017-12-28 Xin
+"home.ui.title.triper" = "出行"; // 2017-12-28 Xin
+"home.ui.title.sender" = "寄件"; // 2017-12-28 Xin
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "寄件";

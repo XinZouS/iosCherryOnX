@@ -10,6 +10,12 @@ import UIKit
 
 class UserRecentInfoController: UIViewController{
     
+    // title labels
+    @IBOutlet weak var titleLabelTripCount: UILabel!
+    @IBOutlet weak var titleLabelSendCount: UILabel!
+    @IBOutlet weak var titleLabelComments: UILabel!
+    
+    // info contents
     @IBOutlet weak var starViewWidth: NSLayoutConstraint!
     @IBOutlet weak var generalCommentBtn: UIButton!
     @IBOutlet weak var shipTime: UIButton!
@@ -25,6 +31,13 @@ class UserRecentInfoController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addObservers()
+        setupTitleLabels()
+    }
+    
+    private func setupTitleLabels() {
+        titleLabelTripCount.text = L("home.ui.title.trip-count")
+        titleLabelSendCount.text = L("home.ui.title.send-count")
+        titleLabelComments.text = L("home.ui.title.comments")
     }
     
     private func addObservers(){

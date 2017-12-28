@@ -68,7 +68,13 @@
 "home.ui.card.send" = "Sender Request";
 "home.ui.card.location-empty" = "Unable to locate";
 "home.ui.card.trip-empty" = "No trip information";
-
+"home.ui.card.title" = "Latest Orders"; // 2017-12-28 Xin
+"home.ui.card.placeholder" = "Let's go to see the world now"; // 2017-12-28 Xin
+"home.ui.title.trip-count" = "Trips"; // 2017-12-28 Xin
+"home.ui.title.send-count" = "Delivery"; // 2017-12-28 Xin
+"home.ui.title.comments" = "Score"; // 2017-12-28 Xin
+"home.ui.title.triper" = "Trip"; // 2017-12-28 Xin
+"home.ui.title.sender" = "Send"; // 2017-12-28 Xin
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "New Request";
