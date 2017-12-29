@@ -631,7 +631,11 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId, for: indexPath) as! PhotoBrowserCollectionViewCell
-        cell.imageView.af_setImage(withURL: URL(string: request.getImages()[indexPath.row].imageUrl)!)
+        
+        if let url = URL(string: request.getImages()[indexPath.row].displayUrl()) {
+            cell.imageView.af_setImage(withURL:url)
+        }
+        
         return cell
     }
 }
