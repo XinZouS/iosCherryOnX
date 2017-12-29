@@ -189,7 +189,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XnN-g4-2vv">
-                                                    <rect key="frame" x="66" y="48" width="289" height="68.5"/>
+                                                    <rect key="frame" x="63" y="48" width="292" height="68.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" red="0.18343764543533325" green="0.21157914400100708" blue="0.2283155620098114" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -197,10 +197,10 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bP2-Ab-K3w">
-                                                    <rect key="frame" x="280" y="16" width="40" height="10"/>
+                                                    <rect key="frame" x="280" y="16" width="60" height="10"/>
                                                     <color key="backgroundColor" red="1" green="0.90980239640000005" blue="0.16298468269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="ttb-Aw-sRa"/>
+                                                        <constraint firstAttribute="width" constant="60" id="ttb-Aw-sRa"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-IC-YCM">
@@ -223,7 +223,7 @@
                                                 <constraint firstItem="XnN-g4-2vv" firstAttribute="top" secondItem="2oV-CS-SYW" secondAttribute="bottom" constant="5" id="bUf-iq-uB5"/>
                                                 <constraint firstItem="st7-1g-dTv" firstAttribute="top" secondItem="u2T-Eu-DEF" secondAttribute="top" constant="5" id="jGH-sG-6Sr"/>
                                                 <constraint firstItem="mkw-IC-YCM" firstAttribute="top" secondItem="u2T-Eu-DEF" secondAttribute="topMargin" constant="5" id="pYs-tr-2v7"/>
-                                                <constraint firstItem="XnN-g4-2vv" firstAttribute="leading" secondItem="CGj-Ps-eiq" secondAttribute="leading" id="r8M-tg-LSY"/>
+                                                <constraint firstItem="XnN-g4-2vv" firstAttribute="leading" secondItem="CGj-Ps-eiq" secondAttribute="leading" constant="-3" id="r8M-tg-LSY"/>
                                                 <constraint firstItem="bP2-Ab-K3w" firstAttribute="centerY" secondItem="mkw-IC-YCM" secondAttribute="centerY" id="u1Z-7S-OOe"/>
                                                 <constraint firstAttribute="trailing" secondItem="XnN-g4-2vv" secondAttribute="trailing" id="yDE-AO-hnq"/>
                                                 <constraint firstAttribute="bottom" secondItem="XnN-g4-2vv" secondAttribute="bottom" constant="5" id="yIk-Pt-tnQ"/>
@@ -232,8 +232,9 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentTextView" destination="XnN-g4-2vv" id="E83-F3-Xj1"/>
+                                            <outlet property="rateStar5MaskWidthConstraint" destination="bHJ-iQ-RTB" id="Mws-rB-4Qo"/>
                                             <outlet property="rateView" destination="bP2-Ab-K3w" id="YOT-6X-Erk"/>
-                                            <outlet property="rateViewConstraint" destination="ttb-Aw-sRa" id="Ips-Zk-hxk"/>
+                                            <outlet property="rateViewWidthConstraint" destination="ttb-Aw-sRa" id="nd2-wt-A5z"/>
                                             <outlet property="timeLabel" destination="2oV-CS-SYW" id="NTe-DZ-Ugq"/>
                                             <outlet property="userButton" destination="st7-1g-dTv" id="pR2-Yg-ZIc"/>
                                             <outlet property="userNameLabel" destination="CGj-Ps-eiq" id="xNZ-2W-aZR"/>
@@ -291,6 +292,7 @@
                         <outlet property="commentLabel" destination="WXW-ta-eiK" id="CpB-BX-J4j"/>
                         <outlet property="commentTable" destination="ywe-lr-VNQ" id="dMC-lp-Yhf"/>
                         <outlet property="rateLabel" destination="dfC-hB-D7u" id="ViY-Mb-QLa"/>
+                        <outlet property="rateStar5MaskWidthConstraint" destination="Hxm-He-q4h" id="oPd-fc-iSQ"/>
                         <outlet property="rateView" destination="yUT-gH-m5v" id="zow-1D-dOi"/>
                         <outlet property="rateViewWidth" destination="HNY-0r-5mc" id="0hC-Yk-uOK"/>
                         <outlet property="userImageBtn" destination="pPb-dj-uGM" id="RYI-vJ-2aY"/>

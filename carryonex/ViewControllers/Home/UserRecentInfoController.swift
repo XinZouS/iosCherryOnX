@@ -29,6 +29,7 @@ class UserRecentInfoController: UIViewController{
     
     // info contents
     @IBOutlet weak var starViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var star5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tripCountButton: UIButton!
     @IBOutlet weak var sendCountButton: UIButton!
     @IBOutlet weak var commentsButton: UIButton!
@@ -74,8 +75,9 @@ class UserRecentInfoController: UIViewController{
         guard let profileInfo = ProfileManager.shared.homeProfileInfo else { return }
         tripCountButton.setTitle(String(profileInfo.tripCount), for: .normal)
         sendCountButton.setTitle(String(profileInfo.requestCount), for: .normal)
-        commentsButton.setTitle(String(format: "%.1f",profileInfo.rating), for: .normal)
-        starViewWidth.constant = CGFloat(profileInfo.rating * 20)
+        commentsButton.setTitle(String(format: "%.1f", profileInfo.rating), for: .normal)
+        let fullLength = star5MaskWidthConstraint.constant
+        starViewWidth.constant = fullLength * CGFloat(profileInfo.rating / 5.0)
     }
 }
 

@@ -519,6 +519,7 @@
                         <outlet property="commentsButton" destination="7wy-UK-KZZ" id="ro1-gy-qQb"/>
                         <outlet property="levelImage" destination="Ipz-6C-5S5" id="sRI-wj-EkE"/>
                         <outlet property="sendCountButton" destination="cKv-qe-r1Y" id="uHx-Zq-EyW"/>
+                        <outlet property="star5MaskWidthConstraint" destination="C2M-pb-ev0" id="Wlo-Hc-ktX"/>
                         <outlet property="starView" destination="gOz-c5-ejb" id="k7f-Yt-KZD"/>
                         <outlet property="starViewWidth" destination="oxR-F5-HDL" id="Mve-aT-8C5"/>
                         <outlet property="titleLabelComments" destination="9cO-tc-v6Q" id="oIC-RF-Z82"/>
