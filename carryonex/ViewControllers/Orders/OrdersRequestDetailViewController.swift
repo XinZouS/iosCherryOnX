@@ -33,6 +33,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
+    @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
@@ -339,7 +340,8 @@ class OrdersRequestDetailViewController: UIViewController {
             senderDescLabel.text = L("orders.ui.message.sender-desc-sender")
             recipientPhoneCallButton.isHidden = false
             if let rating = request.ownerRating {
-                senderScoreWidthConstraint.constant = CGFloat(rating * 20) //*(100/5)
+                let fullLength = senderStar5MaskWidthConstraint.constant
+                senderScoreWidthConstraint.constant = fullLength * CGFloat(rating / 5.0)
             }
             updateMapViewToShow(false)
             
@@ -348,7 +350,8 @@ class OrdersRequestDetailViewController: UIViewController {
             senderNameLabel.text = trip.carrierRealName
             senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
             recipientPhoneCallButton.isHidden = true
-            senderScoreWidthConstraint.constant = CGFloat(trip.carrierRating * 20) //*(100/5)
+            let fullLength = senderStar5MaskWidthConstraint.constant
+            senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {

@@ -14,7 +14,7 @@ class NewHomePageController: UIViewController {
         case morning = 4
         case noon = 10
         case afternoon = 16
-        case night = 20
+        case night = 19
     }
     
     var timeStatus: TimeEnum = TimeEnum.noon

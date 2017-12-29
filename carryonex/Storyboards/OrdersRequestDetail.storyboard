@@ -161,10 +161,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YG5-EH-xPl">
-                                                <rect key="frame" x="175" y="225" width="100" height="20"/>
+                                                <rect key="frame" x="175" y="225" width="116" height="20"/>
                                                 <color key="backgroundColor" red="1" green="0.90980239640000005" blue="0.16298468269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="1zt-Mn-Sif"/>
+                                                    <constraint firstAttribute="width" constant="116" id="1zt-Mn-Sif"/>
                                                     <constraint firstAttribute="height" constant="20" id="aIW-JV-Q6W"/>
                                                 </constraints>
                                             </view>
@@ -664,6 +664,7 @@
                         <outlet property="senderNameLabel" destination="XzO-np-Cho" id="omb-YY-5sh"/>
                         <outlet property="senderPhoneButton" destination="KDl-sD-ANm" id="t6g-ga-gKw"/>
                         <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="xSE-93-c18"/>
+                        <outlet property="senderStar5MaskWidthConstraint" destination="86k-B4-AMg" id="OUt-hx-ujG"/>
                         <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="dEb-S2-1P0"/>
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="683-ry-IDQ"/>
                         <segue destination="ZrK-lf-uQu" kind="show" identifier="toOtherShipperView" id="TNl-AZ-Tt0"/>

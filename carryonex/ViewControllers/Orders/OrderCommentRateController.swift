@@ -66,7 +66,7 @@ class OrderCommentRateController: UIViewController {
         
         let loc = touch.location(in: stars5MaskImageView)
         let fullLength = stars5MaskImageView.bounds.width
-        let stars = ceil((loc.y / fullLength) * 5)
+        let stars = ceil((loc.x / fullLength) * 5)
         commentWidth.constant = fullLength * (stars / 5)
         rate = Float(stars)
     }

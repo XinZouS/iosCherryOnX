@@ -16,6 +16,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     @IBOutlet weak var userImageBtn: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
+    @IBOutlet weak var rateStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var rateView: UIView!
     @IBOutlet weak var rateViewWidth: NSLayoutConstraint!
     @IBOutlet weak var commentTable: UITableView!
@@ -61,7 +62,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.center = view.center
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }
@@ -131,8 +132,9 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     private func setupUserRate(){
         if let commentDictionary = commentDict{
+            let fullLength = rateStar5MaskWidthConstraint.constant
             rateLabel.text = String(format: "%.1f",commentDictionary.rank)
-            rateViewWidth.constant = CGFloat(commentDictionary.rank*20)
+            rateViewWidth.constant = fullLength * CGFloat(commentDictionary.rank / 5.0)
             commentLabel.text = "\(L("personal.ui.title.comments-all-p1")) \(commentDictionary.commentsLength) \(L("personal.ui.title.comments-all-p2"))"
         }
     }
@@ -214,6 +216,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
             }
         }
     }
+    
     func isLoadAllData(){
         if let dictionary = commentDict{
             if (dictionary.comments.count == dictionary.commentsLength){
@@ -223,6 +226,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         }
     }
 }
+
 extension ShipperInfoViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,25 +243,11 @@ extension ShipperInfoViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = commentTable.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ShipperInfoViewCell
-        if hasLoadData{
-            cell.commentTextView.text = commentDict?.comments[indexPath.row].comment
-            if let rank = commentDict?.comments[indexPath.row].rank{
-                cell.rateViewConstraint.constant = CGFloat(rank*10)
+        if hasLoadData {
+            if let cmt = commentDict?.comments[indexPath.row] {
+                cell.comment = cmt
             }
-            cell.userNameLabel.text = commentDict?.comments[indexPath.row].realName
-            
-            if let imageUrl = commentDict?.comments[indexPath.row].imageUrl,let url = URL(string:imageUrl){
-                cell.userButton.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            } else {
-                cell.userButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
-            }
-            
-            if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
-                let dateFormat = DateFormatter()
-                dateFormat.dateFormat = L("personal.ui.dateformat.cn")
-                let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-                cell.timeLabel.text = dateFormat.string(from: date)
-            }
+                       
             if let count = commentDict?.comments.count{
                 if (indexPath.row == count-1) {
                     loadMoreEnable = true
@@ -267,10 +257,14 @@ extension ShipperInfoViewController: UITableViewDelegate, UITableViewDataSource{
         }
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
 }
+
+
 extension ShipperInfoViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if Float(scrollView.contentOffset.y) > Float(scrollView.contentSize.height - scrollView.frame.size.height) {

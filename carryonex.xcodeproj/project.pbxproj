@@ -497,11 +497,11 @@
 				FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */,
 				665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */,
 				6602526D1FC48BB300277617 /* ShipperInfoViewController.swift */,
+				FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */,
 				FF13DE1D1FCF2FFA0012C4BC /* PersonalCommentController.swift */,
 				FF13DE1F1FCF317F0012C4BC /* PersonalCommentCell.swift */,
 				66C9002D1FD218550017DBC4 /* CreditViewController.swift */,
 				66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */,
-				FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
