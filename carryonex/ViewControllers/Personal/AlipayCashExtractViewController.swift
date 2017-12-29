@@ -197,7 +197,8 @@ extension AlipayCashExtract: UITextFieldDelegate {
         let reportProgress = NSRegularExpression.MatchingOptions.reportProgress
         let regex = try! NSRegularExpression(pattern: expression, options: allowCommentAndWitespace)
         let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
-        return true
+
+        return numberOfMatches != 0
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
