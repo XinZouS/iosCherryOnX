@@ -315,9 +315,9 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == TripCategory.carrier.rawValue {
-            return TripOrderDataStore.shared.getCarrierTrips().count
+            return carrierTrips.count
         } else {
-            return TripOrderDataStore.shared.getSenderRequests().count
+            return senderRequests.count
         }
     }
     
