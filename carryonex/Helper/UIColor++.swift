@@ -52,18 +52,17 @@ extension UIColor {
     
     
     struct MyTheme {
-        static let morningBlue = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
-        static let morningWhite = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
+        static let morningA = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
+        static let morningB = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
         
-        static let noonYellow = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
-        static let noonWhite = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
-        static let noonBlue = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
+        static let noonA = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
+        static let noonB = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
 
-        static let afternoonBlue = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
-        static let afternoonWhite = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
+        static let afternoonA = #colorLiteral(red: 0.5843137255, green: 0.5882352941, blue: 0.8352941176, alpha: 1)
+        static let afternoonB = #colorLiteral(red: 0.4253827929, green: 0.8350821137, blue: 0.9114629626, alpha: 1)
         
-        static let nightBlue = #colorLiteral(red: 0.1607843137, green: 0.1647058824, blue: 0.3960784314, alpha: 1)
-        static let nightCyan = #colorLiteral(red: 0.2549019608, green: 0.5803921569, blue: 0.7176470588, alpha: 1)
+        static let nightA = #colorLiteral(red: 0.1607843137, green: 0.1647058824, blue: 0.3960784314, alpha: 1)
+        static let nightB = #colorLiteral(red: 0.2549019608, green: 0.5803921569, blue: 0.7176470588, alpha: 1)
     }
 }
 

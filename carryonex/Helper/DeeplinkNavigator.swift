@@ -106,7 +106,7 @@ class DeeplinkNavigator: NSObject {
         }
     }
     
-    static private func navigateToOrderList(category: TripCategory) {
+    static func navigateToOrderList(category: TripCategory) {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.order)
         if let navigation = tabViewController.viewControllers![1] as? UINavigationController {

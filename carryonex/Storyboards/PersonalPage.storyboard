@@ -63,16 +63,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-Zo-mBg">
-                                        <rect key="frame" x="104.5" y="50" width="125" height="25"/>
+                                        <rect key="frame" x="96.5" y="50" width="125" height="25"/>
                                         <color key="backgroundColor" red="1" green="0.85179946290097652" blue="0.18130174571056268" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="125" id="wFy-ag-0j0"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starts5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="D7T-3b-Rvy">
-                                        <rect key="frame" x="102.5" y="50" width="130" height="25"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="D7T-3b-Rvy">
+                                        <rect key="frame" x="94.5" y="50" width="146" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="iwL-vJ-hqH"/>
+                                            <constraint firstAttribute="width" constant="146" id="iwL-vJ-hqH"/>
                                             <constraint firstAttribute="height" constant="25" id="pnf-so-rZn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -251,6 +251,6 @@
     <resources>
         <image name="PersonalIcon_80x80" width="26" height="26"/>
         <image name="setting_gray" width="122" height="122"/>
-        <image name="starts5Mask" width="827" height="165"/>
+        <image name="stars5Mask" width="403" height="70"/>
     </resources>
 </document>

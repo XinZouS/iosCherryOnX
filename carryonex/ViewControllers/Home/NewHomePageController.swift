@@ -37,11 +37,15 @@ class NewHomePageController: UIViewController {
     @IBOutlet weak var orderPlaceholderLabel: UILabel!
     @IBOutlet weak var orderPlaceholderButton: UIButton!
     
+    weak var mainTapBarVC: MainTabBarController?
     weak var userCardOne: UserCardViewController?
     weak var userCardTwo: UserCardViewController?
     weak var tripController: TripController?
+    weak var userRecentInfoController: UserRecentInfoController?
 
     let ordersRequestDetailSegue = "OrdersRequestDetailSegue"
+    let userRecentInfoVCId = "UserRecentInfoViewController"
+    let userRecentInfoSegue = "UserRecentInfoSegue"
     
     //MARK: - View Cycle
     
@@ -58,6 +62,7 @@ class NewHomePageController: UIViewController {
         setupNowHour()
         addObservers()
         setupTextContents()
+        setupCountButtons()
         setupPlaceholderView(toShow: true)
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
@@ -90,6 +95,13 @@ class NewHomePageController: UIViewController {
                 userCardTwo = destVC
                 userCardTwo?.delegate = self
                 destVC.category = .sender
+            }
+        }
+        
+        if (segue.identifier == userRecentInfoSegue) {
+            if let destVC = segue.destination as? UserRecentInfoController {
+                userRecentInfoController = destVC
+                userRecentInfoController?.delegate = self
             }
         }
     }
@@ -127,6 +139,12 @@ class NewHomePageController: UIViewController {
         senderButton.setTitle(L("home.ui.title.sender"), for: .normal)
         orderTitleLabel.text = L("home.ui.card.title")
     }
+    
+    private func setupCountButtons(){
+        if let userRecentInfoVC = storyboard?.instantiateViewController(withIdentifier: userRecentInfoVCId) as? UserRecentInfoController {
+            userRecentInfoVC.delegate = self
+        }
+    }
 
     private func setupPlaceholderView(toShow: Bool){
         UIApplication.shared.endIgnoringInteractionEvents()
@@ -154,24 +172,24 @@ class NewHomePageController: UIViewController {
     private func setupBackGroundColor(dayTime: TimeEnum){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        var beginColor = UIColor.MyTheme.nightBlue
-        var endColor = UIColor.MyTheme.nightCyan
+        var beginColor = UIColor.MyTheme.nightA
+        var endColor = UIColor.MyTheme.nightB
         
         switch timeStatus {
         case .morning, .afternoon:
             helloLabel.textColor = .white
-            beginColor = UIColor.MyTheme.afternoonBlue
-            endColor = UIColor.MyTheme.afternoonWhite
+            beginColor = UIColor.MyTheme.morningA
+            endColor = UIColor.MyTheme.morningB
             
         case .noon:
             helloLabel.textColor = .black
-            beginColor = UIColor.MyTheme.noonBlue
-            endColor = UIColor.MyTheme.noonWhite
+            beginColor = UIColor.MyTheme.noonA
+            endColor = UIColor.MyTheme.noonB
 
         case .night:
             helloLabel.textColor = .white
-            beginColor = UIColor.MyTheme.nightBlue //darkGreen
-            endColor = UIColor.MyTheme.nightCyan //purple
+            beginColor = UIColor.MyTheme.nightA
+            endColor = UIColor.MyTheme.nightB
 
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
@@ -320,6 +338,21 @@ extension NewHomePageController: MainNavigationProtocol {
     
     func handleNavigation(segue: MainNavigationSegue, sender: Any?) {
         AppDelegate.shared().handleMainNavigation(navigationSegue: segue, sender: sender)
+    }
+    
+}
+
+extension NewHomePageController: UserRecentInfoDelegate {
+    
+    func handleInfoButtonTapped(_ component: UserRecentInfoComponent) {
+        switch component {
+        case .tripCount:
+            DeeplinkNavigator.navigateToOrderList(category: .carrier)
+        case .deliveryCount:
+            DeeplinkNavigator.navigateToOrderList(category: .sender)
+        case .score:
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
+        }
     }
     
 }

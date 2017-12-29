@@ -146,8 +146,8 @@ class TripController: UIViewController{
     private func setupBackgroundColor(){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        let beginColor :UIColor = UIColor.MyTheme.nightBlue
-        let endColor :UIColor = UIColor.MyTheme.nightCyan
+        let beginColor :UIColor = UIColor.MyTheme.nightA
+        let endColor :UIColor = UIColor.MyTheme.nightB
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
@@ -189,8 +189,8 @@ class TripController: UIViewController{
         gradientLayer.frame = self.view.bounds
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        let beginColor :UIColor = UIColor.MyTheme.nightBlue
-        let endColor :UIColor = UIColor.MyTheme.nightCyan
+        let beginColor :UIColor = UIColor.MyTheme.nightA
+        let endColor :UIColor = UIColor.MyTheme.nightB
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }

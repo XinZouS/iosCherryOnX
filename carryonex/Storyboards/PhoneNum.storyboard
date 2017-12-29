@@ -176,6 +176,7 @@
                         <outlet property="countryCodeButton" destination="9gA-WK-kAU" id="Ff0-YP-q8H"/>
                         <outlet property="phoneNumTextField" destination="iNn-t6-JK6" id="RID-Wt-9IN"/>
                         <outlet property="sendButton" destination="fLe-7o-RX7" id="dWT-R2-Kmy"/>
+                        <outlet property="titleLabel" destination="Yd3-fA-05w" id="QnF-vV-eDs"/>
                         <segue destination="qaU-hD-NgY" kind="show" identifier="gotoPhoneVerifyVC" id="FDD-m6-Or8"/>
                         <segue destination="qaU-hD-NgY" kind="show" identifier="changePassword" id="BgH-EX-Oqe"/>
                     </connections>

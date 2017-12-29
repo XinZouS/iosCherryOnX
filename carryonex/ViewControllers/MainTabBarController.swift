@@ -57,6 +57,7 @@ class MainTabBarController: UITabBarController {
             for navigationController in viewControllers {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
                     homeViewController = homeController
+                    homeViewController?.mainTapBarVC = self
                 }
                 if let personController = navigationController.childViewControllers.last as? PersonalPageViewController {
                     personInfoController = personController

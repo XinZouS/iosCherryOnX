@@ -168,10 +168,10 @@
                                                     <constraint firstAttribute="height" constant="20" id="aIW-JV-Q6W"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starts5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="Uz1-WJ-5FM">
-                                                <rect key="frame" x="175" y="225" width="100" height="20"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="Uz1-WJ-5FM">
+                                                <rect key="frame" x="175" y="225" width="116" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="86k-B4-AMg"/>
+                                                    <constraint firstAttribute="width" constant="116" id="86k-B4-AMg"/>
                                                     <constraint firstAttribute="height" constant="20" id="dA0-ue-M2Q"/>
                                                 </constraints>
                                             </imageView>
@@ -697,7 +697,7 @@
         <image name="addressDotDash" width="42" height="108"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="phone_gray" width="226" height="228"/>
-        <image name="starts5Mask" width="827" height="165"/>
+        <image name="stars5Mask" width="403" height="70"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>
