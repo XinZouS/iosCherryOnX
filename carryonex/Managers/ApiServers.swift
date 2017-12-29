@@ -1385,7 +1385,7 @@ class ApiServers : NSObject {
     
     
     //TODO fix this...need to put in user's payee account. Here default as XingJiu's payout account
-    func postWalletAliPayout(payeeAccount: String = "2088821540881344", amount: Int, completion: ((Bool, Error?) -> Void)?) {
+    func postWalletAliPayout(logonId: String, amount: String, completion: ((Bool, Error?) -> Void)?) {
         guard let profileUser = ProfileManager.shared.getCurrentUser(), let userId = profileUser.id else {
             debugLog("Profile user empty, pleaes login to get user's id")
             completion?(false, nil)
@@ -1397,8 +1397,8 @@ class ApiServers : NSObject {
         let requestDict: [String: Any] = [
             "amount": amount,
             "user_id": userId,
-            "payee_type": "ALIPAY_USERID",
-            "payee_account": payeeAccount
+            "payee_type": "ALIPAY_LOGONID",
+            "payee_account": logonId
         ]
         
         let timestamp = Date.getTimestampNow()
