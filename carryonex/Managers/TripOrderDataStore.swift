@@ -31,7 +31,7 @@ class TripOrderDataStore: NSObject {
     
     func getSenderRequests() -> [Request] {
         return senderRequests.values.sorted(by: { (r1, r2) -> Bool in
-            return r1.id > r2.id
+            return r1.timestamp > r2.timestamp
         })
     }
     

@@ -216,6 +216,10 @@ class Trip : NSObject, Unboxable, Identifiable {
         let unknowAdd = L("trip.ui.message.empty-address")
         let message = "【\(dateString), \(self.startAddress?.city ?? unknowAdd)-\(self.endAddress?.city ?? unknowAdd)】 \n" + noteStr
         let url = "carryonex://request?trip_code=\(self.tripCode)"
+        
+        //TODO: Update to this when carryonp is ready
+        //let url = "https://www.carryonp.com/redirect?deeplink=https://www.carryonx.com/request?trip_code=\(self.tripCode)"
+        
         return (title, message, url)
     }
     
