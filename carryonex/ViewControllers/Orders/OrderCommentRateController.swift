@@ -9,15 +9,20 @@
 import UIKit
 
 class OrderCommentRateController: UIViewController {
+    
+    @IBOutlet weak var titleLabelScore: UILabel!
+    @IBOutlet weak var titleLabelComment: UILabel!
+    @IBOutlet weak var hintLabelComment: UILabel!
     @IBOutlet private weak var commentRate: UIImage!
     @IBOutlet private weak var commentView: UIView!
     @IBOutlet private weak var commentButton: UIButton!
-    @IBOutlet private weak var commentTextField: UITextField!
-    @IBOutlet private weak var coverView: UIView!
+    @IBOutlet private weak var commentTextField: ThemTextField!
+    @IBOutlet private weak var stars5MaskImageView: UIImageView!
     @IBOutlet private weak var commentWidth: NSLayoutConstraint!
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var realNameLabel: UILabel!
+    @IBOutlet weak var backToHomeButton: UIButton!
     
     var rate: Float = 5
     var commenteeId: Int = 0
@@ -57,19 +62,13 @@ class OrderCommentRateController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let position = touch.location(in: coverView)
-            if position.y > CGFloat(-20) && position.y < CGFloat(50) && position.x > CGFloat(0){
-                if position.x > CGFloat(150) {
-                    commentWidth.constant = CGFloat(150)
-                    rate = Float(150)/30
-                } else {
-                    let actualLevel = (Int(Float(position.x)/30)+1)*30
-                    commentWidth.constant = CGFloat(actualLevel)
-                    rate = Float(actualLevel)/30
-                }
-            }
-        }
+        guard let touch = touches.first else { return }
+        
+        let loc = touch.location(in: stars5MaskImageView)
+        let fullLength = stars5MaskImageView.bounds.width
+        let stars = ceil((loc.y / fullLength) * 5)
+        commentWidth.constant = fullLength * (stars / 5)
+        rate = Float(stars)
     }
     
     @IBAction func commentButtonTapped(sender: UIButton) {

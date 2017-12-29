@@ -35,6 +35,7 @@ class PhoneNumViewController: UIViewController {
     }
     
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryCodeButton: UIButton!
     @IBOutlet weak var phoneNumTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -69,6 +70,7 @@ class PhoneNumViewController: UIViewController {
         super.viewDidLoad()
         zoneCodeInput = "1"
 
+        titleLabel.text = L("register.ui.title.phone")
         setupTextField()
         setupFlagPicker()
         checkPhone()
@@ -178,7 +180,6 @@ extension PhoneNumViewController: PhoneNumberDelegate {
         phoneInput = profileUser.phone ?? ""
         zoneCodeInput = profileUser.phoneCountryCode ?? ""
         
-        self.isLoading = true
         verifyUserNewPhoneNum()
     }
     
@@ -189,8 +190,9 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     }
     
     private func verifyUserNewPhoneNum(){
-        self.isLoading = true
+        guard isLoading == false else { return }
         
+        self.isLoading = true
         SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
             self.isLoading = false
             if let err = err {
@@ -204,7 +206,8 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     
     @objc private func nextButtonEnable(){
         sendButton.isEnabled = true
-        sendButton.backgroundColor = colorOkgreen
+        sendButton.backgroundColor = colorTheamRed
+        sendButton.setTitleColor(UIColor.white, for: .normal)
     }
     
     func textFieldsInAllCellResignFirstResponder(){
@@ -300,7 +303,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         
         isPhoneNumValid = isFormatOK
         sendButton.isEnabled = isFormatOK
-        sendButton.backgroundColor = sendButton.isEnabled ? colorOkgreen : colorErrGray
+        sendButton.backgroundColor = sendButton.isEnabled ? colorTheamRed : colorErrGray
         
         //let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
         //print(msg + ": \(zoneCodeInput) \(phoneInput)")

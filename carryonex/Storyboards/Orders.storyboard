@@ -322,10 +322,10 @@
                                                                         <constraint firstAttribute="width" constant="80" id="r2I-eN-AHf"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starts5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="ii8-gM-yH8">
-                                                                    <rect key="frame" x="195" y="65" width="100" height="20"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="ii8-gM-yH8">
+                                                                    <rect key="frame" x="195" y="65" width="110" height="20"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="100" id="XQO-Un-67S"/>
+                                                                        <constraint firstAttribute="width" constant="110" id="XQO-Un-67S"/>
                                                                         <constraint firstAttribute="height" constant="20" id="wVg-li-h50"/>
                                                                     </constraints>
                                                                 </imageView>
@@ -949,11 +949,11 @@
                                                                         <constraint firstAttribute="width" constant="80" id="sEG-rF-EU9"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starts5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="T6m-Nq-3fE">
-                                                                    <rect key="frame" x="198" y="70" width="100" height="20"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="T6m-Nq-3fE">
+                                                                    <rect key="frame" x="198" y="70" width="110" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="9z1-c0-APD"/>
-                                                                        <constraint firstAttribute="width" constant="100" id="AVL-d6-ZGH"/>
+                                                                        <constraint firstAttribute="width" constant="110" id="AVL-d6-ZGH"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PHI-Ki-0cI">
@@ -1316,7 +1316,7 @@
         <image name="imgViewTopWave" width="528" height="55"/>
         <image name="orderIcon_82x82" width="27" height="27"/>
         <image name="shareing" width="63" height="64"/>
-        <image name="starts5Mask" width="827" height="165"/>
+        <image name="stars5Mask" width="403" height="70"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>

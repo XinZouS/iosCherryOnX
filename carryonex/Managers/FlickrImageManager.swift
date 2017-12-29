@@ -73,7 +73,7 @@ class FlickrImageManager {
             return
         }
         
-        let searchTag = place + ",landscape" // [landmark, building, city, landscape]
+        let searchTag = place + ",landmark" // [landmark, building, city, landscape]
         
         let photoSearch = FKFlickrPhotosSearch()
         photoSearch.per_page = "10"

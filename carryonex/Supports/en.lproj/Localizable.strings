@@ -51,6 +51,7 @@
 "login.ui.agreement.title" = "User Agreement";
 "login.ui.license.title" = "License Agreement";
 "login.ui.privacy.title" = "Privacy Policy";
+"register.ui.title.phone" = "Phone Verification"; // 2017-12-29 - Xin
 "register.error.title.miss-phone" = "Missing Information";
 "register.error.message.miss-phone" = "Please fill in your phone number.";
 "register.error.title.duplicate" = "Duplicate registration";

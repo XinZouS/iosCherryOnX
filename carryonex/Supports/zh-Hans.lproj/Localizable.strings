@@ -51,6 +51,7 @@
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
 "login.ui.privacy.title" = "隐私政策";
+"register.ui.title.phone" = "手机验证"; // 2017-12-29 - Xin
 "register.error.title.miss-phone" = "信息不足";
 "register.error.message.miss-phone" = "手机号码未填写";
 "register.error.title.duplicate" = "无法重复注册";
