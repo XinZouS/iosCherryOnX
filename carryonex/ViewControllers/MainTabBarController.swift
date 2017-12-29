@@ -256,17 +256,18 @@ extension MainTabBarController: CLLocationManagerDelegate {
                 
                 if let placemark = placemark, placemark.count > 0 {
                     var locationString = String()
-                    let mark = placemark[0]
-                    if let city = mark.addressDictionary?["City"] as? String {
-                        locationString += city
+                    let mark = placemark.first!
+                    
+                    if let district = mark.subLocality {
+                        locationString += district
                     }
                     
-                    if let state = mark.addressDictionary?["State"] as? String {
-                        locationString += (" " + state)
-                    }
-                    
-                    if let country = mark.addressDictionary?["Country"] as? String {
-                        locationString += (" " + country)
+                    if let city = mark.locality {
+                        if locationString.count > 0 {
+                            locationString += (", " + city)
+                        } else {
+                            locationString += city
+                        }
                     }
                     
                     self.homeViewController?.locationLabel.text = locationString
