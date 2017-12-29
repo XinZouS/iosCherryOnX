@@ -93,6 +93,7 @@
 "home.ui.title.comments" = "Score"; // 2017-12-28 Xin
 "home.ui.title.triper" = "Trip"; // 2017-12-28 Xin
 "home.ui.title.sender" = "Send"; // 2017-12-28 Xin
+"home.ui.location.message.unknown" = "Unable to read location"; //2017-12-29 Zian
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "New Request";

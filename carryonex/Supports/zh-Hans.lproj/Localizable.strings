@@ -93,6 +93,7 @@
 "home.ui.title.comments" = "综合评价"; // 2017-12-28 Xin
 "home.ui.title.triper" = "出行"; // 2017-12-28 Xin
 "home.ui.title.sender" = "寄件"; // 2017-12-28 Xin
+"home.ui.location.message.unknown" = "无法读取地点";  //2017-12-29 Zian
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "寄件";

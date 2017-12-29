@@ -197,6 +197,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.circleIndicator.stop()
             self?.circleIndicator.isHidden = true
+            self?.locationManager.startUpdatingLocation()
         }
         
         //登录异常（如改变设备）
@@ -214,6 +215,11 @@ class MainTabBarController: UITabBarController {
                 strongSelf.displayAlert(title: L("maintapbar.error.title.network"), message: L("maintapbar.error.message.network"), action: L("maintapbar.error.action.network"))
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: nil) { [weak self] (notification) in
+            self?.locationManager.startUpdatingLocation()
+        }
+        
     }
 }
 
@@ -244,6 +250,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
             CLGeocoder().reverseGeocodeLocation(currentLocation) { (placemark, error) -> Void in
                 if let error = error {
                     print("Get location error: \(error.localizedDescription)")
+                    self.homeViewController?.locationLabel.text = L("home.ui.location.message.unknown")
                     return
                 }
                 
@@ -263,6 +270,9 @@ extension MainTabBarController: CLLocationManagerDelegate {
                     }
                     
                     self.homeViewController?.locationLabel.text = locationString
+                
+                } else {
+                    self.homeViewController?.locationLabel.text = L("home.ui.location.message.unknown")
                 }
             }
             
