@@ -123,8 +123,9 @@ class ItemListYouxiangInputController: UIViewController {
         
         guard code.count == 6 else {
             self.isLoading = false
-            self.displayGlobalAlert(title: L("sender.error.title.youxiangcode-type"), message: L("sender.error.message.youxiangcode-type"), action: L("action.ok"), completion: { [weak self] _ in
-                self?.resetTextField()
+            self.displayGlobalAlert(title: L("sender.error.title.youxiangcode-type"),
+                                    message: L("sender.error.message.youxiangcode-type"),
+                                    action: L("action.ok"), completion: { _ in
             })
             return
         }
@@ -180,15 +181,6 @@ class ItemListYouxiangInputController: UIViewController {
 
 extension ItemListYouxiangInputController: UITextFieldDelegate {
     
-    func textFieldDidChanged(){
-        guard let code = youxiangcodeTextField.text else {
-            return
-        }
-        if code.count == 6 {
-            fetchTripByYouxiangcode(code)
-        }
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let code = youxiangcodeTextField.text else { return false }
         fetchTripByYouxiangcode(code)
@@ -209,13 +201,13 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
         bar.sizeToFit()
         
         textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
         textField.inputAccessoryView = bar
     }
     
     func textFieldDoneButtonTapped(){
         youxiangcodeTextField.resignFirstResponder()
-        textFieldDidChanged()
+        guard let code = youxiangcodeTextField.text else { return }
+        fetchTripByYouxiangcode(code)
     }
     
     func textFieldCancelButtonTapped(){
