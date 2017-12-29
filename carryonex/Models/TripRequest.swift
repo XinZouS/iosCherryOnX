@@ -24,6 +24,10 @@ struct RequestImage {
     let requestId: String?
     let imageUrl: String
     let thumbnailUrl: String
+    
+    func displayUrl() -> String {
+        return thumbnailUrl
+    }
 }
 
 extension RequestImage: Unboxable {

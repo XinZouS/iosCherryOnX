@@ -213,8 +213,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDataSource {
                 
                 cell.request = request
                 if let reqImage = request.getImages().first,
-                    let imageUrl = URL(string: reqImage.imageUrl) {
-                    
+                    let imageUrl = URL(string: reqImage.displayUrl()) {
                     cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
                 }
                 return cell
