@@ -680,14 +680,9 @@ extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
         return cell?.imageView.image
     }
     
-    
-    /// 最高清图，原图。（需要时可实现本方法）
-    /*
-     func photoBrowser(_ photoBrowser: PhotoBrowser, rawUrlForIndex index: Int) -> URL? {
-     return nil
-     // 测试
-     return index == 2 ? URL(string: "https://b-ssl.duitang.com/uploads/item/201501/28/20150128173439_RK4XS.jpeg") : nil
-     }*/
+    func photoBrowser(_ photoBrowser: PhotoBrowser, highQualityUrlForIndex index: Int) -> URL? {
+        return URL(string: request.getImages()[index].imageUrl)
+    }
     
     /// 长按图片
     func photoBrowser(_ photoBrowser: PhotoBrowser, didLongPressForIndex index: Int, image: UIImage) {
@@ -717,7 +712,6 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
         }
     }
     
-  
 }
 
 

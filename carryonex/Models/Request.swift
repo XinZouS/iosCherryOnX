@@ -28,7 +28,7 @@ class Request: Unboxable, Identifiable {
     var commentStatus: Int
     
     var name: String?
-    var timestamp: Int?
+    var timestamp: Int
     var requestEta: Int?
     var priceStd: Int?
     var currency: String?
@@ -65,6 +65,8 @@ class Request: Unboxable, Identifiable {
         self.ownerRating = try? unboxer.unbox(key: RequestKeyInDB.ownerRating.rawValue)
         self.ownerImageUrl = try? unboxer.unbox(key: RequestKeyInDB.ownerImageUrl.rawValue)
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
+        
+        self.timestamp = try unboxer.unbox(key: RequestKeyInDB.timestamp.rawValue)
     }
     
     func printAllData() {
