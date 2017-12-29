@@ -197,6 +197,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
             self?.circleIndicator.stop()
             self?.circleIndicator.isHidden = true
+            self?.locationManager.startUpdatingLocation()
         }
         
         //登录异常（如改变设备）
@@ -218,6 +219,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: nil) { [weak self] (notification) in
             self?.locationManager.startUpdatingLocation()
         }
+        
     }
 }
 
