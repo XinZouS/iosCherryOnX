@@ -68,6 +68,7 @@ class PhoneValidationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVerifyTextField()
+        resendButton.setTitle(L("register.error.action.verify"), for: .normal)
     }
     
     private func setupUserPhoneShow(){
@@ -88,13 +89,14 @@ class PhoneValidationViewController: UIViewController {
     }
         
     fileprivate func resetResendButtonTo60s(){
+        resendButton.setTitleColor(colorTheamRed, for: .normal)
+        resendButton.isEnabled = false
         resetTime = 60
         resetTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown1sec), userInfo: nil, repeats: resetTime != 0)
     }
     func countDown1sec(){
-        resendButton.backgroundColor = resetTime == 0 ? buttonThemeColor : UIColor.lightGray
-        resendButton.isEnabled = (resetTime == 0)
         if resetTime == 0 {
+            resendButton.isEnabled = true
             resetTimer?.invalidate()
             resendButton.setTitle(L("register.ui.message.resend-verify-code"), for: .normal)
         }else{

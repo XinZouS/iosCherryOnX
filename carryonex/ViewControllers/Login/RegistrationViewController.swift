@@ -27,8 +27,29 @@ class RegistrationViewController: UIViewController {
         }
     }
     
+    var isLoading: Bool = false {
+        didSet{
+            registerButton.isEnabled = !isLoading
+            registerButton.layer.borderColor = isLoading ? colorTheamRed.cgColor : UIColor.white.cgColor
+            registerButton.layer.borderWidth = isLoading ? 2 : 0
+            registerButton.setTitleColor(isLoading ? colorTheamRed : UIColor.white , for: .normal)
+            registerButton.backgroundColor = isLoading ? UIColor.white : colorTheamRed
+            loadingIndicator.isHidden = !isLoading
+            if isLoading {
+                loadingIndicator.animate()
+            }else{
+                loadingIndicator.stop()
+            }
+        }
+    }
+    
+    var loadingIndicator: BPCircleActivityIndicator!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupActivityIndicator()
         
         nameField.delegate = self
         passwordField.delegate = self
@@ -50,6 +71,13 @@ class RegistrationViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         AnalyticsManager.shared.clearTimeTrackingKey(.registrationProcessTime)
+    }
+    
+    private func setupActivityIndicator(){
+        loadingIndicator = BPCircleActivityIndicator()
+        loadingIndicator.frame = CGRect(x: view.center.x - 15,y:view.center.y - 105, width: 0, height: 0)
+        loadingIndicator.isHidden = true
+        view.addSubview(loadingIndicator)
     }
     
     
@@ -83,6 +111,8 @@ class RegistrationViewController: UIViewController {
     //MARK: Helper
     
     private func registerUser(name: String, password: String, phone: String, countryCode: String){
+        
+        isLoading = true
         ProfileManager.shared.register(username: phone,
                                        countryCode: countryCode,
                                        phone: phone,
@@ -108,6 +138,7 @@ class RegistrationViewController: UIViewController {
                                                     }
                                                 } else {
                                                     print("登入失败")
+                                                    self.isLoading = false
                                                     self.displayGlobalAlert(title: "登入失败",
                                                                             message: "注册成功但登入失败，请检查你的网络。",
                                                                             action: L("action.ok"), completion: nil)
@@ -115,6 +146,7 @@ class RegistrationViewController: UIViewController {
                                             })
                                         } else {
                                             print("注册失败")
+                                            self.isLoading = false
                                             self.displayGlobalAlert(title: L("register.error.title.failed"), message: L("register.error.message.failed") + ": \(err?.localizedDescription ?? L("register.error.title.failed"))", action: L("action.ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
                                             })
@@ -166,12 +198,12 @@ class RegistrationViewController: UIViewController {
         let nameOk = (nameField.text != nil && nameField.text != "")
         let ok = isPasswordValid && nameOk
         registerButton.isEnabled = ok
-        registerButton.backgroundColor = ok ? colorOkgreen : colorErrGray
+        registerButton.backgroundColor = ok ? colorTheamRed : UIColor.lightGray
         registerButton.setTitleColor(.white, for: .normal)
     }
     
     
-    @IBAction func agreeButtonTapped(_ sender: Any) {
+    @IBAction func agreepped(_ sender: Any) {
         gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement")
     }
     

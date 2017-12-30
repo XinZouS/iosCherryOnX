@@ -21,16 +21,14 @@ class PhoneNumViewController: UIViewController {
     var isPhoneNumValid: Bool = false
     var isLoading: Bool = false {
         didSet{
-            if isLoading {
-                loadingIndicator.isHidden = false
-                loadingIndicator.animate()
-                flagPicker.isHidden = true
-            } else {
-                loadingIndicator.isHidden = true
-                loadingIndicator.stop()
-            }
             countryCodeButton.isEnabled = !isLoading
             phoneNumTextField.isEnabled = !isLoading
+            sendButton.isEnabled = !isLoading
+            loadingIndicator.isHidden = !isLoading
+            if isLoading {
+                loadingIndicator.animate()
+                flagPicker.isHidden = true
+            }
         }
     }
     
@@ -76,6 +74,7 @@ class PhoneNumViewController: UIViewController {
         checkPhone()
         setupGifImage()
         setupActivityIndicator()
+        sendButton.setTitle(L("register.ui.message.resend-verify-code"), for: .normal)
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
         
@@ -113,7 +112,7 @@ class PhoneNumViewController: UIViewController {
     
     private func setupActivityIndicator(){
         loadingIndicator = BPCircleActivityIndicator()
-        loadingIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        loadingIndicator.frame = CGRect(x: view.center.x - 15, y: view.center.y - 105, width: 0, height: 0)
         loadingIndicator.isHidden = true
         view.addSubview(loadingIndicator)
     }
@@ -149,9 +148,9 @@ extension PhoneNumViewController: PhoneNumberDelegate {
         
         isLoading = true
         ApiServers.shared.getIsUserExisted(phoneInput: newPhone) { (isExist, error) in
-            self.isLoading = false
             
             if let error = error {
+                self.isLoading = false
                 print("getIsUserExisted error: \(error.localizedDescription)")
                 return
             }
@@ -190,9 +189,6 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     }
     
     private func verifyUserNewPhoneNum(){
-        guard isLoading == false else { return }
-        
-        self.isLoading = true
         SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
             self.isLoading = false
             if let err = err {
@@ -303,7 +299,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         
         isPhoneNumValid = isFormatOK
         sendButton.isEnabled = isFormatOK
-        sendButton.backgroundColor = sendButton.isEnabled ? colorTheamRed : colorErrGray
+        sendButton.backgroundColor = sendButton.isEnabled ? colorTheamRed : .lightGray
         
         //let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
         //print(msg + ": \(zoneCodeInput) \(phoneInput)")
@@ -314,7 +310,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         isPhoneNumValid = (num.count >= 6)
         if isPhoneNumValid {
             sendButton.isEnabled = isPhoneNumValid
-            sendButton.backgroundColor = sendButton.isEnabled ? buttonThemeColor : .lightGray
+            sendButton.backgroundColor = sendButton.isEnabled ? colorTheamRed : .lightGray
         }
     }
     
