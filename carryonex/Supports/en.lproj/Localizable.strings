@@ -64,11 +64,11 @@
 "register.error.message.verify-phone" = "Unable to verify the phone number.";
 "register.error.action.verify" = "Resend";
 "register.error.title.failed" = "Registration Failed";
-"register.error.message.failed" = "Failed to register.";
+"register.error.message.failed" = "Failed to register";
 "register.ui.message.hint1" = "Verification code has been sent to";
 "register.ui.message.hint2" = "，please enter";
-"register.ui.message.resend-verify-code" = "Resend verification code.";
-"register.ui.message.resend-time" = "seconds wait before resending the code."; // "\(resetTime)秒后重新发送"
+"register.ui.message.resend-verify-code" = "Resend Verification Code";
+"register.ui.message.resend-time" = "seconds wait before resending the code"; // "\(resetTime)秒后重新发送"
 "register.ui.title.success" = "Register Success 🎉";
 
 // MARK: - Home

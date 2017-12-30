@@ -33,6 +33,11 @@ class OrderListViewController: UIViewController {
     
     var listType: TripCategory = .carrier {
         didSet {
+            if listType == .carrier {
+                animateListMoveLeft()
+            } else {
+                animateListMoveRight()
+            }
             loadImageUrlsOfCurrentCity()
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
@@ -221,10 +226,12 @@ class OrderListViewController: UIViewController {
         animateListMoveRight()
     }
     
+    // Move tables to show the Right part
     func animateListMoveRight(){
-        if tableViewLeftConstraint.constant == 0 {
-            tableViewLeftConstraint.constant = -(self.view.bounds.width)
-            sliderBarCenterConstraint.constant = listButtonShiper.bounds.width
+        guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
+        if leftCst.constant == 0 {
+            leftCst.constant = -(self.view.bounds.width)
+            sliderBarCenterCst.constant = listButtonShiper.bounds.width
             listType = .sender
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
@@ -232,10 +239,12 @@ class OrderListViewController: UIViewController {
         }
     }
     
+    // Move tables to show the Left part
     func animateListMoveLeft(){
-        if tableViewLeftConstraint.constant < 0 {
-            tableViewLeftConstraint.constant = 0
-            sliderBarCenterConstraint.constant = 0
+        guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
+        if leftCst.constant < 0 {
+            leftCst.constant = 0
+            sliderBarCenterCst.constant = 0
             listType = .carrier
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 self.view.layoutIfNeeded()
