@@ -292,5 +292,3 @@ extension MainTabBarController: CLLocationManagerDelegate {
     }
 }
 
-
-
