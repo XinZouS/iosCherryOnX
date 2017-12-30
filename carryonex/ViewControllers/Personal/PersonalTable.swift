@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalTable: UITableViewController,UIPickerViewDataSource{
+class PersonalTable: UITableViewController, UIPickerViewDataSource {
     
     @IBOutlet weak var genderButton: UIButton!
     @IBOutlet weak var genderTextField: UITextField!

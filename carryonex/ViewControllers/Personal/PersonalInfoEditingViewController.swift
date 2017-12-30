@@ -134,6 +134,7 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
             return
         }
         let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.displayString()
+        let settedGender = ProfileGender.rawValueByDisplayString(<#T##ProfileGender#>)
         let emailString = childVC.emailTextField.text
         let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
         let matcher = MyRegex(emailPattern)
@@ -307,7 +308,7 @@ extension PersonalInfoEditingViewController {
     
     func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileName = "\(idType.rawValue).JPG" // UserDefaultKey.profileImageLocalName.rawValue
+        let fileName = "\(idType.rawValue).JPG"
         let profileImgLocalUrl = documentUrl.appendingPathComponent(fileName)
         let uploadImg = img.getThumbnailImg(compression: imageCompress, maxPixelSize: 300) ?? img
         if let imgData = UIImageJPEGRepresentation(uploadImg, 1) {
