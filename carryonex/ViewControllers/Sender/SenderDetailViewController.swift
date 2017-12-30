@@ -199,10 +199,14 @@ class SenderDetailViewController: UIViewController{
     var isLoading: Bool = false {
         didSet{
             if isLoading {
+                UIApplication.shared.beginIgnoringInteractionEvents()
                 activityIndicator.animate()
             } else {
+                UIApplication.shared.endIgnoringInteractionEvents()
                 activityIndicator.stop()
             }
+            activityIndicator.isHidden = !isLoading
+            submitButton.isEnabled = !isLoading
             submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
         }
     }
@@ -226,11 +230,11 @@ class SenderDetailViewController: UIViewController{
         scrollView.delegate = self
         setupCollectionView()
         setupTextFields()
-        setupActivityIndicator()
         setupSlider()
         getPriceFunctionFromServer()
         setupCardView()
-        
+        setupActivityIndicator()
+
         //Get realname
         if let targetUserId = trip?.carrierId {
             ApiServers.shared.getUserInfo(.realName, userId: targetUserId) { (realName, error) in
@@ -407,7 +411,6 @@ class SenderDetailViewController: UIViewController{
         }
     }
 
-
     @objc fileprivate func handleSubmissionButton() {
         guard let name = nameTextField.text, name.count != 0 else {
             self.displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.recipient"), action: L("action.ok"), completion: { [weak self] _ in
@@ -443,18 +446,15 @@ class SenderDetailViewController: UIViewController{
         guard isLoading == false else {
             return
         }
-        
         isLoading = true
         AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
         AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailTotalTime)
         
         self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
             self?.isLoading = false
-            self?.activityIndicator.isHidden = true
             guard let strongSelf = self else { return }
             
             if let err = error {
-                strongSelf.isLoading = false
                 debugPrint("Error: \(err.localizedDescription)")
                 strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
                                               message: L("sender.error.message.upload-photo"),
@@ -480,6 +480,7 @@ class SenderDetailViewController: UIViewController{
                 address.phoneNumber = strongSelf.zoneCodeInput + phone
                 address.detailedAddress = destAddressStr
 
+                strongSelf.isLoading = true
                 ApiServers.shared.postRequest(totalValue: totalValue,
                                               cost: cost,
                                               destination: address,
@@ -489,10 +490,10 @@ class SenderDetailViewController: UIViewController{
                                               description: msg ?? "",
                                               completion: { (success, error, serverErr) in
                                                 
+                                                strongSelf.isLoading = false
                                                 AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
 
                                                 if let error = error {
-                                                    strongSelf.isLoading = false
                                                     print("Post Request Error: \(error.localizedDescription)")
                                                     strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
                                                                                   message: L("sender.error.message.post-failed"),
@@ -501,7 +502,6 @@ class SenderDetailViewController: UIViewController{
                                                     return
                                                 }
                                                 
-                                                strongSelf.isLoading = false
                                                 strongSelf.removeAllImageFromLocal()
                                                 strongSelf.displayGlobalAlert(title: L("sender.confirm.title.post"),
                                                                               message: L("sender.confirm.message.post"),
