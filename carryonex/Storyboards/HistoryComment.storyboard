@@ -6,7 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,7 +54,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MQp-mk-iGi">
-                                                    <rect key="frame" x="73" y="61" width="266.5" height="75"/>
+                                                    <rect key="frame" x="68" y="53" width="272" height="86"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" red="0.25817665457725525" green="0.27814686298370361" blue="0.29897832870483398" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -71,10 +71,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PI-de-gtJ">
-                                                    <rect key="frame" x="286" y="20" width="50" height="10"/>
+                                                    <rect key="frame" x="286" y="20" width="55" height="10"/>
                                                     <color key="backgroundColor" red="1" green="0.90980239640000005" blue="0.16298468269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="XcM-Py-ld3"/>
+                                                        <constraint firstAttribute="width" constant="55" id="XcM-Py-ld3"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-l8-7hc">
@@ -91,24 +91,24 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="leading" secondItem="rrt-MT-dXf" secondAttribute="leading" id="4HU-d3-HLd"/>
+                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="leading" secondItem="rrt-MT-dXf" secondAttribute="leading" constant="-5" id="4HU-d3-HLd"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="height" secondItem="T1r-sD-TLg" secondAttribute="height" id="4Qf-UR-cZ0"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="width" secondItem="T1r-sD-TLg" secondAttribute="width" id="66n-IU-3qK"/>
                                                 <constraint firstItem="Etg-76-kaO" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="11" id="6Db-9a-QkY"/>
-                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="width" secondItem="T1r-sD-TLg" secondAttribute="width" multiplier="0.75" id="EO6-kv-Z5Y"/>
                                                 <constraint firstItem="Etg-76-kaO" firstAttribute="leading" secondItem="T1r-sD-TLg" secondAttribute="leading" constant="15" id="FcK-uP-VWH"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="height" secondItem="yyx-l8-7hc" secondAttribute="height" id="Fqg-pd-afH"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerX" secondItem="T1r-sD-TLg" secondAttribute="centerX" id="JD8-f9-hdJ"/>
                                                 <constraint firstItem="yyx-l8-7hc" firstAttribute="leading" secondItem="Tgv-eU-Q2k" secondAttribute="trailing" constant="20" id="N81-tt-kCb"/>
-                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="height" secondItem="T1r-sD-TLg" secondAttribute="height" multiplier="0.5" id="YG9-2Q-S6b"/>
-                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="top" secondItem="rrt-MT-dXf" secondAttribute="bottom" constant="8" id="Ygl-Te-1iB"/>
+                                                <constraint firstItem="MQp-mk-iGi" firstAttribute="top" secondItem="rrt-MT-dXf" secondAttribute="bottom" id="Ygl-Te-1iB"/>
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="leading" secondItem="Etg-76-kaO" secondAttribute="trailing" constant="8" id="an5-4Z-fhF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MQp-mk-iGi" secondAttribute="bottom" id="cEI-6C-Otg"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="centerY" secondItem="yyx-l8-7hc" secondAttribute="centerY" id="d0P-iN-cML"/>
                                                 <constraint firstItem="yyx-l8-7hc" firstAttribute="centerY" secondItem="Tgv-eU-Q2k" secondAttribute="centerY" id="gal-BW-LF1"/>
                                                 <constraint firstItem="rrt-MT-dXf" firstAttribute="leading" secondItem="Tgv-eU-Q2k" secondAttribute="leading" id="hQR-gb-qYO"/>
                                                 <constraint firstItem="rrt-MT-dXf" firstAttribute="top" secondItem="Tgv-eU-Q2k" secondAttribute="bottom" constant="3" id="r1Q-7y-Wlo"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="leading" secondItem="yyx-l8-7hc" secondAttribute="leading" id="rZj-Bg-0JA"/>
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="15" id="rwp-F5-IzK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MQp-mk-iGi" secondAttribute="trailing" id="v63-2Y-cc1"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerY" secondItem="T1r-sD-TLg" secondAttribute="centerY" id="w4E-gF-hCA"/>
                                             </constraints>
                                         </tableViewCellContentView>

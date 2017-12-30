@@ -770,7 +770,7 @@
                                                                     <rect key="frame" x="235" y="95" width="120" height="30"/>
                                                                     <color key="backgroundColor" red="0.52664161850000002" green="0.95799316670000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="120" id="ME1-5T-f6q"/>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="ME1-5T-f6q"/>
                                                                         <constraint firstAttribute="height" constant="30" id="y0n-yB-8ZX"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>

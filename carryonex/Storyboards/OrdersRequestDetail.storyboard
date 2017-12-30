@@ -154,7 +154,7 @@
                                                 <rect key="frame" x="105" y="225" width="70" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="LiZ-9V-Duw"/>
-                                                    <constraint firstAttribute="width" constant="70" id="c1h-iY-ecl"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="c1h-iY-ecl"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
