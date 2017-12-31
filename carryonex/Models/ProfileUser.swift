@@ -46,21 +46,6 @@ enum ProfileGender: String {
     case other = "O"
     case undefined = "U"
     
-    func rawValueByDisplayString(_ str: String) -> String {
-        switch str {
-        case L("personal.ui.title.gender-male"):
-            return "M"
-        case L("personal.ui.title.gender-female"):
-            return "F"
-        case L("personal.ui.title.gender-other"):
-            return "O"
-        case L("personal.ui.title.gender-unknow"):
-            return "U"
-        default:
-            return "U"
-        }
-    }
-    
     func displayString() -> String {
         switch self {
         case .male:

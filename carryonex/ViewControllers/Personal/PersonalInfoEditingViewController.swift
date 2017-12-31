@@ -14,18 +14,31 @@ import AWSS3
 import ALCameraViewController
 import Photos
 
-class PersonalInfoEditingViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class PersonalInfoEditingViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     
+    // for tableView:
+    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak
+    var genderTextField: UITextField!
+//    @IBOutlet weak
+    var emailTextField: UITextField!
+    let tableCellId = "PersonalInfoTableCell"
+    
+    let tableRows = ["性别","邮箱"]
+    let genderPickerView = UIPickerView()
+    var pickerData: [String] = []
+    
+
     var user: ProfileUser?
     var newProfile: UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
     var isProfileImageChanged = false
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var wechatAuthorizationState: String = ""
-    
+    var settedGender: ProfileGender = .undefined
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -34,25 +47,37 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUser()
         addObservers()
-        setupTextField()
         setupActivityIndicator()
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
+        nameTextField.inputAccessoryView = setupTextFieldToolbar()
+        setupTableViewAndPicker()
     }
     
-    private func setupTextField(){
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        doneToolbar.barStyle = UIBarStyle.default
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
-        doneToolbar.items = [flexSpace,done]
-        doneToolbar.sizeToFit()
-        self.nameTextField.inputAccessoryView = doneToolbar
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if user == nil {
+            setupUser()
+        }
     }
     
-    @objc private func doneButtonAction(){
+    private func setupTableViewAndPicker(){
+        pickerData = [L("personal.ui.title.gender-male"),
+                      L("personal.ui.title.gender-female"),
+                      L("personal.ui.title.gender-other"),
+                      L("personal.ui.title.gender-unknow")
+        ] // ["男", "女", "其他", "未知"]
+        genderPickerView.delegate = self
+        genderPickerView.dataSource = self
+        tableView.tableFooterView = UIView()
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    @objc fileprivate func doneButtonAction(){
         nameTextField.resignFirstResponder()
+        genderTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
     }
     
     fileprivate func addObservers() {
@@ -92,28 +117,25 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
         if let currentUser = ProfileManager.shared.getCurrentUser() {
             user = currentUser
             if let imageUrlString = currentUser.imageUrl, let imageUrl = URL(string: imageUrlString) {
-//                imageButton.af_setImage(for: .normal, url: imageUrl, placeholderImage:#imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
                 imageButton.af_setBackgroundImage(for: .normal, url: imageUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-            }else{
-//                imageButton.setImage(newProfile, for: .normal)
+            } else {
                 imageButton.setBackgroundImage(newProfile, for: .normal)
             }
             
             nameTextField.text = currentUser.realName
-            if let childVC = self.childViewControllers.first as? PersonalTable {
-                childVC.emailTextField.text = currentUser.email
-                if let genderString = currentUser.gender {
-                    switch genderString{
-                    case ProfileGender.male.rawValue:
-                        childVC.genderTextField.text = ProfileGender.male.displayString()
-                    case ProfileGender.female.rawValue:
-                        childVC.genderTextField.text = ProfileGender.female.displayString()
-                    case ProfileGender.other.rawValue:
-                        childVC.genderTextField.text = ProfileGender.other.displayString()
-                    default:
-                        childVC.genderTextField.text = ProfileGender.undefined.displayString()
-                    }
+            emailTextField.text = currentUser.email
+            if let genderString = currentUser.gender {
+                switch genderString{
+                case ProfileGender.male.rawValue:
+                    genderTextField.text = ProfileGender.male.displayString()
+                case ProfileGender.female.rawValue:
+                    genderTextField.text = ProfileGender.female.displayString()
+                case ProfileGender.other.rawValue:
+                    genderTextField.text = ProfileGender.other.displayString()
+                default:
+                    genderTextField.text = ProfileGender.undefined.displayString()
                 }
+                
             }
         } else {
             displayGlobalAlert(title: L("personal.error.title.network"), message: L("personal.error.message.network"), action: L("action.ok"), completion: nil)
@@ -124,26 +146,22 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicator.isHidden = true
-        activityIndicator.center = view.center
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         view.addSubview(activityIndicator)
     }
 
     @objc private func saveButtonTapped(){
-        guard let childVC = self.childViewControllers.first as? PersonalTable else {
-            debugPrint("error: unable to get PersonalInfoEditingVC.childViewController as PersonalTable, abording...")
-            return
-        }
-        let genderString = childVC.genderTextField.text ?? ProfileGender.undefined.displayString()
-        let emailString = childVC.emailTextField.text
+        let emailString = emailTextField.text
         let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
         let matcher = MyRegex(emailPattern)
+        
         if let getEmail = emailString, matcher.match(input: getEmail) {
-            let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
-                                         "email": getEmail,
-                                         "gender": genderString] // FIX BUG here, transform string to enum.rawvalue;
             activityIndicator.isHidden = false
             activityIndicator.animate()
             
+            let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
+                                         "email": getEmail,
+                                         "gender": settedGender.rawValue]
             if isProfileImageChanged {
                 uploadImageToAws(getImg: newProfile)
             }
@@ -163,9 +181,8 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
                                message: L("personal.error.message.upload-email"),
                                action: L("action.ok"),
                                completion: { [weak self] _ in
-                                if let childVC = self?.childViewControllers.first as? PersonalTable {
-                                    childVC.emailTextField.becomeFirstResponder()
-                                }
+                                
+                                self?.emailTextField.becomeFirstResponder()
             })
         }
     }
@@ -217,9 +234,115 @@ class PersonalInfoEditingViewController: UIViewController,UINavigationController
 }
 
 
+
+extension PersonalInfoEditingViewController: UIPickerViewDataSource {
+    
+    fileprivate func setupTextFieldToolbar() -> UIToolbar {
+        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        toolbar.barStyle = UIBarStyle.default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        toolbar.items = [flexSpace,done]
+        toolbar.sizeToFit()
+        
+        return toolbar
+    }
+    
+}
+
+extension PersonalInfoEditingViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableRows.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellId, for: indexPath) as! PersonalInfoTableCell
+        cell.titleLb.text = tableRows[indexPath.row]
+        cell.selectionStyle = .none
+
+        switch indexPath.row {
+        case 0: // gender
+            genderTextField = cell.textField
+            let traits = genderTextField.value(forKey: "textInputTraits") as AnyObject
+            traits.setValue(UIColor.clear, forKey: "insertionPointColor")
+            genderTextField.inputView = genderPickerView
+            genderTextField.inputAccessoryView = setupTextFieldToolbar()
+            
+        case 1: // email
+            emailTextField = cell.textField
+            cell.textField.inputAccessoryView = setupTextFieldToolbar()
+
+        default:
+            break
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            genderTextField.becomeFirstResponder()
+            
+        case 1:
+            emailTextField.becomeFirstResponder()
+            
+        default:
+            break
+        }
+    }
+    
+}
+
+extension PersonalInfoEditingViewController: UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        genderTextField.text = pickerData[genderPickerView.selectedRow(inComponent: 0)]
+        
+        switch row {
+        case 0:
+            settedGender = .male
+        case 1:
+            settedGender = .female
+        case 2:
+            settedGender = .other
+        case 3:
+            settedGender = .undefined
+        default:
+            settedGender = .undefined
+        }
+        
+    }
+    
+    @IBAction func commitButtonTapped(_ sender: Any) {
+        let idCV = PhotoIDController()
+        self.navigationController?.pushViewController(idCV, animated: true)
+    }
+    
+}
+
+
+
 /// MARK: - ALCameraView or ImagePicker setup
 
-extension PersonalInfoEditingViewController{
+extension PersonalInfoEditingViewController {
     
     func openImagePickerWith(source: UIImagePickerControllerSourceType, isAllowEditing: Bool) {
         let imagePicker = UIImagePickerController()
@@ -269,31 +392,32 @@ extension PersonalInfoEditingViewController{
 extension PersonalInfoEditingViewController {
     
     func uploadImageToAws(getImg: UIImage) {
-        activityIndicator.isHidden = false
-        activityIndicator.animate()
-        
         let localUrl = self.saveImageToDocumentDirectory(img: getImg, idType: .profile)
         let n = ImageTypeOfID.profile.rawValue + ".JPG"
         
         AwsServerManager.shared.uploadFile(fileName: n, imgIdType: .profile, localUrl: localUrl, completion: { (error, awsUrl) in
-            DispatchQueue.main.async {
+            if let error = error {
                 self.activityIndicator.isHidden = true
                 self.activityIndicator.stop()
-            }
-            if let error = error {
                 self.displayGlobalAlert(title: L("personal.error.title.upload-ids"),
                                         message: L("personal.error.message.upload-ids") + error.localizedDescription,
                                         action: L("action.ok"),
                                         completion: nil)
                 debugPrint("Upload image failed: \(error.localizedDescription)")
+                return
             }
             
             if let publicUrl = awsUrl, !publicUrl.absoluteString.isEmpty {
-                self.setupProfileImageFromAws()
+                let urlRequest = URLRequest(url: publicUrl)
+                if let imageCache = UIImageView.af_sharedImageDownloader.imageCache {
+                    _ = imageCache.removeImage(for: urlRequest, withIdentifier: nil)
+                    imageCache.removeAllImages()
+                }
+                self.setupProfileImageFromAws(url: publicUrl)
+                
                 ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
                     if success {
                         self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
-                        self.dismiss(animated: true, completion: nil)
                     } else {
                         debugPrint("error: updateUserProfileUrl() unsuccess, abording....")
                     }
@@ -307,7 +431,7 @@ extension PersonalInfoEditingViewController {
     
     func saveImageToDocumentDirectory(img : UIImage, idType: ImageTypeOfID) -> URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileName = "\(idType.rawValue).JPG" // UserDefaultKey.profileImageLocalName.rawValue
+        let fileName = "\(idType.rawValue).JPG"
         let profileImgLocalUrl = documentUrl.appendingPathComponent(fileName)
         let uploadImg = img.getThumbnailImg(compression: imageCompress, maxPixelSize: 300) ?? img
         if let imgData = UIImageJPEGRepresentation(uploadImg, 1) {
@@ -332,7 +456,7 @@ extension PersonalInfoEditingViewController {
     }
 }
 // WECHAT lOGIN
-extension PersonalInfoEditingViewController{
+extension PersonalInfoEditingViewController {
     
     func wechatButtonTapped(){
         wxloginStatus = "fillProfile"
@@ -397,35 +521,20 @@ extension PersonalInfoEditingViewController {
         }
     }
     
-    internal func setupProfileImageFromAws(){
+    internal func setupProfileImageFromAws(url: URL){
         guard let homeVC = AppDelegate.shared().mainTabViewController?.homeViewController,
             let personalVC = AppDelegate.shared().mainTabViewController?.personInfoController else {
             debugPrint("\n[ERROR]: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
             return
         }
-        if let imageUrlString = ProfileManager.shared.getCurrentUser()?.imageUrl, let imgUrl = URL(string: imageUrlString) {
-            // Clear what is in the cache, this will force a refresh to ensure fresh image is loaded next time
-            let urlRequest = URLRequest(url: imgUrl)
-            if let imageCache2 = UIImageView.af_sharedImageDownloader.imageCache {
-                _ = imageCache2.removeImage(for: urlRequest, withIdentifier: nil)
-            }
-            
-//            imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            imageButton.af_setBackgroundImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-            homeVC.userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            personalVC.userProfileImage.af_setImage(withURL: imgUrl)
-            
-        } else { // unable to get image url:
-            if let personalController = AppDelegate.shared().mainTabViewController?.personInfoController {
-                personalController.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
-            }
-        }
+        imageButton.af_setBackgroundImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
+        homeVC.userProfileImageBtn.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+        personalVC.userProfileImage.af_setImage(withURL: url)
     }
     
 
     internal func setupProfileImage(_ img: UIImage){
         let sqr = img.squareCrop()
-//        imageButton.setImage(sqr, for: .normal)
         imageButton.setBackgroundImage(sqr, for: .normal)
         newProfile = sqr
         isProfileImageChanged = true
@@ -435,9 +544,17 @@ extension PersonalInfoEditingViewController {
         guard let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "") else {
             return
         }
-//        imageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         imageButton.af_setBackgroundImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
         newProfile = imageButton.currentImage ?? #imageLiteral(resourceName: "blankUserHeadImage")
     }
 }
 
+
+
+class PersonalInfoTableCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLb: UILabel!
+    @IBOutlet weak var textField: UITextField!
+    
+    
+}

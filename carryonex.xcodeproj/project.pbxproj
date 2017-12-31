@@ -167,7 +167,6 @@
 		FF50699A1FDB5CB900978756 /* notification.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF5069991FDB5CB800978756 /* notification.mp3 */; };
 		FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */; };
 		FF7ECED81FC9568200F76ED8 /* ChangePersonalProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7ECED71FC9568100F76ED8 /* ChangePersonalProfile.storyboard */; };
-		FF7ECEDE1FC9570900F76ED8 /* PersonalTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */; };
 		FF7ECEE01FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */; };
 		FF7ECEE21FC9583D00F76ED8 /* PersonalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */; };
 		FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF855FCC1FC7778600210F1C /* changePassword.storyboard */; };
@@ -365,7 +364,6 @@
 		FF5069991FDB5CB800978756 /* notification.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification.mp3; sourceTree = "<group>"; };
 		FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListYouxiangInputController.swift; sourceTree = "<group>"; };
 		FF7ECED71FC9568100F76ED8 /* ChangePersonalProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChangePersonalProfile.storyboard; sourceTree = "<group>"; };
-		FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTable.swift; sourceTree = "<group>"; };
 		FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoEditingViewController.swift; sourceTree = "<group>"; };
 		FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
 		FF855FCC1FC7778600210F1C /* changePassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = changePassword.storyboard; sourceTree = "<group>"; };
@@ -494,7 +492,6 @@
 				E5A2A7C11FE2E68200A51BDC /* PhotoIDController.swift */,
 				FF7ECEE11FC9583C00F76ED8 /* PersonalPageViewController.swift */,
 				FF7ECEDF1FC957AE00F76ED8 /* PersonalInfoEditingViewController.swift */,
-				FF7ECEDD1FC9570800F76ED8 /* PersonalTable.swift */,
 				665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */,
 				6602526D1FC48BB300277617 /* ShipperInfoViewController.swift */,
 				FFB2F65D1FD9C46D00EA02BD /* ShipperInfoViewCell.swift */,
@@ -1209,7 +1206,6 @@
 				FFBCB0C81FC8C79800DCDD52 /* OrderCommentRateController.swift in Sources */,
 				E5A2A7771FE2E44000A51BDC /* ThemTextView.swift in Sources */,
 				4DC043D91FB7700500F6C3F0 /* MainTabBarController.swift in Sources */,
-				FF7ECEDE1FC9570900F76ED8 /* PersonalTable.swift in Sources */,
 				4D80C3F41FE454B2000D3B01 /* WalletManager+WeChat.swift in Sources */,
 				FF7C8D9F1FA39A1E00879165 /* ItemListYouxiangInputController.swift in Sources */,
 				E5A2A7961FE2E57100A51BDC /* HomeProfileInfo.swift in Sources */,
