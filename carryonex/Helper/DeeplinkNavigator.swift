@@ -61,10 +61,17 @@ class DeeplinkNavigator: NSObject {
         
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.home)
+//        if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
+//            if let requestViewController = UIStoryboard.init(name: "Sender", bundle: nil).instantiateInitialViewController() as? ItemListYouxiangInputController {
+//                requestViewController.tripCode = tripCode
+//                navigation.pushViewController(requestViewController, animated: true)
+//            }
+//        }
+        // use this to hide tabbar:
         if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
-            if let requestViewController = UIStoryboard.init(name: "Sender", bundle: nil).instantiateInitialViewController() as? ItemListYouxiangInputController {
-                requestViewController.tripCode = tripCode
-                navigation.pushViewController(requestViewController, animated: true)
+            if let homeVC = navigation.viewControllers.first as? NewHomePageController {
+                homeVC.handleNavigation(segue: MainNavigationSegue.addRequest, sender: tripCode)
+                navigateToNewRequest(tripCode: tripCode)
             }
         }
     }

@@ -332,7 +332,7 @@ class NewHomePageController: UIViewController {
     
     @IBAction func senderButtonTapped(_ sender: Any) {
         AnalyticsManager.shared.startTimeTrackingKey(.senderDetailTotalTime)
-        handleNavigation(segue: .addRequest, sender: nil)
+        handleNavigation(segue: .addRequest, sender: sender)
     }
     
     

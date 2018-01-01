@@ -81,7 +81,11 @@ class MainTabBarController: UITabBarController {
             print("Add Trip")
             
         case .addRequest:
-            print("Add Request")
+            debugPrint("Add Request")
+            if let yxcodeVC = segue.destination as? ItemListYouxiangInputController {
+                let code = (sender as? String) ?? ""
+                yxcodeVC.youxiangcodeTextField?.text = code
+            }
             
         case .requestDetail:
             print("Open user detail")
