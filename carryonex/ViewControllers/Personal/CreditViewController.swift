@@ -8,25 +8,6 @@
 
 import UIKit
 
-
-enum TransactionType: String {
-    case payment = "支付"
-    case extract = "提现"
-}
-
-struct TransactionDetail {
-    let date: TimeInterval
-    let type: TransactionType
-    let value: Double
-    
-    init(date: TimeInterval, type: TransactionType, value: Double) {
-        self.date = date
-        self.type = type
-        self.value = value
-    }
-}
-
-
 class CreditViewController: UIViewController {
     
     @IBOutlet weak var creditTitleLabel: UILabel!
@@ -47,20 +28,35 @@ class CreditViewController: UIViewController {
     @IBAction func extractCashButtonTapped(_ sender: Any) {
         AnalyticsManager.shared.trackCount(.cashOutCount)
         AnalyticsManager.shared.startTimeTrackingKey(.cashOutTime)
-        // TODO: extractCash button tapped;
     }
     
-    var dataSource: [TransactionDetail] = []
+    var wallet: Wallet? {
+        didSet {
+            if let wallet = wallet {
+                self.dataSource = wallet.incomes + wallet.payments
+                self.creditTitleLabel.text = wallet.availableCredit()
+            }
+        }
+    }
+    
+    var dataSource = [Transaction]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
     let cellId = "CreditCell"
-    let dateFormatter = DateFormatter()
     
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L("personal.ui.title.wallet")
         setupNavigationBar()
-        loadTransactionInfo()
-        setupDateFormatter()
+        
+        ProfileManager.shared.updateWallet(completion: nil)
+        
+        NotificationCenter.default.addObserver(forName: .WalletDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            self?.wallet = ProfileManager.shared.wallet
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,31 +66,10 @@ class CreditViewController: UIViewController {
     }
     
     private func setupNavigationBar(){ // TODO: not need this in testing phase;
+        title = L("personal.ui.title.wallet")
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-        //let btn = UIBarButtonItem(title: "付款方式", style: .plain, target: self, action: #selector(paymentTypeBarButtonTapped))
-        //self.navigationItem.rightBarButtonItem = btn
     }
-    
-    private func loadTransactionInfo(){
-        
-        // TODO: use ApiServers to load from user account, now use fake data:
-        
-        let a = TransactionDetail(date: Date().timeIntervalSince1970, type: .payment, value: 66.33)
-        let b = TransactionDetail(date: Date().timeIntervalSince1970 + 36000, type: .payment, value: 233.33)
-        let c = TransactionDetail(date: Date().timeIntervalSince1970 + 72000, type: .extract, value: 600.00)
-        self.dataSource = [a,b,c]
-    }
-    
-    private func setupDateFormatter(){
-        dateFormatter.dateFormat = "MM-dd-yyyy"
-    }
-    
-    func paymentTypeBarButtonTapped(){
-        //let paymentPage = PaymentController()
-        //self.navigationController?.pushViewController(paymentPage, animated: true)
-    }
-    
 }
 
 
@@ -112,8 +87,7 @@ extension CreditViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? CreditCell else {
             return UITableViewCell()
         }
-        cell.dateFormatter = self.dateFormatter
-        cell.transactionDetail = dataSource[indexPath.row]
+        cell.transaction = dataSource[indexPath.row]
         
         return cell
     }
@@ -126,9 +100,7 @@ extension CreditViewController: UITableViewDelegate {
         return 50
     }
     
-    
 }
-
 
 
 class CreditCell: UITableViewCell {
@@ -137,19 +109,16 @@ class CreditCell: UITableViewCell {
     @IBOutlet weak var transactionTypeLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var dateFormatter: DateFormatter?
-    var transactionDetail: TransactionDetail? {
+    var transaction: Transaction? {
         didSet{
             setupTransactionInfo()
         }
     }
     
     private func setupTransactionInfo(){
-        let getDate = Date(timeIntervalSince1970: transactionDetail?.date ?? Date().timeIntervalSince1970)
-        self.dateLabel.text = dateFormatter?.string(from: getDate) ?? "No date"
-        self.transactionTypeLabel.text = transactionDetail?.type.rawValue ?? "No type"
-        let v = String(format: "%.2f", transactionDetail?.value ?? 0.0)
-        self.valueLabel.text = transactionDetail?.type == .payment ? "-\(v)" : "+\(v)"
+        guard let transaction = transaction else { return }
+        self.dateLabel.text = transaction.getTransactionDate()
+        self.transactionTypeLabel.text = transaction.platform
+        self.valueLabel.text = transaction.amountString()
     }
-    
 }

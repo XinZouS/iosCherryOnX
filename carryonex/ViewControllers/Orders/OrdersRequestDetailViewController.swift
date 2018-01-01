@@ -132,17 +132,20 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         
         let transaction = sender.transaction
-        print("Transaction tapped: \(transaction.displayString())")
+        //print("Transaction tapped: \(transaction.displayString())")
         
         if transaction == .allowRating {
             performSegue(withIdentifier: postRateSegue, sender: nil)
             return
         }
         
-//       if transaction == .shipperPay {
-//           showPaymentView(true)
-//           return
-//       }
+        //Comment this to bypass payment
+        //------------------------------
+        if transaction == .shipperPay {
+           showPaymentView(true)
+           return
+        }
+        //------------------------------
         
         displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
             if style == .default {

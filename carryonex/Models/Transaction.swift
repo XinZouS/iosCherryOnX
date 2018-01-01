@@ -8,48 +8,40 @@
 
 import Foundation
 import Unbox
- 
-enum TransactionStatus : String, UnboxableEnum {
-    case pending = "处理中"
-    case finished = "交易完成"
+
+enum TransactionKey: String {
+    case timestamp = "timestamp"
+    case amount = "amount"
+    case currency = "currency"
+    case requestId = "request_id"
+    case platform = "platform"
+    case statusId = "status_id"
+}
+
+struct Transaction {
+    let timestamp: Int
+    let amount: Int
+    let currency: String
+    let requestId: Int
+    let platform: String
+    let statusId: Int
     
-    func string() -> String {
-        switch self {
-        case .pending:
-            return L("transaction.ui.status.pending") //"处理中"
-        case .finished:
-            return L("transaction.ui.status.finished") //"交易完成"
-        }
+    func getTransactionDate() -> String {
+        return Date.getTimeString(format: "MM-dd-yyyy", time: TimeInterval(timestamp))
+    }
+    
+    func amountString() -> String {
+        return String(format: "%.2f", Double(amount) / 100.0)
     }
 }
 
-enum TransactionKeyInDB: String {
-    case nounce = "nounce"
-    case type = "ttype"
-}
-
-
-struct Transaction : Unboxable {
-    
-    var nounce : String?
-    var type : String?
-    
-    var payeeName: String?
-    var payeeId :  String?
-    
-    var amount : Float?
-    
-    var status : String = TransactionStatus.pending.rawValue
-    
-    
-    init() {
-    }
-    
+extension Transaction: Unboxable {
     init(unboxer: Unboxer) throws {
-        self.nounce = try? unboxer.unbox(key: TransactionKeyInDB.nounce.rawValue)
-        self.type = try? unboxer.unbox(key: TransactionKeyInDB.type.rawValue)
+        self.timestamp = try unboxer.unbox(key: TransactionKey.timestamp.rawValue)
+        self.amount = try unboxer.unbox(key: TransactionKey.amount.rawValue)
+        self.currency = try unboxer.unbox(key: TransactionKey.currency.rawValue)
+        self.requestId = try unboxer.unbox(key: TransactionKey.requestId.rawValue)
+        self.platform = try unboxer.unbox(key: TransactionKey.platform.rawValue)
+        self.statusId = try unboxer.unbox(key: TransactionKey.statusId.rawValue)
     }
-    
 }
-
-
