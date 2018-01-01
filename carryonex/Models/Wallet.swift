@@ -36,7 +36,7 @@ struct Wallet {
     var payments: [Transaction]
     
     func availableCredit() -> String {
-        return String(format: "$%.2f", Double(incomeTotal) / 100.0)
+        return String(format: "%.2f", Double(incomeTotal) / 100.0)
     }
 }
 

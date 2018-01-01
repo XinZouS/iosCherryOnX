@@ -34,16 +34,13 @@ class CreditViewController: UIViewController {
         didSet {
             if let wallet = wallet {
                 self.dataSource = wallet.incomes + wallet.payments
-                self.creditTitleLabel.text = wallet.availableCredit()
+                self.creditValueLabel.text = wallet.availableCredit()
+                self.tableView.reloadData()
             }
         }
     }
     
-    var dataSource = [Transaction]() {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var dataSource = [Transaction]()
     
     let cellId = "CreditCell"
     
@@ -118,7 +115,7 @@ class CreditCell: UITableViewCell {
     private func setupTransactionInfo(){
         guard let transaction = transaction else { return }
         self.dateLabel.text = transaction.getTransactionDate()
-        self.transactionTypeLabel.text = transaction.platform
+        self.transactionTypeLabel.text = transaction.statusString()
         self.valueLabel.text = transaction.amountString()
     }
 }
