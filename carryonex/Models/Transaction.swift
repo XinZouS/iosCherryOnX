@@ -28,26 +28,33 @@ enum TransactionStatus: Int {
         case .paymentInit:
             return "发起支付"
         case .paymentError:
-            return "支付错误"
+            return "错误"
         case .paymentPaid:
-            return "支付（过账中）"
+            return "过账中"
         case .paymentRefunded:
-            return "支付退款"
+            return "退款"
         case .paymentPending:
-            return "支付（未到账）"
+            return "未到账"
         case .paymentDone:
-            return "支付"
+            return "已转账"
         case .payoutDone:
-            return "提现"
+            return "已到账"
         case .incomeRefunded:
-            return "收入退款"
+            return "退款"
         case .incomePending:
-            return "收入（未到账）"
+            return "未到账"
         case .incomeDone:
-            return "收入"
+            return "已到账"
         default:
             return "未知状态"
         }
+    }
+    
+    func displayColor() -> UIColor {
+        if self == .payoutDone {
+            return UIColor.carryon_payoutTransactionStatus
+        }
+        return UIColor.carryon_normalTransactionStatus
     }
 }
 
@@ -81,6 +88,29 @@ struct Transaction {
             return status.displayString()
         }
         return TransactionStatus.unknown.displayString()
+    }
+    
+    func transactionTypeString() -> String {
+        if let status = TransactionStatus(rawValue: statusId) {
+            switch status {
+            case .paymentInit, .paymentError, .paymentPaid, .paymentRefunded, .paymentPending, .paymentDone:
+                return "支付"
+            case .payoutDone:
+                return "提现"
+            case .incomeRefunded, .incomePending, .incomeDone:
+                return "收入"
+            default:
+                return "未知状态"
+            }
+        }
+        return "未知状态"
+    }
+    
+    func transactionTypeColor() -> UIColor {
+        if let status = TransactionStatus(rawValue: statusId) {
+            return status.displayColor()
+        }
+        return TransactionStatus.unknown.displayColor()
     }
 }
 

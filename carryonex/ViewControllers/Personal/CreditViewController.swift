@@ -33,7 +33,7 @@ class CreditViewController: UIViewController {
     var wallet: Wallet? {
         didSet {
             if let wallet = wallet {
-                self.dataSource = wallet.incomes + wallet.payments
+                self.dataSource = (wallet.incomes + wallet.payments).sorted{$0.timestamp > $1.timestamp}
                 self.creditValueLabel.text = wallet.availableCredit()
                 self.tableView.reloadData()
             }
@@ -94,7 +94,7 @@ extension CreditViewController: UITableViewDataSource {
 extension CreditViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 70
     }
     
 }
@@ -105,6 +105,7 @@ class CreditCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var transactionTypeLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     var transaction: Transaction? {
         didSet{
@@ -115,7 +116,11 @@ class CreditCell: UITableViewCell {
     private func setupTransactionInfo(){
         guard let transaction = transaction else { return }
         self.dateLabel.text = transaction.getTransactionDate()
-        self.transactionTypeLabel.text = transaction.statusString()
+        self.transactionTypeLabel.text = transaction.transactionTypeString()
+        self.statusLabel.text = transaction.statusString()
+        
+        //Amount
         self.valueLabel.text = transaction.amountString()
+        self.valueLabel.textColor = transaction.transactionTypeColor()
     }
 }
