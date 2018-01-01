@@ -1205,14 +1205,14 @@ class ApiServers : NSObject {
     
     //MARK: - Wallet API
     
-    func getWallet(walletId: Int, completion: @escaping((Wallet?, Error?) -> Void)) {
-        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+    func getWallet(completion: @escaping((Wallet?, Error?) -> Void)) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser(), let walletId = profileUser.walletId else {
             print("getWallet: Profile user empty, pleaes login to get user's comments")
             completion(nil, nil)
             return
         }
         
-        let route = hostVersion + "/wallets/wallets"
+        let route = hostVersion + "/wallets/wallet"
         let parameters : [String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: profileUser.token ?? "",

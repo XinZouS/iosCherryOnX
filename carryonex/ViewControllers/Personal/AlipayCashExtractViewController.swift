@@ -37,6 +37,7 @@ class AlipayCashExtract: UIViewController {
         
         self.circleIndicator.isHidden = false
         self.circleIndicator.animate()
+        
         ApiServers.shared.postWalletAliPayout(logonId: alipayId, amount: payoutAmount) { (success, error) in
             //Fix this after server fixed.
             self.displayAlert(title: "提现成功", message: "我们已经成功转账到您的账户，请查看您的支付宝", action:  L("action.ok"))
@@ -45,21 +46,17 @@ class AlipayCashExtract: UIViewController {
             self.circleIndicator.isHidden = true
             
             //Reload data on this page
+            ProfileManager.shared.updateWallet(completion: nil)
         }
     }
-    
     
     var cashExtract: Double = 0.0 {
         didSet{
             cashExtractTextField.text = String(format: "%.2f", cashAvailable)
         }
     }
-    var cashAvailable: Double = 0.0 {
-        didSet{
-            cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + String(format: "%.2f", cashAvailable)
-        }
-    }
     
+    var cashAvailable: Double = 0.0
     
     enum TextFieldTag: Int {
         case aliAccount = 0
@@ -71,11 +68,20 @@ class AlipayCashExtract: UIViewController {
         super.viewDidLoad()
         title = L("personal.ui.title.cash-extractable")
         
+        if let wallet = ProfileManager.shared.wallet {
+            self.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
+        }
+        
         setupUnderlines()
         setupTextFields()
         alipayAccountTextField.becomeFirstResponder()
         setupActivityIndicator()
-        getCashAvailableFromServer()
+        
+        NotificationCenter.default.addObserver(forName: .WalletDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            if let wallet = ProfileManager.shared.wallet {
+                self?.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
+            }
+        }
     }
     
     private func setupActivityIndicator(){
@@ -97,17 +103,6 @@ class AlipayCashExtract: UIViewController {
         let line3: CGFloat = 246
         containerView.drawStroke(startPoint: CGPoint(x: 0, y: line3), endPoint: CGPoint(x: w, y: line3), color: gray, lineWidth: h)
     }
-    
-    private func getCashAvailableFromServer(){
-        // TODO: get real value from server:
-        //var input: Double = 233.6666666
-        //ApiServers.shared.getUserAccountCashValue()
-        //cashAvailable = input.roundUp2Decimal()   //DONT DO THIS
-        
-        //TODO UPDATE THIS
-        cashAvailable = 1000.00
-    }
-
     
     private func setupTextFields(){
         textFieldAddToolBar(alipayAccountTextField, tag: .aliAccount)
@@ -225,5 +220,3 @@ extension AlipayCashExtract: UITextFieldDelegate {
     }
     
 }
-
-

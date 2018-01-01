@@ -25,6 +25,14 @@ struct Transaction {
     let requestId: Int
     let platform: String
     let statusId: Int
+    
+    func getTransactionDate() -> String {
+        return Date.getTimeString(format: "MM-dd-yyyy", time: TimeInterval(timestamp))
+    }
+    
+    func amountString() -> String {
+        return String(format: "%.2f", Double(amount) / 100.0)
+    }
 }
 
 extension Transaction: Unboxable {

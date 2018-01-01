@@ -34,6 +34,10 @@ struct Wallet {
     let incomeTotal: Int
     var incomes: [Transaction]
     var payments: [Transaction]
+    
+    func availableCredit() -> String {
+        return String(format: "$%.2f", Double(incomeTotal) / 100.0)
+    }
 }
 
 extension Wallet: Unboxable {

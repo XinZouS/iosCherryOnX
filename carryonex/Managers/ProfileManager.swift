@@ -13,6 +13,7 @@ import Crashlytics
 public extension Notification.Name {
     public static let UserLoggedOut = Notification.Name(rawValue: "com.carryon.user.logout")
     public static let UserDidUpdate = Notification.Name(rawValue: "com.carryon.user.didUpdate")
+    public static let WalletDidUpdate = Notification.Name(rawValue: "com.carryon.wallet.didUpdate")
 }
 
 struct KeychainConfiguration {
@@ -28,6 +29,14 @@ class ProfileManager: NSObject {
     private var currentUser: ProfileUser?
     var homeProfileInfo: HomeProfileInfo?
     
+    var wallet: Wallet? {
+        didSet {
+            if wallet != nil {
+                NotificationCenter.default.post(name: .WalletDidUpdate, object: nil)
+            }
+        }
+    }
+    
     var username: String? {
         get { return UserDefaults.getUsername() }
     }
@@ -35,7 +44,6 @@ class ProfileManager: NSObject {
     var userToken: String? {
         get { return readUserTokenFromKeychain() }
     }
-    
     
     //MARK: - Convenience Methods
     
@@ -47,9 +55,7 @@ class ProfileManager: NSObject {
         return currentUser
     }
     
-    
     //MARK: - Login Methods
-//    completion: (() -> Swift.Void)? = nil
     func loadLocalUser(completion: ((Bool) -> Void)?) {
         if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
             ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
@@ -242,6 +248,18 @@ class ProfileManager: NSObject {
         }
         
         NotificationCenter.default.post(name: .UserDidUpdate, object: nil)
+    }
+    
+    //MARK: Wallet Methods
+    public func updateWallet(completion: ((Bool) -> Void)?) {
+        ApiServers.shared.getWallet { (wallet, error) in
+            if wallet != nil {
+                self.wallet = wallet
+                completion?(true)
+                return
+            }
+            completion?(false)
+        }
     }
     
     //MARK: - Keychain Management
