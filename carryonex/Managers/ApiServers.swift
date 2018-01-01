@@ -1204,6 +1204,47 @@ class ApiServers : NSObject {
     
     
     //MARK: - Wallet API
+    
+    func getWallet(walletId: Int, completion: @escaping((Wallet?, Error?) -> Void)) {
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            print("getWallet: Profile user empty, pleaes login to get user's comments")
+            completion(nil, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/wallets"
+        let parameters : [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ProfileUserKey.walletId.rawValue: walletId
+        ]
+        
+        getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("getWallet response error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let wallet: Wallet = try unbox(dictionary: data)
+                    completion(wallet, nil)
+                    
+                } catch let error as NSError {
+                    print("getWallet error: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+            } else {
+                print("getWallet: Empty data field")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     func getWalletStripeEphemeralKey(apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
