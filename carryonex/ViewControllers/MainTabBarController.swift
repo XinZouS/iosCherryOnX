@@ -100,15 +100,19 @@ class MainTabBarController: UITabBarController {
                 tripInfoViewController.category = .carrier
             }
             print("Open trip list")
+            
         case .creditView:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("Credit View")
+            
         case .historyComment:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("History Comment")
+            
         case .settings:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             print("Settings")
+            
         case .shipperProfile:
             print("Shipper Profile")
             if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = sender as? Trip {

@@ -461,7 +461,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func showPaymentView(_ isShown: Bool) {
-        guard paymentMenuTopConstraint.constant < 0 && isShown || paymentMenuTopConstraint.constant >= 0 && !isShown else {
+        guard (paymentMenuTopConstraint.constant < 0 && isShown) || (paymentMenuTopConstraint.constant >= 0 && !isShown) else {
             return
         }
         let offset: CGFloat = isShown ? paymentMenuView.bounds.height : -paymentMenuView.bounds.height
@@ -470,12 +470,10 @@ class OrdersRequestDetailViewController: UIViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
         
-        if offset > 0 {
-            backgroundView.isHidden = false
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                self.backgroundView.alpha = 1
-            }, completion: nil)
-        }
+        backgroundView.isHidden = offset <= 0
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.backgroundView.alpha = (offset <= 0) ? 0 : 1
+        }, completion: nil)
         AnalyticsManager.shared.startTimeTrackingKey(.requestPayTime)
     }
     

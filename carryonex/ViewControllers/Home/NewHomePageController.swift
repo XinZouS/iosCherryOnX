@@ -70,6 +70,7 @@ class NewHomePageController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,8 +81,8 @@ class NewHomePageController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // TODO: what's the different of all these with the same id ???
+        self.tabBarController?.tabBar.isHidden = true
+
         if (segue.identifier == "shiper"){
             if let destVC = segue.destination as? UserCardViewController {
                 userCardOne = destVC
@@ -340,6 +341,7 @@ class NewHomePageController: UIViewController {
 extension NewHomePageController: MainNavigationProtocol {
     
     func handleNavigation(segue: MainNavigationSegue, sender: Any?) {
+        self.tabBarController?.tabBar.isHidden = true
         AppDelegate.shared().handleMainNavigation(navigationSegue: segue, sender: sender)
     }
     

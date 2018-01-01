@@ -328,7 +328,7 @@ class SenderDetailViewController: UIViewController{
 
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator()
-        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 100)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
