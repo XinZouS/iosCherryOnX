@@ -19,6 +19,7 @@ class PersonalPageViewController: UIViewController{
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileNameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
     
@@ -85,8 +86,9 @@ class PersonalPageViewController: UIViewController{
             userProfileNameLabel.text = currUserName
         }
         if let profileInfo = ProfileManager.shared.homeProfileInfo{
+            let fullLen = scoreStar5MaskWidthConstraint.constant - 5
             scoreLabel.text = scoreLabelHintText + String(format: "%.1f", profileInfo.rating)
-            scoreColorBarWidthConstraint.constant = CGFloat( profileInfo.rating*25)
+            scoreColorBarWidthConstraint.constant = max(0.0, fullLen * CGFloat(profileInfo.rating / 5.0))
         }
     }
     

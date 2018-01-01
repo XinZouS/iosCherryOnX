@@ -229,6 +229,7 @@
                     <connections>
                         <outlet property="scoreColorBarWidthConstraint" destination="wFy-ag-0j0" id="78X-jo-quQ"/>
                         <outlet property="scoreLabel" destination="H2j-mr-0g1" id="WoY-pt-HsY"/>
+                        <outlet property="scoreStar5MaskWidthConstraint" destination="iwL-vJ-hqH" id="Ci9-1e-RBK"/>
                         <outlet property="tableView" destination="2Vk-7A-shz" id="L7p-6l-7DB"/>
                         <outlet property="userProfileImage" destination="Muc-lW-r8p" id="rGa-Za-VMm"/>
                         <outlet property="userProfileNameLabel" destination="ueD-kw-dQa" id="a3M-bU-xIM"/>

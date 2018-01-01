@@ -270,6 +270,9 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        if paymentMenuTopConstraint.constant > 0.0 {
+            showPaymentView(false)
+        }
     }
     
     private func setupNavigationBar(){
