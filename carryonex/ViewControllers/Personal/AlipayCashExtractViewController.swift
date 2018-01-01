@@ -87,7 +87,7 @@ class AlipayCashExtract: UIViewController {
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
         circleIndicator.isHidden = true
-        circleIndicator.center = self.view.center
+        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         view.addSubview(circleIndicator)
     }
     

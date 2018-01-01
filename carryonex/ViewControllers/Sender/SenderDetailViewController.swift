@@ -198,6 +198,9 @@ class SenderDetailViewController: UIViewController{
     var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var isLoading: Bool = false {
         didSet{
+            activityIndicator.isHidden = !isLoading // TODO: FIXME: UIView.hidden must be used from main thread only
+            submitButton.isEnabled = !isLoading
+            submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
             if isLoading {
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 activityIndicator.animate()
@@ -205,9 +208,6 @@ class SenderDetailViewController: UIViewController{
                 UIApplication.shared.endIgnoringInteractionEvents()
                 activityIndicator.stop()
             }
-            activityIndicator.isHidden = !isLoading
-            submitButton.isEnabled = !isLoading
-            submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
         }
     }
     // textField editing with scrollView animation
@@ -328,7 +328,7 @@ class SenderDetailViewController: UIViewController{
 
     private func setupActivityIndicator(){
         activityIndicator = BPCircleActivityIndicator()
-        activityIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-64,width:0,height:0)
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }

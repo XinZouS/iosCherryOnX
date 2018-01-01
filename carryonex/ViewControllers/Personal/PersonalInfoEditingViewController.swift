@@ -74,7 +74,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         tableView.delegate = self
     }
     
-    @objc fileprivate func doneButtonAction(){
+    @objc fileprivate func dismissKeyboard(){
         nameTextField.resignFirstResponder()
         genderTextField.resignFirstResponder()
         emailTextField.resignFirstResponder()
@@ -128,12 +128,16 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
                 switch genderString{
                 case ProfileGender.male.rawValue:
                     genderTextField.text = ProfileGender.male.displayString()
+                    settedGender = .male
                 case ProfileGender.female.rawValue:
                     genderTextField.text = ProfileGender.female.displayString()
+                    settedGender = .female
                 case ProfileGender.other.rawValue:
                     genderTextField.text = ProfileGender.other.displayString()
+                    settedGender = .other
                 default:
                     genderTextField.text = ProfileGender.undefined.displayString()
+                    settedGender = .undefined
                 }
                 
             }
@@ -151,6 +155,8 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     }
 
     @objc private func saveButtonTapped(){
+        dismissKeyboard() // dismiss keyboard
+        
         let emailString = emailTextField.text
         let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
         let matcher = MyRegex(emailPattern)
@@ -241,7 +247,7 @@ extension PersonalInfoEditingViewController: UIPickerViewDataSource {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         toolbar.barStyle = UIBarStyle.default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(dismissKeyboard))
         toolbar.items = [flexSpace,done]
         toolbar.sizeToFit()
         
@@ -528,8 +534,10 @@ extension PersonalInfoEditingViewController {
             return
         }
         imageButton.af_setBackgroundImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-        homeVC.userProfileImageBtn.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-        personalVC.userProfileImage.af_setImage(withURL: url)
+//        homeVC.userProfileImageBtn.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+//        personalVC.userProfileImage.af_setImage(withURL: url)
+        homeVC.userProfileImageBtn.setImage( #imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+        personalVC.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
     }
     
 

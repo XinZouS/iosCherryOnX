@@ -288,7 +288,10 @@ class NewHomePageController: UIViewController {
         let currentVersion = version + "." + build
         if updatedVersion != currentVersion {
             print("Current: \(currentVersion), Updated to: \(updatedVersion)")
-            self.displayGlobalAlertActions(title: L("home.confirm.title.version"), message: L("home.confirm.message.version"), actions: [L("home.confirm.action.version")], completion: { (index) in
+            self.displayGlobalAlertActions(title: L("home.confirm.title.version"),
+                                           message: L("home.confirm.message.version"),
+                                           actions: [L("home.confirm.action.version")],
+                                           completion: { (index) in
                 //TODO: Update to carryonex app URL
                 let appStoreLink = "https://itunes.apple.com/us/app/apple-store/id1329637654?mt=8"
                 if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
