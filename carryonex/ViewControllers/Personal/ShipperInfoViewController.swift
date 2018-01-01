@@ -62,7 +62,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.center = view.center
+        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }

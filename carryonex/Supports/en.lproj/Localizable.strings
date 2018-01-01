@@ -151,6 +151,8 @@
 "carrier.ui.title.note" = "Note";
 "carrier.error.title.date" = "Departure Date Error";
 "carrier.error.message.date" = "Departure date cannot from the past, please re-enter.";
+"carrier.error.title.post" = "❗️Uploading Error"; // 2018-01-01 -Xin
+"carrier.error.message.post" = "Cannot post your trip right now, please make sure you have the Internet access and try again later"; // 2018-01-01 -Xin
 "carrier.ui.formatter.date" = "MM-dd-yyyy";
 "carrier.ui.transportation.trunk" = "Trunk";
 "carrier.ui.transportation.luggage" = "Luggage";

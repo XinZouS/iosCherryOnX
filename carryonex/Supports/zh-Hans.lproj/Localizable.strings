@@ -151,6 +151,8 @@
 "carrier.ui.title.note" = "备注";
 "carrier.error.title.date" = "出行日期有误";
 "carrier.error.message.date" = "出行日期不能为过去时间，请重新输入";
+"carrier.error.title.post" = "❗️哎呀出错了"; // 2018-01-01 -Xin
+"carrier.error.message.post" = "无法发布行程，请确保您的网络连接正常，稍后再试"; // 2018-01-01 -Xin
 "carrier.ui.formatter.date" = "yyyy年MM月dd日";
 "carrier.ui.transportation.trunk" = "后备箱";
 "carrier.ui.transportation.luggage" = "行李箱";

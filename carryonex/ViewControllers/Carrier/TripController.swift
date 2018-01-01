@@ -179,6 +179,8 @@ class TripController: UIViewController{
                 ProfileManager.shared.loadLocalUser(completion: nil)
                 TripOrderDataStore.shared.pull(category: .carrier, delay: 1, completion: nil)
             } else {
+                self.displayGlobalAlert(title: L("carrier.error.title.post"), message: L("carrier.error.message.post"), action: L("action.ok"), completion: nil)
+                self.judgeButtonState()
                 print(msg ?? "Failed post trip")
             }
         }
@@ -193,6 +195,11 @@ class TripController: UIViewController{
         let endColor :UIColor = UIColor.MyTheme.nightB
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        judgeButtonState()
     }
 }
 

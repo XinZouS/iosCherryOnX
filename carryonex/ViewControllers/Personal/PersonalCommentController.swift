@@ -40,7 +40,7 @@ class PersonalCommentController: UIViewController{
     
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x-15,y:view.center.y-105,width:0,height:0)
+        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }

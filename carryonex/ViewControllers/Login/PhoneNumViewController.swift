@@ -112,7 +112,7 @@ class PhoneNumViewController: UIViewController {
     
     private func setupActivityIndicator(){
         loadingIndicator = BPCircleActivityIndicator()
-        loadingIndicator.frame = CGRect(x: view.center.x - 15, y: view.center.y - 105, width: 0, height: 0)
+        loadingIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
         loadingIndicator.isHidden = true
         view.addSubview(loadingIndicator)
     }

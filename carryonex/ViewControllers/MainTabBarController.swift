@@ -162,7 +162,7 @@ class MainTabBarController: UITabBarController {
     
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.frame = CGRect(x:view.center.x - 15, y:view.center.y - 20, width: 0, height: 0)
+        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 20)
         circleIndicator.isHidden = true
         view.addSubview(circleIndicator)
     }
@@ -213,7 +213,13 @@ class MainTabBarController: UITabBarController {
             UIApplication.shared.endIgnoringInteractionEvents()
             guard let reachabilityObject = notification.object as? Reachability, let strongSelf = self else { return }
             if !reachabilityObject.isReachable {
-                strongSelf.displayAlert(title: L("maintapbar.error.title.network"), message: L("maintapbar.error.message.network"), action: L("maintapbar.error.action.network"))
+                strongSelf.displayAlert(title: L("maintapbar.error.title.network"),
+                                        message: L("maintapbar.error.message.network"),
+                                        action: L("maintapbar.error.action.network"),
+                                        completion: {
+                                            self?.circleIndicator.isHidden = true
+                                            //self?.homeViewController.trytoreloaddata() TODO: add this to reload when network back; 
+                })
             }
         }
         
