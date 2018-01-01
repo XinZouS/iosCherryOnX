@@ -644,7 +644,7 @@ extension SenderDetailViewController {
             self.collectionView.reloadData()
         }
         // for thumbnail image uploading:
-        if let thumbnail: UIImage = image.getThumbnailImg(compression: 0.3, maxPixelSize: 200) {
+        if let thumbnail: UIImage = image.getThumbnailImg(compression: 0.3, maxPixelSize: 300) {
             let thumbnailName = baseName + "_thumbnail.JPG"
             let localThumbnailUrl = self.saveImageToDocumentDirectory(img: thumbnail, name: thumbnailName)
             self.imageUploadSequence[thumbnailName] = localThumbnailUrl
