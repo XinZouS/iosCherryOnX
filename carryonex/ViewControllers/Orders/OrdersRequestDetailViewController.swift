@@ -77,7 +77,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var paymentMenuView: UIView!
     @IBOutlet weak var checkboxAlipay: UIView!
     @IBOutlet weak var checkboxWechatPay: UIView!
-    @IBOutlet weak var gotoPaymentButton: UIButton!
+    @IBOutlet weak var gotoPaymentButton: UIButton! //goToPaymentHandler() for touchupinside
     
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
@@ -119,6 +119,10 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func goToPaymentHandler(_ sender: Any) {
+        activityIndicator.isHidden = false
+        activityIndicator.animate()
+        showPaymentView(false)
+
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request)
@@ -238,6 +242,13 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        activityIndicator.isHidden = true
+        activityIndicator.stop()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == postRateSegue, let viewController = segue.destination as? OrderCommentRateController {
             viewController.category = category
@@ -270,9 +281,6 @@ class OrdersRequestDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        if paymentMenuTopConstraint.constant > 0.0 {
-            showPaymentView(false)
-        }
     }
     
     private func setupNavigationBar(){
@@ -302,7 +310,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     private func setupActivityIndicator(){
         view.addSubview(activityIndicator)
-        activityIndicator.center = CGPoint(x: view.center.x - 10, y: view.center.y - 80)
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 100)
         activityIndicator.isHidden = true
         activityIndicator.stop()
     }
@@ -453,6 +461,9 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func showPaymentView(_ isShown: Bool) {
+        guard paymentMenuTopConstraint.constant < 0 && isShown || paymentMenuTopConstraint.constant >= 0 && !isShown else {
+            return
+        }
         let offset: CGFloat = isShown ? paymentMenuView.bounds.height : -paymentMenuView.bounds.height
         paymentMenuTopConstraint.constant = offset
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {

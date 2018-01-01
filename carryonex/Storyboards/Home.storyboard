@@ -544,13 +544,13 @@
                                 <rect key="frame" x="0.0" y="63.5" width="161.5" height="134"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNm-h6-Twn">
-                                <rect key="frame" x="69.5" y="173.5" width="92" height="24"/>
+                                <rect key="frame" x="61.5" y="173.5" width="100" height="24"/>
                                 <color key="backgroundColor" red="0.48055821657180786" green="0.98284262418746948" blue="0.92320346832275391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="FU0-kO-K1S">
                                         <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                     </constraint>
-                                    <constraint firstAttribute="width" secondItem="hNm-h6-Twn" secondAttribute="height" multiplier="46:12" id="Sc7-1d-L8T"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="tdZ-XR-ihb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="等待出发">
