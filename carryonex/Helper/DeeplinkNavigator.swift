@@ -23,6 +23,11 @@ class DeeplinkNavigator: NSObject {
     
     static func handleDeeplink(_ deeplink: URL) {
         
+        if ProfileManager.shared.getCurrentUser() == nil {
+            AppDelegate.shared().deferredDeeplink = deeplink
+            return
+        }
+        
         guard let host = deeplink.host, let page = NavigationPage(rawValue: host) else {
             print("Invalid Deeplink")
             return

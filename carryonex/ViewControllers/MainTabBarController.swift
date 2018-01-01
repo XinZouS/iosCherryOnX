@@ -136,6 +136,11 @@ class MainTabBarController: UITabBarController {
             if isSuccess {
                 APIServerChecker.testAPIServers()
                 self.locationManager.startUpdatingLocation()
+                
+                if let deeplink = AppDelegate.shared().deferredDeeplink {
+                    DeeplinkNavigator.handleDeeplink(deeplink)
+                    AppDelegate.shared().deferredDeeplink = nil
+                }
             }
         })
         

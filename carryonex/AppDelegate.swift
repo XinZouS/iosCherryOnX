@@ -18,10 +18,12 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    static var appToken : String? // singleton for app to login server
-    static var timestamp: String?
     var mainNavigationController: UINavigationController!
     var mainTabViewController: MainTabBarController!
+    
+    static var appToken : String? // singleton for app to login server
+    static var timestamp: String?
+    var deferredDeeplink: URL?
     
     static public func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -68,6 +70,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    /*
+     private func handleDeeplinks(_ application: UIApplication, _ launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+     //TODO: in theory these should all be mutually exclusive
+     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+     TVEComponent.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+     
+     //Handle launching app by remote push notification
+     if let launchOptions = launchOptions {
+     if let notificationPayload = launchOptions[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary {
+     if let deeplink = notificationPayload["^d"] as? String, let deeplinkUrl = URL(string: deeplink) {
+     let source = launchOptions[UIApplicationLaunchOptionsKey.sourceApplication] as? String
+     DeepLinkDispatcher.handleDeepLink(deeplinkUrl, source: source)
+     }
+     }
+     }
+     }
+     
+     */
     
     /**
      *  初始化ShareSDK应用 http://wiki.mob.com/swift%E8%B0%83%E7%94%A8/
