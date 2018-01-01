@@ -218,7 +218,7 @@ class MainTabBarController: UITabBarController {
                                         action: L("maintapbar.error.action.network"),
                                         completion: {
                                             self?.circleIndicator.isHidden = true
-                                            //self?.homeViewController.trytoreloaddata() TODO: add this to reload when network back; 
+                                            //self?.homeViewController.trytoreloaddata() TODO: add this to reload when network back;
                 })
             }
         }
