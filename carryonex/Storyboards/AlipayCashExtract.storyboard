@@ -126,7 +126,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="7Ab-mK-MC3"/>
                                                 </constraints>
                                                 <state key="normal" title="全部提现">
-                                                    <color key="titleColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleColor" red="0.99951452019999998" green="0.42161580920000002" blue="0.41949254270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="extractValueButtonTapped:" destination="hbM-io-R3J" eventType="touchUpInside" id="t5S-ba-Vbx"/>
