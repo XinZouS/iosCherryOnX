@@ -14,7 +14,11 @@ class AlipayCashExtract: UIViewController {
     @IBOutlet weak var alipayAccountTextField: UITextField!
     @IBOutlet weak var alipayNameTextField: UITextField!
     @IBOutlet weak var cashExtractTextField: UITextField!
+    @IBOutlet weak var currencyMarkLabel: UILabel!
     @IBOutlet weak var cashAvailableLabel: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var extractValueMinButton: UIButton!
+    @IBOutlet weak var extractValueMidButton: UIButton!
     @IBOutlet weak var extractValueButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     var circleIndicator: BPCircleActivityIndicator!
@@ -66,14 +70,14 @@ class AlipayCashExtract: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L("personal.ui.title.cash-extractable")
+        title = L("personal.ui.title.cash")
         
         if let wallet = ProfileManager.shared.wallet {
             self.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
         }
         
-        setupUnderlines()
         setupTextFields()
+        setupButtons()
         alipayAccountTextField.becomeFirstResponder()
         setupActivityIndicator()
         
@@ -82,6 +86,11 @@ class AlipayCashExtract: UIViewController {
                 self?.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupUnderlines()
     }
     
     private func setupActivityIndicator(){
@@ -93,17 +102,25 @@ class AlipayCashExtract: UIViewController {
     
     private func setupUnderlines(){
         let w: CGFloat = self.view.bounds.width
-        let gray = colorLineLightGray
+        let gray = colorTextFieldUnderLineLightGray
         let h: CGFloat = 1
         
-        let line1: CGFloat = 72
+        let line1: CGFloat = stackView.frame.origin.y - h
         containerView.drawStroke(startPoint: CGPoint(x: 0, y: line1), endPoint: CGPoint(x: w, y: line1), color: gray, lineWidth: h)
-        let line2: CGFloat = 134
+        let line2: CGFloat = stackView.frame.origin.y + stackView.frame.height + h
         containerView.drawStroke(startPoint: CGPoint(x: 0, y: line2), endPoint: CGPoint(x: w, y: line2), color: gray, lineWidth: h)
-        let line3: CGFloat = 246
-        containerView.drawStroke(startPoint: CGPoint(x: 0, y: line3), endPoint: CGPoint(x: w, y: line3), color: gray, lineWidth: h)
+//        let line3: CGFloat = 246
+//        containerView.drawStroke(startPoint: CGPoint(x: 0, y: line3), endPoint: CGPoint(x: w, y: line3), color: gray, lineWidth: h)
     }
     
+    private func setupButtons(){
+        extractValueMinButton.setTitle(L("personal.ui.title.min-button"), for: .normal)
+        extractValueMidButton.setTitle(L("personal.ui.title.mid-button"), for: .normal)
+        extractValueButton.setTitle(L("personal.ui.title.value-button"), for: .normal)
+        doneButton.setTitle(L("personal.ui.title.done-button"), for: .normal)
+        setDoneButton(isActive: false)
+    }
+
     private func setupTextFields(){
         textFieldAddToolBar(alipayAccountTextField, tag: .aliAccount)
         textFieldAddToolBar(alipayNameTextField, tag: .aliName)
@@ -157,6 +174,12 @@ class AlipayCashExtract: UIViewController {
 //        }
     }
     
+    fileprivate func setDoneButton(isActive: Bool) {
+        doneButton.isEnabled = isActive
+        doneButton.setTitleColor(isActive ? UIColor.white : UIColor.gray, for: .normal)
+        doneButton.backgroundColor = isActive ? colorTheamRed : colorLineLightGray
+    }
+    
 
 }
 
@@ -167,7 +190,8 @@ extension AlipayCashExtract: UITextFieldDelegate {
         //TODO: Add this check in later.
         guard textField == cashExtractTextField else { return }
         let v: Double = Double(textField.text ?? "0.0") ?? 0.0
-        let isAvailable = cashAvailable >= v && v >= 0.00
+        let isAvailable = cashAvailable >= v && v > 0.00
+        setDoneButton(isActive: isAvailable)
         if !isAvailable {
             textField.text = String(format: "%.2f", cashAvailable)
         }

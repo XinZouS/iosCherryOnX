@@ -308,8 +308,13 @@
 "personal.error.message.send-message" = "Unable to send WeChat message on this device.";
 "personal.ui.dateformat.cn" = "MM-dd-yyyy";
 "personal.ui.title.my-comments" = "My Comments";
-"personal.ui.title.cash-extractable" = "Cash Available:";
+"personal.ui.title.cash" = "Cash Available";
+"personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";
+"personal.ui.title.min-button" = "Get 20%";
+"personal.ui.title.mid-button" = "Get 50%";
+"personal.ui.title.value-button" = "Get All";
+"personal.ui.title.done-button" = "Confirm";
 
 // MARK: - Managers
 "managers.ui.title.wechat" = "WeChat";
