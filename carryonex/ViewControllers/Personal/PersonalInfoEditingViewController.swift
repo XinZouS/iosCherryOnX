@@ -388,6 +388,7 @@ extension PersonalInfoEditingViewController {
             } else { // unable to set image, then reset timer;
                 AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
             }
+            self.dismiss(animated: true, completion: nil)
         })
         self.present(cameraViewController, animated: true, completion: nil)
     }

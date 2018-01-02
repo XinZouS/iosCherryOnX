@@ -262,7 +262,7 @@ class NewHomePageController: UIViewController {
     
     private func setupSportlight(){
         if UserDefaults.getHasSoptlightHome() {
-            return
+            return // comment this line to show spotlight
         }
         let f1 = shiperButton.frame
         let f2 = senderButton.frame
