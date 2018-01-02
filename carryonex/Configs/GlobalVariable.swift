@@ -58,7 +58,6 @@ let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0
 let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
 let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1)
 
-
 // wechat login judge
 var wxloginStatus :String = ""
 // appDidLaunch judge
