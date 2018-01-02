@@ -25,7 +25,7 @@ class SpotlightView: UIView {
     // MARK: - private variables
     
     private static let kAnimationDuration = 0.3
-    private static let kCutoutRadius : CGFloat = 4.0
+    private static let kCutoutRadius : CGFloat = 5.0
     private static let kMaxLabelWidth = 280.0
     private static let kMaxLabelSpacing : CGFloat = 35.0
     private static let kEnableContinueLabel = false

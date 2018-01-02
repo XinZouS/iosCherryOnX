@@ -203,7 +203,8 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
                                                preferredStyle: .actionSheet)
         
         let openLibrary = UIAlertAction(title: L("personal.confirm.action.galary"), style: .default) { (action) in
-            self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
+            //self.openImagePickerWith(source: .photoLibrary, isAllowEditing: true)
+            self.openALImageController()
         }
         
         let openCamera = UIAlertAction(title: L("personal.confirm.action.camera"), style: .default) { (action) in
@@ -378,7 +379,22 @@ extension PersonalInfoEditingViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func openALCameraController(){
+    fileprivate func openALImageController() {
+        let corpingParms = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 300, height: 300))
+        let imgPickerVC = CameraViewController.imagePickerViewController(croppingParameters: corpingParms) { (getImg, phAsset) in
+            
+            if let image = getImg {
+                self.setupProfileImage(image)
+                
+            } else { // unable to set image, then reset timer;
+                AnalyticsManager.shared.clearTimeTrackingKey(.profileImageSettingTime)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+        self.present(imgPickerVC, animated: true, completion: nil)
+    }
+    
+    fileprivate func openALCameraController(){
         let corpingParms = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 160, height: 160))
         let cameraViewController = CameraViewController(croppingParameters: corpingParms, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true, completion: { (getImg, phAsset) in
             
