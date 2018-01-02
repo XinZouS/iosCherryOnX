@@ -48,7 +48,7 @@ class SpotlightView: UIView {
     
     var spotlightsArray: [Spotlight] = []
     var textLabel = UILabel()
-    var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
+    var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1)
     var animationDuration = kAnimationDuration
     var cutoutRadius : CGFloat = kCutoutRadius
     var maxLabelWidth = kMaxLabelWidth
@@ -97,6 +97,8 @@ class SpotlightView: UIView {
     private func setupMask() {
         spotlightMask.fillRule = kCAFillRuleEvenOdd
         spotlightMask.fillColor = spotlightMaskColor.cgColor
+        spotlightMask.opacity = 0.5
+
         layer.addSublayer(spotlightMask)
     }
     
