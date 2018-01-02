@@ -137,6 +137,7 @@ class MainTabBarController: UITabBarController {
         self.circleIndicator.isHidden = false
         self.circleIndicator.animate()
         ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
+            
             if isSuccess {
                 APIServerChecker.testAPIServers()
                 self.locationManager.startUpdatingLocation()
@@ -146,10 +147,7 @@ class MainTabBarController: UITabBarController {
                     AppDelegate.shared().deferredDeeplink = nil
                 }
             }
-        })
-        
-        TripOrderDataStore.shared.pullAll(completion: {
-            print("Pull ALL completed")
+            
             self.circleIndicator.isHidden = true
             self.circleIndicator.stop()
         })

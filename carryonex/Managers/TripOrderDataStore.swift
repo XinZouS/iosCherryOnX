@@ -12,7 +12,7 @@ class TripOrderDataStore: NSObject {
     
     static let shared = TripOrderDataStore()
     
-    private let pullPageCount = 4
+    private let pullPageCount = 2
     
     private var carrierTrips = [Int: Trip]()
     private var senderTrips = [Int: Trip]()
@@ -205,7 +205,7 @@ class TripOrderDataStore: NSObject {
         
         print("PULL CATEGORY: \(category)")
         
-        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount, sinceTime: sinceTime) { (tripOrders, error) in
+        ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount) { (tripOrders, error) in
             if let error = error {
                 print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return

@@ -128,8 +128,20 @@ class OrdersRequestDetailViewController: UIViewController {
             WalletManager.shared.aliPayAuth(request: request)
             
         } else if paymentType == .wechatPay {
-            AnalyticsManager.shared.trackCount(.wechatPayCount)
-            WalletManager.shared.wechatPayAuth(request: request)
+            
+            //TODO: comment this section
+            let transaction = RequestTransaction.shipperPay
+            displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
+                if style == .default {
+                    self?.processTransaction(transaction)
+                }
+                self?.backgroundViewHide()
+            }
+            
+            
+            //TODO: uncomment this section
+            //AnalyticsManager.shared.trackCount(.wechatPayCount)
+            //WalletManager.shared.wechatPayAuth(request: request)
         }
     }
     
@@ -492,10 +504,11 @@ class OrdersRequestDetailViewController: UIViewController {
         if checkBox.checkState == .unchecked {
             checkBox.checkState = .checked
         }
+        
         if checkBox == checkAlipay {
             paymentType = .alipay
-        }
-        if checkBox == checkWechat {
+        
+        } else if checkBox == checkWechat {
             paymentType = .wechatPay
         }
     }
