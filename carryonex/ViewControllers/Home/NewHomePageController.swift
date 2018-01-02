@@ -77,7 +77,8 @@ class NewHomePageController: UIViewController {
         super.viewDidAppear(animated)
         setupUserImageView()
         //checkForUpdate()
-        setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
+        //setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
+        setupOnboarding()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -276,6 +277,20 @@ class NewHomePageController: UIViewController {
         view.addSubview(spotlightView)
         spotlightView.start()
         UserDefaults.setHasSpotlighHome(isFinished: true)
+    }
+    
+    private func setupOnboarding() {
+        let onboarding = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        present(onboarding, animated: true, completion: nil)
+    }
+
+    
+    private func screenShotImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(UIScreen.main.bounds.size, true, 1)
+        self.view.drawHierarchy(in: UIScreen.main.bounds, afterScreenUpdates: true)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndPDFContext()
+        return screenshot
     }
 
     

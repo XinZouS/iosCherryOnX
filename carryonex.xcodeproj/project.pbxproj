@@ -56,6 +56,10 @@
 		6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */; };
 		66454F561FEC4ABD00DF5342 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F541FEC4ABC00DF5342 /* launch_logo.png */; };
 		66454F571FEC4ABD00DF5342 /* launch_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 66454F551FEC4ABC00DF5342 /* launch_text.png */; };
+		6645AB4D1FFC2B3A00568C6C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6645AB4C1FFC2B3A00568C6C /* OnboardingViewController.swift */; };
+		6645AB531FFC362400568C6C /* onboarding02.png in Resources */ = {isa = PBXBuildFile; fileRef = 6645AB4F1FFC362400568C6C /* onboarding02.png */; };
+		6645AB541FFC362400568C6C /* onboarding03.png in Resources */ = {isa = PBXBuildFile; fileRef = 6645AB501FFC362400568C6C /* onboarding03.png */; };
+		6645AB551FFC362400568C6C /* onboarding01.png in Resources */ = {isa = PBXBuildFile; fileRef = 6645AB511FFC362400568C6C /* onboarding01.png */; };
 		665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */; };
 		665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */; };
 		665B37E61FE869EF00A5926A /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B37E51FE869EF00A5926A /* Spotlight.swift */; };
@@ -235,6 +239,10 @@
 		663F1C931F44ABEB00E866C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		66454F541FEC4ABC00DF5342 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_logo.png; sourceTree = "<group>"; };
 		66454F551FEC4ABC00DF5342 /* launch_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_text.png; sourceTree = "<group>"; };
+		6645AB4C1FFC2B3A00568C6C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		6645AB4F1FFC362400568C6C /* onboarding02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding02.png; sourceTree = "<group>"; };
+		6645AB501FFC362400568C6C /* onboarding03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding03.png; sourceTree = "<group>"; };
+		6645AB511FFC362400568C6C /* onboarding01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding01.png; sourceTree = "<group>"; };
 		665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "carryonex-Bridging-Header.h"; sourceTree = "<group>"; };
 		665B0CCC1FC37D90002A40CA /* PersonalPageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageTableCell.swift; sourceTree = "<group>"; };
 		665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShiperInfo.storyboard; sourceTree = "<group>"; };
@@ -513,6 +521,16 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		6645AB4E1FFC35F800568C6C /* OnboardingImages */ = {
+			isa = PBXGroup;
+			children = (
+				6645AB511FFC362400568C6C /* onboarding01.png */,
+				6645AB4F1FFC362400568C6C /* onboarding02.png */,
+				6645AB501FFC362400568C6C /* onboarding03.png */,
+			);
+			path = OnboardingImages;
+			sourceTree = "<group>";
+		};
 		665B37E41FE866B700A5926A /* AwesomeSpotlightView */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +582,7 @@
 				663F1C931F44ABEB00E866C2 /* README.md */,
 				665DE4F61F3A0B70004DDB88 /* Assets.xcassets */,
 				66454F581FEC4AD900DF5342 /* LaunchScreen */,
+				6645AB4E1FFC35F800568C6C /* OnboardingImages */,
 				665DE4FB1F3A0B70004DDB88 /* Info.plist */,
 			);
 			path = carryonex;
@@ -683,6 +702,7 @@
 				4DC043C21FB7642D00F6C3F0 /* NewHomePageController.swift */,
 				FFBDB6841FBA42FE00B3B968 /* UserRecentInfoController.swift */,
 				FF3E68FF1FBB86E9006AA440 /* UserCardViewController.swift */,
+				6645AB4C1FFC2B3A00568C6C /* OnboardingViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -952,6 +972,7 @@
 				66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */,
 				66CE22541FBDED5600DCC274 /* PhoneVerifyResult.storyboard in Resources */,
 				E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */,
+				6645AB531FFC362400568C6C /* onboarding02.png in Resources */,
 				66C9002C1FD2084D0017DBC4 /* CreditViewController.storyboard in Resources */,
 				FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */,
 				66D983D11FF46271000FA554 /* Login_animated_loop_png.gif in Resources */,
@@ -981,8 +1002,10 @@
 				CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */,
 				665B0CCF1FC3953B002A40CA /* ShiperInfo.storyboard in Resources */,
 				660ABC611FC35CC000B81076 /* SenderDetailInfo.storyboard in Resources */,
+				6645AB541FFC362400568C6C /* onboarding03.png in Resources */,
 				CF3CC2801FC210810098A4C9 /* AddTripComplete.storyboard in Resources */,
 				66CC1E3B1FBCCBD40080C80B /* failed.mp3 in Resources */,
+				6645AB551FFC362400568C6C /* onboarding01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,6 +1138,7 @@
 				FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */,
 				E5A2A7931FE2E57100A51BDC /* User.swift in Sources */,
 				E5D020031FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift in Sources */,
+				6645AB4D1FFC2B3A00568C6C /* OnboardingViewController.swift in Sources */,
 				E5A2A79B1FE2E57100A51BDC /* ProfileUser.swift in Sources */,
 				6691BAA81FED974100B98BDF /* BPCircleActivityIndicator.swift in Sources */,
 				E5A2A7B31FE2E5B300A51BDC /* UILabel++.swift in Sources */,
