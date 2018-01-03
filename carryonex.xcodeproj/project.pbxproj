@@ -51,6 +51,7 @@
 		660252741FC4B91E00277617 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660252731FC4B91D00277617 /* SettingsViewController.swift */; };
 		660ABC5F1FC359BB00B81076 /* SenderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */; };
 		660ABC611FC35CC000B81076 /* SenderDetailInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */; };
+		6618F6A51FFD32FB005DCA45 /* ThemPageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6618F6A41FFD32FB005DCA45 /* ThemPageControlView.swift */; };
 		662C277E1FAEC1B400D90E08 /* AwsServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */; };
 		663121F71F548C6F000F7ACB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663121F61F548C6F000F7ACB /* MapKit.framework */; };
 		6634F8A21FC12A7100A5D21A /* OrderListCardSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */; };
@@ -233,6 +234,7 @@
 		660252731FC4B91D00277617 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderDetailViewController.swift; sourceTree = "<group>"; };
 		660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SenderDetailInfo.storyboard; sourceTree = "<group>"; };
+		6618F6A41FFD32FB005DCA45 /* ThemPageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemPageControlView.swift; sourceTree = "<group>"; };
 		662C277D1FAEC1B400D90E08 /* AwsServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsServerManager.swift; sourceTree = "<group>"; };
 		663121F61F548C6F000F7ACB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6634F8A11FC12A7100A5D21A /* OrderListCardSenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardSenderCell.swift; sourceTree = "<group>"; };
@@ -834,6 +836,7 @@
 				E5A2A7751FE2E44000A51BDC /* UIActivityIndicatorCustomizeView.swift */,
 				6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */,
 				66EF6FDF1FEDBBED00EE7EF8 /* PhoneMsgButton.swift */,
+				6618F6A41FFD32FB005DCA45 /* ThemPageControlView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1193,6 +1196,7 @@
 				E567BB081FCC6B9A00B87608 /* STRefund.swift in Sources */,
 				E5A2A7AA1FE2E5B300A51BDC /* Date++.swift in Sources */,
 				E59154BF1FD5E56F00333585 /* ShareManager.swift in Sources */,
+				6618F6A51FFD32FB005DCA45 /* ThemPageControlView.swift in Sources */,
 				66C3EA8F1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift in Sources */,
 				E5A2A7711FE2E41300A51BDC /* GlobalVariable.swift in Sources */,
 				E5A2A7AC1FE2E5B300A51BDC /* Notifications++.swift in Sources */,

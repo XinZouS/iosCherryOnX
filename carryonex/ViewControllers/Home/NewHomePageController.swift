@@ -79,7 +79,7 @@ class NewHomePageController: UIViewController {
         setupUserImageView()
         //checkForUpdate()
         //setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
-        //setupOnboarding()
+        setupOnboarding()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -282,7 +282,7 @@ class NewHomePageController: UIViewController {
     
     private func setupOnboarding() {
         if UserDefaults.getHasSoptlightHome() {
-            return // comment this line to show spotlight
+            return // TEST: comment this line to show onboarding alwasy
         }
         let onboarding = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         present(onboarding, animated: true, completion: nil)
