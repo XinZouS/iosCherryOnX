@@ -78,7 +78,7 @@ class NewHomePageController: UIViewController {
         setupUserImageView()
         //checkForUpdate()
         //setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
-        setupOnboarding()
+        //setupOnboarding()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
