@@ -14,17 +14,15 @@ import MapKit
 
 class OrdersRequestDetailViewController: UIViewController {
     
-    @IBOutlet weak var blockerWidth: NSLayoutConstraint!
+    // trip info
     weak var selectedCell: PhotoBrowserCollectionViewCell?
     @IBOutlet weak var phontobrowser: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
+    //
     @IBOutlet weak var imageCountButton: UIButton!
-    // trip info
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
-    @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
@@ -35,12 +33,22 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var requestIdTitleLabel: UILabel!
+    @IBOutlet weak var requestIdLabel: UILabel!
+    @IBOutlet weak var youxiangCodeTitleLabel: UILabel!
+    @IBOutlet weak var youxiangCodeLabel: UILabel!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var incomeTitleLabel: UILabel!
+    @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var itemValueTitleLabel: UILabel!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
     @IBOutlet weak var senderDescLabel: UILabel!
     
     // recipient info
+    @IBOutlet weak var recipientNameTitleLabel: UILabel!
     @IBOutlet weak var recipientNameLabel: UILabel!
+    @IBOutlet weak var recipientPhoneTitleLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
@@ -53,6 +61,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
     
+    var sharingAlertVC: UIAlertController?
     var activityIndicator = BPCircleActivityIndicator()
     var isLoadingStatus = false {
         didSet {
@@ -104,6 +113,17 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func senderImageButtonTapped(_ sender: Any) {
         AnalyticsManager.shared.trackCount(.otherProfileVisitCount) //查看对方个人页面次数
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
+    }
+    
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
+        
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            sharingAlertVC?.popoverPresentationController?.sourceView = self.startAddressLabel
+        }
+        
+        self.present(self.sharingAlertVC!, animated: true, completion:{})
+
     }
     
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
@@ -378,6 +398,8 @@ class OrdersRequestDetailViewController: UIViewController {
             
         } else {
             profileImageString = trip.carrierImageUrl
+            requestIdLabel.text = "\(request.id)"
+            youxiangCodeLabel.text = "\(trip.tripCode)"
             senderNameLabel.text = trip.carrierRealName
             senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
             recipientPhoneCallButton.isHidden = true
@@ -392,6 +414,11 @@ class OrdersRequestDetailViewController: UIViewController {
             senderImageButton.setImage(#imageLiteral(resourceName: "UserInfo"), for: .normal)
         }
         
+        requestIdTitleLabel.text = L("orders.ui.title.request-id")
+        youxiangCodeTitleLabel.text = L("orders.ui.title.youxiang-code")
+        incomeTitleLabel.text = L("orders.ui.title.income")
+        itemValueTitleLabel.text = L("orders.ui.title.item-value")
+        
         incomeLabel.text = currency.rawValue + request.priceString()
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
@@ -403,22 +430,14 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
-        blockerWidth.constant = UIScreen.main.bounds.width - 155
-        if request.getImages().count > 2{
-            imageCountButton.setTitle("+\(request.getImages().count-2)", for: .normal)
-        }else{
-            imageCountButton.setTitle("", for: .normal)
-        }
+        imageCountButton.setTitle("\(request.getImages().count)" + L("orders.ui.message.request-image-count"), for: .normal)
     }
     
     private func messageAttributeText(msg: String?) -> NSAttributedString {
-        var m = L("orders.ui.placeholder.note-empty")
-        if let getMsg = msg {
-            m = getMsg
-        }
+        let m = msg ?? L("orders.ui.placeholder.note-empty")
         let title = L("orders.ui.placeholder.note-msg")
         let titleAtt = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
-        let msgAtt = NSMutableAttributedString(string: m, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+        let msgAtt = NSMutableAttributedString(string: (m.isEmpty ? L("orders.ui.placeholder.note-empty") : m), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
         titleAtt.append(msgAtt)
         return titleAtt
     }
@@ -676,6 +695,14 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
     }
 }
 
+extension OrdersRequestDetailViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 86, height: 86)
+    }
+    
+}
+
 
 extension OrdersRequestDetailViewController: UICollectionViewDelegate {
 
@@ -694,6 +721,7 @@ extension OrdersRequestDetailViewController: UICollectionViewDelegate {
         }
         vc.show(index: indexPath.item)
     }
+    
 }
     
     
