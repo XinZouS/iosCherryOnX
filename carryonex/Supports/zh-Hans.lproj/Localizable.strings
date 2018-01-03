@@ -95,6 +95,7 @@
 "home.ui.title.triper" = "出行"; // 2017-12-28 Xin
 "home.ui.title.sender" = "寄件"; // 2017-12-28 Xin
 "home.ui.location.message.unknown" = "无法读取地点";  //2017-12-29 Zian
+"home.ui.button.skip" = "跳过"; // 2018-01-03 Xin
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "寄件";
