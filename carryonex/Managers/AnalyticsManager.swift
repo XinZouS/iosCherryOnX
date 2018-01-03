@@ -42,6 +42,7 @@ enum AnalyticsCountKey: String {
 enum AnalyticsKey: String {
     case viewImageCount = "view-image-count" // 张
     case carrierPrePublishDay = "carrier-pre-publish-day" // 天
+    case requestStatusChange = "request-status-change"   //状态
 }
 
 class AnalyticsManager: NSObject {

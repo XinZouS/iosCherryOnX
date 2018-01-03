@@ -238,6 +238,33 @@ enum RequestStatus: Int {
     case deliveryConfirmed = 29
 //    case refundCompleted = 30
     
+    func analyticString() -> String {
+        switch self {
+        case .waiting:
+            return "等待接受"
+        case .rejected:
+            return "已拒绝"
+        case .accepted:
+            return "等待付款"
+        case .cancelled:
+            return "已取消"
+        case .paid:
+            return "已付款"
+        case .inDelivery:
+            return "正在派送"
+        case .delivered:
+            return "已交付"
+        case .deliveryConfirmed:
+            return "已确认送达"
+        case .invalid:
+            return "状态无效"
+        case .badId:
+            return "错误单号"
+        case .initiate:
+            return "寄件创建"
+        }
+    }
+    
     func displayString() -> String {
         switch self {
         case .waiting:
