@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="E9i-eE-C0G">
-                                <rect key="frame" x="157" y="566" width="100" height="130"/>
+                                <rect key="frame" x="157" y="198" width="100" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="6mv-XH-vk5">
                                         <variation key="heightClass=regular-widthClass=regular" constant="160"/>
@@ -34,7 +34,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_text.png" translatesAutoresizingMaskIntoConstraints="NO" id="uc9-ot-Jra">
-                                <rect key="frame" x="60" y="279" width="294" height="49"/>
+                                <rect key="frame" x="80" y="633.66666666666663" width="254" height="42.333333333333371"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uc9-ot-Jra" secondAttribute="height" multiplier="6:1" id="igz-yk-0db"/>
                                 </constraints>
@@ -44,13 +44,13 @@
                         <constraints>
                             <constraint firstItem="uc9-ot-Jra" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SoU-7h-SBt"/>
                             <constraint firstItem="E9i-eE-C0G" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TlG-fQ-qHW"/>
-                            <constraint firstItem="uc9-ot-Jra" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="40" id="iC8-PA-yXf">
+                            <constraint firstItem="uc9-ot-Jra" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="60" id="iC8-PA-yXf">
                                 <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                             </constraint>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="E9i-eE-C0G" secondAttribute="bottom" constant="40" id="xi4-BC-H6W">
+                            <constraint firstAttribute="centerY" secondItem="E9i-eE-C0G" secondAttribute="bottom" constant="40" id="xi4-BC-H6W">
                                 <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                             </constraint>
-                            <constraint firstItem="uc9-ot-Jra" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-40" id="zca-0q-tBY"/>
+                            <constraint firstItem="uc9-ot-Jra" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" constant="-60" id="zca-0q-tBY"/>
                         </constraints>
                     </view>
                 </viewController>

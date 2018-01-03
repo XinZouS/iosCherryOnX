@@ -11,6 +11,7 @@ import UIKit
 class OrderListCardSenderCell: OrderListCardCell {
     
     @IBOutlet weak var itemImageFrame2: UIImageView!
+    @IBOutlet weak var itemImageView: UIImageView!
     
     @IBOutlet weak var itemNumLabel: UILabel!
     @IBOutlet weak var dateMonthLabel: UILabel!

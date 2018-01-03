@@ -283,6 +283,7 @@ extension PersonalInfoEditingViewController: UITableViewDelegate, UITableViewDat
             
         case 1: // email
             emailTextField = cell.textField
+            emailTextField.placeholder = "E-mail"
             cell.textField.inputAccessoryView = setupTextFieldToolbar()
 
         default:

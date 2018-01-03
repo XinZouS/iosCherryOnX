@@ -305,7 +305,8 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.itemNumLabel.text = "\(request.getImages().count)" + L("orders.ui.message.request-image-count")
             
             if let image = request.getImages().first?.displayUrl(), let imageUrl = URL(string: image) {
-                cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
+                //cell.itemImageButton.af_setImage(for: .normal, url: imageUrl)
+                cell.itemImageView.af_setImage(withURL: imageUrl)
             }
             
             if let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId) {
