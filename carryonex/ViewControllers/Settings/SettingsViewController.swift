@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
                   L("settings.ui.title.gps"),
                   L("settings.ui.title.account"),
                   L("settings.ui.title.policy"),
-                  "Version 1.0",
+                  "Version",
                   L("settings.ui.title.logout")
                   ]
     
@@ -53,13 +53,23 @@ extension SettingsViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell {
             let title: String = titles[indexPath.row]
             cell.titleLabel.text = title
-            if indexPath.row == 4 {
-                cell.detailLabel.isHidden = true
+            if indexPath.row == 4 { // version cell
+                setupVersionCell(cell)
             }
             cell.selectionStyle = .none
             return cell
         }
         return UITableViewCell()
+    }
+    
+    private func setupVersionCell(_ cell: SettingsCell) {
+        cell.detailLabel.isHidden = true
+        let label = UILabel()
+        label.text = "1.0"
+        label.textAlignment = .right
+        label.font = UIFont.systemFont(ofSize: 18)
+        cell.addSubview(label)
+        label.addConstraints(left: nil, top: cell.topAnchor, right: cell.rightAnchor, bottom: cell.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 30, bottomConstent: 0, width: 0, height: 0)
     }
 }
 

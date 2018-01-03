@@ -19,7 +19,7 @@
         <scene sceneID="GoH-pk-Xp7">
             <objects>
                 <navigationController navigationBarHidden="YES" id="jOn-km-Alh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="订单" image="orderIcon_82x82" id="pr2-j8-IZ6"/>
+                    <tabBarItem key="tabBarItem" title="订单" image="Orders" id="pr2-j8-IZ6"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yln-HP-UEk">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1309,12 +1309,12 @@
         <image name="CarryonEx_Electronics" width="28" height="28"/>
         <image name="LockClosed" width="59" height="67"/>
         <image name="NY_skyline" width="1520" height="1000"/>
+        <image name="Orders" width="21" height="20"/>
         <image name="Phone" width="34" height="34"/>
         <image name="addressDotDash" width="42" height="108"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="imgViewTopWave" width="528" height="55"/>
-        <image name="orderIcon_82x82" width="27" height="27"/>
         <image name="shareing" width="63" height="64"/>
         <image name="stars5Mask" width="403" height="70"/>
         <image name="yadianwenqing" width="313" height="308"/>

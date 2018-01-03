@@ -30,14 +30,14 @@
                                             <constraint firstAttribute="width" constant="30" id="szx-UQ-aPk"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的支付宝账号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUh-8h-9hz" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的支付宝账号(邮箱/手机号)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUh-8h-9hz" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                         <rect key="frame" x="70" y="42" width="285" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="oWZ-Kw-NG1"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                     </textField>
                                     <imageView hidden="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlipayAccountName" translatesAutoresizingMaskIntoConstraints="NO" id="b37-AY-UbZ">
                                         <rect key="frame" x="20" y="80" width="30" height="30"/>
