@@ -436,7 +436,7 @@ extension PersonalInfoEditingViewController {
                     _ = imageCache.removeImage(for: urlRequest, withIdentifier: nil)
                     imageCache.removeAllImages()
                 }
-                self.setupProfileImageFromAws(url: publicUrl)
+                self.setupProfileImageUrl(publicUrl)
                 
                 ProfileManager.shared.updateUserInfo(.imageUrl, value: publicUrl.absoluteString, completion: { (success) in
                     if success {
@@ -517,8 +517,8 @@ extension PersonalInfoEditingViewController {
                 print(jsonResult)
                 if let imgUrl = jsonResult["headimgurl"] as? String {
                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
-                        if success {
-                            self.setupWechatImg()
+                        if success, let url = URL(string: imgUrl) {
+                            self.setupProfileImageUrl(url)
                         }
                     })
                 }
@@ -544,15 +544,13 @@ extension PersonalInfoEditingViewController {
         }
     }
     
-    internal func setupProfileImageFromAws(url: URL){
+    internal func setupProfileImageUrl(_ url: URL){
         guard let homeVC = AppDelegate.shared().mainTabViewController?.homeViewController,
             let personalVC = AppDelegate.shared().mainTabViewController?.personInfoController else {
             debugPrint("\n[ERROR]: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
             return
         }
         imageButton.af_setBackgroundImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-//        homeVC.userProfileImageBtn.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-//        personalVC.userProfileImage.af_setImage(withURL: url)
         homeVC.userProfileImageBtn.setImage( #imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         personalVC.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
     }
@@ -563,14 +561,6 @@ extension PersonalInfoEditingViewController {
         imageButton.setBackgroundImage(sqr, for: .normal)
         newProfile = sqr
         isProfileImageChanged = true
-    }
-    
-    internal func setupWechatImg(){
-        guard let imgUrl = URL(string: ProfileManager.shared.getCurrentUser()?.imageUrl ?? "") else {
-            return
-        }
-        imageButton.af_setBackgroundImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-        newProfile = imageButton.currentImage ?? #imageLiteral(resourceName: "blankUserHeadImage")
     }
 }
 
