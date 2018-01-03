@@ -72,6 +72,8 @@ class OrdersYouxiangInfoViewController: UIViewController {
         super.viewDidLoad()
         
         title = L("orders.ui.title.youxiang-info")
+        UIApplication.shared.statusBarStyle = .default
+        
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = .white

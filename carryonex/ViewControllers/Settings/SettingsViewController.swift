@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         title = L("settings.ui.title.settings") // "设置"
         setupTableView()
     }

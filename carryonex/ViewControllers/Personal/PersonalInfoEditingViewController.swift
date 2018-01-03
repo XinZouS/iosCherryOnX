@@ -46,6 +46,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         
         addObservers()
         setupActivityIndicator()

@@ -283,6 +283,7 @@
 "personal.ui.title.verify-info" = "验证信息";
 "personal.ui.title.score" = "综合评分";
 "personal.ui.title.wallet" = "钱包";
+"personal.ui.title.wallet-question" = "常见问题";
 "personal.ui.title.help" = "帮助";
 "personal.ui.title.settings" = "设置";
 "personal.ui.title.wallet-description" = "收付款，查看余额，提现";

@@ -59,7 +59,6 @@ class NewHomePageController: UIViewController {
         //TODO: Need to put this back
         //ApiServers.shared.getConfig()
         
-        setupNowHour()
         addObservers()
         setupTextContents()
         setupCountButtons()
@@ -71,6 +70,8 @@ class NewHomePageController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = false
+        
+        setupNowHour()
     }
     
     override func viewDidAppear(_ animated: Bool) {

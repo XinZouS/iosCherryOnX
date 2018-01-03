@@ -19,7 +19,7 @@ class CreditViewController: UIViewController {
     @IBAction func faqButtonTapped(_ sender: Any) {
         let webVC = WebController()
         self.navigationController?.pushViewController(webVC, animated: true)
-        webVC.title = title
+        webVC.title = L("personal.ui.title.wallet-question")
         if let url = URL(string: "\(ApiServers.shared.host)/doc_wallet_info") {
             webVC.url = url
         }
@@ -47,6 +47,7 @@ class CreditViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         setupNavigationBar()
         
         ProfileManager.shared.updateWallet(completion: nil)

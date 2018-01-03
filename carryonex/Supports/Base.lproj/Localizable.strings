@@ -283,6 +283,7 @@
 "personal.ui.title.verify-info" = "Verifying Info";
 "personal.ui.title.score" = "Score";
 "personal.ui.title.wallet" = "Wallet";
+"personal.ui.title.wallet-question" = "Questions";
 "personal.ui.title.help" = "Help";
 "personal.ui.title.settings" = "Settings";
 "personal.ui.title.wallet-description" = "Receive money, making payment, check your balance, payout.";

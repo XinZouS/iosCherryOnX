@@ -50,6 +50,7 @@ class PersonalPageViewController: UIViewController{
         addObservers()
         loadUserProfile()
     }
+    
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,12 +61,12 @@ class PersonalPageViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
         setupUserImageView()
         setupNavigationBar()
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.isNavigationBarHidden = false
     }
     
@@ -74,6 +75,7 @@ class PersonalPageViewController: UIViewController{
             self?.loadUserProfile()
         }
     }
+    
     private func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
