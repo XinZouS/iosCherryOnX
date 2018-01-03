@@ -39,7 +39,8 @@ class MainTabBarController: UITabBarController {
     var personInfoController: PersonalPageViewController?
     var loginViewController: LoginViewController?
     var circleIndicator: BPCircleActivityIndicator!
-    var locationManager : CLLocationManager!
+    var locationManager: CLLocationManager!
+    var lastLocationFetchTime: Int = 0
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -140,7 +141,6 @@ class MainTabBarController: UITabBarController {
             
             if isSuccess {
                 APIServerChecker.testAPIServers()
-                self.locationManager.startUpdatingLocation()
                 
                 if let deeplink = AppDelegate.shared().deferredDeeplink {
                     DeeplinkNavigator.handleDeeplink(deeplink)
@@ -246,8 +246,9 @@ extension MainTabBarController: CLLocationManagerDelegate {
     fileprivate func setupLocationManager(){
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.distanceFilter = kCLLocationAccuracyKilometer
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestAlwaysAuthorization()
     }
     
@@ -255,6 +256,14 @@ extension MainTabBarController: CLLocationManagerDelegate {
     //MARK: - Location
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        //Blocking the multiple location update from delegate
+        let now = Date.getTimestampNow()
+        if now - lastLocationFetchTime < 5 {
+            return
+        }
+        lastLocationFetchTime = now
+        
         //取得locations数组的最后一个
         guard let currentLocation = locations.last else {
             print("Unable to obtain location")
@@ -300,6 +309,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
                                           completion: nil)
             
             locationManager.stopUpdatingLocation()
+            locationManager.startMonitoringSignificantLocationChanges()
         }
     }
     
