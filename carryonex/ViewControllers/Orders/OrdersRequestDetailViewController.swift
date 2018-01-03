@@ -183,6 +183,12 @@ class OrdersRequestDetailViewController: UIViewController {
             if (success) {
                 if let statusId = statusId {
                     TripOrderDataStore.shared.updateRequestToStatus(category: requestCategory, requestId: self.request.id, status: statusId)
+                    
+                    //Track the new status to Fabric
+                    if let status = RequestStatus(rawValue: statusId) {
+                        AnalyticsManager.shared.track(.requestStatusChange, attributes: ["status": status.analyticString()])
+                    }
+                    
                 } else {
                     debugPrint("No status found, bad call")
                 }
