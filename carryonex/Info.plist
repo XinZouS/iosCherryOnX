@@ -145,6 +145,8 @@
 	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>游箱正在尝试获取您的当前位置</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>游箱正在尝试获取您的当前位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>你可以从手机相册选择照片</string>
 	<key>UIBackgroundModes</key>

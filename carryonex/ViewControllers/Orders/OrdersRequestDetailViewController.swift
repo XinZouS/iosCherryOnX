@@ -46,7 +46,6 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
-    internal let locationManager = CLLocationManager()
     var selectedPin : MKPlacemark? = nil
     
     // done buttons
@@ -786,9 +785,6 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         print("TODO: updateSearchResults...")
-    }
-    func targetCurrentLocBtnTapped(){
-        locationManager.startUpdatingLocation()
     }
     
     /// HandleMapSearch delegate:
