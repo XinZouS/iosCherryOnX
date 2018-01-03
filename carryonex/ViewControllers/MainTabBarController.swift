@@ -246,8 +246,9 @@ extension MainTabBarController: CLLocationManagerDelegate {
     fileprivate func setupLocationManager(){
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.distanceFilter = kCLLocationAccuracyKilometer
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestAlwaysAuthorization()
     }
     
@@ -308,6 +309,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
                                           completion: nil)
             
             locationManager.stopUpdatingLocation()
+            locationManager.startMonitoringSignificantLocationChanges()
         }
     }
     
