@@ -280,6 +280,9 @@ class NewHomePageController: UIViewController {
     }
     
     private func setupOnboarding() {
+        if UserDefaults.getHasSoptlightHome() {
+            return // comment this line to show spotlight
+        }
         let onboarding = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         present(onboarding, animated: true, completion: nil)
     }
