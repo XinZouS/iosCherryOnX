@@ -223,6 +223,8 @@
 "orders.error.action.lock-fail-account" = "Relogin";
 "orders.status.message.changing" = "Change status";
 "orders.ui.placeholder.youxiang-empty" = "No Request";
+"orders.ui.title.share" = "Share"; // 2018-01-04 Xin
+"orders.ui.title.new-trip" = "New Trip"; // 2018-01-04 Xin
 "orders.ui.action.comment" = "Comment";
 "orders.ui.action.category-sender" = "Sender";
 "orders.ui.action.category-carrier" = "Carrier";

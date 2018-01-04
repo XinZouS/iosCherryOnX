@@ -232,6 +232,10 @@ class OrderListViewController: UIViewController {
         }
     }
     
+    public func starNewTrip() {
+        DeeplinkNavigator.navigateToNewTrip()
+    }
+    
 }
 
 extension OrderListViewController: UIScrollViewDelegate {
@@ -330,7 +334,12 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 150
+        let h: CGFloat = 260
+        if tableView.tag == TripCategory.carrier.rawValue {
+            return carrierTrips.count == 0 ? h : 0
+        } else {
+            return senderRequests.count == 0 ? h : 0
+        }
     }
     
     private func setupFooterView(tableView: UITableView) -> UIView {
@@ -341,21 +350,31 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             return UIView()
         }
 
-        let footView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 150))
+        let footView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 260))
+        
+        let shareButton = UIButton()
+        shareButton.layer.cornerRadius = 5
+        shareButton.layer.masksToBounds = true
+        shareButton.backgroundColor = colorTheamRed
+        shareButton.setTitle(L("orders.ui.title.new-trip"), for: .normal)
+        shareButton.isHidden = (tableView.tag == TripCategory.sender.rawValue)
+        shareButton.addTarget(self, action: #selector(starNewTrip), for: .touchUpInside)
+        footView.addSubview(shareButton)
+        shareButton.addConstraints(left: footView.leftAnchor, top: nil, right: footView.rightAnchor, bottom: footView.bottomAnchor, leftConstent: 30, topConstent: 0, rightConstent: 30, bottomConstent: 10, width: 0, height: 46)
         
         let hintLabel = UILabel()
         hintLabel.textAlignment = .center
         hintLabel.font = UIFont.systemFont(ofSize: 16)
         hintLabel.text = (tableView.tag == TripCategory.carrier.rawValue) ? L("orders.ui.placeholder.trip") : L("orders.ui.placeholder.send")
         footView.addSubview(hintLabel)
-        hintLabel.addConstraints(left: footView.leftAnchor, top: nil, right: footView.rightAnchor, bottom: footView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        hintLabel.addConstraints(left: footView.leftAnchor, top: nil, right: footView.rightAnchor, bottom: shareButton.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 30, width: 0, height: 20)
         
-        let blankNoticeImg = UIImageView()
-        blankNoticeImg.image = #imageLiteral(resourceName: "orders_cell_placeholder")
-        blankNoticeImg.contentMode = .scaleAspectFit
-        footView.addSubview(blankNoticeImg)
-        blankNoticeImg.addConstraints(left: nil, top: footView.topAnchor, right: nil, bottom: hintLabel.topAnchor, leftConstent: 0, topConstent: 20, rightConstent: 0, bottomConstent: 20, width: footView.bounds.width * 0.5, height: 0)
-        blankNoticeImg.centerXAnchor.constraint(equalTo: footView.centerXAnchor).isActive = true
+        let img = UIImageView()
+        img.image = #imageLiteral(resourceName: "orders_cell_placeholder")
+        img.contentMode = .scaleAspectFit
+        footView.addSubview(img)
+        img.addConstraints(left: nil, top: footView.topAnchor, right: nil, bottom: hintLabel.topAnchor, leftConstent: 0, topConstent: 30, rightConstent: 0, bottomConstent: 20, width: footView.bounds.width * 0.5, height: 0)
+        img.centerXAnchor.constraint(equalTo: footView.centerXAnchor).isActive = true
         
         return footView
     }

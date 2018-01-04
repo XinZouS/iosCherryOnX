@@ -108,7 +108,7 @@ class DeeplinkNavigator: NSObject {
         tabViewController.selectTabIndex(index: TabViewIndex.settings)
     }
     
-    static private func navigateToNewTrip() {
+    static func navigateToNewTrip() {
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.home)
         if let navigation = tabViewController.viewControllers?.first as? UINavigationController {
