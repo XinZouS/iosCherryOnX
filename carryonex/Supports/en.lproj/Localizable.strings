@@ -223,6 +223,8 @@
 "orders.error.action.lock-fail-account" = "重新登陆";
 "orders.status.message.changing" = "更改状态";
 "orders.ui.placeholder.youxiang-empty" = "此游箱尚未有寄件";
+"orders.ui.title.share" = "分享游箱"; // 2018-01-04 Xin
+"orders.ui.title.new-trip" = "发布行程"; // 2018-01-04 Xin
 "orders.ui.action.comment" = "写评价";
 "orders.ui.action.category-sender" = "寄件人";
 "orders.ui.action.category-carrier" = "出行人";
