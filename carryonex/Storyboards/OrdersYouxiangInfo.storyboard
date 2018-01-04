@@ -395,7 +395,7 @@
                                                     <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyOrder" translatesAutoresizingMaskIntoConstraints="NO" id="oix-GU-3RQ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orders_cell_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="oix-GU-3RQ">
                                                     <rect key="frame" x="156.66666666666666" y="57.000000000000007" width="100.99999999999997" height="81.666666666666686"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="jHS-1w-JoB"/>
@@ -489,10 +489,10 @@
     </scenes>
     <resources>
         <image name="CarryonEx_Wechat_Icon" width="64" height="64"/>
-        <image name="EmptyOrder" width="144" height="87"/>
         <image name="LockClosed" width="59" height="67"/>
         <image name="addressDotDash" width="42" height="108"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
+        <image name="orders_cell_placeholder" width="102" height="89"/>
         <image name="shareing" width="63" height="64"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>
