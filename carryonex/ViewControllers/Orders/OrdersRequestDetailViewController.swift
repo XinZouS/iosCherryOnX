@@ -128,7 +128,7 @@ class OrdersRequestDetailViewController: UIViewController {
             
         } else if paymentType == .wechatPay {
             
-            //TODO: comment this section
+            /*
             let transaction = RequestTransaction.shipperPay
             displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
                 if style == .default {
@@ -136,11 +136,10 @@ class OrdersRequestDetailViewController: UIViewController {
                 }
                 self?.backgroundViewHide()
             }
+            */
             
-            
-            //TODO: uncomment this section
-            //AnalyticsManager.shared.trackCount(.wechatPayCount)
-            //WalletManager.shared.wechatPayAuth(request: request)
+            AnalyticsManager.shared.trackCount(.wechatPayCount)
+            WalletManager.shared.wechatPayAuth(request: request)
         }
     }
     
