@@ -47,19 +47,14 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .default
-        
         addObservers()
-        setupActivityIndicator()
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
+        setupUser()
+        setupActivityIndicator()
+        
         nameTextField.inputAccessoryView = setupTextFieldToolbar()
+        nameTextField.text = user?.realName ?? ""
         setupTableViewAndPicker()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if user == nil {
-            setupUser()
-        }
     }
     
     private func setupTableViewAndPicker(){
@@ -123,25 +118,6 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
                 imageButton.setBackgroundImage(newProfile, for: .normal)
             }
             
-            nameTextField.text = currentUser.realName
-            emailTextField.text = currentUser.email
-            if let genderString = currentUser.gender {
-                switch genderString{
-                case ProfileGender.male.rawValue:
-                    genderTextField.text = ProfileGender.male.displayString()
-                    settedGender = .male
-                case ProfileGender.female.rawValue:
-                    genderTextField.text = ProfileGender.female.displayString()
-                    settedGender = .female
-                case ProfileGender.other.rawValue:
-                    genderTextField.text = ProfileGender.other.displayString()
-                    settedGender = .other
-                default:
-                    genderTextField.text = ProfileGender.undefined.displayString()
-                    settedGender = .undefined
-                }
-                
-            }
         } else {
             displayGlobalAlert(title: L("personal.error.title.network"), message: L("personal.error.message.network"), action: L("action.ok"), completion: nil)
             //TODO: handle error when GET user failed in PersonalInfoEditingViewController
@@ -281,11 +257,28 @@ extension PersonalInfoEditingViewController: UITableViewDelegate, UITableViewDat
             genderTextField.inputView = genderPickerView
             genderTextField.inputAccessoryView = setupTextFieldToolbar()
             
+            if let genderString = user?.gender {
+                switch genderString {
+                case ProfileGender.male.rawValue:
+                    genderTextField.text = ProfileGender.male.displayString()
+                    settedGender = .male
+                case ProfileGender.female.rawValue:
+                    genderTextField.text = ProfileGender.female.displayString()
+                    settedGender = .female
+                case ProfileGender.other.rawValue:
+                    genderTextField.text = ProfileGender.other.displayString()
+                    settedGender = .other
+                default:
+                    genderTextField.text = ProfileGender.undefined.displayString()
+                    settedGender = .undefined
+                }
+            }
+            
         case 1: // email
             emailTextField = cell.textField
             emailTextField.placeholder = "E-mail"
             cell.textField.inputAccessoryView = setupTextFieldToolbar()
-
+            emailTextField.text = user?.email ?? ""
         default:
             break
         }
