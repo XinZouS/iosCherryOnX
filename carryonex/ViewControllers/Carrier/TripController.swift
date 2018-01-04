@@ -355,9 +355,9 @@ extension TripController: UIPickerViewDelegate {
         let state = stateDictionary(countryIdx: countryIdx, stateIdx: stateIdx)
         let city = cityDictionary(countryIdx: countryIdx, stateIdx: stateIdx, cityIdx: cityIdx)
         
-        let countryStr = country!["country"] as! String
-        let stateStr = state!["state"] as! String
-        let cityStr = city!["city"] as! String
+        let countryStr = (country?["country"] as? String) ?? ""
+        let stateStr = (state?["state"] as? String) ?? ""
+        let cityStr = (city?["city"] as? String) ?? ""
         
         return (countryStr, stateStr, cityStr)
     }
