@@ -12,6 +12,7 @@ enum NavigationPage: String {
     case home = "home"
     case trip = "trip"
     case request = "request"
+    case tripDetail = "trip_detail"
     case requestDetail = "request_detail"
     case carrierList = "carrier_list"
     case senderList = "sender_list"
@@ -45,6 +46,11 @@ class DeeplinkNavigator: NSObject {
         case .request:
             if let tripCode = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "trip_code") {
                 navigateToNewRequest(tripCode: tripCode)
+            }
+        case .tripDetail:
+            if let requestId = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "request_id"),
+                let id = Int(requestId) {
+                navigateToRequest(id)
             }
         case .requestDetail:
             if let requestId = URL.getQueryStringParameter(url: deeplink.absoluteString, param: "request_id"), let id = Int(requestId) {
@@ -94,7 +100,7 @@ class DeeplinkNavigator: NSObject {
             AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
             
         } else if let request = TripOrderDataStore.shared.getRequest(category: .sender, requestId: requestId) {
-            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .tripDetail, sender: request)
         
         } else {
             TripOrderDataStore.shared.pullAll(completion: {

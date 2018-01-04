@@ -55,7 +55,7 @@ class UserCardViewController: UIViewController {
     private func setupCardView(){
         userStatus.text = (self.category == .carrier) ? L("home.ui.card.trip") : L("home.ui.card.send")
         userStatusIcon.image = (self.category == .carrier) ? #imageLiteral(resourceName: "home_shipper_cardicon") : #imageLiteral(resourceName: "home_sender_cardicon")
-        requestImageView.image = (self.category == .carrier) ? #imageLiteral(resourceName: "logo_square") : #imageLiteral(resourceName: "empty1")
+        requestImageView.image = (self.category == .carrier) ? #imageLiteral(resourceName: "logo_square") : #imageLiteral(resourceName: "logo_square")
         beginLocationLabel.text = L("home.ui.card.location-empty")
         endLocationLabel.text = L("home.ui.card.location-empty")
         timeLabel.text = L("home.ui.card.trip-empty")
@@ -76,7 +76,7 @@ class UserCardViewController: UIViewController {
             endLocationLabel.text = trip.endAddress?.fullAddressString()
             if request.getImages().count > 0, let thumbnailUrl = URL(string: request.getImages().first!.thumbnailUrl) {
                 if category == .carrier{
-                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "empty1"))
+                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "logo_square"))
                 }else{
                     requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "logo_square"))
                 }

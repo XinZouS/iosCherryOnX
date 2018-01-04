@@ -341,7 +341,8 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             let request = senderRequests[indexPath.row]
             //let trip = TripOrderDataStore.shared.getTrip(category: .sender, id: request.tripId)
             //performSegue(withIdentifier: requestDetailSegue, sender: (trip, request))
-            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+//            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+            AppDelegate.shared().handleMainNavigation(navigationSegue: .tripDetail, sender: request)
         }
     }
 }

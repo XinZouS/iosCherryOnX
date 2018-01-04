@@ -48,6 +48,7 @@
                         <segue destination="L5y-RD-9eC" kind="show" identifier="CreditViewSegue" id="Mx3-ZG-LZy"/>
                         <segue destination="nsu-zs-ixO" kind="show" identifier="SettingsSegue" id="M4i-mG-WcL"/>
                         <segue destination="idf-2x-GCx" kind="show" identifier="ShipperProfileSegue" id="rps-K6-21m"/>
+                        <segue destination="3sC-c3-IgI" kind="show" identifier="TripDetailSegue" id="PHt-bn-N4I"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UVK-cN-Yzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -84,7 +85,15 @@
                 <viewControllerPlaceholder storyboardName="ShiperInfo" id="idf-2x-GCx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgu-UZ-PQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="-61"/>
+            <point key="canvasLocation" x="1358" y="-109"/>
+        </scene>
+        <!--OrdersTripDetail-->
+        <scene sceneID="QGi-7I-5uu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OrdersTripDetail" id="3sC-c3-IgI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xXq-F0-mQu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1164" y="-40"/>
         </scene>
         <!--HistoryComment-->
         <scene sceneID="xr2-7X-Y9e">
