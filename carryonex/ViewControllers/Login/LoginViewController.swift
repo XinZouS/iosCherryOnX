@@ -329,20 +329,17 @@ extension LoginViewController: UITextFieldDelegate {
                         ProfileManager.shared.login(username: username, password: username.quickTossPassword(), completion: { (success) in
                             
                             if success {
-                                ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
-                                    
-                                    self?.circleIndicator.stop()
-                                    self?.circleIndicator.isHidden = true
-                                    
-                                    if success {
-                                        //if update success close
-                                        self?.dismiss(animated: true, completion: nil)
-                                        AnalyticsManager.shared.trackCount(.loginByWeChatCount)
-                                        AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
-                                    } else {
-                                        debugPrint("Wechat registration update user info failed at user exists")
-                                    }
-                                })
+                                self?.circleIndicator.stop()
+                                self?.circleIndicator.isHidden = true
+                                
+                                if success {
+                                    //if update success close
+                                    self?.dismiss(animated: true, completion: nil)
+                                    AnalyticsManager.shared.trackCount(.loginByWeChatCount)
+                                    AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
+                                } else {
+                                    debugPrint("Wechat registration update user info failed at user exists")
+                                }
                             
                             } else {
                                 self?.circleIndicator.stop()
