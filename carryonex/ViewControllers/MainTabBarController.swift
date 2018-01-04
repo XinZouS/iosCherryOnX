@@ -89,18 +89,18 @@ class MainTabBarController: UITabBarController {
                 yxcodeVC.youxiangcodeTextField?.text = code
             }
             
-//        case .tripDetail:
-//            print("Open trip detail")
-//            if let vc = segue.destination as? OrdersTripDetailViewController {
-//                if let request = sender as? Request, let category = request.category() {
-//                    vc.request = request
-//                    vc.category = category
-//                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
-//                        vc.trip = trip
-//                    }
-//                }
-//            }
-        case .requestDetail, .tripDetail:
+        case .tripDetail:
+            print("Open trip detail")
+            if let vc = segue.destination as? OrdersTripDetailViewController {
+                if let request = sender as? Request, let category = request.category() {
+                    vc.request = request
+                    vc.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
+                        vc.trip = trip
+                    }
+                }
+            }
+        case .requestDetail:
             print("Open user detail")
             if let viewController = segue.destination as? OrdersRequestDetailViewController {
                 if let request = sender as? Request, let category = request.category() {

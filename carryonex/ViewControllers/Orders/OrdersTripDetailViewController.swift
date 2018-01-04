@@ -31,7 +31,7 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
-    @IBOutlet weak var senderDescLabel: UILabel!
+    @IBOutlet weak var senderScoreLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var requestIdTitleLabel: UILabel!
@@ -50,8 +50,8 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var recipientNameLabel: UILabel!
     @IBOutlet weak var recipientPhoneTitleLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
-    @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
+    @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     var selectedPin : MKPlacemark? = nil
@@ -95,9 +95,6 @@ class OrdersTripDetailViewController: UIViewController {
     
     var targetUserPhone: String?
     
-    @IBAction func moreImageTapped(_ sender: Any) {
-        
-    }
     
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
         if let targetPhone = targetUserPhone, let url = URL(string:"tel://" + targetPhone) {
@@ -388,7 +385,7 @@ class OrdersTripDetailViewController: UIViewController {
         if category == .carrier {
             profileImageString = request.ownerImageUrl
             senderNameLabel.text = request.ownerRealName
-            senderDescLabel.text = L("orders.ui.message.sender-desc-sender")
+            senderScoreLabel.text = L("orders.ui.message.sender-desc-sender")
             recipientPhoneCallButton.isHidden = false
             if let rating = request.ownerRating {
                 let fullLength = senderStar5MaskWidthConstraint.constant
@@ -401,7 +398,7 @@ class OrdersTripDetailViewController: UIViewController {
             requestIdLabel.text = "\(request.id)"
             youxiangCodeLabel.text = "\(trip.tripCode)"
             senderNameLabel.text = trip.carrierRealName
-            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
+            senderScoreLabel.text = L("orders.ui.message.sender-desc-carrier")
             recipientPhoneCallButton.isHidden = true
             let fullLength = senderStar5MaskWidthConstraint.constant
             senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)

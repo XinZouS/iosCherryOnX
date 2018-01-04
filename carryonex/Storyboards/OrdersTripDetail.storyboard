@@ -18,11 +18,11 @@
             <objects>
                 <viewController id="Z1x-0S-3lW" customClass="OrdersTripDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K3Q-RT-8sR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="960"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u44-8x-21Q">
-                                <rect key="frame" x="0.0" y="20" width="375" height="940"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-Nl-6eD">
                                         <rect key="frame" x="15" y="20" width="345" height="941"/>
@@ -66,8 +66,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <outlet property="dataSource" destination="Z1x-0S-3lW" id="dMj-19-2G5"/>
-                                                    <outlet property="delegate" destination="Z1x-0S-3lW" id="AG0-S6-L17"/>
+                                                    <outlet property="dataSource" destination="Z1x-0S-3lW" id="jwG-vb-jP2"/>
+                                                    <outlet property="delegate" destination="Z1x-0S-3lW" id="OE6-Bo-oOV"/>
                                                 </connections>
                                             </collectionView>
                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akV-ax-hDm">
@@ -92,9 +92,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="moreImageTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="HrV-H4-jdZ"/>
-                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efo-75-gDw">
                                                 <rect key="frame" x="125" y="29" width="42.5" height="20"/>
@@ -167,7 +164,7 @@
                                                 </constraints>
                                                 <state key="normal" image="phone_gray"/>
                                                 <connections>
-                                                    <action selector="senderPhoneButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="Rt0-lg-q7j"/>
+                                                    <action selector="senderPhoneButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="A7F-5I-t2d"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOT-aY-fsy">
@@ -184,7 +181,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="senderImageButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="DpZ-4v-uXh"/>
+                                                    <action selector="senderImageButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="Wub-cQ-E8u"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzO-np-Cho">
@@ -230,8 +227,8 @@
                                                 <color key="textColor" red="0.29661434889999999" green="0.34066224099999998" blue="0.37820503119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="321321" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qO-lk-QcZ">
-                                                <rect key="frame" x="20" y="320" width="73" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qO-lk-QcZ">
+                                                <rect key="frame" x="20" y="320" width="82.5" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="CIx-vM-Sqf"/>
                                                 </constraints>
@@ -245,21 +242,21 @@
                                                 <color key="textColor" red="0.29661434889999999" green="0.34066224099999998" blue="0.37820503119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRf-eA-r68">
-                                                <rect key="frame" x="153" y="320" width="89" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="666ABC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRf-eA-r68">
+                                                <rect key="frame" x="153" y="320" width="84" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW0-cL-CBh">
-                                                <rect key="frame" x="252" y="315" width="30" height="30"/>
+                                                <rect key="frame" x="247" y="315" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="KW0-cL-CBh" secondAttribute="height" multiplier="1:1" id="KjP-b8-way"/>
                                                     <constraint firstAttribute="height" constant="30" id="hjk-y4-Avy"/>
                                                 </constraints>
                                                 <state key="normal" image="shareing"/>
                                                 <connections>
-                                                    <action selector="shareButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="1VZ-Qw-n6q"/>
+                                                    <action selector="shareButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="fpY-zh-hHa"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件价格" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rB6-f1-cwu">
@@ -341,7 +338,7 @@
                                                 </constraints>
                                                 <state key="normal" image="phone_gray"/>
                                                 <connections>
-                                                    <action selector="recipientPhoneCallButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="E4n-Va-jFs"/>
+                                                    <action selector="recipientPhoneCallButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="kDJ-47-fcG"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBF-fh-fGR">
@@ -358,6 +355,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="180" id="RGU-NV-t7C"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Z1x-0S-3lW" id="9hk-WM-umP"/>
+                                                </connections>
                                             </mapView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1jW-uu-CyU">
                                                 <rect key="frame" x="20" y="867" width="305" height="44"/>
@@ -378,7 +378,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="gGm-HC-aUP"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="Sm5-Gu-Ruj"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-OL-TH7" customClass="RequestTransactionButton" customModule="carryonex" customModuleProvider="target">
@@ -397,7 +397,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="qBV-5B-fpR"/>
+                                                            <action selector="requestStatusButtonHandlerWithSender:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="xqM-RV-ztY"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -532,11 +532,11 @@
                                 </constraints>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-wQ-9pO">
-                                <rect key="frame" x="0.0" y="20" width="375" height="940"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-kc-Wge">
-                                <rect key="frame" x="0.0" y="1010" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="1050" width="375" height="200"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlipayIcon_square" translatesAutoresizingMaskIntoConstraints="NO" id="l9T-Tx-GKx">
                                         <rect key="frame" x="30" y="15" width="40" height="40"/>
@@ -593,7 +593,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="goToPaymentHandler:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="H37-iR-Sbd"/>
+                                            <action selector="goToPaymentHandler:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="EHS-fH-9K1"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -636,51 +636,49 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwT-SN-31r"/>
                     </view>
-                    <size key="freeformSize" width="375" height="960"/>
+                    <size key="freeformSize" width="375" height="1000"/>
                     <connections>
-                        <outlet property="backgroundView" destination="Qw7-wQ-9pO" id="dCn-7H-CcH"/>
-                        <outlet property="checkboxAlipay" destination="dJL-5V-uvg" id="4gg-Lq-rDF"/>
-                        <outlet property="checkboxWechatPay" destination="grN-7J-gbX" id="vyE-jM-QtO"/>
-                        <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="JID-8B-Bst"/>
-                        <outlet property="dateMonthLabel" destination="efo-75-gDw" id="RKG-Zv-hwu"/>
-                        <outlet property="endAddressLabel" destination="hO5-6m-U41" id="WbB-WH-74x"/>
-                        <outlet property="finishButton" destination="0Gq-pn-kvc" id="w3f-r8-LvM"/>
-                        <outlet property="finishButton2" destination="n0b-OL-TH7" id="0rT-nQ-vhk"/>
-                        <outlet property="finishButtonStackViewHeighConstraint" destination="Dfh-Jl-WpD" id="F5B-ud-bA1"/>
-                        <outlet property="gotoPaymentButton" destination="gwr-2l-9uJ" id="jwb-Hf-8Wh"/>
-                        <outlet property="imageCountButton" destination="akV-ax-hDm" id="lo8-vo-oNO"/>
-                        <outlet property="incomeLabel" destination="lEz-65-FZV" id="l9k-b1-8TZ"/>
-                        <outlet property="incomeTitleLabel" destination="rB6-f1-cwu" id="zuO-Np-BAG"/>
-                        <outlet property="itemMessageTextView" destination="u4I-i4-14Z" id="Xrc-v2-NCH"/>
-                        <outlet property="itemValueLabel" destination="hDn-7Q-gxw" id="2YB-Xg-wrM"/>
-                        <outlet property="itemValueTitleLabel" destination="cel-Jl-VHJ" id="SpB-kY-DhR"/>
-                        <outlet property="mapView" destination="p8H-WL-tqi" id="gok-6u-8Ii"/>
-                        <outlet property="mapViewHeighConstraint" destination="RGU-NV-t7C" id="eOq-km-Fab"/>
-                        <outlet property="paymentMenuTopConstraint" destination="TQd-PQ-w41" id="9Rw-I9-ijq"/>
-                        <outlet property="paymentMenuView" destination="hY8-kc-Wge" id="Dei-0T-CpC"/>
-                        <outlet property="phontobrowser" destination="iWD-qj-ukX" id="Rnb-Yp-W2t"/>
-                        <outlet property="recipientAddressLabel" destination="GBF-fh-fGR" id="IYm-qe-JUL"/>
-                        <outlet property="recipientNameLabel" destination="Gcc-77-xcQ" id="OFb-po-cHu"/>
-                        <outlet property="recipientNameTitleLabel" destination="xCC-Uf-ncD" id="RQh-MN-nhz"/>
-                        <outlet property="recipientPhoneCallButton" destination="921-Hb-vhw" id="EUH-tL-4PA"/>
-                        <outlet property="recipientPhoneLabel" destination="Hqf-KG-5e0" id="u55-ud-j1I"/>
-                        <outlet property="recipientPhoneTitleLabel" destination="4yd-Ii-1Ck" id="kBl-Jr-7Tb"/>
-                        <outlet property="requestIdLabel" destination="8qO-lk-QcZ" id="WjC-zX-wqG"/>
-                        <outlet property="requestIdTitleLabel" destination="rVg-tW-WWT" id="NIu-oc-A8L"/>
-                        <outlet property="scrollView" destination="u44-8x-21Q" id="GZN-Ac-LiC"/>
-                        <outlet property="senderDescLabel" destination="khE-wR-Gy0" id="Cq2-uV-5px"/>
-                        <outlet property="senderImageButton" destination="bOT-aY-fsy" id="bcD-ar-eaG"/>
-                        <outlet property="senderNameLabel" destination="XzO-np-Cho" id="cwt-Ku-Tqr"/>
-                        <outlet property="senderPhoneButton" destination="KDl-sD-ANm" id="Juv-IM-CLP"/>
-                        <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="htn-dw-NNa"/>
-                        <outlet property="senderStar5MaskWidthConstraint" destination="86k-B4-AMg" id="UOj-De-TkW"/>
-                        <outlet property="shareButton" destination="KW0-cL-CBh" id="vSn-Ck-cVp"/>
-                        <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="gC2-AN-oYt"/>
-                        <outlet property="statusLabel" destination="bjX-jD-MVV" id="1rv-gJ-y8y"/>
-                        <outlet property="youxiangCodeLabel" destination="uRf-eA-r68" id="O6u-ds-8pc"/>
-                        <outlet property="youxiangCodeTitleLabel" destination="O6E-UM-CEB" id="Icu-Hh-1te"/>
-                        <segue destination="ZrK-lf-uQu" kind="show" identifier="toOtherShipperView" id="TNl-AZ-Tt0"/>
-                        <segue destination="qfU-8x-8ak" kind="show" identifier="PostRateSegue" id="vkC-Eo-on5"/>
+                        <outlet property="backgroundView" destination="Qw7-wQ-9pO" id="VUH-BM-bjG"/>
+                        <outlet property="checkboxAlipay" destination="dJL-5V-uvg" id="sym-bD-XM3"/>
+                        <outlet property="checkboxWechatPay" destination="grN-7J-gbX" id="nBA-7i-9pD"/>
+                        <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="iOz-Da-rQU"/>
+                        <outlet property="dateMonthLabel" destination="efo-75-gDw" id="J5a-Mt-K3T"/>
+                        <outlet property="endAddressLabel" destination="hO5-6m-U41" id="bdm-Wd-fM3"/>
+                        <outlet property="finishButton" destination="0Gq-pn-kvc" id="Ygp-oJ-r3v"/>
+                        <outlet property="finishButton2" destination="n0b-OL-TH7" id="WO9-gx-FsA"/>
+                        <outlet property="finishButtonStackViewHeighConstraint" destination="Dfh-Jl-WpD" id="Otq-jy-MpQ"/>
+                        <outlet property="gotoPaymentButton" destination="gwr-2l-9uJ" id="3JG-2w-2wj"/>
+                        <outlet property="imageCountButton" destination="akV-ax-hDm" id="fVu-vh-XZZ"/>
+                        <outlet property="incomeLabel" destination="lEz-65-FZV" id="NDF-rg-Epj"/>
+                        <outlet property="incomeTitleLabel" destination="rB6-f1-cwu" id="e0T-Qf-1dQ"/>
+                        <outlet property="itemMessageTextView" destination="u4I-i4-14Z" id="i0W-c5-OdO"/>
+                        <outlet property="itemValueLabel" destination="hDn-7Q-gxw" id="0xZ-wR-i1b"/>
+                        <outlet property="itemValueTitleLabel" destination="cel-Jl-VHJ" id="8Wy-1d-3R0"/>
+                        <outlet property="mapView" destination="p8H-WL-tqi" id="PB7-YG-Vx6"/>
+                        <outlet property="mapViewHeighConstraint" destination="RGU-NV-t7C" id="NnQ-z6-2bF"/>
+                        <outlet property="paymentMenuTopConstraint" destination="TQd-PQ-w41" id="kZ8-dt-lDf"/>
+                        <outlet property="paymentMenuView" destination="hY8-kc-Wge" id="30r-hA-nc3"/>
+                        <outlet property="phontobrowser" destination="iWD-qj-ukX" id="8lY-Bd-a39"/>
+                        <outlet property="recipientAddressLabel" destination="GBF-fh-fGR" id="gp5-Bq-mAU"/>
+                        <outlet property="recipientNameLabel" destination="Gcc-77-xcQ" id="mAo-r8-O1a"/>
+                        <outlet property="recipientNameTitleLabel" destination="xCC-Uf-ncD" id="MhC-BY-O9z"/>
+                        <outlet property="recipientPhoneCallButton" destination="921-Hb-vhw" id="d1D-fZ-Dh8"/>
+                        <outlet property="recipientPhoneLabel" destination="Hqf-KG-5e0" id="LL5-we-8Yc"/>
+                        <outlet property="recipientPhoneTitleLabel" destination="4yd-Ii-1Ck" id="PLv-Sn-aV4"/>
+                        <outlet property="requestIdLabel" destination="8qO-lk-QcZ" id="DoA-xM-SVq"/>
+                        <outlet property="requestIdTitleLabel" destination="rVg-tW-WWT" id="JRZ-jP-uVy"/>
+                        <outlet property="scrollView" destination="u44-8x-21Q" id="6oz-5r-xDq"/>
+                        <outlet property="senderImageButton" destination="bOT-aY-fsy" id="qbj-xa-LN7"/>
+                        <outlet property="senderNameLabel" destination="XzO-np-Cho" id="io3-dw-jBx"/>
+                        <outlet property="senderPhoneButton" destination="KDl-sD-ANm" id="Qmt-UG-HYX"/>
+                        <outlet property="senderScoreLabel" destination="khE-wR-Gy0" id="YLB-dJ-8a6"/>
+                        <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="ghD-y1-fo1"/>
+                        <outlet property="senderStar5MaskWidthConstraint" destination="86k-B4-AMg" id="a9r-9k-I4f"/>
+                        <outlet property="shareButton" destination="KW0-cL-CBh" id="KaA-2F-6Ee"/>
+                        <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="6fD-cs-ib3"/>
+                        <outlet property="statusLabel" destination="bjX-jD-MVV" id="Lo6-tT-i3T"/>
+                        <outlet property="youxiangCodeLabel" destination="uRf-eA-r68" id="Cia-bj-fva"/>
+                        <outlet property="youxiangCodeTitleLabel" destination="O6E-UM-CEB" id="Bhg-gA-Iap"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
