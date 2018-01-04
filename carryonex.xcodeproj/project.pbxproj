@@ -86,10 +86,8 @@
 		66B31C0E1F72A60A005A4382 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B31C0D1F72A60A005A4382 /* FBSDKLoginKit.framework */; };
 		66C138C41FACBB4300755754 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C138C31FACBB4300755754 /* ReachabilityManager.swift */; };
 		66C3EA891FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */; };
-		66C3EA8B1FCF330E00D9F582 /* OrdersTripDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C3EA8A1FCF330E00D9F582 /* OrdersTripDetail.storyboard */; };
 		66C3EA8D1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */; };
 		66C3EA8F1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */; };
-		66C3EA911FCF3D6600D9F582 /* OrdersTripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EA901FCF3D6600D9F582 /* OrdersTripDetailViewController.swift */; };
 		66C9002C1FD2084D0017DBC4 /* CreditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */; };
 		66C9002E1FD218550017DBC4 /* CreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C9002D1FD218550017DBC4 /* CreditViewController.swift */; };
 		66CC1E371FBCC6D50080C80B /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CC1E361FBCC6D50080C80B /* AudioManager.swift */; };
@@ -276,10 +274,8 @@
 		66B31C171F72B5CC005A4382 /* carryonex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = carryonex.entitlements; sourceTree = "<group>"; };
 		66C138C31FACBB4300755754 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersYouxiangInfo.storyboard; sourceTree = "<group>"; };
-		66C3EA8A1FCF330E00D9F582 /* OrdersTripDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersTripDetail.storyboard; sourceTree = "<group>"; };
 		66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersYouxiangInfoViewController.swift; sourceTree = "<group>"; };
 		66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersYouxiangInfoCell.swift; sourceTree = "<group>"; };
-		66C3EA901FCF3D6600D9F582 /* OrdersTripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTripDetailViewController.swift; sourceTree = "<group>"; };
 		66C9002B1FD2084D0017DBC4 /* CreditViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreditViewController.storyboard; sourceTree = "<group>"; };
 		66C9002D1FD218550017DBC4 /* CreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewController.swift; sourceTree = "<group>"; };
 		66CC1E361FBCC6D50080C80B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -670,7 +666,6 @@
 				CF24D93E1FC364800036FB4E /* NewSettingPage.storyboard */,
 				E542F26E1FB4B7C00072BB31 /* Orders.storyboard */,
 				6618F6AA1FFDD39D005DCA45 /* OrdersRequestDetail.storyboard */,
-				66C3EA8A1FCF330E00D9F582 /* OrdersTripDetail.storyboard */,
 				66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */,
 				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
@@ -755,7 +750,6 @@
 				66C3EA8C1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift */,
 				66C3EA8E1FCF3D0A00D9F582 /* OrdersYouxiangInfoCell.swift */,
 				6618F6AC1FFDD6C3005DCA45 /* OrdersRequestDetailViewController.swift */,
-				66C3EA901FCF3D6600D9F582 /* OrdersTripDetailViewController.swift */,
 				E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */,
 			);
 			path = Orders;
@@ -1000,7 +994,6 @@
 				E542F26F1FB4B7C00072BB31 /* Orders.storyboard in Resources */,
 				66C3EA891FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard in Resources */,
 				FF7ECED81FC9568200F76ED8 /* ChangePersonalProfile.storyboard in Resources */,
-				66C3EA8B1FCF330E00D9F582 /* OrdersTripDetail.storyboard in Resources */,
 				66CC1E3C1FBCCBD40080C80B /* success.mp3 in Resources */,
 				66454F571FEC4ABD00DF5342 /* launch_text.png in Resources */,
 				4DC043CC1FB76A9800F6C3F0 /* Localizable.strings in Resources */,
@@ -1188,7 +1181,6 @@
 				E5A2A7B11FE2E5B300A51BDC /* String++.swift in Sources */,
 				E5A2A78F1FE2E57100A51BDC /* Trip.swift in Sources */,
 				4D79327F1FD676D90081BBE2 /* WalletManager+Stripe.swift in Sources */,
-				66C3EA911FCF3D6600D9F582 /* OrdersTripDetailViewController.swift in Sources */,
 				E5A2A7981FE2E57100A51BDC /* Config.swift in Sources */,
 				4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */,
 				6602526E1FC48BB300277617 /* ShipperInfoViewController.swift in Sources */,

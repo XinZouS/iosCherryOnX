@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="1358" y="-109"/>
         </scene>
-        <!--OrdersTripDetail-->
+        <!--OrdersRequestDetail-->
         <scene sceneID="QGi-7I-5uu">
             <objects>
-                <viewControllerPlaceholder storyboardName="OrdersTripDetail" id="3sC-c3-IgI" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="OrdersRequestDetail" id="3sC-c3-IgI" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXq-F0-mQu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1164" y="-40"/>
