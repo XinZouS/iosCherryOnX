@@ -161,8 +161,6 @@ class OrderListViewController: UIViewController {
     private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
-        tableViewShiper.tableFooterView = setupLoadMoreView(tableView: tableViewShiper, tag:0)
-        tableViewSender.tableFooterView = setupLoadMoreView(tableView: tableViewSender, tag:1)
     }
     
     private func setupTableViewRefreshers(){
@@ -177,25 +175,6 @@ class OrderListViewController: UIViewController {
         self.tableViewShiper.addSubview(refresherShiper)
     }
 
-    private func setupLoadMoreView(tableView:UITableView,tag:Int) -> UIView{
-        let footView = UIView(frame: CGRect(x: 0, y:tableView.contentSize.height, width:tableView.bounds.size.width, height: 150))
-        let blankNoticeImg = UIImageView()
-        let hintLabel = UILabel()
-        footView.addSubview(blankNoticeImg)
-        blankNoticeImg.frame = CGRect(x:footView.center.x-50,y:footView.center.y-30,width:100,height:60)
-        blankNoticeImg.image = #imageLiteral(resourceName: "EmptyOrder")
-        footView.addSubview(hintLabel)
-        switch tag {
-        case 0:
-            hintLabel.text = L("orders.ui.placeholder.trip")
-        default:
-            hintLabel.text = L("orders.ui.placeholder.send")
-        }
-        hintLabel.addConstraints(left: nil, top: blankNoticeImg.bottomAnchor, right: nil, bottom: nil, leftConstent: 0, topConstent: 10, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
-        hintLabel.centerXAnchor.constraint(equalTo: blankNoticeImg.centerXAnchor).isActive = true
-        return footView
-    }
-    
     private func setupSwipeGestureRecognizer(){
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipe))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -344,6 +323,43 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
             AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = setupFooterView(tableView: tableView)
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 150
+    }
+    
+    private func setupFooterView(tableView: UITableView) -> UIView {
+        if tableView.tag == TripCategory.carrier.rawValue, carrierTrips.count > 0 {
+            return UIView()
+        }
+        if tableView.tag == TripCategory.sender.rawValue, senderRequests.count > 0 {
+            return UIView()
+        }
+
+        let footView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 150))
+        
+        let hintLabel = UILabel()
+        hintLabel.textAlignment = .center
+        hintLabel.font = UIFont.systemFont(ofSize: 16)
+        hintLabel.text = (tableView.tag == TripCategory.carrier.rawValue) ? L("orders.ui.placeholder.trip") : L("orders.ui.placeholder.send")
+        footView.addSubview(hintLabel)
+        hintLabel.addConstraints(left: footView.leftAnchor, top: nil, right: footView.rightAnchor, bottom: footView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 30)
+        
+        let blankNoticeImg = UIImageView()
+        blankNoticeImg.image = #imageLiteral(resourceName: "orders_cell_placeholder")
+        blankNoticeImg.contentMode = .scaleAspectFit
+        footView.addSubview(blankNoticeImg)
+        blankNoticeImg.addConstraints(left: nil, top: footView.topAnchor, right: nil, bottom: hintLabel.topAnchor, leftConstent: 0, topConstent: 20, rightConstent: 0, bottomConstent: 20, width: footView.bounds.width * 0.5, height: 0)
+        blankNoticeImg.centerXAnchor.constraint(equalTo: footView.centerXAnchor).isActive = true
+        
+        return footView
+    }
+    
 }
 
 extension OrderListViewController: OrderListCarrierCellDelegate {
