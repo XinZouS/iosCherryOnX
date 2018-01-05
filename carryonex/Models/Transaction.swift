@@ -26,27 +26,27 @@ enum TransactionStatus: Int {
     func displayString() -> String {
         switch self {
         case .paymentInit:
-            return "发起支付"
+            return L("transaction.ui.payment.init") //"发起支付"
         case .paymentError:
-            return "错误"
+            return L("transaction.ui.payment.error") //"错误"
         case .paymentPaid:
-            return "过账中"
+            return L("transaction.ui.payment.paid") //"过账中"
         case .paymentRefunded:
-            return "退款"
+            return L("transaction.ui.payment.refund") //"退款"
         case .paymentPending:
-            return "未到账"
+            return L("transaction.ui.payment.pending") //"未到账"
         case .paymentDone:
-            return "已转账"
+            return L("transaction.ui.payment.done") //"已转账"
         case .payoutDone:
-            return "已到账"
+            return L("transaction.ui.payout.done") //"已到账"
         case .incomeRefunded:
-            return "退款"
+            return L("transaction.ui.income.refund") //"退款"
         case .incomePending:
-            return "未到账"
+            return L("transaction.ui.income.pending") //"未到账"
         case .incomeDone:
-            return "已到账"
+            return L("transaction.ui.income.done") //"已到账"
         default:
-            return "未知状态"
+            return L("transaction.ui.payment.undefine") //"未知状态"
         }
     }
     
@@ -76,11 +76,11 @@ struct Transaction {
     let statusId: Int
     
     func getTransactionDate() -> String {
-        return Date.getTimeString(format: "MM-dd-yyyy", time: TimeInterval(timestamp))
+        return Date.getTimeString(format: "MM/dd/yyyy HH:mm", time: TimeInterval(timestamp))
     }
     
     func amountString() -> String {
-        return String(format: "%.2f", Double(amount) / 100.0)
+        return currency + String(format: "%.2f", Double(amount) / 100.0)
     }
     
     func statusString() -> String {
@@ -94,16 +94,16 @@ struct Transaction {
         if let status = TransactionStatus(rawValue: statusId) {
             switch status {
             case .paymentInit, .paymentError, .paymentPaid, .paymentRefunded, .paymentPending, .paymentDone:
-                return "支付"
+                return L("transaction.ui.title.payment") //"支付"
             case .payoutDone:
-                return "提现"
+                return L("transaction.ui.title.extract") //"提现"
             case .incomeRefunded, .incomePending, .incomeDone:
-                return "收入"
+                return L("transaction.ui.title.income") //"收入"
             default:
-                return "未知状态"
+                return L("transaction.ui.payment.undefine") //"未知状态"
             }
         }
-        return "未知状态"
+        return L("transaction.ui.payment.undefine") //"未知状态"
     }
     
     func transactionTypeColor() -> UIColor {

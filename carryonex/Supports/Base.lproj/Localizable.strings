@@ -205,6 +205,20 @@
 // MARK: - Transaction
 "transaction.ui.status.pending" = "Pending";
 "transaction.ui.status.finished" = "Request Completed";
+"transaction.ui.title.payment" = "Payment"; // 2018-01-04 Xin
+"transaction.ui.title.extract" = "Extract"; // 2018-01-04 Xin
+"transaction.ui.title.income" = "Income"; // 2018-01-04 Xin
+"transaction.ui.payment.init" = "Checkout"; // 2018-01-04 Xin
+"transaction.ui.payment.error" = "Error"; // 2018-01-04 Xin
+"transaction.ui.payment.paid" = "Paid"; // 2018-01-04 Xin
+"transaction.ui.payment.refund" = "Refund"; // 2018-01-04 Xin
+"transaction.ui.payment.pending" = "Pending"; // 2018-01-04 Xin
+"transaction.ui.payment.done" = "Payment Done"; // 2018-01-04 Xin
+"transaction.ui.payout.done" = "Payout Done"; // 2018-01-04 Xin
+"transaction.ui.income.refund" = "Refund"; // 2018-01-04 Xin
+"transaction.ui.income.pending" = "Pending"; // 2018-01-04 Xin
+"transaction.ui.income.done" = "Done"; // 2018-01-04 Xin
+"transaction.ui.payment.undefine" = "Undefine"; // 2018-01-04 Xin
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "Request List";
@@ -319,6 +333,8 @@
 "personal.ui.title.cash" = "Cash Available";
 "personal.ui.title.credit" = "Credit"; // 2018-01-04 Xin
 "personal.ui.title.detail" = "Details"; // 2018-01-04 Xin
+"personal.ui.title.currency-type" = "￥"; // 2018-01-04 Xin
+"personal.ui.title.faq" = "FAQs"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";
 "personal.ui.title.min-button" = "Get 20%";
