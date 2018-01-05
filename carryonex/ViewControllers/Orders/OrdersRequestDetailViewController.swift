@@ -127,17 +127,6 @@ class OrdersRequestDetailViewController: UIViewController {
             WalletManager.shared.aliPayAuth(request: request)
             
         } else if paymentType == .wechatPay {
-            
-            /*
-            let transaction = RequestTransaction.shipperPay
-            displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
-                if style == .default {
-                    self?.processTransaction(transaction)
-                }
-                self?.backgroundViewHide()
-            }
-            */
-            
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request)
         }
