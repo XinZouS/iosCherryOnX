@@ -53,7 +53,8 @@ class CreditViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .default
         tableView.tableFooterView = UIView()
         setupNavigationBar()
-        
+        setupViewContents()
+
         ProfileManager.shared.updateWallet(completion: nil)
         
         NotificationCenter.default.addObserver(forName: .WalletDidUpdate, object: nil, queue: nil) { [weak self] _ in
@@ -64,7 +65,7 @@ class CreditViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
-        setupViewContents()
+        setupGradientLayer()
         AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
@@ -74,13 +75,7 @@ class CreditViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
     }
     
-    private func setupViewContents() {
-        creditTitleLabel.text = L("personal.ui.title.credit")
-        currencyTypeLabel.text = L("personal.ui.title.currency-type")
-        faqButton.setTitle(L("personal.ui.title.faq"), for: .normal)
-        extractCashButton.setTitle(L("personal.ui.title.cash"), for: .normal)
-        detailTitleLabel.text = L("personal.ui.title.detail")
-
+    private func setupGradientLayer(){
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = titleBackgroundView.frame
         let beginColor = #colorLiteral(red: 0.1764705882, green: 0.1921568627, blue: 0.4431372549, alpha: 1) // 45 49 113
@@ -89,6 +84,14 @@ class CreditViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientLayer.colors = [beginColor.cgColor, endColor.cgColor]
         titleBackgroundView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    private func setupViewContents() {
+        creditTitleLabel.text = L("personal.ui.title.credit")
+        currencyTypeLabel.text = L("personal.ui.title.currency-type")
+        faqButton.setTitle(L("personal.ui.title.faq"), for: .normal)
+        extractCashButton.setTitle(L("personal.ui.title.cash"), for: .normal)
+        detailTitleLabel.text = L("personal.ui.title.detail")
     }
 }
 
