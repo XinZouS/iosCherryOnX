@@ -114,6 +114,7 @@ class OrderListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = false
         UIApplication.shared.statusBarStyle = .lightContent
         //TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }

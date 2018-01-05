@@ -205,9 +205,9 @@
 // MARK: - Transaction
 "transaction.ui.status.pending" = "处理中";
 "transaction.ui.status.finished" = "交易完成";
-"transaction.ui.title.payment" = "支付"; // 2018-01-04 Xin
+"transaction.ui.title.payment" = "支付游费"; // 2018-01-04 Xin
 "transaction.ui.title.extract" = "提现"; // 2018-01-04 Xin
-"transaction.ui.title.income" = "收入"; // 2018-01-04 Xin
+"transaction.ui.title.income" = "收到游费"; // 2018-01-04 Xin
 "transaction.ui.payment.init" = "发起支付"; // 2018-01-04 Xin
 "transaction.ui.payment.error" = "错误"; // 2018-01-04 Xin
 "transaction.ui.payment.paid" = "过账中"; // 2018-01-04 Xin
