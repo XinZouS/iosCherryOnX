@@ -131,7 +131,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="HYO-AJ-3or"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <color key="textColor" red="0.22817420959472656" green="0.25076678395271301" blue="0.26839321851730347" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
