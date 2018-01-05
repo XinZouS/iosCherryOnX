@@ -13,7 +13,7 @@ import MapKit
 enum Country: String, UnboxableEnum {
     case China = "中国"
     case UnitedStates = "USA"
-    case Britain = "Britian"
+    case Britain = "Britain"
     case Canada = "Canada"
     case Australia = "Australia"
     case Japan = "日本"
