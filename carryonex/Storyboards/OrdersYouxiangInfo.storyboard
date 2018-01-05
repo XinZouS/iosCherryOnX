@@ -209,7 +209,7 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ua-LY-GXG">
                                                             <rect key="frame" x="12" y="22" width="84" height="84"/>
                                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <state key="normal" image="CarryonEx_Wechat_Icon"/>
+                                                            <state key="normal" image="blankUserHeadImage"/>
                                                             <connections>
                                                                 <action selector="itemImageButtonTapped:" destination="ivb-BI-hKc" eventType="touchUpInside" id="pDn-4b-MnO"/>
                                                             </connections>
@@ -272,7 +272,7 @@
                                                                 <constraint firstAttribute="width" secondItem="fkz-CG-PGu" secondAttribute="height" multiplier="1:1" id="FMY-iM-O7Q"/>
                                                                 <constraint firstAttribute="height" constant="30" id="vxT-ig-Lv1"/>
                                                             </constraints>
-                                                            <state key="normal" image="yadianwenqing"/>
+                                                            <state key="normal" image="blankUserHeadImage"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="15"/>
@@ -494,12 +494,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CarryonEx_Wechat_Icon" width="64" height="64"/>
         <image name="LockClosed" width="59" height="67"/>
         <image name="addressDotDash" width="42" height="108"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="orders_cell_placeholder" width="173" height="60"/>
         <image name="shareing" width="63" height="64"/>
-        <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>

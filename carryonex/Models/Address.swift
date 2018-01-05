@@ -101,18 +101,17 @@ class Address: NSObject, Unboxable {
     }
     
     func fullAddressString() -> String {
-        
         var address = [String]()
-        if let city = city, !city.isEmpty {
-            address.append(city)
+        if let country = country {
+            address.append(country.rawValue)
         }
         
         if let state = state, !state.isEmpty {
             address.append(state)
         }
         
-        if let country = country {
-            address.append(country.rawValue)
+        if let city = city, !city.isEmpty {
+            address.append(city)
         }
         
         if address.count == 0 {

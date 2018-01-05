@@ -130,7 +130,7 @@
                                                     <constraint firstAttribute="height" constant="80" id="1Kv-8e-dnq"/>
                                                     <constraint firstAttribute="width" constant="80" id="v9q-7n-Gye"/>
                                                 </constraints>
-                                                <state key="normal" image="yadianwenqing"/>
+                                                <state key="normal" image="blankUserHeadImage"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -696,9 +696,9 @@
         <image name="AlipayIcon_square" width="215" height="215"/>
         <image name="WechatPayIcon_bubble" width="172" height="172"/>
         <image name="addressDotDash" width="42" height="108"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="phone_gray" width="226" height="228"/>
         <image name="stars5Mask" width="403" height="70"/>
-        <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>
