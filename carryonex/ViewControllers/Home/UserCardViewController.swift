@@ -76,9 +76,9 @@ class UserCardViewController: UIViewController {
             endLocationLabel.text = trip.endAddress?.fullAddressString()
             if request.getImages().count > 0, let thumbnailUrl = URL(string: request.getImages().first!.thumbnailUrl) {
                 if category == .carrier{
-                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "logo_square"))
+                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "Loginnnnn"))
                 }else{
-                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "logo_square"))
+                    requestImageView.af_setImage(withURL: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "Loginnnnn"))
                 }
             }
         }

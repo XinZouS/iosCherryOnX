@@ -379,10 +379,10 @@ class OrdersRequestDetailViewController: UIViewController {
         }
         
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
-            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "UserInfo"), filter: nil, progress: nil, completion: nil)
+            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
             
         } else{
-            senderImageButton.setImage(#imageLiteral(resourceName: "UserInfo"), for: .normal)
+            senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
         
         incomeLabel.text = currency.rawValue + request.priceString()
