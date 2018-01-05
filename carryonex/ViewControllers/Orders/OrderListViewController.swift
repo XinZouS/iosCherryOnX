@@ -298,6 +298,10 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.endAddressLabel.text = trip.endAddress?.fullAddressString()
                 cell.dateMonthLabel.text = trip.getMonthString()
                 cell.dateDayLabel.text = trip.getDayString()
+                if let carrierImg = trip.carrierImageUrl, let url = URL(string: carrierImg) {
+                    cell.shiperProfileimageView.af_setImage(withURL: url)
+                }
+                cell.shiperNameLabelSmall.text = trip.carrierRealName
             }
             
             return cell

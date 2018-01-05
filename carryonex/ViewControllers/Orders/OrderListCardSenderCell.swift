@@ -19,6 +19,8 @@ class OrderListCardSenderCell: OrderListCardCell {
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var sepratorImageView: UIImageView!
+    @IBOutlet weak var shiperProfileimageView: UIImageView!
+    @IBOutlet weak var shiperNameLabelSmall: UILabel!
     
     // card expand
     @IBOutlet weak var cardDetailView: UIView!
