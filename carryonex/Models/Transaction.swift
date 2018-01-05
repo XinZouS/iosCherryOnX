@@ -90,7 +90,7 @@ struct Transaction {
         return TransactionStatus.unknown.displayString()
     }
     
-    func transactionTypeString() -> String {
+    func transactionTypeString() -> String { // 项目分类：收到游费/支付游费/提现
         if let status = TransactionStatus(rawValue: statusId) {
             switch status {
             case .paymentInit, .paymentError, .paymentPaid, .paymentRefunded, .paymentPending, .paymentDone:

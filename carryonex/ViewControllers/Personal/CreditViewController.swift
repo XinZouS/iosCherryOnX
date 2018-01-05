@@ -139,7 +139,7 @@ class CreditCell: UITableViewCell {
         }
     }
     
-    private func setupTransactionInfo(){
+    private func setupTransactionInfo() {
         guard let transaction = transaction else { return }
         self.dateLabel.text = transaction.getTransactionDate()
         self.transactionTypeLabel.text = transaction.transactionTypeString()
