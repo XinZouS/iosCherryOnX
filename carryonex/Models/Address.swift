@@ -13,6 +13,14 @@ import MapKit
 enum Country: String, UnboxableEnum {
     case China = "中国"
     case UnitedStates = "USA"
+    case Britain = "Britian"
+    case Canada = "Canada"
+    case Australia = "Australia"
+    case Japan = "日本"
+    case Singapore = "新加坡"
+    case Germany = "Germany"
+    case France = "France"
+    case Switzerland = "Switzerland"
 }
 
 enum AddressKeyInDB : String {
@@ -93,18 +101,17 @@ class Address: NSObject, Unboxable {
     }
     
     func fullAddressString() -> String {
-        
         var address = [String]()
-        if let city = city, !city.isEmpty {
-            address.append(city)
+        if let country = country {
+            address.append(country.rawValue)
         }
         
         if let state = state, !state.isEmpty {
             address.append(state)
         }
         
-        if let country = country {
-            address.append(country.rawValue)
+        if let city = city, !city.isEmpty {
+            address.append(city)
         }
         
         if address.count == 0 {

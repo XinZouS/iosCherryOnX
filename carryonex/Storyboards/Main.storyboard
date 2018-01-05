@@ -101,7 +101,7 @@
                 <viewControllerPlaceholder storyboardName="HistoryComment" id="wI3-6d-Fpi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2z-OE-ypf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1250" y="-75"/>
+            <point key="canvasLocation" x="1293" y="-15"/>
         </scene>
         <!--CreditViewController-->
         <scene sceneID="oEd-SZ-pjb">
@@ -109,7 +109,7 @@
                 <viewControllerPlaceholder storyboardName="CreditViewController" id="L5y-RD-9eC" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3d5-aB-gAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="56"/>
+            <point key="canvasLocation" x="930" y="160"/>
         </scene>
         <!--Settings-->
         <scene sceneID="ZwP-cQ-9Rg">
@@ -117,7 +117,7 @@
                 <viewControllerPlaceholder storyboardName="Settings" id="nsu-zs-ixO" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cv-re-nLg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="603" y="56"/>
+            <point key="canvasLocation" x="749" y="127"/>
         </scene>
         <!--Carrier-->
         <scene sceneID="C4b-l9-nAf">
@@ -133,7 +133,7 @@
                 <viewControllerPlaceholder storyboardName="ChangePersonalProfile" id="6JF-nc-J7g" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIp-u5-dIk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1060" y="-29"/>
+            <point key="canvasLocation" x="1117" y="23"/>
         </scene>
         <!--Home-->
         <scene sceneID="vMU-ka-P8i">

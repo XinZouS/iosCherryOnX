@@ -70,7 +70,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserInfo" translatesAutoresizingMaskIntoConstraints="NO" id="O5h-HS-WaM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blankUserHeadImage" translatesAutoresizingMaskIntoConstraints="NO" id="O5h-HS-WaM">
                                         <rect key="frame" x="273" y="20" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="g2W-EX-QTR"/>
@@ -213,7 +213,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UserInfo" width="126" height="115"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="串串" width="12" height="35"/>
     </resources>
 </document>

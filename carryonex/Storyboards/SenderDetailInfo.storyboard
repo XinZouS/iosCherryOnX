@@ -674,7 +674,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="eix-H6-J6Z"/>
                                                     <constraint firstAttribute="width" constant="50" id="exh-Ut-e9B"/>
                                                 </constraints>
-                                                <state key="normal" image="yadianwenqing"/>
+                                                <state key="normal" image="blankUserHeadImage"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -828,6 +828,7 @@
     <resources>
         <image name="Background_Blue_Long" width="375" height="950"/>
         <image name="addressDotDash" width="42" height="108"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="imageCollectionViewPlaceholder" width="1630" height="520"/>
         <image name="senderImagePlaceholder" width="142" height="138"/>
         <image name="yadianwenqing" width="313" height="308"/>
