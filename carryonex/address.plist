@@ -9792,10 +9792,12 @@
 				<key>state</key>
 				<string>塔斯马尼亚州 </string>
 				<key>cities</key>
-				<dict>
-					<key>city</key>
-					<string>霍巴特</string>
-				</dict>
+                <array>
+                    <dict>
+                        <key>city</key>
+                        <string>霍巴特</string>
+                    </dict>
+                </array>
 			</dict>
 			<dict>
 				<key>state</key>
@@ -9942,7 +9944,7 @@
 						<string>里昂</string>
 					</dict>
 					<dict>
-						<key>New item</key>
+						<key>city</key>
 						<string>图卢兹</string>
 					</dict>
 					<dict>
