@@ -52,7 +52,6 @@ class CreditViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .default
         setupNavigationBar()
-        setupViewContents()
         
         ProfileManager.shared.updateWallet(completion: nil)
         
@@ -64,6 +63,7 @@ class CreditViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
+        setupViewContents()
         AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
@@ -84,8 +84,8 @@ class CreditViewController: UIViewController {
         gradientLayer.frame = titleBackgroundView.frame
         let beginColor = #colorLiteral(red: 0.1764705882, green: 0.1921568627, blue: 0.4431372549, alpha: 1) // 45 49 113
         let endColor = #colorLiteral(red: 0.2745098039, green: 0.3764705882, blue: 0.6470588235, alpha: 1)  // 70 96 165
-        gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
-        gradientLayer.endPoint = CGPoint(x: 1.4, y: 1.6)
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientLayer.colors = [beginColor.cgColor, endColor.cgColor]
         titleBackgroundView.layer.insertSublayer(gradientLayer, at: 0)
     }
