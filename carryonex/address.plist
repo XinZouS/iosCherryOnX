@@ -9849,7 +9849,7 @@
 		<array>
 			<dict>
 				<key>state</key>
-				<string>一线城市</string>
+				<string>主要城市</string>
 				<key>cities</key>
 				<array>
 					<dict>
@@ -9872,7 +9872,7 @@
 			</dict>
 			<dict>
 				<key>state</key>
-				<string>二线城市</string>
+				<string>其他城市</string>
 				<key>cities</key>
 				<array>
 					<dict>
