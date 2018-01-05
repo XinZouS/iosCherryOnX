@@ -10,10 +10,13 @@ import UIKit
 
 class CreditViewController: UIViewController {
     
+    @IBOutlet weak var titleBackgroundView: UIView!
     @IBOutlet weak var creditTitleLabel: UILabel!
     @IBOutlet weak var creditValueLabel: UILabel!
+    @IBOutlet weak var currencyTypeLabel: UILabel!
     @IBOutlet weak var faqButton: UIButton!
     @IBOutlet weak var extractCashButton: UIButton!
+    @IBOutlet weak var detailTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func faqButtonTapped(_ sender: Any) {
@@ -49,6 +52,7 @@ class CreditViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .default
         setupNavigationBar()
+        setupViewContents()
         
         ProfileManager.shared.updateWallet(completion: nil)
         
@@ -67,6 +71,23 @@ class CreditViewController: UIViewController {
         title = L("personal.ui.title.wallet")
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+    }
+    
+    private func setupViewContents() {
+        creditTitleLabel.text = L("personal.ui.title.credit")
+        currencyTypeLabel.text = L("personal.ui.title.currency-type")
+        faqButton.setTitle(L("personal.ui.title.faq"), for: .normal)
+        extractCashButton.setTitle(L("personal.ui.title.cash"), for: .normal)
+        detailTitleLabel.text = L("personal.ui.title.detail")
+
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = titleBackgroundView.frame
+        let beginColor = #colorLiteral(red: 0.1764705882, green: 0.1921568627, blue: 0.4431372549, alpha: 1) // 45 49 113
+        let endColor = #colorLiteral(red: 0.2745098039, green: 0.3764705882, blue: 0.6470588235, alpha: 1)  // 70 96 165
+        gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
+        gradientLayer.endPoint = CGPoint(x: 1.4, y: 1.6)
+        gradientLayer.colors = [beginColor.cgColor, endColor.cgColor]
+        titleBackgroundView.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 
