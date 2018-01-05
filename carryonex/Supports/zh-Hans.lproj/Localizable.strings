@@ -317,6 +317,8 @@
 "personal.ui.dateformat.cn" = "yyyy年MM日dd日";
 "personal.ui.title.my-comments" = "我的评价";
 "personal.ui.title.cash" = "提现";
+"personal.ui.title.credit" = "账户余额"; // 2018-01-04 Xin
+"personal.ui.title.detail" = "收支明细"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "可提现金额：";
 "personal.ui.title.alipay" = "支付宝提现";
 "personal.ui.title.min-button" = "取20%"; // 2018-01-01 Xin

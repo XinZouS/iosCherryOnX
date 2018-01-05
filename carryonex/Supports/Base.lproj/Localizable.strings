@@ -317,6 +317,8 @@
 "personal.ui.dateformat.cn" = "MM-dd-yyyy";
 "personal.ui.title.my-comments" = "My Comments";
 "personal.ui.title.cash" = "Cash Available";
+"personal.ui.title.credit" = "Credit"; // 2018-01-04 Xin
+"personal.ui.title.detail" = "Details"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";
 "personal.ui.title.min-button" = "Get 20%";
