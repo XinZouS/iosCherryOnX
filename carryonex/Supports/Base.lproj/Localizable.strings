@@ -238,6 +238,10 @@
 "orders.ui.title.order-request-detail" = "Request Detail";
 "orders.ui.message.sender-desc-sender" = "Sender's Rating";
 "orders.ui.message.sender-desc-carrier" = "Carrier's Rating";
+"orders.ui.title.request-id" = "Order ID"; // 2018-0103 Xin
+"orders.ui.title.youxiang-code" = "Youxiang ID"; // 2018-0103 Xin
+"orders.ui.title.income" = "Shipping Fee"; // 2018-0103 Xin
+"orders.ui.title.item-value" = "Package Value"; // 2018-0103 Xin
 "orders.ui.placeholder.note-empty" = "Empty note";
 "orders.ui.placeholder.note-msg" = "Your message note";
 "orders.confirm.title.payment" = "Payment Success";

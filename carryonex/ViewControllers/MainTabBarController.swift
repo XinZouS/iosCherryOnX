@@ -20,6 +20,7 @@ enum TabViewIndex: Int {
 enum MainNavigationSegue: String {
     case addTrip = "AddTripSegue"
     case addRequest = "AddRequestSegue"
+    case tripDetail = "TripDetailSegue"
     case requestDetail = "RequestDetailSegue"
     case orderTripInfo = "OrderTripInfoSegue"
     case historyComment = "HistoryCommentSegue"
@@ -88,6 +89,17 @@ class MainTabBarController: UITabBarController {
                 yxcodeVC.youxiangcodeTextField?.text = code
             }
             
+        case .tripDetail:
+            print("Open trip detail")
+            if let vc = segue.destination as? OrdersTripDetailViewController {
+                if let request = sender as? Request, let category = request.category() {
+                    vc.request = request
+                    vc.category = category
+                    if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
+                        vc.trip = trip
+                    }
+                }
+            }
         case .requestDetail:
             print("Open user detail")
             if let viewController = segue.destination as? OrdersRequestDetailViewController {

@@ -238,6 +238,10 @@
 "orders.ui.title.order-request-detail" = "订单详情";
 "orders.ui.message.sender-desc-sender" = "寄件人评分";
 "orders.ui.message.sender-desc-carrier" = "出行人评分";
+"orders.ui.title.request-id" = "订单号"; // 2018-0103 Xin
+"orders.ui.title.youxiang-code" = "游箱号"; // 2018-0103 Xin
+"orders.ui.title.income" = "寄件价格"; // 2018-0103 Xin
+"orders.ui.title.item-value" = "物品价值"; // 2018-0103 Xin
 "orders.ui.placeholder.note-empty" = "TA还没有写留言";
 "orders.ui.placeholder.note-msg" = "留言：";
 "orders.confirm.title.payment" = "支付成功";

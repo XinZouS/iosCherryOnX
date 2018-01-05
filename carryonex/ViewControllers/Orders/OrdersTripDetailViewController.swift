@@ -2,8 +2,8 @@
 //  OrdersTripDetailViewController.swift
 //  carryonex
 //
-//  Created by Xin Zou on 1/3/18.
-//  Copyright © 2018 CarryonEx. All rights reserved.
+//  Created by Xin Zou on 03/01/18.
+//  Copyright © 2017 CarryonEx. All rights reserved.
 //
 
 import UIKit
@@ -12,19 +12,17 @@ import JXPhotoBrowser
 import M13Checkbox
 import MapKit
 
-class OrdersRequestDetailViewController: UIViewController {
+class OrdersTripDetailViewController: UIViewController {
     
-    @IBOutlet weak var blockerWidth: NSLayoutConstraint!
+    // trip info
     weak var selectedCell: PhotoBrowserCollectionViewCell?
     @IBOutlet weak var phontobrowser: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
+    //
     @IBOutlet weak var imageCountButton: UIButton!
-    // trip info
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
-    @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
@@ -33,17 +31,27 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
     @IBOutlet weak var senderNameLabel: UILabel!
+    @IBOutlet weak var senderScoreLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var requestIdTitleLabel: UILabel!
+    @IBOutlet weak var requestIdLabel: UILabel!
+    @IBOutlet weak var youxiangCodeTitleLabel: UILabel!
+    @IBOutlet weak var youxiangCodeLabel: UILabel!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var incomeTitleLabel: UILabel!
+    @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var itemValueTitleLabel: UILabel!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
-    @IBOutlet weak var senderDescLabel: UILabel!
     
     // recipient info
+    @IBOutlet weak var recipientNameTitleLabel: UILabel!
     @IBOutlet weak var recipientNameLabel: UILabel!
+    @IBOutlet weak var recipientPhoneTitleLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
-    @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
+    @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     var selectedPin : MKPlacemark? = nil
@@ -53,6 +61,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
     
+    var sharingAlertVC: UIAlertController?
     var activityIndicator = BPCircleActivityIndicator()
     var isLoadingStatus = false {
         didSet {
@@ -86,9 +95,6 @@ class OrdersRequestDetailViewController: UIViewController {
     
     var targetUserPhone: String?
     
-    @IBAction func moreImageTapped(_ sender: Any) {
-        
-    }
     
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
         if let targetPhone = targetUserPhone, let url = URL(string:"tel://" + targetPhone) {
@@ -106,6 +112,17 @@ class OrdersRequestDetailViewController: UIViewController {
         performSegue(withIdentifier: toShipperViewSegue, sender: self)
     }
     
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        sharingAlertVC = ShareViewFactory().setupShare(self, trip: trip)
+        
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            sharingAlertVC?.popoverPresentationController?.sourceView = self.startAddressLabel
+        }
+        
+        self.present(self.sharingAlertVC!, animated: true, completion:{})
+
+    }
+    
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
         if let receipientPhone = request.endAddress?.phoneNumber, let url = URL(string:"tel://" + receipientPhone) {
             //根据iOS系统版本，分别处理
@@ -121,14 +138,14 @@ class OrdersRequestDetailViewController: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.animate()
         showPaymentView(false)
-        
+
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request)
             
         } else if paymentType == .wechatPay {
             
-            /*
+            //TODO: comment this section
             let transaction = RequestTransaction.shipperPay
             displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
                 if style == .default {
@@ -136,10 +153,11 @@ class OrdersRequestDetailViewController: UIViewController {
                 }
                 self?.backgroundViewHide()
             }
-            */
             
-            AnalyticsManager.shared.trackCount(.wechatPayCount)
-            WalletManager.shared.wechatPayAuth(request: request)
+            
+            //TODO: uncomment this section
+            //AnalyticsManager.shared.trackCount(.wechatPayCount)
+            //WalletManager.shared.wechatPayAuth(request: request)
         }
     }
     
@@ -156,8 +174,8 @@ class OrdersRequestDetailViewController: UIViewController {
         //Comment this to bypass payment
         //------------------------------
         if transaction == .shipperPay {
-            showPaymentView(true)
-            return
+           showPaymentView(true)
+           return
         }
         //------------------------------
         
@@ -258,11 +276,6 @@ class OrdersRequestDetailViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        setupView()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -335,7 +348,7 @@ class OrdersRequestDetailViewController: UIViewController {
         activityIndicator.isHidden = true
         activityIndicator.stop()
     }
-    
+
     
     private func setupPaymentCheckbox(_ b: M13Checkbox){
         b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
@@ -347,11 +360,11 @@ class OrdersRequestDetailViewController: UIViewController {
         b.secondaryTintColor = UIColor.lightGray // unselected
         //b.borderColor = UIColor.lightGray //TODO: FIX THIS
     }
-    
+
     private func setupCollectionView(){
         phontobrowser.register(PhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId)
     }
-    
+
     private func setupScrollView(){
         scrollView.delegate = self
         scrollView.isDirectionalLockEnabled = true
@@ -372,7 +385,7 @@ class OrdersRequestDetailViewController: UIViewController {
         if category == .carrier {
             profileImageString = request.ownerImageUrl
             senderNameLabel.text = request.ownerRealName
-            senderDescLabel.text = L("orders.ui.message.sender-desc-sender")
+            senderScoreLabel.text = L("orders.ui.message.sender-desc-sender")
             recipientPhoneCallButton.isHidden = false
             if let rating = request.ownerRating {
                 let fullLength = senderStar5MaskWidthConstraint.constant
@@ -382,8 +395,10 @@ class OrdersRequestDetailViewController: UIViewController {
             
         } else {
             profileImageString = trip.carrierImageUrl
+            requestIdLabel.text = "\(request.id)"
+            youxiangCodeLabel.text = "\(trip.tripCode)"
             senderNameLabel.text = trip.carrierRealName
-            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
+            senderScoreLabel.text = L("orders.ui.message.sender-desc-carrier")
             recipientPhoneCallButton.isHidden = true
             let fullLength = senderStar5MaskWidthConstraint.constant
             senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
@@ -391,10 +406,15 @@ class OrdersRequestDetailViewController: UIViewController {
         
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
             senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "UserInfo"), filter: nil, progress: nil, completion: nil)
-            
+        
         } else{
             senderImageButton.setImage(#imageLiteral(resourceName: "UserInfo"), for: .normal)
         }
+        
+        requestIdTitleLabel.text = L("orders.ui.title.request-id")
+        youxiangCodeTitleLabel.text = L("orders.ui.title.youxiang-code")
+        incomeTitleLabel.text = L("orders.ui.title.income")
+        itemValueTitleLabel.text = L("orders.ui.title.item-value")
         
         incomeLabel.text = currency.rawValue + request.priceString()
         recipientNameLabel.text = request.endAddress?.recipientName
@@ -407,22 +427,14 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
-        blockerWidth.constant = UIScreen.main.bounds.width - 155
-        if request.getImages().count > 2{
-            imageCountButton.setTitle("+\(request.getImages().count-2)", for: .normal)
-        }else{
-            imageCountButton.setTitle("", for: .normal)
-        }
+        imageCountButton.setTitle("\(request.getImages().count)" + L("orders.ui.message.request-image-count"), for: .normal)
     }
     
     private func messageAttributeText(msg: String?) -> NSAttributedString {
-        var m = L("orders.ui.placeholder.note-empty")
-        if let getMsg = msg {
-            m = getMsg
-        }
+        let m = msg ?? L("orders.ui.placeholder.note-empty")
         let title = L("orders.ui.placeholder.note-msg")
         let titleAtt = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
-        let msgAtt = NSMutableAttributedString(string: m, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+        let msgAtt = NSMutableAttributedString(string: (m.isEmpty ? L("orders.ui.placeholder.note-empty") : m), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
         titleAtt.append(msgAtt)
         return titleAtt
     }
@@ -516,7 +528,7 @@ class OrdersRequestDetailViewController: UIViewController {
         
         if checkBox == checkAlipay {
             paymentType = .alipay
-            
+        
         } else if checkBox == checkWechat {
             paymentType = .wechatPay
         }
@@ -531,7 +543,7 @@ class OrdersRequestDetailViewController: UIViewController {
 }
 
 
-extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
+extension OrdersTripDetailViewController: OrderListCardCellProtocol {
     
     func updateButtonAppearance(status: RequestStatus) {
         if category == .carrier {
@@ -660,7 +672,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
 }
 
 
-extension OrdersRequestDetailViewController: UICollectionViewDataSource {
+extension OrdersTripDetailViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -680,9 +692,17 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
     }
 }
 
-
-extension OrdersRequestDetailViewController: UICollectionViewDelegate {
+extension OrdersTripDetailViewController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 86, height: 86)
+    }
+    
+}
+
+
+extension OrdersTripDetailViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoBrowserCollectionViewCell else {
             return
@@ -698,11 +718,12 @@ extension OrdersRequestDetailViewController: UICollectionViewDelegate {
         }
         vc.show(index: indexPath.item)
     }
+    
 }
-
-
+    
+    
 // 实现浏览器代理协议
-extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
+extension OrdersTripDetailViewController: PhotoBrowserDelegate {
     
     func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
         return request.getImages().count
@@ -739,7 +760,7 @@ extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
 }
 
 
-extension OrdersRequestDetailViewController: UIScrollViewDelegate {
+extension OrdersTripDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x
@@ -757,7 +778,7 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
 
 // MARK: - Map delegate
 
-extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
+extension OrdersTripDetailViewController: CLLocationManagerDelegate {
     
     func zoomToUserLocation(){
         
@@ -814,5 +835,3 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
         }
     }
 }
-
-
