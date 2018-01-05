@@ -205,6 +205,20 @@
 // MARK: - Transaction
 "transaction.ui.status.pending" = "处理中";
 "transaction.ui.status.finished" = "交易完成";
+"transaction.ui.title.payment" = "支付"; // 2018-01-04 Xin
+"transaction.ui.title.extract" = "提现"; // 2018-01-04 Xin
+"transaction.ui.title.income" = "收入"; // 2018-01-04 Xin
+"transaction.ui.payment.init" = "发起支付"; // 2018-01-04 Xin
+"transaction.ui.payment.error" = "错误"; // 2018-01-04 Xin
+"transaction.ui.payment.paid" = "过账中"; // 2018-01-04 Xin
+"transaction.ui.payment.refund" = "退款"; // 2018-01-04 Xin
+"transaction.ui.payment.pending" = "未到账"; // 2018-01-04 Xin
+"transaction.ui.payment.done" = "已转账"; // 2018-01-04 Xin
+"transaction.ui.payout.done" = "已到账"; // 2018-01-04 Xin
+"transaction.ui.income.refund" = "退款"; // 2018-01-04 Xin
+"transaction.ui.income.pending" = "未到账"; // 2018-01-04 Xin
+"transaction.ui.income.done" = "已到账"; // 2018-01-04 Xin
+"transaction.ui.payment.undefine" = "未知状态"; // 2018-01-04 Xin
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "出行订单";
@@ -319,6 +333,8 @@
 "personal.ui.title.cash" = "提现";
 "personal.ui.title.credit" = "账户余额"; // 2018-01-04 Xin
 "personal.ui.title.detail" = "收支明细"; // 2018-01-04 Xin
+"personal.ui.title.currency-type" = "￥"; // 2018-01-04 Xin
+"personal.ui.title.faq" = "常见问题"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "可提现金额：";
 "personal.ui.title.alipay" = "支付宝提现";
 "personal.ui.title.min-button" = "取20%"; // 2018-01-01 Xin

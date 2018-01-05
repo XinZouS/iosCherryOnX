@@ -51,6 +51,7 @@ class CreditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .default
+        tableView.tableFooterView = UIView()
         setupNavigationBar()
         
         ProfileManager.shared.updateWallet(completion: nil)

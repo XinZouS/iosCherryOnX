@@ -28,9 +28,9 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="220"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额（￥）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XF-6g-Ni7">
-                                        <rect key="frame" x="152" y="40" width="71.5" height="26"/>
+                                        <rect key="frame" x="152" y="46" width="71.5" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="26" id="Tbx-66-Bft"/>
+                                            <constraint firstAttribute="height" constant="20" id="Tbx-66-Bft"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -65,7 +65,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXx-cQ-nbv">
                                         <rect key="frame" x="295" y="0.0" width="70" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="Ndu-6L-0zz"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Ndu-6L-0zz"/>
                                             <constraint firstAttribute="height" constant="50" id="xuq-Z6-3kI"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
@@ -77,11 +77,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z1h-WB-0Lw">
-                                        <rect key="frame" x="148" y="141" width="80" height="30"/>
+                                        <rect key="frame" x="138" y="141" width="100" height="40"/>
                                         <color key="backgroundColor" red="0.21635395288467407" green="0.27687409520149231" blue="0.49680531024932861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="31F-rN-WNT"/>
-                                            <constraint firstAttribute="height" constant="30" id="E4g-KR-aDM"/>
+                                            <constraint firstAttribute="width" constant="100" id="31F-rN-WNT"/>
+                                            <constraint firstAttribute="height" constant="40" id="E4g-KR-aDM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="提现">
@@ -89,7 +89,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="15"/>
+                                                <real key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
@@ -114,7 +114,7 @@
                                     <constraint firstItem="FXx-cQ-nbv" firstAttribute="leading" secondItem="1oI-eB-Ntt" secondAttribute="trailing" id="FlO-KW-guD"/>
                                     <constraint firstItem="z1h-WB-0Lw" firstAttribute="top" secondItem="HAf-r7-zFV" secondAttribute="bottom" constant="20" id="Nyc-N9-s6e"/>
                                     <constraint firstItem="HAf-r7-zFV" firstAttribute="leading" secondItem="R0e-xf-mha" secondAttribute="trailing" id="Z1H-6R-G29"/>
-                                    <constraint firstItem="8XF-6g-Ni7" firstAttribute="top" secondItem="t6W-E1-dIr" secondAttribute="top" constant="40" id="ZNK-WK-DZt"/>
+                                    <constraint firstItem="8XF-6g-Ni7" firstAttribute="top" secondItem="t6W-E1-dIr" secondAttribute="top" constant="46" id="ZNK-WK-DZt"/>
                                     <constraint firstItem="HAf-r7-zFV" firstAttribute="top" secondItem="8XF-6g-Ni7" secondAttribute="bottom" constant="5" id="euW-gZ-0Aq"/>
                                     <constraint firstItem="8XF-6g-Ni7" firstAttribute="centerX" secondItem="t6W-E1-dIr" secondAttribute="centerX" id="exh-VQ-VwS"/>
                                     <constraint firstItem="FXx-cQ-nbv" firstAttribute="top" secondItem="t6W-E1-dIr" secondAttribute="top" id="gGs-y0-uOw"/>
