@@ -575,10 +575,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/06" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MO-JA-Zff">
-                                        <rect key="frame" x="60" y="32" width="43" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="Z1y-et-TTM"/>
-                                        </constraints>
+                                        <rect key="frame" x="60" y="32" width="43" height="26.5"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="17"/>
                                         <color key="textColor" red="0.18821030855178833" green="0.18824970722198486" blue="0.18820786476135254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -598,6 +595,7 @@
                                 <constraints>
                                     <constraint firstItem="SdW-0A-pDb" firstAttribute="bottom" secondItem="vHm-a6-OjY" secondAttribute="centerY" id="0UG-sZ-SR4"/>
                                     <constraint firstItem="SdW-0A-pDb" firstAttribute="centerX" secondItem="vHm-a6-OjY" secondAttribute="centerX" constant="10" id="Dkl-4K-Ihs"/>
+                                    <constraint firstAttribute="bottom" secondItem="2MO-JA-Zff" secondAttribute="bottom" constant="5" id="Pou-Zc-QlG"/>
                                     <constraint firstItem="SSr-bB-YdE" firstAttribute="centerY" secondItem="SdW-0A-pDb" secondAttribute="centerY" id="UzZ-vB-iKT"/>
                                     <constraint firstItem="SSr-bB-YdE" firstAttribute="trailing" secondItem="SdW-0A-pDb" secondAttribute="leading" constant="-3" id="dgA-Uq-Ibg"/>
                                     <constraint firstItem="2MO-JA-Zff" firstAttribute="centerX" secondItem="vHm-a6-OjY" secondAttribute="centerX" constant="0.25" id="hhL-q7-KSz"/>

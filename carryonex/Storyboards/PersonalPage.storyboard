@@ -192,7 +192,7 @@
                                 <color key="textColor" red="0.13636553287506104" green="0.16451326012611389" blue="0.18124786019325256" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-lW-r8p">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blankUserHeadImage" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-lW-r8p">
                                 <rect key="frame" x="20" y="50" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="495-5y-6fk"/>
@@ -251,6 +251,7 @@
     </scenes>
     <resources>
         <image name="Settings" width="20" height="21"/>
+        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="setting_gray" width="122" height="122"/>
         <image name="stars5Mask" width="403" height="70"/>
     </resources>
