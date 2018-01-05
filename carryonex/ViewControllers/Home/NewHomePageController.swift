@@ -40,6 +40,8 @@ class NewHomePageController: UIViewController {
     weak var mainTapBarVC: MainTabBarController?
     weak var userCardOne: UserCardViewController?
     weak var userCardTwo: UserCardViewController?
+    @IBOutlet weak var userCardOneLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var userCardTwoRightConstraint: NSLayoutConstraint!
     weak var tripController: TripController?
     weak var userRecentInfoController: UserRecentInfoController?
 
@@ -213,9 +215,18 @@ class NewHomePageController: UIViewController {
             if let topRequests = TripOrderDataStore.shared.getCardItems(), topRequests.count > 0 {
                 self?.userCardOne?.category = topRequests.first?.1
                 self?.userCardOne?.request = topRequests.first?.0
+                if topRequests.count == 1 {
+                    let mid: CGFloat = (self?.view.bounds.midX ?? 20) - (self?.userCardOne?.view.bounds.midX ?? 0)
+                    self?.userCardOneLeftConstraint.constant = mid
+                    self?.userCardTwoRightConstraint.constant = -(self?.view.bounds.width ?? CGFloat(600))
+                    self?.setupPlaceholderView(toShow: false)
+                }
                 if topRequests.count > 1 {
                     self?.userCardTwo?.category = topRequests[1].1
                     self?.userCardTwo?.request = topRequests[1].0
+                    let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+                    self?.userCardOneLeftConstraint.constant = isPhone ? 20 : 60
+                    self?.userCardTwoRightConstraint.constant = isPhone ? 20 : 60
                     self?.setupPlaceholderView(toShow: false)
                 }
             } else {
