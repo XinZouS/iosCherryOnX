@@ -266,14 +266,14 @@ extension TripController: UITextFieldDelegate {
             let location = locationTuples(countryIdx: startCountryIndex, stateIdx: startStateIndex, cityIdx: startCitiesIndex)
             startCountry = location.0
             startState = location.1
-            startCity = (location.2).isEmpty ? " " : location.2
+            startCity = (location.2).isEmpty ? "" : location.2
             self.startAddressTextField.text = startCountry + " " + startState + " " + startCity
             
         case 1:
             let location = locationTuples(countryIdx: endCountryIndex, stateIdx: endStateIndex, cityIdx: endCitiesIndex)
             endCountry = location.0
             endState = location.1
-            endCity = (location.2).isEmpty ? " " : location.2
+            endCity = (location.2).isEmpty ? "" : location.2
             self.endAddressTextField.text = endCountry + " " + endState + " " + endCity
             
         default:
