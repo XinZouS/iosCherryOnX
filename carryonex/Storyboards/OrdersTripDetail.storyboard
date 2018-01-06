@@ -157,10 +157,10 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDl-sD-ANm" customClass="PhoneMsgButton" customModule="carryonex" customModuleProvider="target">
-                                                <rect key="frame" x="295" y="212" width="30" height="30"/>
+                                                <rect key="frame" x="325" y="212" width="0.0" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="UQ3-BH-Mnq"/>
-                                                    <constraint firstAttribute="width" constant="30" id="t8Q-3Q-DxD"/>
+                                                    <constraint firstAttribute="width" id="t8Q-3Q-DxD"/>
                                                 </constraints>
                                                 <state key="normal" image="phone_gray"/>
                                                 <connections>
@@ -185,7 +185,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzO-np-Cho">
-                                                <rect key="frame" x="90" y="214" width="205" height="26"/>
+                                                <rect key="frame" x="90" y="214" width="235" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="26" id="S6Y-iM-zY8"/>
                                                 </constraints>
@@ -265,8 +265,8 @@
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEz-65-FZV">
-                                                <rect key="frame" x="20" y="390" width="56.5" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEz-65-FZV">
+                                                <rect key="frame" x="20" y="390" width="43" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="textColor" red="0.28484618663787842" green="0.32889515161514282" blue="0.36643677949905396" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -277,8 +277,8 @@
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0.01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDn-7Q-gxw">
-                                                <rect key="frame" x="151" y="390" width="65.5" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDn-7Q-gxw">
+                                                <rect key="frame" x="151" y="390" width="43" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="textColor" red="0.28497126698493958" green="0.32495933771133423" blue="0.36247938871383667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -325,11 +325,22 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqf-KG-5e0">
-                                                <rect key="frame" x="154" y="566" width="171" height="26"/>
+                                                <rect key="frame" x="154" y="566" width="141" height="26"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLT-DY-Uwy" customClass="PhoneMsgButton" customModule="carryonex" customModuleProvider="target">
+                                                <rect key="frame" x="295" y="564" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="PrR-bd-bih"/>
+                                                    <constraint firstAttribute="width" constant="30" id="oHY-D5-6eO"/>
+                                                </constraints>
+                                                <state key="normal" image="msg_gray"/>
+                                                <connections>
+                                                    <action selector="recipientPhoneCallButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="fhJ-QD-QhL"/>
+                                                </connections>
+                                            </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="921-Hb-vhw" customClass="PhoneMsgButton" customModule="carryonex" customModuleProvider="target">
                                                 <rect key="frame" x="325" y="564" width="0.0" height="30"/>
                                                 <constraints>
@@ -434,6 +445,7 @@
                                             <constraint firstItem="lEz-65-FZV" firstAttribute="leading" secondItem="rB6-f1-cwu" secondAttribute="leading" id="Jda-OK-rAF"/>
                                             <constraint firstItem="KW0-cL-CBh" firstAttribute="centerY" secondItem="uRf-eA-r68" secondAttribute="centerY" id="JgC-aq-hSH"/>
                                             <constraint firstItem="hDn-7Q-gxw" firstAttribute="height" secondItem="8qO-lk-QcZ" secondAttribute="height" id="JnM-WX-HOP"/>
+                                            <constraint firstItem="MLT-DY-Uwy" firstAttribute="centerY" secondItem="Hqf-KG-5e0" secondAttribute="centerY" id="Jy4-Zm-q3g"/>
                                             <constraint firstAttribute="bottom" secondItem="1jW-uu-CyU" secondAttribute="bottom" constant="30" id="KAp-4R-NG4"/>
                                             <constraint firstItem="GBF-fh-fGR" firstAttribute="top" secondItem="Gcc-77-xcQ" secondAttribute="bottom" constant="5" id="Lmo-fo-qHJ"/>
                                             <constraint firstItem="lEz-65-FZV" firstAttribute="height" secondItem="8qO-lk-QcZ" secondAttribute="height" id="MV1-DX-j3B"/>
@@ -447,7 +459,7 @@
                                             <constraint firstItem="hDn-7Q-gxw" firstAttribute="centerY" secondItem="lEz-65-FZV" secondAttribute="centerY" id="R35-NP-rgq"/>
                                             <constraint firstAttribute="trailing" secondItem="BAN-eP-2Fv" secondAttribute="trailing" id="RU4-GR-TqM"/>
                                             <constraint firstItem="KW0-cL-CBh" firstAttribute="width" secondItem="KW0-cL-CBh" secondAttribute="height" multiplier="1:1" id="RXJ-vR-KNb"/>
-                                            <constraint firstItem="Hqf-KG-5e0" firstAttribute="trailing" secondItem="921-Hb-vhw" secondAttribute="leading" id="TbS-rA-yCQ"/>
+                                            <constraint firstItem="Hqf-KG-5e0" firstAttribute="trailing" secondItem="MLT-DY-Uwy" secondAttribute="leading" id="TbS-rA-yCQ"/>
                                             <constraint firstItem="xCC-Uf-ncD" firstAttribute="leading" secondItem="dXb-Nl-6eD" secondAttribute="leading" constant="20" id="TzE-8d-r72"/>
                                             <constraint firstItem="khE-wR-Gy0" firstAttribute="top" secondItem="XzO-np-Cho" secondAttribute="bottom" constant="5" id="U8P-4b-Mgw"/>
                                             <constraint firstItem="TcR-zr-aKP" firstAttribute="leading" secondItem="dXb-Nl-6eD" secondAttribute="leading" id="UPe-oL-O3c"/>
@@ -485,6 +497,7 @@
                                             <constraint firstItem="YG5-EH-xPl" firstAttribute="leading" secondItem="Uz1-WJ-5FM" secondAttribute="leading" id="ica-Gk-7r5"/>
                                             <constraint firstItem="hO5-6m-U41" firstAttribute="leading" secondItem="Kaj-KM-9mF" secondAttribute="trailing" constant="5" id="iop-ub-Ypf"/>
                                             <constraint firstItem="KDl-sD-ANm" firstAttribute="leading" secondItem="XzO-np-Cho" secondAttribute="trailing" id="mCG-Ao-S56"/>
+                                            <constraint firstItem="921-Hb-vhw" firstAttribute="leading" secondItem="MLT-DY-Uwy" secondAttribute="trailing" id="mXL-tn-n6Q"/>
                                             <constraint firstItem="akV-ax-hDm" firstAttribute="centerX" secondItem="cXG-uF-tDa" secondAttribute="centerX" id="orK-VS-Rvq"/>
                                             <constraint firstItem="BAN-eP-2Fv" firstAttribute="leading" secondItem="dXb-Nl-6eD" secondAttribute="leading" id="otE-UU-cK6"/>
                                             <constraint firstItem="qVA-Bh-Wfs" firstAttribute="leading" secondItem="Kaj-KM-9mF" secondAttribute="trailing" constant="5" id="pdh-Zm-gT8"/>
@@ -532,7 +545,7 @@
                                 </constraints>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-wQ-9pO">
-                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
+                                <rect key="frame" x="0.0" y="620" width="375" height="380"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-kc-Wge">
@@ -632,7 +645,7 @@
                             <constraint firstItem="Qw7-wQ-9pO" firstAttribute="bottom" secondItem="bwT-SN-31r" secondAttribute="bottom" id="htK-pu-iRn"/>
                             <constraint firstItem="Qw7-wQ-9pO" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" id="tkX-BG-2zr"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="trailing" secondItem="u44-8x-21Q" secondAttribute="trailing" id="w2H-o3-1Fd"/>
-                            <constraint firstItem="Qw7-wQ-9pO" firstAttribute="top" secondItem="bwT-SN-31r" secondAttribute="top" id="wac-Qj-SlV"/>
+                            <constraint firstItem="Qw7-wQ-9pO" firstAttribute="top" secondItem="bwT-SN-31r" secondAttribute="top" constant="600" id="wac-Qj-SlV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwT-SN-31r"/>
                     </view>
@@ -711,6 +724,7 @@
         <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
+        <image name="msg_gray" width="75" height="76"/>
         <image name="phone_gray" width="226" height="228"/>
         <image name="shareing" width="63" height="64"/>
         <image name="stars5Mask" width="403" height="70"/>
