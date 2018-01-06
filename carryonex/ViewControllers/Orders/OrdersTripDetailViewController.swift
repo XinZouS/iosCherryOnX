@@ -90,7 +90,7 @@ class OrdersTripDetailViewController: UIViewController {
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
     
-    let toShipperViewSegue = "toOtherShipperView"
+    let toShipperViewSegue = "ShiperInfoSegue"
     let postRateSegue = "PostRateSegue"
     
     var targetUserPhone: String?

@@ -679,6 +679,8 @@
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="Lo6-tT-i3T"/>
                         <outlet property="youxiangCodeLabel" destination="uRf-eA-r68" id="Cia-bj-fva"/>
                         <outlet property="youxiangCodeTitleLabel" destination="O6E-UM-CEB" id="Bhg-gA-Iap"/>
+                        <segue destination="ZrK-lf-uQu" kind="show" identifier="ShiperInfoSegue" id="1ZD-t5-UUw"/>
+                        <segue destination="qfU-8x-8ak" kind="show" identifier="PostRateSegue" id="ThZ-P1-tut"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYw-dp-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
