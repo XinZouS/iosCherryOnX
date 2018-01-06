@@ -26,7 +26,7 @@ extension UIColor {
     open class var carryon_normalText: UIColor { return carryon_darkGray }
     
     open class var carryon_payoutTransactionStatus: UIColor { return carryon_red }
-    open class var carryon_normalTransactionStatus: UIColor { return carryon_darkGray }
+    open class var carryon_normalTransactionStatus: UIColor { return carryon_textBlack }
     
     //MARK: - Internal Color Scheme
     //status
@@ -38,4 +38,5 @@ extension UIColor {
     //UI Components
     private class var carryon_darkTeal: UIColor { return UIColor.rgb(51, 166, 184) }
     private class var carryon_darkGray: UIColor { return UIColor.rgb(78, 88, 96) }
+    private class var carryon_textBlack: UIColor { return #colorLiteral(red: 0.1450980392, green: 0.1725490196, blue: 0.1921568627, alpha: 1) } // 37,44,49, hex=252C31
 }
