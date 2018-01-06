@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6W-E1-dIr">
-                                <rect key="frame" x="0.0" y="64" width="375" height="220"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="230"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额（￥）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XF-6g-Ni7">
                                         <rect key="frame" x="152" y="46" width="71.5" height="20"/>
@@ -98,17 +98,17 @@
                                             <segue destination="Yqh-Xb-y3j" kind="show" identifier="CashExtractSegue" id="kpd-hS-1ig"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0e-xf-mha">
-                                        <rect key="frame" x="129.5" y="71" width="12" height="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0e-xf-mha">
+                                        <rect key="frame" x="119" y="71" width="22.5" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="Xpm-kS-PcL"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" red="0.68416976928710938" green="0.99043649435043335" blue="0.92166215181350708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.23153945803642273" green="0.29480201005935669" blue="0.56466293334960938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.21963082088364494" green="0.29480201005935669" blue="0.56466293334960938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="1oI-eB-Ntt" firstAttribute="centerY" secondItem="FXx-cQ-nbv" secondAttribute="centerY" id="F0E-jR-6vf"/>
                                     <constraint firstItem="FXx-cQ-nbv" firstAttribute="leading" secondItem="1oI-eB-Ntt" secondAttribute="trailing" id="FlO-KW-guD"/>
@@ -122,11 +122,11 @@
                                     <constraint firstItem="HAf-r7-zFV" firstAttribute="centerX" secondItem="8XF-6g-Ni7" secondAttribute="centerX" id="oe0-Q3-UBW"/>
                                     <constraint firstItem="R0e-xf-mha" firstAttribute="top" secondItem="HAf-r7-zFV" secondAttribute="top" id="sj4-dO-I4r"/>
                                     <constraint firstItem="z1h-WB-0Lw" firstAttribute="centerX" secondItem="HAf-r7-zFV" secondAttribute="centerX" id="yUh-6Y-e8O"/>
-                                    <constraint firstAttribute="height" constant="220" id="zCU-l7-uza"/>
+                                    <constraint firstAttribute="height" constant="230" id="zCU-l7-uza"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收支明细" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBf-lw-Niw">
-                                <rect key="frame" x="10" y="269" width="355" height="60"/>
+                                <rect key="frame" x="10" y="279" width="355" height="60"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="HYO-AJ-3or"/>
@@ -142,7 +142,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t5J-fb-poJ">
-                                <rect key="frame" x="10" y="319" width="355" height="348"/>
+                                <rect key="frame" x="10" y="329" width="355" height="338"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CreditCell" rowHeight="70" id="LsT-8s-CSC" customClass="CreditCell" customModule="carryonex" customModuleProvider="target">
@@ -165,12 +165,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-66" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79q-tO-DHB">
-                                                    <rect key="frame" x="304" y="23" width="36" height="24"/>
+                                                    <rect key="frame" x="249" y="23" width="36" height="24"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" red="0.99951452016830444" green="0.42161580920219421" blue="0.41949254274368286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsV-42-tC2">
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsV-42-tC2">
                                                     <rect key="frame" x="101" y="41.5" width="39.5" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <color key="textColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
