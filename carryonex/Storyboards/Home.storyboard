@@ -185,8 +185,8 @@
                                     <segue destination="dPL-aA-D4f" kind="embed" identifier="UserRecentInfoSegue" id="b9h-7L-Q2D"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最新订单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpB-Ld-Bb6">
-                                <rect key="frame" x="20" y="288.5" width="90" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最新订单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpB-Ld-Bb6">
+                                <rect key="frame" x="142.5" y="288.5" width="90" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="MUc-94-iJu"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="mvm-yR-3Sq"/>
@@ -334,6 +334,7 @@
                             <constraint firstItem="1Jk-1D-Ewz" firstAttribute="leading" secondItem="2fV-0g-kk8" secondAttribute="leading" constant="30" id="IFh-sj-cQn"/>
                             <constraint firstItem="YqW-op-hBk" firstAttribute="leading" secondItem="3Ny-4w-Ijb" secondAttribute="trailing" constant="5" id="JxX-xN-y3i"/>
                             <constraint firstItem="Lfx-FT-ZVJ" firstAttribute="height" secondItem="hLH-4g-2fK" secondAttribute="height" id="K2K-LK-aI9"/>
+                            <constraint firstItem="bpB-Ld-Bb6" firstAttribute="centerX" secondItem="9Pw-4V-LoM" secondAttribute="centerX" id="MlY-LG-i59"/>
                             <constraint firstItem="9Pw-4V-LoM" firstAttribute="height" secondItem="Fvh-eF-8yz" secondAttribute="height" multiplier="0.22" id="OOR-Kw-QG7"/>
                             <constraint firstItem="sFf-1A-DNg" firstAttribute="width" secondItem="sFf-1A-DNg" secondAttribute="height" multiplier="1:1" id="OkZ-3L-flx"/>
                             <constraint firstItem="ke0-xl-wCx" firstAttribute="centerX" secondItem="1Jk-1D-Ewz" secondAttribute="centerX" id="P5C-SJ-phG"/>
@@ -358,7 +359,6 @@
                             <constraint firstItem="zzJ-f5-BBS" firstAttribute="width" secondItem="puL-wa-enc" secondAttribute="width" multiplier="0.24" id="l3r-VE-rMq">
                                 <variation key="heightClass=regular-widthClass=regular" constant="-36"/>
                             </constraint>
-                            <constraint firstItem="bpB-Ld-Bb6" firstAttribute="leading" secondItem="Fvh-eF-8yz" secondAttribute="leading" constant="10" id="nC3-ka-CDX"/>
                             <constraint firstItem="3Ny-4w-Ijb" firstAttribute="leading" secondItem="1Jk-1D-Ewz" secondAttribute="trailing" constant="15" id="oEc-56-dRA">
                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
@@ -659,7 +659,7 @@
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.63914442059999999" green="0.63925665620000005" blue="0.63913732769999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.75082153081893921" green="0.81908339262008667" blue="0.86505109071731567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
