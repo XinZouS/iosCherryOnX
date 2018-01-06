@@ -23,6 +23,8 @@ class PhoneValidationViewController: UIViewController {
     let segueIdChangePw = "gotoChangePassword"
     
     @IBOutlet weak var hintLabel: UILabel!
+    @IBOutlet weak var hintLabel2: UILabel!
+    @IBOutlet weak var hintLabelError: UILabel!
     
     @IBOutlet weak var verifyCodeLabel01: UILabel!
     @IBOutlet weak var verifyCodeLabel02: UILabel!
@@ -44,7 +46,33 @@ class PhoneValidationViewController: UIViewController {
 
     var registerUserInfo : [String:String]?
     
+    var activityIndicator: BPCircleActivityIndicator!
+    var isLoading: Bool = false {
+        didSet{
+            if isLoading {
+                activityIndicator.isHidden = false
+                activityIndicator.animate()
+            } else {
+                activityIndicator.isHidden = true
+                activityIndicator.stop()
+            }
+            resendButton.isEnabled = !isLoading
+        }
+    }
+    
 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViewTitles()
+        setupVerifyTextField()
+        setupActivityIndicator()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hintLabelError.isHidden = true
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -56,7 +84,8 @@ class PhoneValidationViewController: UIViewController {
         verifyCodeLabel02.text = ""
         verifyCodeLabel03.text = ""
         verifyCodeLabel04.text = ""
-        setupUserPhoneShow()
+        setVerifyCodeLabelsAppearance(isError: false)
+        setupHintLabelOfUserPhone()
         verifiTextField.becomeFirstResponder()
     }
     
@@ -65,19 +94,26 @@ class PhoneValidationViewController: UIViewController {
         verifiTextField.resignFirstResponder()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupVerifyTextField()
+    private func setupViewTitles() {
+        hintLabel.text = L("register.ui.title.get-verify-code")
         resendButton.setTitle(L("register.error.action.verify"), for: .normal)
+        hintLabelError.text = L("register.error.message.input-verify-code")
     }
     
-    private func setupUserPhoneShow(){
-        hintLabel.text = L("register.ui.message.hint1") + zoneCodeInput + " " + phoneInput + L("register.ui.message.hint2")
+    private func setupHintLabelOfUserPhone(){
+        hintLabel2.text = L("register.ui.message.hint1") + " " + zoneCodeInput + "-" + phoneInput // + L("register.ui.message.hint2")
     }
     
     private func setupVerifyTextField(){ // hide it under the screen
         view.addSubview(verifiTextField)
         verifiTextField.addConstraints(left: view.leftAnchor, top: view.bottomAnchor, right: view.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 30, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
+    }
+    
+    private func setupActivityIndicator(){
+        activityIndicator = BPCircleActivityIndicator()
+        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
+        activityIndicator.isHidden = true
+        view.addSubview(activityIndicator)
     }
     
     
@@ -94,7 +130,7 @@ class PhoneValidationViewController: UIViewController {
         resetTime = 60
         resetTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown1sec), userInfo: nil, repeats: resetTime != 0)
     }
-    func countDown1sec(){
+    @objc fileprivate func countDown1sec(){
         if resetTime == 0 {
             resendButton.isEnabled = true
             resetTimer?.invalidate()
@@ -103,6 +139,19 @@ class PhoneValidationViewController: UIViewController {
             resetTime -= 1
             resendButton.setTitle("\(resetTime)" + L("register.ui.message.resend-time"), for: .normal)
         }
+    }
+    
+    fileprivate func setVerifyCodeLabelsAppearance(isError: Bool){
+        let bg = isError ? colorLabelVerifyErrRed : UIColor.white
+        verifyCodeLabel01.backgroundColor = bg
+        verifyCodeLabel02.backgroundColor = bg
+        verifyCodeLabel03.backgroundColor = bg
+        verifyCodeLabel04.backgroundColor = bg
+        let clr = isError ? colorTheamRed.cgColor : colorTextFieldUnderLineLightGray.cgColor
+        verifyCodeLabel01.layer.borderColor = clr
+        verifyCodeLabel02.layer.borderColor = clr
+        verifyCodeLabel03.layer.borderColor = clr
+        verifyCodeLabel04.layer.borderColor = clr
     }
     
     
@@ -114,11 +163,13 @@ class PhoneValidationViewController: UIViewController {
         
         guard zoneCodeInput != "", phoneInput != "", zoneCodeInput != "0", phoneInput != "0" else { return }
         
+        isLoading = true
         SMSSDK.commitVerificationCode(verificationCode, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
+            self.isLoading = false
             if err == nil {
                 self.verifySuccess()
             } else {
-                self.verifyFaildAlert(err)
+                self.verifyFaild(err)
             }
         })
     }
@@ -137,8 +188,8 @@ class PhoneValidationViewController: UIViewController {
                     currUser.phone = self.phoneInput
                     self.confirmPhoneInServer()
                 } else if let err = err {
-                    debugPrint("failed in VerificationController++, verifySuccess(), msg = ", err)
-                    self.verifyFaildAlert(err)
+                    debugPrint("failed in PhoneValidationViewController, verifySuccess(), msg = ", err)
+                    self.verifyFaild(err)
                 }
             })
         } else {
@@ -178,7 +229,7 @@ class PhoneValidationViewController: UIViewController {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
-                self.verifyFaildAlert(error)
+                self.verifyFaild(error)
                 return
             }
             if success {
@@ -187,15 +238,14 @@ class PhoneValidationViewController: UIViewController {
         }
     }
 
-    private func verifyFaildAlert(_ error: Error?){
+    private func verifyFaild(_ error: Error?){
         if let error = error {
-            debugPrint("VerificationController++: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
+            debugPrint("PhoneValidationViewController: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             AudioManager.shared.playSond(named: .failed)
-            displayGlobalAlert(title: L("register.error.title.verify"), message: L("register.error.message.verify") + " \(error.localizedDescription)", action: L("register.error.action.verify"), completion: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            })
+            setVerifyCodeLabelsAppearance(isError: true)
+            hintLabelError.isHidden = false
         }
     }
 }
@@ -223,7 +273,9 @@ extension PhoneValidationViewController: UITextFieldDelegate {
         }else if cnt == 3 {
             verifyCodeLabel03?.text = String(describing: verificationCode.last!)
             verifyCodeLabel04?.text = ""
-            
+            setVerifyCodeLabelsAppearance(isError: false)
+            hintLabelError.isHidden = true
+
         }else if cnt == 4 {
             verifyCodeLabel04?.text = String(describing: verificationCode.last!)
             if resetTime == 0 {
@@ -235,6 +287,7 @@ extension PhoneValidationViewController: UITextFieldDelegate {
             let idx = verificationCode.index(verificationCode.startIndex, offsetBy: 4)
             let newCode = verificationCode.substring(to: idx)
             textField.text = newCode
+            verificationCode = newCode
         }
         
     }

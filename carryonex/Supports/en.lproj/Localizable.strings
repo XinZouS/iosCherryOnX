@@ -62,12 +62,14 @@
 "register.error.title.verify" = "验证失败";
 "register.error.message.verify" = "验证错误信息: ";
 "register.error.message.verify-phone" = "手机验证失败";
+"register.ui.title.get-verify-code" = "请输入短信验证码"; // 2018-01-06 - Xin
 "register.error.action.verify" = "重新发送验证码";
 "register.error.title.failed" = "注册失败";
 "register.error.message.failed" = "注册出现错误";
-"register.ui.message.hint1" = "短信验证码已发送至";
+"register.ui.message.hint1" = "验证码已发送至";
 "register.ui.message.hint2" = "，请输入";
 "register.ui.message.resend-verify-code" = "发送验证码";
+"register.error.message.input-verify-code" = "验证码输入错误 请重新输入"; // 2018-01-06 - Xin
 "register.ui.message.resend-time" = "秒后重新发送"; // "\(resetTime)秒后重新发送"
 "register.ui.title.success" = "注册成功 🎉";
 
