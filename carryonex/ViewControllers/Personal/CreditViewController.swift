@@ -77,7 +77,7 @@ class CreditViewController: UIViewController {
     
     private func setupGradientLayer(){
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = titleBackgroundView.frame
+        gradientLayer.frame = titleBackgroundView.bounds
         let beginColor = #colorLiteral(red: 0.1764705882, green: 0.1921568627, blue: 0.4431372549, alpha: 1) // 45 49 113
         let endColor = #colorLiteral(red: 0.2745098039, green: 0.3764705882, blue: 0.6470588235, alpha: 1)  // 70 96 165
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
