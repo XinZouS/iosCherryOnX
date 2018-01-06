@@ -800,7 +800,8 @@ class ApiServers : NSObject {
         }
         
         let sessionStr = hostVersion + "/trips/trips"
-        let tripDict = trip.packAsDictionaryForDB()
+        var tripDict = trip.packAsDictionaryForDB()
+        tripDict[TripKeyInDB.carrierId.rawValue] = profileUser.id
         
         let parameter:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
