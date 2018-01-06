@@ -233,10 +233,14 @@ class OrdersRequestDetailViewController: UIViewController {
         ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
             if let error = error {
                 print("Get phone error: \(error.localizedDescription)")
+                self.senderPhoneButton.isHidden = true
                 return
             }
-            if let phone = phone as? String {
+            if let phone = phone as? String, phone.count > 1 {
+                self.senderPhoneButton.isHidden = false
                 self.targetUserPhone = phone
+            }else{
+                self.senderPhoneButton.isHidden = true
             }
         }
     }
