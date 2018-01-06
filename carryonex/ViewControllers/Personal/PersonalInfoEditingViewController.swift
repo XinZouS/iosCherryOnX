@@ -47,7 +47,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .default
-        addObservers()
+        addWechatObserver()
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
         setupUser()
         setupActivityIndicator()
@@ -76,7 +76,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         emailTextField.resignFirstResponder()
     }
     
-    fileprivate func addObservers() {
+    fileprivate func addWechatObserver() {
         /**  微信通知  */
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.ChangeProfileImg, object: nil, queue: nil) { [weak self] notification in
             
@@ -134,16 +134,16 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     @objc private func saveButtonTapped(){
         dismissKeyboard() // dismiss keyboard
         
-        let emailString = emailTextField.text
+        let emailString = emailTextField.text ?? ""
         let emailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
         let matcher = MyRegex(emailPattern)
         
-        if let getEmail = emailString, matcher.match(input: getEmail) {
+        if emailString.isEmpty || matcher.match(input: emailString) {
             activityIndicator.isHidden = false
             activityIndicator.animate()
             
             let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
-                                         "email": getEmail,
+                                         "email": emailString,
                                          "gender": settedGender.rawValue]
             if isProfileImageChanged {
                 uploadImageToAws(getImg: newProfile)
