@@ -268,6 +268,10 @@
 "orders.confirm.title.save-image" = "保存图片";
 "orders.error.title.gps" = "定位失败";
 "orders.error.message.gps" = "请检查您的GPS定位服务是否开启";
+"orders.ui.title.contacts" = "联系用户"; // 2018-01-06 - Xin
+"orders.ui.action.call" = "打电话 📲"; // 2018-01-06 - Xin
+"orders.ui.action.sms" = "发短信 💬"; // 2018-01-06 - Xin
+
 
 // MARK: - Settings
 "settings.ui.title.message" = "消息设置";
