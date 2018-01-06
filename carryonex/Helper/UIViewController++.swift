@@ -12,10 +12,10 @@ extension UIViewController {
     
     func displayAlertOkCancel(title: String, message: String, completion:((UIAlertActionStyle) -> Void)?) {
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "好", style: .default) { (action) in
+        let okAction = UIAlertAction(title: L("action.ok"), style: .default) { (action) in
             completion?(action.style)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (action) in
+        let cancelAction = UIAlertAction(title: L("action.cancel"), style: .cancel) { (action) in
             completion?(action.style)
         }
         v.addAction(okAction)
@@ -53,16 +53,25 @@ extension UIViewController {
     }
 
     /// Alert with multiple actions, completion:(tag) -> Void
-    func displayGlobalAlertActions(title: String, message: String, actions: [String], completion:((Int) -> Void)?) {
-        let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func displayGlobalAlertActions(style: UIAlertControllerStyle = .alert,title: String, message: String, actions: [String], referenceView refView: UIView? = nil, completion:((Int) -> Void)?) {
+        let v = UIAlertController(title: title, message: message, preferredStyle: style)
         for i in 0..<actions.count {
             let action = UIAlertAction(title: actions[i], style: .default) { (action) in
                 completion?(i)
             }
             v.addAction(action)
         }
+        if style == .actionSheet {
+            let cancelBtn = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+            v.addAction(cancelBtn)
+        }
         
         if let topVC = UIViewController.topViewController(base: self) {
+            if UIDevice.current.userInterfaceIdiom == .pad, let refV = refView {
+                v.popoverPresentationController?.sourceView = refV
+            }            
             topVC.present(v, animated: true, completion: nil)
         }
     }
