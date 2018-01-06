@@ -80,7 +80,7 @@ struct Transaction {
     }
     
     func amountString() -> String {
-        return currency + String(format: "%.2f", Double(amount) / 100.0)
+        return L("personal.ui.title.currency-type") + " " + String(format: "%.2f", Double(amount) / 100.0)
     }
     
     func statusString() -> String {
