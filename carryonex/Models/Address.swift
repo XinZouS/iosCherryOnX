@@ -12,15 +12,15 @@ import MapKit
 
 enum Country: String, UnboxableEnum {
     case China = "中国"
-    case UnitedStates = "USA"
-    case Britain = "Britain"
-    case Canada = "Canada"
-    case Australia = "Australia"
+    case UnitedStates = "美国"
+    case Britain = "英国"
+    case Canada = "加拿大"
+    case Australia = "澳大利亚"
     case Japan = "日本"
     case Singapore = "新加坡"
-    case Germany = "Germany"
-    case France = "France"
-    case Switzerland = "Switzerland"
+    case Germany = "德国"
+    case France = "法国"
+    case Switzerland = "瑞士"
 }
 
 enum AddressKeyInDB : String {
