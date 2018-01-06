@@ -144,20 +144,19 @@ class OrdersTripDetailViewController: UIViewController {
             WalletManager.shared.aliPayAuth(request: request)
             
         } else if paymentType == .wechatPay {
-            
-            //TODO: comment this section
-            let transaction = RequestTransaction.shipperPay
-            displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
-                if style == .default {
-                    self?.processTransaction(transaction)
-                }
-                self?.backgroundViewHide()
-            }
-            
+//
+//            //TODO: comment this section
+//            let transaction = RequestTransaction.shipperPay
+//            displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
+//                if style == .default {
+//                    self?.processTransaction(transaction)
+//                }
+//                self?.backgroundViewHide()
+//            }
             
             //TODO: uncomment this section
-            //AnalyticsManager.shared.trackCount(.wechatPayCount)
-            //WalletManager.shared.wechatPayAuth(request: request)
+            AnalyticsManager.shared.trackCount(.wechatPayCount)
+            WalletManager.shared.wechatPayAuth(request: request)
         }
     }
     
