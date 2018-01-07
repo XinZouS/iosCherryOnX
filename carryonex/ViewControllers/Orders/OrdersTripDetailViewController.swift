@@ -11,6 +11,7 @@ import AlamofireImage
 import JXPhotoBrowser
 import M13Checkbox
 import MapKit
+import MessageUI
 
 class OrdersTripDetailViewController: UIViewController {
     
@@ -50,6 +51,7 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var recipientNameLabel: UILabel!
     @IBOutlet weak var recipientPhoneTitleLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
+    @IBOutlet weak var recipientMessageButton: PhoneMsgButton!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
     @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -97,14 +99,7 @@ class OrdersTripDetailViewController: UIViewController {
     
     
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
-        if let targetPhone = targetUserPhone, let url = URL(string:"tel://" + targetPhone) {
-            //根据iOS系统版本，分别处理
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
+        displayPhoneMessageAlert()
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
@@ -267,10 +262,14 @@ class OrdersTripDetailViewController: UIViewController {
         ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
             if let error = error {
                 print("Get phone error: \(error.localizedDescription)")
+                self.senderPhoneButton.isHidden = true
                 return
             }
-            if let phone = phone as? String {
+            if let phone = phone as? String, phone.count > 1 {
+                self.senderPhoneButton.isHidden = false
                 self.targetUserPhone = phone
+            }else{
+                self.senderPhoneButton.isHidden = true
             }
         }
     }
@@ -539,6 +538,52 @@ class OrdersTripDetailViewController: UIViewController {
         checkAlipay?.setCheckState(aliState, animated: true)
         checkWechat?.setCheckState(wechatState, animated: true)
     }
+    
+    fileprivate func displayPhoneMessageAlert() {
+        displayGlobalAlertActions(style: .actionSheet, title: L("orders.ui.title.contacts"), message: "", actions: [L("orders.ui.action.call"), L("orders.ui.action.sms")], referenceView: recipientPhoneCallButton) { (tag) in
+            
+            guard let targetPhone = self.targetUserPhone else { return }
+            
+            switch tag {
+            case 0: // phone call
+                if let url = URL(string: "tel://" + targetPhone) {
+                    //根据iOS系统版本，分别处理
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+                
+            case 1: // text message
+                self.sendSMSto(phone: targetPhone)
+                
+            default:
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+    }
+
+}
+
+// Send SMS delegate
+extension OrdersTripDetailViewController: MFMessageComposeViewControllerDelegate {
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func sendSMSto(phone: String) {
+        if MFMessageComposeViewController.canSendText() {
+            let msgVC = MFMessageComposeViewController()
+            msgVC.body = ""
+            msgVC.recipients = [phone]
+            msgVC.messageComposeDelegate = self
+            present(msgVC, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 
