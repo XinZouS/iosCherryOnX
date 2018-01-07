@@ -210,25 +210,13 @@ class Trip : NSObject, Unboxable, Identifiable {
     }
     
     func shareInfo() -> (String, String, String) {  //title, message, url
-        let dateString = "\(self.getMonthString()), \(self.getDayString())"
+        let dateString = "\(self.getMonthString()) \(self.getDayString())"
         let title = L("carrier.confirm.title.share-info") + "\(self.tripCode)"
         let noteStr = (note?.isEmpty ?? true) ? L("trip.ui.message.share") : note!
         let unknowAdd = L("trip.ui.message.empty-address")
-        var strAdd = self.startAddress?.city ?? ""
-        if strAdd.isEmpty || strAdd == " " {
-            strAdd = self.startAddress?.state ?? ""
-        }
-        if strAdd.isEmpty || strAdd == " " {
-            strAdd = self.startAddress?.country?.rawValue ?? unknowAdd
-        }
-        var endAdd = self.endAddress?.city ?? ""
-        if endAdd.isEmpty || endAdd == " " {
-            endAdd = self.endAddress?.state ?? ""
-        }
-        if endAdd.isEmpty || endAdd == " " {
-            endAdd = self.endAddress?.country?.rawValue ?? unknowAdd
-        }
-        let message = "【\(dateString), \(strAdd)-\(endAdd)】 \n" + noteStr
+        let strAddr = self.startAddress?.shareCityString() ?? unknowAdd
+        let endAddr = self.endAddress?.shareCityString() ?? unknowAdd
+        let message = "\(dateString), \(strAddr) → \(endAddr)\n" + noteStr
         let url = "https://www.carryonp.com/redirect?deeplink=https://www.carryonx.com/request?trip_code=\(self.tripCode)"
         
         return (title, message, url)

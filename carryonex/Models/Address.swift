@@ -100,6 +100,21 @@ class Address: NSObject, Unboxable {
         return json
     }
     
+    func shareCityString() -> String {
+        if let city = city {
+            return city
+        }
+        
+        if let state = state {
+            return state
+        }
+        
+        if let country = country {
+            return country.rawValue
+        }
+        return ""
+    }
+    
     func fullAddressString() -> String {
         var address = [String]()
         if let country = country {
