@@ -505,12 +505,17 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/users/info"
         
+        var userInfo = info
+        if let email = userInfo[ProfileUserKey.email.rawValue] as? String, email.count == 0 {
+            userInfo[ProfileUserKey.email.rawValue] = NSNull()
+        }
+        
         let parms:[String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.username.rawValue : username,
             ServerKey.userToken.rawValue: userToken,
             ServerKey.timestamp.rawValue: Date.getTimestampNow(),
-            ServerKey.data.rawValue : info
+            ServerKey.data.rawValue : userInfo
         ]
         
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
