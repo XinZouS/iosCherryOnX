@@ -50,7 +50,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         addWechatObserver()
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
         setupUser()
-        setupActivityIndicator()
+        //setupActivityIndicator()
         
         nameTextField.inputAccessoryView = setupTextFieldToolbar()
         nameTextField.text = user?.realName ?? ""
@@ -125,9 +125,9 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     }
     
     private func setupActivityIndicator(){
-        activityIndicator = BPCircleActivityIndicator() // UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicator = BPCircleActivityIndicator()
         activityIndicator.isHidden = true
-        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
+        activityIndicator.center = view.center
         view.addSubview(activityIndicator)
     }
 
@@ -139,8 +139,8 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         let matcher = MyRegex(emailPattern)
         
         if emailString.isEmpty || matcher.match(input: emailString) {
-            activityIndicator.isHidden = false
-            activityIndicator.animate()
+            
+            AppDelegate.shared().startLoading()
             
             let profile: [String:Any] = ["real_name": nameTextField.text ?? "",
                                          "email": emailString,
@@ -148,14 +148,14 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
             if isProfileImageChanged {
                 uploadImageToAws(getImg: newProfile)
             }
+            
             ProfileManager.shared.updateUserInfo(info: profile, completion: { (success) in
                 DispatchQueue.main.async {
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stop()
+                    AppDelegate.shared().endLoading()
                 }
                 if success{
                     self.dismiss(animated: true, completion: nil)
-                }else{
+                } else {
                     debugPrint("error: ProfileManager.shared.updateUserInfo unsuccess...")
                 }
             })
@@ -164,8 +164,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
                                message: L("personal.error.message.upload-email"),
                                action: L("action.ok"),
                                completion: { [weak self] _ in
-                                
-                                self?.emailTextField.becomeFirstResponder()
+                self?.emailTextField.becomeFirstResponder()
             })
         }
     }

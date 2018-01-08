@@ -40,18 +40,8 @@ public class BPCircleActivityIndicator: UIView {
     }
     
     func setupLayer() {
-        let screen = UIScreen.main.bounds //
-        let x = -(screen.width / 2.0 + 40)
-        let y = -(screen.height / 2.0 + 40)
-        
-        // big black frame
-        let maskFrame = CGRect(x: x, y: y, width: screen.width + 100, height: screen.height + 100)
-        let blackMask = UIView(frame: maskFrame)
-        blackMask.backgroundColor = UIColor(white: 0, alpha: 0.3)
-        self.addSubview(blackMask)
-        
         // small white frame
-        let bkgd = UIView(frame: CGRect(x: -27, y: -25, width: 80, height: 80))
+        let bkgd = UIView(frame: CGRect(x: -25, y: -25, width: 80, height: 80))
         bkgd.backgroundColor = UIColor(red: 255, green: 246, blue: 30, alpha: 0.6)
         bkgd.layer.cornerRadius = 10
         bkgd.clipsToBounds = true
