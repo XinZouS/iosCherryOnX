@@ -65,7 +65,6 @@ class NewHomePageController: UIViewController {
         setupTextContents()
         setupCountButtons()
         setupPlaceholderView(toShow: true)
-        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,7 +212,7 @@ class NewHomePageController: UIViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
             AppDelegate.shared().stopLoading()
-            
+
             if let topRequests = TripOrderDataStore.shared.getCardItems(), topRequests.count > 0 {
                 self?.userCardOne?.category = topRequests.first?.1
                 self?.userCardOne?.request = topRequests.first?.0

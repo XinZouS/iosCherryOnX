@@ -53,7 +53,7 @@ class TripOrderDataStore: NSObject {
     }
     
     func getCardItems() -> [(Request, TripCategory)]? {
-        
+
         let carrierSortedItems = prioritySortedRequests(category: .carrier)
         let senderSortedItems = prioritySortedRequests(category: .sender)
         

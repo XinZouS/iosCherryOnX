@@ -206,7 +206,6 @@ class MainTabBarController: UITabBarController {
         }
         
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
-            AppDelegate.shared().stopLoading()
             self?.locationManager.startUpdatingLocation()
         }
         
