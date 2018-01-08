@@ -344,7 +344,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    public func endLoading() {
+    public func stopLoading() {
         DispatchQueue.main.async {
             self.loadingView.activityIndicator.stop()
         }

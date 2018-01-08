@@ -233,8 +233,7 @@ extension LoginViewController {
 extension LoginViewController {
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
-        circleIndicator.isHidden = false
-        circleIndicator.animate()
+        AppDelegate.shared().startLoading()
         wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
@@ -312,8 +311,7 @@ extension LoginViewController: UITextFieldDelegate {
         
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
         
-        self.circleIndicator.isHidden = false
-        self.circleIndicator.animate()
+        AppDelegate.shared().startLoading()
         
         self.quickDataFromUrl(url: requestUrl) { [weak self] jsonResult in
             
@@ -329,8 +327,7 @@ extension LoginViewController: UITextFieldDelegate {
                         ProfileManager.shared.login(username: username, password: username.quickTossPassword(), completion: { (success) in
                             
                             if success {
-                                self?.circleIndicator.stop()
-                                self?.circleIndicator.isHidden = true
+                                AppDelegate.shared().stopLoading()
                                 
                                 if success {
                                     //if update success close

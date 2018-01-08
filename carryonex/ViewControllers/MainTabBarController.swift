@@ -158,8 +158,6 @@ class MainTabBarController: UITabBarController {
                     AppDelegate.shared().deferredDeeplink = nil
                 }
             }
-            
-            //AppDelegate.shared().endLoading()
         })
     }
     
@@ -217,10 +215,7 @@ class MainTabBarController: UITabBarController {
         }
         
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
-            AppDelegate.shared().endLoading()
-            
-            //self?.circleIndicator.stop()
-            //self?.circleIndicator.isHidden = true
+            AppDelegate.shared().stopLoading()
             self?.locationManager.startUpdatingLocation()
         }
         

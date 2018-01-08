@@ -151,7 +151,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
             
             ProfileManager.shared.updateUserInfo(info: profile, completion: { (success) in
                 DispatchQueue.main.async {
-                    AppDelegate.shared().endLoading()
+                    AppDelegate.shared().stopLoading()
                 }
                 if success{
                     self.dismiss(animated: true, completion: nil)

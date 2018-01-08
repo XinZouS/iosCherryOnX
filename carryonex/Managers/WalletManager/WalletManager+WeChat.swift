@@ -29,9 +29,11 @@ enum WechatResultStatus: Int {
 //WeChat
 extension WalletManager {
     
-    func wechatPayAuth(request: Request) {
+    func wechatPayAuth(request: Request, completion:(() -> Void)?) {
         
         ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error) in
+            
+            completion?()
             
             guard let wxOrder = wxOrder else {
                 if let error = error {

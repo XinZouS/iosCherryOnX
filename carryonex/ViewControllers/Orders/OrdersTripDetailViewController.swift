@@ -64,17 +64,16 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
     
     var sharingAlertVC: UIAlertController?
-    var activityIndicator = BPCircleActivityIndicator()
+    
     var isLoadingStatus = false {
         didSet {
             if isLoadingStatus {
-                activityIndicator.isHidden = false
-                activityIndicator.animate()
+                AppDelegate.shared().startLoading()
                 finishButton.isEnabled = false
                 finishButton2.isEnabled = false
+                
             } else {
-                activityIndicator.stop()
-                activityIndicator.isHidden = true
+                AppDelegate.shared().stopLoading()
                 finishButton.isEnabled = true
                 finishButton2.isEnabled = true
             }
@@ -130,28 +129,22 @@ class OrdersTripDetailViewController: UIViewController {
     }
     
     @IBAction func goToPaymentHandler(_ sender: Any) {
-        activityIndicator.isHidden = false
-        activityIndicator.animate()
+        isLoadingStatus = true
+        
         showPaymentView(false)
 
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
-            WalletManager.shared.aliPayAuth(request: request)
+            WalletManager.shared.aliPayAuth(request: request, completion: {
+                self.isLoadingStatus = false
+            })
             
         } else if paymentType == .wechatPay {
-//
-//            //TODO: comment this section
-//            let transaction = RequestTransaction.shipperPay
-//            displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
-//                if style == .default {
-//                    self?.processTransaction(transaction)
-//                }
-//                self?.backgroundViewHide()
-//            }
-            
             //TODO: uncomment this section
             AnalyticsManager.shared.trackCount(.wechatPayCount)
-            WalletManager.shared.wechatPayAuth(request: request)
+            WalletManager.shared.wechatPayAuth(request: request, completion: {
+                self.isLoadingStatus = false
+            })
         }
     }
     
@@ -248,7 +241,6 @@ class OrdersTripDetailViewController: UIViewController {
         setupNavigationBar()
         setupCollectionView()
         setupPaymentMenuView()
-        setupActivityIndicator()
         addObservers()
         
         //Load Phone
@@ -272,13 +264,6 @@ class OrdersTripDetailViewController: UIViewController {
                 self.senderPhoneButton.isHidden = true
             }
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        activityIndicator.isHidden = true
-        activityIndicator.stop()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -339,14 +324,6 @@ class OrdersTripDetailViewController: UIViewController {
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(tapRgr)
     }
-    
-    private func setupActivityIndicator(){
-        view.addSubview(activityIndicator)
-        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 100)
-        activityIndicator.isHidden = true
-        activityIndicator.stop()
-    }
-
     
     private func setupPaymentCheckbox(_ b: M13Checkbox){
         b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
