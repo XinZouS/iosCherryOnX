@@ -117,12 +117,14 @@ class ShareViewFactory: UIView {
         let title: String = L("managers.confirm.title.share")
         let msg: String = ""
         shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
+        alert?.dismiss(animated: true, completion: nil)
     }
     
     @objc private func shareToMoment(){
         let title: String = L("managers.confirm.title.share")
         let msg: String = L("managers.confirm.message.share") + "：https://www.carryonex.com/"
         shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
+        alert?.dismiss(animated: true, completion: nil)
     }
     
     @objc private func shareToWeibo(){

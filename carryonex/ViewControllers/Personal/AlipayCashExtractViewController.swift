@@ -96,6 +96,7 @@ class AlipayCashExtract: UIViewController {
         setupUnderlines()
     }
     
+    
     private func setupActivityIndicator(){
         circleIndicator = BPCircleActivityIndicator()
         circleIndicator.isHidden = true

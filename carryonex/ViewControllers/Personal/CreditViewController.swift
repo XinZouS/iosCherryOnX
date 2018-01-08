@@ -64,7 +64,7 @@ class CreditViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
+        setupNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,10 +74,14 @@ class CreditViewController: UIViewController {
         AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
-    private func setupNavigationBar(){ // TODO: not need this in testing phase;
+    private func setupNavigationBar(){
         title = L("personal.ui.title.wallet")
+        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func setupGradientLayer(){
