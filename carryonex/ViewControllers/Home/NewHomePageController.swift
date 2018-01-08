@@ -184,16 +184,19 @@ class NewHomePageController: UIViewController {
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.morningA
             endColor = UIColor.MyTheme.morningB
+            UIApplication.shared.statusBarStyle = .default
             
         case .noon:
             helloLabel.textColor = .black
             beginColor = UIColor.MyTheme.noonA
             endColor = UIColor.MyTheme.noonB
+            UIApplication.shared.statusBarStyle = .default
 
         case .night:
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.nightA
             endColor = UIColor.MyTheme.nightB
+            UIApplication.shared.statusBarStyle = .lightContent
 
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)

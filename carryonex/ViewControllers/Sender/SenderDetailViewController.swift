@@ -244,6 +244,7 @@ class SenderDetailViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
         updateSubmitButtonStatus()
         setupCountryCodeTextField()
     }
