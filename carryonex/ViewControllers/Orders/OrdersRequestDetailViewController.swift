@@ -92,7 +92,8 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func senderPhoneButtonTapped(_ sender: Any) {
-        displayPhoneMessageAlert()
+        guard let senderPhone = self.targetUserPhone else { return }
+        displayPhoneMessageAlert(targetPhone: senderPhone, referenceView: senderPhoneButton)
     }
     
     @IBAction func senderImageButtonTapped(_ sender: Any) {
@@ -101,14 +102,8 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func recipientPhoneCallButtonTapped(_ sender: Any) {
-        if let receipientPhone = request.endAddress?.phoneNumber, let url = URL(string:"tel://" + receipientPhone) {
-            //根据iOS系统版本，分别处理
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
+        guard let recipientPhone = request.endAddress?.phoneNumber else { return }
+        displayPhoneMessageAlert(targetPhone: recipientPhone, referenceView: recipientPhoneCallButton)
     }
     
     @IBAction func goToPaymentHandler(_ sender: Any) {
@@ -631,10 +626,8 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         }
     }
     
-    fileprivate func displayPhoneMessageAlert() {
-        displayGlobalAlertActions(style: .actionSheet, title: L("orders.ui.title.contacts"), message: "", actions: [L("orders.ui.action.call"), L("orders.ui.action.sms")], referenceView: recipientPhoneCallButton) { (tag) in
-            
-            guard let targetPhone = self.targetUserPhone else { return }
+    fileprivate func displayPhoneMessageAlert(targetPhone: String, referenceView rfv: UIView) {
+        displayGlobalAlertActions(style: .actionSheet, title: L("orders.ui.title.contacts"), message: "", actions: [L("orders.ui.action.call"), L("orders.ui.action.sms")], referenceView: rfv) { (tag) in
             
             switch tag {
             case 0: // phone call
