@@ -132,7 +132,7 @@ class Address: NSObject, Unboxable {
         if address.count == 0 {
             return L("address.ui.description.empty")
         } else {
-            return address.joined(separator: ", ")
+            return address.joined(separator: "·")
         }
     }
 }

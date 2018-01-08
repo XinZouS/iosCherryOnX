@@ -180,8 +180,8 @@ class AlipayCashExtract: UIViewController {
     
     fileprivate func setDoneButton(isActive: Bool) {
         doneButton.isEnabled = isActive
-        doneButton.setTitleColor(isActive ? UIColor.white : UIColor.gray, for: .normal)
-        doneButton.backgroundColor = isActive ? colorTheamRed : colorLineLightGray
+        doneButton.setTitleColor(isActive ? UIColor.white : colorButtonTitleGray, for: .normal)
+        doneButton.backgroundColor = isActive ? colorTheamRed : colorButtonGray
     }
     
 

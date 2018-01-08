@@ -100,6 +100,8 @@ class OrderListViewController: UIViewController {
         
         tableViewLeftConstraint.constant = 0
         sliderBarCenterConstraint.constant = 0
+        listButtonShiper.setTitleColor(colorTextBlack, for: .normal)
+        listButtonSender.setTitleColor(colorButtonDeselectedGray, for: .normal)
         setupTableViews()
         setupTableViewRefreshers()
         reloadData()
@@ -189,9 +191,9 @@ class OrderListViewController: UIViewController {
     func respondToSwipe(_ gesture: UIGestureRecognizer){
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
-            case .right:
+            case .left: // 2018-01-08 两个页面滑动转换的逻辑顺序，按照正常人的逻辑，左滑又进，又滑左进。- Xingjiu
                 animateListMoveRight()
-            case .left:
+            case .right:
                 animateListMoveLeft()
             default:
                 break
@@ -211,6 +213,8 @@ class OrderListViewController: UIViewController {
     func animateListMoveRight(){
         guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
         if leftCst.constant == 0 {
+            listButtonShiper.setTitleColor(colorButtonDeselectedGray, for: .normal)
+            listButtonSender.setTitleColor(colorTextBlack, for: .normal)
             leftCst.constant = -(self.view.bounds.width)
             sliderBarCenterCst.constant = listButtonShiper.bounds.width
             listType = .sender
@@ -224,6 +228,8 @@ class OrderListViewController: UIViewController {
     func animateListMoveLeft(){
         guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
         if leftCst.constant < 0 {
+            listButtonShiper.setTitleColor(colorTextBlack, for: .normal)
+            listButtonSender.setTitleColor(colorButtonDeselectedGray, for: .normal)
             leftCst.constant = 0
             sliderBarCenterCst.constant = 0
             listType = .carrier
