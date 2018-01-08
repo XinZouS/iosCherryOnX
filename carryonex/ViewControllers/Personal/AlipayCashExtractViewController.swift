@@ -39,15 +39,13 @@ class AlipayCashExtract: UIViewController {
             return
         }
         
-        self.circleIndicator.isHidden = false
-        self.circleIndicator.animate()
+        AppDelegate.shared().startLoading()
         
         ApiServers.shared.postWalletAliPayout(logonId: alipayId, amount: payoutAmount) { (success, error) in
             //Fix this after server fixed.
             self.displayAlert(title: "提现成功", message: "我们已经成功转账到您的账户，请查看您的支付宝", action:  L("action.ok"))
         
-            self.circleIndicator.stop()
-            self.circleIndicator.isHidden = true
+            AppDelegate.shared().stopLoading()
             
             //Reload data on this page
             ProfileManager.shared.updateWallet(completion: nil)
