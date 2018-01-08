@@ -50,7 +50,7 @@ let colorOkYelow = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.
 let colorOkgreen = #colorLiteral(red: 0.2061403394, green: 0.6508488059, blue: 0.72418648, alpha: 1)
 let colorErroRed = #colorLiteral(red: 1, green: 0.5261772685, blue: 0.5414895289, alpha: 1)
 let colorErrGray = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-let colorTheamRed = #colorLiteral(red: 1, green: 0.4189302325, blue: 0.4186580479, alpha: 1)
+let colorTheamRed = #colorLiteral(red: 1, green: 0.4196078431, blue: 0.4196078431, alpha: 1)
 let colorButtonGray = #colorLiteral(red: 0.8980392157, green: 0.9215686275, blue: 0.937254902, alpha: 1)
 let colorButtonTitleGray = #colorLiteral(red: 0.6901960784, green: 0.7176470588, blue: 0.7411764706, alpha: 1)
 let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
@@ -61,6 +61,7 @@ let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0
 let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
 let colorTextFieldPlaceholderBlack = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1)
 let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1)
+let colorButtonDeselectedGray = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1) //677783
 
 // wechat login judge
 var wxloginStatus :String = ""
