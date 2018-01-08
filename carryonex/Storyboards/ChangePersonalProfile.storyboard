@@ -67,7 +67,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="LO3-BB-lAg"/>
                                     <constraint firstAttribute="height" constant="30" id="lO3-rv-bxd"/>
                                 </constraints>
-                                <color key="textColor" red="0.14027225971221924" green="0.16835430264472961" blue="0.1892305314540863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.14343905448913574" green="0.17248609662055969" blue="0.1913335919380188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>

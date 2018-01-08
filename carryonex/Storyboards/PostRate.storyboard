@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="height" constant="26" id="3GA-VK-CFG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.14509803921568626" green="0.17254901960784313" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.14343905448913574" green="0.17248609662055969" blue="0.1913335919380188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blankUserHeadImage" translatesAutoresizingMaskIntoConstraints="NO" id="Rgo-9S-tv2">
@@ -56,7 +56,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Duj-kx-cnY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.29803921568627451" green="0.3411764705882353" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.29893356561660767" green="0.34159877896308899" blue="0.37487128376960754" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评价内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZb-T7-PGP">
