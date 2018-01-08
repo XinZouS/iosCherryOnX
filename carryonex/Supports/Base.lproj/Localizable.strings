@@ -145,6 +145,7 @@
 "sender.error.message.price-arguements" = "Unable to retrieve price standard.";
 "sender.ui.title.note-ok" = "Leave Note";
 "sender.ui.title.note-overflow" = "Note Characters Limit";
+"sender.ui.placeholder.comment" = "How do you like the service?"; // 2018-01-08 - Xin
 
 // MARK: - Carrier
 "carrier.ui.title.trip" = "Trip";
