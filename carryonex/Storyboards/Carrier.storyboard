@@ -52,7 +52,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="iZX-wq-bHn"/>
                                         </constraints>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.3411764706" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -76,7 +76,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="HwE-HK-4UG"/>
                                         </constraints>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.3411764706" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -100,7 +100,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="X8h-EG-snS"/>
                                         </constraints>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.3411764706" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
