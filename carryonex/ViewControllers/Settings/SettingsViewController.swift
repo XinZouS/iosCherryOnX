@@ -29,6 +29,21 @@ class SettingsViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self

@@ -49,6 +49,7 @@ class PersonalPageViewController: UIViewController{
         setupNavigationBar()
         addObservers()
         loadUserProfile()
+        loadUserComments()
     }
     
     private func setupTableView(){
@@ -87,12 +88,26 @@ class PersonalPageViewController: UIViewController{
         if let currUserName  = currUser.realName,currUserName != ""{
             userProfileNameLabel.text = currUserName
         }
-        if let profileInfo = ProfileManager.shared.homeProfileInfo{
+        if let profileInfo = ProfileManager.shared.homeProfileInfo {
             let fullLen = scoreStar5MaskWidthConstraint.constant - 5
             scoreLabel.text = scoreLabelHintText + String(format: "%.1f", profileInfo.rating)
             scoreColorBarWidthConstraint.constant = max(0.0, fullLen * CGFloat(profileInfo.rating / 5.0))
         }
     }
+    
+    private func loadUserComments() {
+        guard let currUser = ProfileManager.shared.getCurrentUser(), let currId = currUser.id else { return }
+        ApiServers.shared.getUserComments(commenteeId: currId, offset: 0) { (userComments, error) in
+            if let err = error {
+                print("error: PersonalPageViewController::loadUserComments() get error: ", err)
+                return
+            }
+            let num = userComments?.commentsLength ?? 0
+            let tit = L("orders.ui.title.view-comments-p1") + "\(num)" + L("orders.ui.title.view-comments-p2")
+            self.viewAllCommentsButton.setTitle(tit, for: .normal)
+        }
+    }
+
     
     private func setupUserImageView(){
         userProfileImage.layer.masksToBounds = true

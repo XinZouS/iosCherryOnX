@@ -249,6 +249,8 @@
 "orders.confirm.message.comment" = "对方已收到您的评价";
 "orders.error.title.comment" = "评价不能为空";
 "orders.error.message.comment" = "请输入您对该用户的客观评价";
+"orders.ui.title.view-comments-p1" = "查看"; // 2018-01-08 - Xin [查看]34条评价
+"orders.ui.title.view-comments-p2" = "条评价"; // 2018-01-08 - Xin 查看34[条评价]
 "orders.ui.title.youxiang-info" = "游箱信息";
 "orders.ui.message.request-image-count" = "张";
 "orders.confirm.title.submit" = "确认提交";
