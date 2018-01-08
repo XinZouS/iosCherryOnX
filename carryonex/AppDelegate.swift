@@ -337,15 +337,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                             bottomConstent: 0,
                                             width: 0,
                                             height: 0)
-                self.loadingView.activityIndicator.center = self.loadingView.center
+                self.loadingView.activityIndicator.center = CGPoint(x: self.loadingView.center.x - 15, y: self.loadingView.center.y - 40)
             }
         
             self.loadingView.activityIndicator.animate()
+            UIApplication.shared.beginIgnoringInteractionEvents()
         }
     }
     
     public func stopLoading() {
         DispatchQueue.main.async {
+            UIApplication.shared.endIgnoringInteractionEvents()
             self.loadingView.activityIndicator.stop()
             self.loadingView?.removeFromSuperview()
         }

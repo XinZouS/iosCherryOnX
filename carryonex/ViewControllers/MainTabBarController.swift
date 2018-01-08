@@ -39,7 +39,6 @@ class MainTabBarController: UITabBarController {
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
     var loginViewController: LoginViewController?
-    var circleIndicator: BPCircleActivityIndicator!
     var locationManager: CLLocationManager!
     var lastLocationFetchTime: Int = 0
     
@@ -51,7 +50,6 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         addObservers()
-        //setupActivityIndicator()
         initialDataLoad()
         setupLocationManager()
         
@@ -179,13 +177,6 @@ class MainTabBarController: UITabBarController {
         
     }
     
-    private func setupActivityIndicator(){
-        circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 20)
-        circleIndicator.isHidden = true
-        view.addSubview(circleIndicator)
-    }
-    
     private func isItHaveLogIn(_ animated: Bool){
         if (!ProfileManager.shared.isLoggedIn()){
             showLogin(animated)
@@ -196,7 +187,7 @@ class MainTabBarController: UITabBarController {
         if let loginViewContainer = UIStoryboard.init(name: "Login", bundle: nil).instantiateInitialViewController() {
             self.present(loginViewContainer, animated: animated) { [weak self]_ in
                 self?.selectedIndex = 0
-                self?.circleIndicator.stop()
+                AppDelegate.shared().stopLoading()
             }
         } else {
             debugLog("Something is wrong with the Login storyboard, please check.")
@@ -235,7 +226,7 @@ class MainTabBarController: UITabBarController {
                                         message: L("maintapbar.error.message.network"),
                                         action: L("maintapbar.error.action.network"),
                                         completion: {
-                                            self?.circleIndicator.isHidden = true
+                                            AppDelegate.shared().stopLoading()
                                             //self?.homeViewController.trytoreloaddata() TODO: add this to reload when network back;
                 })
             }
