@@ -304,7 +304,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //Mark: Global Loading
     private func setupGlobalLoadingView() {
         let loadingBackground = GlobalLoadingView(frame: UIScreen.main.bounds)
-        loadingBackground.alpha = 0.9
         loadingBackground.backgroundColor = UIColor.carryon_loadingBackground
         
         let activityIndicator = BPCircleActivityIndicator()

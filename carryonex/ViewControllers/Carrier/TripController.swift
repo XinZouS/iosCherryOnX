@@ -303,7 +303,7 @@ extension TripController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         indexOfTextField = 3
         textView.text = isNoteFilled ? textView.text : ""
-        textView.textColor = .black
+        textView.textColor = colorTextBlack
         let textViewLoc = textView.convert(CGPoint(x: 0, y: 0), to: view)
         if textViewLoc.y - view.frame.height < 210 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 210), animated: true)
@@ -313,7 +313,7 @@ extension TripController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         isNoteFilled = !textView.text.isEmpty
         textView.text = isNoteFilled ? textView.text : textViewPlaceholder
-        textView.textColor = isNoteFilled ? .black : .lightGray
+        textView.textColor = isNoteFilled ? colorTextBlack : colorTextFieldPlaceholderBlack
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
