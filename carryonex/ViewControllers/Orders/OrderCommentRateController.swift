@@ -23,6 +23,39 @@ class OrderCommentRateController: UIViewController {
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var realNameLabel: UILabel!
     @IBOutlet weak var backToHomeButton: UIButton!
+    var toolbarTextView: UITextView?
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return inputContainerView
+        }
+    }
+    
+    lazy var inputContainerView: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height:80)
+        v.backgroundColor = .white
+        
+        let doneBtn = UIButton()
+        doneBtn.addTarget(self, action: #selector(doneButtonAction), for: .touchUpInside)
+        doneBtn.setTitle(L("action.done"), for: .normal)
+        doneBtn.setTitleColor(colorTextBlack, for: .normal)
+        v.addSubview(doneBtn)
+        doneBtn.addConstraints(left: nil, top: v.topAnchor, right: v.rightAnchor, bottom: v.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 80, height: 0)
+        
+        let tx = UITextView()
+        tx.layer.masksToBounds = true
+        tx.layer.cornerRadius = 5
+        tx.layer.borderWidth = 1
+        tx.layer.borderColor = colorTableCellSeparatorLightGray.cgColor
+        tx.font = UIFont.systemFont(ofSize: 16)
+        v.addSubview(tx)
+        tx.addConstraints(left: v.leftAnchor, top: v.topAnchor, right: doneBtn.leftAnchor, bottom: v.bottomAnchor, leftConstent: 10, topConstent: 8, rightConstent: 0, bottomConstent: 8, width: 0, height: 0)
+        self.toolbarTextView = tx
+        tx.becomeFirstResponder()
+
+        return v
+    }()
     
     var rate: Float = 5
     var commenteeId: Int = 0
@@ -33,8 +66,9 @@ class OrderCommentRateController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addDoneButtonOnKeyboard()
-        
+        commentTextField.attributedPlaceholder = NSAttributedString(string: L("sender.ui.placeholder.comment"), attributes: [NSForegroundColorAttributeName: #colorLiteral(red: 0.7529411765, green: 0.8196078431, blue: 0.8666666667, alpha: 1)])
+        commentTextField.delegate = self
+
         realNameLabel.text = commenteeRealName
         
         if let category = category {
@@ -47,18 +81,12 @@ class OrderCommentRateController: UIViewController {
         }
     }
     
-    private func addDoneButtonOnKeyboard(){
-        let doneToolbar: UIToolbar = UIToolbar(frame:CGRect(x:0,y:0,width:320,height:50))
-        doneToolbar.barStyle = UIBarStyle.blackTranslucent
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
-        doneToolbar.items = [flexSpace,done]
-        doneToolbar.sizeToFit()
-        self.commentTextField.inputAccessoryView = doneToolbar
-    }
-    
     @objc private func doneButtonAction() {
-        self.commentTextField.resignFirstResponder()
+        if let inputTxt = toolbarTextView?.text {
+            commentTextField.text = inputTxt
+        }
+        commentTextField.resignFirstResponder()
+        toolbarTextView?.resignFirstResponder()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,4 +141,18 @@ class OrderCommentRateController: UIViewController {
         AppDelegate.shared().mainTabViewController?.selectTabIndex(index: .home)
         self.navigationController?.popToRootViewController(animated: false)
     }
+}
+
+extension OrderCommentRateController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        toolbarTextView?.becomeFirstResponder()
+        if let tx = textField.text, let tbxv = toolbarTextView {
+            tbxv.text = tx
+            let traits = tbxv.value(forKey: "textInputTraits") as AnyObject
+            traits.setValue(colorTheamRed, forKey: "insertionPointColor")
+        }
+        return true
+    }
+    
 }

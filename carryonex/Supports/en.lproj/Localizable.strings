@@ -145,6 +145,7 @@
 "sender.error.message.price-arguements" = "价格参数获取失败";
 "sender.ui.title.note-ok" = "留言";
 "sender.ui.title.note-overflow" = "留言字数限制";
+"sender.ui.placeholder.comment" = "寄件经历如何，对出行人的服务是否满意"; // 2018-01-08 - Xin
 
 // MARK: - Carrier
 "carrier.ui.title.trip" = "出行";
