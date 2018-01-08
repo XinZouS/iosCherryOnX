@@ -49,7 +49,6 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTabBar()
         addObservers()
         initialDataLoad()
         setupLocationManager()
@@ -144,18 +143,6 @@ class MainTabBarController: UITabBarController {
     
     
     //MARK: - Helpers
-    
-    private func setupTabBar() {
-//        guard let items = tabBar.items else { return }
-//        let imgNames = ["homeIcon", "Orders", "Settings"]
-//        for i in 0..<items.count {
-//            items[i].selectedImage = UIImage(named: imgNames[i])?.withRenderingMode(.alwaysOriginal)
-//            items[i].image = UIImage(named: imgNames[i])?.withRenderingMode(.alwaysOriginal)
-//        }
-//        
-//        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
-//        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: colorTheamRed], for: .selected)        
-    }
     
     private func initialDataLoad() {
         AppDelegate.shared().startLoading()
