@@ -313,9 +313,14 @@ class SenderDetailViewController: UIViewController{
         textFieldAddToolBar(priceValueTextField, nil)
         textFieldAddToolBar(countryCodeTextField,nil)
         
+        nameTextField.attributedPlaceholder = NSAttributedString(string:"姓名", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        phoneTextField.attributedPlaceholder = NSAttributedString(string:"手机号", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        addressTextField.attributedPlaceholder = NSAttributedString(string:"收件地址", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
         let formatter = NumberFormatter()
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
-        priceValueTextField.placeholder = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
+        let pricePH: String = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
+        priceValueTextField.attributedPlaceholder = NSAttributedString(string: pricePH, attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -516,7 +521,8 @@ class SenderDetailViewController: UIViewController{
     
     fileprivate func updateSubmitButtonStatus() {
         let ok = isAllInfoReady()
-        submitButton.backgroundColor = ok ? colorTheamRed : colorErrGray
+        submitButton.backgroundColor = ok ? colorTheamRed : colorButtonGray
+        submitButton.setTitleColor(ok ? UIColor.white : colorButtonTitleGray, for: .normal)
     }
     
     fileprivate func getTripErrorAndReturnPrePage(){
@@ -763,7 +769,7 @@ extension SenderDetailViewController: UITextViewDelegate {
         let placeholderTxt = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
         if textView.text == "" {
             textView.text = placeholderTxt
-            textView.textColor = .lightGray
+            textView.textColor = colorTextFieldPlaceholderBlack
             isTextViewBeenEdited = false
         }
         messageTextView.isActive = false
@@ -772,7 +778,7 @@ extension SenderDetailViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if !isTextViewBeenEdited {
             textView.text = ""
-            textView.textColor = .black
+            textView.textColor = colorTextBlack
             messageTextView.isActive = true
         }
         AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
@@ -884,7 +890,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
         if let tv = textView {
             tv.delegate = self
             tv.inputAccessoryView = bar
-            tv.textColor = .lightGray
+            tv.textColor = colorTextFieldPlaceholderBlack
             tv.text = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
         }
     }

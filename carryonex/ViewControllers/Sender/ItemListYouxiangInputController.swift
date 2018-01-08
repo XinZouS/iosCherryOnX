@@ -188,6 +188,15 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
         return false
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let t = textField.text, t.count > 2 {
+            goDetailButton.isHidden = false
+        }else{
+            goDetailButton.isHidden = true
+        }
+        return true
+    }
+    
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {
         let bar = UIToolbar()
         bar.barStyle = .default
