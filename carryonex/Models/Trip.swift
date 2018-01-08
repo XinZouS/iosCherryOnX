@@ -89,6 +89,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     private var monthString: String?
     private var dayString: String?
     private var dateString: String?
+    private var shareDateString: String?
     private var cardDisplayTimeString: String?
     
     var active: Int = 1
@@ -195,6 +196,19 @@ class Trip : NSObject, Unboxable, Identifiable {
         return ""
     }
     
+    func getShareDateString() -> String {
+        if let shareDateString = shareDateString {
+            return shareDateString
+        }
+        
+        if let pickupDate = pickupDate {
+            let dayString = Date.getTimeString(format: "M月d日", time: TimeInterval(pickupDate))
+            shareDateString = dayString
+            return dayString
+        }
+        return ""
+    }
+    
     func cardDisplayTime() -> String {
         if let cardDisplayTimeString = cardDisplayTimeString {
             return cardDisplayTimeString
@@ -210,9 +224,14 @@ class Trip : NSObject, Unboxable, Identifiable {
     }
     
     func shareInfo() -> (String, String, String) {  //title, message, url
-        let dateString = "\(self.getMonthString()) \(self.getDayString())"
-        let title = L("carrier.confirm.title.share-info") + "\(self.tripCode)"
-        let noteStr = (note?.isEmpty ?? true) ? L("trip.ui.message.share") : note!
+        let dateString = getShareDateString()
+        let prefix = (ProfileManager.shared.getCurrentUser()?.id == self.carrierId) ? L("carrier.confirm.title.share-info") : L("carrier.confirm.title.sender.share-info")
+        let title = prefix + "\(self.tripCode)"
+        var noteStr = L("trip.ui.message.share")
+        if let note = note, note.count > 0 {
+            noteStr = note
+        }
+        
         let unknowAdd = L("trip.ui.message.empty-address")
         let strAddr = self.startAddress?.shareCityString() ?? unknowAdd
         let endAddr = self.endAddress?.shareCityString() ?? unknowAdd
