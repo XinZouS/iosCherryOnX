@@ -195,18 +195,12 @@ class SenderDetailViewController: UIViewController{
     }
 
     var keyboardHeight: CGFloat = 160
-    var activityIndicator: BPCircleActivityIndicator! // UIActivityIndicatorView!
     var isLoading: Bool = false {
         didSet{
-            activityIndicator.isHidden = !isLoading // TODO: FIXME: UIView.hidden must be used from main thread only
-            submitButton.isEnabled = !isLoading
-            submitButton.backgroundColor = isLoading ? colorErrGray : colorTheamRed
             if isLoading {
-                UIApplication.shared.beginIgnoringInteractionEvents()
-                activityIndicator.animate()
+                AppDelegate.shared().startLoading()
             } else {
-                UIApplication.shared.endIgnoringInteractionEvents()
-                activityIndicator.stop()
+                AppDelegate.shared().stopLoading()
             }
         }
     }
@@ -233,7 +227,6 @@ class SenderDetailViewController: UIViewController{
         setupSlider()
         getPriceFunctionFromServer()
         setupCardView()
-        setupActivityIndicator()
 
         //Get realname
         if let targetUserId = trip?.carrierId {
@@ -324,13 +317,6 @@ class SenderDetailViewController: UIViewController{
         priceValueTextField.placeholder = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-
-    private func setupActivityIndicator(){
-        activityIndicator = BPCircleActivityIndicator()
-        activityIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 40)
-        activityIndicator.isHidden = true
-        view.addSubview(activityIndicator)
     }
     
     private func setupSlider(){
