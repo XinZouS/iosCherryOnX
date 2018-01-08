@@ -323,23 +323,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             loadingViewController = navViewController
         }
         
-        loadingViewController.view.addSubview(loadingView)
-        
-        if let view = loadingViewController.view {
-            loadingView.addConstraints(left: view.leftAnchor,
-                                        top: view.topAnchor,
-                                        right: view.rightAnchor,
-                                        bottom: view.bottomAnchor,
-                                        leftConstent: 0,
-                                        topConstent: 0,
-                                        rightConstent: 0,
-                                        bottomConstent: 0,
-                                        width: 0,
-                                        height: 0)
-            loadingView.activityIndicator.center = loadingView.center
-        }
-        
         DispatchQueue.main.async {
+            loadingViewController.view.addSubview(self.loadingView)
+            
+            if let view = loadingViewController.view {
+                self.loadingView.addConstraints(left: view.leftAnchor,
+                                            top: view.topAnchor,
+                                            right: view.rightAnchor,
+                                            bottom: view.bottomAnchor,
+                                            leftConstent: 0,
+                                            topConstent: 0,
+                                            rightConstent: 0,
+                                            bottomConstent: 0,
+                                            width: 0,
+                                            height: 0)
+                self.loadingView.activityIndicator.center = self.loadingView.center
+            }
+        
             self.loadingView.activityIndicator.animate()
         }
     }
@@ -347,8 +347,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public func stopLoading() {
         DispatchQueue.main.async {
             self.loadingView.activityIndicator.stop()
+            self.loadingView?.removeFromSuperview()
         }
-        loadingView?.removeFromSuperview()
     }
     
 }

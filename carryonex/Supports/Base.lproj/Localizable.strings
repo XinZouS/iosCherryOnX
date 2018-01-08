@@ -161,6 +161,7 @@
 "carrier.ui.transportation.luggage" = "Luggage";
 "carrier.ui.placeholder.note" = "Address detail, note for carrier, and etc.";
 "carrier.confirm.title.share-info" = "My Trip Code:";
+"carrier.confirm.title.sender.share-info" = "Trip Code:";
 "carrier.confirm.message.share-info" = "I can ship item for you. Feel free to submit order with my Trip Code on CarryonEx";
 
 
