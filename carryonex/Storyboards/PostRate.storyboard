@@ -65,7 +65,7 @@
                                     <constraint firstAttribute="height" constant="26" id="ZwQ-t9-bat"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.29803921568627451" green="0.3411764705882353" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.14509803921568626" green="0.17254901960784313" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="将会在出行人个人资料页面显示，交易双方都可见。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jH7-ap-Yie">
@@ -74,15 +74,16 @@
                                     <constraint firstAttribute="height" constant="30" id="xhT-xT-MjK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" red="0.29803921568627451" green="0.3411764705882353" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="寄件经历如何，对出行人的服务是否满意" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GDW-rZ-cY5" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="GDW-rZ-cY5" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                 <rect key="frame" x="30" y="280.66666666666669" width="364" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="MFQ-Xk-Tfo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.29803921570000003" green="0.3411764706" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wId-b5-Cai">
@@ -134,7 +135,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="返回首页">
-                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.40392156862745099" green="0.46666666666666667" blue="0.51372549019607838" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="backToHomeTappedWithSender:" destination="3HJ-cW-Sdm" eventType="touchUpInside" id="qMP-z6-iYv"/>
