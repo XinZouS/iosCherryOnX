@@ -74,11 +74,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
         title = L("orders.ui.title.youxiang-info")
         UIApplication.shared.statusBarStyle = .default
         
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.black] // Title color
+        setupNavigationBar()
         
         //Setup table view
         tableView.delegate = self
@@ -97,6 +93,20 @@ class OrdersYouxiangInfoViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.loadData()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     func loadData() {

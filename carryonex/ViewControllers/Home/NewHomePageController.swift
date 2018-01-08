@@ -209,8 +209,10 @@ class NewHomePageController: UIViewController {
             self?.loadUserProfile()
         }
         
+        AppDelegate.shared().startLoading()
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
+            AppDelegate.shared().stopLoading()
             
             if let topRequests = TripOrderDataStore.shared.getCardItems(), topRequests.count > 0 {
                 self?.userCardOne?.category = topRequests.first?.1
@@ -293,8 +295,9 @@ class NewHomePageController: UIViewController {
     
     private func setupOnboarding() {
         if UserDefaults.getHasSoptlightHome() {
-            return // TEST: comment this line to show onboarding alwasy
+            return // TEST: comment this line to show onboarding always for testing
         }
+        UserDefaults.setHasSpotlighHome(isFinished: true)
         let onboarding = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         present(onboarding, animated: true, completion: nil)
     }
