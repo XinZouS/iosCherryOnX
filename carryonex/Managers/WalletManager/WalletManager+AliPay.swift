@@ -43,12 +43,15 @@ enum AliPayResultStatus: String {
 //Ali Pay
 extension WalletManager {
     
-    func aliPayAuth(request: Request) {
+    func aliPayAuth(request: Request, completion:(() -> Void)?) {
         let userId = String(request.ownerId)
         let requestId = String(request.id)
         let total = String(format: "%.2f", (Double(request.priceBySender) / 100.0))
         
         ApiServers.shared.postWalletAliPay(totalAmount: total, userId: userId, requestId: requestId) { (orderString, error) in
+            
+            completion?()
+            
             if let error = error {
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
                 print("aliPayAuth: \(error.localizedDescription)")

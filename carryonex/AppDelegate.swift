@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var appToken : String? // singleton for app to login server
     static var timestamp: String?
     var deferredDeeplink: URL?
+    private var loadingView: GlobalLoadingView!
     
     static public func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -67,6 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.mainNavigationController = mainNavigationController
             self.mainTabViewController = mainNavigationController.childViewControllers[0] as? MainTabBarController
         }
+        
+        //Setup Loading View
+        setupGlobalLoadingView()
         
         return true
     }
@@ -290,9 +294,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    //MARK: Global Navigation
     
+    //MARK: Global Navigation
     public func handleMainNavigation(navigationSegue: MainNavigationSegue, sender: Any?) {
         mainTabViewController.handleMainNavigationSegue(segue: navigationSegue, sender: sender)
     }
+    
+    
+    //Mark: Global Loading
+    private func setupGlobalLoadingView() {
+        let loadingBackground = GlobalLoadingView(frame: UIScreen.main.bounds)
+        loadingBackground.alpha = 0.9
+        loadingBackground.backgroundColor = UIColor.carryon_loadingBackground
+        
+        let activityIndicator = BPCircleActivityIndicator()
+        activityIndicator.center = loadingBackground.center
+        loadingBackground.activityIndicator = activityIndicator
+        
+        loadingBackground.addSubview(activityIndicator)
+        loadingView = loadingBackground
+    }
+    
+    public func startLoading() {
+        
+        guard let topViewController = UIViewController.topViewController() else { return }
+        var loadingViewController = topViewController
+        if let navViewController = topViewController.navigationController {
+            loadingViewController = navViewController
+        }
+        
+        loadingViewController.view.addSubview(loadingView)
+        
+        if let view = loadingViewController.view {
+            loadingView.addConstraints(left: view.leftAnchor,
+                                        top: view.topAnchor,
+                                        right: view.rightAnchor,
+                                        bottom: view.bottomAnchor,
+                                        leftConstent: 0,
+                                        topConstent: 0,
+                                        rightConstent: 0,
+                                        bottomConstent: 0,
+                                        width: 0,
+                                        height: 0)
+            loadingView.activityIndicator.center = loadingView.center
+        }
+        
+        DispatchQueue.main.async {
+            self.loadingView.activityIndicator.animate()
+        }
+    }
+    
+    public func stopLoading() {
+        DispatchQueue.main.async {
+            self.loadingView.activityIndicator.stop()
+        }
+        loadingView?.removeFromSuperview()
+    }
+    
+}
+
+class GlobalLoadingView: UIView {
+    var activityIndicator: BPCircleActivityIndicator!
 }

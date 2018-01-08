@@ -28,6 +28,8 @@ extension UIColor {
     open class var carryon_payoutTransactionStatus: UIColor { return carryon_red }
     open class var carryon_normalTransactionStatus: UIColor { return carryon_textBlack }
     
+    open class var carryon_loadingBackground: UIColor { return carryon_darkGray }
+    
     //MARK: - Internal Color Scheme
     //status
     private class var carryon_teal: UIColor { return UIColor.rgb(128, 250, 235) }

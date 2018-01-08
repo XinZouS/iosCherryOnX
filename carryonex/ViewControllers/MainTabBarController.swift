@@ -51,7 +51,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         addObservers()
-        setupActivityIndicator()
+        //setupActivityIndicator()
         initialDataLoad()
         setupLocationManager()
         
@@ -147,8 +147,7 @@ class MainTabBarController: UITabBarController {
     //MARK: - Helpers
     
     private func initialDataLoad() {
-        self.circleIndicator.isHidden = false
-        self.circleIndicator.animate()
+        AppDelegate.shared().startLoading()
         ProfileManager.shared.loadLocalUser(completion: { (isSuccess) in
             
             if isSuccess {
@@ -159,9 +158,6 @@ class MainTabBarController: UITabBarController {
                     AppDelegate.shared().deferredDeeplink = nil
                 }
             }
-            
-            self.circleIndicator.isHidden = true
-            self.circleIndicator.stop()
         })
     }
     
@@ -219,8 +215,7 @@ class MainTabBarController: UITabBarController {
         }
         
         NotificationCenter.default.addObserver(forName: .UserDidUpdate, object: nil, queue: nil) { [weak self] _ in
-            self?.circleIndicator.stop()
-            self?.circleIndicator.isHidden = true
+            AppDelegate.shared().stopLoading()
             self?.locationManager.startUpdatingLocation()
         }
         

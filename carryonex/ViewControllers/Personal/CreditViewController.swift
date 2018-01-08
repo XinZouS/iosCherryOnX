@@ -62,6 +62,11 @@ class CreditViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
@@ -110,6 +115,7 @@ extension CreditViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? CreditCell else {
             return UITableViewCell()
         }
+        cell.selectionStyle = .none
         cell.transaction = dataSource[indexPath.row]
         
         return cell
