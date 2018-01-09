@@ -75,18 +75,27 @@ extension WalletManager {
         
         AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
             
-            if let result = result as? [String: Any]{
+            if let result = result as? [String: Any] {
                 print("aliPayHandleOrderUrl result: \(result)")
                 var isSuccess = false
-                if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
+                
+                let resultStatus = result["resultStatus"] as? String
+                let resultData = result["result"] as? String
+                
+                print("Result status: \(resultStatus)")
+                print("Result data: \(resultData)")
+                
+                if resultStatus == AliPayResultStatus.success.rawValue {
                     isSuccess = true
+                    print("Status code: \(resultStatus)")
                 }
+                
                 self.aliPayProcessOrderCallbackHandler(result: result)
                 AnalyticsManager.shared.finishTimeTrackingKey(.requestPayTime)
                 
                 //Validation
                 
-                if let responseResult = result["result"] as? [String: Any] {
+                if let responseResult = resultData, resultStatus == AliPayResultStatus.success.rawValue {
                     ApiServers.shared.postWalletAliPayValidation(response: responseResult,
                                                                  isSuccess: isSuccess,
                                                                  completion: { (success, error) in
@@ -97,7 +106,7 @@ extension WalletManager {
                                                                     print("Validation success")
                     })
                 } else {
-                    print("aliPayHandleOrderUrl unable to parse: \(result)")
+                    print("aliPayHandleOrderUrl not success, status code: \(resultStatus)")
                 }
                 
             } else {
