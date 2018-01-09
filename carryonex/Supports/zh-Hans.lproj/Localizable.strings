@@ -339,6 +339,7 @@
 "personal.confirm.message.send-body" = "你好";
 "personal.error.message.send-message" = "本设备不能发短信";
 "personal.ui.dateformat.comment" = "MM/dd/yyyy"; // 2018-01-09 Xin
+"personal.ui.title.my-comments" = "我的评价";
 "personal.ui.title.cash" = "提现";
 "personal.ui.title.credit" = "总收入"; // 2018-01-04 Xin
 "personal.ui.title.detail" = "收支明细"; // 2018-01-04 Xin

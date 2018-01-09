@@ -164,10 +164,8 @@ class NewHomePageController: UIViewController {
         }
         DispatchQueue.main.async {
             UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                self.orderTitleLabel.alpha = toShow ? 0 : 1
                 self.orderPlaceholderView.alpha = toShow ? 1 : 0
             }) { (complete) in
-                self.orderTitleLabel.isHidden = toShow
                 self.orderPlaceholderView.isHidden = !toShow
             }
         }
@@ -272,8 +270,9 @@ class NewHomePageController: UIViewController {
                     greeting = L("home.ui.greeting.morning")
                 }
             //}
-            let labelDisplay = greeting+currUserName
+            let labelDisplay = greeting + currUserName
             helloLabel.text = labelDisplay
+            helloLabel.textColor = .white
         }
     }
     
