@@ -41,15 +41,7 @@ extension WalletManager {
     
     private func wechatValidation(_ success: Bool) {
         if let order = self.lastOrder {
-            let validationObject: [String: Any] = ["timestamp": order.timestamp,
-                                                   "prepayId": order.prepayId,
-                                                   "result_code": success ? "SUCCESS" : "FAILED",
-                                                   "appid": order.appId,
-                                                   "sign": order.sign,
-                                                   "nonceStr": order.nonceStr,
-                                                   "partnerid": order.partnerId]
-            
-            ApiServers.shared.postWalletWXVerify(verifyData: validationObject, completion: { (success, error) in
+            ApiServers.shared.postWalletWXVerify(order: order, isSuccess: success, completion: { (success, error) in
                 if let error = error {
                     debugPrint("WX Validation Error: \(error.localizedDescription)")
                     return
@@ -97,6 +89,7 @@ enum WXOrderKey: String {
     case sign = "sign"
     case prepayId = "prepayid"
     case timestamp = "timestamp"
+    case outTradeNo = "out_trade_no"
 }
 
 struct WXOrder {
@@ -107,6 +100,7 @@ struct WXOrder {
     let sign: String
     let prepayId: String
     let timestamp: Int
+    let outTradeNo: String
 }
 
 extension WXOrder: Unboxable {
@@ -118,5 +112,6 @@ extension WXOrder: Unboxable {
         self.sign = try unboxer.unbox(key: WXOrderKey.sign.rawValue)
         self.prepayId = try unboxer.unbox(key: WXOrderKey.prepayId.rawValue)
         self.timestamp = try unboxer.unbox(key: WXOrderKey.timestamp.rawValue)
+        self.outTradeNo = try unboxer.unbox(key: WXOrderKey.outTradeNo.rawValue)
     }
 }

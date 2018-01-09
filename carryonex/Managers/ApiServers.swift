@@ -1530,7 +1530,7 @@ class ApiServers : NSObject {
     
     
     //WXPay
-    func postWalletWXVerify(verifyData: [String: Any], completion:((Bool, Error?) -> Void)?) {
+    func postWalletWXVerify(order: WXOrder, isSuccess: Bool, completion:((Bool, Error?) -> Void)?) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             debugLog("Profile user empty, please login to get user's id")
@@ -1540,13 +1540,23 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/wallets/wxpay/frontendverify"
         
+        let validationData: [String: Any] = ["timestamp": order.timestamp,
+                                               "prepayId": order.prepayId,
+                                               "result_code": isSuccess ? "SUCCESS" : "FAILED",
+                                               "appid": order.appId,
+                                               "sign": order.sign,
+                                               "nonceStr": order.nonceStr,
+                                               "partnerid": order.partnerId,
+                                               "package": order.package,
+                                               "out_trade_no": order.outTradeNo]
+        
         let timestamp = Date.getTimestampNow()
         let parameters: [String: Any] = [
             ServerKey.appToken.rawValue : appToken,
             ServerKey.userToken.rawValue: profileUser.token ?? "",
             ServerKey.username.rawValue: profileUser.username ?? "",
             ServerKey.timestamp.rawValue: timestamp,
-            ServerKey.data.rawValue: verifyData
+            ServerKey.data.rawValue: validationData
         ]
         
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
