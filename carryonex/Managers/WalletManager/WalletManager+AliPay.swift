@@ -76,7 +76,7 @@ extension WalletManager {
         AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
             
             if let result = result as? [String: Any]{
-                print("Result Dict: \(result)")
+                print("aliPayHandleOrderUrl result: \(result)")
                 var isSuccess = false
                 if let statusCode = result["resultStatus"] as? Int, statusCode == Int(AliPayResultStatus.success.rawValue) {
                     isSuccess = true
@@ -99,9 +99,12 @@ extension WalletManager {
                                                                     }
                                                                     print("Validation success")
                     })
+                } else {
+                    print("aliPayHandleOrderUrl unable to parse: \(result)")
                 }
                 
             } else {
+                print("aliPayHandleOrderUrl error")
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
             }
             
