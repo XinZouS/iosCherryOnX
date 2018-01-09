@@ -90,6 +90,16 @@ class Request: Unboxable, Identifiable {
         return String(format:"%.2f", Double(priceBySender) / 100)
     }
     
+    func priceStdString() -> String {
+        let std = priceStd ?? 0
+        let ratio = (Double(priceBySender) / Double(std)) - 1.0
+        if ratio > -1.0 && ratio < 1.0 {
+            return L("orders.ui.title.ratio-standard")
+        }
+        let judgeString = ratio < 0.0 ? L("orders.ui.title.ratio-lower") : L("orders.ui.title.ratio-heigher")
+        return judgeString + L("orders.ui.title.ratio-standard") + String(format:"%.1f", abs(ratio)) + "%"
+    }
+        
     func itemValue() -> String {
         return String(format:"%.2f", Double(totalValue) / 100)
     }

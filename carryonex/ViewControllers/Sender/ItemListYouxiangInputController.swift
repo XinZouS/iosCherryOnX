@@ -71,6 +71,7 @@ class ItemListYouxiangInputController: UIViewController {
         
         UIApplication.shared.statusBarStyle = .lightContent
         title = L("sender.ui.title.new-request")
+        navigationController?.navigationBar.backItem?.title = " "
         youxiangcodeTextField.becomeFirstResponder()
     }
     
@@ -81,6 +82,7 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupNavigationBar(){
+        title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true
@@ -95,6 +97,7 @@ class ItemListYouxiangInputController: UIViewController {
         youxiangcodeTextField.clearButtonMode = .never
         youxiangcodeTextField.placeholder = L("sender.ui.placeholder.new-code")
         youxiangcodeTextField.textColor = .white
+        youxiangcodeTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
     private func setupActivityIndicator(){
@@ -198,12 +201,15 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let t = textField.text, t.count >= 5 {
+        return true
+    }
+    
+    func textFieldDidChanged(_ textField: UITextField) {
+        if let t = textField.text, t.count > 5 {
             goDetailButton.isHidden = false
         }else{
             goDetailButton.isHidden = true
         }
-        return true
     }
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {

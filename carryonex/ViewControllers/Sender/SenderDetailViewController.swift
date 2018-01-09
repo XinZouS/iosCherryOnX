@@ -140,9 +140,6 @@ class SenderDetailViewController: UIViewController{
         let prePayVal: Double = pricePrePaySwitch.isOn ? priceShipFee : 0.0
         priceFinal = currVal + prePayVal
         priceValueTextField.resignFirstResponder()
-        //let pc2 = (priceFinal - priceMiddl) * 100.0 / priceMiddl
-        //let lv2 = pc2 < 0 ? "低于" : "高于"
-        //priceFinalHintLabel.text = lv2 + "标准价\(Int(pc2))%"
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
@@ -468,6 +465,7 @@ class SenderDetailViewController: UIViewController{
                 let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
                 let totalValue = Double(strongSelf.priceShipFee)
                 let cost = strongSelf.priceFinal
+                let stdPrice = strongSelf.priceMiddl
                 address.recipientName = name
                 address.phoneNumber = strongSelf.zoneCodeInput + phone
                 address.detailedAddress = destAddressStr
@@ -475,6 +473,7 @@ class SenderDetailViewController: UIViewController{
                 strongSelf.isLoading = true
                 ApiServers.shared.postRequest(totalValue: totalValue,
                                               cost: cost,
+                                              stdPrice: stdPrice,
                                               destination: address,
                                               trip: trip,
                                               imageUrls: imgUrls,

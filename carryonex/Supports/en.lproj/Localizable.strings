@@ -252,6 +252,7 @@
 "orders.ui.title.view-comments-p1" = "查看"; // 2018-01-08 - Xin [查看]34条评价
 "orders.ui.title.view-comments-p2" = "条评价"; // 2018-01-08 - Xin 查看34[条评价]
 "orders.ui.title.youxiang-info" = "游箱信息";
+"orders.ui.title.currency-type" = "￥"; // 2018-01-09 Xin
 "orders.ui.message.request-image-count" = "张";
 "orders.confirm.title.submit" = "确认提交";
 "orders.ui.title.order-request-detail" = "订单详情";
@@ -261,6 +262,10 @@
 "orders.ui.title.youxiang-code" = "游箱号"; // 2018-0103 Xin
 "orders.ui.title.income" = "寄件价格"; // 2018-0103 Xin
 "orders.ui.title.item-value" = "物品价值"; // 2018-0103 Xin
+"orders.ui.title.ratio-heigher" = "高于"; // 2018-01-09 Xin
+"orders.ui.title.ratio-lower" = "低于"; // 2018-01-09 Xin
+"orders.ui.title.ratio-standard" = "标准价"; // 2018-01-09 Xin
+"orders.ui.title.shipping-fee" = "订单费用"; // 2018-01-09 Xin
 "orders.ui.placeholder.note-empty" = "TA还没有写留言";
 "orders.ui.placeholder.note-msg" = "留言：";
 "orders.confirm.title.payment" = "支付成功";

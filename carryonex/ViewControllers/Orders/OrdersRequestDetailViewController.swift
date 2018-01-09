@@ -25,7 +25,9 @@ class OrdersRequestDetailViewController: UIViewController {
     // trip info
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
+    @IBOutlet weak var shippingFeeTitleLabel: UILabel!
     @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var incomeHintLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
@@ -368,6 +370,8 @@ class OrdersRequestDetailViewController: UIViewController {
         }
         
         incomeLabel.text = currency.rawValue + request.priceString()
+        incomeHintLabel.text = "\(request.priceStd ?? 0)" //priceRatioString(itemValue: request.totalValue, priceBySender: request.priceBySender)
+        shippingFeeTitleLabel.text = L("orders.ui.title.shipping-fee")
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
@@ -499,6 +503,7 @@ class OrdersRequestDetailViewController: UIViewController {
         checkAlipay?.setCheckState(aliState, animated: true)
         checkWechat?.setCheckState(wechatState, animated: true)
     }
+    
 }
 
 

@@ -934,6 +934,7 @@ class ApiServers : NSObject {
     /// completion: (success:Bool, error:Error, errCode:ServerErrorCode)
     func postRequest(totalValue: Double,
                      cost: Double,
+                     stdPrice: Double,
                      destination: Address,
                      trip: Trip,
                      imageUrls: [String],
@@ -953,6 +954,7 @@ class ApiServers : NSObject {
             RequestKeyInDB.tripId.rawValue: trip.id,
             RequestKeyInDB.totalValue.rawValue: Int(totalValue * 100),
             RequestKeyInDB.priceBySender.rawValue: Int(cost * 100),
+            RequestKeyInDB.priceStd.rawValue: Int(stdPrice * 100),
             RequestKeyInDB.note.rawValue: description
         ]
         
