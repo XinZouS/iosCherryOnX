@@ -43,7 +43,7 @@ extension WalletManager {
         if let order = self.lastOrder {
             let validationObject: [String: Any] = ["timestamp": order.timestamp,
                                                    "prepayId": order.prepayId,
-                                                   "status": success ? "SUCCESS" : "FAILED",
+                                                   "result_code": success ? "SUCCESS" : "FAILED",
                                                    "appid": order.appId,
                                                    "sign": order.sign,
                                                    "nonceStr": order.nonceStr,
