@@ -51,10 +51,16 @@ enum TransactionStatus: Int {
     }
     
     func displayColor() -> UIColor {
-        if self == .payoutDone {
-            return UIColor.carryon_payoutTransactionStatus
+        switch self {
+        case .incomeDone:
+            return UIColor.carryon_income
+        case .incomePending, .paymentPending:
+            return UIColor.carryon_pending
+        case .payoutDone:
+            return UIColor.carryon_payout
+        default:
+            return UIColor.carryon_normalText
         }
-        return UIColor.carryon_normalTransactionStatus
     }
 }
 
