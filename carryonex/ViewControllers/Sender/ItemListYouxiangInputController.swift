@@ -31,6 +31,8 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     let segueIdSenderDetailInfo = "goToSenderDetailInfoPage"
+    let segueRequestTripVC = "RequestSegue"
+    
     var activityIndicator: BPCircleActivityIndicator!
     var isLoading: Bool = false {
         didSet{
@@ -68,6 +70,7 @@ class ItemListYouxiangInputController: UIViewController {
         super.viewDidAppear(animated)
         
         UIApplication.shared.statusBarStyle = .lightContent
+        title = L("sender.ui.title.new-request")
         youxiangcodeTextField.becomeFirstResponder()
     }
     
@@ -78,7 +81,6 @@ class ItemListYouxiangInputController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true
@@ -107,13 +109,20 @@ class ItemListYouxiangInputController: UIViewController {
         if identifier == segueIdSenderDetailInfo {
             return sender != nil
         }
+        if identifier == segueRequestTripVC {
+            return sender != nil
+        }
         return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let infoVC = segue.destination as? SenderDetailViewController,
-            let tp = sender as? Trip {
-            infoVC.trip = tp
+        //if let infoVC = segue.destination as? SenderDetailViewController,
+        //    let tp = sender as? Trip {
+        //    infoVC.trip = tp
+        //} use a new VC to display trip info before enter the SenderDetailVC:
+        if let reqVC = segue.destination as? RequestTripViewController, let tp = sender as? Trip {
+            title = " "
+            reqVC.trip = tp
         }
     }
     
@@ -157,8 +166,8 @@ class ItemListYouxiangInputController: UIViewController {
                         self.resetTextField()
                         return
                     }
-                    
-                    self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
+                    //self.performSegue(withIdentifier: "goToSenderDetailInfoPage", sender: trip)
+                    self.performSegue(withIdentifier: self.segueRequestTripVC, sender: trip)
                 }
                 
             } else {
@@ -189,7 +198,7 @@ extension ItemListYouxiangInputController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let t = textField.text, t.count > 2 {
+        if let t = textField.text, t.count >= 5 {
             goDetailButton.isHidden = false
         }else{
             goDetailButton.isHidden = true

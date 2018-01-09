@@ -94,6 +94,7 @@
                         <outlet property="goDetailButton" destination="XXV-IG-2gI" id="lhn-Bf-kX6"/>
                         <outlet property="youxiangcodeTextField" destination="bwx-eX-FB1" id="dfc-kq-GYP"/>
                         <segue destination="oMI-QC-oIz" kind="show" identifier="goToSenderDetailInfoPage" id="7rd-4A-EhO"/>
+                        <segue destination="aEe-yG-WiM" kind="show" identifier="RequestSegue" id="Bl0-z5-FzY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3QA-4S-1pf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -106,7 +107,15 @@
                 <viewControllerPlaceholder storyboardName="SenderDetailInfo" id="oMI-QC-oIz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sL1-7h-Cnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1068" y="167"/>
+            <point key="canvasLocation" x="1402" y="166"/>
+        </scene>
+        <!--Request-->
+        <scene sceneID="TsA-83-Sov">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Request" id="aEe-yG-WiM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5F4-jA-2EZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1083" y="124"/>
         </scene>
     </scenes>
     <resources>
