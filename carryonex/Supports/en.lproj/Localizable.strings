@@ -331,14 +331,14 @@
 "personal.ui.title.gender-other" = "其他";
 "personal.ui.placeholder.comment" = "暂时没有来自别人的评论";
 "personal.ui.title.shiperinfo-comments" = "用户评价";
-"personal.ui.title.comments-all-p1" = "总共";
+"personal.ui.title.comments-all-p1" = "共";
 "personal.ui.title.comments-all-p2" = "条评价";
 "personal.confirm.title.send-message" = "发短信";
 "personal.confirm.message.send-message-p1" = "是否给";
 "personal.confirm.message.send-message-p2" = "发送短信?";
 "personal.confirm.message.send-body" = "你好";
 "personal.error.message.send-message" = "本设备不能发短信";
-"personal.ui.dateformat.cn" = "yyyy年MM日dd日";
+"personal.ui.dateformat.comment" = "MM/dd/yyyy"; // 2018-01-09 Xin
 "personal.ui.title.my-comments" = "我的评价";
 "personal.ui.title.cash" = "提现";
 "personal.ui.title.credit" = "总收入"; // 2018-01-04 Xin

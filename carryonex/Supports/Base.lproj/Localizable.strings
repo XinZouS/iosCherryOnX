@@ -338,7 +338,7 @@
 "personal.confirm.message.send-message-p2" = "";
 "personal.confirm.message.send-body" = "Hi";
 "personal.error.message.send-message" = "Unable to send WeChat message on this device.";
-"personal.ui.dateformat.cn" = "MM-dd-yyyy";
+"personal.ui.dateformat.comment" = "MM/dd/yyyy"; // 2018-01-09 Xin
 "personal.ui.title.my-comments" = "My Comments";
 "personal.ui.title.cash" = "Cash Available";
 "personal.ui.title.credit" = "Credit"; // 2018-01-04 Xin
