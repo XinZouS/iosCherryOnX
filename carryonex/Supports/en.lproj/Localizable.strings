@@ -117,7 +117,6 @@
 "sender.ui.sessiontitle.item-photos" = "货物清晰照";
 "sender.ui.sessiontitle.item-shipfee" = "运货费用";
 "sender.ui.currencytype.unit" = "元";
-"sender.ui.title.new-request" = "发货请求";
 "sender.error.title.info" = "信息不足";
 "sender.error.message.recipient" = "请填写收件人姓名";
 "sender.error.message.phone" = "请填写手机号";

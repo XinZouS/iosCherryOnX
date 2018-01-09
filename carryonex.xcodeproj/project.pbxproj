@@ -72,6 +72,7 @@
 		665DE4FA1F3A0B70004DDB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665DE4F81F3A0B70004DDB88 /* LaunchScreen.storyboard */; };
 		667810651FBB48F100E1880E /* PhoneNumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667810641FBB48F100E1880E /* PhoneNumViewController.swift */; };
 		6691BAA81FED974100B98BDF /* BPCircleActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */; };
+		6696D19F20053E640045F91E /* RequestTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6696D19E20053E640045F91E /* RequestTripViewController.swift */; };
 		66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */; };
 		66A142DF1FD7461A0067EBDA /* AlipayCashExtractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */; };
 		66A573D91FF5759300DF3656 /* RegistrationSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A573D81FF5759300DF3656 /* RegistrationSuccessViewController.swift */; };
@@ -261,6 +262,7 @@
 		665DE4FB1F3A0B70004DDB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		667810641FBB48F100E1880E /* PhoneNumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumViewController.swift; sourceTree = "<group>"; };
 		6691BAA71FED974100B98BDF /* BPCircleActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPCircleActivityIndicator.swift; sourceTree = "<group>"; };
+		6696D19E20053E640045F91E /* RequestTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTripViewController.swift; sourceTree = "<group>"; };
 		66A142DC1FD73DFD0067EBDA /* AlipayCashExtract.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlipayCashExtract.storyboard; sourceTree = "<group>"; };
 		66A142DE1FD7461A0067EBDA /* AlipayCashExtractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlipayCashExtractViewController.swift; sourceTree = "<group>"; };
 		66A573D81FF5759300DF3656 /* RegistrationSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationSuccessViewController.swift; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				FF7C8D9E1FA39A1E00879165 /* ItemListYouxiangInputController.swift */,
+				6696D19E20053E640045F91E /* RequestTripViewController.swift */,
 				660ABC5E1FC359BB00B81076 /* SenderDetailViewController.swift */,
 			);
 			path = Sender;
@@ -1219,6 +1222,7 @@
 				FFB0D8B51FD5B76600573720 /* UIAlertController++App.swift in Sources */,
 				E5A2A7991FE2E57100A51BDC /* CheckingAccount.swift in Sources */,
 				E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */,
+				6696D19F20053E640045F91E /* RequestTripViewController.swift in Sources */,
 				E5A2A79E1FE2E57100A51BDC /* TripRequest.swift in Sources */,
 				E5A2A7B21FE2E5B300A51BDC /* UIViewController++.swift in Sources */,
 				E542F2741FB6053D0072BB31 /* (null) in Sources */,

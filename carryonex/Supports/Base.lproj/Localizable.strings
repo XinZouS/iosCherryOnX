@@ -117,7 +117,6 @@
 "sender.ui.sessiontitle.item-photos" = "Item pictures";
 "sender.ui.sessiontitle.item-shipfee" = "Shipping fee";
 "sender.ui.currencytype.unit" = "Dollor";
-"sender.ui.title.new-request" = "New Request";
 "sender.error.title.info" = "Insufficient Information";
 "sender.error.message.recipient" = "Please enter recipient's name.";
 "sender.error.message.phone" = "Please enter phone number.";
