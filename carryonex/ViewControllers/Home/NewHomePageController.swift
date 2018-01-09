@@ -77,6 +77,7 @@ class NewHomePageController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.navigationBar.backItem?.title = " "
         setupUserImageView()
         //checkForUpdate()
         //setupSportlight() // put it here, instead of viewDidLoad, will get correct frame
@@ -185,7 +186,7 @@ class NewHomePageController: UIViewController {
             UIApplication.shared.statusBarStyle = .default
             
         case .noon:
-            helloLabel.textColor = .black
+            helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.noonA
             endColor = UIColor.MyTheme.noonB
             UIApplication.shared.statusBarStyle = .default
