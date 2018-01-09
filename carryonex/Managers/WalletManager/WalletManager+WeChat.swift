@@ -29,6 +29,29 @@ enum WechatResultStatus: Int {
 //WeChat
 extension WalletManager {
     
+    func initializeWeChatWallet() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PaySuccess, object: nil, queue: nil) { [weak self] (notification) in
+            self?.wechatValidation(true)
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
+            self?.wechatValidation(false)
+        }
+    }
+    
+    private func wechatValidation(_ success: Bool) {
+        if let order = self.lastOrder {
+            ApiServers.shared.postWalletWXVerify(order: order, isSuccess: success, completion: { (success, error) in
+                if let error = error {
+                    debugPrint("WX Validation Error: \(error.localizedDescription)")
+                    return
+                }
+                debugPrint("WX Validation successful")
+                self.lastOrder = nil
+            })
+        }
+    }
+    
     func wechatPayAuth(request: Request, completion:(() -> Void)?) {
         
         ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error) in
@@ -42,8 +65,6 @@ extension WalletManager {
                 return
             }
             
-            self.processingPackage = wxOrder.prepayId
-            
             let request = PayReq()
             request.openID = wxOrder.appId
             request.partnerId = wxOrder.partnerId
@@ -52,6 +73,9 @@ extension WalletManager {
             request.nonceStr = wxOrder.nonceStr
             request.timeStamp = UInt32(wxOrder.timestamp)
             request.sign = wxOrder.sign
+            
+            self.lastOrder = wxOrder
+            
             WXApi.send(request)
         }
     }
@@ -65,6 +89,7 @@ enum WXOrderKey: String {
     case sign = "sign"
     case prepayId = "prepayid"
     case timestamp = "timestamp"
+    case outTradeNo = "out_trade_no"
 }
 
 struct WXOrder {
@@ -75,6 +100,7 @@ struct WXOrder {
     let sign: String
     let prepayId: String
     let timestamp: Int
+    let outTradeNo: String
 }
 
 extension WXOrder: Unboxable {
@@ -86,5 +112,6 @@ extension WXOrder: Unboxable {
         self.sign = try unboxer.unbox(key: WXOrderKey.sign.rawValue)
         self.prepayId = try unboxer.unbox(key: WXOrderKey.prepayId.rawValue)
         self.timestamp = try unboxer.unbox(key: WXOrderKey.timestamp.rawValue)
+        self.outTradeNo = try unboxer.unbox(key: WXOrderKey.outTradeNo.rawValue)
     }
 }

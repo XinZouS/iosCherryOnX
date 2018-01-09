@@ -17,6 +17,13 @@ class WalletManager: NSObject {
     weak var delegate: WalletStripeDelegate?
     
     //Wechat
-    var processingPackage: String?
+    var lastOrder: WXOrder?
+    
+    override init() {
+        super.init()
+        initializeWeChatWallet()
+    }
 }
+
+
 
