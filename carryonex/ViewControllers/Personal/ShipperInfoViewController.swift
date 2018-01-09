@@ -60,6 +60,11 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         setupView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+
     private func setupIndicator(){
         circleIndicator = BPCircleActivityIndicator()
         circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)

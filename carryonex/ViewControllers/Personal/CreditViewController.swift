@@ -50,7 +50,6 @@ class CreditViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .default
         tableView.tableFooterView = UIView()
         setupNavigationBar()
         setupViewContents()
@@ -71,6 +70,7 @@ class CreditViewController: UIViewController {
         super.viewDidAppear(animated)
         // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
         setupGradientLayer()
+        UIApplication.shared.statusBarStyle = .default
         AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
