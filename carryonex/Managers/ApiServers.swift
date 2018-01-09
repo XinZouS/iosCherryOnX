@@ -1385,7 +1385,7 @@ class ApiServers : NSObject {
         }
     }
     
-    func postWalletAliPayValidation(response: [String: Any], isSuccess: Bool, completion: ((Bool, Error?) -> Void)?) {
+    func postWalletAliPayValidation(response: String, isSuccess: Bool, completion: ((Bool, Error?) -> Void)?) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             debugLog("Profile user empty, pleaes login to get user's id")
@@ -1395,7 +1395,12 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/wallets/alipay/verify"
         
-        var requestDict: [String: Any] = response
+        guard let validationData = response.convertToDictionary() else {
+            print("Unable to convert response to proper format")
+            return
+        }
+        
+        var requestDict = validationData
         
         if isSuccess {
             requestDict["trade_status"] = "TRADE_SUCCESS"
