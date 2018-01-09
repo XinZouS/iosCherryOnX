@@ -1528,6 +1528,47 @@ class ApiServers : NSObject {
         }
     }
     
+    
+    //WXPay
+    func postWalletWXVerify(verifyData: [String: Any], completion:((Bool, Error?) -> Void)?) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            debugLog("Profile user empty, please login to get user's id")
+            completion?(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/wallets/wxpay/frontendverify"
+        
+        let timestamp = Date.getTimestampNow()
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: timestamp,
+            ServerKey.data.rawValue: verifyData
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("postWalletWXVerify update response error: \(error.localizedDescription)")
+                    completion?(false, error)
+                }
+                return
+            }
+            
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
+                print("postWalletWXVerify update success")
+                completion?(true, nil)
+            } else {
+                print("postWalletWXVerify update failed")
+                completion?(false, nil)
+            }
+        }
+    }
+    
+    
     // MARK: - basic GET and POST by url
     /**
      * ✅ get data with url string, return NULL, try with Alamofire and callback

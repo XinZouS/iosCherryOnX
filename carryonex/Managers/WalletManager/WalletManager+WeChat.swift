@@ -29,6 +29,37 @@ enum WechatResultStatus: Int {
 //WeChat
 extension WalletManager {
     
+    func initializeWeChatWallet() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PaySuccess, object: nil, queue: nil) { [weak self] (notification) in
+            self?.wechatValidation(true)
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
+            self?.wechatValidation(false)
+        }
+    }
+    
+    private func wechatValidation(_ success: Bool) {
+        if let order = self.lastOrder {
+            let validationObject: [String: Any] = ["timestamp": order.timestamp,
+                                                   "prepayId": order.prepayId,
+                                                   "status": success ? "SUCCESS" : "FAILED",
+                                                   "appid": order.appId,
+                                                   "sign": order.sign,
+                                                   "nonceStr": order.nonceStr,
+                                                   "partnerid": order.partnerId]
+            
+            ApiServers.shared.postWalletWXVerify(verifyData: validationObject, completion: { (success, error) in
+                if let error = error {
+                    debugPrint("WX Validation Error: \(error.localizedDescription)")
+                    return
+                }
+                debugPrint("WX Validation successful")
+                self.lastOrder = nil
+            })
+        }
+    }
+    
     func wechatPayAuth(request: Request, completion:(() -> Void)?) {
         
         ApiServers.shared.postWalletWXPay(totalAmount: request.priceBySender, userId: request.ownerId, requestId: request.id) { (wxOrder, error) in
@@ -42,8 +73,6 @@ extension WalletManager {
                 return
             }
             
-            self.processingPackage = wxOrder.prepayId
-            
             let request = PayReq()
             request.openID = wxOrder.appId
             request.partnerId = wxOrder.partnerId
@@ -52,6 +81,9 @@ extension WalletManager {
             request.nonceStr = wxOrder.nonceStr
             request.timeStamp = UInt32(wxOrder.timestamp)
             request.sign = wxOrder.sign
+            
+            self.lastOrder = wxOrder
+            
             WXApi.send(request)
         }
     }
