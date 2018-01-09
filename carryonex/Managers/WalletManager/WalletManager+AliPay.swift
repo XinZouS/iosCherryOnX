@@ -86,11 +86,8 @@ extension WalletManager {
                 
                 //Validation
                 
-                if let responseResult = result["result"] as? [String: Any],
-                    let response = responseResult["alipay_trade_app_pay_response"] as? [String: Any],
-                    let sign = responseResult["sign"] as? String {
-                    ApiServers.shared.postWalletAliPayValidation(response: response,
-                                                                 sign: sign,
+                if let responseResult = result["result"] as? [String: Any] {
+                    ApiServers.shared.postWalletAliPayValidation(response: responseResult,
                                                                  isSuccess: isSuccess,
                                                                  completion: { (success, error) in
                                                                     if let error = error {
