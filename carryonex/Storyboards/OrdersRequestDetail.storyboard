@@ -183,7 +183,7 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i4c-mg-oD6">
-                                                <rect key="frame" x="24" y="278" width="95" height="54"/>
+                                                <rect key="frame" x="24" y="278" width="106" height="54"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -204,7 +204,7 @@
                                                 <rect key="frame" x="24" y="275" width="311" height="60"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iWD-qj-ukX">
-                                                        <rect key="frame" x="3" y="3" width="305" height="54"/>
+                                                        <rect key="frame" x="6" y="3" width="299" height="54"/>
                                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="5" id="khx-5s-BS3">
                                                             <size key="itemSize" width="40" height="40"/>
@@ -214,13 +214,13 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoBrowserCollectionViewCell" id="tNm-2A-ZCU">
-                                                                <rect key="frame" x="0.0" y="1" width="52" height="52"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </view>
-                                                                <size key="customSize" width="52" height="52"/>
+                                                                <size key="customSize" width="54" height="54"/>
                                                             </collectionViewCell>
                                                         </cells>
                                                         <userDefinedRuntimeAttributes>
@@ -243,7 +243,7 @@
                                                     <constraint firstItem="iWD-qj-ukX" firstAttribute="height" secondItem="0EB-Pg-L9C" secondAttribute="height" multiplier="0.9" id="93p-J0-mnQ"/>
                                                     <constraint firstAttribute="height" constant="60" id="UIP-UP-BV0"/>
                                                     <constraint firstItem="iWD-qj-ukX" firstAttribute="centerX" secondItem="0EB-Pg-L9C" secondAttribute="centerX" id="Xq2-kz-ZC2"/>
-                                                    <constraint firstItem="iWD-qj-ukX" firstAttribute="width" secondItem="0EB-Pg-L9C" secondAttribute="width" multiplier="0.98" id="qlR-7D-ynQ"/>
+                                                    <constraint firstItem="iWD-qj-ukX" firstAttribute="width" secondItem="0EB-Pg-L9C" secondAttribute="width" multiplier="0.96" id="qlR-7D-ynQ"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -258,7 +258,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdy-IV-3gE">
-                                                <rect key="frame" x="124" y="275" width="211" height="60"/>
+                                                <rect key="frame" x="135" y="275" width="200" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物品价值" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cel-Jl-VHJ">
                                                         <rect key="frame" x="80" y="3" width="80" height="26"/>
@@ -300,7 +300,7 @@
                                                     </constraint>
                                                     <constraint firstAttribute="bottom" secondItem="hDn-7Q-gxw" secondAttribute="bottom" id="Joy-vx-uAn"/>
                                                     <constraint firstItem="akV-ax-hDm" firstAttribute="leading" secondItem="Jdy-IV-3gE" secondAttribute="leading" constant="10" id="LvM-GP-erN"/>
-                                                    <constraint firstAttribute="width" constant="211" id="ZiI-8l-6EA"/>
+                                                    <constraint firstAttribute="width" constant="200" id="ZiI-8l-6EA"/>
                                                     <constraint firstItem="akV-ax-hDm" firstAttribute="centerY" secondItem="Jdy-IV-3gE" secondAttribute="centerY" id="gAt-zD-DmL"/>
                                                     <constraint firstItem="cel-Jl-VHJ" firstAttribute="leading" secondItem="hDn-7Q-gxw" secondAttribute="leading" id="gfm-hb-8qy"/>
                                                     <constraint firstItem="cel-Jl-VHJ" firstAttribute="top" secondItem="Jdy-IV-3gE" secondAttribute="top" constant="3" id="zKd-1P-4Ya"/>
