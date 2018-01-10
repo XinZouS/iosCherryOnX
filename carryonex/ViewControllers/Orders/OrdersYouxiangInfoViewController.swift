@@ -72,7 +72,6 @@ class OrdersYouxiangInfoViewController: UIViewController {
         super.viewDidLoad()
         
         title = L("orders.ui.title.youxiang-info")
-        UIApplication.shared.statusBarStyle = .default
         
         setupNavigationBar()
         
@@ -98,6 +97,11 @@ class OrdersYouxiangInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     private func setupNavigationBar(){
