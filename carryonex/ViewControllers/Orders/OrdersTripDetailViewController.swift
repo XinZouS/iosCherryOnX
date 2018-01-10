@@ -413,8 +413,14 @@ class OrdersTripDetailViewController: UIViewController {
     private func messageAttributeText(msg: String?) -> NSAttributedString {
         let m = msg ?? L("orders.ui.placeholder.note-empty")
         let title = L("orders.ui.placeholder.note-msg")
-        let titleAtt = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
-        let msgAtt = NSMutableAttributedString(string: (m.isEmpty ? L("orders.ui.placeholder.note-empty") : m), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+        let titleAtt = NSMutableAttributedString(string: title, attributes: [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
+            NSForegroundColorAttributeName: colorTextBlack
+        ])
+        let msgAtt = NSMutableAttributedString(string: (m.isEmpty ? L("orders.ui.placeholder.note-empty") : m), attributes: [
+            NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+            NSForegroundColorAttributeName: colorTextBlack
+        ])
         titleAtt.append(msgAtt)
         return titleAtt
     }

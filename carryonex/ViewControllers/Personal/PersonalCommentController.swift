@@ -179,7 +179,7 @@ extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
             
             if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
                 let dateFormat = DateFormatter()
-                dateFormat.dateFormat = L("personal.ui.dateformat.cn")
+                dateFormat.dateFormat = L("personal.ui.dateformat.comment")
                 let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
                 cell.timeLabel.text = dateFormat.string(from: date)
             }
