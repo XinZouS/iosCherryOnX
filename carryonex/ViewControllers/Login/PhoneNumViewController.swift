@@ -151,7 +151,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             
             if let error = error {
                 self.isLoading = false
-                print("getIsUserExisted error: \(error.localizedDescription)")
+                DLog("getIsUserExisted error: \(error.localizedDescription)")
                 return
             }
             if isExist {
@@ -173,7 +173,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     
     private func modifyUserPhoneNum(_ newPhone: String){
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("nextButtonTapped error: Profile has no current user")
+            DLog("nextButtonTapped error: Profile has no current user")
             return
         }
         phoneInput = profileUser.phone ?? ""
@@ -192,7 +192,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
         SMSSDK.getVerificationCode(by: SMSGetCodeMethodSMS, phoneNumber: phoneInput, zone: zoneCodeInput, result: { (err) in
             self.isLoading = false
             if let err = err {
-                print("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
+                DLog("PhoneNumViewController: lgoin有错误: \(String(describing: err))")
                 self.displayGlobalAlert(title: L("register.error.title.get-verify-code"), message: L("register.error.message.get-verify-code"), action: L("action.ok"), completion: nil)
                 return
             }
@@ -254,7 +254,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
     func dismissAndReturnToHomePage(){
         self.navigationController?.popToRootViewController(animated: false)
         self.dismiss(animated: true) {
-            print("go back to home page.")
+            DLog("go back to home page.")
         }
     }
     
@@ -302,7 +302,7 @@ extension PhoneNumViewController: UITextFieldDelegate {
         sendButton.backgroundColor = sendButton.isEnabled ? colorTheamRed : .lightGray
         
         //let msg = isFormatOK ? "电话格式正确" : "电话格式有误"
-        //print(msg + ": \(zoneCodeInput) \(phoneInput)")
+        //DLog(msg + ": \(zoneCodeInput) \(phoneInput)")
     }
     
     private func updateNextButton(){
@@ -376,14 +376,13 @@ extension PhoneNumViewController {
                 let result = key1.compare(key2) == .orderedAscending
                 return result
             }
-            print(keysValue)
             
             for key in keysValue {
                 let countryKeyValue = CountryNameWithCode()
-                print(countryDictionary[key] ?? "not")
+                DLog(countryDictionary[key] ?? "not")
                 countryKeyValue.countryCode = countryDictionary[key]!
                 countryKeyValue.countryName = Locale.current.localizedString(forRegionCode: key)!
-                print(Locale.current.localizedString(forRegionCode: key)!)
+                DLog(Locale.current.localizedString(forRegionCode: key)!)
                 countryWithCode.append(countryKeyValue)
             }
         }

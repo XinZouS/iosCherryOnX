@@ -76,7 +76,7 @@ class TripCompletedController : UIViewController{
             }
             self.present(sharingAlertVC, animated: true, completion: nil)
         } else {
-            debugPrint("Unable to find trip")
+            DLog("Unable to find trip")
         }
     }
     

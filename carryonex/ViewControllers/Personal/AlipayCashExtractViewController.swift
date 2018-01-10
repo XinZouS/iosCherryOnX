@@ -158,7 +158,7 @@ class AlipayCashExtract: UIViewController {
     
     func textFieldCancelButtonTapped(_ textField: UITextField){
         ///BUG TODO: this doesn't work...why??? It also doesn't work in DoneButtonTapped(textField)  - Xin
-//        print("get cancel on txFd.tag = \(textField.tag)")
+//        DLog("get cancel on txFd.tag = \(textField.tag)")
 //        switch textField.tag {
 //        case TextFieldTag.aliAccount.rawValue:
 //            alipayAccountTextField.text = ""

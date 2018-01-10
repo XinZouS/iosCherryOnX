@@ -76,13 +76,13 @@ class User: Unboxable {
     }
     
     open func printAllData(){
-        print("id = \(id ?? -999)")
-        print("username = \(username!)")
-        print("token = \(token!)")
-        print("realName = \(realName!)")
-        print("phone = \(phone!), countryCode = \(phoneCountryCode!)")
-        print("email = \(email!)")
-        print("imageUrl = \(imageUrl!)")
+        DLog("id = \(id ?? -999)")
+        DLog("username = \(username!)")
+        DLog("token = \(token!)")
+        DLog("realName = \(realName!)")
+        DLog("phone = \(phone!), countryCode = \(phoneCountryCode!)")
+        DLog("email = \(email!)")
+        DLog("imageUrl = \(imageUrl!)")
     }
     
     required init(unboxer: Unboxer) throws {

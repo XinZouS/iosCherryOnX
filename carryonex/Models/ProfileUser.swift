@@ -106,7 +106,7 @@ class ProfileUser: Unboxable  {
         gender = \(gender ?? "")
         otherInfo = \(otherInfo ?? "")
         """
-        print(allData)
+        DLog(allData)
     }
  
     required init(unboxer: Unboxer) throws {

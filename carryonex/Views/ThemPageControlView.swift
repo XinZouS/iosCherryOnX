@@ -56,7 +56,7 @@ class ThemPageControlView: UIView {
     private func updateDotAppearance() {
         for i in 0..<stackView.arrangedSubviews.count {
             if let dot = stackView.arrangedSubviews[i] as? ThemPageControlDot {
-                print("get dot at: \(i), isSelect = \(i == selectedIndex)")
+                DLog("get dot at: \(i), isSelect = \(i == selectedIndex)")
                 dot.isSelected = (i == selectedIndex)
             }
         }

@@ -78,17 +78,17 @@ class MainTabBarController: UITabBarController {
         
         switch navigationSegue {
         case .addTrip:
-            print("Add Trip")
+            DLog("Add Trip")
             
         case .addRequest:
-            debugPrint("Add Request")
+            DLog("Add Request")
             if let yxcodeVC = segue.destination as? ItemListYouxiangInputController {
                 let code = (sender as? String) ?? ""
                 yxcodeVC.youxiangcodeTextField?.text = code
             }
             
         case .tripDetail:
-            print("Open trip detail")
+            DLog("Open trip detail")
             if let vc = segue.destination as? OrdersTripDetailViewController {
                 if let request = sender as? Request, let category = request.category() {
                     vc.request = request
@@ -99,7 +99,7 @@ class MainTabBarController: UITabBarController {
                 }
             }
         case .requestDetail:
-            print("Open user detail")
+            DLog("Open user detail")
             if let viewController = segue.destination as? OrdersRequestDetailViewController {
                 if let request = sender as? Request, let category = request.category() {
                     viewController.request = request
@@ -114,22 +114,22 @@ class MainTabBarController: UITabBarController {
                 tripInfoViewController.trip = trip
                 tripInfoViewController.category = .carrier
             }
-            print("Open trip list")
+            DLog("Open trip list")
             
         case .creditView:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
-            print("Credit View")
+            DLog("Credit View")
             
         case .historyComment:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
-            print("History Comment")
+            DLog("History Comment")
             
         case .settings:
             self.navigationController?.setNavigationBarHidden(false, animated: false)
-            print("Settings")
+            DLog("Settings")
             
         case .shipperProfile:
-            print("Shipper Profile")
+            DLog("Shipper Profile")
             if let shipperInfoViewController = segue.destination as? ShipperInfoViewController, let trip = sender as? Trip {
                 shipperInfoViewController.commenteeId = trip.carrierId
                 shipperInfoViewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
@@ -137,7 +137,7 @@ class MainTabBarController: UITabBarController {
                 shipperInfoViewController.phoneNumber = trip.carrierPhone
             }
         default:
-            print("Others")
+            DLog("Others")
         }
     }
     
@@ -263,7 +263,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
         
         //取得locations数组的最后一个
         guard let currentLocation = locations.last else {
-            print("Unable to obtain location")
+            DLog("Unable to obtain location")
             return
         }
         
@@ -273,7 +273,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
             
             CLGeocoder().reverseGeocodeLocation(currentLocation) { (placemark, error) -> Void in
                 if let error = error {
-                    print("Get location error: \(error.localizedDescription)")
+                    DLog("Get location error: \(error.localizedDescription)")
                     self.homeViewController?.locationLabel.text = L("home.ui.location.message.unknown")
                     return
                 }
@@ -312,7 +312,7 @@ extension MainTabBarController: CLLocationManagerDelegate {
     
     //FIXME:  获取位置信息失败
     private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Location failed: \(error.localizedDescription)")
+        DLog("Location failed: \(error.localizedDescription)")
     }
 }
 

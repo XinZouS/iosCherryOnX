@@ -85,7 +85,7 @@ class GiftController: UIViewController {
         let yOffset: CGFloat = (self.navigationController?.navigationBar.bounds.height ?? 0) + UIApplication.shared.statusBarFrame.height
         let f = CGRect(x: 0, y: yOffset, width: view.bounds.width, height: h)
         silenceCarouselView = SilenceCarouselView(frame: f, imageArray: imgCarouselArray, silenceCarouselViewTapBlock: { (silenceCarView, page) in
-            print("GiftController: setupSilenceCarouseView(), tap block: page = \(page)")
+            DLog("GiftController: setupSilenceCarouseView(), tap block: page = \(page)")
         })
         silenceCarouselView?.timeInterval = 2
         view.addSubview(silenceCarouselView!)
@@ -162,7 +162,7 @@ extension GiftController: UICollectionViewDelegateFlowLayout {
 extension GiftController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selecting at : .item = \(indexPath.item)")
+        DLog("selecting at : .item = \(indexPath.item)")
     }
     
 }

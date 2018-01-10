@@ -83,7 +83,7 @@ class Request: Unboxable, Identifiable {
         """
         //images = \(images ?? "")
         //status = \(status ?? "")
-        print(allData)
+        DLog(allData)
     }
     
     func priceString() -> String {
@@ -501,7 +501,7 @@ enum RequestTransaction {
     
     func validatedTransaction(for status: RequestStatus) -> (RequestAction, TripCategory) {
         if !isValid(for: status) {
-            debugPrint("Invalid Combo: Status - \(status) and Action \(self)")
+            DLog("Invalid Combo: Status - \(status) and Action \(self)")
             return (.invalid, .carrier)
         }
         return transaction()

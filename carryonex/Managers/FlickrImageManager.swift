@@ -82,9 +82,9 @@ class FlickrImageManager {
         let fk = FlickrKit.shared()
         fk.call(photoSearch) { (response, error) in
             if let response = response, let photos = response["photos"] as? [String: Any], let photoDataArray = photos["photo"] as? [Any] {
-                //print(response)
-                //print(photos)
-                //print(photoDataArray)
+                //DLog(response)
+                //DLog(photos)
+                //DLog(photoDataArray)
                 var urlArray = [URL]()
                 photoDataArray.forEach({ (photoData) in
                     if let photoData = photoData as? [String: Any] {

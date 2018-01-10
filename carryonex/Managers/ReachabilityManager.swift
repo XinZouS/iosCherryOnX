@@ -19,7 +19,7 @@ extension ReachabilityManager {
         do {
             try self.reachability?.startNotifier()
         } catch{
-            print("error in ReachabilityManager::startObserving, could not start reachability notifier")
+            DLog("error in ReachabilityManager::startObserving, could not start reachability notifier")
         }
     }
     

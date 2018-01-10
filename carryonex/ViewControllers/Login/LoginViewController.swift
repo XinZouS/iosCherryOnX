@@ -193,7 +193,7 @@ class LoginViewController: UIViewController {
             loginButton.setTitleColor((isMatch ? UIColor.white : colorTheamRed), for: .normal)
             loginButton.backgroundColor = isMatch ? colorTheamRed : UIColor.white
             let msg = isMatch ? "密码正确" : "密码错误"
-            debugPrint(msg)
+            DLog(msg)
         } else {
             loginButton.isEnabled = false
             loginButton.backgroundColor = colorErrGray
@@ -221,7 +221,7 @@ extension LoginViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.AuthenticationFailed, object: nil, queue: nil) { [weak self] notification in
             if let response = notification.object as? SendAuthResp {
-                debugPrint("Wechat error: \(response.errCode): \(response.errStr)")
+                DLog("Wechat error: \(response.errCode): \(response.errStr)")
                 self?.displayAlert(title: L("login.error.wechat.title"), message: L("login.error.wechat.message"), action: L("action.ok"))
             }
         }
@@ -335,13 +335,13 @@ extension LoginViewController: UITextFieldDelegate {
                                     AnalyticsManager.shared.trackCount(.loginByWeChatCount)
                                     AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                                 } else {
-                                    debugPrint("Wechat registration update user info failed at user exists")
+                                    DLog("Wechat registration update user info failed at user exists")
                                 }
                             
                             } else {
                                 self?.circleIndicator.stop()
                                 self?.circleIndicator.isHidden = true
-                                debugPrint("User exists login failed")
+                                DLog("User exists login failed")
                             }
                         })
                         
@@ -358,7 +358,7 @@ extension LoginViewController: UITextFieldDelegate {
                                             AnalyticsManager.shared.trackCount(.registerByWeChatCount)
                                             AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
                                         } else {
-                                            debugPrint("Wechat registration update user info failed at new registration")
+                                            DLog("Wechat registration update user info failed at new registration")
                                         }
                                     })
                                 })
@@ -366,9 +366,9 @@ extension LoginViewController: UITextFieldDelegate {
                                 self?.circleIndicator.stop()
                                 self?.circleIndicator.isHidden = true
                                 if let error = err {
-                                    debugPrint("Wechat registration error: \(error.localizedDescription). Error Type: \(errType)")
+                                    DLog("Wechat registration error: \(error.localizedDescription). Error Type: \(errType)")
                                 } else {
-                                    debugPrint("Wechat registration error")
+                                    DLog("Wechat registration error")
                                 }
                             }
                         })
@@ -378,7 +378,7 @@ extension LoginViewController: UITextFieldDelegate {
             } else {
                 self?.circleIndicator.stop()
                 self?.circleIndicator.isHidden = true
-                debugPrint("Invalid JSON result: \(jsonResult)")
+                DLog("Invalid JSON result: \(jsonResult)")
             }
         }
     }

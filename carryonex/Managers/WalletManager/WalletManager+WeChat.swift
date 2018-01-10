@@ -43,10 +43,10 @@ extension WalletManager {
         if let order = self.lastOrder {
             ApiServers.shared.postWalletWXVerify(order: order, isSuccess: success, completion: { (success, error) in
                 if let error = error {
-                    debugPrint("WX Validation Error: \(error.localizedDescription)")
+                    DLog("WX Validation Error: \(error.localizedDescription)")
                     return
                 }
-                debugPrint("WX Validation successful")
+                DLog("WX Validation successful")
                 self.lastOrder = nil
             })
         }
@@ -60,7 +60,7 @@ extension WalletManager {
             
             guard let wxOrder = wxOrder else {
                 if let error = error {
-                    print("wechatPayAuth Error: \(error.localizedDescription)")
+                    DLog("wechatPayAuth Error: \(error.localizedDescription)")
                 }
                 return
             }

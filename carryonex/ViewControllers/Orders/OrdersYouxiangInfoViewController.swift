@@ -112,7 +112,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     func loadData() {
         requests = TripOrderDataStore.shared.getRequestsByTripId(category: .carrier, tripId: trip.id)
         
-        print("Number of requests in trip \(trip.id): \(requests.count)")
+        DLog("Number of requests in trip \(trip.id): \(requests.count)")
         
         isActive = (trip.active == TripActive.active.rawValue)
         lockerImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")
@@ -147,7 +147,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
             self.isLoading = false
             self.lockerButton.isEnabled = true
             if let err = error {
-                print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
+                DLog("error: cannot postTripActive by id, error = \(err.localizedDescription)")
                 self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
                                         message: L("orders.error.message.lock-fail-network"),
                                         action: L("action.ok"), completion: nil)
@@ -155,7 +155,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
-                    print("get error when get TripActive: err = \(err.localizedDescription)")
+                    DLog("get error when get TripActive: err = \(err.localizedDescription)")
                     self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
                                             message: L("orders.error.message.lock-fail-account"),
                                             action: L("orders.error.action.lock-fail-account"),

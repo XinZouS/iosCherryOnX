@@ -209,13 +209,13 @@ class ShareViewFactory: UIView {
             (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
             switch state{
             case SSDKResponseState.success:
-                print("分享成功")
+                DLog("分享成功")
                 AnalyticsManager.shared.finishTimeTrackingKey(.carrierShareTime)
             case SSDKResponseState.fail:
-                print("授权失败,错误描述:\(error?.localizedDescription ?? "get err in ")")
+                DLog("授权失败,错误描述:\(error?.localizedDescription ?? "get err in ")")
                 AnalyticsManager.shared.clearTimeTrackingKey(.carrierShareTime)
             case SSDKResponseState.cancel:
-                print("操作取消")
+                DLog("操作取消")
                 AnalyticsManager.shared.clearTimeTrackingKey(.carrierShareTime)
             default:
                 break
@@ -227,17 +227,17 @@ class ShareViewFactory: UIView {
 extension ShareViewFactory: FBSDKSharingDelegate {
     
     func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
-        print("share err: \(error)")
+        DLog("share err: \(error)")
         AnalyticsManager.shared.clearTimeTrackingKey(.carrierShareTime)
     }
     
     func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
-        print("did complete with result = \(results)")
+        DLog("did complete with result = \(results)")
         AnalyticsManager.shared.finishTimeTrackingKey(.carrierShareTime)
     }
     
     func sharerDidCancel(_ sharer: FBSDKSharing!) {
-        print("sharerDidCancel....")
+        DLog("sharerDidCancel....")
         AnalyticsManager.shared.clearTimeTrackingKey(.carrierShareTime)
     }
 }

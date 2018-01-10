@@ -104,7 +104,7 @@ class OrderCommentRateController: UIViewController {
         commentTextField.resignFirstResponder()
         
         guard let currentUserId = ProfileManager.shared.getCurrentUser()?.id else {
-            debugPrint("User need to login, no user found.")
+            DLog("User need to login, no user found.")
             return
         }
         
@@ -115,7 +115,7 @@ class OrderCommentRateController: UIViewController {
                                           rank: rate,
                                           requestId: requestId) { (success, error) in
                 if let error = error {
-                    print("Comment error: \(error.localizedDescription)")
+                    DLog("Comment error: \(error.localizedDescription)")
                     return
                 }
                 

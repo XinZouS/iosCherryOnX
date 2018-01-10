@@ -60,7 +60,7 @@ class ProfileManager: NSObject {
         if let username = UserDefaults.getUsername(), let userToken = readUserTokenFromKeychain() {
             ApiServers.shared.getUserInfo(username: username, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
-                    print("loadLocalUser Error: \(error.localizedDescription)")
+                    DLog("loadLocalUser Error: \(error.localizedDescription)")
                     completion?(false)
                     return
                 }
@@ -69,7 +69,7 @@ class ProfileManager: NSObject {
                     self.updateHomeProfileInfo(profileInfo, writeToKeychain: false)
                     completion?(true)
                 } else {
-                    print("error: loadLocalUser: return user info is nil")
+                    DLog("error: loadLocalUser: return user info is nil")
                     completion?(false)
                 }
             })
@@ -90,13 +90,13 @@ class ProfileManager: NSObject {
         ApiServers.shared.postRegisterUser(username: username, countryCode: countryCode, phone: phone, password: password, email: email, name: name) { (userToken, error) in
             if let error = error {
                 let msg = "Register Error: \(error.localizedDescription)"
-                print(msg)
+                DLog(msg)
                 completion(false, error, .userRegisterErr)
                 return
             }
             
             if userToken == nil {
-                print("Unable to retrieve token")
+                DLog("Unable to retrieve token")
                 completion(false, error, .userAlreadyExist)
                 return
             }
@@ -109,20 +109,20 @@ class ProfileManager: NSObject {
         
         ApiServers.shared.postLoginUser(username: username, phone: phone, password: password) { (credential, error) in
             if let error = error {
-                print("Login Error: \(error.localizedDescription)")
+                DLog("Login Error: \(error.localizedDescription)")
                 completion(false)
                 return
             }
             
             guard let (userToken, aUsername) = credential else {
-                print("Unable to retrieve token")
+                DLog("Unable to retrieve token")
                 completion(false)
                 return
             }
             
             ApiServers.shared.getUserInfo(username: aUsername, userToken: userToken, completion: { (homeProfileInfo, error) in
                 if let error = error {
-                    print("loadLocalUser Error: \(error.localizedDescription)")
+                    DLog("loadLocalUser Error: \(error.localizedDescription)")
                     completion(false)
                     return
                 }
@@ -131,7 +131,7 @@ class ProfileManager: NSObject {
                     self.updateHomeProfileInfo(profileInfo, writeToKeychain: true)
                     completion(true)
                 } else {
-                    print("return user info is nil")
+                    DLog("return user info is nil")
                     completion(false)
                 }
             })
@@ -158,7 +158,7 @@ class ProfileManager: NSObject {
     //MARK: - User Info Method
     func getUserInfo(_ infoType: UsersInfoUpdate, completion: @escaping (Any?, Error?) -> Void) {
         guard isLoggedIn() else {
-            debugPrint("User is not logged in, unable to get user info (single)")
+            DLog("User is not logged in, unable to get user info (single)")
             completion(nil, nil)
             return
         }
@@ -169,13 +169,13 @@ class ProfileManager: NSObject {
     //PACKAGE UPDATE
     func updateUserInfo(info: [String: Any], completion: ((Bool) -> Void)?) {
         guard isLoggedIn() else {
-            debugPrint("User is not logged in, unable to update user info")
+            DLog("User is not logged in, unable to update user info")
             completion?(false)
             return
         }
         
         guard let userId = currentUser?.id else {
-            debugPrint("Unable to find user id")
+            DLog("Unable to find user id")
             completion?(false)
             return
         }
@@ -184,14 +184,14 @@ class ProfileManager: NSObject {
         userInfo[ProfileUserKey.userId.rawValue] = userId
         ApiServers.shared.postUserUpdateInfo(info: userInfo) { (user, error) in
             if let error = error {
-                print("User update error: \(error.localizedDescription)")
+                DLog("User update error: \(error.localizedDescription)")
             }
             
             if let user = user {
                 self.updateCurrentUser(user, writeToKeychain: false)
                 completion?(true)
             } else {
-                print("return user info is nil")
+                DLog("return user info is nil")
                 completion?(false)
             }
         }
@@ -201,14 +201,14 @@ class ProfileManager: NSObject {
     func updateUserInfo(_ type: UsersInfoUpdate, value: Any, completion: ((Bool) -> Void)?) {
         
         guard isLoggedIn() else {
-            print("User is not logged in, unable to update \(type.rawValue) value")
+            DLog("User is not logged in, unable to update \(type.rawValue) value")
             completion?(false)
             return
         }
         
         ApiServers.shared.postUpdateUserInfo(type, value: value) { (success, error) in
             if let error = error {
-                print("updateUserInfo Error: \(error.localizedDescription)")
+                DLog("updateUserInfo Error: \(error.localizedDescription)")
                 return
             }
             
@@ -244,7 +244,7 @@ class ProfileManager: NSObject {
         case .phone:
             currentUser?.phone = value as? String
         default:
-            print("Not handling update type \(type.rawValue) yet.")
+            DLog("Not handling update type \(type.rawValue) yet.")
         }
         
         NotificationCenter.default.post(name: .UserDidUpdate, object: nil)
@@ -319,11 +319,11 @@ class ProfileManager: NSObject {
             }
             
         } else {
-            print("Username not found")
+            DLog("Username not found")
         }
         
         if token == nil {
-            print("User token not found")
+            DLog("User token not found")
         }
         
         return token

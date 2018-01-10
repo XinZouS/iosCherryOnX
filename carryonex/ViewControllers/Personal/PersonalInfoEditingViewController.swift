@@ -156,7 +156,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
                 if success{
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    debugPrint("error: ProfileManager.shared.updateUserInfo unsuccess...")
+                    DLog("error: ProfileManager.shared.updateUserInfo unsuccess...")
                 }
             })
         } else { // email invalide:
@@ -420,7 +420,7 @@ extension PersonalInfoEditingViewController {
                                         message: L("personal.error.message.upload-ids") + error.localizedDescription,
                                         action: L("action.ok"),
                                         completion: nil)
-                debugPrint("Upload image failed: \(error.localizedDescription)")
+                DLog("Upload image failed: \(error.localizedDescription)")
                 return
             }
             
@@ -436,11 +436,11 @@ extension PersonalInfoEditingViewController {
                     if success {
                         self.removeImageWithUrlInLocalFileDirectory(fileName: ImageTypeOfID.profile.rawValue + ".JPG")
                     } else {
-                        debugPrint("error: updateUserProfileUrl() unsuccess, abording....")
+                        DLog("error: updateUserProfileUrl() unsuccess, abording....")
                     }
                 })
             } else {
-                debugPrint("Error: uploadAllImagesToAws(): publicUrl.absoluteString.isEmpty, Unable to upload.")
+                DLog("Error: uploadAllImagesToAws(): publicUrl.absoluteString.isEmpty, Unable to upload.")
             }
         })
         AnalyticsManager.shared.finishTimeTrackingKey(.profileImageSettingTime)
@@ -454,7 +454,7 @@ extension PersonalInfoEditingViewController {
         if let imgData = UIImageJPEGRepresentation(uploadImg, 1) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
-        debugPrint("save image to DocumentDirectory: \(profileImgLocalUrl)")
+        DLog("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
     
@@ -462,12 +462,12 @@ extension PersonalInfoEditingViewController {
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         if let filePath = documentUrl.path {
-            debugPrint("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            DLog("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
             do {
                 try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                debugPrint("OK remove file at path: \(filePath), fileName = \(fileName)")
+                DLog("OK remove file at path: \(filePath), fileName = \(fileName)")
             } catch let err {
-                debugPrint("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+                DLog("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
             }
         }
     }
@@ -508,7 +508,6 @@ extension PersonalInfoEditingViewController {
             
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
-                print(jsonResult)
                 if let imgUrl = jsonResult["headimgurl"] as? String {
                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (success) in
                         if success, let url = URL(string: imgUrl) {
@@ -534,14 +533,14 @@ extension PersonalInfoEditingViewController {
         do {
             try FileManager.default.removeItem(at: fileUrl)
         }catch let err {
-            print("[ERROR]: removeProfileImageFromLocalFile() \(err.localizedDescription) | File: \(fileUrl)")
+            DLog("[ERROR]: removeProfileImageFromLocalFile() \(err.localizedDescription) | File: \(fileUrl)")
         }
     }
     
     internal func setupProfileImageUrl(_ url: URL){
         guard let homeVC = AppDelegate.shared().mainTabViewController?.homeViewController,
             let personalVC = AppDelegate.shared().mainTabViewController?.personInfoController else {
-            debugPrint("\n[ERROR]: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
+            DLog("\n[ERROR]: unable to get homeViewController or personInfoController when setupProfileImageFromAws(), abording...")
             return
         }
         imageButton.af_setBackgroundImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
@@ -561,9 +560,6 @@ extension PersonalInfoEditingViewController {
 
 
 class PersonalInfoTableCell: UITableViewCell {
-    
     @IBOutlet weak var titleLb: UILabel!
     @IBOutlet weak var textField: UITextField!
-    
-    
 }

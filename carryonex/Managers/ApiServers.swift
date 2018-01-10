@@ -151,7 +151,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postRegisterUser response error: \(error.localizedDescription)")
+                    DLog("postRegisterUser response error: \(error.localizedDescription)")
                 }
                 completion(nil, error)
                 return
@@ -161,11 +161,11 @@ class ApiServers : NSObject {
                 if let token = data[ServerKey.userToken.rawValue] as? String {
                     completion(token, nil)
                 } else {
-                    print("postRegisterUser - Unable to find token from user data")
+                    DLog("postRegisterUser - Unable to find token from user data")
                     completion(nil, nil)
                 }
             } else {
-                print("postRegisterUser - Unable to find user data")
+                DLog("postRegisterUser - Unable to find user data")
                 completion(nil, nil)
             }
         }
@@ -184,7 +184,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("getIsUserExisted response error: \(error.localizedDescription)")
+                    DLog("getIsUserExisted response error: \(error.localizedDescription)")
                 }
                 completion(false, error)
                 return
@@ -192,14 +192,14 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any] {
                 if let isExists = data["isExists"] as? String {
-                    print("getIsUserExisted: isExists field value \(isExists)")
+                    DLog("getIsUserExisted: isExists field value \(isExists)")
                     completion(isExists.isTrue(), nil)
                 } else {
-                    print("getIsUserExisted: isExists field empty")
+                    DLog("getIsUserExisted: isExists field empty")
                     completion(false, nil)
                 }
             } else {
-                print("getIsUserExisted: Data field empty")
+                DLog("getIsUserExisted: Data field empty")
                 completion(false, nil)
             }
         }
@@ -236,7 +236,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameter) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postLoginUser response error: \(error.localizedDescription)")
+                    DLog("postLoginUser response error: \(error.localizedDescription)")
                 }
                 completion(nil, error)
                 return
@@ -248,17 +248,17 @@ class ApiServers : NSObject {
                         completion((token, username), nil)
                         
                     } else {
-                        print("postLoginUser - Unable to find token from user data")
+                        DLog("postLoginUser - Unable to find token from user data")
                         completion(nil, nil)
                     }
                     
                 } else {
-                    print("postLoginUser - Unable to find user data")
+                    DLog("postLoginUser - Unable to find user data")
                     completion(nil, nil)
                 }
             
             } else{
-                print("Invalid credential")
+                DLog("Invalid credential")
                 completion(nil, nil)
             }
         }
@@ -266,7 +266,7 @@ class ApiServers : NSObject {
     
     func postLogoutUser(completion: @escaping (Bool, Error?) -> Void) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("postLogoutUser: Profile user empty, please login in order to logout")
+            DLog("postLogoutUser: Profile user empty, please login in order to logout")
             completion(false, nil)
             return
         }
@@ -284,7 +284,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postLogoutUser response error: \(error.localizedDescription)")
+                    DLog("postLogoutUser response error: \(error.localizedDescription)")
                 }
                 completion(false, error)
                 return
@@ -317,7 +317,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("GetUserInfo response error: \(error.localizedDescription)")
+                    DLog("GetUserInfo response error: \(error.localizedDescription)")
                 }
                 completion(nil, error)
                 return
@@ -331,11 +331,11 @@ class ApiServers : NSObject {
                     
                 } catch let error {
                     completion(nil, error)
-                    print("Get error when getUserInfo. Error = \(error.localizedDescription)")
+                    DLog("Get error when getUserInfo. Error = \(error.localizedDescription)")
                 }
                 
             } else {
-                print("GetUserInfo empty data")
+                DLog("GetUserInfo empty data")
                 completion(nil, nil)
             }
         }
@@ -345,7 +345,7 @@ class ApiServers : NSObject {
     func getUserLogsOf(type: ServerUserLogUrl, completion: @escaping([Any]?) -> Void){
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getUserLogsOf: Profile user empty, please login to get user logs")
+            DLog("getUserLogsOf: Profile user empty, please login to get user logs")
             completion(nil)
             return
         }
@@ -362,7 +362,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("getUserLogsOf response error: \(error.localizedDescription)")
+                    DLog("getUserLogsOf response error: \(error.localizedDescription)")
                 }
                 completion(nil)
                 return
@@ -380,7 +380,7 @@ class ApiServers : NSObject {
                     }
                     
                 } catch let err  {
-                    print("get error when getUserLogsOf \(type.rawValue), err = \(err)")
+                    DLog("get error when getUserLogsOf \(type.rawValue), err = \(err)")
                 }
             }
         }
@@ -388,13 +388,13 @@ class ApiServers : NSObject {
     
     func getUserInfo(_ infoType: UsersInfoUpdate, userId: Int? = nil, completion: @escaping (Any?, Error?) -> Void) {
         guard ProfileManager.shared.isLoggedIn() else {
-            print("getUserInfo (single) \(infoType.rawValue), please login to post update on user info")
+            DLog("getUserInfo (single) \(infoType.rawValue), please login to post update on user info")
             completion(false, nil)
             return
         }
         
         guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
-            print("getUserInfo (single) \(infoType.rawValue): Profile user empty, please login to post update on user info")
+            DLog("getUserInfo (single) \(infoType.rawValue): Profile user empty, please login to post update on user info")
             completion(false, nil)
             return
         }
@@ -415,7 +415,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getUserInfo (single) \(infoType.rawValue) response error: \(error.localizedDescription)")
+                    DLog("getUserInfo (single) \(infoType.rawValue) response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -426,7 +426,7 @@ class ApiServers : NSObject {
                 completion(infoValue, nil)
                 
             } else {
-                print("getUserInfo (single) \(infoType.rawValue): No Data Field")
+                DLog("getUserInfo (single) \(infoType.rawValue): No Data Field")
                 completion(nil, nil)
             }
         }
@@ -435,13 +435,13 @@ class ApiServers : NSObject {
     func postUpdateUserInfo(_ updateType: UsersInfoUpdate, value: Any, completion: @escaping (Bool, Error?) -> Void) {
         
         guard ProfileManager.shared.isLoggedIn() else {
-            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            DLog("postUpdateUserInfo: Profile user empty, please login to post update on user info")
             completion(false, nil)
             return
         }
         
         guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
-            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            DLog("postUpdateUserInfo: Profile user empty, please login to post update on user info")
             completion(false, nil)
             return
         }
@@ -453,7 +453,7 @@ class ApiServers : NSObject {
             data[profileKey] = value
             
         } else {
-            print("Error in ApiServers: Update profile key for [\(updateType.rawValue)] not found, update failed.")
+            DLog("Error in ApiServers: Update profile key for [\(updateType.rawValue)] not found, update failed.")
             completion(false, nil)
             return
         }
@@ -469,7 +469,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postUpdateUserInfo response error: \(error.localizedDescription)")
+                    DLog("postUpdateUserInfo response error: \(error.localizedDescription)")
                     completion(false, error)
                 }
                 return
@@ -477,14 +477,14 @@ class ApiServers : NSObject {
             
             if let code = response[ServerKey.statusCode.rawValue] as? Int {
                 if code == 200 {
-                    print("Code 200, update \(updateType.rawValue) successful")
+                    DLog("Code 200, update \(updateType.rawValue) successful")
                     completion(true, nil)
                 } else {
-                    print("Code \(code), update \(updateType.rawValue) failed")
+                    DLog("Code \(code), update \(updateType.rawValue) failed")
                     completion(false, nil)
                 }
             } else {
-                print("Code is missing, update \(updateType.rawValue) failed")
+                DLog("Code is missing, update \(updateType.rawValue) failed")
                 completion(false, nil)
             }
         }
@@ -492,13 +492,13 @@ class ApiServers : NSObject {
     
     func postUserUpdateInfo(info: [String: Any], completion:@escaping (ProfileUser?, Error?) -> Void) {
         guard ProfileManager.shared.isLoggedIn() else {
-            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            DLog("postUpdateUserInfo: Profile user empty, please login to post update on user info")
             completion(nil, nil)
             return
         }
         
         guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
-            print("postUpdateUserInfo: Profile user empty, please login to post update on user info")
+            DLog("postUpdateUserInfo: Profile user empty, please login to post update on user info")
             completion(nil, nil)
             return
         }
@@ -521,7 +521,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parms) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postUpdateUserInfo response error: \(error.localizedDescription)")
+                    DLog("postUpdateUserInfo response error: \(error.localizedDescription)")
                     completion(nil, error)
                 }
                 return
@@ -535,11 +535,11 @@ class ApiServers : NSObject {
                     
                 } catch let error {
                     completion(nil, error)
-                    print("Get error when postUserUpdateInfo. Error = \(error.localizedDescription)")
+                    DLog("Get error when postUserUpdateInfo. Error = \(error.localizedDescription)")
                 }
                 
             } else {
-                print("postUserUpdateInfo empty data")
+                DLog("postUserUpdateInfo empty data")
                 completion(nil, nil)
             }
         }
@@ -549,7 +549,7 @@ class ApiServers : NSObject {
     func getUsersTrips(userType: TripCategory, offset: Int = -1, pageCount: Int = -1, sinceTime: Int = -1, completion: @escaping(([TripOrder]?, Error?) -> Void)) {
         
         guard let username = ProfileManager.shared.username, let token = ProfileManager.shared.userToken else {
-            print("getUsersTrips: Profile user empty, pleaes login to get user's trips")
+            DLog("getUsersTrips: Profile user empty, pleaes login to get user's trips")
             completion(nil, nil)
             return
         }
@@ -570,7 +570,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getUsersTrips response error: \(error.localizedDescription)")
+                    DLog("getUsersTrips response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -580,11 +580,11 @@ class ApiServers : NSObject {
                     let tripOrders : [TripOrder] = try unbox(dictionary: data, atKey:"trips")
                     completion(tripOrders, nil)
                 } catch let error as NSError {
-                    print("getUsersTrips error: \(error.localizedDescription)")
+                    DLog("getUsersTrips error: \(error.localizedDescription)")
                     completion(nil, error)
                 }
             } else {
-                print("getUsersTrips: Empty data field")
+                DLog("getUsersTrips: Empty data field")
                 completion(nil, nil)
             }
         }
@@ -605,18 +605,18 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postUserForgetPassword response error: \(error.localizedDescription)")
+                    DLog("postUserForgetPassword response error: \(error.localizedDescription)")
                 }
                 completion(false, error)
                 return
             }
             
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                print("Reset password success")
+                DLog("Reset password success")
                 completion(true, nil)
                 
             } else{
-                print("Bad Status, reset password failed")
+                DLog("Bad Status, reset password failed")
                 completion(false, nil)
             }
         }
@@ -624,13 +624,13 @@ class ApiServers : NSObject {
     
     func getUserGPS(userId: Int, completion: @escaping (GPS?, Error?) -> Void) {
         guard ProfileManager.shared.isLoggedIn() else {
-            print("Please log in to get GPS for user id: \(userId)")
+            DLog("Please log in to get GPS for user id: \(userId)")
             completion(nil, nil)
             return
         }
         
         guard let username = ProfileManager.shared.username, let userToken = ProfileManager.shared.userToken else {
-            print("Please get username and token to get GPS")
+            DLog("Please get username and token to get GPS")
             completion(nil, nil)
             return
         }
@@ -648,7 +648,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getGPS response error: \(error.localizedDescription)")
+                    DLog("getGPS response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -658,11 +658,11 @@ class ApiServers : NSObject {
                     let gps:GPS = try unbox(dictionary: data)
                     completion(gps, nil)
                 } catch let error as NSError {
-                    print("getGPS error: \(error.localizedDescription)")
+                    DLog("getGPS error: \(error.localizedDescription)")
                     completion(nil, error)
                 }
             } else {
-                print("getGPS: Empty data field")
+                DLog("getGPS: Empty data field")
                 completion(nil, nil)
             }
         }
@@ -671,7 +671,7 @@ class ApiServers : NSObject {
     func postUserGPS(longitude: Double, latitude: Double, completion: ((Bool, Error?) -> Void)?) {
         
         guard ProfileManager.shared.isLoggedIn() else {
-            print("Please log in to post GPS")
+            DLog("Please log in to post GPS")
             completion?(false, nil)
             return
         }
@@ -679,7 +679,7 @@ class ApiServers : NSObject {
         guard let username = ProfileManager.shared.username,
             let userToken = ProfileManager.shared.userToken,
             let userId = ProfileManager.shared.getCurrentUser()?.id else {
-            print("Please get username and token to post GPS")
+            DLog("Please get username and token to post GPS")
             completion?(false, nil)
             return
         }
@@ -701,18 +701,18 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postGPS response error: \(error.localizedDescription)")
+                    DLog("postGPS response error: \(error.localizedDescription)")
                 }
                 completion?(false, error)
                 return
             }
             
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                print("Post GPS success")
+                DLog("Post GPS success")
                 completion?(true, nil)
                 
             } else{
-                print("Post GPS failed")
+                DLog("Post GPS failed")
                 completion?(false, nil)
             }
         }
@@ -725,7 +725,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: [:]) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getConfig response error: \(error.localizedDescription)")
+                    DLog("getConfig response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -736,7 +736,7 @@ class ApiServers : NSObject {
                     self.config = config
                     
                 } catch let error as NSError {
-                    print("getConfig error: \(error.localizedDescription)")
+                    DLog("getConfig error: \(error.localizedDescription)")
                 }
             }
         }
@@ -748,7 +748,7 @@ class ApiServers : NSObject {
     //TODO: UPDATE ID TO CODE IN SIGNATURE
     func getTripInfo(id: String, completion: @escaping (Bool, Trip?, Error?) -> Void) { //callback(success, trip object, error)
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getTripInfo: Profile user empty, pleaes login to get trip info")
+            DLog("getTripInfo: Profile user empty, pleaes login to get trip info")
             completion(false, nil, nil)
             return
         }
@@ -766,7 +766,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(sessionStr, parameters: parameter) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getTrips response error: \(error.localizedDescription)")
+                    DLog("getTrips response error: \(error.localizedDescription)")
                 }
                 completion(false, nil, error)
                 return
@@ -774,7 +774,7 @@ class ApiServers : NSObject {
             
             if let statusCode = response[ServerKey.statusCode.rawValue] as? Int {
                 if statusCode == 401 {
-                    print("No trip is found")
+                    DLog("No trip is found")
                     completion(false, nil, nil)
                     
                 } else {
@@ -784,12 +784,12 @@ class ApiServers : NSObject {
                             completion(true, trip, nil)
                             
                         } catch let err {
-                            print("getTripInfo error: \(err.localizedDescription)")
+                            DLog("getTripInfo error: \(err.localizedDescription)")
                             completion(false, nil, err)
                         }
                         
                     } else {
-                        print("No data is found")
+                        DLog("No data is found")
                         completion(false, nil, nil)
                     }
                 }
@@ -820,7 +820,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("postTripInfo response error: \(error.localizedDescription)")
+                    DLog("postTripInfo response error: \(error.localizedDescription)")
                 }
                 completion(false, error?.localizedDescription, nil)
                 return
@@ -844,7 +844,7 @@ class ApiServers : NSObject {
     
     func getTripActive(tripId: String, completion: @escaping (TripActive, Error?) -> Void) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getTripActive: Profile user empty, pleaes login to get trip active")
+            DLog("getTripActive: Profile user empty, pleaes login to get trip active")
             completion(.error, nil)
             return
         }
@@ -862,7 +862,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getTripActive response error: \(error.localizedDescription)")
+                    DLog("getTripActive response error: \(error.localizedDescription)")
                 }
                 completion(.error, error)
                 return
@@ -875,12 +875,12 @@ class ApiServers : NSObject {
                     completion(isTripActive, nil)
                     
                 } else {
-                    print("getTripActive no data from return")
+                    DLog("getTripActive no data from return")
                     completion(.error, nil)
                 }
                 
             } else {
-                print("Bad Status, no trip found")
+                DLog("Bad Status, no trip found")
                 completion(.notExist, nil)
             }
         }
@@ -888,7 +888,7 @@ class ApiServers : NSObject {
     
     func postTripActive(tripId: String, isActive: Bool, completion: @escaping (Bool, Error?) -> Void)  {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("postTripActive: Profile user empty, pleaes login to post trip info")
+            DLog("postTripActive: Profile user empty, pleaes login to post trip info")
             completion(false, nil)
             return
         }
@@ -911,18 +911,18 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: params) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("Post Trip Active response error: \(error.localizedDescription)")
+                    DLog("Post Trip Active response error: \(error.localizedDescription)")
                 }
                 completion(false, error)
                 return
             }
             
             if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
-                print("Post Trip Active success")
+                DLog("Post Trip Active success")
                 completion(true, nil)
                 
             } else{
-                print("Bad Status, Post Trip Active failed")
+                DLog("Bad Status, Post Trip Active failed")
                 completion(false, nil)
             }
         }
@@ -943,7 +943,7 @@ class ApiServers : NSObject {
                      completion: @escaping (Bool, Error?, ServerError) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("postRequest: Unable to find profile user")
+            DLog("postRequest: Unable to find profile user")
             completion(false, nil, .badRequest)
             return
         }
@@ -979,7 +979,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postRequest response error: \(error.localizedDescription)")
+                    DLog("postRequest response error: \(error.localizedDescription)")
                 }
                 completion(false, error, .notFound)
                 return
@@ -988,7 +988,7 @@ class ApiServers : NSObject {
             if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
                 completion(true, nil, .ok)
             } else {
-                print("postRequest - Unable to post request data")
+                DLog("postRequest - Unable to post request data")
                 completion(false, nil, .notFound)
             } // TODO: temp usage, will replace by following after DB fixed:
             
@@ -1002,11 +1002,11 @@ class ApiServers : NSObject {
                     
                 } catch let error {
                     completion(false, error, ServerError(rawValue: statusCode) ?? .noResponse)
-                    print("Get error when postRequest. Error = \(error.localizedDescription)")
+                    DLog("Get error when postRequest. Error = \(error.localizedDescription)")
                 }
                 
             } else {
-                print("postRequest - Unable to post request data")
+                DLog("postRequest - Unable to post request data")
                 completion(false, nil, ServerError(rawValue: statusCode) ?? .notFound)
             }
             */
@@ -1019,7 +1019,7 @@ class ApiServers : NSObject {
                                 completion: @escaping (Bool, Error?, Int?) -> Void) {   //success, error, status code
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("postRequest: Unable to find profile user")
+            DLog("postRequest: Unable to find profile user")
             completion(false, nil, nil)
             return
         }
@@ -1052,7 +1052,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postRequest update response error: \(error.localizedDescription)")
+                    DLog("postRequest update response error: \(error.localizedDescription)")
                 }
                 completion(false, error, nil)
                 return
@@ -1066,12 +1066,12 @@ class ApiServers : NSObject {
                     
                 } catch let error {
                     completion(false, error, nil)
-                    print("Get error when postRequestTransaction. Error = \(error.localizedDescription)")
+                    DLog("Get error when postRequestTransaction. Error = \(error.localizedDescription)")
                 }
                 
             } else {
                 completion(false, nil, nil)
-                print("postRequestTransaction no data error")
+                DLog("postRequestTransaction no data error")
             }
         }
     }
@@ -1080,7 +1080,7 @@ class ApiServers : NSObject {
     func getRequestPrice(completion: @escaping (Bool, String?, [String:Double]?) -> Void){
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
             let m = "Profile user empty, pleaes login to post request info"
-            print("getRequestPrice: \(m)")
+            DLog("getRequestPrice: \(m)")
             completion(false, m, nil)
             return
         }
@@ -1098,7 +1098,7 @@ class ApiServers : NSObject {
             guard let response = response else {
                 if let error = error {
                     completion(false, error.localizedDescription, nil)
-                    print("getRequestPrice response error: \(error.localizedDescription)")
+                    DLog("getRequestPrice response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -1126,7 +1126,7 @@ class ApiServers : NSObject {
                      completion: @escaping (Bool, Error?) -> Void) {
         
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("postRequest: Unable to find profile user")
+            DLog("postRequest: Unable to find profile user")
             completion(false, nil)
             return
         }
@@ -1151,7 +1151,7 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postComment update response error: \(error.localizedDescription)")
+                    DLog("postComment update response error: \(error.localizedDescription)")
                 }
                 completion(false, error)
                 return
@@ -1170,7 +1170,7 @@ class ApiServers : NSObject {
     // let defaultPageCount = 4 for pageCount BUG: Cannot use instance member 'defaultPageCount' as a default parameter
     func getUserComments(commenteeId: Int, offset: Int, pageCount: Int = 4, completion: @escaping((UserComments?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser() else {
-            print("getUserComments: Profile user empty, pleaes login to get user's comments")
+            DLog("getUserComments: Profile user empty, pleaes login to get user's comments")
             completion(nil, nil)
             return
         }
@@ -1189,7 +1189,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getUserComments response error: \(error.localizedDescription)")
+                    DLog("getUserComments response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -1200,11 +1200,11 @@ class ApiServers : NSObject {
                     completion(userComments, nil)
                     
                 } catch let error as NSError {
-                    print("getUserComments error: \(error.localizedDescription)")
+                    DLog("getUserComments error: \(error.localizedDescription)")
                     completion(nil, error)
                 }
             } else {
-                print("getUserComments: Empty data field")
+                DLog("getUserComments: Empty data field")
                 completion(nil, nil)
             }
         }
@@ -1215,7 +1215,7 @@ class ApiServers : NSObject {
     
     func getWallet(completion: @escaping((Wallet?, Error?) -> Void)) {
         guard let profileUser = ProfileManager.shared.getCurrentUser(), let walletId = profileUser.walletId else {
-            print("getWallet: Profile user empty, pleaes login to get user's comments")
+            DLog("getWallet: Profile user empty, pleaes login to get user's comments")
             completion(nil, nil)
             return
         }
@@ -1232,7 +1232,7 @@ class ApiServers : NSObject {
         getDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("getWallet response error: \(error.localizedDescription)")
+                    DLog("getWallet response error: \(error.localizedDescription)")
                 }
                 return
             }
@@ -1243,11 +1243,11 @@ class ApiServers : NSObject {
                     completion(wallet, nil)
                     
                 } catch let error as NSError {
-                    print("getWallet error: \(error.localizedDescription)")
+                    DLog("getWallet error: \(error.localizedDescription)")
                     completion(nil, error)
                 }
             } else {
-                print("getWallet: Empty data field")
+                DLog("getWallet: Empty data field")
                 completion(nil, nil)
             }
         }
@@ -1283,10 +1283,10 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any],
                 let keyPayload = data[WalletKeyInDB.ephemeralKey.rawValue] as? [String: Any] {
-                //debugPrint("Payload: \(keyPayload)")
+                //DLog("Payload: \(keyPayload)")
                 completion(keyPayload, nil)
             } else {
-                debugPrint("Unable to find key payload at ephemeralkey")
+                DLog("Unable to find key payload at ephemeralkey")
                 completion(nil, nil)
             }
         }
@@ -1328,7 +1328,7 @@ class ApiServers : NSObject {
         
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             if let error = error {
-                print("postWalletStripeCompleteCharge update response error: \(error.localizedDescription)")
+                DLog("postWalletStripeCompleteCharge update response error: \(error.localizedDescription)")
                 completion(error)
                 return
             }
@@ -1367,7 +1367,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("postWalletAliPay update response error: \(error.localizedDescription)")
+                    DLog("postWalletAliPay update response error: \(error.localizedDescription)")
                 }
                 completion?(nil, nil)
                 return
@@ -1376,10 +1376,10 @@ class ApiServers : NSObject {
             
             if let data = response[ServerKey.data.rawValue] as? [String: Any],
                 let orderString = data[WalletKeyInDB.orderString.rawValue] as? String {
-                debugPrint("Order String: \(orderString)")
+                DLog("Order String: \(orderString)")
                 completion?(orderString, nil)
             } else {
-                debugPrint("Unable to get order string")
+                DLog("Unable to get order string")
                 completion?(nil, nil)
             }
         }
@@ -1396,7 +1396,7 @@ class ApiServers : NSObject {
         let route = hostVersion + "/wallets/alipay/verify"
         
         guard let validationData = response.convertToDictionary() else {
-            print("Unable to convert response to proper format")
+            DLog("Unable to convert response to proper format")
             return
         }
         
@@ -1420,7 +1420,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("postWalletAliPayValidation update response error: \(error.localizedDescription)")
+                    DLog("postWalletAliPayValidation update response error: \(error.localizedDescription)")
                     completion?(false, error)
                 } else {
                     completion?(false, nil)
@@ -1467,7 +1467,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("postWalletAliPay update response error: \(error.localizedDescription)")
+                    DLog("postWalletAliPay update response error: \(error.localizedDescription)")
                     completion?(false, error)
                 }
                 return
@@ -1512,7 +1512,7 @@ class ApiServers : NSObject {
             
             guard let response = response else {
                 if let error = error {
-                    print("postWalletAliPay update response error: \(error.localizedDescription)")
+                    DLog("postWalletAliPay update response error: \(error.localizedDescription)")
                     completion?(nil, error)
                 }
                 return
@@ -1526,10 +1526,10 @@ class ApiServers : NSObject {
                     
                 } catch let error {
                     completion?(nil, error)
-                    print("Get error when postWalletWXPay. Error = \(error.localizedDescription)")
+                    DLog("Get error when postWalletWXPay. Error = \(error.localizedDescription)")
                 }
             } else {
-                debugPrint("Unable to get data")
+                DLog("Unable to get data")
                 completion?(nil, nil)
             }
         }
@@ -1562,17 +1562,17 @@ class ApiServers : NSObject {
         postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("postWalletWXVerify update response error: \(error.localizedDescription)")
+                    DLog("postWalletWXVerify update response error: \(error.localizedDescription)")
                     completion?(false, error)
                 }
                 return
             }
             
             if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode == 200 {
-                print("postWalletWXVerify update success")
+                DLog("postWalletWXVerify update success")
                 completion?(true, nil)
             } else {
-                print("postWalletWXVerify update failed")
+                DLog("postWalletWXVerify update failed")
                 completion?(false, nil)
             }
         }
@@ -1594,7 +1594,7 @@ class ApiServers : NSObject {
                 [GET ROUTE] \(route)
                 [REQUEST] \(urlRequest)
                 """
-                print(printText)
+                DLog(printText)
             }
             
             if let responseValue = response.value as? [String: Any] {
@@ -1605,7 +1605,7 @@ class ApiServers : NSObject {
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
                     """
-                    print(printText)
+                    DLog(printText)
                     
                     self.handleAbnormalStatusCode(statusCode)
                 }
@@ -1631,7 +1631,7 @@ class ApiServers : NSObject {
                 [PARAMETERS] \(parameters)
                 [BODY] \(body)
                 """
-                print(printText)
+                DLog(printText)
             }
             
             if let responseValue = response.value as? [String: Any] {
@@ -1643,7 +1643,7 @@ class ApiServers : NSObject {
                     [STATUS_CODE] \(statusCode)
                     [MESSAGE]: \(message)
                     """
-                    print(printText)
+                    DLog(printText)
                     
                     self.handleAbnormalStatusCode(statusCode)
                 }
@@ -1662,7 +1662,7 @@ extension ApiServers {
         case 401:
             NotificationCenter.default.post(name: NSNotification.Name.Network.Invalid, object: nil)
         default:
-            print("[Status Code] Not handled: \(statusCode)")
+            DLog("[Status Code] Not handled: \(statusCode)")
         }
     }
 }

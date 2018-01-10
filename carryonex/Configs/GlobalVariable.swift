@@ -148,7 +148,15 @@ func debugLog(_ message: String,
               function: String = #function,
               file: String = #file,
               line: Int = #line) {
-    print("Message \"\(message)\" (File: \(file), Function: \(function), Line: \(line))")
+    #if DEBUG
+        DLog("Message \"\(message)\" (File: \(file), Function: \(function), Line: \(line))")
+    #endif
+}
+
+func DLog(_ message: String) {
+    #if DEBUG
+        print(message)
+    #endif
 }
 
 func L(_ key: String) -> String {

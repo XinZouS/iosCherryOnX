@@ -323,7 +323,7 @@ class NewHomePageController: UIViewController {
         
         let currentVersion = version + "." + build
         if updatedVersion != currentVersion {
-            print("Current: \(currentVersion), Updated to: \(updatedVersion)")
+            DLog("Current: \(currentVersion), Updated to: \(updatedVersion)")
             self.displayGlobalAlertActions(title: L("home.confirm.title.version"),
                                            message: L("home.confirm.message.version"),
                                            actions: [L("home.confirm.action.version")],
@@ -334,7 +334,7 @@ class NewHomePageController: UIViewController {
                     // Attempt to open the URL.
                     UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
                         if success {
-                            print("Launching \(url) was successful")
+                            DLog("Launching \(url) was successful")
                         }
                     })
                 }

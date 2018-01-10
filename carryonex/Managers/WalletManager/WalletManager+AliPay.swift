@@ -54,7 +54,7 @@ extension WalletManager {
             
             if let error = error {
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
-                print("aliPayAuth: \(error.localizedDescription)")
+                DLog("aliPayAuth: \(error.localizedDescription)")
                 return
             }
             AlipaySDK.defaultService().payOrder(orderString, fromScheme: "carryonex", callback: nil)
@@ -76,18 +76,18 @@ extension WalletManager {
         AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result) in
             
             if let result = result as? [String: Any] {
-                print("aliPayHandleOrderUrl result: \(result)")
+                DLog("aliPayHandleOrderUrl result: \(result)")
                 var isSuccess = false
                 
                 let resultStatus = result["resultStatus"] as? String
                 let resultData = result["result"] as? String
                 
-                print("Result status: \(resultStatus)")
-                print("Result data: \(resultData)")
+                DLog("Result status: \(resultStatus)")
+                DLog("Result data: \(resultData)")
                 
                 if resultStatus == AliPayResultStatus.success.rawValue {
                     isSuccess = true
-                    print("Status code: \(resultStatus)")
+                    DLog("Status code: \(resultStatus)")
                 }
                 
                 self.aliPayProcessOrderCallbackHandler(result: result)
@@ -100,17 +100,17 @@ extension WalletManager {
                                                                  isSuccess: isSuccess,
                                                                  completion: { (success, error) in
                                                                     if let error = error {
-                                                                        print("Error: \(error.localizedDescription)")
+                                                                        DLog("Error: \(error.localizedDescription)")
                                                                         return
                                                                     }
-                                                                    print("Validation success")
+                                                                    DLog("Validation success")
                     })
                 } else {
-                    print("aliPayHandleOrderUrl not success, status code: \(resultStatus)")
+                    DLog("aliPayHandleOrderUrl not success, status code: \(resultStatus)")
                 }
                 
             } else {
-                print("aliPayHandleOrderUrl error")
+                DLog("aliPayHandleOrderUrl error")
                 AnalyticsManager.shared.clearTimeTrackingKey(.requestPayTime)
             }
             
@@ -132,7 +132,7 @@ extension WalletManager {
             }
             
             if let authCode = authCode {
-                print("Authorization result: \(authCode)")
+                DLog("Authorization result: \(authCode)")
             }
         })
     }

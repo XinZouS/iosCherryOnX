@@ -131,7 +131,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
 
         presentImageOnButtons(getImg)
 
-        print("did finish selecting image, now have in set: ", imageUploadingSet)
+        DLog("did finish selecting image, now have in set: \(imageUploadingSet)")
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -177,7 +177,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
                 profileReady = true
             
             case .requestImages:
-                print("Error: should NOT set up requestImages in PhotoIDController++")
+                DLog("Error: should NOT set up requestImages in PhotoIDController++")
         }
 
     }
@@ -228,12 +228,12 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
                     self.displayAlertForUploadFailed(error: err)
                 }
                 if let publicUrl = url, publicUrl.absoluteString != "" {
-                    print("PhotoIDController: uploadAllImages get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
+                    DLog("PhotoIDController: uploadAllImages get publicUrl.absoluteStr = \(publicUrl.absoluteString)")
                     self.imageUploadingSet.removeFirst()
                     self.removeImageWithUrlInLocalFileDirectory(fileName: filename)
                     self.saveImageCloudUrl(url: publicUrl) // finily will end up here if all success
                 }else{
-                    print("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
+                    DLog("errrorrr!!! uploadAllImagesToAws(): task.result is nil, !!!! did not upload")
                 }
                 
             }) // end of uploadFile()
@@ -243,7 +243,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     private func saveImageCloudUrl(url : URL){
         let fileName: String = url.lastPathComponent
         guard let fileType: String = fileName.components(separatedBy: ".").first else { return }
-        print("saveImageCloudUrl: get fileType = \(fileType), save urlStr = \(url.absoluteString)")
+        DLog("saveImageCloudUrl: get fileType = \(fileType), save urlStr = \(url.absoluteString)")
         
         let urlStr = url.absoluteString
         switch fileType {
@@ -273,7 +273,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             })
             
         default:
-            print("saveImageCloudUrl: invalide fileType input: \(fileType)")
+            DLog("saveImageCloudUrl: invalide fileType input: \(fileType)")
             self.didFinishedUploadImagesToAws(allSuccess: false)
             return
         }
@@ -319,7 +319,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
     
     private func displayAlertForUploadFailed(error: Error?){
         if let error = error {
-            debugPrint("Upload failed: \(error.localizedDescription)")
+            DLog("Upload failed: \(error.localizedDescription)")
         }
         displayGlobalAlert(title: L("personal.error.title.upload-ids"),
                            message: L("personal.error.message.upload-ids"),
@@ -340,7 +340,7 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         if let imgData = UIImageJPEGRepresentation(img, imageCompress) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
-        print("save image to DocumentDirectory: \(profileImgLocalUrl)")
+        DLog("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
     
@@ -351,12 +351,12 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         let fileManager = FileManager.default
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         if let filePath = documentUrl.path {
-            print("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
+            DLog("try to remove file from path: \(filePath), fileExistsAtPath==\(fileManager.fileExists(atPath: filePath))")
             do {
                 try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                print("OK remove file at path: \(filePath), fileName = \(fileName)")
+                DLog("OK remove file at path: \(filePath), fileName = \(fileName)")
             } catch let err {
-                print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+                DLog("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
             }
         }
     }

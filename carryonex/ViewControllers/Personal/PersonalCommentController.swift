@@ -210,7 +210,7 @@ extension PersonalCommentController: UIScrollViewDelegate {
                         offset += 4
                         UpdateHistoryComment()
                     }else{
-                        print("load All data")
+                        DLog("load All data")
                         activityViewIndicator.stopAnimating()
                     }
                 }

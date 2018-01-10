@@ -229,7 +229,7 @@ class SenderDetailViewController: UIViewController{
         if let targetUserId = trip?.carrierId {
             ApiServers.shared.getUserInfo(.realName, userId: targetUserId) { (realName, error) in
                 if let error = error {
-                    print("Get real name error: \(error.localizedDescription)")
+                    DLog("Get real name error: \(error.localizedDescription)")
                     return
                 }
                 if let realName = realName as? String {
@@ -392,10 +392,10 @@ class SenderDetailViewController: UIViewController{
         case .linear:
             return priceShipFee * priceParamA + (Double(priceParamB) / 100)
         case .logarithmic:
-            print("TODO: logarithmic func for price")
+            DLog("TODO: logarithmic func for price")
             return 10
         case .exponential:
-            print("TODO: exponential func for price")
+            DLog("TODO: exponential func for price")
             return 10
         }
     }
@@ -444,7 +444,7 @@ class SenderDetailViewController: UIViewController{
             guard let strongSelf = self else { return }
             
             if let err = error {
-                debugPrint("Error: \(err.localizedDescription)")
+                DLog("Error: \(err.localizedDescription)")
                 strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
                                               message: L("sender.error.message.upload-photo"),
                                               action: L("sender.error.action.upload-photo"),
@@ -485,7 +485,7 @@ class SenderDetailViewController: UIViewController{
                                                 AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
 
                                                 if let error = error {
-                                                    print("Post Request Error: \(error.localizedDescription)")
+                                                    DLog("Post Request Error: \(error.localizedDescription)")
                                                     strongSelf.displayGlobalAlert(title: L("sender.error.title.upload"),
                                                                                   message: L("sender.error.message.post-failed"),
                                                                                   action: L("action.ok"),
@@ -585,18 +585,18 @@ extension SenderDetailViewController: UICollectionViewDelegate {
             guard let getImgName = images[i].name else {
                 continue
             }
-            debugPrint("get imageName = \(getImgName), target name = \(imgName), trying to remove it...")
+            DLog("get imageName = \(getImgName), target name = \(imgName), trying to remove it...")
             if getImgName == imgName {
                 images.remove(at: i)
                 imageUploadingSet.remove(imgName)
                 imageUploadSequence.removeValue(forKey: imgName)
                 if let baseName = imgName.components(separatedBy: ".").first {
-                    debugPrint("get imageName = \(imgName), target name = \(baseName)_thumbnail.JPG, trying to remove it...")
+                    DLog("get imageName = \(imgName), target name = \(baseName)_thumbnail.JPG, trying to remove it...")
                     imageUploadingSet.remove("\(baseName)_thumbnail.JPG")
                     imageUploadSequence.removeValue(forKey: "\(baseName)_thumbnail.JPG")
                 }
                 collectionViewMasksHide(imageUploadingSet.count != 0)
-                print("OK, remove file success: \(imgName)")
+                DLog("OK, remove file success: \(imgName)")
                 return
             }
         }
@@ -642,7 +642,7 @@ extension SenderDetailViewController {
             self.imageUploadSequence[thumbnailName] = localThumbnailUrl
             self.imageUploadingSet.insert(thumbnailName)
         }else{
-            debugPrint("Error: SenderDetailViewController::saveThumbnailOf() unable to get thumbnail from image: ", baseName)
+            DLog("Error: SenderDetailViewController::saveThumbnailOf() unable to get thumbnail from image: \(baseName)")
         }
     }
     
@@ -657,7 +657,7 @@ extension SenderDetailViewController {
                 AwsServerManager.shared.uploadFile(fileName: imageName, imgIdType: .requestImages, localUrl: url, completion: { (err, getUrl) in
                     
                     if let err = err {
-                        print("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
+                        DLog("error in uploadImagesToAwsAndGetUrls(): err = \(err.localizedDescription)")
                         self.displayGlobalAlert(title: L("sender.error.title.upload"), message: L("sender.error.message.upload-photo"), action: L("action.ok"), completion: nil)
                         completion(nil, err)
                         return
@@ -678,7 +678,7 @@ extension SenderDetailViewController {
                 })
                 
             } else {
-                print("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
+                DLog("error in uploadImagesToAwsAndGetUrls(): can not get imageUploadSequence[fileName] url !!!!!!")
                 self.displayGlobalAlert(title: L("sender.error.title.upload"), message: L("sender.error.message.upload-photo"), action: L("action.ok"), completion: nil)
                 completion(nil, nil)
             }
@@ -703,18 +703,18 @@ extension SenderDetailViewController {
         let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
         
         guard let filePath = documentUrl.path, fileManager.fileExists(atPath: "\(filePath)/\(fileName)") else { return }
-        print("\ntry to removeImageWithUrlInLocalFileDirectory fileName = \(fileName), fileExistsAtPath== TRUE,")
+        DLog("\ntry to removeImageWithUrlInLocalFileDirectory fileName = \(fileName), fileExistsAtPath== TRUE,")
         do {
             if fileManager.fileExists(atPath: "\(filePath)/\(fileName)"){
                 try fileManager.removeItem(atPath: "\(filePath)/\(fileName)")
-                debugPrint("OK remove file at path: \(filePath), fileName = \(fileName)")
+                DLog("OK remove file at path: \(filePath), fileName = \(fileName)")
             }
             if let baseName = fileName.components(separatedBy: ".").first, fileManager.fileExists(atPath: "\(filePath)/\(baseName)_thumbnail.JPG") {
                 try fileManager.removeItem(atPath: "\(filePath)/\(baseName)_thumbnail.JPG")
-                debugPrint("OK remove thumbnail at path: \(filePath), fileName = \(baseName)_thumbnail.JPG")
+                DLog("OK remove thumbnail at path: \(filePath), fileName = \(baseName)_thumbnail.JPG")
             }
         }catch let err {
-            print("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
+            DLog("error : when trying to move file: \(fileName), from path = \(filePath), get err = \(err)")
         }
     }
     
@@ -725,7 +725,7 @@ extension SenderDetailViewController {
         if let imgData = UIImageJPEGRepresentation(img, imageCompress) {
             try? imgData.write(to: profileImgLocalUrl, options: .atomic)
         }
-        print("save image to DocumentDirectory: \(profileImgLocalUrl)")
+        DLog("save image to DocumentDirectory: \(profileImgLocalUrl)")
         return profileImgLocalUrl
     }
     

@@ -72,7 +72,7 @@ class LocationSearchTableController : UITableViewController {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "reuseIdentifier")
         }
         let selectedItem = matchingItems[indexPath.row].placemark
-        //print(selectedItem)
+        //DLog(selectedItem)
         cell!.textLabel?.text = selectedItem.name
         cell!.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
         cell!.backgroundColor = .white

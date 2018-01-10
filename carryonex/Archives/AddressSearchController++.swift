@@ -64,7 +64,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("errorroro: AddressSearchController++: locationManager(didFailWithError), err = \(error)")
+        DLog("errorroro: AddressSearchController++: locationManager(didFailWithError), err = \(error)")
         displayAlert(title: "定位失败", message: "请检查您的定位服务是否开启", action: L("action.ok"))
     }
     
@@ -118,7 +118,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
         address.coordinateLatitude  = placemark.coordinate.latitude
         address.coordinateLongitude = placemark.coordinate.longitude
         
-//        print("do saveAddressInfoBy placemark, add = ", address.descriptionString())
+//        DLog("do saveAddressInfoBy placemark, add = ", address.descriptionString())
     }
     
     
@@ -137,7 +137,7 @@ extension AddressSearchController : CLLocationManagerDelegate, HandleMapSearch {
             placeMark = placeArray[0]
             
             // Address dictionary
-            //print(placeMark.addressDictionary)
+            //DLog(placeMark.addressDictionary)
             
             //self.saveAddressInfoBy(placeMark as! MKPlacemark) --> this is an ERROR!!! Do it as following:
             let country = placeMark.addressDictionary?["CountryCode"] as? String ?? "US"
@@ -244,12 +244,12 @@ extension AddressSearchController : MKMapViewDelegate {
         //let add = UIDevice.current.userInterfaceIdiom == .phone ? addShort : addLong
         switch currType {
         case AddressSearchType.requestStarting:
-            print("Request starting NOT USED")
+            DLog("Request starting NOT USED")
         case AddressSearchType.requestDestination:
             requestCtl?.endAddress = self.address
             requestCtl?.setupDestinationAddress(string: add)
         default:
-            print("Do nothing")
+            DLog("Do nothing")
 //        case AddressSearchType.tripStarting:
 //            postTripCtl?.addressStarting = self.address
 //            postTripCtl?.setupStartingAddress(string: add)
@@ -270,14 +270,14 @@ extension AddressSearchController {
         
         switch currType {
             case AddressSearchType.requestStarting:
-                print("Request Starting NOT USED")
+                DLog("Request Starting NOT USED")
             
             case AddressSearchType.requestDestination:
                 if let currAdd = request?.endAddress {
                     setupCurrentAddress(currAdd)
                 }
             default:
-                print("Print default message")
+                DLog("Print default message")
             /*
             case AddressSearchType.tripStarting:
                 if let currAdd = postTripCtl?.addressStarting {
