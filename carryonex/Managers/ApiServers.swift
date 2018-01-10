@@ -1547,15 +1547,8 @@ class ApiServers : NSObject {
         
         let route = hostVersion + "/wallets/wxpay/frontendverify"
         
-        let validationData: [String: Any] = ["timestamp": order.timestamp,
-                                               "prepayId": order.prepayId,
-                                               "result_code": isSuccess ? "SUCCESS" : "FAILED",
-                                               "appid": order.appId,
-                                               "sign": order.sign,
-                                               "nonceStr": order.nonceStr,
-                                               "partnerid": order.partnerId,
-                                               "package": order.package,
-                                               "out_trade_no": order.outTradeNo]
+        let validationData: [String: Any] = ["return_code": isSuccess ? "SUCCESS" : "FAILED",
+                                             "out_trade_no": order.outTradeNo]
         
         let timestamp = Date.getTimestampNow()
         let parameters: [String: Any] = [
