@@ -28,9 +28,9 @@ class PersonalPageViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     
     let scoreLabelHintText = L("personal.ui.title.score")
-    let titles = [L("personal.ui.title.wallet"),L("personal.ui.title.help"),L("personal.ui.title.settings")]
-    let subTitles = [L("personal.ui.title.wallet-description"), "", "", ""]
-    let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray"), #imageLiteral(resourceName: "locker")]
+    let titles = [L("personal.ui.title.wallet"), L("personal.ui.title.help"), L("personal.ui.title.settings")]
+    let subTitles = [L("personal.ui.title.wallet-description"), "", ""]
+    let titleImgs: [UIImage] = [#imageLiteral(resourceName: "wallet_gray"), #imageLiteral(resourceName: "helping_gray"), #imageLiteral(resourceName: "setting_gray")]
     let cellId = "PersonalPageTableCell"
 
     let segueIdWalletPage = "creditViewController"

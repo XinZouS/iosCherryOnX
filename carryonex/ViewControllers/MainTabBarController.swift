@@ -169,7 +169,7 @@ class MainTabBarController: UITabBarController {
         if segue == .helpCenter {
             self.navigationController?.setNavigationBarHidden(false, animated: false)
             let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
-            ZDKHelpCenter.pushOverview(self.navigationController, with:helpCenterContentModel)
+            ZDKHelpCenter.pushOverview(self.navigationController, with: helpCenterContentModel)
             return
         }
         

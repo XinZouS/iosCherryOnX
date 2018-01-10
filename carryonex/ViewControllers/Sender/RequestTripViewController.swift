@@ -34,12 +34,13 @@ class RequestTripViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
-        title = L("sender.ui.title.new-request")
+        setupNavigationBar()
         okButton.isEnabled = true
     }
     
     private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .lightContent
+        title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true
