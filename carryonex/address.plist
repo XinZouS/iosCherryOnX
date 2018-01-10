@@ -9792,12 +9792,12 @@
 				<key>state</key>
 				<string>塔斯马尼亚州 </string>
 				<key>cities</key>
-                <array>
-                    <dict>
-                        <key>city</key>
-                        <string>霍巴特</string>
-                    </dict>
-                </array>
+				<array>
+					<dict>
+						<key>city</key>
+						<string>霍巴特</string>
+					</dict>
+				</array>
 			</dict>
 			<dict>
 				<key>state</key>
@@ -9898,6 +9898,51 @@
 					<dict>
 						<key>city</key>
 						<string>仙台</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>country</key>
+		<string>韩国</string>
+		<key>states</key>
+		<array>
+			<dict>
+				<key>state</key>
+				<string>自治市</string>
+				<key>cities</key>
+				<array>
+					<dict>
+						<key>city</key>
+						<string>首尔</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>state</key>
+				<string>广域市</string>
+				<key>cities</key>
+				<array>
+					<dict>
+						<key>city</key>
+						<string>釜山</string>
+					</dict>
+					<dict>
+						<key>city</key>
+						<string>大邱</string>
+					</dict>
+					<dict>
+						<key>city</key>
+						<string>仁川</string>
+					</dict>
+					<dict>
+						<key>city</key>
+						<string>光州</string>
+					</dict>
+					<dict>
+						<key>city</key>
+						<string>大田</string>
 					</dict>
 				</array>
 			</dict>
