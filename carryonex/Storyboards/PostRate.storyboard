@@ -51,7 +51,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未设置用户名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1R-bQ-0z6">
-                                <rect key="frame" x="112" y="132.33333333333334" width="282" height="30"/>
+                                <rect key="frame" x="112" y="128.33333333333334" width="282" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Duj-kx-cnY"/>
                                 </constraints>
@@ -135,7 +135,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="返回首页">
-                                    <color key="titleColor" red="0.40392156862745099" green="0.46666666666666667" blue="0.51372549019607838" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="backToHomeTappedWithSender:" destination="3HJ-cW-Sdm" eventType="touchUpInside" id="qMP-z6-iYv"/>
@@ -151,7 +151,7 @@
                             <constraint firstItem="ONn-ff-6am" firstAttribute="top" secondItem="Rgo-9S-tv2" secondAttribute="top" id="5Gh-kP-ey4"/>
                             <constraint firstItem="ASt-vu-3Dv" firstAttribute="centerX" secondItem="FHW-ju-nic" secondAttribute="centerX" id="9Qe-zl-3Eh"/>
                             <constraint firstItem="wId-b5-Cai" firstAttribute="trailing" secondItem="GDW-rZ-cY5" secondAttribute="trailing" id="9c0-IR-LwA"/>
-                            <constraint firstItem="I1R-bQ-0z6" firstAttribute="top" secondItem="ONn-ff-6am" secondAttribute="bottom" constant="10" id="HAa-vq-SNR"/>
+                            <constraint firstItem="I1R-bQ-0z6" firstAttribute="top" secondItem="ONn-ff-6am" secondAttribute="bottom" constant="6" id="HAa-vq-SNR"/>
                             <constraint firstItem="AI6-Nc-erR" firstAttribute="leading" secondItem="FHW-ju-nic" secondAttribute="leading" constant="30" id="LFC-A4-NUb"/>
                             <constraint firstItem="Ia4-l9-qYD" firstAttribute="leading" secondItem="FHW-ju-nic" secondAttribute="leading" constant="30" id="LpF-8S-nl2"/>
                             <constraint firstItem="eZb-T7-PGP" firstAttribute="top" secondItem="Rgo-9S-tv2" secondAttribute="bottom" constant="53" id="Mex-Si-MZ0"/>
