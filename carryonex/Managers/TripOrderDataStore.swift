@@ -203,11 +203,11 @@ class TripOrderDataStore: NSObject {
     
     private func fetchData(forCategory category: TripCategory, offset: Int, pageCount: Int, sinceTime: Int, delay: Int = 0, completion:(([TripOrder]?) -> Void)?) {
         
-        print("PULL CATEGORY: \(category)")
+        DLog("PULL CATEGORY: \(category)")
         
         ApiServers.shared.getUsersTrips(userType: category, offset: offset, pageCount: pageCount) { (tripOrders, error) in
             if let error = error {
-                print("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
+                DLog("ApiServers.shared.getUsersTrips Error: \(error.localizedDescription)")
                 return
             }
             
@@ -215,15 +215,15 @@ class TripOrderDataStore: NSObject {
                 completion?(tripOrders)
             } else {
                 completion?(nil)
-                print("No new update since: \(sinceTime)")
+                DLog("No new update since: \(sinceTime)")
             }
             
             if category == .carrier {
                 self.lastCarrierFetchTime = Date.getTimestampNow()
-                print("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
+                DLog("carrier trip: \(self.carrierTrips.count), request: \(self.carrierRequests.count)")
             } else {
                 self.lastSenderFetchTime = Date.getTimestampNow()
-                print("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
+                DLog("sender trip: \(self.senderTrips.count), request: \(self.senderRequests.count)")
             }
         }
     }

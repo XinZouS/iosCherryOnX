@@ -181,7 +181,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
                     controller.messageComposeDelegate = self
                     self.present(controller, animated: true,completion: nil)
                 } else {
-                    print("本设备不能发短信")
+                    DLog("本设备不能发短信")
                     self.displayGlobalAlertActions(title: L("sender.error.title.upload"),
                                                    message: L("personal.error.message.send-message"),
                                                    actions: [L("action.ok")], completion: nil)
@@ -198,11 +198,11 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         //判断短信的状态
         switch result{
         case .sent:
-            print("短信已发送")
+            DLog("短信已发送")
         case .cancelled:
-            print("短信取消发送")
+            DLog("短信取消发送")
         case .failed:
-            print("短信发送失败")
+            DLog("短信发送失败")
         }
     }
     
@@ -279,7 +279,7 @@ extension ShipperInfoViewController: UIScrollViewDelegate {
                         offset += 4
                         UpdateHistoryComment()
                     }else{
-                        print("load All data")
+                        DLog("load All data")
                         activityViewIndicator.stopAnimating()
                     }
                 }

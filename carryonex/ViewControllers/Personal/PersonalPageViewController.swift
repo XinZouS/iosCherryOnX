@@ -103,7 +103,7 @@ class PersonalPageViewController: UIViewController{
         guard let currUser = ProfileManager.shared.getCurrentUser(), let currId = currUser.id else { return }
         ApiServers.shared.getUserComments(commenteeId: currId, offset: 0) { (userComments, error) in
             if let err = error {
-                print("error: PersonalPageViewController::loadUserComments() get error: ", err)
+                DLog("error: PersonalPageViewController::loadUserComments() get error: \(err.localizedDescription)")
                 return
             }
             let num = userComments?.commentsLength ?? 0
@@ -140,7 +140,7 @@ extension PersonalPageViewController: UITableViewDelegate {
             AppDelegate.shared().handleMainNavigation(navigationSegue: .settings, sender: nil)
             
         default:
-            print("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")
+            DLog("Error: illegal selection row in PersonalPageVC: didselectRowAt: default;")
         }
     }
     

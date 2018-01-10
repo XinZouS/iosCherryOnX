@@ -150,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if ProfileManager.shared.isLoggedIn() {
             //Pull when app comes to foreground, refresh store
             TripOrderDataStore.shared.pullAll(completion: {
-                print("Pull ALL completed")
+                DLog("Pull ALL completed")
             })
         }
     }
@@ -165,13 +165,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return String(format: "%02.2hhx", data)
         }
         let token = tokenParts.joined()
-        print("Device Token: \(token)")
+        DLog("Device Token: \(token)")
         
         UserDefaults.setDeviceToken(token)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Failed to register for push notification: \(error.localizedDescription)")
+        DLog("Failed to register for push notification: \(error.localizedDescription)")
     }
     
     /// WeChat API connection
@@ -196,13 +196,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        print("Remote notification: \(userInfo)")
+        DLog("Remote notification: \(userInfo)")
         
         guard let url = userInfo["url"] as? String,
             let deeplink = URL(string: url),
             let host = deeplink.host,
             let navPage = NavigationPage(rawValue: host) else {
-                print("Invalid Deeplink")
+                DLog("Invalid Deeplink")
                 return
         }
         
@@ -276,14 +276,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let error = error {
                 debugLog("APNS Permission Error: \(error.localizedDescription)")
             }
-            //print("APNS Permission granted: \(granted)")
+            //DLog("APNS Permission granted: \(granted)")
             self.getNotificationSettings()
         }
     }
     
     private func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            //print("Notification settings: \(settings)")
+            //DLog("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else {
                 debugLog("Bad Notification settings status: \(settings.authorizationStatus)")
                 return

@@ -75,7 +75,7 @@ class Address: NSObject, Unboxable {
                 return dt
             }
         } catch let err {
-            print("get error when try to JSONSerialization", err)
+            DLog("get error when try to JSONSerialization: \(err.localizedDescription)")
         }
         return nil
     }

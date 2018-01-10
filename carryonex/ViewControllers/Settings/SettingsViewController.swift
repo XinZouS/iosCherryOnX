@@ -102,7 +102,7 @@ extension SettingsViewController: UITableViewDelegate {
             
         case 2:
             // TODO:
-            print("TODO: selection 账号信息")
+            DLog("TODO: selection 账号信息")
             
         case 3:
             let url = "\(ApiServers.shared.host)/doc_license"
@@ -112,14 +112,14 @@ extension SettingsViewController: UITableViewDelegate {
             webCtl.title = titles[indexPath.row]
             
         case 4:
-            print("版本 info, do nothing;")
+            DLog("版本 info, do nothing;")
             
         case 5:
             ProfileManager.shared.logoutUser()
             navigationController?.popToRootViewController(animated: false)
             
         default:
-            print("Error: invalidate selection in SettingsViewController tableView;")
+            DLog("Error: invalidate selection in SettingsViewController tableView;")
         }
     }
 
@@ -127,7 +127,7 @@ extension SettingsViewController: UITableViewDelegate {
         if let sysUrl = URL(string: UIApplicationOpenSettingsURLString) {
             UIApplication.shared.open(sysUrl, options: [:], completionHandler: nil)
         } else {
-            print("unable to openSystemSetting")
+            DLog("unable to openSystemSetting")
         }
     }
     

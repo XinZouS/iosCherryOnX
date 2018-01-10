@@ -129,6 +129,6 @@ class DetailBarView : UIView {
 extension DetailBarView {
     
     func youpiaoButtonTapped(){
-        print("TODO: youpiaoButtonTapped in DetailBarView")
+        DLog("TODO: youpiaoButtonTapped in DetailBarView")
     }
 }

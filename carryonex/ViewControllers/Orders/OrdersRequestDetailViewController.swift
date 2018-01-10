@@ -131,7 +131,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBAction func requestStatusButtonHandler(sender: RequestTransactionButton) {
         
         let transaction = sender.transaction
-        //print("Transaction tapped: \(transaction.displayString())")
+        //DLog("Transaction tapped: \(transaction.displayString())")
         
         if transaction == .allowRating {
             performSegue(withIdentifier: postRateSegue, sender: nil)
@@ -174,7 +174,7 @@ class OrdersRequestDetailViewController: UIViewController {
                     }
                     
                 } else {
-                    debugPrint("No status found, bad call")
+                    DLog("No status found, bad call")
                 }
             }
         })
@@ -234,7 +234,7 @@ class OrdersRequestDetailViewController: UIViewController {
         
         ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
             if let error = error {
-                print("Get phone error: \(error.localizedDescription)")
+                DLog("Get phone error: \(error.localizedDescription)")
                 self.senderPhoneButton.isHidden = true
                 return
             }
@@ -428,10 +428,10 @@ class OrdersRequestDetailViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PaySuccess, object: nil, queue: nil) { [weak self] (notification) in
             guard let payResp = notification.object as? PayResp else {
-                print("Wechat Pay response empty")
+                DLog("Wechat Pay response empty")
                 return
             }
-            print("Wechat Pay response returnkey: \(payResp.returnKey)")
+            DLog("Wechat Pay response returnkey: \(payResp.returnKey)")
             //TODO: Update message
             self?.displayAlert(title: L("orders.confirm.title.wechatpay"), message: "", action: L("action.ok"), completion: {
                 self?.processTransaction(.shipperPay)
@@ -440,10 +440,10 @@ class OrdersRequestDetailViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WeChat.PayFailed, object: nil, queue: nil) { [weak self] (notification) in
             guard let payResp = notification.object as? PayResp else {
-                print("Wechat Pay response empty: ()")
+                DLog("Wechat Pay response empty: ()")
                 return
             }
-            print("Wechat Pay response returnkey: \(payResp.returnKey)")
+            DLog("Wechat Pay response returnkey: \(payResp.returnKey)")
             //TODO: Update message
             self?.displayAlert(title: L("orders.error.title.wechatpay"), message: "", action: L("action.ok"))
         }
@@ -625,7 +625,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     fileprivate func updateMapViewToShow(_ showMap: Bool){
         finishButtonStackViewHeighConstraint.constant = showMap ? 0 : 44
         mapViewHeighConstraint.constant = showMap ? mapView.bounds.width * 0.56 : 0 // 9:16 = 0.56
-        print("done, now button heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
+        DLog("done, now button heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
         }
@@ -748,7 +748,7 @@ extension OrdersRequestDetailViewController: PhotoBrowserDelegate {
     func photoBrowser(_ photoBrowser: PhotoBrowser, didLongPressForIndex index: Int, image: UIImage) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let saveImageAction = UIAlertAction(title: L("orders.confirm.title.save-image"), style: .default) { (_) in
-            print("保存图片：\(image)")
+            DLog("保存图片：\(image)")
         }
         let cancelAction = UIAlertAction(title: L("action.cancel"), style: .cancel, handler: nil)
         
@@ -786,12 +786,12 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
         
         ApiServers.shared.getUserGPS(userId: trip.carrierId) { (gpsObject, error) in
             if let error = error {
-                print("Order request get gps object error: \(error.localizedDescription)")
+                DLog("Order request get gps object error: \(error.localizedDescription)")
                 return
             }
             
             guard let gps = gpsObject, let latitude = gps.latitude, let longitude = gps.longitude else {
-                print("No GPS values found.")
+                DLog("No GPS values found.")
                 return
             }
             
@@ -808,7 +808,7 @@ extension OrdersRequestDetailViewController: CLLocationManagerDelegate {
     
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("TODO: updateSearchResults...")
+        DLog("TODO: updateSearchResults...")
     }
     
     /// HandleMapSearch delegate:

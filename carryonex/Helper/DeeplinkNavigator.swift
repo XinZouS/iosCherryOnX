@@ -30,7 +30,7 @@ class DeeplinkNavigator: NSObject {
         }
         
         guard let host = deeplink.host, let page = NavigationPage(rawValue: host) else {
-            print("Invalid Deeplink")
+            DLog("Invalid Deeplink")
             return
         }
         
@@ -59,7 +59,7 @@ class DeeplinkNavigator: NSObject {
         case .comments:
             AppDelegate.shared().handleMainNavigation(navigationSegue: .historyComment, sender: nil)
         default: //home
-            print("Do nothing")
+            DLog("Do nothing")
         }
     }
     

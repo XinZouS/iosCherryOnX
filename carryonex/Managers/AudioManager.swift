@@ -24,7 +24,7 @@ class AudioManager {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error {
-            print("get error when init AVAudioSession.shared.setCategory, err = \(error)")
+            DLog("get error when init AVAudioSession.shared.setCategory, err = \(error)")
         }
     }
     
@@ -39,7 +39,7 @@ class AudioManager {
             
         } catch let error {
             player = AVAudioPlayer() // reset default player
-            print("AudioManager get error when init player: err = \(error)")
+            DLog("AudioManager get error when init player: err = \(error)")
         }
     }
     

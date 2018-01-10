@@ -78,8 +78,8 @@ class PhoneValidationViewController: UIViewController {
         super.viewDidAppear(animated)
         zoneCodeInput = registerUserInfo?["countryCode"] ?? ""
         phoneInput = registerUserInfo?["phone"] ?? ""
-        print(zoneCodeInput)
-        print(phoneInput)
+        DLog(zoneCodeInput)
+        DLog(phoneInput)
         verifyCodeLabel01.text = ""
         verifyCodeLabel02.text = ""
         verifyCodeLabel03.text = ""
@@ -118,7 +118,7 @@ class PhoneValidationViewController: UIViewController {
     
     
     @IBAction func resendButtonTapped(_ sender: UIButton) {
-        print("should resend verification...")
+        DLog("should resend verification...")
         guard verificationCode.count == 4 else { return }
         commitVerificationCode()
         resetResendButtonTo60s()
@@ -188,7 +188,7 @@ class PhoneValidationViewController: UIViewController {
                     currUser.phone = self.phoneInput
                     self.confirmPhoneInServer()
                 } else if let err = err {
-                    debugPrint("failed in PhoneValidationViewController, verifySuccess(), msg = ", err)
+                    DLog("failed in PhoneValidationViewController, verifySuccess(), msg = \(err.localizedDescription)")
                     self.verifyFaild(err)
                 }
             })
@@ -225,7 +225,7 @@ class PhoneValidationViewController: UIViewController {
     private func confirmPhoneInServer(){
         ApiServers.shared.postUpdateUserInfo(.isPhoneVerified, value: "1") { (success, error) in
             if let error = error {
-                debugPrint("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(error.localizedDescription)")
+                DLog("get error when .postUpdateUserInfo(.isPhoneVerified: err = \(error.localizedDescription)")
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 AudioManager.shared.playSond(named: .failed)
@@ -240,7 +240,7 @@ class PhoneValidationViewController: UIViewController {
 
     private func verifyFaild(_ error: Error?){
         if let error = error {
-            debugPrint("PhoneValidationViewController: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
+            DLog("PhoneValidationViewController: verifyFaild(): 验证失败，error: \(error.localizedDescription)")
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             AudioManager.shared.playSond(named: .failed)

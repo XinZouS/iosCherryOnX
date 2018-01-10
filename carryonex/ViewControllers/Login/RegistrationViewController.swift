@@ -121,10 +121,10 @@ class RegistrationViewController: UIViewController {
                                        completion: { (success, err, errType) in
                                         
                                         if success {
-                                            print("注册成功...")
+                                            DLog("注册成功...")
                                             ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
                                                 if success {
-                                                    print("注册后登入成功...")
+                                                    DLog("注册后登入成功...")
                                                     ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
                                                         if success {
                                                             //self.dismiss(animated: true, completion: nil)
@@ -137,7 +137,7 @@ class RegistrationViewController: UIViewController {
                                                         }
                                                     }
                                                 } else {
-                                                    print("登入失败")
+                                                    DLog("登入失败")
                                                     self.isLoading = false
                                                     self.displayGlobalAlert(title: "登入失败",
                                                                             message: "注册成功但登入失败，请检查你的网络。",
@@ -145,7 +145,7 @@ class RegistrationViewController: UIViewController {
                                                 }
                                             })
                                         } else {
-                                            print("注册失败")
+                                            DLog("注册失败")
                                             self.isLoading = false
                                             self.displayGlobalAlert(title: L("register.error.title.failed"), message: L("register.error.message.failed") + ": \(err?.localizedDescription ?? L("register.error.title.failed"))", action: L("action.ok"), completion: { [weak self] _ in
                                                 self?.navigationController?.popToRootViewController(animated: true)
@@ -160,7 +160,7 @@ class RegistrationViewController: UIViewController {
                 destVC.registerUserInfo = info
             }
         } else {
-            print("get error: RegistrationVC: prepare for segue get nil at destVC...")
+            DLog("get error: RegistrationVC: prepare for segue get nil at destVC...")
         }
     }
     

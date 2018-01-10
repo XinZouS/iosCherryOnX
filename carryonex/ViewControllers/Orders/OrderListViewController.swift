@@ -257,7 +257,7 @@ extension OrderListViewController: UIScrollViewDelegate {
     
     public func pullNextPage(){
         if !isFetching {
-            print("Hit bottom 1: scrollViewDidEndDecelerating")
+            DLog("Hit bottom 1: scrollViewDidEndDecelerating")
             isFetching = true
             TripOrderDataStore.shared.pullNextPage(category: listType, completion: {
                 self.reloadData()
@@ -454,7 +454,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             cell.lockButton.isEnabled = true
             self.isFetching = false
             if let err = error {
-                print("error: cannot postTripActive by id, error = \(err.localizedDescription)")
+                DLog("error: cannot postTripActive by id, error = \(err.localizedDescription)")
                 self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
                                         message: L("orders.error.message.lock-fail-network"),
                                         action: L("action.ok"), completion: nil)
@@ -462,7 +462,7 @@ extension OrderListViewController: OrderListCarrierCellDelegate {
             }
             ApiServers.shared.getTripActive(tripId: "\(id)", completion: { (tripActive, error) in
                 if let err = error {
-                    print("get error when get TripActive: err = \(err.localizedDescription)")
+                    DLog("get error when get TripActive: err = \(err.localizedDescription)")
                     self.displayGlobalAlert(title: L("orders.error.title.lock-fail"),
                                             message: L("orders.error.message.lock-fail-account"),
                                             action: L("orders.error.action.lock-fail-account"),

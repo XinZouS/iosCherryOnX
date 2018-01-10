@@ -27,9 +27,9 @@ class APIServerChecker: NSObject {
     static func testPostUserSos() {
         let phone = "6469279306"
         ApiServers.shared.postUserForgetPassword(phone: phone, password: "abc123") { (success, error) in
-            debugPrint("Success: \(success)")
+            DLog("Success: \(success)")
             if let error = error {
-                debugPrint("Error: \(error)")
+                DLog("Error: \(error)")
             }
         }
     }
@@ -43,18 +43,18 @@ class APIServerChecker: NSObject {
         
         ApiServers.shared.postUserUpdateInfo(info: userInfo) { (user, error) in
             if let realName = user?.realName {
-                print("Update user info real name: \(realName)")
+                DLog("Update user info real name: \(realName)")
             }
             
             if let imageUrl = user?.imageUrl {
-                print("Update user info imageUrl: \(imageUrl)")
+                DLog("Update user info imageUrl: \(imageUrl)")
             }
         }
     }
     
     static func testPostTripActive(isActive: Bool) {
         ApiServers.shared.postTripActive(tripId: "42", isActive: isActive) { (success, error) in
-            print("Update success")
+            DLog("Update success")
             self.testGetTripActive()
         }
     }
@@ -62,17 +62,17 @@ class APIServerChecker: NSObject {
     static func testGetTripActive() {
         ApiServers.shared.getTripActive(tripId: "42") { (state, error) in
             if let error = error {
-                print("Get trip error: \(error.localizedDescription)")
+                DLog("Get trip error: \(error.localizedDescription)")
             }
             
-            print("Trip active state: \(state)")
+            DLog("Trip active state: \(state)")
         }
     }
     
     static func testGetUserInfo(info: UsersInfoUpdate) {
         ApiServers.shared.getUserInfo(info) { (value, error) in
             if let value = value {
-                print("Get user info \(info.rawValue): \(value)")
+                DLog("Get user info \(info.rawValue): \(value)")
             }
         }
     }
@@ -81,7 +81,7 @@ class APIServerChecker: NSObject {
         ApiServers.shared.getUserComments(commenteeId: userId, offset: 0) { (userComments, error) in
             if let userComments = userComments {
                 for comment in userComments.comments {
-                    print("id: \(comment.id) Comment: \(comment.comment)")
+                    DLog("id: \(comment.id) Comment: \(comment.comment)")
                 }
             }
         }
@@ -89,7 +89,7 @@ class APIServerChecker: NSObject {
     
     static func testPostComments(comment: String, commenteeId: Int, commenterId: Int, rank: Float, requestId: Int) {
         ApiServers.shared.postComment(comment: comment, commenteeId: commenteeId, commenterId: commenterId, rank: rank, requestId: requestId) { (success, error) in
-            print("Is post comment success: \(success)")
+            DLog("Is post comment success: \(success)")
         }
     }
     

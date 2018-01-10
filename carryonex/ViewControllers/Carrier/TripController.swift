@@ -182,7 +182,7 @@ class TripController: UIViewController{
             } else {
                 self.displayGlobalAlert(title: L("carrier.error.title.post"), message: L("carrier.error.message.post"), action: L("action.ok"), completion: nil)
                 self.judgeButtonState()
-                print(msg ?? "Failed post trip")
+                DLog(msg ?? "Failed post trip")
             }
         }
     }
@@ -278,7 +278,7 @@ extension TripController: UITextFieldDelegate {
             self.endAddressTextField.text = endCountry + " " + endState + " " + endCity
             
         default:
-            print("no picker")
+            DLog("no picker")
         }
         dismissKeyboard()
         judgeButtonState()

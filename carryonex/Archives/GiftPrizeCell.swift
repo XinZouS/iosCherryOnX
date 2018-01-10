@@ -138,7 +138,7 @@ extension GiftPrizeCell {
     
     // TODO: setup get prize for user
     func getLuckyPrizeButtonTapped(){
-        print("getLuckyPrizeButtonTapped..")
+        DLog("getLuckyPrizeButtonTapped..")
     }
     
     

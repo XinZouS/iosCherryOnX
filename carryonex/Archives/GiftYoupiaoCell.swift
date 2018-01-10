@@ -156,7 +156,7 @@ extension GiftYoupiaoCell {
     
     // TODO: let user get prize
     func getPrizeButtonTapped(){
-        print("TODO: let user get prize!!!")
+        DLog("TODO: let user get prize!!!")
     }
     
     func setupOriginalPrize(){

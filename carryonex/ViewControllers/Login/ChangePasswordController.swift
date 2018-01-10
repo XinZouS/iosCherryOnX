@@ -44,7 +44,7 @@ class ChangePasswordController: UIViewController{
             changePasswordButton.isEnabled = isMatch
             changePasswordButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
             let msg = isMatch ? "密码正确" : "密码错误"
-            print(msg)
+            DLog(msg)
         } else {
             changePasswordButton.isEnabled = false
             changePasswordButton.backgroundColor = colorErrGray
@@ -57,7 +57,7 @@ class ChangePasswordController: UIViewController{
             if success {
                 self.navigationController?.popToRootViewController(animated: true)
             }else{
-                print(error ?? "")
+                DLog(error?.localizedDescription ?? "")
             }
         }
     }

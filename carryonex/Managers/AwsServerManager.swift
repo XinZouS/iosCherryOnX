@@ -27,7 +27,7 @@ class AwsServerManager {
 extension AwsServerManager {
     
     public func uploadFile(fileName: String, imgIdType: ImageTypeOfID, localUrl: URL, completion: @escaping(Error?, URL?) -> Void) {
-        //print("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
+        //DLog("prepareUploadFile: \(fileName), imgIdType: \(imgIdType.rawValue)")
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         let countryCode = currUser.phoneCountryCode ?? "noCtyCode"
         let phone = currUser.phone ?? "noPhoneNum"
@@ -35,7 +35,7 @@ extension AwsServerManager {
         
         // setup AWS Transfer Manager Request:
         guard let uploadRequest = AWSS3TransferManagerUploadRequest() else {
-            print("Unable to initiate upload request")
+            DLog("Unable to initiate upload request")
             return
         }
         if imgIdType == .profile {
@@ -61,7 +61,7 @@ extension AwsServerManager {
             })
             
             if let error = task.error {
-                print("performFileUpload(): task.error = \(error.localizedDescription), target bucket = \(uploadRequest.bucket.debugDescription)")
+                DLog("performFileUpload(): task.error = \(error.localizedDescription), target bucket = \(uploadRequest.bucket.debugDescription)")
                 completion(error, nil)
                 return nil
             }
@@ -71,11 +71,11 @@ extension AwsServerManager {
                     let bucket = uploadRequest.bucket,
                     let key = uploadRequest.key {
                     let publicURL = url.appendingPathComponent(bucket).appendingPathComponent(key)
-                    print("AwsServerManager: task.result get publicURL.str = \(publicURL.absoluteString)")
+                    DLog("AwsServerManager: task.result get publicURL.str = \(publicURL.absoluteString)")
                     completion(nil, publicURL)
                 }
             }else{
-                print("Error: task.result is nil. Unable to upload")
+                DLog("Error: task.result is nil. Unable to upload")
                 completion(nil, nil)
             }
             return nil
