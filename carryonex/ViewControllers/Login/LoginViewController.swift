@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import M13Checkbox
 
 class LoginViewController: UIViewController {
 
@@ -26,12 +27,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registrationButton: UIButton!
     @IBOutlet weak var hintLabel1: UILabel!
     @IBOutlet weak var hintLabel2: UILabel!
+    @IBOutlet weak var checkBoxView: UIView!
     @IBOutlet weak var userAgreementButton: UIButton!
     @IBOutlet weak var appAgreementButton: UIButton!
     @IBOutlet weak var hintLabel3Button: UIButton!
     @IBOutlet weak var privacyPolicyButton: UIButton!
     
     var circleIndicator: BPCircleActivityIndicator!
+    var checkBox: M13Checkbox!
     
     lazy var flagPicker: UIPickerView = {
         let p = UIPickerView()
@@ -68,6 +71,11 @@ class LoginViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppDelegate.shared().stopLoading()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
@@ -99,10 +107,26 @@ class LoginViewController: UIViewController {
         registrationButton.setTitle(L("login.ui.button.register"), for: .normal)
         hintLabel1.text = L("login.ui.message.hint1")
         hintLabel2.text = L("login.ui.message.hint2")
-        userAgreementButton.setTitle(L("login.ui.agreement.title") + "、", for: .normal)
+        userAgreementButton.setTitle(L("login.ui.agreement.title"), for: .normal)
         appAgreementButton.setTitle(L("login.ui.license.title"), for: .normal)
         hintLabel3Button.setTitle(L("login.ui.message.hint3"), for: .normal)
         privacyPolicyButton.setTitle(L("login.ui.privacy.title"), for: .normal)
+        
+        let sz: CGFloat = 15
+        checkBox = M13Checkbox(frame: CGRect(x: 0, y: 0, width: sz, height: sz))
+        setupCheckBox(checkBox)
+        checkBoxView.addSubview(checkBox)
+    }
+    
+    private func setupCheckBox(_ b: M13Checkbox) {
+        b.markType = .checkmark
+        b.stateChangeAnimation = .fill
+        b.boxType = .square
+        b.checkmarkLineWidth = 2
+        b.boxLineWidth = 1
+        b.cornerRadius = 2
+        b.tintColor = colorTheamRed
+        b.secondaryTintColor = UIColor.lightGray
     }
 
     private func setupGifImage(){
@@ -136,7 +160,7 @@ class LoginViewController: UIViewController {
     //MARK: - Action Handler
     
     @IBAction func handleLoginButton(sender: UIButton) {
-        guard let phone = phoneField.text else {
+        guard let phone = phoneField.text, !phone.isEmpty else {
             displayAlert(title: L("login.error.title.phone"),
                          message: L("login.error.message.phone"),
                          action: L("action.ok")) {
@@ -145,12 +169,17 @@ class LoginViewController: UIViewController {
             return
         }
         
-        guard let password = passwordField.text else {
+        guard let password = passwordField.text, password.count > 5 else {
             displayAlert(title: L("login.error.title.password"),
                          message: L("login.error.message.password"),
                          action: L("action.ok")) {
                 _ = self.passwordField.becomeFirstResponder()
             }
+            return
+        }
+        
+        guard checkBox.checkState == .checked else {
+            displayAlert(title: L("login.error.title.check-agreement"), message: L("login.error.message.check-agreement"), action: L("action.ok"))
             return
         }
         
@@ -234,6 +263,10 @@ extension LoginViewController {
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
         AppDelegate.shared().startLoading()
+        guard checkBox.checkState == .checked else {
+            displayAlert(title: L("login.error.title.check-agreement"), message: L("login.error.message.check-agreement"), action: L("action.ok"))
+            return
+        }        
         wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
