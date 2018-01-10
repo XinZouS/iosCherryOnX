@@ -70,9 +70,9 @@ class ItemListYouxiangInputController: UIViewController {
         super.viewDidAppear(animated)
         
         UIApplication.shared.statusBarStyle = .lightContent
-        title = L("sender.ui.title.new-request")
-        navigationController?.navigationBar.backItem?.title = " "
+        setupNavigationBar()
         youxiangcodeTextField.becomeFirstResponder()
+        textFieldDidChanged(youxiangcodeTextField)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,6 +83,7 @@ class ItemListYouxiangInputController: UIViewController {
     
     private func setupNavigationBar(){
         title = L("sender.ui.title.new-request")
+        navigationController?.navigationBar.backItem?.title = " "
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true

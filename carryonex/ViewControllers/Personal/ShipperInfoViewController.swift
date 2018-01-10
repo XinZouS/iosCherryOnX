@@ -139,7 +139,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         if let commentDictionary = commentDict{
             let fullLength = rateStar5MaskWidthConstraint.constant
             rateLabel.text = String(format: "%.1f",commentDictionary.rank)
-            rateViewWidth.constant = max(fullLength * CGFloat(commentDictionary.rank / 5.0) - 3, 0)
+            rateViewWidth.constant = max(fullLength * CGFloat(commentDictionary.rank / 5.0) - 2, 0)
             commentLabel.text = "\(L("personal.ui.title.comments-all-p1")) \(commentDictionary.commentsLength) \(L("personal.ui.title.comments-all-p2"))"
         }
     }
