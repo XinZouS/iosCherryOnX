@@ -30,6 +30,8 @@
 "login.error.title.phone" = "Wrong phone number";
 "login.error.message.phone" = "Please enter";
 "login.error.title.password" = "Password Error"; //TODO: 一般是设定的格式不符合我们密码的正则，应给用户说明；--- fyi：let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"  - Xin
+"login.error.title.check-agreement" = "User Agreement"; // 2018-01-10 - Xin
+"login.error.message.check-agreement" = "For better using experience, please read and agree the EULA (End-User Licensing Agreement) and User Agreement of this software"; // 2018-01-10 - Xin
 "login.error.message.password" = "Please enter correct password. The password should contain alphabetical characters and numbers. The password should be in length between 6 to 20 characters.";
 "login.error.message.wrong-password" = "Wrong password, please re-enter.";
 "login.error.title.failed" = "Login Error";
@@ -163,7 +165,7 @@
 "carrier.confirm.title.share-info" = "My Trip Code:";
 "carrier.confirm.title.sender.share-info" = "Trip Code:";
 "carrier.confirm.message.share-info" = "I can ship item for you. Feel free to submit order with my Trip Code on CarryonEx";
-"carrier.confirm.message.default" = "🎉Post trip Success! Now you could share the Youxiang Code to your firends"; // 2018-01-10 - Xin
+"carrier.confirm.message.default" = "🎉Now let's share this Trip to your firends"; // 2018-01-10 - Xin
 
 
 // MARK: - Address
