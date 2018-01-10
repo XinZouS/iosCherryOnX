@@ -21,6 +21,7 @@ enum Country: String, UnboxableEnum {
     case Germany = "德国"
     case France = "法国"
     case Switzerland = "瑞士"
+    case Korea = "韩国"
 }
 
 enum AddressKeyInDB : String {
