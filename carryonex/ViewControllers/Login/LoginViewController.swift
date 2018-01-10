@@ -127,6 +127,7 @@ class LoginViewController: UIViewController {
         b.cornerRadius = 2
         b.tintColor = colorTheamRed
         b.secondaryTintColor = UIColor.lightGray
+        b.checkState = .unchecked
     }
 
     private func setupGifImage(){
@@ -266,7 +267,7 @@ extension LoginViewController {
         guard checkBox.checkState == .checked else {
             displayAlert(title: L("login.error.title.check-agreement"), message: L("login.error.message.check-agreement"), action: L("action.ok"))
             return
-        }        
+        }
         wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
