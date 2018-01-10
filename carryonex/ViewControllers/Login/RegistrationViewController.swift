@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import M13Checkbox
 
 class RegistrationViewController: UIViewController {
     
@@ -16,11 +17,14 @@ class RegistrationViewController: UIViewController {
     
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var agreeButton: UIButton!
+    @IBOutlet weak var checkBoxView: UIView!
     @IBOutlet weak var bottomImageView: UIImageView!
     
     var registerUserInfo : [String:String]?
     let registerSuccessSegueId = "registerSuccessSegue"
     
+    var checkBox: M13Checkbox!
+
     var isPasswordValid = false {
         didSet{
             checkRegistrationButtonReady()
@@ -63,6 +67,11 @@ class RegistrationViewController: UIViewController {
         passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         
+        let sz: CGFloat = 15
+        checkBox = M13Checkbox(frame: CGRect(x: 0, y: 0, width: sz, height: sz))
+        setupCheckBox(checkBox)
+        checkBoxView.addSubview(checkBox)
+
         bottomImageView.image = UIImage.gifImageWithName("Login_animated_loop_png")
         
         AnalyticsManager.shared.startTimeTrackingKey(.registrationProcessTime)
@@ -71,6 +80,18 @@ class RegistrationViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         AnalyticsManager.shared.clearTimeTrackingKey(.registrationProcessTime)
+    }
+    
+    private func setupCheckBox(_ b: M13Checkbox) {
+        b.markType = .checkmark
+        b.stateChangeAnimation = .fill
+        b.boxType = .square
+        b.checkmarkLineWidth = 2
+        b.boxLineWidth = 1
+        b.cornerRadius = 2
+        b.tintColor = colorTheamRed
+        b.secondaryTintColor = UIColor.lightGray
+        b.checkState = .unchecked
     }
     
     private func setupActivityIndicator(){
@@ -85,7 +106,7 @@ class RegistrationViewController: UIViewController {
     
     @IBAction func handleRegisterButton(sender: UIButton) {
         
-        guard let userName = nameField.text else {
+        guard let userName = nameField.text, !userName.isEmpty else {
             AudioManager.shared.playSond(named: .failed)
             return
         }
@@ -104,6 +125,12 @@ class RegistrationViewController: UIViewController {
             AudioManager.shared.playSond(named: .failed)
             return
         }
+        
+        guard checkBox.checkState == .checked else {
+            displayAlert(title: L("login.error.title.check-agreement"), message: L("login.error.message.check-agreement"), action: L("action.ok"))
+            return
+        }
+
         registerUser(name: userName, password: password, phone: phone, countryCode: countryCode)
     }
     
