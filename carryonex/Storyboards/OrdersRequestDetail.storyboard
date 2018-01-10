@@ -539,7 +539,7 @@
                                 </constraints>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-wQ-9pO">
-                                <rect key="frame" x="0.0" y="840" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="840"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-kc-Wge">
@@ -639,7 +639,7 @@
                             <constraint firstItem="bwT-SN-31r" firstAttribute="bottom" secondItem="Qw7-wQ-9pO" secondAttribute="bottom" id="htK-pu-iRn"/>
                             <constraint firstItem="Qw7-wQ-9pO" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" id="tkX-BG-2zr"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="trailing" secondItem="u44-8x-21Q" secondAttribute="trailing" id="w2H-o3-1Fd"/>
-                            <constraint firstItem="bwT-SN-31r" firstAttribute="top" secondItem="Qw7-wQ-9pO" secondAttribute="top" constant="-820" id="wac-Qj-SlV"/>
+                            <constraint firstItem="bwT-SN-31r" firstAttribute="top" secondItem="Qw7-wQ-9pO" secondAttribute="top" id="wac-Qj-SlV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwT-SN-31r"/>
                     </view>

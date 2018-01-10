@@ -30,6 +30,8 @@
 "login.error.title.phone" = "手机号码有误";
 "login.error.message.phone" = "请输入正确手机号";
 "login.error.title.password" = "密码格式有误"; //TODO: 一般是设定的格式不符合我们密码的正则，应给用户说明；--- fyi：let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"  - Xin
+"login.error.title.check-agreement" = "同意《用户协议》"; // 2018-01-10 - Xin
+"login.error.message.check-agreement" = "为向您提供更好的服务，请阅读并同意EULA (End-User Licensing Agreement) 和游箱软件《用户协议》"; // 2018-01-10 - Xin
 "login.error.message.password" = "请输入正确密码，长度至少6位，仅包含大小写字母或数字和英文键盘上的特殊字符";
 "login.error.message.wrong-password" = "密码错误，请重新输入。";
 "login.error.title.failed" = "登入失败";
@@ -46,7 +48,7 @@
 "login.ui.button.forgot-password" = "忘记密码"; // 2017-12-28 - Xin
 "login.ui.button.register" = "新用户注册"; // 2017-12-28 - Xin
 "login.ui.message.hint1" = "轻点\"登录\"、\"使用微信登录\"或\"新用户注册\"即代表"; // 2017-12-28 - Xin
-"login.ui.message.hint2" = "我同意游箱的"; // 2017-12-28 - Xin
+"login.ui.message.hint2" = "我已阅读并同意"; // 2018-01-10 - Xin
 "login.ui.message.hint3" = "及"; // 2017-12-28 - Xin
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
@@ -163,7 +165,7 @@
 "carrier.confirm.title.share-info" = "我的游箱号:";
 "carrier.confirm.title.sender.share-info" = "游箱号:";   //Zian
 "carrier.confirm.message.share-info" = "愿意分享行李箱空间，请有需要带东西的及时提交信息到我游箱里"; // I can share my luggate space Feel Free to add reuest order by my CarryonEx code
-"carrier.confirm.message.default" = "🎉发布行程成功啦！快将您的游箱号分享给好友吧！"; // 2018-01-10 - Xin
+"carrier.confirm.message.default" = "🎉快将您的行程分享给好友吧！"; // 2018-01-10 - Xin
 
 
 // MARK: - Address

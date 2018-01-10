@@ -317,6 +317,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     private func setupPaymentCheckbox(_ b: M13Checkbox){
         b.addTarget(self, action: #selector(checkBoxDidChanged(_:)), for: .valueChanged)
+        b.stateChangeAnimation = .stroke
         b.markType = .checkmark
         b.boxType = .circle
         b.checkmarkLineWidth = 4

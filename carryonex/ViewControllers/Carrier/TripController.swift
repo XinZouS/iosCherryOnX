@@ -256,7 +256,7 @@ extension TripController: UITextFieldDelegate {
             tv.font = UIFont.systemFont(ofSize: 16)
             tv.delegate = self
             tv.inputAccessoryView = bar
-            tv.textColor = .lightGray
+            tv.textColor = colorTextViewPlaceholderGray
             tv.text = textViewPlaceholder
         }
     }

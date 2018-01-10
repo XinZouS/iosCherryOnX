@@ -60,6 +60,7 @@ let colorTextBlack = #colorLiteral(red: 0.2980392157, green: 0.3411764706, blue:
 let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0.8190833926, blue: 0.8650510907, alpha: 1)
 let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
 let colorTextFieldPlaceholderBlack = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1)
+let colorTextViewPlaceholderGray = #colorLiteral(red: 0.7215686275, green: 0.7960784314, blue: 0.8470588235, alpha: 1)
 let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1)
 let colorButtonDeselectedGray = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1) //677783
 
