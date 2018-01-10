@@ -204,7 +204,7 @@
                                                 <rect key="frame" x="24" y="275" width="311" height="60"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iWD-qj-ukX">
-                                                        <rect key="frame" x="0.0" y="3" width="311" height="54"/>
+                                                        <rect key="frame" x="3" y="3" width="305" height="54"/>
                                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="5" id="khx-5s-BS3">
                                                             <size key="itemSize" width="40" height="40"/>
@@ -214,13 +214,13 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoBrowserCollectionViewCell" id="tNm-2A-ZCU">
-                                                                <rect key="frame" x="0.0" y="2" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="1" width="52" height="52"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </view>
-                                                                <size key="customSize" width="50" height="50"/>
+                                                                <size key="customSize" width="52" height="52"/>
                                                             </collectionViewCell>
                                                         </cells>
                                                         <userDefinedRuntimeAttributes>
@@ -243,7 +243,7 @@
                                                     <constraint firstItem="iWD-qj-ukX" firstAttribute="height" secondItem="0EB-Pg-L9C" secondAttribute="height" multiplier="0.9" id="93p-J0-mnQ"/>
                                                     <constraint firstAttribute="height" constant="60" id="UIP-UP-BV0"/>
                                                     <constraint firstItem="iWD-qj-ukX" firstAttribute="centerX" secondItem="0EB-Pg-L9C" secondAttribute="centerX" id="Xq2-kz-ZC2"/>
-                                                    <constraint firstItem="iWD-qj-ukX" firstAttribute="width" secondItem="0EB-Pg-L9C" secondAttribute="width" id="qlR-7D-ynQ"/>
+                                                    <constraint firstItem="iWD-qj-ukX" firstAttribute="width" secondItem="0EB-Pg-L9C" secondAttribute="width" multiplier="0.98" id="qlR-7D-ynQ"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

@@ -124,7 +124,9 @@ class SenderDetailViewController: UIViewController{
     
     @IBAction func priceSliderValueChanged(_ sender: Any) {
         guard priceMiddl > 0 else { return }
-        let currVal = Double(priceSlider.value)
+        let currVal = roundSliderValue(priceSlider.value, step: 0.1)
+        priceShipFee = currVal
+        
         // shiping fee hint:
         priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", currVal)
         let mid = Double(priceSlider.minimumValue + priceSlider.maximumValue) / 2.0
@@ -181,12 +183,11 @@ class SenderDetailViewController: UIViewController{
     }
 
     var currencyType: CurrencyType = .CNY
-    var priceShipingFee: Double = 0.1
     var priceShipFee: Double = 0.1
     var priceMiddl: Double = 2.5
     var priceFinal: Double = 5 {
         didSet {
-            priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", Double(priceSlider.value))
+            priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", Double(priceFinal))
             priceFinalLabel.text = currencyType.rawValue + String(format: "%.2f", priceFinal)
         }
     }
@@ -533,6 +534,16 @@ class SenderDetailViewController: UIViewController{
         })
     }
 
+    private func roundSliderValue(_ v: Float, step: Float) -> Double {
+        guard let priceStr = priceValueTextField.text, let priceBySender = Double(priceStr) else {
+            return  0
+        }
+        if priceBySender > 100 {
+            return Double(round(v))
+        }
+        let factor = 1.0 / step
+        return Double(round(v * factor) / factor)
+    }
     
 }
 
