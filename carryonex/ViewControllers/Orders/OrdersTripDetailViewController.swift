@@ -301,8 +301,12 @@ class OrdersTripDetailViewController: UIViewController {
         setupNavigationBar()
     }
     
-    private func setupNavigationBar(){
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .default
+    }
+    
+    private func setupNavigationBar(){
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white

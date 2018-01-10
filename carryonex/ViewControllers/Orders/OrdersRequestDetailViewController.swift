@@ -282,8 +282,13 @@ class OrdersRequestDetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
-        UIApplication.shared.statusBarStyle = .default // black text
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     
     private func setupNavigationBar(){
         UIApplication.shared.statusBarStyle = .default
