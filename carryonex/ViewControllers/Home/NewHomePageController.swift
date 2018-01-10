@@ -213,7 +213,6 @@ class NewHomePageController: UIViewController {
         AppDelegate.shared().startLoading()
         NotificationCenter.default.addObserver(forName: Notification.Name.TripOrderStore.StoreUpdated, object: nil, queue: nil) { [weak self] _ in
             self?.isStoreUpdated = true
-            AppDelegate.shared().stopLoading()
 
             if let topRequests = TripOrderDataStore.shared.getCardItems(), topRequests.count > 0 {
                 self?.userCardOne?.category = topRequests.first?.1

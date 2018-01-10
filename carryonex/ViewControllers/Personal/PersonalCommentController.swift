@@ -135,14 +135,6 @@ class PersonalCommentController: UIViewController{
             }
         }
     }
-    func isLoadAllData(){
-        if let dictionary = commentDict{
-            if (dictionary.comments.count == dictionary.commentsLength){
-                activityViewIndicator.stopAnimating()
-                loadMoreEnable = false
-            }
-        }
-    }
 }
 
     
@@ -150,48 +142,23 @@ class PersonalCommentController: UIViewController{
 extension PersonalCommentController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if hasLoadData{
-            if let rowNum = commentDict?.comments.count{
-                return rowNum
-            }else{
-              return 0
-            }
-        }else{
-            return 0
-        }
+        return hasLoadData ? (commentDict?.comments.count ?? 0) : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = commentTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PersonalCommentCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        if hasLoadData{
-            cell.commentTextView.text = commentDict?.comments[indexPath.row].comment
-            if let rank = commentDict?.comments[indexPath.row].rank{
-                cell.rateViewConstraint.constant = CGFloat(rank*10)
-            }
-            cell.userNameLabel.text = commentDict?.comments[indexPath.row].realName
+        if hasLoadData {
+            cell.comment = commentDict?.comments[indexPath.row]
             
-            if let imageUrl = commentDict?.comments[indexPath.row].imageUrl,let url = URL(string:imageUrl){
-                cell.userButton.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            } else {
-                cell.userButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
-            }
-            
-            if let timeStamp = commentDict?.comments[indexPath.row].timestamp{
-                let dateFormat = DateFormatter()
-                dateFormat.dateFormat = L("personal.ui.dateformat.comment")
-                let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-                cell.timeLabel.text = dateFormat.string(from: date)
-            }
-            if let count = commentDict?.comments.count{
-                if (indexPath.row == count-1) {
-                    loadMoreEnable = true
-                    isLoadAllData()
-                }
+            if let count = commentDict?.comments.count, indexPath.row == count - 1 {
+                loadMoreEnable = !(commentDict!.commentsLength == count)
+                activityViewIndicator.stopAnimating()
             }
         }
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }

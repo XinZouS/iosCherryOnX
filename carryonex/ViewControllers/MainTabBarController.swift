@@ -211,21 +211,21 @@ class MainTabBarController: UITabBarController {
         
         //登录异常（如改变设备）
         NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
-            AppDelegate.shared().stopLoading()
+//            AppDelegate.shared().stopLoading()
             self?.displayAlert(title: L("maintapbar.error.title.login"), message: L("maintapbar.error.message.login"), action: L("maintapbar.error.action.login")) {
                 ProfileManager.shared.logoutUser()
             }
         }
         
         NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: nil, queue: nil) { [weak self] notification in
-            AppDelegate.shared().stopLoading()
+//            AppDelegate.shared().stopLoading()
             guard let reachabilityObject = notification.object as? Reachability, let strongSelf = self else { return }
             if !reachabilityObject.isReachable {
+                AppDelegate.shared().stopLoading()
                 strongSelf.displayAlert(title: L("maintapbar.error.title.network"),
                                         message: L("maintapbar.error.message.network"),
                                         action: L("maintapbar.error.action.network"),
                                         completion: {
-                                            AppDelegate.shared().stopLoading()
                                             //self?.homeViewController.trytoreloaddata() TODO: add this to reload when network back;
                 })
             }
