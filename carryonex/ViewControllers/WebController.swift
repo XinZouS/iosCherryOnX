@@ -31,6 +31,7 @@ class WebController: UIViewController, WKNavigationDelegate {
         
         setupWebView()
         setupActivityIndicatorView()
+        setupNavigationBar()
     }
     
     private func setupWebView(){
@@ -38,6 +39,17 @@ class WebController: UIViewController, WKNavigationDelegate {
         webView.addConstraints(left: view.leftAnchor, top: topLayoutGuide.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, leftConstent: 0, topConstent: -160, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
         
     }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     
     private func loadWebpageFromUrl(){
         DispatchQueue.main.async {

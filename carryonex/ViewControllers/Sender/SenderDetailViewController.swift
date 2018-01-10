@@ -245,7 +245,21 @@ class SenderDetailViewController: UIViewController{
         UIApplication.shared.statusBarStyle = .lightContent
         updateSubmitButtonStatus()
         setupCountryCodeTextField()
+        setupNavigationBar()
     }
+    
+    private func setupNavigationBar(){
+        UIApplication.shared.statusBarStyle = .lightContent
+        title = L("sender.ui.title.new-request")
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == kShippInfoSegue {
