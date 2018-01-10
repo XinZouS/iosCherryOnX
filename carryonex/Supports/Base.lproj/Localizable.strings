@@ -163,6 +163,7 @@
 "carrier.confirm.title.share-info" = "My Trip Code:";
 "carrier.confirm.title.sender.share-info" = "Trip Code:";
 "carrier.confirm.message.share-info" = "I can ship item for you. Feel free to submit order with my Trip Code on CarryonEx";
+"carrier.confirm.message.default" = "🎉Post trip Success! Now you could share the Youxiang Code to your firends"; // 2018-01-10 - Xin
 
 
 // MARK: - Address

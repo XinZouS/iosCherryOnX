@@ -27,6 +27,7 @@ class UserCardViewController: UIViewController {
     var category: TripCategory?
     var request: Request? {
         didSet {
+            AppDelegate.shared().stopLoading()
             setupCardView()
         }
     }

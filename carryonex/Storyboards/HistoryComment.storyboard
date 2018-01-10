@@ -45,8 +45,8 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Name Name Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgv-eU-Q2k">
-                                                    <rect key="frame" x="73" y="15" width="193" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgv-eU-Q2k">
+                                                    <rect key="frame" x="73" y="15" width="94.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="DsD-0x-5VJ"/>
                                                     </constraints>
@@ -115,6 +115,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentTextView" destination="MQp-mk-iGi" id="LE0-xJ-Gyi"/>
+                                            <outlet property="rateStars5MaskWidthConstraint" destination="hdB-Si-dIw" id="QhI-tg-4Ms"/>
                                             <outlet property="rateView" destination="0PI-de-gtJ" id="Uv2-I4-gr6"/>
                                             <outlet property="rateViewConstraint" destination="XcM-Py-ld3" id="f6s-Hx-G92"/>
                                             <outlet property="timeLabel" destination="rrt-MT-dXf" id="nRL-Jg-TW7"/>

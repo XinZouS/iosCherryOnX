@@ -40,7 +40,11 @@ class TripCompletedController : UIViewController{
         endLocationLabel.text = trip?.endAddress?.fullAddressString()
         monthLabel.text = trip?.getMonthString()
         dayLabel.text = trip?.getDayString()
-        descriptionLabel.text = trip?.note
+        if let note = trip?.note {
+            descriptionLabel.text = (note.isEmpty || note == " ") ? L("carrier.confirm.message.default") : note
+        }else{
+            descriptionLabel.text = L("carrier.confirm.message.default")
+        }
         youxiangLabel.text = trip?.tripCode
         if let currentUser = ProfileManager.shared.getCurrentUser(){
             if let urlString = currentUser.imageUrl, let url = URL(string:urlString){
