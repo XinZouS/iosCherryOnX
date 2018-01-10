@@ -15,7 +15,6 @@ import MessageUI
 
 class OrdersRequestDetailViewController: UIViewController {
     
-    @IBOutlet weak var blockerWidth: NSLayoutConstraint!
     weak var selectedCell: PhotoBrowserCollectionViewCell?
     @IBOutlet weak var phontobrowser: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -38,6 +37,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewImageMaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemValueLabel: UILabel!
     @IBOutlet weak var itemMessageTextView: UITextView!
     @IBOutlet weak var senderDescLabel: UILabel!
@@ -387,7 +387,6 @@ class OrdersRequestDetailViewController: UIViewController {
         dateDayLabel.text = trip.getDayString()
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
-        blockerWidth.constant = UIScreen.main.bounds.width - 155
         if request.getImages().count > 2{
             imageCountButton.setTitle("+\(request.getImages().count-2)", for: .normal)
         }else{
@@ -697,7 +696,9 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return request.getImages().count
+        let imgCount = request.getImages().count
+        scrollViewImageMaskWidthConstraint.constant = imgCount < 2 ? 52 : 100 //58 = 52 + 6
+        return imgCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
