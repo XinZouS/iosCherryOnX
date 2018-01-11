@@ -21,7 +21,8 @@ class TripController: UIViewController{
     @IBOutlet weak var startDateTextField: ThemTextField!
     @IBOutlet weak var noteTitleLabel: UILabel!
     @IBOutlet weak var noteTextView: ThemTextView!
-
+    @IBOutlet weak var noteTextViewHeighConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var confirmTripButton: UIButton!
     
     var gradientLayer: CAGradientLayer!
@@ -31,6 +32,9 @@ class TripController: UIViewController{
     
     var isNoteFilled = false
     let textViewPlaceholder = L("carrier.ui.placeholder.note")
+    let textFieldFont = UIFont.systemFont(ofSize: 16)
+    let noteTextViewHeigh: CGFloat = 32
+    let textViewEstimateY: CGFloat = 240
     
     //MARK: - 选择的国家索引
     var startCountryIndex = 0
@@ -117,6 +121,7 @@ class TripController: UIViewController{
         textFieldAddToolBar(endAddressTextField, nil)
         textFieldAddToolBar(startDateTextField, nil)
         textFieldAddToolBar(nil, noteTextView)
+        noteTextViewHeighConstraint.constant = noteTextViewHeigh
     }
     
     private func setupcomfirmTripButton(){
@@ -248,12 +253,12 @@ extension TripController: UITextFieldDelegate {
         bar.sizeToFit()
         
         if let tf = textField {
-            tf.font = UIFont.systemFont(ofSize: 16)
+            tf.font = textFieldFont
             tf.delegate = self
             tf.inputAccessoryView = bar
         }
         if let tv = textView {
-            tv.font = UIFont.systemFont(ofSize: 16)
+            tv.font = textFieldFont
             tv.delegate = self
             tv.inputAccessoryView = bar
             tv.textColor = colorTextViewPlaceholderGray
@@ -304,10 +309,7 @@ extension TripController: UITextViewDelegate {
         indexOfTextField = 3
         textView.text = isNoteFilled ? textView.text : ""
         textView.textColor = colorTextBlack
-        let textViewLoc = textView.convert(CGPoint(x: 0, y: 0), to: view)
-        if textViewLoc.y - view.frame.height < 210 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 210), animated: true)
-        }
+        textViewAnimateUp(textView, toY: textViewEstimateY, animated: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -315,6 +317,24 @@ extension TripController: UITextViewDelegate {
         textView.text = isNoteFilled ? textView.text : textViewPlaceholder
         textView.textColor = isNoteFilled ? colorTextBlack : colorTextFieldPlaceholderBlack
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        guard let t = textView.text, t.count > 14 else { return }
+        let sz = CGSize(width: textView.bounds.width, height: 100)
+        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let atts = [NSFontAttributeName: textFieldFont]
+        let estimateRect = NSString(string: t).boundingRect(with: sz, options: option, attributes: atts, context: nil)
+        noteTextViewHeighConstraint.constant = max(noteTextViewHeigh, estimateRect.height + 10)
+        self.view.layoutIfNeeded()
+        self.textViewAnimateUp(textView, toY: textViewEstimateY, animated: false)
+    }
+    
+    private func textViewAnimateUp(_ textView: UITextView, toY yLoc: CGFloat, animated anm: Bool) {
+        let textViewLoc = textView.convert(CGPoint(x: 0, y: 0), to: view)
+        if textViewLoc.y - view.frame.height < yLoc {
+            scrollView.setContentOffset(CGPoint(x: 0, y: yLoc), animated: anm)
+        }
     }
     
 }
