@@ -1058,21 +1058,44 @@ class ApiServers : NSObject {
                 return
             }
             
-            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int {
                 
-                do {
-                    let request: Request = try unbox(dictionary: data, atKey: "request")
-                    completion(true, nil, request.statusId)
+                if statusCode == 200 {
                     
-                } catch let error {
-                    completion(false, error, nil)
-                    DLog("Get error when postRequestTransaction. Error = \(error.localizedDescription)")
+                    if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                        
+                        do {
+                            let request: Request = try unbox(dictionary: data, atKey: "request")
+                            completion(true, nil, request.statusId)
+                            
+                        } catch let error {
+                            completion(false, error, nil)
+                            DLog("Get error when postRequestTransaction. Error = \(error.localizedDescription)")
+                        }
+                        
+                    } else {
+                        completion(false, nil, nil)
+                        DLog("postRequestTransaction no data error")
+                    }
+                    
+                } else if statusCode == 400 {
+                    
+                    if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                        
+                        if let message = response[ServerKey.message.rawValue] as? String {
+                            DLog("Transition failed: \(message)")
+                        }
+                        
+                        if let statusCode = data[RequestKeyInDB.status.rawValue] as? Int {
+                            completion(false, nil, statusCode)
+                        } else {
+                            completion(false, nil, nil)
+                        }
+                    }
                 }
-                
-            } else {
-                completion(false, nil, nil)
-                DLog("postRequestTransaction no data error")
             }
+            
+            
         }
     }
     
