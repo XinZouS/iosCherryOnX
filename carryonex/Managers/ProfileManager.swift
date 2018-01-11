@@ -315,7 +315,8 @@ class ProfileManager: NSObject {
                 let userTokenItem = tokenItem(account: username)
                 try token = userTokenItem.readPassword()
             } catch {
-                fatalError("Error reading password from keychain - \(error)")
+                //Unable to read proper password from keychain, allow user to relogin
+                NotificationCenter.default.post(name: NSNotification.Name.User.Invalid, object: nil)
             }
             
         } else {

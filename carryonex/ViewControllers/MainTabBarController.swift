@@ -210,7 +210,7 @@ class MainTabBarController: UITabBarController {
         }
         
         //登录异常（如改变设备）
-        NotificationCenter.default.addObserver(forName: Notification.Name.Network.Invalid, object: nil, queue: nil) { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: Notification.Name.User.Invalid, object: nil, queue: nil) { [weak self] notification in
 //            AppDelegate.shared().stopLoading()
             self?.displayAlert(title: L("maintapbar.error.title.login"), message: L("maintapbar.error.message.login"), action: L("maintapbar.error.action.login")) {
                 ProfileManager.shared.logoutUser()
