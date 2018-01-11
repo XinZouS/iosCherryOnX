@@ -1002,7 +1002,7 @@
                                                                             <color key="textColor" red="0.32886022329330444" green="0.37083303928375244" blue="0.40358331799507141" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件价格" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qp-dT-isa">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qp-dT-isa">
                                                                             <rect key="frame" x="105" y="0.0" width="105" height="21"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="21" id="eRG-Bx-dBy"/>
@@ -1352,7 +1352,7 @@
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="imgViewTopWave" width="528" height="55"/>
         <image name="shareing" width="63" height="64"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="191" height="32"/>
         <image name="yadianwenqing" width="313" height="308"/>
     </resources>
 </document>
