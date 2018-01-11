@@ -259,8 +259,8 @@
                                                     <action selector="shareButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="fpY-zh-hHa"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寄件价格" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rB6-f1-cwu">
-                                                <rect key="frame" x="20" y="360" width="49.5" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游费" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rB6-f1-cwu">
+                                                <rect key="frame" x="20" y="360" width="25" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -728,6 +728,6 @@
         <image name="msg_gray" width="75" height="76"/>
         <image name="phone_gray" width="226" height="228"/>
         <image name="shareing" width="63" height="64"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="191" height="32"/>
     </resources>
 </document>
