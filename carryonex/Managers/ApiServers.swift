@@ -1660,7 +1660,7 @@ extension ApiServers {
     func handleAbnormalStatusCode(_ statusCode: Int) {
         switch statusCode {
         case 401:
-            NotificationCenter.default.post(name: NSNotification.Name.Network.Invalid, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.User.Invalid, object: nil)
         default:
             DLog("[Status Code] Not handled: \(statusCode)")
         }
