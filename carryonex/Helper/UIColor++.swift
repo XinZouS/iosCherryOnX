@@ -64,5 +64,15 @@ extension UIColor {
         static let nightA = #colorLiteral(red: 0.1607843137, green: 0.1647058824, blue: 0.3960784314, alpha: 1)
         static let nightB = #colorLiteral(red: 0.2549019608, green: 0.5803921569, blue: 0.7176470588, alpha: 1)
     }
+    
+    func as1ptImage() -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        setFill()
+        UIGraphicsGetCurrentContext()?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+        UIGraphicsEndImageContext()
+        return image
+    }
+
 }
 
