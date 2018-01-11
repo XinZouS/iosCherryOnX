@@ -125,7 +125,6 @@ class SenderDetailViewController: UIViewController{
     @IBAction func priceSliderValueChanged(_ sender: Any) {
         guard priceMiddl > 0 else { return }
         let currVal = roundSliderValue(priceSlider.value, step: 0.1)
-        priceShipFee = currVal
         
         // shiping fee hint:
         priceShipingFeeLabel.text = currencyType.rawValue + String(format: "%.2f", currVal)
@@ -139,8 +138,10 @@ class SenderDetailViewController: UIViewController{
         }
         
         // final price hint:
-        let prePayVal: Double = pricePrePaySwitch.isOn ? priceShipFee : 0.0
+        let priceItemValue = Double(priceValueTextField.text ?? "0") ?? 0.0
+        let prePayVal: Double = pricePrePaySwitch.isOn ? priceItemValue : 0.0
         priceFinal = currVal + prePayVal
+        priceShipFee = currVal
         priceValueTextField.resignFirstResponder()
     }
     
@@ -478,7 +479,7 @@ class SenderDetailViewController: UIViewController{
                     }
                 }
                 let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
-                let totalValue = Double(strongSelf.priceShipFee)
+                let totalValue = Double(price) ?? Double(strongSelf.priceShipFee)
                 let cost = strongSelf.priceFinal
                 let stdPrice = strongSelf.priceMiddl
                 address.recipientName = name
@@ -944,8 +945,8 @@ extension SenderDetailViewController: UITextFieldDelegate {
                 priceMaxInfoIconLabel.textColor = .gray
             }
             
-            priceShipFee = d
-            updatePriceContentsFor(newPrice: d)
+            priceShipFee = min(d, priceMaxValueLimit)
+            updatePriceContentsFor(newPrice: priceShipFee)
         }
     }
     
