@@ -13,10 +13,9 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    //let titles = ["消息设置","定位权限","账号信息","服务条款","Version 1.0","退出"]
+    //let titles = ["消息设置","定位权限","服务条款","Version 1.0","退出"]
     let titles = [L("settings.ui.title.message"),
                   L("settings.ui.title.gps"),
-                  L("settings.ui.title.account"),
                   L("settings.ui.title.policy"),
                   "Version",
                   L("settings.ui.title.logout")
@@ -89,8 +88,8 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // title: 0,    1,        2,       3,      4,     5
-        // ["消息设置","定位权限","账号信息","服务条款","版本","退出"]
+        // title: 0,    1,        2,       3,    4
+        // ["消息设置","定位权限","服务条款","版本","退出"]
         switch indexPath.row {
         case 0:
             openSystemSetting()
@@ -99,20 +98,16 @@ extension SettingsViewController: UITableViewDelegate {
             openSystemGpsSetting()
             
         case 2:
-            // TODO:
-            DLog("TODO: selection 账号信息")
-            
-        case 3:
             let url = "\(ApiServers.shared.host)/doc_license"
             let webCtl = WebController()
             webCtl.url = URL(string: url) ?? URL(string: "https://www.carryonex.com/")
             navigationController?.pushViewController(webCtl, animated: true)
             webCtl.title = titles[indexPath.row]
             
-        case 4:
+        case 3:
             DLog("版本 info, do nothing;")
             
-        case 5:
+        case 4:
             ProfileManager.shared.logoutUser()
             navigationController?.popToRootViewController(animated: false)
             
