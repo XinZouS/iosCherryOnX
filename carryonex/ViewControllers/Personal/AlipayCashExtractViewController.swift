@@ -23,42 +23,62 @@ class AlipayCashExtract: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     var circleIndicator: BPCircleActivityIndicator!
     
-    @IBAction func extractValueButtonTapped(_ sender: Any) {
+    @IBAction func extractValueLowButtonTapped(_ sender: Any) { // extract 20%
+        cashExtract = cashAvailable * 0.2
+    }
+    @IBAction func extractValueMidButtonTapped(_ sender: Any) { // extract 50%
+        cashExtract = cashAvailable * 0.5
+    }
+    @IBAction func extractValueButtonTapped(_ sender: Any) { // extract 100%
         cashExtract = cashAvailable
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         
-        guard let alipayId = alipayAccountTextField.text else {
-            displayAlert(title: "账户错误", message: "请输入支付宝账号", action: L("action.ok"))
+        guard let alipayId = alipayAccountTextField.text, !alipayId.isEmpty else {
+            displayAlert(title: L("personal.error.title.alipay-account"), message: L("personal.error.message.alipay-account"), action: L("action.ok"), completion: {
+                self.alipayAccountTextField.becomeFirstResponder()
+            })
             return
         }
         
-        guard let payoutAmount = cashExtractTextField.text, let payout = Double(payoutAmount), payout > cashExtract else {
-            displayAlert(title: "提现金额错误", message: "请输入正确的提现金额", action:  L("action.ok"))
+        guard let payoutAmount = cashExtractTextField.text, let payout = Double(payoutAmount), payout <= cashAvailable else {
+            displayAlert(title: L("personal.error.title.alipay-cash"), message: L("personal.error.message.alipay-cash"), action:  L("action.ok"), completion: {
+                self.cashExtractTextField.becomeFirstResponder()
+            })
             return
         }
         
         AppDelegate.shared().startLoading()
         
         ApiServers.shared.postWalletAliPayout(logonId: alipayId, amount: payoutAmount) { (success, error) in
-            //Fix this after server fixed.
-            self.displayAlert(title: "提现成功", message: "我们已经成功转账到您的账户，请查看您的支付宝", action:  L("action.ok"))
-        
             AppDelegate.shared().stopLoading()
             
+            //TODO: Fix this after server fixed. for now it always success
+            if let err = error {
+                self.displayAlert(title: L("personal.error.title.alipay-result"),
+                                  message: L("personal.error.message.alipay-result") + err.localizedDescription,
+                                  action:  L("action.ok"))
+                return
+            }
+            if success {
+                self.displayAlert(title: L("personal.confirm.title.alipay-cash"),
+                                  message: L("personal.confirm.message.alipay-cash"),
+                                  action:  L("action.ok"))
+            }
             //Reload data on this page
             ProfileManager.shared.updateWallet(completion: nil)
         }
     }
     
+    var cashAvailable: Double = 0.0
     var cashExtract: Double = 0.0 {
         didSet{
-            cashExtractTextField.text = String(format: "%.2f", cashAvailable)
+            cashExtractTextField.text = String(format: "%.2f", cashExtract)
+            textFieldDidChange(cashExtractTextField)
         }
     }
     
-    var cashAvailable: Double = 0.0
     
     enum TextFieldTag: Int {
         case aliAccount = 0
@@ -72,18 +92,14 @@ class AlipayCashExtract: UIViewController {
         
         if let wallet = ProfileManager.shared.wallet {
             self.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
+            self.cashAvailable = wallet.availableCreditDecimal()
         }
         
         setupTextFields()
         setupButtons()
         alipayAccountTextField.becomeFirstResponder()
         setupActivityIndicator()
-        
-        NotificationCenter.default.addObserver(forName: .WalletDidUpdate, object: nil, queue: nil) { [weak self] _ in
-            if let wallet = ProfileManager.shared.wallet {
-                self?.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
-            }
-        }
+        addNotifications()
     }
         
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +116,14 @@ class AlipayCashExtract: UIViewController {
         view.addSubview(circleIndicator)
     }
     
+    private func addNotifications() {
+        NotificationCenter.default.addObserver(forName: .WalletDidUpdate, object: nil, queue: nil) { [weak self] _ in
+            if let wallet = ProfileManager.shared.wallet {
+                self?.cashAvailableLabel.text = L("personal.ui.title.cash-extractable") + wallet.availableCredit()
+            }
+        }
+    }
+
     private func setupUnderlines(){
         let w: CGFloat = self.view.bounds.width
         let gray = colorTextFieldUnderLineLightGray
@@ -188,28 +212,31 @@ extension AlipayCashExtract: UITextFieldDelegate {
     public func textFieldDidChange(_ textField: UITextField) {
         // check for extractValue <= cashAvailable:
         //TODO: Add this check in later.
-        guard textField == cashExtractTextField else { return }
+        guard textField == cashExtractTextField, let txt = textField.text, !txt.isEmpty else { return }
         let v: Double = Double(textField.text ?? "0.0") ?? 0.0
-        let isAvailable = cashAvailable >= v && v > 0.00
-        setDoneButton(isActive: isAvailable)
-        if !isAvailable {
+        if v > cashAvailable {
             textField.text = String(format: "%.2f", cashAvailable)
         }
+        setDoneButton(isActive: v > 0.0)
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // check for decimal 6.66:
+        guard textField == cashExtractTextField, let txt = textField.text else {
+            return true
+        }
         // check for backspace key
-        
         if let char = string.cString(using: String.Encoding.utf8) {
             let isBackSpace = strcmp(char, "\\b")
             if (isBackSpace == -92) {
                 return true
             }
         }
-        // check for decimal 6.66:
-        guard textField == cashExtractTextField else {
-            return true
+        if txt.isEmpty && string == "." {
+            textField.text = "0."
+            return false
         }
+        if txt == "0" && string == "0" { return false }
         let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
         let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
