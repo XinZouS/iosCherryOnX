@@ -39,6 +39,9 @@ struct Wallet {
     var payments: [Transaction]
     var incomePendings: [Transaction]
     
+    func availableCreditDecimal() -> Double {
+        return Double(incomeTotal) / 100.0
+    }
     func availableCredit() -> String {
         return String(format: "%.2f", Double(incomeTotal) / 100.0)
     }

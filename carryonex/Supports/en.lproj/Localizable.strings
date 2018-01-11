@@ -358,6 +358,14 @@
 "personal.ui.title.mid-button" = "取50%"; // 2018-01-01 Xin
 "personal.ui.title.value-button" = "全部提现"; // 2018-01-01 Xin
 "personal.ui.title.done-button" = "确认提现"; // 2018-01-01 Xin
+"personal.error.title.alipay-account" = "账户错误"; // 2018-01-11 Xin
+"personal.error.message.alipay-account" = "请输入支付宝账号"; // 2018-01-11 Xin
+"personal.error.title.alipay-cash" = "提现金额错误"; // 2018-01-11 Xin
+"personal.error.message.alipay-cash" = "请输入正确的提现金额"; // 2018-01-11 Xin
+"personal.confirm.title.alipay-cash" = "提现成功"; // 2018-01-11 Xin
+"personal.confirm.message.alipay-cash" = "我们已经成功转账到您的账户，请查看您的支付宝"; // 2018-01-11 Xin
+"personal.error.title.alipay-result" = "😲哎呀出错了!"; // 2018-01-11 Xin
+"personal.error.message.alipay-result" = "暂时无法完成提现操作，请稍后再试。"; // 2018-01-11 Xin
 
 // MARK: - Managers
 "managers.ui.title.wechat" = "微信";

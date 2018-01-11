@@ -358,6 +358,14 @@
 "personal.ui.title.mid-button" = "Get 50%";
 "personal.ui.title.value-button" = "Get All";
 "personal.ui.title.done-button" = "Confirm";
+"personal.error.title.alipay-account" = "Account Incorrect"; // 2018-01-11 Xin
+"personal.error.message.alipay-account" = "Please typein your AliPay account"; // 2018-01-11 Xin
+"personal.error.title.alipay-cash" = "Cash Number Invalidate"; // 2018-01-11 Xin
+"personal.error.message.alipay-cash" = "Please use numbers only"; // 2018-01-11 Xin
+"personal.confirm.title.alipay-cash" = "Success"; // 2018-01-11 Xin
+"personal.confirm.message.alipay-cash" = "The credit is transfering to your AliPay account"; // 2018-01-11 Xin
+"personal.error.title.alipay-result" = "😲Oops!"; // 2018-01-11 Xin
+"personal.error.message.alipay-result" = "Unable to transfer your credit right now, please try again later"; // 2018-01-11 Xin
 
 // MARK: - Managers
 "managers.ui.title.wechat" = "WeChat";
