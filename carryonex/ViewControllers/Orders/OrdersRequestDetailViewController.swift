@@ -360,12 +360,12 @@ class OrdersRequestDetailViewController: UIViewController {
             updateMapViewToShow(false)
             
         } else {
-            profileImageString = trip.carrierImageUrl
-            senderNameLabel.text = trip.carrierRealName
-            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
-            recipientPhoneCallButton.isHidden = true
-            let fullLength = senderStar5MaskWidthConstraint.constant
-            senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
+//            profileImageString = trip.carrierImageUrl
+//            senderNameLabel.text = trip.carrierRealName
+//            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
+//            recipientPhoneCallButton.isHidden = true
+//            let fullLength = senderStar5MaskWidthConstraint.constant
+//            senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
@@ -376,7 +376,7 @@ class OrdersRequestDetailViewController: UIViewController {
         }
         
         incomeLabel.text = currency.rawValue + request.priceString()
-        incomeHintLabel.text = "\(request.priceStd ?? 0)" //priceRatioString(itemValue: request.totalValue, priceBySender: request.priceBySender)
+        incomeHintLabel.text = request.priceStdString()
         shippingFeeTitleLabel.text = L("orders.ui.title.shipping-fee")
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber

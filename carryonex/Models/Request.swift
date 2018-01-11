@@ -91,8 +91,10 @@ class Request: Unboxable, Identifiable {
     }
     
     func priceStdString() -> String {
-        let std = priceStd ?? 0
-        let ratio = (Double(priceBySender) / Double(std)) - 1.0
+        guard let std = priceStd, std > 0 else {
+            return L("orders.ui.title.ratio-standard")
+        }
+        let ratio = (Double(priceBySender - std) / Double(std)) * 100.0
         if ratio > -1.0 && ratio < 1.0 {
             return L("orders.ui.title.ratio-standard")
         }
