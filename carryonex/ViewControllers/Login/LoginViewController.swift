@@ -127,7 +127,7 @@ class LoginViewController: UIViewController {
         b.cornerRadius = 2
         b.tintColor = colorTheamRed
         b.secondaryTintColor = UIColor.lightGray
-        b.checkState = .unchecked
+        b.checkState = .checked
     }
 
     private func setupGifImage(){

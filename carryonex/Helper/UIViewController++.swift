@@ -29,6 +29,7 @@ extension UIViewController {
     }
         
     func displayAlert(title: String, message: String, action: String, completion:(() -> Void)?) {
+        AppDelegate.shared().stopLoading()
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
             completion?()
@@ -40,6 +41,7 @@ extension UIViewController {
     
     /// Alert with single actions, completion:(tag) -> Void
     func displayGlobalAlert(title: String, message: String, action: String, completion:(() -> Void)?) {
+        AppDelegate.shared().stopLoading()
         let v = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: action, style: .default) { (action) in
             completion?()
