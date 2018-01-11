@@ -354,6 +354,7 @@
 "personal.ui.title.faq" = "常见问题"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "可提现金额：";
 "personal.ui.title.alipay" = "支付宝提现";
+"personal.ui.placeholder.alipay-account" = "输入支付宝账号(邮箱/手机号)"; // 2018-01-11 Xin
 "personal.ui.title.min-button" = "取20%"; // 2018-01-01 Xin
 "personal.ui.title.mid-button" = "取50%"; // 2018-01-01 Xin
 "personal.ui.title.value-button" = "全部提现"; // 2018-01-01 Xin

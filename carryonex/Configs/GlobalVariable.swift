@@ -53,6 +53,7 @@ let colorErrGray = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0
 let colorTheamRed = #colorLiteral(red: 1, green: 0.4196078431, blue: 0.4196078431, alpha: 1)
 let colorButtonGray = #colorLiteral(red: 0.8980392157, green: 0.9215686275, blue: 0.937254902, alpha: 1)
 let colorButtonTitleGray = #colorLiteral(red: 0.6901960784, green: 0.7176470588, blue: 0.7411764706, alpha: 1)
+let colorButtonTitleDarkGray = #colorLiteral(red: 0.4039215686, green: 0.4666666667, blue: 0.5137254902, alpha: 1) // 677783
 let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
 let colorCheckmarkGreen = #colorLiteral(red: 0.2326686382, green: 0.6842908263, blue: 0.2634965777, alpha: 1)
 let colorLabelVerifyErrRed = #colorLiteral(red: 1, green: 0.9058823529, blue: 0.9058823529, alpha: 1) // FFE7E7

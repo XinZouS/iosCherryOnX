@@ -24,12 +24,15 @@ class AlipayCashExtract: UIViewController {
     var circleIndicator: BPCircleActivityIndicator!
     
     @IBAction func extractValueLowButtonTapped(_ sender: Any) { // extract 20%
+        setupButtonsColor(selectingButton: extractValueMinButton)
         cashExtract = cashAvailable * 0.2
     }
     @IBAction func extractValueMidButtonTapped(_ sender: Any) { // extract 50%
+        setupButtonsColor(selectingButton: extractValueMidButton)
         cashExtract = cashAvailable * 0.5
     }
     @IBAction func extractValueButtonTapped(_ sender: Any) { // extract 100%
+        setupButtonsColor(selectingButton: extractValueButton)
         cashExtract = cashAvailable
     }
     
@@ -144,11 +147,21 @@ class AlipayCashExtract: UIViewController {
         doneButton.setTitle(L("personal.ui.title.done-button"), for: .normal)
         setDoneButton(isActive: false)
     }
+    
+    fileprivate func setupButtonsColor(selectingButton: UIButton?) {
+        extractValueMinButton.setTitleColor(colorButtonTitleDarkGray, for: .normal)
+        extractValueMidButton.setTitleColor(colorButtonTitleDarkGray, for: .normal)
+        extractValueButton.setTitleColor(colorButtonTitleDarkGray, for: .normal)
+        selectingButton?.setTitleColor(colorTheamRed, for: .normal)
+    }
 
     private func setupTextFields(){
         textFieldAddToolBar(alipayAccountTextField, tag: .aliAccount)
         textFieldAddToolBar(alipayNameTextField, tag: .aliName)
         textFieldAddToolBar(cashExtractTextField, tag: .cashExtract)
+        let atts = [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack]
+        alipayAccountTextField.attributedPlaceholder = NSAttributedString(string: L("personal.ui.placeholder.alipay-account"), attributes: atts)
+        cashExtractTextField.attributedPlaceholder = NSAttributedString(string: "0.00", attributes: atts)
     }
 
     fileprivate func textFieldAddToolBar(_ textField: UITextField?, tag: TextFieldTag) {
@@ -232,6 +245,7 @@ extension AlipayCashExtract: UITextFieldDelegate {
                 return true
             }
         }
+        setupButtonsColor(selectingButton: nil)
         if txt.isEmpty && string == "." {
             textField.text = "0."
             return false
