@@ -68,6 +68,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorColor = colorTableCellSeparatorLightGray
     }
     
     @objc fileprivate func dismissKeyboard(){
@@ -335,6 +336,7 @@ extension PersonalInfoEditingViewController: UIPickerViewDelegate {
     @IBAction func commitButtonTapped(_ sender: Any) {
         let idCV = PhotoIDController()
         self.navigationController?.pushViewController(idCV, animated: true)
+        self.navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
     }
     
 }

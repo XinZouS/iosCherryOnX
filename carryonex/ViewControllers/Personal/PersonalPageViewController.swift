@@ -73,6 +73,7 @@ class PersonalPageViewController: UIViewController{
     
     private func setupNavigationBar(){
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
     }
     
     private func addObservers(){
@@ -93,7 +94,7 @@ class PersonalPageViewController: UIViewController{
             userProfileNameLabel.text = currUserName
         }
         if let profileInfo = ProfileManager.shared.homeProfileInfo {
-            let fullLen = scoreStar5MaskWidthConstraint.constant - 5
+            let fullLen = scoreStar5MaskWidthConstraint.constant
             scoreLabel.text = scoreLabelHintText + String(format: "%.1f", profileInfo.rating)
             scoreColorBarWidthConstraint.constant = max(0.0, fullLen * CGFloat(profileInfo.rating / 5.0))
         }

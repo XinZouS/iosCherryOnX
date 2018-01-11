@@ -62,6 +62,7 @@ class PersonalCommentController: UIViewController{
     private func setupTableView(){
         commentTableView.tableFooterView = setupLoadMoreView()
         commentTableView.allowsSelection = true
+        commentTableView.separatorColor = colorTableCellSeparatorLightGray
     }
     
     private func setupNavigationBar(){
@@ -69,6 +70,7 @@ class PersonalCommentController: UIViewController{
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
     }
     
     private func setupLoadMoreView() ->UIView{
