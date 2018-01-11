@@ -354,6 +354,7 @@
 "personal.ui.title.faq" = "FAQs"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";
+"personal.ui.placeholder.alipay-account" = "AliPay account(E-mail/Phone)"; // 2018-01-11 Xin
 "personal.ui.title.min-button" = "Get 20%";
 "personal.ui.title.mid-button" = "Get 50%";
 "personal.ui.title.value-button" = "Get All";
