@@ -255,7 +255,7 @@
 "orders.ui.title.view-comments-p1" = "View all "; // 2018-01-08 - Xin [查看]34条评价
 "orders.ui.title.view-comments-p2" = " comments"; // 2018-01-08 - Xin 查看34[条评价]
 "orders.ui.title.youxiang-info" = "Trip Info";
-"orders.ui.title.currency-type" = "￥"; // 2018-01-09 Xin
+"orders.ui.title.currency-type" = "¥"; //"￥"; // 2018-01-09 Xin
 "orders.ui.message.request-image-count" = "";
 "orders.confirm.title.submit" = "Confirm to Submit";
 "orders.ui.title.order-request-detail" = "Request Detail";
@@ -350,7 +350,7 @@
 "personal.ui.title.cash" = "Cash Available";
 "personal.ui.title.credit" = "Credit"; // 2018-01-04 Xin
 "personal.ui.title.detail" = "Details"; // 2018-01-04 Xin
-"personal.ui.title.currency-type" = "￥"; // 2018-01-04 Xin
+"personal.ui.title.currency-type" = "¥"; //"￥"; // 2018-01-04 Xin
 "personal.ui.title.faq" = "FAQs"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";

@@ -16,7 +16,7 @@ enum LoginStatus {
 }
 
 enum CurrencyType: String {
-    case CNY = "￥"
+    case CNY = "¥" //"￥"
     case USD = "$"
 }
 
