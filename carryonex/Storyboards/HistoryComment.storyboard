@@ -78,7 +78,7 @@
                                                         <constraint firstAttribute="width" constant="55" id="XcM-Py-ld3"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-l8-7hc">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask-s" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-l8-7hc">
                                                     <rect key="frame" x="285" y="19" width="70" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="yyx-l8-7hc" secondAttribute="height" multiplier="6:1" id="IbL-1v-cyA"/>
@@ -159,6 +159,6 @@
     </scenes>
     <resources>
         <image name="blankUserHeadImage" width="160" height="159"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask-s" width="399" height="66"/>
     </resources>
 </document>
