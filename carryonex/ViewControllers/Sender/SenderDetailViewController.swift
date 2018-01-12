@@ -878,10 +878,10 @@ extension SenderDetailViewController: UITextViewDelegate {
         let estimateRect = NSString(string: t).boundingRect(with: sz, options: option, attributes: atts, context: nil)
         
         if textView == addressTextView {
-            self.addressTextViewHeightConstraint.constant = max(self.addressTextViewHeight, estimateRect.height + 5)
+            self.addressTextViewHeightConstraint.constant = max(self.addressTextViewHeight, estimateRect.height + 10)
 
         }else if textView == messageTextView {
-            self.messageTextViewHeightConstraint.constant = max(self.messageTextViewHeight, estimateRect.height + 5)
+            self.messageTextViewHeightConstraint.constant = max(self.messageTextViewHeight, estimateRect.height + 10)
         }
     }
     
