@@ -242,8 +242,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let message = aps["alert"] as? String {
                     mainViewController.displayGlobalAlert(title: "收到新评价", message: message, action: L("action.ok"), completion: {
                         DeeplinkNavigator.handleDeeplink(deeplink)
-                        ProfileManager.shared.loadLocalUser(completion: nil)
                     })
+                    ProfileManager.shared.loadLocalUser(completion: nil)
                 }
             }
         }
