@@ -69,7 +69,7 @@
                                             <constraint firstAttribute="width" constant="30" id="OM6-DC-b8H"/>
                                             <constraint firstAttribute="height" constant="30" id="TJ7-qz-dol"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="textColor" red="0.14343905448913574" green="0.17248609662055969" blue="0.1913335919380188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -79,7 +79,7 @@
                                             <constraint firstAttribute="height" constant="40" id="gb2-aW-48W"/>
                                         </constraints>
                                         <color key="textColor" red="0.14343905448913574" green="0.17248609662055969" blue="0.1913335919380188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可提现金额 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mcq-DJ-Eyl">
