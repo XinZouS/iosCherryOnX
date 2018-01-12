@@ -152,7 +152,6 @@ class NewHomePageController: UIViewController {
     }
 
     private func setupPlaceholderView(toShow: Bool){
-        UIApplication.shared.endIgnoringInteractionEvents()
         orderTitleLabel.text = L("home.ui.card.title")
         if toShow {
             orderPlaceholderLabel.text = L("home.ui.card.placeholder")

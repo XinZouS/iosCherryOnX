@@ -56,10 +56,6 @@ extension AwsServerManager {
 
         AWSS3TransferManager.default().upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
             
-            DispatchQueue.main.async(execute: {
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
-            
             if let error = task.error {
                 DLog("performFileUpload(): task.error = \(error.localizedDescription), target bucket = \(uploadRequest.bucket.debugDescription)")
                 completion(error, nil)
