@@ -49,14 +49,14 @@ class OrderListCardShiperCell: OrderListCardCell {
         didSet{
             setupYouxiangLokcerStatus(isActive: isActive)
             setupButtonAppearance(isActive: isActive)
+            setupLabelAppearance(isActive: isActive)
         }
     }
     var trip: Trip? {
         didSet{
             let isActive: Bool = (trip?.active == TripActive.active.rawValue)
             youxiangCodeLabel.text = trip?.tripCode
-            setupYouxiangLokcerStatus(isActive: isActive)
-            setupButtonAppearance(isActive: isActive)
+            self.isActive = isActive
             startAddressLabel.text = trip?.startAddress?.fullAddressString()
             endAddressLabel.text = trip?.endAddress?.fullAddressString()
             dateMonthLabel.text = trip?.getMonthString()
@@ -82,12 +82,18 @@ class OrderListCardShiperCell: OrderListCardCell {
         gotoTripDetailButton.backgroundColor = isActive ? colorTheamRed : UIColor.white
         gotoTripDetailButton.setTitleColor(isActive ? UIColor.white : colorTheamRed, for: .normal)
     }
+    
+    private func setupLabelAppearance(isActive: Bool) {
+        dateMonthLabel.textColor = isActive ? colorTheamRed : colorTextBlack
+        youxiangCodeLabel.textColor = isActive ? colorTheamRed : colorTextBlack
+        shareYouxiangButton.isHidden = !isActive
+    }
 
     
     override func updateRequestInfoAppearance(request: Request) {
         super.updateRequestInfoAppearance(request: request)
         youxiangCodeLabel.text = request.priceString()
-        youxiangCodeLabel.text = "\(request.tripId)"
+        youxiangCodeLabel.text = "\(request.tripId ?? 0)"
         
         if let shipperAddress = request.endAddress {
             senderNameLabel.text = shipperAddress.recipientName
