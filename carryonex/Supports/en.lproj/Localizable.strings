@@ -92,7 +92,7 @@
 "home.ui.card.location-empty" = "暂时没有位置信息";
 "home.ui.card.trip-empty" = "无行程信息";
 "home.ui.card.title" = "最新订单"; // 2017-12-28 Xin
-"home.ui.card.placeholder" = "还没有出行订单"; // 2017-12-28 Xin
+"home.ui.card.placeholder" = "还没有订单"; // 2017-12-28 Xin
 "home.ui.title.trip-count" = "出行次数"; // 2017-12-28 Xin
 "home.ui.title.send-count" = "寄件次数"; // 2017-12-28 Xin
 "home.ui.title.comments" = "综合评价"; // 2017-12-28 Xin
@@ -228,8 +228,8 @@
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "出行订单";
-"orders.ui.placeholder.trip" = "你还没有出行记录，快发布你的行程吧";
-"orders.ui.placeholder.send" = "你还没有寄件记录，快寄送些东西吧";
+"orders.ui.placeholder.trip" = "您还没有出行记录，快发布你的行程吧";
+"orders.ui.placeholder.send" = "您还没有寄件记录，快寄送些东西吧";
 "orders.error.title.share" = "分享游箱";
 "orders.error.message.share" = "游箱号在锁定状态无法分享";
 "orders.error.action.share-lock" = "保持锁定";
