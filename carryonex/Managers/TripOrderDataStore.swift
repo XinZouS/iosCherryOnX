@@ -35,12 +35,14 @@ class TripOrderDataStore: NSObject {
         })
     }
     
-    func getTrip(category: TripCategory, id: Int) -> Trip? {
+    func getTrip(category: TripCategory, id: Int?) -> Trip? {
+        guard let id = id else { return nil }
         let targetTrips = (category == .carrier) ? carrierTrips : senderTrips
         return targetTrips[id]
     }
     
-    func getRequestsByTripId(category: TripCategory, tripId: Int) -> [Request] {
+    func getRequestsByTripId(category: TripCategory, tripId: Int?) -> [Request] {
+        guard let tripId = tripId else { return [Request]() }
         let targetRequests = (category == .carrier) ? carrierRequests : senderRequests
         return targetRequests.values.filter({ (req) -> Bool in
             return req.tripId == tripId
