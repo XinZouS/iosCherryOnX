@@ -54,16 +54,17 @@ let colorTheamRed = #colorLiteral(red: 1, green: 0.4196078431, blue: 0.419607843
 let colorButtonGray = #colorLiteral(red: 0.8980392157, green: 0.9215686275, blue: 0.937254902, alpha: 1)
 let colorButtonTitleGray = #colorLiteral(red: 0.6901960784, green: 0.7176470588, blue: 0.7411764706, alpha: 1)
 let colorButtonTitleDarkGray = #colorLiteral(red: 0.4039215686, green: 0.4666666667, blue: 0.5137254902, alpha: 1) // 677783
+let colorButtonDeselectedGray = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1) //C0C0C0
 let colorLineLightGray = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
 let colorCheckmarkGreen = #colorLiteral(red: 0.2326686382, green: 0.6842908263, blue: 0.2634965777, alpha: 1)
 let colorLabelVerifyErrRed = #colorLiteral(red: 1, green: 0.9058823529, blue: 0.9058823529, alpha: 1) // FFE7E7
-let colorTextBlack = #colorLiteral(red: 0.2980392157, green: 0.3411764706, blue: 0.3764705882, alpha: 1) // hex: 4C5760
+let colorTextBlack = #colorLiteral(red: 0.2980392157, green: 0.3411764706, blue: 0.3764705882, alpha: 1) // 4C5760
+let colorTextDarkGray = #colorLiteral(red: 0.4078431373, green: 0.4745098039, blue: 0.5215686275, alpha: 1) // 687985
 let colorTextFieldUnderLineLightGray = #colorLiteral(red: 0.7529411765, green: 0.8190833926, blue: 0.8650510907, alpha: 1)
 let colorTextFieldUnderLineCyan = #colorLiteral(red: 0.6948903799, green: 0.9866576791, blue: 0.9213684797, alpha: 1) // 177 252 235
-let colorTextFieldPlaceholderBlack = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1)
+let colorTextFieldPlaceholderBlack = #colorLiteral(red: 0.4, green: 0.4666666667, blue: 0.5137254902, alpha: 1)
 let colorTextViewPlaceholderGray = #colorLiteral(red: 0.7215686275, green: 0.7960784314, blue: 0.8470588235, alpha: 1)
-let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1)
-let colorButtonDeselectedGray = #colorLiteral(red: 0.4018657207, green: 0.4660794735, blue: 0.5120229721, alpha: 1) //677783
+let colorTableCellSeparatorLightGray = #colorLiteral(red: 0.8862745098, green: 0.9254901961, blue: 0.9529411765, alpha: 1) // E2ECF3
 
 // wechat login judge
 var wxloginStatus :String = ""

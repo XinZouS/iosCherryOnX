@@ -27,12 +27,14 @@ class ThemTextField: UITextField {
     @IBInspectable var cursorColor: UIColor = colorTheamRed
     @IBInspectable var defaultLineColor: UIColor = colorTextFieldUnderLineLightGray
     @IBInspectable var activeLineColor: UIColor = colorTheamRed
+    @IBInspectable var placeHolderColor: UIColor = colorTextFieldPlaceholderBlack
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidBegin)
         self.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
         setupCursor()
+        setupPlaceholder()
         self.addSubview(underlineView)
         underlineView.addConstraints(left: self.leftAnchor,
                                      top: self.bottomAnchor,
@@ -49,6 +51,16 @@ class ThemTextField: UITextField {
     private func setupCursor(){
         let traits = self.value(forKey: "textInputTraits") as AnyObject
         traits.setValue(cursorColor, forKey: "insertionPointColor")
+    }
+    
+    private func setupPlaceholder() {
+        let atts = [NSForegroundColorAttributeName: placeHolderColor]
+        self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: atts)
+    }
+
+    public func setAttributedPlaceholder(_ str: String, color: UIColor?) {
+        let atts = [NSForegroundColorAttributeName: color ?? placeHolderColor]
+        self.attributedPlaceholder = NSAttributedString(string: str, attributes: atts)
     }
         
     public func editingDidBegin(){
