@@ -200,7 +200,6 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
             return
         }
         
-        UIApplication.shared.beginIgnoringInteractionEvents()
         activityIndicator.isHidden = false
         activityIndicator.animate() // start uploading image and show indicator
         
@@ -289,7 +288,6 @@ extension PhotoIDController: UITextFieldDelegate, UINavigationControllerDelegate
         guard imageUploadingSet.count == 0 else { return }
         activityIndicator.isHidden = true
         activityIndicator.stop()
-        UIApplication.shared.endIgnoringInteractionEvents()
         
         DispatchQueue.main.async {
             ProfileManager.shared.updateUserInfo(.isIdVerified, value: "1", completion: { (success) in

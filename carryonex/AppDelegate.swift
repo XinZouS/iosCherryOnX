@@ -340,13 +340,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         
             self.loadingView.activityIndicator.animate()
-            UIApplication.shared.beginIgnoringInteractionEvents()
         }
     }
     
     public func stopLoading() {
         DispatchQueue.main.async {
-            UIApplication.shared.endIgnoringInteractionEvents()
             self.loadingView.activityIndicator.stop()
             self.loadingView?.removeFromSuperview()
         }

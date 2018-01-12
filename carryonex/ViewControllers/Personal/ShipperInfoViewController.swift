@@ -47,22 +47,25 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupIndicator()
+        getShipperCommentInformation()
+        setupTableView()
+        setupView()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    private func setupNavigationBar() {
         title = L("personal.ui.title.shiperinfo-comments")
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.black] // Title color
-        
-        setupIndicator()
-        getShipperCommentInformation()
-        setupTableView()
-        setupView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
     }
 
     private func setupIndicator(){
@@ -98,6 +101,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     private func setupTableView(){
         commentTable.tableFooterView = setupLoadMoreView()
         commentTable.allowsSelection = false
+        commentTable.separatorColor = colorTableCellSeparatorLightGray
     }
     
     private func setupLoadMoreView() ->UIView{
@@ -139,7 +143,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         if let commentDictionary = commentDict{
             let fullLength = rateStar5MaskWidthConstraint.constant
             rateLabel.text = String(format: "%.1f",commentDictionary.rank)
-            rateViewWidth.constant = max(fullLength * CGFloat(commentDictionary.rank / 5.0) - 2, 0)
+            rateViewWidth.constant = max(fullLength * CGFloat(commentDictionary.rank / 5.0), 0)
             commentLabel.text = "\(L("personal.ui.title.comments-all-p1")) \(commentDictionary.commentsLength) \(L("personal.ui.title.comments-all-p2"))"
         }
     }

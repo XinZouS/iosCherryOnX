@@ -51,6 +51,7 @@ class CreditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        tableView.separatorColor = colorTableCellSeparatorLightGray
         setupNavigationBar()
         setupViewContents()
 
@@ -82,6 +83,7 @@ class CreditViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
     }
     
     private func setupGradientLayer(){

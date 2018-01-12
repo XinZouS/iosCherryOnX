@@ -263,12 +263,12 @@
 "orders.ui.message.sender-desc-carrier" = "出行人评分";
 "orders.ui.title.request-id" = "订单号"; // 2018-01-03 Xin
 "orders.ui.title.youxiang-code" = "游箱号"; // 2018-01-03 Xin
-"orders.ui.title.income" = "寄件价格"; // 2018-0103 Xin
+"orders.ui.title.income" = "游费"; // 2018-0103 Xin
 "orders.ui.title.item-value" = "物品价值"; // 2018-01-03 Xin
 "orders.ui.title.ratio-heigher" = "高于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-lower" = "低于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-standard" = "标准价"; // 2018-01-09 Xin
-"orders.ui.title.shipping-fee" = "订单费用"; // 2018-01-09 Xin
+"orders.ui.title.shipping-fee" = "游费收入"; // 2018-01-09 Xin
 "orders.ui.placeholder.note-empty" = "TA还没有写留言";
 "orders.ui.placeholder.note-msg" = "留言：";
 "orders.confirm.title.payment" = "支付成功";
@@ -354,6 +354,7 @@
 "personal.ui.title.faq" = "常见问题"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "可提现金额：";
 "personal.ui.title.alipay" = "支付宝提现";
+"personal.ui.placeholder.alipay-account" = "输入支付宝账号(邮箱/手机号)"; // 2018-01-11 Xin
 "personal.ui.title.min-button" = "取20%"; // 2018-01-01 Xin
 "personal.ui.title.mid-button" = "取50%"; // 2018-01-01 Xin
 "personal.ui.title.value-button" = "全部提现"; // 2018-01-01 Xin

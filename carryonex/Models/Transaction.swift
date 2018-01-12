@@ -71,15 +71,17 @@ enum TransactionKey: String {
     case requestId = "request_id"
     case platform = "platform"
     case statusId = "status_id"
+    case id = "id"
 }
 
 struct Transaction {
     let timestamp: Int
     let amount: Int
     let currency: String
-    let requestId: Int
+    let requestId: Int?
     let platform: String
     let statusId: Int
+    let id: Int
     
     func getTransactionDate() -> String {
         return Date.getTimeString(format: "MM/dd/yyyy HH:mm", time: TimeInterval(timestamp))
@@ -128,8 +130,9 @@ extension Transaction: Unboxable {
         self.timestamp = try unboxer.unbox(key: TransactionKey.timestamp.rawValue)
         self.amount = try unboxer.unbox(key: TransactionKey.amount.rawValue)
         self.currency = try unboxer.unbox(key: TransactionKey.currency.rawValue)
-        self.requestId = try unboxer.unbox(key: TransactionKey.requestId.rawValue)
+        self.requestId = try? unboxer.unbox(key: TransactionKey.requestId.rawValue)
         self.platform = try unboxer.unbox(key: TransactionKey.platform.rawValue)
         self.statusId = try unboxer.unbox(key: TransactionKey.statusId.rawValue)
+        self.id = try unboxer.unbox(key: TransactionKey.id.rawValue)
     }
 }

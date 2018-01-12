@@ -63,7 +63,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-Zo-mBg">
-                                        <rect key="frame" x="96.5" y="50" width="125" height="25"/>
+                                        <rect key="frame" x="94.5" y="50" width="125" height="25"/>
                                         <color key="backgroundColor" red="1" green="0.85179946290097652" blue="0.18130174571056268" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="125" id="wFy-ag-0j0"/>
@@ -107,7 +107,7 @@
                                     <constraint firstItem="yqc-Zo-mBg" firstAttribute="top" secondItem="D7T-3b-Rvy" secondAttribute="top" id="Rq6-Wz-oaQ"/>
                                     <constraint firstItem="H2j-mr-0g1" firstAttribute="top" secondItem="W84-E3-MmT" secondAttribute="top" constant="20" id="c3p-MS-eyy"/>
                                     <constraint firstAttribute="height" constant="120" id="gip-FZ-ypL"/>
-                                    <constraint firstItem="yqc-Zo-mBg" firstAttribute="leading" secondItem="D7T-3b-Rvy" secondAttribute="leading" constant="2" id="j5M-fv-hrh"/>
+                                    <constraint firstItem="yqc-Zo-mBg" firstAttribute="leading" secondItem="D7T-3b-Rvy" secondAttribute="leading" id="j5M-fv-hrh"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -253,6 +253,6 @@
         <image name="Settings" width="20" height="21"/>
         <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="setting_gray" width="122" height="122"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="191" height="32"/>
     </resources>
 </document>

@@ -62,11 +62,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rB6-f1-cwu">
-                                                <rect key="frame" x="69.5" y="20" width="10.5" height="20"/>
+                                                <rect key="frame" x="69.5" y="20" width="11.5" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="Q3V-hp-tfP"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -712,6 +712,6 @@
         <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="phone_gray" width="226" height="228"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="191" height="32"/>
     </resources>
 </document>

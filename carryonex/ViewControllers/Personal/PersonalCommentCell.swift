@@ -33,7 +33,7 @@ class PersonalCommentCell: UITableViewCell {
         guard let c = cmt else { return }
         commentTextView.text = c.comment
         let rank = c.rank ?? 0.0
-        rateViewConstraint.constant = rateStars5MaskWidthConstraint.constant * CGFloat(rank / 5.0) - 6
+        rateViewConstraint.constant = rateStars5MaskWidthConstraint.constant * CGFloat(rank / 5.0)
         userNameLabel.text = c.realName
         
         if let imageUrl = c.imageUrl, let url = URL(string: imageUrl) {
