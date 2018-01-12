@@ -749,7 +749,7 @@
         <image name="homeIcon" width="20" height="20"/>
         <image name="home_emptyorder" width="750" height="696"/>
         <image name="home_sender_cardicon" width="10" height="10"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="191" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="CT0-nn-JY9"/>

@@ -15,8 +15,8 @@ class LoginViewController: UIViewController {
     var countryCode = "1"
     var wechatAuthorizationState: String = ""
     
-    @IBOutlet weak var phoneField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var phoneField: ThemTextField!
+    @IBOutlet weak var passwordField: ThemTextField!
     @IBOutlet weak var textFieldsContainerView: UIView!
     
     @IBOutlet weak var bottomImageView: UIImageView!
@@ -67,6 +67,7 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.isHidden = true
     }
@@ -99,8 +100,8 @@ class LoginViewController: UIViewController {
     //MARK: - View custom set up
     
     private func setupContentsText() {
-        phoneField.placeholder = L("login.ui.placeholder.phone")
-        passwordField.placeholder = L("login.ui.placeholder.password")
+        phoneField.setAttributedPlaceholder(L("login.ui.placeholder.phone"), color: nil)
+        passwordField.setAttributedPlaceholder(L("login.ui.placeholder.password"), color: nil) 
         loginButton.setTitle(L("login.ui.button.login"), for: .normal)
         wechatLoginButton.setTitle(L("login.ui.button.wechat"), for: .normal)
         forgetButton.setTitle(L("login.ui.button.forgot-password"), for: .normal)
