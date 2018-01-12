@@ -16,6 +16,7 @@ class OrderListEmptyCell: UITableViewCell {
         super.awakeFromNib()
         
         emptyLabel.text = L("orders.ui.placeholder.youxiang-empty")
+        emptyLabel.textColor = colorTextDarkGray
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

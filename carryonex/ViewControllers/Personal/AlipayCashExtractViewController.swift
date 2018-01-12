@@ -54,7 +54,7 @@ class AlipayCashExtract: UIViewController {
         
         AppDelegate.shared().startLoading()
         
-        ApiServers.shared.postWalletAliPayout(logonId: alipayId, amount: payoutAmount) { (success, error) in
+        ApiServers.shared.postWalletAliPayout(logonId: alipayId, amount: payoutAmount) { (statusCode, error) in
             AppDelegate.shared().stopLoading()
             
             //TODO: Fix this after server fixed. for now it always success
@@ -64,10 +64,19 @@ class AlipayCashExtract: UIViewController {
                                   action:  L("action.ok"))
                 return
             }
-            if success {
-                self.displayAlert(title: L("personal.confirm.title.alipay-cash"),
-                                  message: L("personal.confirm.message.alipay-cash"),
-                                  action:  L("action.ok"))
+            
+            if let statusCode = statusCode {
+                if statusCode == 400 {
+                    //TODO: Localized
+                    self.displayAlert(title: "提现错误",
+                                      message: "请检查你输入的微信电邮户口和金额是否正确。",
+                                      action:  "知道了")
+                    
+                } else if statusCode == 200 {
+                    self.displayAlert(title: L("personal.confirm.title.alipay-cash"),
+                                      message: L("personal.confirm.message.alipay-cash"),
+                                      action:  L("action.ok"))
+                }
             }
             //Reload data on this page
             ProfileManager.shared.updateWallet(completion: nil)

@@ -95,7 +95,9 @@ class Request: Unboxable, Identifiable {
             return L("orders.ui.title.ratio-standard")
         }
         // totalValue may be the pre-pay fee by carriper, so check it first:
-        let shipFee = priceBySender > totalValue ? (priceBySender - totalValue) : priceBySender
+        let isPaidByShiper = priceBySender > totalValue
+        let paidHint = isPaidByShiper ? "" : ""
+        let shipFee = isPaidByShiper ? (priceBySender - totalValue) : priceBySender
         let ratio = (Double(shipFee - std) / Double(std)) * 100.0
         if ratio > -1.0 && ratio < 1.0 {
             return L("orders.ui.title.ratio-standard")

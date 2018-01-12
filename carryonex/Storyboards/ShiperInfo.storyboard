@@ -139,7 +139,7 @@
                                     <constraint firstAttribute="width" id="HNY-0r-5mc"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="EOz-xX-aZM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask-s" translatesAutoresizingMaskIntoConstraints="NO" id="EOz-xX-aZM">
                                 <rect key="frame" x="239" y="200.5" width="116" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="116" id="Hxm-He-q4h"/>
@@ -204,7 +204,7 @@
                                                         <constraint firstAttribute="width" constant="70" id="ttb-Aw-sRa"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-IC-YCM">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars5Mask-s" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-IC-YCM">
                                                     <rect key="frame" x="277" y="21" width="70" height="11.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="bHJ-iQ-RTB"/>
@@ -307,6 +307,6 @@
         <image name="dashline_gray" width="978" height="21"/>
         <image name="msg_gray" width="75" height="76"/>
         <image name="phone_gray" width="226" height="228"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask-s" width="399" height="66"/>
     </resources>
 </document>

@@ -11,9 +11,9 @@ import M13Checkbox
 
 class RegistrationViewController: UIViewController {
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var confirmPasswordField: UITextField!
+    @IBOutlet weak var nameField: ThemTextField!
+    @IBOutlet weak var passwordField: ThemTextField!
+    @IBOutlet weak var confirmPasswordField: ThemTextField!
     
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var agreeButton: UIButton!
@@ -75,6 +75,11 @@ class RegistrationViewController: UIViewController {
         bottomImageView.image = UIImage.gifImageWithName("Login_animated_loop_png")
         
         AnalyticsManager.shared.startTimeTrackingKey(.registrationProcessTime)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewDidDisappear(_ animated: Bool) {

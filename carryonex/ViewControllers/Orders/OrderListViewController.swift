@@ -378,6 +378,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         let hintLabel = UILabel()
         hintLabel.textAlignment = .center
         hintLabel.font = UIFont.systemFont(ofSize: 16)
+        hintLabel.textColor = colorTextBlack
         hintLabel.text = (tableView.tag == TripCategory.carrier.rawValue) ? L("orders.ui.placeholder.trip") : L("orders.ui.placeholder.send")
         footView.addSubview(hintLabel)
         hintLabel.addConstraints(left: footView.leftAnchor, top: nil, right: footView.rightAnchor, bottom: shareButton.topAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 30, width: 0, height: 20)

@@ -155,6 +155,7 @@ class NewHomePageController: UIViewController {
         orderTitleLabel.text = L("home.ui.card.title")
         if toShow {
             orderPlaceholderLabel.text = L("home.ui.card.placeholder")
+            orderPlaceholderLabel.textColor = colorTextDarkGray
             orderPlaceholderButton.layer.masksToBounds = true
             orderPlaceholderButton.layer.shadowColor = colorTheamRed.cgColor
             orderPlaceholderButton.layer.shadowOffset = CGSize(width: 1, height: 1)
