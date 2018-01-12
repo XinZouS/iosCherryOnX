@@ -1461,10 +1461,10 @@ class ApiServers : NSObject {
     
     
     //TODO fix this...need to put in user's payee account. Here default as XingJiu's payout account
-    func postWalletAliPayout(logonId: String, amount: String, completion: ((Bool, Error?) -> Void)?) {
+    func postWalletAliPayout(logonId: String, amount: String, completion: ((Int?, Error?) -> Void)?) {       //Status Code, Error
         guard let profileUser = ProfileManager.shared.getCurrentUser(), let userId = profileUser.id else {
             debugLog("Profile user empty, pleaes login to get user's id")
-            completion?(false, nil)
+            completion?(nil, nil)
             return
         }
         
@@ -1491,15 +1491,15 @@ class ApiServers : NSObject {
             guard let response = response else {
                 if let error = error {
                     DLog("postWalletAliPay update response error: \(error.localizedDescription)")
-                    completion?(false, error)
+                    completion?(nil, error)
                 }
                 return
             }
             
-            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int, statusCode != 200 {
-                completion?(true, nil)
+            if let statusCode = response[ServerKey.statusCode.rawValue] as? Int{
+                completion?(statusCode, nil)
             } else {
-                completion?(false, nil)
+                completion?(nil, nil)
             }
         }
     }
