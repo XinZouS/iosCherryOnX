@@ -317,9 +317,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public func startLoading() {
         
         guard let topViewController = UIViewController.topViewController() else { return }
+        
         var loadingViewController = topViewController
-        if let navViewController = topViewController.navigationController {
-            loadingViewController = navViewController
+        if !topViewController.isBeingPresented {
+            loadingViewController = mainNavigationController
+            
+        } else {
+            if let navViewController = topViewController.navigationController {
+                loadingViewController = navViewController
+            }
         }
         
         DispatchQueue.main.async {
