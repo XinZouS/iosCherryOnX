@@ -320,7 +320,7 @@ extension TripController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        guard let t = textView.text, t.count > 14 else { return }
+        guard let t = textView.text, t.count > 15 else { return }
         let sz = CGSize(width: textView.bounds.width, height: 100)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let atts = [NSFontAttributeName: textFieldFont]
@@ -328,6 +328,9 @@ extension TripController: UITextViewDelegate {
         noteTextViewHeighConstraint.constant = max(noteTextViewHeigh, estimateRect.height + 10)
         self.view.layoutIfNeeded()
         self.textViewAnimateUp(textView, toY: textViewEstimateY, animated: false)
+        
+        let noteText = textView.text ?? ""
+        isNoteFilled = !noteText.isEmpty
     }
     
     private func textViewAnimateUp(_ textView: UITextView, toY yLoc: CGFloat, animated anm: Bool) {

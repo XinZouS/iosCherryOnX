@@ -135,6 +135,7 @@
 "sender.confirm.title.post" = "Post request successful";
 "sender.confirm.message.post" = "Please note you will receive request status update.";
 "sender.ui.message.item-value-max" = "Tips: delivery item should limit to max value of";
+"sender.ui.placeholder.address" = "Address"; // 2018-01-12 Xin
 "sender.ui.placeholder.note" = "Note for carrier should limited to number of characters of:";
 "sender.ui.title.item-value-info" = "Item Value Info";
 "sender.ui.title.item-value" = "Item Value";

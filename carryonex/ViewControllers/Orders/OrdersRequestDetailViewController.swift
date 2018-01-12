@@ -703,7 +703,7 @@ extension OrdersRequestDetailViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let imgCount = request.getImages().count
-        scrollViewImageMaskWidthConstraint.constant = imgCount < 2 ? 52 : 100 //58 = 52 + 6
+        scrollViewImageMaskWidthConstraint.constant = imgCount < 2 ? 50 : 100 //58 = 52 + 6
         return imgCount
     }
     
