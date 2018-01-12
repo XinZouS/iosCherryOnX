@@ -135,7 +135,8 @@
 "sender.confirm.title.post" = "🎉订单发布成功";
 "sender.confirm.message.post" = "订单提交成功，请及时关注订单状态";
 "sender.ui.message.item-value-max" = "小提示：寄送物品价值限制至多";
-"sender.ui.placeholder.note" = "给出行人的注意事项或特殊要求，字数限制: ";
+"sender.ui.placeholder.address" = "收件地址"; // 2018-01-12 Xin
+"sender.ui.placeholder.note" = "注意事项或特殊要求，字数限制: ";
 "sender.ui.title.item-value-info" = "物品价值说明";
 "sender.ui.title.item-value" = "物品价值";
 "sender.ui.message.price-lower-than" = "低于";

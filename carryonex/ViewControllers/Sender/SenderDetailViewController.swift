@@ -54,7 +54,11 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var senderInfoCardView: UIView!
     @IBOutlet weak var nameTextField: ThemTextField!      // 0
     @IBOutlet weak var phoneTextField: ThemTextField!     // 1
-    @IBOutlet weak var addressTextField: ThemTextField!   // 2
+    @IBOutlet weak var addressTextView: ThemTextView!   // 2
+    @IBOutlet weak var addressTextViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addressTextViewUnderlineView: UIView!
+    let addressTextViewHeight: CGFloat = 32
+    let addressTextViewEstimateY: CGFloat = 50
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewMaskImageView: UIImageView!
     @IBOutlet weak var collectionViewMaskIcon: UIImageView!
@@ -62,6 +66,11 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var collectionViewMaskButton: UIButton!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageTextView: ThemTextView!   // 3
+    @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageTextViewUnderlineView: UIView!
+    let messageTextViewHeight: CGFloat = 32
+    let messageTextViewEstimateY: CGFloat = 500
+    let textFieldFont = UIFont.systemFont(ofSize: 16)
     
     // price contents
     @IBOutlet weak var priceValueTitleLabel: UILabel!
@@ -205,8 +214,10 @@ class SenderDetailViewController: UIViewController{
     }
     // textField editing with scrollView animation
     var isTextFieldBeginEditing = false
+    var isTextViewEditing = false
     // textView placeholder text status
-    var isTextViewBeenEdited = false
+    var isAddressTextViewBeenEdited = false
+    var isMessageTextViewBeenEdited = false
     let messageWordsLimite: Int = 140
 
     
@@ -321,18 +332,22 @@ class SenderDetailViewController: UIViewController{
     private func setupTextFields(){
         textFieldAddToolBar(nameTextField, nil)
         textFieldAddToolBar(phoneTextField, nil)
-        textFieldAddToolBar(addressTextField, nil)
+        textFieldAddToolBar(nil, addressTextView)
         textFieldAddToolBar(nil, messageTextView)
         textFieldAddToolBar(priceValueTextField, nil)
         textFieldAddToolBar(countryCodeTextField,nil)
         
         nameTextField.attributedPlaceholder = NSAttributedString(string:"姓名", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
         phoneTextField.attributedPlaceholder = NSAttributedString(string:"手机号", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
-        addressTextField.attributedPlaceholder = NSAttributedString(string:"收件地址", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        addressTextView.font = textFieldFont
+        messageTextView.font = textFieldFont
         let formatter = NumberFormatter()
         let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
         let pricePH: String = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
         priceValueTextField.attributedPlaceholder = NSAttributedString(string: pricePH, attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        
+        addressTextViewHeightConstraint.constant = addressTextViewHeight
+        messageTextViewHeightConstraint.constant = messageTextViewHeight
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -431,9 +446,9 @@ class SenderDetailViewController: UIViewController{
             return
         }
         
-        guard let destAddressStr = addressTextField.text, destAddressStr.count > 0 else {
+        guard let destAddressStr = addressTextView.text, destAddressStr.count > 0 else {
             self.displayGlobalAlert(title: L("sender.error.title.info"), message: L("sender.error.message.address"), action: L("action.ok"), completion: { [weak self] _ in
-                self?.addressTextField.becomeFirstResponder()
+                self?.addressTextView.becomeFirstResponder()
             })
             return
         }
@@ -478,7 +493,7 @@ class SenderDetailViewController: UIViewController{
                         imgUrls.append(url)
                     }
                 }
-                let msg = strongSelf.isTextViewBeenEdited ? strongSelf.messageTextView.text : ""
+                let msg = strongSelf.isMessageTextViewBeenEdited ? strongSelf.messageTextView.text : ""
                 let totalValue = Double(price) ?? Double(strongSelf.priceShipFee)
                 let cost = strongSelf.priceFinal
                 let stdPrice = strongSelf.priceMiddl
@@ -560,6 +575,12 @@ class SenderDetailViewController: UIViewController{
         return Double(round(v * factor) / factor)
     }
     
+    fileprivate func animateUIifNeeded(){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+
 }
 
 // MARK: -
@@ -769,9 +790,14 @@ extension SenderDetailViewController {
 extension SenderDetailViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if textView == addressTextView {
+            return true
+        }
+        
         // check for placeholder
-        if !isTextViewBeenEdited {
-            isTextViewBeenEdited = true
+        if !isMessageTextViewBeenEdited {
+            isMessageTextViewBeenEdited = true
         }
         // check for return key
         if text == "\n" {
@@ -790,38 +816,73 @@ extension SenderDetailViewController: UITextViewDelegate {
         return isInputTextInLimiteWords(textView)
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        let placeholderTxt = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
-        if textView.text == "" {
-            textView.text = placeholderTxt
-            textView.textColor = colorTextFieldPlaceholderBlack
-            isTextViewBeenEdited = false
-        }
-        messageTextView.isActive = false
-    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if !isTextViewBeenEdited {
-            textView.text = ""
-            textView.textColor = colorTextBlack
-            messageTextView.isActive = true
+        isTextViewEditing = true
+        if textView == addressTextView {
+            animateScrollViewToShow(addressTextView)
+            addressTextViewUnderlineView.backgroundColor = colorTheamRed
+            if !isAddressTextViewBeenEdited {
+                textView.text = ""
+                textView.textColor = colorTextBlack
+                addressTextView.isActive = true
+            }
+            
+        } else if textView == messageTextView {
+            animateScrollViewToShow(messageTextView)
+            messageTextViewUnderlineView.backgroundColor = colorTheamRed
+            if !isMessageTextViewBeenEdited {
+                textView.text = ""
+                textView.textColor = colorTextBlack
+                messageTextView.isActive = true
+            }
+            AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
         }
-        AnalyticsManager.shared.finishTimeTrackingKey(.senderPlacePriceTime)
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // check for decimal 6.66:
-        guard textField == priceValueTextField else {
-            return true
+    func textViewDidEndEditing(_ textView: UITextView) {
+        isTextViewEditing = false
+        if textView == addressTextView {
+            if textView.text == "" {
+                textView.text = L("sender.ui.placeholder.address")
+                textView.textColor = colorTextFieldPlaceholderBlack
+                isAddressTextViewBeenEdited = false
+            }
+            addressTextViewUnderlineView.backgroundColor = colorTextFieldUnderLineLightGray
+            addressTextView.isActive = false
+            
+        }else if textView == messageTextView {
+            let placeholderTxt = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
+            if textView.text == "" {
+                textView.text = placeholderTxt
+                textView.textColor = colorTextFieldPlaceholderBlack
+                isMessageTextViewBeenEdited = false
+            }
+            messageTextViewUnderlineView.backgroundColor = colorTextFieldUnderLineLightGray
+            messageTextView.isActive = false
         }
-        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
-        let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
-        let reportProgress = NSRegularExpression.MatchingOptions.reportProgress
-        let regex = try! NSRegularExpression(pattern: expression, options: allowCommentAndWitespace)
-        let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        guard let t = textView.text else { return }
+        if textView == addressTextView {
+            isAddressTextViewBeenEdited = !t.isEmpty
+        }
+        if textView == messageTextView {
+            isMessageTextViewBeenEdited = !t.isEmpty
+        }
+        guard t.count > 1 else { return }
+        let sz = CGSize(width: textView.bounds.width - 10, height: 100)
+        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let atts = [NSFontAttributeName: textFieldFont]
+        let estimateRect = NSString(string: t).boundingRect(with: sz, options: option, attributes: atts, context: nil)
         
-        return numberOfMatches != 0
+        if textView == addressTextView {
+            self.addressTextViewHeightConstraint.constant = max(self.addressTextViewHeight, estimateRect.height + 5)
+
+        }else if textView == messageTextView {
+            self.messageTextViewHeightConstraint.constant = max(self.messageTextViewHeight, estimateRect.height + 5)
+        }
     }
     
     private func isInputTextInLimiteWords(_ textView: UITextView) -> Bool {
@@ -829,7 +890,7 @@ extension SenderDetailViewController: UITextViewDelegate {
         messageTitleLabel.text = ok ? L("sender.ui.title.note-ok") : (L("sender.ui.title.note-overflow") + "\(messageWordsLimite)")
         return ok
     }
-
+    
 }
 
 extension SenderDetailViewController: UITextFieldDelegate {
@@ -848,15 +909,29 @@ extension SenderDetailViewController: UITextFieldDelegate {
         preparePriceIn(textField)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // check for decimal 6.66:
+        guard textField == priceValueTextField else {
+            return true
+        }
+        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        let expression = "^[0-9]*((\\.|,)[0-9]{0,2})?$"
+        let allowCommentAndWitespace = NSRegularExpression.Options.allowCommentsAndWhitespace
+        let reportProgress = NSRegularExpression.MatchingOptions.reportProgress
+        let regex = try! NSRegularExpression(pattern: expression, options: allowCommentAndWitespace)
+        let numberOfMatches = regex.numberOfMatches(in: newString, options: reportProgress, range: NSMakeRange(0, (newString as NSString).length))
+        
+        return numberOfMatches != 0
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         animateScrollViewToShow(textField)
         
         if textField == nameTextField ||
-            textField == phoneTextField ||
-            textField == addressTextField { // make sure is target textFields, then check text:
+            textField == phoneTextField { // make sure is target textFields, then check text:
             if (nameTextField.text?.isEmpty ?? true) &&
-                (phoneTextField.text?.isEmpty ?? true) &&
-                (addressTextField.text?.isEmpty ?? true) { // all [empty], then fire timmer, otherwise it already running;
+                (phoneTextField.text?.isEmpty ?? true) {
+                // all [empty], then fire timmer, otherwise it already running;
                 AnalyticsManager.shared.startTimeTrackingKey(.senderDetailFillTime)
             }
         }
@@ -875,11 +950,10 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == nameTextField ||
-            textField == phoneTextField ||
-            textField == addressTextField { // make sure is target textFields, then check text:
+            textField == phoneTextField { // make sure is target textFields, then check text:
             if !(nameTextField.text?.isEmpty ?? true) &&
-                !(phoneTextField.text?.isEmpty ?? true) &&
-                !(addressTextField.text?.isEmpty ?? true) { // all [filled], then stop timmer, otherwise it already stopped;
+                !(phoneTextField.text?.isEmpty ?? true) {
+                // all [filled], then stop timmer, otherwise it already stopped;
                 AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailFillTime)
             }
         }
@@ -916,7 +990,11 @@ extension SenderDetailViewController: UITextFieldDelegate {
             tv.delegate = self
             tv.inputAccessoryView = bar
             tv.textColor = colorTextFieldPlaceholderBlack
-            tv.text = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
+            if tv == addressTextView {
+                tv.text = L("sender.ui.placeholder.address")
+            }else if tv == messageTextView {
+                tv.text = L("sender.ui.placeholder.note") + "\(messageWordsLimite)"
+            }
         }
     }
     
@@ -990,14 +1068,14 @@ extension SenderDetailViewController: UITextFieldDelegate {
     fileprivate func keyboardDismiss(){
         nameTextField.resignFirstResponder()
         phoneTextField.resignFirstResponder()
-        addressTextField.resignFirstResponder()
+        addressTextView.resignFirstResponder()
         messageTextView.resignFirstResponder()
         priceValueTextField.resignFirstResponder()
     }
 
-    private func animateScrollViewToShow(_ textField: UITextField){
+    fileprivate func animateScrollViewToShow(_ v: UIView){
         isTextFieldBeginEditing = true // for scrollview content offset adjustment
-        let locOnScreen = textField.convert(CGPoint(x: 0, y: 0), to: view)
+        let locOnScreen = v.convert(CGPoint(x: 0, y: 0), to: view)
         let offsetY = locOnScreen.y - 120
         let newLoc = CGPoint(x: 0, y: scrollView.contentOffset.y + offsetY)
         scrollView.setContentOffset(newLoc, animated: true)
@@ -1006,17 +1084,12 @@ extension SenderDetailViewController: UITextFieldDelegate {
         })
     }
     
-    fileprivate func animateUIifNeeded(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
 }
 
 extension SenderDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if !isTextFieldBeginEditing {
+        if !isTextFieldBeginEditing && !isTextViewEditing {
             keyboardDismiss()
         }
     }
