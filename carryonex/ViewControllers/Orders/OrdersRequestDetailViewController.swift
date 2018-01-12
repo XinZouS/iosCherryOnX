@@ -164,18 +164,17 @@ class OrdersRequestDetailViewController: UIViewController {
         
         ApiServers.shared.postRequestTransaction(requestId: requestId, tripId: tripId, transaction: transaction, completion: { (success, error, statusId) in
             self.isLoadingStatus = false
-            if (success) {
-                if let statusId = statusId {
-                    TripOrderDataStore.shared.updateRequestToStatus(category: requestCategory, requestId: self.request.id, status: statusId)
-                    
-                    //Track the new status to Fabric
-                    if let status = RequestStatus(rawValue: statusId) {
-                        AnalyticsManager.shared.track(.requestStatusChange, attributes: ["status": status.analyticString()])
-                    }
-                    
-                } else {
-                    DLog("No status found, bad call")
+            
+            if let statusId = statusId {
+                TripOrderDataStore.shared.updateRequestToStatus(category: requestCategory, requestId: self.request.id, status: statusId)
+                
+                //Track the new status to Fabric
+                if let status = RequestStatus(rawValue: statusId) {
+                    AnalyticsManager.shared.track(.requestStatusChange, attributes: ["status": status.analyticString()])
                 }
+                
+            } else {
+                DLog("No status found, bad call")
             }
         })
     }
