@@ -136,6 +136,7 @@ class OrdersTripDetailViewController: UIViewController {
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request, completion: {
+                UIApplication.shared.statusBarStyle = .default
                 self.isLoadingStatus = false
             })
             
@@ -143,6 +144,7 @@ class OrdersTripDetailViewController: UIViewController {
             //TODO: uncomment this section
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request, completion: {
+                UIApplication.shared.statusBarStyle = .default
                 self.isLoadingStatus = false
             })
         }

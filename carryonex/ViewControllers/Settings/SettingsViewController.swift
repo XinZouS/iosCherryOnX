@@ -65,7 +65,7 @@ extension SettingsViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell {
             let title: String = titles[indexPath.row]
             cell.titleLabel.text = title
-            if indexPath.row == 4 { // version cell
+            if indexPath.row == 3 { // version cell
                 setupVersionCell(cell)
             }
             cell.selectionStyle = .none
