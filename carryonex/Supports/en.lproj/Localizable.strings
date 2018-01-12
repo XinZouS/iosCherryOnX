@@ -268,6 +268,7 @@
 "orders.ui.title.ratio-heigher" = "高于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-lower" = "低于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-standard" = "标准价"; // 2018-01-09 Xin
+"orders.ui.title.item-paid" = "(含物品价值)"; // 2018-01-12 Xin
 "orders.ui.title.shipping-fee" = "游费收入"; // 2018-01-09 Xin
 "orders.ui.placeholder.note-empty" = "TA还没有写留言";
 "orders.ui.placeholder.note-msg" = "留言：";

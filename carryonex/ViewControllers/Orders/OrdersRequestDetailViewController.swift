@@ -27,6 +27,7 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var shippingFeeTitleLabel: UILabel!
     @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var incomeHintLabel: UILabel!
+    @IBOutlet weak var incomePaidHintLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
@@ -118,12 +119,14 @@ class OrdersRequestDetailViewController: UIViewController {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
+                UIApplication.shared.statusBarStyle = .default
             })
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
+                UIApplication.shared.statusBarStyle = .default
             })
         }
     }
@@ -377,6 +380,8 @@ class OrdersRequestDetailViewController: UIViewController {
         
         incomeLabel.text = currency.rawValue + request.priceString()
         incomeHintLabel.text = request.priceStdString()
+        incomePaidHintLabel.text = L("orders.ui.title.item-paid")
+        incomePaidHintLabel.isHidden = !request.isPaidByShiper()
         shippingFeeTitleLabel.text = L("orders.ui.title.shipping-fee")
         recipientNameLabel.text = request.endAddress?.recipientName
         recipientPhoneLabel.text = request.endAddress?.phoneNumber

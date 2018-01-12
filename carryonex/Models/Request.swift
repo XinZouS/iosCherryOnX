@@ -86,24 +86,26 @@ class Request: Unboxable, Identifiable {
         DLog(allData)
     }
     
-    func priceString() -> String {
+    public func priceString() -> String {
         return String(format:"%.2f", Double(priceBySender) / 100)
     }
     
-    func priceStdString() -> String {
+    public func priceStdString() -> String {
         guard let std = priceStd, std > 0 else {
             return L("orders.ui.title.ratio-standard")
         }
         // totalValue may be the pre-pay fee by carriper, so check it first:
-        let isPaidByShiper = priceBySender > totalValue
-        let paidHint = isPaidByShiper ? "" : ""
-        let shipFee = isPaidByShiper ? (priceBySender - totalValue) : priceBySender
+        let shipFee = priceBySender > totalValue ? (priceBySender - totalValue) : priceBySender
         let ratio = (Double(shipFee - std) / Double(std)) * 100.0
         if ratio > -1.0 && ratio < 1.0 {
             return L("orders.ui.title.ratio-standard")
         }
         let judgeString = ratio < 0.0 ? L("orders.ui.title.ratio-lower") : L("orders.ui.title.ratio-heigher")
         return judgeString + L("orders.ui.title.ratio-standard") + String(format:"%.1f", abs(ratio)) + "%"
+    }
+    
+    public func isPaidByShiper() -> Bool {
+        return priceBySender > totalValue
     }
         
     func itemValue() -> String {
