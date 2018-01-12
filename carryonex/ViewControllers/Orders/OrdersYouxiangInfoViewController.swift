@@ -96,16 +96,16 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
         setupNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
+        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white
