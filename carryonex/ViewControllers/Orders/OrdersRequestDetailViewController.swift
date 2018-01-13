@@ -119,14 +119,12 @@ class OrdersRequestDetailViewController: UIViewController {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
-                UIApplication.shared.statusBarStyle = .default
             })
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
-                UIApplication.shared.statusBarStyle = .default
             })
         }
     }
@@ -281,20 +279,12 @@ class OrdersRequestDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
-    }
-    
-    
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white

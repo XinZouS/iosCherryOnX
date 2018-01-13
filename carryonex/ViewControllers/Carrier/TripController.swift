@@ -91,7 +91,6 @@ class TripController: UIViewController{
     
     private func setupNavigationBar(){
         title = L("carrier.ui.title.trip")
-        UIApplication.shared.statusBarStyle = .lightContent
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.barTintColor = .white

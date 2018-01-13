@@ -65,12 +65,7 @@ class PersonalPageViewController: UIViewController{
         setupUserImageView()
         setupNavigationBar()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-    }
-    
+
     private func setupNavigationBar(){
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()

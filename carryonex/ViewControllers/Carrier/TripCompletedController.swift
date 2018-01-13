@@ -67,7 +67,6 @@ class TripCompletedController : UIViewController{
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationItem.leftBarButtonItem = UIBarButtonItem()
     }
     

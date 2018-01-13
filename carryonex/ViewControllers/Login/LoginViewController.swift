@@ -66,7 +66,6 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.isHidden = true
     }
