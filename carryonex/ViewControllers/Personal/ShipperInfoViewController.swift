@@ -128,12 +128,14 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func setupView(){
-        if let ownerRealName = commenteeRealName,let ownerImageUrl = commenteeImage{
+        if let ownerRealName = commenteeRealName,let ownerImageUrl = commenteeImage {
             userNameLabel.text = ownerRealName    //update to real name
             userImageBtn.imageView?.contentMode = .scaleToFill
-            if let url = URL(string:ownerImageUrl){
-                userImageBtn.af_setImage(for: .normal, url: url)
-                //senderImageButton //TODO: add user image
+            if let url = URL(string: ownerImageUrl){
+                // userImageBtn.af_setImage(for: .normal, url: url)
+                // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
+                userImageBtn.setImageFrom(url: url)
+                
             }else{
                 userImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }

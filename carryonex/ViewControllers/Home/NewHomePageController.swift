@@ -253,7 +253,10 @@ class NewHomePageController: UIViewController {
     func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
-            userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            //userProfileImageBtn.imageView?.contentMode = .scaleAspectFill ??? BUG: somehow it does not work, try another way
+            //userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            userProfileImageBtn.setImageFrom(url: imgUrl)
+            
         } else {
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
@@ -345,7 +348,7 @@ class NewHomePageController: UIViewController {
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
         userProfileImageBtn.layer.cornerRadius = userProfileImageBtn.bounds.height / 2
-        userProfileImageBtn.imageView?.contentMode = .scaleToFill
+        userProfileImageBtn.imageView?.contentMode = .scaleAspectFill
         circle.layer.masksToBounds = true
         circle.layer.cornerRadius = circle.bounds.height / 2
         circle.layer.borderColor = UIColor.white.cgColor
@@ -370,8 +373,7 @@ class NewHomePageController: UIViewController {
         AnalyticsManager.shared.startTimeTrackingKey(.senderDetailTotalTime)
         handleNavigation(segue: .addRequest, sender: sender)
     }
-    
-    
+        
 }
 
 extension NewHomePageController: MainNavigationProtocol {

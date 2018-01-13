@@ -293,13 +293,13 @@ class SenderDetailViewController: UIViewController{
             let startCountry = trip?.startAddress?.country?.rawValue,
             let startState = trip?.startAddress?.state,
             let startCity = trip?.startAddress?.city {
-            if let imageUrl = trip?.carrierImageUrl,let url = URL(string:imageUrl){
+            if let imageUrl = trip?.carrierImageUrl, let url = URL(string:imageUrl) {
                 senderProfileImageButton.af_setImage(for: .normal, url: url)
             } else {
                 senderProfileImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }
-            endAddressLabel.text = endCountry+" "+endState+" "+endCity
-            startAddressLabel.text = startCountry+" "+startState+" "+startCity
+            endAddressLabel.text = endCountry + " " + endState + " " + endCity
+            startAddressLabel.text = startCountry + " " + startState + " " + startCity
         }
         
         youxiangCodeLabel.text = trip?.tripCode

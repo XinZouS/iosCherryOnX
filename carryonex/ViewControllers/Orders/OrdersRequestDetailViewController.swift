@@ -373,8 +373,10 @@ class OrdersRequestDetailViewController: UIViewController {
         
         senderImageButton.imageView?.contentMode = .scaleToFill
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
-            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            
+            // senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
+            senderImageButton.setImageFrom(url: imgUrl)
+
         } else{
             senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
