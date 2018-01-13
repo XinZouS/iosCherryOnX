@@ -55,8 +55,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addWeChatObservers()
-        setupPhoneTextField()
-        setupPasswordTextField()
+        setupTextFields()
         setupFlagPicker()
         setupIndicator()
         setupContentsText()
@@ -148,15 +147,19 @@ class LoginViewController: UIViewController {
         flagPicker.addConstraints(left: bottomImageView.leftAnchor, top: bottomImageView.topAnchor, right: bottomImageView.rightAnchor, bottom: bottomImageView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
     }
     
-    private func setupPhoneTextField(){
+    
+    private func setupTextFields() {
         phoneField.keyboardType = .numberPad
         phoneField.delegate = self
-    }
+        phoneField.defaultLineColor = colorTextFieldLoginLineLightGray
+        phoneField.activeLineColor = colorTextFieldLoginLineLightGray
+        phoneField.becomeFirstResponder()
 
-    private func setupPasswordTextField(){
         passwordField.keyboardType = .asciiCapable
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
         passwordField.delegate = self
+        passwordField.defaultLineColor = colorTextFieldLoginLineLightGray
+        passwordField.activeLineColor = colorTextFieldLoginLineLightGray
     }
     
     //MARK: - Action Handler
