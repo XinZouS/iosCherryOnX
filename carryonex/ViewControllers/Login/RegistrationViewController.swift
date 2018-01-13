@@ -52,7 +52,6 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .default
 
         setupActivityIndicator()
         setupTextFields()
@@ -65,11 +64,6 @@ class RegistrationViewController: UIViewController {
         bottomImageView.image = UIImage.gifImageWithName("Login_animated_loop_png")
         
         AnalyticsManager.shared.startTimeTrackingKey(.registrationProcessTime)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewDidDisappear(_ animated: Bool) {

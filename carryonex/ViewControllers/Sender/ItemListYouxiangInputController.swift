@@ -69,7 +69,6 @@ class ItemListYouxiangInputController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIApplication.shared.statusBarStyle = .lightContent
         setupNavigationBar()
         youxiangcodeTextField.becomeFirstResponder()
         textFieldDidChanged(youxiangcodeTextField)

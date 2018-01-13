@@ -136,7 +136,6 @@ class OrdersTripDetailViewController: UIViewController {
         if paymentType == .alipay {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request, completion: {
-                UIApplication.shared.statusBarStyle = .default
                 self.isLoadingStatus = false
             })
             
@@ -144,7 +143,6 @@ class OrdersTripDetailViewController: UIViewController {
             //TODO: uncomment this section
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request, completion: {
-                UIApplication.shared.statusBarStyle = .default
                 self.isLoadingStatus = false
             })
         }
@@ -299,13 +297,11 @@ class OrdersTripDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
         setupNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
     }
     
     private func setupNavigationBar(){

@@ -226,7 +226,6 @@ class PhotoIDController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
         view.backgroundColor = .white
         
         setupNavigationBar()

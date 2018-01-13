@@ -265,7 +265,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         UINavigationBar.appearance().isTranslucent = false
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     

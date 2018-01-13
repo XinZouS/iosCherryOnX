@@ -19,7 +19,6 @@ class ChangePasswordController: UIViewController{
     @IBOutlet weak var bottomImageView: UIImageView!
     
     override func viewDidLoad() {
-        UIApplication.shared.statusBarStyle = .default
         zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
         phoneInput = registerUserInfo?["phone"] ?? ""
         setupPasswordTextField()
@@ -29,7 +28,6 @@ class ChangePasswordController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
         passwordTextField.becomeFirstResponder()
     }
     

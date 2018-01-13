@@ -52,11 +52,6 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
         setupTableView()
         setupView()
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-    }
     
     private func setupNavigationBar() {
         title = L("personal.ui.title.shiperinfo-comments")
