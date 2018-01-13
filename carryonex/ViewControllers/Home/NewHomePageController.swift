@@ -234,6 +234,7 @@ class NewHomePageController: UIViewController {
             } else {
                 self?.setupPlaceholderView(toShow: true)
             }
+            AppDelegate.shared().stopLoading()
         }
         
         NotificationCenter.default.addObserver(forName: .UserLoggedOut, object: nil, queue: nil) { [weak self] _ in
