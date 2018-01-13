@@ -59,6 +59,8 @@
 "register.error.title.duplicate" = "无法重复注册";
 "register.error.message.duplicate" = "您输入的手机号码已被注册";
 "register.error.action.duplicate" = "直接登录";
+"register.error.title.server-down" = "⛔️链接错误"; // 2018-01-13 Xin
+"register.error.message.server-down" = "抱歉现在暂时无法访问服务器，请稍后再试"; // 2018-01-13 Xin
 "register.error.title.get-verify-code" = "获取验证码失败";
 "register.error.message.get-verify-code" = "未能发送验证码，请检查手机号及区号是否正确";
 "register.error.title.verify" = "验证失败";

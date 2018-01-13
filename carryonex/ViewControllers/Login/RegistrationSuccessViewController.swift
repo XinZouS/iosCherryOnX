@@ -24,7 +24,8 @@ class RegistrationSuccessViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        UIApplication.shared.statusBarStyle = .default
+
         let imgBounds = checkmarkImageView.bounds
         let bX = imgBounds.origin.x - (imgBounds.width / 2) + 10
         let bY = imgBounds.origin.y - (imgBounds.height / 2) + 10

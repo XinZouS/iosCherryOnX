@@ -64,6 +64,7 @@ class PhoneValidationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         setupViewTitles()
         setupVerifyTextField()
         setupActivityIndicator()
@@ -71,6 +72,7 @@ class PhoneValidationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
         hintLabelError.isHidden = true
     }
     

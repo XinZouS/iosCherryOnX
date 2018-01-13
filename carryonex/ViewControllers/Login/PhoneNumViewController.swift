@@ -66,6 +66,7 @@ class PhoneNumViewController: UIViewController {
     //MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         zoneCodeInput = "1"
 
         titleLabel.text = L("register.ui.title.phone")
@@ -84,6 +85,7 @@ class PhoneNumViewController: UIViewController {
     // for keyboard notification:
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
         _ = phoneNumTextField.becomeFirstResponder()
         navigationController?.isNavigationBarHidden = isModifyPhoneNumber
     }
@@ -152,6 +154,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             if let error = error {
                 self.isLoading = false
                 DLog("getIsUserExisted error: \(error.localizedDescription)")
+                self.displayGlobalAlert(title: L("register.error.title.server-down"), message: L("register.error.message.server-down"), action: L("action.ok"), completion: nil)
                 return
             }
             if isExist {
