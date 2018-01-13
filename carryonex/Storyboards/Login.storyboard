@@ -318,6 +318,16 @@
                                     <action selector="handlePrivacyPolicyButton:" destination="Bs0-ci-XEM" eventType="touchUpInside" id="Dbx-X7-qWI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-1t-Vzp">
+                                <rect key="frame" x="273" y="637" width="102" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="lLd-6o-EAV"/>
+                                </constraints>
+                                <state key="normal" title="RegistrationVC"/>
+                                <connections>
+                                    <segue destination="RZX-r7-RTa" kind="show" id="Tqi-sV-c64"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -332,6 +342,8 @@
                             <constraint firstItem="b5v-pr-dHW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VfD-Gu-RpJ" secondAttribute="bottom" priority="900" constant="5" id="8nf-eq-k5N"/>
                             <constraint firstItem="20c-1B-UgT" firstAttribute="top" secondItem="woj-xs-lls" secondAttribute="bottom" constant="50" id="9at-HB-x5q"/>
                             <constraint firstItem="FvG-Qb-kd7" firstAttribute="top" secondItem="hgu-IH-Ro0" secondAttribute="top" constant="-15" id="Bsh-Mc-WYq"/>
+                            <constraint firstItem="qPa-1t-Vzp" firstAttribute="trailing" secondItem="GUr-9Z-UXw" secondAttribute="trailing" id="D7d-tc-6P0"/>
+                            <constraint firstItem="qPa-1t-Vzp" firstAttribute="bottom" secondItem="GUr-9Z-UXw" secondAttribute="bottom" id="EdU-cu-1SQ"/>
                             <constraint firstItem="b5v-pr-dHW" firstAttribute="centerX" secondItem="yNQ-8a-qRX" secondAttribute="trailing" constant="-30" id="Gnq-Co-dvB"/>
                             <constraint firstItem="hgu-IH-Ro0" firstAttribute="trailing" secondItem="woj-xs-lls" secondAttribute="trailing" constant="-1" id="Hq3-Wl-QkM"/>
                             <constraint firstItem="lVK-jc-oBZ" firstAttribute="centerY" secondItem="yNQ-8a-qRX" secondAttribute="centerY" id="Hxo-UE-KpC"/>
@@ -418,6 +430,14 @@
             </objects>
             <point key="canvasLocation" x="519" y="107"/>
         </scene>
+        <!--Registration-->
+        <scene sceneID="JQH-BV-jYs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Registration" id="RZX-r7-RTa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aRv-gC-aCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="466" y="334"/>
+        </scene>
         <!--PhoneVerifyResult-->
         <scene sceneID="849-ym-PdZ">
             <objects>
@@ -434,6 +454,6 @@
         <image name="Phone9999" width="34" height="34"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vqK-Qm-Ecg"/>
+        <segue reference="sIV-ZK-m0r"/>
     </inferredMetricsTieBreakers>
 </document>

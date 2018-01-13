@@ -343,14 +343,14 @@ class NewHomePageController: UIViewController {
     
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
-        userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.bounds.height)/2)
+        userProfileImageBtn.layer.cornerRadius = userProfileImageBtn.bounds.height / 2
         circle.layer.masksToBounds = true
-        circle.layer.cornerRadius = CGFloat(Int(circle.bounds.height)/2)
+        circle.layer.cornerRadius = circle.bounds.height / 2
         circle.layer.borderColor = UIColor.white.cgColor
         circle.layer.borderWidth = 5
         
         circle2.layer.masksToBounds = true
-        circle2.layer.cornerRadius = CGFloat(Int(circle2.bounds.height)/2)
+        circle2.layer.cornerRadius = circle2.bounds.height / 2
         circle2.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
         circle2.layer.borderWidth = 1
     }

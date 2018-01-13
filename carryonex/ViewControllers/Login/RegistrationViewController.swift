@@ -124,7 +124,7 @@ class RegistrationViewController: UIViewController {
     //MARK: Action Handler
     
     @IBAction func handleRegisterButton(sender: UIButton) {
-        
+
         guard let userName = nameField.text, !userName.isEmpty else {
             AudioManager.shared.playSond(named: .failed)
             return
@@ -165,15 +165,14 @@ class RegistrationViewController: UIViewController {
                                        password: password,
                                        name: name,
                                        completion: { (success, err, errType) in
-                                        
+
                                         if success {
-                                            DLog("注册成功...")
+                                            DLog("注册成功, 登入...")
                                             ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
                                                 if success {
-                                                    DLog("注册后登入成功...")
+                                                    DLog("注册后登入成功, updateUserInfo...")
                                                     ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
                                                         if success {
-                                                            //self.dismiss(animated: true, completion: nil)
                                                             self.performSegue(withIdentifier: self.registerSuccessSegueId, sender: self)
                                                             AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
                                                         } else {
