@@ -52,7 +52,8 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.shared.statusBarStyle = .default
+
         setupActivityIndicator()
         
         nameField.delegate = self

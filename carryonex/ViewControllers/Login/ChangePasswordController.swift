@@ -14,15 +14,23 @@ class ChangePasswordController: UIViewController{
     var zoneCodeInput :String = "1"
     var phoneInput :String = ""
     
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordTextField: ThemTextField!
     @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var bottomImageView: UIImageView!
     
     override func viewDidLoad() {
+        UIApplication.shared.statusBarStyle = .default
         zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
         phoneInput = registerUserInfo?["phone"] ?? ""
         setupPasswordTextField()
         setupGifImageView()
+        setupButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        passwordTextField.becomeFirstResponder()
     }
     
     private func setupPasswordTextField(){
@@ -35,19 +43,30 @@ class ChangePasswordController: UIViewController{
         bottomImageView.image = gifImg
     }
     
+    private func setupButton() {
+        changePasswordButton.layer.masksToBounds = true
+        changePasswordButton.layer.borderColor = colorTheamRed.cgColor
+        changePasswordButton.layer.borderWidth = 2
+        changePasswordButton.layer.cornerRadius = 6
+        changePasswordButton.backgroundColor = .white
+        changePasswordButton.setTitleColor(colorTheamRed, for: .normal)
+    }
+
+    
     @objc private func checkPassword(){
         let passwordPattern = "^[a-zA-Z0-9]{6,20}+$"
         let matcher = MyRegex(passwordPattern)
         
         if let maybePassword = passwordTextField.text {
             let isMatch = matcher.match(input: maybePassword)
+            changePasswordButton.setTitleColor((isMatch ? .white : colorTheamRed), for: .normal)
+            changePasswordButton.backgroundColor = isMatch ? colorTheamRed : .white
             changePasswordButton.isEnabled = isMatch
-            changePasswordButton.backgroundColor = isMatch ? colorOkgreen : colorErrGray
             let msg = isMatch ? "密码正确" : "密码错误"
             DLog(msg)
         } else {
             changePasswordButton.isEnabled = false
-            changePasswordButton.backgroundColor = colorErrGray
+            changePasswordButton.backgroundColor = .white
         }
     }
     
