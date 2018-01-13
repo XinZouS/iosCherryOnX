@@ -387,6 +387,7 @@ class OrdersTripDetailViewController: UIViewController {
             senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
+        senderImageButton.imageView?.contentMode = .scaleToFill
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
             senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
         
