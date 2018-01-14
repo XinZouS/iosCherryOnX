@@ -58,8 +58,7 @@ class NewHomePageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODO: Need to put this back
-        //ApiServers.shared.getConfig()
+        ApiServers.shared.getConfig()
         
         addObservers()
         setupTextContents()

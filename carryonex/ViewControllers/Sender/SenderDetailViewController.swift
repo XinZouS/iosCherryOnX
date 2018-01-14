@@ -235,7 +235,13 @@ class SenderDetailViewController: UIViewController{
         setupCollectionView()
         setupTextFields()
         setupSlider()
-        getPriceFunctionFromServer()
+        
+        if let configData = ApiServers.shared.configData {
+            priceParamA = configData.domesticPrice.a
+            priceParamB = configData.domesticPrice.b
+        }
+        
+        //getPriceFunctionFromServer()
         setupCardView()
 
         //Get realname
@@ -390,6 +396,7 @@ class SenderDetailViewController: UIViewController{
     }
     
     
+    /*
     private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
         ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
             guard success else {
@@ -415,6 +422,7 @@ class SenderDetailViewController: UIViewController{
             }
         }
     }
+     */
     
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
@@ -1034,7 +1042,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
-        let pMin: Double = 0.1
+        let pMin: Double = priceParamB
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
