@@ -167,13 +167,15 @@
                                                     <action selector="senderPhoneButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="A7F-5I-t2d"/>
                                                 </connections>
                                             </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BlX-3v-uJ6">
+                                                <rect key="frame" x="20" y="210" width="60" height="60"/>
+                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOT-aY-fsy">
                                                 <rect key="frame" x="20" y="210" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="v9q-7n-Gye"/>
                                                     <constraint firstAttribute="width" secondItem="bOT-aY-fsy" secondAttribute="height" multiplier="1:1" id="yEx-ke-9Kt"/>
                                                 </constraints>
-                                                <state key="normal" image="blankUserHeadImage"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -419,6 +421,7 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="BlX-3v-uJ6" firstAttribute="width" secondItem="bOT-aY-fsy" secondAttribute="width" id="1L2-pC-4gC"/>
                                             <constraint firstItem="Hqf-KG-5e0" firstAttribute="leading" secondItem="4yd-Ii-1Ck" secondAttribute="leading" id="1Li-Th-RmP"/>
                                             <constraint firstItem="uRf-eA-r68" firstAttribute="centerY" secondItem="8qO-lk-QcZ" secondAttribute="centerY" id="20e-tY-sci"/>
                                             <constraint firstItem="Gcc-77-xcQ" firstAttribute="top" secondItem="xCC-Uf-ncD" secondAttribute="bottom" constant="5" id="3EK-EP-kLh"/>
@@ -432,6 +435,7 @@
                                             <constraint firstItem="YG5-EH-xPl" firstAttribute="centerY" secondItem="Uz1-WJ-5FM" secondAttribute="centerY" id="BP3-ue-6Ri"/>
                                             <constraint firstItem="rB6-f1-cwu" firstAttribute="leading" secondItem="bOT-aY-fsy" secondAttribute="leading" id="BSo-tJ-Zd2"/>
                                             <constraint firstItem="921-Hb-vhw" firstAttribute="centerY" secondItem="Hqf-KG-5e0" secondAttribute="centerY" id="CIq-ND-8Es"/>
+                                            <constraint firstItem="BlX-3v-uJ6" firstAttribute="centerX" secondItem="bOT-aY-fsy" secondAttribute="centerX" id="Dos-BJ-5cw"/>
                                             <constraint firstItem="4yd-Ii-1Ck" firstAttribute="top" secondItem="xCC-Uf-ncD" secondAttribute="top" id="EHi-oB-TcS"/>
                                             <constraint firstItem="8qO-lk-QcZ" firstAttribute="top" secondItem="rVg-tW-WWT" secondAttribute="bottom" constant="10" id="Eg9-6D-CFa"/>
                                             <constraint firstItem="u4I-i4-14Z" firstAttribute="leading" secondItem="xCC-Uf-ncD" secondAttribute="leading" constant="-5" id="Eqc-Jo-ei5"/>
@@ -455,6 +459,7 @@
                                             <constraint firstItem="efo-75-gDw" firstAttribute="top" secondItem="iWD-qj-ukX" secondAttribute="top" constant="6" id="Nkq-LW-p7o"/>
                                             <constraint firstItem="TcR-zr-aKP" firstAttribute="top" secondItem="u4I-i4-14Z" secondAttribute="bottom" constant="20" id="Nl3-fl-ogu"/>
                                             <constraint firstItem="rVg-tW-WWT" firstAttribute="leading" secondItem="bOT-aY-fsy" secondAttribute="leading" id="O3z-vV-k7Z"/>
+                                            <constraint firstItem="BlX-3v-uJ6" firstAttribute="centerY" secondItem="bOT-aY-fsy" secondAttribute="centerY" id="PI4-EW-pOf"/>
                                             <constraint firstItem="iWD-qj-ukX" firstAttribute="trailing" secondItem="cXG-uF-tDa" secondAttribute="trailing" constant="-3" id="QVg-m5-0XV"/>
                                             <constraint firstItem="hDn-7Q-gxw" firstAttribute="centerY" secondItem="lEz-65-FZV" secondAttribute="centerY" id="R35-NP-rgq"/>
                                             <constraint firstAttribute="trailing" secondItem="BAN-eP-2Fv" secondAttribute="trailing" id="RU4-GR-TqM"/>
@@ -476,6 +481,7 @@
                                             <constraint firstItem="hDn-7Q-gxw" firstAttribute="leading" secondItem="cel-Jl-VHJ" secondAttribute="leading" id="YCu-1f-oMR"/>
                                             <constraint firstItem="xVp-rH-O0T" firstAttribute="leading" secondItem="efo-75-gDw" secondAttribute="trailing" constant="5" id="Yzl-uT-RMg"/>
                                             <constraint firstItem="BAN-eP-2Fv" firstAttribute="top" secondItem="dXb-Nl-6eD" secondAttribute="top" constant="170" id="ZEf-oP-JGY"/>
+                                            <constraint firstItem="BlX-3v-uJ6" firstAttribute="height" secondItem="bOT-aY-fsy" secondAttribute="height" id="Zer-K0-jQK"/>
                                             <constraint firstAttribute="trailing" secondItem="u4I-i4-14Z" secondAttribute="trailing" constant="10" id="ZuN-wO-Xw5"/>
                                             <constraint firstItem="921-Hb-vhw" firstAttribute="trailing" secondItem="KDl-sD-ANm" secondAttribute="trailing" id="aNp-nW-ZEa"/>
                                             <constraint firstItem="xVp-rH-O0T" firstAttribute="centerY" secondItem="efo-75-gDw" secondAttribute="centerY" id="bCm-VJ-zE3"/>
@@ -685,6 +691,7 @@
                         <outlet property="senderImageButton" destination="bOT-aY-fsy" id="qbj-xa-LN7"/>
                         <outlet property="senderNameLabel" destination="XzO-np-Cho" id="io3-dw-jBx"/>
                         <outlet property="senderPhoneButton" destination="KDl-sD-ANm" id="Qmt-UG-HYX"/>
+                        <outlet property="senderProfileImageView" destination="BlX-3v-uJ6" id="ccr-1e-wRB"/>
                         <outlet property="senderScoreLabel" destination="khE-wR-Gy0" id="YLB-dJ-8a6"/>
                         <outlet property="senderScoreWidthConstraint" destination="1zt-Mn-Sif" id="ghD-y1-fo1"/>
                         <outlet property="senderStar5MaskWidthConstraint" destination="86k-B4-AMg" id="a9r-9k-I4f"/>
@@ -722,7 +729,6 @@
         <image name="AlipayIcon_square" width="215" height="215"/>
         <image name="WechatPayIcon_bubble" width="172" height="172"/>
         <image name="addressDotDash" width="42" height="108"/>
-        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="dashline_gray" width="978" height="21"/>
         <image name="imageFrameBlueWhite" width="445" height="445"/>
         <image name="msg_gray" width="75" height="76"/>
