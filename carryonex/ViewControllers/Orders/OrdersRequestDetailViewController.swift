@@ -35,6 +35,7 @@ class OrdersRequestDetailViewController: UIViewController {
     // request info
     @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
+    @IBOutlet weak var senderProfileImageView: UIImageView!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var senderScoreWidthConstraint: NSLayoutConstraint!
@@ -351,24 +352,15 @@ class OrdersRequestDetailViewController: UIViewController {
                 senderScoreWidthConstraint.constant = fullLength * CGFloat(rating / 5.0)
             }
             updateMapViewToShow(false)
-            
-        } else {
-//            profileImageString = trip.carrierImageUrl
-//            senderNameLabel.text = trip.carrierRealName
-//            senderDescLabel.text = L("orders.ui.message.sender-desc-carrier")
-//            recipientPhoneCallButton.isHidden = true
-//            let fullLength = senderStar5MaskWidthConstraint.constant
-//            senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
-        senderImageButton.imageView?.contentMode = .scaleToFill
-        if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
-            // senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
-            senderImageButton.setImageFrom(url: imgUrl)
+        senderProfileImageView.layer.cornerRadius = senderProfileImageView.bounds.width/2
+        senderProfileImageView.clipsToBounds = true
 
-        } else{
-            senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+        if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
+            senderProfileImageView.af_setImage(withURL: imgUrl)
+        } else {
+            senderProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
         }
         
         incomeLabel.text = currency.rawValue + request.priceString()
