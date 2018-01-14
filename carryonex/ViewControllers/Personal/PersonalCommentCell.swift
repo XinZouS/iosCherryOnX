@@ -16,7 +16,7 @@ class PersonalCommentCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var rateStars5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var rateViewConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var userImageView: UIImageView!
     
     var comment: Comment? {
         didSet{
@@ -26,7 +26,8 @@ class PersonalCommentCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        userButton.setImage(nil, for: .normal)
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        userImageView.clipsToBounds = true
     }
     
     private func setupContents(_ cmt: Comment?){
@@ -37,9 +38,9 @@ class PersonalCommentCell: UITableViewCell {
         userNameLabel.text = c.realName
         
         if let imageUrl = c.imageUrl, let url = URL(string: imageUrl) {
-            userButton.af_setImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            userImageView.af_setImage(withURL: url)
         } else {
-            userButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            userImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
         }
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = L("personal.ui.dateformat.comment")
