@@ -241,7 +241,6 @@ class SenderDetailViewController: UIViewController{
             priceParamB = configData.domesticPrice.b
         }
         
-        //getPriceFunctionFromServer()
         setupCardView()
 
         //Get realname
@@ -1013,7 +1012,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
-        let pMin: Double = priceParamB
+        let pMin: Double = priceParamB / 100.0
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
