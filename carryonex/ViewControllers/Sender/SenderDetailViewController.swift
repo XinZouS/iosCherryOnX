@@ -336,7 +336,9 @@ class SenderDetailViewController: UIViewController{
         textFieldAddToolBar(countryCodeTextField,nil)
         
         nameTextField.attributedPlaceholder = NSAttributedString(string:"姓名", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        nameTextField.editingDidEnd()
         phoneTextField.attributedPlaceholder = NSAttributedString(string:"手机号", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        phoneTextField.editingDidEnd()
         addressTextView.font = textFieldFont
         messageTextView.font = textFieldFont
         let formatter = NumberFormatter()
