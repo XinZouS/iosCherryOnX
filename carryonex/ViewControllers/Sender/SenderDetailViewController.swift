@@ -396,6 +396,7 @@ class SenderDetailViewController: UIViewController{
                 if let configData = ApiServers.shared.configData {
                     priceParamA = configData.intlPrice.a
                     priceParamB = configData.intlPrice.b
+                    updatePriceContentsFor(newPrice: 100) // default val
                     return
                 }
             }
@@ -403,6 +404,7 @@ class SenderDetailViewController: UIViewController{
         if let configData = ApiServers.shared.configData {
             priceParamA = configData.domesticPrice.a
             priceParamB = configData.domesticPrice.b
+            updatePriceContentsFor(newPrice: 100) // default val
         }
     }
 
