@@ -21,19 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OZJ-Dm-DU0">
+                                <rect key="frame" x="152.5" y="30.5" width="70" height="70"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPb-dj-uGM">
                                 <rect key="frame" x="152.5" y="30" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="pPb-dj-uGM" secondAttribute="height" multiplier="1:1" id="3bX-K3-xaR"/>
                                     <constraint firstAttribute="height" constant="70" id="JMc-qb-YvW"/>
                                 </constraints>
-                                <state key="normal" image="blankUserHeadImage"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未设置用户名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGJ-gc-2hT">
                                 <rect key="frame" x="20" y="115" width="335" height="30"/>
@@ -259,6 +255,7 @@
                             <constraint firstItem="swc-Mi-tAt" firstAttribute="leading" secondItem="n8f-AY-4Nd" secondAttribute="leading" constant="20" id="0JN-3a-r9u"/>
                             <constraint firstItem="pPb-dj-uGM" firstAttribute="centerX" secondItem="n8f-AY-4Nd" secondAttribute="centerX" id="0bp-zD-ibL"/>
                             <constraint firstItem="n8f-AY-4Nd" firstAttribute="trailing" secondItem="EOz-xX-aZM" secondAttribute="trailing" constant="20" id="1ma-eV-JWr"/>
+                            <constraint firstItem="OZJ-Dm-DU0" firstAttribute="width" secondItem="pPb-dj-uGM" secondAttribute="width" id="2Pm-dc-cGn"/>
                             <constraint firstItem="n8f-AY-4Nd" firstAttribute="trailing" secondItem="swc-Mi-tAt" secondAttribute="trailing" constant="20" id="3Ew-OB-hoz"/>
                             <constraint firstItem="PGJ-gc-2hT" firstAttribute="top" secondItem="pPb-dj-uGM" secondAttribute="bottom" constant="15" id="3WA-pm-RXw"/>
                             <constraint firstItem="5gU-wt-Aqb" firstAttribute="trailing" secondItem="n8f-AY-4Nd" secondAttribute="centerX" constant="-30" id="5m0-BM-0ed"/>
@@ -266,12 +263,15 @@
                             <constraint firstItem="PGJ-gc-2hT" firstAttribute="leading" secondItem="n8f-AY-4Nd" secondAttribute="leading" constant="20" id="GsL-qv-mZn"/>
                             <constraint firstItem="ywe-lr-VNQ" firstAttribute="leading" secondItem="n8f-AY-4Nd" secondAttribute="leading" constant="5" id="IGX-Vr-IjM"/>
                             <constraint firstItem="dfC-hB-D7u" firstAttribute="centerY" secondItem="qgS-tk-hsa" secondAttribute="centerY" id="LTj-AP-UII"/>
+                            <constraint firstItem="OZJ-Dm-DU0" firstAttribute="height" secondItem="pPb-dj-uGM" secondAttribute="height" id="QW1-ZR-mtT"/>
                             <constraint firstItem="n8f-AY-4Nd" firstAttribute="bottom" secondItem="ywe-lr-VNQ" secondAttribute="bottom" id="Qgt-WG-eqk"/>
                             <constraint firstItem="yUT-gH-m5v" firstAttribute="height" secondItem="EOz-xX-aZM" secondAttribute="height" id="RAM-GQ-Ad8"/>
+                            <constraint firstItem="OZJ-Dm-DU0" firstAttribute="centerX" secondItem="pPb-dj-uGM" secondAttribute="centerX" id="S6K-c6-cUV"/>
                             <constraint firstItem="dfC-hB-D7u" firstAttribute="trailing" secondItem="EOz-xX-aZM" secondAttribute="leading" constant="-5" id="UlT-Sx-q5S"/>
                             <constraint firstItem="5gU-wt-Aqb" firstAttribute="top" secondItem="PGJ-gc-2hT" secondAttribute="bottom" constant="15" id="b0q-Gb-FIz"/>
                             <constraint firstItem="WXW-ta-eiK" firstAttribute="trailing" secondItem="EOz-xX-aZM" secondAttribute="trailing" constant="-3" id="bi6-OK-JLo"/>
                             <constraint firstItem="n8f-AY-4Nd" firstAttribute="trailing" secondItem="PGJ-gc-2hT" secondAttribute="trailing" constant="20" id="cm5-hm-mgi"/>
+                            <constraint firstItem="OZJ-Dm-DU0" firstAttribute="centerY" secondItem="pPb-dj-uGM" secondAttribute="centerY" id="eSY-pq-wmz"/>
                             <constraint firstItem="qgS-tk-hsa" firstAttribute="top" secondItem="swc-Mi-tAt" secondAttribute="bottom" constant="20" id="fKa-i3-pmv"/>
                             <constraint firstItem="ta5-AD-Eae" firstAttribute="leading" secondItem="n8f-AY-4Nd" secondAttribute="centerX" constant="30" id="kN0-7M-yg7"/>
                             <constraint firstItem="swc-Mi-tAt" firstAttribute="top" secondItem="5gU-wt-Aqb" secondAttribute="bottom" constant="-30" id="mdG-zw-1UX"/>
@@ -295,6 +295,7 @@
                         <outlet property="rateViewWidth" destination="HNY-0r-5mc" id="0hC-Yk-uOK"/>
                         <outlet property="userImageBtn" destination="pPb-dj-uGM" id="RYI-vJ-2aY"/>
                         <outlet property="userNameLabel" destination="PGJ-gc-2hT" id="lTt-gi-lIm"/>
+                        <outlet property="userProfileImageView" destination="OZJ-Dm-DU0" id="YaT-6a-cEh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4iC-5T-Lgx" userLabel="First Responder" sceneMemberID="firstResponder"/>
