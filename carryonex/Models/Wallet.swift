@@ -22,12 +22,12 @@ enum WalletKeyInDB: String {
     case prepayId = "prepay_id" //Wechat
     
     case walletInfo = "wallet"
-    case incomes = "incomes"
     case incomeTotal = "income_total"
     case historyIncomes = "history_incomes"
     case historyIncomeTotal = "history_income_total"
     case payments = "payments"
     case paymentTotal = "payment_total"
+    case payouts = "payouts"
 }
 
 struct Wallet {
@@ -35,7 +35,7 @@ struct Wallet {
     let paymentTotal: Int
     let incomeTotal: Int
     let historyIncomeTotal: Int
-    var incomes: [Transaction]
+    var payouts: [Transaction]
     var payments: [Transaction]
     var historyIncomes: [Transaction]
     
@@ -55,7 +55,7 @@ struct Wallet {
 extension Wallet: Unboxable {
     init(unboxer: Unboxer) throws {
         self.walletInfo = try unboxer.unbox(key: WalletKeyInDB.walletInfo.rawValue)
-        self.incomes = try unboxer.unbox(key: WalletKeyInDB.incomes.rawValue)
+        self.payouts = try unboxer.unbox(key: WalletKeyInDB.payouts.rawValue)
         self.incomeTotal = try unboxer.unbox(key: WalletKeyInDB.incomeTotal.rawValue)
         self.payments = try unboxer.unbox(key: WalletKeyInDB.payments.rawValue)
         self.paymentTotal = try unboxer.unbox(key: WalletKeyInDB.paymentTotal.rawValue)
