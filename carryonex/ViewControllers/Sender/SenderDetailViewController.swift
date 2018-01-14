@@ -469,7 +469,6 @@ class SenderDetailViewController: UIViewController{
         AnalyticsManager.shared.finishTimeTrackingKey(.senderDetailTotalTime)
         
         self.uploadImagesToAwsAndGetUrls { [weak self] (urls, error) in
-            self?.isLoading = false
             guard let strongSelf = self else { return }
             
             if let err = error {
@@ -499,7 +498,6 @@ class SenderDetailViewController: UIViewController{
                 address.phoneNumber = strongSelf.zoneCodeInput + phone
                 address.detailedAddress = destAddressStr
 
-                strongSelf.isLoading = true
                 ApiServers.shared.postRequest(totalValue: totalValue,
                                               cost: cost,
                                               stdPrice: stdPrice,
