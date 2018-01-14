@@ -400,7 +400,11 @@ extension NewHomePageController: UserRecentInfoDelegate {
 extension NewHomePageController: UserCardDelegate {
     
     func userCardTapped(sender: UIButton, request: Request, category:TripCategory) {
-        handleNavigation(segue: .requestDetail, sender: request)
+        if category == .carrier {
+            handleNavigation(segue: .requestDetail, sender: request)
+        } else {
+            handleNavigation(segue: .tripDetail, sender: request)
+        }
     }
     
 }
