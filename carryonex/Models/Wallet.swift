@@ -22,32 +22,33 @@ enum WalletKeyInDB: String {
     case prepayId = "prepay_id" //Wechat
     
     case walletInfo = "wallet"
-    case incomeTotal = "income_total"
-    case incomePendings = "income_pendings"
-    case paymentTotal = "payment_total"
     case incomes = "incomes"
-    case incomePendingTotal = "income_pending_total"
+    case incomeTotal = "income_total"
+    case historyIncomes = "history_incomes"
+    case historyIncomeTotal = "history_income_total"
     case payments = "payments"
+    case paymentTotal = "payment_total"
 }
 
 struct Wallet {
     let walletInfo: WalletInfo
     let paymentTotal: Int
     let incomeTotal: Int
-    let incomePendingTotal: Int
+    let historyIncomeTotal: Int
     var incomes: [Transaction]
     var payments: [Transaction]
-    var incomePendings: [Transaction]
+    var historyIncomes: [Transaction]
     
     func availableCreditDecimal() -> Double {
         return Double(incomeTotal) / 100.0
     }
+    
     func availableCredit() -> String {
         return String(format: "%.2f", Double(incomeTotal) / 100.0)
     }
     
     func totalIncome() -> String {
-        return String(format: "%.2f", Double(incomePendingTotal) / 100.0)
+        return String(format: "%.2f", Double(historyIncomeTotal) / 100.0)
     }
 }
 
@@ -55,11 +56,11 @@ extension Wallet: Unboxable {
     init(unboxer: Unboxer) throws {
         self.walletInfo = try unboxer.unbox(key: WalletKeyInDB.walletInfo.rawValue)
         self.incomes = try unboxer.unbox(key: WalletKeyInDB.incomes.rawValue)
-        self.incomePendings = try unboxer.unbox(key: WalletKeyInDB.incomePendings.rawValue)
-        self.payments = try unboxer.unbox(key: WalletKeyInDB.payments.rawValue)
         self.incomeTotal = try unboxer.unbox(key: WalletKeyInDB.incomeTotal.rawValue)
-        self.incomePendingTotal = try unboxer.unbox(key: WalletKeyInDB.incomePendingTotal.rawValue)
+        self.payments = try unboxer.unbox(key: WalletKeyInDB.payments.rawValue)
         self.paymentTotal = try unboxer.unbox(key: WalletKeyInDB.paymentTotal.rawValue)
+        self.historyIncomes = try unboxer.unbox(key: WalletKeyInDB.historyIncomes.rawValue)
+        self.historyIncomeTotal = try unboxer.unbox(key: WalletKeyInDB.historyIncomeTotal.rawValue)
     }
 }
 
