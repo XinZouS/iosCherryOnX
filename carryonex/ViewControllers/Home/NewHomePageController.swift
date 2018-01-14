@@ -84,6 +84,10 @@ class NewHomePageController: UIViewController {
         setupOnboarding()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.tabBarController?.tabBar.isHidden = true
 
@@ -121,7 +125,6 @@ class NewHomePageController: UIViewController {
         if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
             timeStatus = .night
             setupBackGroundColor(dayTime: .night)
-            UIApplication.shared.statusBarStyle = .lightContent
 
         } else if nowHourInt >= TimeEnum.afternoon.rawValue {
             timeStatus = .afternoon
@@ -182,19 +185,16 @@ class NewHomePageController: UIViewController {
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.morningA
             endColor = UIColor.MyTheme.morningB
-            UIApplication.shared.statusBarStyle = .default
             
         case .noon:
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.noonA
             endColor = UIColor.MyTheme.noonB
-            UIApplication.shared.statusBarStyle = .default
 
         case .night:
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.nightA
             endColor = UIColor.MyTheme.nightB
-            UIApplication.shared.statusBarStyle = .lightContent
 
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
