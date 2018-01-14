@@ -13,6 +13,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     var phoneNumber:String?
     
+    @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userImageBtn: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
@@ -123,16 +124,17 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func setupView(){
+        
         if let ownerRealName = commenteeRealName,let ownerImageUrl = commenteeImage {
             userNameLabel.text = ownerRealName    //update to real name
-            userImageBtn.imageView?.contentMode = .scaleToFill
-            if let url = URL(string: ownerImageUrl){
-                // userImageBtn.af_setImage(for: .normal, url: url)
-                // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
-                userImageBtn.setImageFrom(url: url)
-                
-            }else{
-                userImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            
+            userProfileImageView.layer.cornerRadius = userProfileImageView.bounds.width/2
+            userProfileImageView.clipsToBounds = true
+            
+            if let imgUrl = URL(string: ownerImageUrl) {
+                userProfileImageView.af_setImage(withURL: imgUrl)
+            } else {
+                userProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
             }
         }
     }
