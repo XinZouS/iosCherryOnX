@@ -44,6 +44,8 @@ public class BPCircleActivityIndicator: UIView {
         let bkgd = UIView(frame: CGRect(x: -25, y: -25, width: 80, height: 80))
         bkgd.backgroundColor = UIColor(red: 255, green: 246, blue: 30, alpha: 0.6)
         bkgd.layer.cornerRadius = 10
+        bkgd.layer.borderColor = UIColor.lightGray.cgColor
+        bkgd.layer.borderWidth = 1.0
         bkgd.clipsToBounds = true
         self.addSubview(bkgd)
         
