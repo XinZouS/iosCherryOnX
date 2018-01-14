@@ -97,7 +97,8 @@ struct Transaction {
                 DLog("Do nothing")
             }
         }
-        return L("personal.ui.title.currency-type") + " " + String(format: "%.2f", Double(amount) / 100.0)
+        amountDisplay += L("personal.ui.title.currency-type") + " " + String(format: "%.2f", abs(Double(amount)) / 100.0)
+        return amountDisplay
     }
     
     func statusString() -> String {
