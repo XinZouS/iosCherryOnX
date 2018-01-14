@@ -27,8 +27,7 @@ extension UIColor {
     
     open class var carryon_loadingBackground: UIColor { return UIColor(r: 0, g: 0, b: 0, a: 0.3) }
     
-    open class var carryon_pending: UIColor { return carryon_lightGray }
-    open class var carryon_income: UIColor { return carryon_darkTeal }
+    open class var carryon_pending: UIColor { return carryon_textBlack }
     open class var carryon_payout: UIColor { return carryon_red }
     open class var carryon_wallet_text: UIColor { return carryon_textBlack }
     
