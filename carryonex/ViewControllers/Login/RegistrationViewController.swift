@@ -103,15 +103,7 @@ class RegistrationViewController: UIViewController {
         passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         
-        nameField.defaultLineColor = colorTextFieldLoginLineLightGray
-        nameField.activeLineColor = colorTextFieldLoginLineLightGray
         nameField.becomeFirstResponder()
-        
-        passwordField.defaultLineColor = colorTextFieldLoginLineLightGray
-        passwordField.activeLineColor = colorTextFieldLoginLineLightGray
-        passwordField.editingDidBegin()
-        confirmPasswordField.defaultLineColor = colorTextFieldLoginLineLightGray
-        confirmPasswordField.activeLineColor = colorTextFieldLoginLineLightGray
     }
 
     

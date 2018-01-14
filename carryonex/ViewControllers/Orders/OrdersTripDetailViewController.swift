@@ -31,6 +31,7 @@ class OrdersTripDetailViewController: UIViewController {
     // request info
     @IBOutlet weak var senderPhoneButton: PhoneMsgButton!
     @IBOutlet weak var senderImageButton: UIButton!
+    @IBOutlet weak var senderProfileImageView: UIImageView!
     @IBOutlet weak var senderNameLabel: UILabel!
     @IBOutlet weak var senderScoreLabel: UILabel!
     @IBOutlet weak var senderStar5MaskWidthConstraint: NSLayoutConstraint!
@@ -383,14 +384,13 @@ class OrdersTripDetailViewController: UIViewController {
             senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
-        senderImageButton.imageView?.contentMode = .scaleToFill
+        senderProfileImageView.layer.cornerRadius = senderProfileImageView.bounds.width/2
+        senderProfileImageView.clipsToBounds = true
+        
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
-            //senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
-            senderImageButton.setImageFrom(url: imgUrl)
-
-        } else{
-            senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            senderProfileImageView.af_setImage(withURL: imgUrl)
+        } else {
+            senderProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
         }
         
         requestIdTitleLabel.text = L("orders.ui.title.request-id")

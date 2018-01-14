@@ -13,7 +13,7 @@ class ThemTextField: UITextField {
     
     private let underlineView: UIView = {
         let v = UIView()
-        v.backgroundColor = colorTextFieldUnderLineLightGray
+        v.backgroundColor = colorTextFieldLoginLineLightGray
         return v
     }()
     
@@ -25,14 +25,14 @@ class ThemTextField: UITextField {
     
     // colors:
     @IBInspectable var cursorColor: UIColor = colorTheamRed
-    @IBInspectable var defaultLineColor: UIColor = colorTextFieldUnderLineLightGray
-    @IBInspectable var activeLineColor: UIColor = colorTheamRed
+    @IBInspectable var defaultLineColor: UIColor = colorTextFieldLoginLineLightGray
+    @IBInspectable var activeLineColor: UIColor = colorTextFieldLoginLineLightGray
     @IBInspectable var placeHolderColor: UIColor = colorTextFieldPlaceholderBlack
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidBegin)
-        self.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
+//        self.addTarget(self, action: #selector(editingDidBegin), for: .editingDidBegin)
+//        self.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
         setupCursor()
         setupPlaceholder()
         self.addSubview(underlineView)
@@ -63,14 +63,13 @@ class ThemTextField: UITextField {
         self.attributedPlaceholder = NSAttributedString(string: str, attributes: atts)
     }
         
-    public func editingDidBegin(){
-        underlineView.backgroundColor = activeLineColor
-    }
-    
-    public func editingDidEnd(){
-        underlineView.backgroundColor = defaultLineColor
-    }
-    
-    
+//    public func editingDidBegin(){
+//        underlineView.backgroundColor = activeLineColor
+//    }
+//
+//    public func editingDidEnd(){
+//        underlineView.backgroundColor = defaultLineColor
+//    }
+//
 }
 

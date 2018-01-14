@@ -97,17 +97,11 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineTopY">
                                         <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultLineColor">
-                                        <color key="value" red="0.89411764709999997" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineHeigh">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                         <color key="value" red="0.40000000000000002" green="0.46666666666666667" blue="0.51372549019607838" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="activeLineColor">
-                                        <color key="value" red="0.89411764709999997" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
