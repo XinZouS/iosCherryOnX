@@ -31,19 +31,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="149.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fgf-CV-3Cn">
+                                                    <rect key="frame" x="15" y="11" width="50" height="50"/>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Etg-76-kaO">
                                                     <rect key="frame" x="15" y="11" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="TIP-nR-TWo"/>
                                                         <constraint firstAttribute="width" constant="50" id="w3j-TF-3Sh"/>
                                                     </constraints>
-                                                    <state key="normal" image="blankUserHeadImage"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgv-eU-Q2k">
                                                     <rect key="frame" x="73" y="15" width="94.5" height="20"/>
@@ -92,6 +88,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="Fgf-CV-3Cn" firstAttribute="centerX" secondItem="Etg-76-kaO" secondAttribute="centerX" id="2E0-WP-V38"/>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="leading" secondItem="rrt-MT-dXf" secondAttribute="leading" constant="-5" id="4HU-d3-HLd"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="height" secondItem="T1r-sD-TLg" secondAttribute="height" id="4Qf-UR-cZ0"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="width" secondItem="T1r-sD-TLg" secondAttribute="width" id="66n-IU-3qK"/>
@@ -100,6 +97,7 @@
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="height" secondItem="yyx-l8-7hc" secondAttribute="height" id="Fqg-pd-afH"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerX" secondItem="T1r-sD-TLg" secondAttribute="centerX" id="JD8-f9-hdJ"/>
                                                 <constraint firstItem="yyx-l8-7hc" firstAttribute="trailing" secondItem="T1r-sD-TLg" secondAttribute="trailing" id="N81-tt-kCb"/>
+                                                <constraint firstItem="Fgf-CV-3Cn" firstAttribute="height" secondItem="Etg-76-kaO" secondAttribute="height" id="PbN-NI-LMP"/>
                                                 <constraint firstItem="MQp-mk-iGi" firstAttribute="top" secondItem="rrt-MT-dXf" secondAttribute="bottom" id="Ygl-Te-1iB"/>
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="leading" secondItem="Etg-76-kaO" secondAttribute="trailing" constant="8" id="an5-4Z-fhF"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="MQp-mk-iGi" secondAttribute="bottom" id="cEI-6C-Otg"/>
@@ -109,8 +107,10 @@
                                                 <constraint firstItem="rrt-MT-dXf" firstAttribute="top" secondItem="Tgv-eU-Q2k" secondAttribute="bottom" constant="3" id="r1Q-7y-Wlo"/>
                                                 <constraint firstItem="0PI-de-gtJ" firstAttribute="leading" secondItem="yyx-l8-7hc" secondAttribute="leading" id="rZj-Bg-0JA"/>
                                                 <constraint firstItem="Tgv-eU-Q2k" firstAttribute="top" secondItem="T1r-sD-TLg" secondAttribute="top" constant="15" id="rwp-F5-IzK"/>
+                                                <constraint firstItem="Fgf-CV-3Cn" firstAttribute="width" secondItem="Etg-76-kaO" secondAttribute="width" id="sM8-Gq-04i"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="MQp-mk-iGi" secondAttribute="trailing" id="v63-2Y-cc1"/>
                                                 <constraint firstItem="PM5-aB-Tqk" firstAttribute="centerY" secondItem="T1r-sD-TLg" secondAttribute="centerY" id="w4E-gF-hCA"/>
+                                                <constraint firstItem="Fgf-CV-3Cn" firstAttribute="centerY" secondItem="Etg-76-kaO" secondAttribute="centerY" id="wRD-9Z-MPw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -120,6 +120,7 @@
                                             <outlet property="rateViewConstraint" destination="XcM-Py-ld3" id="f6s-Hx-G92"/>
                                             <outlet property="timeLabel" destination="rrt-MT-dXf" id="nRL-Jg-TW7"/>
                                             <outlet property="userButton" destination="Etg-76-kaO" id="yjU-YJ-1I3"/>
+                                            <outlet property="userImageView" destination="Fgf-CV-3Cn" id="9YK-dT-vV7"/>
                                             <outlet property="userNameLabel" destination="Tgv-eU-Q2k" id="kmB-Ok-eWk"/>
                                         </connections>
                                     </tableViewCell>
@@ -158,7 +159,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blankUserHeadImage" width="160" height="159"/>
         <image name="stars5Mask-s" width="399" height="66"/>
     </resources>
 </document>
