@@ -10,9 +10,9 @@ import Unbox
 
 enum CommentStatus: Int {
     case NoComment = 0
-    case CarrierCommented = 1
-    case SenderCommented = 2
-    case Completed = 3
+    case SenderCommented = 1
+    case CarrierCommented = 10
+    case Completed = 11
 }
 
 class Request: Unboxable, Identifiable {
