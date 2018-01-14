@@ -53,8 +53,11 @@ class ThemTextView: UITextView {
     }
     
     private func setupCursor(){
-        let traits = self.value(forKey: "textInputTraits") as AnyObject
-        traits.setValue(cursorColor, forKey: "insertionPointColor")
+        //let traits = self.value(forKey: "textInputTraits") as AnyObject
+        //traits.setValue(cursorColor, forKey: "insertionPointColor")
+        // above code does not work, try this:
+        tintColor = cursorColor
+        
     }
     
     

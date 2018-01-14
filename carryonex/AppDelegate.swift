@@ -245,6 +245,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         DeeplinkNavigator.handleDeeplink(deeplink)
                     })
                     ProfileManager.shared.loadLocalUser(completion: nil)
+                    mainTabViewController.homeViewController?.userRecentInfoController?.getUserRecentInfo()
                 }
             }
         }

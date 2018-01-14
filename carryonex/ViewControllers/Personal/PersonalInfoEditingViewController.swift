@@ -545,7 +545,7 @@ extension PersonalInfoEditingViewController {
             return
         }
         imageButton.af_setBackgroundImage(for: .normal, url: url, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, completion: nil)
-        homeVC.userProfileImageBtn.setImage( #imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+        homeVC.userProfileImageView.af_setImage(withURL: url)
         personalVC.userProfileImage.image = #imageLiteral(resourceName: "blankUserHeadImage")
     }
     

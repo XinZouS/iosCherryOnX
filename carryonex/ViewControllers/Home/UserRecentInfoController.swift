@@ -47,6 +47,7 @@ class UserRecentInfoController: UIViewController{
         setupTitleLabels()
     }
     
+    
     @IBAction func tripCountButtonTapped(_ sender: Any) {
         delegate?.handleInfoButtonTapped(.tripCount)
     }
@@ -71,7 +72,7 @@ class UserRecentInfoController: UIViewController{
         }
     }
     
-    func getUserRecentInfo(){
+    public func getUserRecentInfo(){
         guard let profileInfo = ProfileManager.shared.homeProfileInfo else { return }
         tripCountButton.setTitle(String(profileInfo.tripCount), for: .normal)
         sendCountButton.setTitle(String(profileInfo.requestCount), for: .normal)
