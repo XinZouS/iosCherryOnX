@@ -39,6 +39,14 @@
                                     <constraint firstAttribute="width" secondItem="uc9-ot-Jra" secondAttribute="height" multiplier="6:1" id="igz-yk-0db"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cL-TS-bfn">
+                                <rect key="frame" x="169" y="604.66666666666663" width="75" height="1"/>
+                                <color key="backgroundColor" red="0.68416976928710938" green="0.99043649435043335" blue="0.92166215181350708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="iKd-Du-BAd"/>
+                                    <constraint firstAttribute="width" constant="75" id="oj3-Eg-maE"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -47,6 +55,8 @@
                             <constraint firstItem="uc9-ot-Jra" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="60" id="iC8-PA-yXf">
                                 <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                             </constraint>
+                            <constraint firstItem="1cL-TS-bfn" firstAttribute="centerX" secondItem="E9i-eE-C0G" secondAttribute="centerX" id="kti-9r-nLT"/>
+                            <constraint firstItem="uc9-ot-Jra" firstAttribute="top" secondItem="1cL-TS-bfn" secondAttribute="bottom" constant="28" id="nFO-G1-kbc"/>
                             <constraint firstAttribute="centerY" secondItem="E9i-eE-C0G" secondAttribute="bottom" constant="40" id="xi4-BC-H6W">
                                 <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                             </constraint>
@@ -56,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="50.724637681159422" y="374.18478260869568"/>
         </scene>
     </scenes>
     <resources>
