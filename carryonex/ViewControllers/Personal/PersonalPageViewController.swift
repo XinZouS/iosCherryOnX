@@ -23,7 +23,7 @@ class PersonalPageViewController: UIViewController{
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewAllCommentsButton: UIButton!
     
-    var loginViewController = LoginViewController()
+//    var loginViewController = LoginViewController() TODO: are we still need this??? - Xin
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -65,12 +65,7 @@ class PersonalPageViewController: UIViewController{
         setupUserImageView()
         setupNavigationBar()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
-    }
-    
+
     private func setupNavigationBar(){
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()

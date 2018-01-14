@@ -39,7 +39,6 @@ class RequestTripViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .lightContent
         title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]

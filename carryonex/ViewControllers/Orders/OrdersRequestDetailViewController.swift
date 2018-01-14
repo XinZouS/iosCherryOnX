@@ -119,14 +119,12 @@ class OrdersRequestDetailViewController: UIViewController {
             AnalyticsManager.shared.trackCount(.alipayPayCount)
             WalletManager.shared.aliPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
-                UIApplication.shared.statusBarStyle = .default
             })
             
         } else if paymentType == .wechatPay {
             AnalyticsManager.shared.trackCount(.wechatPayCount)
             WalletManager.shared.wechatPayAuth(request: request, completion: {
                 self.isLoadingStatus = false
-                UIApplication.shared.statusBarStyle = .default
             })
         }
     }
@@ -281,20 +279,12 @@ class OrdersRequestDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default // 付款回来后的status bar总是变白
-    }
-    
-    
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white
@@ -371,9 +361,12 @@ class OrdersRequestDetailViewController: UIViewController {
 //            senderScoreWidthConstraint.constant = fullLength * CGFloat(trip.carrierRating / 5.0)
         }
         
+        senderImageButton.imageView?.contentMode = .scaleToFill
         if let urlString = profileImageString, let imgUrl = URL(string: urlString) {
-            senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            
+            // senderImageButton.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            // BUG: somehow it make smaller image NOT yeld to .scaleAspectFill, so try anohter way; - Xin
+            senderImageButton.setImageFrom(url: imgUrl)
+
         } else{
             senderImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }

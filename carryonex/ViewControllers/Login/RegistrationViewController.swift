@@ -52,21 +52,10 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupActivityIndicator()
-        
-        nameField.delegate = self
-        passwordField.delegate = self
-        confirmPasswordField.delegate = self
-        
-        nameField.keyboardType = .default
-        passwordField.keyboardType = .default
-        confirmPasswordField.keyboardType = .default
-        
-        nameField.addTarget(self, action: #selector(checkRegistrationButtonReady), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
-        confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
-        
+        setupTextFields()
+
         let sz: CGFloat = 15
         checkBox = M13Checkbox(frame: CGRect(x: 0, y: 0, width: sz, height: sz))
         setupCheckBox(checkBox)
@@ -75,11 +64,6 @@ class RegistrationViewController: UIViewController {
         bottomImageView.image = UIImage.gifImageWithName("Login_animated_loop_png")
         
         AnalyticsManager.shared.startTimeTrackingKey(.registrationProcessTime)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -106,11 +90,35 @@ class RegistrationViewController: UIViewController {
         view.addSubview(loadingIndicator)
     }
     
+    private func setupTextFields() {
+        nameField.delegate = self
+        passwordField.delegate = self
+        confirmPasswordField.delegate = self
+        
+        nameField.keyboardType = .default
+        passwordField.keyboardType = .default
+        confirmPasswordField.keyboardType = .default
+        
+        nameField.addTarget(self, action: #selector(checkRegistrationButtonReady), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
+        confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
+        
+        nameField.defaultLineColor = colorTextFieldLoginLineLightGray
+        nameField.activeLineColor = colorTextFieldLoginLineLightGray
+        nameField.becomeFirstResponder()
+        
+        passwordField.defaultLineColor = colorTextFieldLoginLineLightGray
+        passwordField.activeLineColor = colorTextFieldLoginLineLightGray
+        passwordField.editingDidBegin()
+        confirmPasswordField.defaultLineColor = colorTextFieldLoginLineLightGray
+        confirmPasswordField.activeLineColor = colorTextFieldLoginLineLightGray
+    }
+
     
     //MARK: Action Handler
     
     @IBAction func handleRegisterButton(sender: UIButton) {
-        
+
         guard let userName = nameField.text, !userName.isEmpty else {
             AudioManager.shared.playSond(named: .failed)
             return
@@ -151,15 +159,14 @@ class RegistrationViewController: UIViewController {
                                        password: password,
                                        name: name,
                                        completion: { (success, err, errType) in
-                                        
+
                                         if success {
-                                            DLog("注册成功...")
+                                            DLog("注册成功, 登入...")
                                             ProfileManager.shared.login(username: phone, password: password, completion: { (success) in
                                                 if success {
-                                                    DLog("注册后登入成功...")
+                                                    DLog("注册后登入成功, updateUserInfo...")
                                                     ProfileManager.shared.updateUserInfo(.isPhoneVerified, value: 1) { (success) in
                                                         if success {
-                                                            //self.dismiss(animated: true, completion: nil)
                                                             self.performSegue(withIdentifier: self.registerSuccessSegueId, sender: self)
                                                             AnalyticsManager.shared.finishTimeTrackingKey(.registrationProcessTime)
                                                         } else {

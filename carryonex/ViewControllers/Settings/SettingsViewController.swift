@@ -23,7 +23,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .default
         title = L("settings.ui.title.settings") // "设置"
         setupTableView()
     }
@@ -33,7 +32,6 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white

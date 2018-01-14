@@ -152,6 +152,7 @@ extension PhoneNumViewController: PhoneNumberDelegate {
             if let error = error {
                 self.isLoading = false
                 DLog("getIsUserExisted error: \(error.localizedDescription)")
+                self.displayGlobalAlert(title: L("register.error.title.server-down"), message: L("register.error.message.server-down"), action: L("action.ok"), completion: nil)
                 return
             }
             if isExist {

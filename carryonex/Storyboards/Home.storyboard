@@ -62,7 +62,7 @@
                                     <constraint firstAttribute="width" secondItem="ke0-xl-wCx" secondAttribute="height" multiplier="1:1" id="Gug-Tm-aRW"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Jk-1D-Ewz">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Jk-1D-Ewz">
                                 <rect key="frame" x="80" y="65" width="135" height="135"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1Jk-1D-Ewz" secondAttribute="height" multiplier="1:1" id="4v0-E5-Hnw"/>

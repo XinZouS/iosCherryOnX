@@ -254,14 +254,12 @@ class SenderDetailViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
         updateSubmitButtonStatus()
         setupCountryCodeTextField()
         setupNavigationBar()
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .lightContent
         title = L("sender.ui.title.new-request")
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
@@ -293,13 +291,13 @@ class SenderDetailViewController: UIViewController{
             let startCountry = trip?.startAddress?.country?.rawValue,
             let startState = trip?.startAddress?.state,
             let startCity = trip?.startAddress?.city {
-            if let imageUrl = trip?.carrierImageUrl,let url = URL(string:imageUrl){
+            if let imageUrl = trip?.carrierImageUrl, let url = URL(string:imageUrl) {
                 senderProfileImageButton.af_setImage(for: .normal, url: url)
             } else {
                 senderProfileImageButton.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
             }
-            endAddressLabel.text = endCountry+" "+endState+" "+endCity
-            startAddressLabel.text = startCountry+" "+startState+" "+startCity
+            endAddressLabel.text = endCountry + " " + endState + " " + endCity
+            startAddressLabel.text = startCountry + " " + startState + " " + startCity
         }
         
         youxiangCodeLabel.text = trip?.tripCode

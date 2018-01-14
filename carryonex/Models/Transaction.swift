@@ -88,8 +88,14 @@ struct Transaction {
     }
     
     func amountString() -> String {
-        if amount < 0 {
-            return "-" + L("personal.ui.title.currency-type") + String(format: "%.2f", Double(abs(amount)) / 100.0)
+        var amountDisplay = String()
+        if let status = TransactionStatus(rawValue: statusId) {
+            switch status {
+            case .paymentInit, .paymentError, .paymentPaid, .paymentPending, .incomeRefunded, .paymentDone, .payoutDone:
+                amountDisplay += "-"
+            default:
+                DLog("Do nothing")
+            }
         }
         return L("personal.ui.title.currency-type") + " " + String(format: "%.2f", Double(amount) / 100.0)
     }

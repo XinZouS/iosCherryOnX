@@ -117,13 +117,11 @@ class OrderListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = false
-        UIApplication.shared.statusBarStyle = .lightContent
         //TripOrderDataStore.shared.pull(category: listType, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
 
         if listType == .sender {
             animateListMoveRight()

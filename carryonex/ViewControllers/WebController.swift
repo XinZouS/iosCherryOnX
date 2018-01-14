@@ -41,7 +41,6 @@ class WebController: UIViewController, WKNavigationDelegate {
     }
     
     private func setupNavigationBar(){
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white

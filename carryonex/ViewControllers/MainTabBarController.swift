@@ -38,7 +38,7 @@ class MainTabBarController: UITabBarController {
     
     var homeViewController: NewHomePageController?
     var personInfoController: PersonalPageViewController?
-    var loginViewController: LoginViewController?
+//    var loginViewController: LoginViewController? TODO are we still need this??? - Xin
     var locationManager: CLLocationManager!
     var lastLocationFetchTime: Int = 0
     

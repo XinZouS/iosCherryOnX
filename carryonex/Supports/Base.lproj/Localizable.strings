@@ -59,6 +59,8 @@
 "register.error.title.duplicate" = "Duplicate registration";
 "register.error.message.duplicate" = "Your phone number has been registered, please log in.";
 "register.error.action.duplicate" = "Login";
+"register.error.title.server-down" = "⛔️Link Breaks"; // 2018-01-13 Xin
+"register.error.message.server-down" = "Sorry for this temporarily disconnect, please try again later"; // 2018-01-13 Xin
 "register.error.title.get-verify-code" = "Verfication Code Failed";
 "register.error.message.get-verify-code" = "Unable to send verification code. Please check the provided phone and country code.";
 "register.error.title.verify" = "Verification Error";

@@ -71,13 +71,11 @@ class CreditViewController: UIViewController {
         super.viewDidAppear(animated)
         // TODO: for now, no completion func for extract cash, so use it here when the view appear again:
         setupGradientLayer()
-        UIApplication.shared.statusBarStyle = .default
         AnalyticsManager.shared.finishTimeTrackingKey(.cashOutTime)
     }
     
     private func setupNavigationBar(){
         title = L("personal.ui.title.wallet")
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white

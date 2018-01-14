@@ -84,6 +84,10 @@ class NewHomePageController: UIViewController {
         setupOnboarding()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.tabBarController?.tabBar.isHidden = true
 
@@ -118,11 +122,9 @@ class NewHomePageController: UIViewController {
         let date = Date()
         let calendar = Calendar.current
         let nowHourInt = calendar.component(.hour, from: date)
-        UIApplication.shared.statusBarStyle = .default
         if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
             timeStatus = .night
             setupBackGroundColor(dayTime: .night)
-            UIApplication.shared.statusBarStyle = .lightContent
 
         } else if nowHourInt >= TimeEnum.afternoon.rawValue {
             timeStatus = .afternoon
@@ -183,19 +185,16 @@ class NewHomePageController: UIViewController {
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.morningA
             endColor = UIColor.MyTheme.morningB
-            UIApplication.shared.statusBarStyle = .default
             
         case .noon:
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.noonA
             endColor = UIColor.MyTheme.noonB
-            UIApplication.shared.statusBarStyle = .default
 
         case .night:
             helloLabel.textColor = .white
             beginColor = UIColor.MyTheme.nightA
             endColor = UIColor.MyTheme.nightB
-            UIApplication.shared.statusBarStyle = .lightContent
 
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
@@ -234,6 +233,7 @@ class NewHomePageController: UIViewController {
             } else {
                 self?.setupPlaceholderView(toShow: true)
             }
+            AppDelegate.shared().stopLoading()
         }
         
         NotificationCenter.default.addObserver(forName: .UserLoggedOut, object: nil, queue: nil) { [weak self] _ in
@@ -252,7 +252,10 @@ class NewHomePageController: UIViewController {
     func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
-            userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            //userProfileImageBtn.imageView?.contentMode = .scaleAspectFill ??? BUG: somehow it does not work, try another way
+            //userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
+            userProfileImageBtn.setImageFrom(url: imgUrl)
+            
         } else {
             userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
         }
@@ -343,14 +346,15 @@ class NewHomePageController: UIViewController {
     
     private func setupUserImageView(){
         userProfileImageBtn.layer.masksToBounds = true
-        userProfileImageBtn.layer.cornerRadius = CGFloat(Int(userProfileImageBtn.bounds.height)/2)
+        userProfileImageBtn.layer.cornerRadius = userProfileImageBtn.bounds.height / 2
+        userProfileImageBtn.imageView?.contentMode = .scaleAspectFill
         circle.layer.masksToBounds = true
-        circle.layer.cornerRadius = CGFloat(Int(circle.bounds.height)/2)
+        circle.layer.cornerRadius = circle.bounds.height / 2
         circle.layer.borderColor = UIColor.white.cgColor
         circle.layer.borderWidth = 5
         
         circle2.layer.masksToBounds = true
-        circle2.layer.cornerRadius = CGFloat(Int(circle2.bounds.height)/2)
+        circle2.layer.cornerRadius = circle2.bounds.height / 2
         circle2.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
         circle2.layer.borderWidth = 1
     }
@@ -368,8 +372,7 @@ class NewHomePageController: UIViewController {
         AnalyticsManager.shared.startTimeTrackingKey(.senderDetailTotalTime)
         handleNavigation(segue: .addRequest, sender: sender)
     }
-    
-    
+        
 }
 
 extension NewHomePageController: MainNavigationProtocol {

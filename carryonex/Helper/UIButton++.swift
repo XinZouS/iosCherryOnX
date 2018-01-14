@@ -23,6 +23,21 @@ extension UIButton {
         
     }
     
+    public func setImageFrom(url: URL) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let data = try Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    self.setImage(UIImage(data: data), for: .normal)
+                }
+            } catch {
+                self.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+                DLog("UIButton++ :: unable to get image data from url: \(url.absoluteString)")
+            }
+        }
+    }
+
+    
     
 }
 
