@@ -235,7 +235,13 @@ class SenderDetailViewController: UIViewController{
         setupCollectionView()
         setupTextFields()
         setupSlider()
-        getPriceFunctionFromServer()
+        
+        if let configData = ApiServers.shared.configData {
+            priceParamA = configData.domesticPrice.a
+            priceParamB = configData.domesticPrice.b
+        }
+        
+        //getPriceFunctionFromServer()
         setupCardView()
 
         //Get realname
@@ -386,35 +392,8 @@ class SenderDetailViewController: UIViewController{
             endAddressLabel.text = trip?.endAddress?.descriptionString()
             // TODO: get image url for shiper;
         }
-        
     }
     
-    
-    private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
-        ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
-            guard success else {
-                self.displayGlobalAlertActions(title: L("sender.error.title.price-arguements"),
-                                               message: L("sender.error.message.price-arguements"),
-                                               actions: [L("action.cancel"),L("action.redo")],
-                                               completion: { [weak self] (tag) in
-                    if tag == 0 { // cancel, go back
-                        self?.navigationController?.popViewController(animated: true)
-                    } else {
-                        self?.getPriceFunctionFromServer()
-                    }
-                })
-                return
-            }
-            if let dic = dictionary {
-                if let a = dic["a"] {
-                    self.priceParamA = a
-                }
-                if let b = dic["b"] {
-                    self.priceParamB = b
-                }
-            }
-        }
-    }
     
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
@@ -1034,7 +1013,7 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
-        let pMin: Double = 0.1
+        let pMin: Double = priceParamB
         let pGet = calculatePrice(type: .linear)
         let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0

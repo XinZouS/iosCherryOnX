@@ -58,8 +58,7 @@ class NewHomePageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODO: Need to put this back
-        //ApiServers.shared.getConfig()
+        ApiServers.shared.getConfig()
         
         addObservers()
         setupTextContents()
@@ -317,7 +316,7 @@ class NewHomePageController: UIViewController {
 
     
     private func checkForUpdate() {
-        guard let updatedVersion = ApiServers.shared.config?.iosVersion,
+        guard let updatedVersion = ApiServers.shared.configData?.config.iosVersion,
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
             return
