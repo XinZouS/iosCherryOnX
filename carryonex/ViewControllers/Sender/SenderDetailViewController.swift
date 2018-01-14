@@ -528,6 +528,7 @@ class SenderDetailViewController: UIViewController{
                                                     self?.navigationController?.popToRootViewController(animated: true)
                                                 })
                                                 
+                                                ProfileManager.shared.loadLocalUser(completion: nil)
                                                 TripOrderDataStore.shared.pull(category: .sender, delay: 1, completion: nil)
                 })
 
