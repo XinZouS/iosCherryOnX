@@ -235,13 +235,7 @@ class SenderDetailViewController: UIViewController{
         setupCollectionView()
         setupTextFields()
         setupSlider()
-        
-        if let configData = ApiServers.shared.configData {
-            priceParamA = configData.domesticPrice.a
-            priceParamB = configData.domesticPrice.b
-        }
-        
-        //getPriceFunctionFromServer()
+        setupPriceParams()
         setupCardView()
 
         //Get realname
@@ -394,11 +388,28 @@ class SenderDetailViewController: UIViewController{
         }
     }
     
-    
+    fileprivate func setupPriceParams() {
+        if let startCountry = trip?.startAddress?.country, // in case no country, then skip this if{}
+            let endCountry = trip?.endAddress?.country {
+        
+            if startCountry != endCountry {
+                if let configData = ApiServers.shared.configData {
+                    priceParamA = configData.intlPrice.a
+                    priceParamB = configData.intlPrice.b
+                    return
+                }
+            }
+        } // else start==end, OR no country data, use default:
+        if let configData = ApiServers.shared.configData {
+            priceParamA = configData.domesticPrice.a
+            priceParamB = configData.domesticPrice.b
+        }
+    }
+
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
-        case .linear:
-            return priceShipFee * priceParamA + (Double(priceParamB) / 100)
+        case .linear: // if a=0.15, b=36, so pGet = x * a + b, b also as the min of price;
+            return priceShipFee * priceParamA + Double(priceParamB) //(Double(priceParamB) / 100)
         case .logarithmic:
             DLog("TODO: logarithmic func for price")
             return 10
@@ -1015,9 +1026,9 @@ extension SenderDetailViewController: UITextFieldDelegate {
         priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
         let pMin: Double = priceParamB
         let pGet = calculatePrice(type: .linear)
-        let pMax: Double = (newPrice < pMin || pGet < pMin) ? 10.0 : pGet
+        let pMax: Double = (newPrice < pMin || pGet < pMin) ? pMin + 10.0 : pGet
         priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
-        priceMinLabel.text = String(format: "%.2f", pMin)
+        priceMinLabel.text = String(format: "%.1f", pMin)
         priceMaxLabel.text = String(format: "%.0f", pMax)
         priceMidLabel.text = String(format: "%.0f", priceMiddl)
 

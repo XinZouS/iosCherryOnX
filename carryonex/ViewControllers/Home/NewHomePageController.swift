@@ -25,6 +25,7 @@ class NewHomePageController: UIViewController {
     var isStoreUpdated: Bool = false
     // user contents
     @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userProfileImageBtn: UIButton!
     @IBOutlet weak var senderButton: UIButton!
     @IBOutlet weak var shiperButton: UIButton!
@@ -251,12 +252,10 @@ class NewHomePageController: UIViewController {
     func loadUserProfile(){
         guard let currUser = ProfileManager.shared.getCurrentUser() else { return }
         if let imageUrlString = currUser.imageUrl, let imgUrl = URL(string: imageUrlString) {
-            //userProfileImageBtn.imageView?.contentMode = .scaleAspectFill ??? BUG: somehow it does not work, try another way
-            //userProfileImageBtn.af_setImage(for: .normal, url: imgUrl, placeholderImage: #imageLiteral(resourceName: "blankUserHeadImage"), filter: nil, progress: nil, completion: nil)
-            userProfileImageBtn.setImageFrom(url: imgUrl)
+            userProfileImageView.af_setImage(withURL: imgUrl)
             
         } else {
-            userProfileImageBtn.setImage(#imageLiteral(resourceName: "blankUserHeadImage"), for: .normal)
+            userProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
         }
         if let currUserName  = currUser.realName,currUserName != ""{
             var greeting = L("home.ui.greeting.hello")
@@ -344,9 +343,9 @@ class NewHomePageController: UIViewController {
     }
     
     private func setupUserImageView(){
-        userProfileImageBtn.layer.masksToBounds = true
-        userProfileImageBtn.layer.cornerRadius = userProfileImageBtn.bounds.height / 2
-        userProfileImageBtn.imageView?.contentMode = .scaleAspectFill
+        userProfileImageView.layer.masksToBounds = true
+        userProfileImageView.layer.cornerRadius = userProfileImageView.bounds.height / 2
+        userProfileImageView.contentMode = .scaleAspectFill
         circle.layer.masksToBounds = true
         circle.layer.cornerRadius = circle.bounds.height / 2
         circle.layer.borderColor = UIColor.white.cgColor
@@ -359,7 +358,7 @@ class NewHomePageController: UIViewController {
     }
     
     @IBAction func userProfileImageBtnTapped(_ sender: Any) {
-        
+        // For now, we NOT allow user to interact with the profile image - Xin
     }
     
     @IBAction func shiperButtonTapped(_ sender: Any) {
