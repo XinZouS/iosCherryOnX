@@ -392,37 +392,8 @@ class SenderDetailViewController: UIViewController{
             endAddressLabel.text = trip?.endAddress?.descriptionString()
             // TODO: get image url for shiper;
         }
-        
     }
     
-    
-    /*
-    private func getPriceFunctionFromServer(){ // (bool, str, [str,double])
-        ApiServers.shared.getRequestPrice { (success, msg, dictionary) in
-            guard success else {
-                self.displayGlobalAlertActions(title: L("sender.error.title.price-arguements"),
-                                               message: L("sender.error.message.price-arguements"),
-                                               actions: [L("action.cancel"),L("action.redo")],
-                                               completion: { [weak self] (tag) in
-                    if tag == 0 { // cancel, go back
-                        self?.navigationController?.popViewController(animated: true)
-                    } else {
-                        self?.getPriceFunctionFromServer()
-                    }
-                })
-                return
-            }
-            if let dic = dictionary {
-                if let a = dic["a"] {
-                    self.priceParamA = a
-                }
-                if let b = dic["b"] {
-                    self.priceParamB = b
-                }
-            }
-        }
-    }
-     */
     
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
         switch type {
