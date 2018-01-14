@@ -104,7 +104,7 @@ class ApiServers : NSObject {
     let host = "https://www.carryonx.com"
     private let hostVersion = "/api/1.0"
     
-    var config: Config?
+    var configData: ConfigData?
     
     private override init() {
         super.init()
@@ -732,8 +732,8 @@ class ApiServers : NSObject {
             
             if let data = response["data"] as? [String : Any] {
                 do {
-                    let config : Config = try unbox(dictionary: data, atKey: "config")
-                    self.config = config
+                    let config : ConfigData = try unbox(dictionary: data)
+                    self.configData = config
                     
                 } catch let error as NSError {
                     DLog("getConfig error: \(error.localizedDescription)")
