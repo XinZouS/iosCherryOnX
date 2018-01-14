@@ -36,7 +36,7 @@ class CreditViewController: UIViewController {
     var wallet: Wallet? {
         didSet {
             if let wallet = wallet {
-                self.dataSource = (wallet.incomes + wallet.payments + wallet.historyIncomes).sorted{$0.timestamp > $1.timestamp}
+                self.dataSource = (wallet.incomes + wallet.payments).sorted{$0.timestamp > $1.timestamp}
                 self.creditValueLabel.text = wallet.totalIncome()
                 self.tableView.reloadData()
             }
