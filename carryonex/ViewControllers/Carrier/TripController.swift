@@ -54,6 +54,8 @@ class TripController: UIViewController{
     var startState: String = ""
     var startCountry: String = ""
     
+    var isPostingTrip = false
+    
     lazy var pickerView : UIPickerView = {
         let p = UIPickerView()
         p.dataSource = self
@@ -158,16 +160,21 @@ class TripController: UIViewController{
     }
     
     @IBAction func commitTripInfo(_ sender: Any) {
-        let trip = Trip()
         if self.pickUpDate < (Date().timeIntervalSince1970 - 86400) {    //86400 seconds/day
             self.displayAlert(title: L("carrier.error.title.date"), message: L("carrier.error.message.date"), action: L("action.ok"))
             return
         }
+        
+        if isPostingTrip {
+            return
+        }
+        
         AnalyticsManager.shared.finishTimeTrackingKey(.carrierDetailFillTime)
         
         let days = Date(timeIntervalSince1970: pickUpDate).days(from: Date())
         AnalyticsManager.shared.track(.carrierPrePublishDay, attributes: ["days": days])
         
+        let trip = Trip()
         trip.endAddress?.state = endState
         trip.endAddress?.city = endCity
         trip.endAddress?.country = Country(rawValue: endCountry)
@@ -177,7 +184,12 @@ class TripController: UIViewController{
         trip.pickupDate = pickUpDate
         trip.note = isNoteFilled ? noteTextView.text : ""
     
+        isPostingTrip = true
+        
         ApiServers.shared.postTripInfo(trip: trip) { (success, msg, tripCode) in
+            
+            self.isPostingTrip = false
+            
             if success, let tripCode = tripCode {
                 trip.tripCode = tripCode
                 self.performSegue(withIdentifier: self.segueIdTripComplete, sender: trip)
