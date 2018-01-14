@@ -53,13 +53,13 @@ enum TransactionStatus: Int {
     func displayColor() -> UIColor {
         switch self {
         case .incomeDone:
-            return UIColor.carryon_income
+            return UIColor.carryon_wallet_text
         case .incomePending, .paymentPending:
             return UIColor.carryon_pending
         case .payoutDone:
             return UIColor.carryon_payout
         default:
-            return UIColor.carryon_normalText
+            return UIColor.carryon_wallet_text
         }
     }
 }
@@ -97,7 +97,8 @@ struct Transaction {
                 DLog("Do nothing")
             }
         }
-        return L("personal.ui.title.currency-type") + " " + String(format: "%.2f", Double(amount) / 100.0)
+        amountDisplay += L("personal.ui.title.currency-type") + " " + String(format: "%.2f", abs(Double(amount)) / 100.0)
+        return amountDisplay
     }
     
     func statusString() -> String {
