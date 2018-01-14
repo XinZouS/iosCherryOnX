@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var timestamp: String?
     var deferredDeeplink: URL?
     private var loadingView: GlobalLoadingView!
+    private var isLoading: Bool = false
     
     static public func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -316,16 +317,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public func startLoading() {
         
+        if isLoading {
+            return
+        }
+        
+        isLoading = true
+        
         guard let topViewController = UIViewController.topViewController() else { return }
         
         var loadingViewController = topViewController
-        if !topViewController.isBeingPresented {
+        //Exception Login View Controller,
+        if !(topViewController is LoginViewController) {
             loadingViewController = mainNavigationController
-            
-        } else {
-            if let navViewController = topViewController.navigationController {
-                loadingViewController = navViewController
-            }
         }
         
         DispatchQueue.main.async {
@@ -354,6 +357,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.loadingView.activityIndicator.stop()
             self.loadingView?.removeFromSuperview()
         }
+        isLoading = false
     }
     
 }

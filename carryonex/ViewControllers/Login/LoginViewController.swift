@@ -33,7 +33,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var hintLabel3Button: UIButton!
     @IBOutlet weak var privacyPolicyButton: UIButton!
     
-    var circleIndicator: BPCircleActivityIndicator!
     var checkBox: M13Checkbox!
     
     lazy var flagPicker: UIPickerView = {
@@ -57,7 +56,6 @@ class LoginViewController: UIViewController {
         addWeChatObservers()
         setupTextFields()
         setupFlagPicker()
-        setupIndicator()
         setupContentsText()
         setupGifImage()
         
@@ -68,11 +66,6 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        AppDelegate.shared().stopLoading()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -133,13 +126,6 @@ class LoginViewController: UIViewController {
         let gifImg = UIImage.gifImageWithName("Login_animated_loop_png")
         bottomImageView.image = gifImg
     }
-
-    private func setupIndicator(){
-        circleIndicator = BPCircleActivityIndicator()
-        circleIndicator.center = CGPoint(x: view.center.x - 15, y: view.center.y - 60)
-        circleIndicator.isHidden = true
-        view.addSubview(circleIndicator)
-    }
     
     private func setupFlagPicker(){
         view.addSubview(flagPicker)
@@ -152,7 +138,6 @@ class LoginViewController: UIViewController {
         phoneField.delegate = self
         phoneField.defaultLineColor = colorTextFieldLoginLineLightGray
         phoneField.activeLineColor = colorTextFieldLoginLineLightGray
-        phoneField.becomeFirstResponder()
 
         passwordField.keyboardType = .asciiCapable
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
@@ -266,11 +251,12 @@ extension LoginViewController {
 extension LoginViewController {
     
     @IBAction func wechatButtonTapped(_ sender: Any) {
-        AppDelegate.shared().startLoading()
+        
         guard checkBox.checkState == .checked else {
             displayAlert(title: L("login.error.title.check-agreement"), message: L("login.error.message.check-agreement"), action: L("action.ok"))
             return
         }
+        
         wxloginStatus = "wxRegisteration"
         let urlStr = "weixin://"
         if UIApplication.shared.canOpenURL(URL.init(string: urlStr)!) {
@@ -344,6 +330,7 @@ extension LoginViewController {
 
 
 extension LoginViewController: UITextFieldDelegate {
+    
      func registerWeChatUser(openId: String, accessToken: String) {
         
         let requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
@@ -363,21 +350,15 @@ extension LoginViewController: UITextFieldDelegate {
                     if success {
                         ProfileManager.shared.login(username: username, password: username.quickTossPassword(), completion: { (success) in
                             
+                            AppDelegate.shared().stopLoading()
+                            
                             if success {
-                                AppDelegate.shared().stopLoading()
-                                
-                                if success {
-                                    //if update success close
-                                    self?.dismiss(animated: true, completion: nil)
-                                    AnalyticsManager.shared.trackCount(.loginByWeChatCount)
-                                    AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
-                                } else {
-                                    DLog("Wechat registration update user info failed at user exists")
-                                }
+                                //if update success close
+                                self?.dismiss(animated: true, completion: nil)
+                                AnalyticsManager.shared.trackCount(.loginByWeChatCount)
+                                AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
                             
                             } else {
-                                self?.circleIndicator.stop()
-                                self?.circleIndicator.isHidden = true
                                 DLog("User exists login failed")
                             }
                         })
@@ -385,11 +366,14 @@ extension LoginViewController: UITextFieldDelegate {
                     } else {
                         let password = username.quickTossPassword()
                         ProfileManager.shared.register(username: username, password: password, name: realName, completion: { (success, err, errType) in
+                            
+                            
                             if success {
                                 ProfileManager.shared.login(username: username, password: password, completion: { (success) in
+                                    
+                                    AppDelegate.shared().stopLoading()
+                                    
                                     ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrl, completion: { (updateSuccess) in
-                                        self?.circleIndicator.stop()
-                                        self?.circleIndicator.isHidden = true
                                         if updateSuccess {
                                             self?.dismiss(animated: true, completion: nil)
                                             AnalyticsManager.shared.trackCount(.registerByWeChatCount)
@@ -400,8 +384,7 @@ extension LoginViewController: UITextFieldDelegate {
                                     })
                                 })
                             } else {
-                                self?.circleIndicator.stop()
-                                self?.circleIndicator.isHidden = true
+                                AppDelegate.shared().stopLoading()
                                 if let error = err {
                                     DLog("Wechat registration error: \(error.localizedDescription). Error Type: \(errType)")
                                 } else {
@@ -413,13 +396,13 @@ extension LoginViewController: UITextFieldDelegate {
                 })
                 
             } else {
-                self?.circleIndicator.stop()
-                self?.circleIndicator.isHidden = true
+                AppDelegate.shared().stopLoading()
                 DLog("Invalid JSON result: \(jsonResult)")
             }
         }
     }
 }
+
 
 extension LoginViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -431,16 +414,17 @@ extension LoginViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return flagsTitle.count
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return flagsTitle[row]
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         countryCode = codeOfFlag[flagsTitle[row]]!
         countryCodeButton.setTitle("+" + countryCode, for: .normal)
     }
-
-    
 }
