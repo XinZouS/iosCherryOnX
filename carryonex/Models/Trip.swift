@@ -236,7 +236,8 @@ class Trip : NSObject, Unboxable, Identifiable {
         let strAddr = self.startAddress?.shareCityString() ?? unknowAdd
         let endAddr = self.endAddress?.shareCityString() ?? unknowAdd
         let message = "\(dateString), \(strAddr) → \(endAddr)\n" + noteStr
-        let url = "https://www.carryonp.com/redirect?deeplink=https://www.carryonx.com/request?trip_code=\(self.tripCode)"
+        let carrier = self.carrierRealName ?? "游箱用户"
+        let url = "https://www.carryonp.com/redirect?deeplink=https://www.carryonx.com/request?trip_code=\(self.tripCode)&start=\(strAddr)&end=\(endAddr)&carrier=\(carrier)&trip_code=\(self.tripCode)"
         
         return (title, message, url)
     }
