@@ -283,7 +283,7 @@ enum RequestStatus: Int {
         }
     }
     
-    func displayString() -> String {
+    func displayString(isCommented:Bool = false) -> String {
         switch self {
         case .waiting:
             return L("request.ui.status.waiting") // "等待接受"
@@ -300,7 +300,11 @@ enum RequestStatus: Int {
         case .delivered:
             return L("request.ui.status.delivered") // "已交付"
         case .deliveryConfirmed:
-            return L("request.ui.status.delivery-confirmed") // "已确认送达"
+            if isCommented {
+                return L("request.ui.status.complete") // "已完成"
+            } else {
+                return L("request.ui.status.delivery-confirmed") // "已确认送达"
+            }
         case .invalid:
             return L("request.ui.status.invalid") // "状态无效"
         case .badId:

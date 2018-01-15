@@ -183,6 +183,7 @@
 "request.ui.status.indelivery" = "正在派送";
 "request.ui.status.delivered" = "已交付";
 "request.ui.status.delivery-confirmed" = "已确认送达";
+"request.ui.status.complete" = "已完成";
 "request.ui.status.invalid" = "状态无效";
 "request.ui.status.bad-id" = "错误单号";
 "request.ui.status.initiate" = "寄件创建";
