@@ -134,12 +134,16 @@ class LoginViewController: UIViewController {
     
     
     private func setupTextFields() {
-        phoneField.keyboardType = .numberPad
         phoneField.delegate = self
+        phoneField.keyboardType = .numberPad
+        phoneField.defaultLineColor = colorTextFieldLoginLineLightGray
+        phoneField.activeLineColor = colorTextFieldLoginLineLightGray
 
+        passwordField.delegate = self
         passwordField.keyboardType = .asciiCapable
         passwordField.addTarget(self, action: #selector(checkPassword), for: .editingChanged)
-        passwordField.delegate = self
+        passwordField.defaultLineColor = colorTextFieldLoginLineLightGray
+        passwordField.activeLineColor = colorTextFieldLoginLineLightGray
     }
     
     //MARK: - Action Handler

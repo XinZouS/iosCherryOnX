@@ -37,6 +37,7 @@ protocol MainNavigationProtocol {
 class MainTabBarController: UITabBarController {
     
     var homeViewController: NewHomePageController?
+    var orderListController: OrderListViewController?
     var personInfoController: PersonalPageViewController?
 //    var loginViewController: LoginViewController? TODO are we still need this??? - Xin
     var locationManager: CLLocationManager!
@@ -58,9 +59,15 @@ class MainTabBarController: UITabBarController {
                 if let homeController = navigationController.childViewControllers.first as? NewHomePageController {
                     homeViewController = homeController
                     homeViewController?.mainTapBarVC = self
-                }
-                if let personController = navigationController.childViewControllers.last as? PersonalPageViewController {
+                    homeViewController?.title = L("maintapbar.ui.title.home")
+                    
+                }else if let ordersController = navigationController.childViewControllers.first as? OrderListViewController {
+                    orderListController = ordersController
+                    ordersController.title = L("maintapbar.ui.title.order")
+                    
+                }else if let personController = navigationController.childViewControllers.last as? PersonalPageViewController {
                     personInfoController = personController
+                    personInfoController?.title = L("maintapbar.ui.title.personal")
                 }
             }
         }
