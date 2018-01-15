@@ -603,13 +603,11 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     }
     
     func enableFinishButton() {
-        finishButton.isUserInteractionEnabled = true
-        finishButton.alpha = 1
+        finishButton.isHidden = false
     }
     
     func disableFinishButton() {
-        finishButton.isUserInteractionEnabled = false
-        finishButton.alpha = 0.3
+        finishButton.isHidden = true
     }
     
     func updateRequestInfoAppearance(request: Request) {
