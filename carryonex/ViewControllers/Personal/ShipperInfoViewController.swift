@@ -125,16 +125,17 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     
     private func setupView(){
         
-        if let ownerRealName = commenteeRealName,let ownerImageUrl = commenteeImage {
+        if let ownerRealName = commenteeRealName {
             userNameLabel.text = ownerRealName    //update to real name
-            
+        }
+        
+        userProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
+        if let ownerImageUrl = commenteeImage {
             userProfileImageView.layer.cornerRadius = userProfileImageView.bounds.width/2
             userProfileImageView.clipsToBounds = true
             
             if let imgUrl = URL(string: ownerImageUrl) {
                 userProfileImageView.af_setImage(withURL: imgUrl)
-            } else {
-                userProfileImageView.image = #imageLiteral(resourceName: "blankUserHeadImage")
             }
         }
     }
