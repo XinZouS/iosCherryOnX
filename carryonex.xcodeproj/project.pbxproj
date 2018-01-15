@@ -109,6 +109,7 @@
 		CF3CC2801FC210810098A4C9 /* AddTripComplete.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */; };
 		CFA277BC1FC1411D0008FC63 /* Request.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA277BB1FC1411D0008FC63 /* Request.storyboard */; };
 		CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */; };
+		CFFB9E3E200D615400E49982 /* addressEN.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFFB9E3D200D615300E49982 /* addressEN.plist */; };
 		E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5267D141FB63524003ADF14 /* Registration.storyboard */; };
 		E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */; };
 		E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25B1FB4B49E0072BB31 /* Main.storyboard */; };
@@ -300,6 +301,7 @@
 		CF3CC27F1FC210810098A4C9 /* AddTripComplete.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddTripComplete.storyboard; sourceTree = "<group>"; };
 		CFA277BB1FC1411D0008FC63 /* Request.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Request.storyboard; sourceTree = "<group>"; };
 		CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalPage.storyboard; sourceTree = "<group>"; };
+		CFFB9E3D200D615300E49982 /* addressEN.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressEN.plist; sourceTree = "<group>"; };
 		E5267D141FB63524003ADF14 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
 		E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		E542F25B1FB4B49E0072BB31 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 				66F964CA1FDB5D220024768D /* GifImages */,
 				66CC1E381FBCCB350080C80B /* Sounds */,
 				FF4A5B581F7D9AEE001D86D0 /* address.plist */,
+				CFFB9E3D200D615300E49982 /* addressEN.plist */,
 				66B31C171F72B5CC005A4382 /* carryonex.entitlements */,
 				665183DB1F4201F200DF2906 /* carryonex-Bridging-Header.h */,
 				663F1C931F44ABEB00E866C2 /* README.md */,
@@ -979,6 +982,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFFB9E3E200D615400E49982 /* addressEN.plist in Resources */,
 				FF855FCD1FC7778600210F1C /* changePassword.storyboard in Resources */,
 				FF4A5B591F7D9AF0001D86D0 /* address.plist in Resources */,
 				66A142DD1FD73DFD0067EBDA /* AlipayCashExtract.storyboard in Resources */,
