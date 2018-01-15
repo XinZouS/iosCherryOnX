@@ -189,6 +189,7 @@
 "request.ui.status.indelivery" = "In Delivery";
 "request.ui.status.delivered" = "Delivered";
 "request.ui.status.delivery-confirmed" = "Delivery Confirmed";
+"request.ui.status.complete" = "Complete";
 "request.ui.status.invalid" = "Invalid";
 "request.ui.status.bad-id" = "Bad ID";
 "request.ui.status.initiate" = "Initiate";

@@ -69,7 +69,8 @@ class UserCardViewController: UIViewController {
         ItemStatusBtn.isHidden = false
         ItemStatusBtn.backgroundColor = status.displayColor(category: category)
         ItemStatusBtn.setTitleColor(status.displayTextColor(category: category), for: .normal)
-        ItemStatusBtn.setTitle(status.displayString(), for: .normal)
+        
+        ItemStatusBtn.setTitle(status.displayString(request.isCommented(category: category)), for: .normal)
         
         if let trip = TripOrderDataStore.shared.getTrip(category: category, id: request.tripId) {
             timeLabel.text = trip.cardDisplayTime()

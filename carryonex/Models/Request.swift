@@ -140,6 +140,22 @@ class Request: Unboxable, Identifiable {
         }
         return [RequestImage]()
     }
+    
+    func isCommented(category: TripCategory) -> Bool {
+        if let commentStatus = CommentStatus(rawValue: self.commentStatus) {
+            switch commentStatus {
+                case .NoComment:
+                    return false
+                case .CarrierCommented:
+                    return category == .carrier
+                case .SenderCommented:
+                    return category == .sender
+                case .Completed:
+                    return true
+            }
+        }
+        return false
+    }
 }
 
 enum RequestKeyInDB : String {
@@ -283,7 +299,7 @@ enum RequestStatus: Int {
         }
     }
     
-    func displayString() -> String {
+    func displayString(_ isCommented: Bool = false) -> String {
         switch self {
         case .waiting:
             return L("request.ui.status.waiting") // "等待接受"
@@ -300,7 +316,11 @@ enum RequestStatus: Int {
         case .delivered:
             return L("request.ui.status.delivered") // "已交付"
         case .deliveryConfirmed:
-            return L("request.ui.status.delivery-confirmed") // "已确认送达"
+            if isCommented {
+                return L("request.ui.status.complete") // "已完成"
+            } else {
+                return L("request.ui.status.delivery-confirmed") // "已确认送达"
+            }
         case .invalid:
             return L("request.ui.status.invalid") // "状态无效"
         case .badId:
