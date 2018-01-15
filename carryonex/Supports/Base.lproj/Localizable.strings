@@ -328,7 +328,7 @@
 "personal.ui.title.wallet-question" = "Questions";
 "personal.ui.title.help" = "Help";
 "personal.ui.title.settings" = "Settings";
-"personal.ui.title.wallet-description" = "Receive money, making payment, check your balance, payout.";
+"personal.ui.title.wallet-description" = "Receiving, balance, payout."; // 2018-01-15 Xin
 "personal.ui.title.me" = "Me";
 "personal.error.title.wechat" = "WeChat Error";
 "personal.error.message.wechat" = "Please open WeChat once again.";

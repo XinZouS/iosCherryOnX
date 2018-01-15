@@ -16,6 +16,7 @@ import Photos
 
 class PersonalInfoEditingViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -32,7 +33,6 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     let genderPickerView = UIPickerView()
     var pickerData: [String] = []
     
-
     var user: ProfileUser?
     var newProfile: UIImage = #imageLiteral(resourceName: "blankUserHeadImage")
     var isProfileImageChanged = false
@@ -47,12 +47,11 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         addWechatObserver()
+        saveBarButton.isEnabled = false
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
         setupUser()
         //setupActivityIndicator()
-        
-        nameTextField.inputAccessoryView = setupTextFieldToolbar()
-        nameTextField.text = user?.realName ?? ""
+        setupTextFields()
         setupTableViewAndPicker()
     }
     
@@ -68,6 +67,12 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorColor = colorTableCellSeparatorLightGray
+    }
+    
+    private func setupTextFields() {
+        nameTextField.inputAccessoryView = setupTextFieldToolbar()
+        nameTextField.text = user?.realName ?? ""
+        nameTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
     }
     
     @objc fileprivate func dismissKeyboard(){
@@ -206,7 +211,11 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         AnalyticsManager.shared.startTimeTrackingKey(.profileImageSettingTime)
     }
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    @objc fileprivate func textFieldDidChanged() {
+        saveBarButton.isEnabled = true
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
         saveButtonTapped()
     }
     
@@ -276,6 +285,7 @@ extension PersonalInfoEditingViewController: UITableViewDelegate, UITableViewDat
         case 1: // email
             emailTextField = cell.textField
             emailTextField.placeholder = "E-mail"
+            emailTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
             cell.textField.inputAccessoryView = setupTextFieldToolbar()
             emailTextField.text = user?.email ?? ""
         default:
@@ -329,7 +339,7 @@ extension PersonalInfoEditingViewController: UIPickerViewDelegate {
         default:
             settedGender = .undefined
         }
-        
+        saveBarButton.isEnabled = true
     }
     
     @IBAction func commitButtonTapped(_ sender: Any) {
@@ -555,6 +565,7 @@ extension PersonalInfoEditingViewController {
         imageButton.setBackgroundImage(sqr, for: .normal)
         newProfile = sqr
         isProfileImageChanged = true
+        saveBarButton.isEnabled = true
     }
 }
 
