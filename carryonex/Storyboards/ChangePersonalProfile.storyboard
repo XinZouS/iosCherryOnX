@@ -152,7 +152,7 @@
                         <barButtonItem key="rightBarButtonItem" title="保存" id="N29-pJ-8pV">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="doneButtonTapped:" destination="u7d-VV-M09" id="fix-GG-K59"/>
+                                <action selector="saveButtonTapped:" destination="u7d-VV-M09" id="eEk-7Q-BVj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -161,6 +161,7 @@
                         <outlet property="imageButton" destination="WfQ-uM-WJt" id="XXs-S9-fIc"/>
                         <outlet property="nameLabel" destination="e4E-X0-MtB" id="8eo-aL-6ud"/>
                         <outlet property="nameTextField" destination="5Ce-ko-VoG" id="K4a-ew-jLm"/>
+                        <outlet property="saveBarButton" destination="N29-pJ-8pV" id="z3S-yh-g6a"/>
                         <outlet property="tableView" destination="YBa-hZ-5X6" id="Pjo-KI-XGA"/>
                     </connections>
                 </viewController>
