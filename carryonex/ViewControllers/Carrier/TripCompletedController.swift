@@ -17,6 +17,7 @@ class TripCompletedController : UIViewController{
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var youxiangTitleLabel: UILabel!
     @IBOutlet weak var youxiangLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
@@ -69,6 +70,7 @@ class TripCompletedController : UIViewController{
     private func setupNavigationBar(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem()
     }
+    
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         if let trip = trip {

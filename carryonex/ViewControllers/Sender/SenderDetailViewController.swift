@@ -43,6 +43,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var shiperInfoCardView: UIView!
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
+    @IBOutlet weak var youxiangCodeTitleLabel: UILabel!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var senderProfileImageButton: UIButton!
     @IBOutlet weak var startAddressLabel: UILabel!
@@ -52,6 +53,7 @@ class SenderDetailViewController: UIViewController{
     
     // detail info card
     @IBOutlet weak var senderInfoCardView: UIView!
+    @IBOutlet weak var senderInfoTitleLabel: UILabel!
     @IBOutlet weak var nameTextField: ThemTextField!      // 0
     @IBOutlet weak var phoneTextField: ThemTextField!     // 1
     @IBOutlet weak var addressTextView: ThemTextView!   // 2
@@ -59,6 +61,7 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var addressTextViewUnderlineView: UIView!
     let addressTextViewHeight: CGFloat = 32
     let addressTextViewEstimateY: CGFloat = 50
+    @IBOutlet weak var itemImagesTitleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewMaskImageView: UIImageView!
     @IBOutlet weak var collectionViewMaskIcon: UIImageView!
@@ -77,14 +80,17 @@ class SenderDetailViewController: UIViewController{
     @IBOutlet weak var priceCurrencyTypeLabel: UILabel!
     @IBOutlet weak var priceValueTextField: ThemTextField! // 4
     @IBOutlet weak var priceValueTextFieldLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var carrierPrepayTitleLabel: UILabel!
     @IBOutlet weak var currencyTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var priceMinLabel: UILabel!
     @IBOutlet weak var priceMidLabel: UILabel!
     @IBOutlet weak var priceMaxLabel: UILabel!
     @IBOutlet weak var pricePrePaySwitch: UISwitch!
+    @IBOutlet weak var priceShipingFeeTitleLabel: UILabel!
     @IBOutlet weak var priceShipingFeeLabel: UILabel!
     @IBOutlet weak var priceShipingFeeHintLabel: UILabel!
     @IBOutlet weak var priceSlider: UISlider!
+    @IBOutlet weak var priceFinalTitleLabel: UILabel!
     @IBOutlet weak var priceFinalLabel: UILabel!
     @IBOutlet weak var priceFinalHintLabel: UILabel!
     @IBOutlet weak var priceMaxInfoButton: UIButton!
@@ -233,6 +239,7 @@ class SenderDetailViewController: UIViewController{
         currencyTypeSegmentControl.isHidden = true // TODO: for now, only support .CNY
         scrollView.delegate = self
         setupCollectionView()
+        setupViewLabels()
         setupTextFields()
         setupSlider()
         setupPriceParams()
@@ -327,6 +334,20 @@ class SenderDetailViewController: UIViewController{
         collectionView.backgroundColor = .white
     }
     
+    private func setupViewLabels() {
+        youxiangCodeTitleLabel.text = L("sender.ui.title.youxiangcode")
+        senderInfoTitleLabel.text = L("sender.ui.sessiontitle.recipient-info")
+        itemImagesTitleLabel.text = L("sender.ui.sessiontitle.item-photos")
+        collectionViewMaskLabel.text = L("sender.ui.title.collection-mask")
+        priceValueTitleLabel.text = L("sender.ui.sessiontitle.price-value")
+        carrierPrepayTitleLabel.text = L("sender.ui.sessiontitle.prepay")
+        messageTitleLabel.text = L("sender.ui.sessiontitle.note")
+        priceShipingFeeTitleLabel.text = L("sender.ui.sessiontitle.price-offer")
+        priceShipingFeeHintLabel.text = L("sender.ui.message.price-standard")
+        priceFinalTitleLabel.text = L("sender.ui.sessiontitle.price-final")
+        submitButton.setTitle(L("sender.ui.title.submit"), for: .normal)
+    }
+
     private func setupTextFields(){
         textFieldAddToolBar(nameTextField, nil)
         textFieldAddToolBar(phoneTextField, nil)
@@ -335,9 +356,9 @@ class SenderDetailViewController: UIViewController{
         textFieldAddToolBar(priceValueTextField, nil)
         textFieldAddToolBar(countryCodeTextField,nil)
         
-        nameTextField.attributedPlaceholder = NSAttributedString(string:"姓名", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        nameTextField.attributedPlaceholder = NSAttributedString(string: L("sender.ui.placeholder.name"), attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
         nameTextField.editingDidEnd()
-        phoneTextField.attributedPlaceholder = NSAttributedString(string:"手机号", attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        phoneTextField.attributedPlaceholder = NSAttributedString(string: L("sender.ui.placeholder.phone"), attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
         phoneTextField.editingDidEnd()
         addressTextView.font = textFieldFont
         messageTextView.font = textFieldFont

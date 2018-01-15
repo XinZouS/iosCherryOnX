@@ -29,6 +29,7 @@ class RequestTripViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        setupViewLabels()
         setupTripInfo()
     }
     
@@ -48,6 +49,12 @@ class RequestTripViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    private func setupViewLabels() {
+        youxiangTitleLabel.text = L("sender.ui.title.youxiangcode")
+        okButton.setTitle(L("sender.ui.title.enter-youxiang"), for: .normal)
+        cancelButton.setTitle(L("action.cancel"), for: .normal)
+    }
+
     private func setupTripInfo(){
         guard let t = trip else { return }
         monthLabel.text = t.getMonthString()

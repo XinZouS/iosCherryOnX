@@ -18,6 +18,7 @@ class PersonalPageViewController: UIViewController{
     
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileNameLabel: UILabel!
+    @IBOutlet weak var editPersonalInfoButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var scoreColorBarWidthConstraint: NSLayoutConstraint!
@@ -45,6 +46,7 @@ class PersonalPageViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         title = L("maintapbar.ui.title.personal")
+        editPersonalInfoButton.setTitle(L("personal.ui.title.edit"), for: .normal)
         setupTableView()
         setupNavigationBar()
         addObservers()

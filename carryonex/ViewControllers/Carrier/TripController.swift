@@ -126,6 +126,7 @@ class TripController: UIViewController{
     }
     
     private func setupcomfirmTripButton(){
+        confirmTripButton.setTitle(L("carrier.ui.title.post-trip"), for: .normal)
         confirmTripButton.isEnabled = false
     }
     

@@ -111,6 +111,8 @@
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "寄件";
+"sender.ui.title.youxiangcode" = "游箱号"; // 2018-01-15 Xin
+"sender.ui.title.enter-youxiang" = "进入游箱"; // 2018-01-15 Xin
 "sender.ui.placeholder.new-code" = "输入6位游箱号";
 "sender.error.title.youxiangcode-type" = "游箱号错误";
 "sender.error.message.youxiangcode-type" = "游箱号由6位数字或字母组成";
@@ -119,12 +121,18 @@
 "sender.error.action.youxiangcode-invalidate" = "重新输入";
 "sender.error.message.youxiangcode-self-deny" = "你不能使用自己的游箱号下单";
 "sender.error.message.youxiangcode-network" = "由于网络连接有问题，您的请求无法发送，请重试";
+"sender.ui.sessiontitle.recipient-info" = "收件人信息"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-value" = "物品价值"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.prepay" = "出行人代付"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.note" = "留言"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-offer" = "运费出价"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-final" = "总价"; // 2018-01-15 Xin
 "sender.ui.sessiontitle.address-destination" = "收货地址";
 "sender.ui.sessionhint.address-destination" = "请选择货物送达位置";
 "sender.ui.sessiontitle.item-value" = "货物价值";
 "sender.ui.placeholder.price-value-max" = "输入价值(不超过￥";
 "sender.ui.sessionhint.item-value" = "输入货物价格";
-"sender.ui.sessiontitle.item-photos" = "货物清晰照";
+"sender.ui.sessiontitle.item-photos" = "物品图片"; // 2018-01-15 Xin
 "sender.ui.sessiontitle.item-shipfee" = "运货费用";
 "sender.ui.currencytype.unit" = "元";
 "sender.error.title.info" = "信息不足";
@@ -140,10 +148,14 @@
 "sender.error.title.youxiang-miss" = "⚠️游箱号有误";
 "sender.error.message.youxiang-miss" = "无法查到对方出行信息";
 "sender.error.action.youxiang-miss" = "重新填写游箱号";
+"sender.ui.title.submit" = "提交订单"; // 2018-01-15 Xin
 "sender.confirm.title.post" = "🎉订单发布成功";
 "sender.confirm.message.post" = "订单提交成功，请及时关注订单状态";
 "sender.ui.message.item-value-max" = "小提示：寄送物品价值限制至多";
+"sender.ui.placeholder.name" = "姓名"; // 2018-01-15 Xin
+"sender.ui.placeholder.phone" = "手机号"; // 2018-01-15 Xin
 "sender.ui.placeholder.address" = "收件地址"; // 2018-01-12 Xin
+"sender.ui.title.collection-mask" = "最多提交6张"; // 2018-01-12 Xin
 "sender.ui.placeholder.note" = "注意事项或特殊要求，字数限制: ";
 "sender.ui.title.item-value-info" = "物品价值说明";
 "sender.ui.title.item-value" = "物品价值";
@@ -163,6 +175,7 @@
 "carrier.ui.title.endAddress" = "目的地";
 "carrier.ui.title.startDate" = "出行日期";
 "carrier.ui.title.note" = "备注";
+"carrier.ui.title.post-trip" = "发布出行信息"; // 2018-01-15 - Xin
 "carrier.error.title.date" = "出行日期有误";
 "carrier.error.message.date" = "出行日期不能为过去时间，请重新输入";
 "carrier.error.title.post" = "❗️哎呀出错了"; // 2018-01-01 -Xin
@@ -330,6 +343,7 @@
 "personal.ui.title.upload-profile" = "上传真人大头照";
 "personal.ui.action.finishing-verify" = "完成验证";
 "personal.ui.title.verify-info" = "验证信息";
+"personal.ui.title.edit" = "编辑个人资料"; // 2018-01-15 Xin
 "personal.ui.title.score" = "综合评分";
 "personal.ui.title.wallet" = "钱包";
 "personal.ui.title.wallet-question" = "常见问题";
