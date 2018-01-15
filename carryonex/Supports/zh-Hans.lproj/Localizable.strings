@@ -53,6 +53,8 @@
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
 "login.ui.privacy.title" = "隐私政策";
+"login.confirm.title.pasword-changed" = "🎉修改成功"; // 2018-01-15 Xin
+"login.confirm.message.pasword-changed" = "您已成功修改密码，请使用新密码登陆"; // 2018-01-15 Xin
 "register.ui.title.phone" = "手机验证"; // 2017-12-29 - Xin
 "register.error.title.miss-phone" = "信息不足";
 "register.error.message.miss-phone" = "手机号码未填写";
@@ -289,7 +291,7 @@
 
 
 // MARK: - Settings
-"settings.ui.title.message" = "消息设置";
+"settings.ui.title.notification" = "消息设置";
 "settings.ui.title.gps" = "定位权限";
 "settings.ui.title.account" = "账号信息";
 "settings.ui.title.policy" = "服务条款";

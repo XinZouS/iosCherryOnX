@@ -53,6 +53,8 @@
 "login.ui.agreement.title" = "Terms of Services";
 "login.ui.license.title" = "Software Agreement";
 "login.ui.privacy.title" = "Privacy Policy";
+"login.confirm.title.pasword-changed" = "🎉Success"; // 2018-01-15 Xin
+"login.confirm.message.pasword-changed" = "You already change password, please use new password to login"; // 2018-01-15 Xin
 "register.ui.title.phone" = "Phone Verification"; // 2017-12-29 - Xin
 "register.error.title.miss-phone" = "Missing Information";
 "register.error.message.miss-phone" = "Please fill in your phone number.";
@@ -289,7 +291,7 @@
 
 
 // MARK: - Settings
-"settings.ui.title.message" = "Message";
+"settings.ui.title.notification" = "Notification"; // 2018-01-15 - Xin
 "settings.ui.title.gps" = "Location";
 "settings.ui.title.account" = "Account";
 "settings.ui.title.policy" = "Privacy Polocy";

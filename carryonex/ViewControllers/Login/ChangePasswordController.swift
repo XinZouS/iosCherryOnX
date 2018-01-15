@@ -72,7 +72,11 @@ class ChangePasswordController: UIViewController{
         let newPassword = passwordTextField.text
         ProfileManager.shared.forgetPassword(phone: phoneInput, password: newPassword!) { (success, error) in
             if success {
-                self.navigationController?.popToRootViewController(animated: true)
+                self.displayGlobalAlertActions(title: L("login.confirm.title.pasword-changed"),
+                                               message: L("login.confirm.message.pasword-changed"),
+                                               actions: ["action.ok"], completion: { (tag) in
+                    self.navigationController?.popToRootViewController(animated: true)
+                })
             }else{
                 DLog(error?.localizedDescription ?? "")
             }
