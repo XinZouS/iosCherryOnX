@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //let titles = ["消息设置","定位权限","服务条款","Version 1.0","退出"]
-    let titles = [L("settings.ui.title.message"),
+    let titles = [L("settings.ui.title.notification"),
                   L("settings.ui.title.gps"),
                   L("settings.ui.title.policy"),
                   "Version",

@@ -96,7 +96,7 @@ class PhoneValidationViewController: UIViewController {
 
     private func setupViewTitles() {
         hintLabel.text = L("register.ui.title.get-verify-code")
-        resendButton.setTitle(L("register.error.action.verify"), for: .normal)
+        resendButton.setTitle(L("register.ui.message.resend-verify-code"), for: .normal)
         hintLabelError.text = L("register.error.message.input-verify-code")
     }
     

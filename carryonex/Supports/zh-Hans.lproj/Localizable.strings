@@ -14,6 +14,9 @@
 "action.redo" = "重试";
 
 // MARK: - MainTapBarVC
+"maintapbar.ui.title.home" = "游箱"; // 2018-01-15 Xin
+"maintapbar.ui.title.order" = "订单"; // 2018-01-15 Xin
+"maintapbar.ui.title.personal" = "我"; // 2018-01-15 Xin
 "maintapbar.error.title.login" = "登录异常";
 "maintapbar.error.message.login" = "登录设备曾经变更，请重新登录";
 "maintapbar.error.action.login" = "重新登录";
@@ -53,6 +56,8 @@
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
 "login.ui.privacy.title" = "隐私政策";
+"login.confirm.title.pasword-changed" = "🎉修改成功"; // 2018-01-15 Xin
+"login.confirm.message.pasword-changed" = "您已成功修改密码，请使用新密码登陆"; // 2018-01-15 Xin
 "register.ui.title.phone" = "手机验证"; // 2017-12-29 - Xin
 "register.error.title.miss-phone" = "信息不足";
 "register.error.message.miss-phone" = "手机号码未填写";
@@ -72,7 +77,8 @@
 "register.error.message.failed" = "注册出现错误";
 "register.ui.message.hint1" = "短信验证码已发送至";
 "register.ui.message.hint2" = "，请输入";
-"register.ui.message.resend-verify-code" = "发送验证码";
+"register.ui.message.send-verify-code" = "发送验证码"; // 2018-01-16 - Xin
+"register.ui.message.resend-verify-code" = "重新发送验证码";
 "register.error.message.input-verify-code" = "验证码输入错误 请重新输入"; // 2018-01-06 - Xin
 "register.ui.message.resend-time" = "秒后重新发送"; // "\(resetTime)秒后重新发送"
 "register.ui.title.success" = "注册成功 🎉";
@@ -289,7 +295,7 @@
 
 
 // MARK: - Settings
-"settings.ui.title.message" = "消息设置";
+"settings.ui.title.notification" = "消息设置";
 "settings.ui.title.gps" = "定位权限";
 "settings.ui.title.account" = "账号信息";
 "settings.ui.title.policy" = "服务条款";
@@ -329,7 +335,6 @@
 "personal.ui.title.help" = "帮助";
 "personal.ui.title.settings" = "设置";
 "personal.ui.title.wallet-description" = "收付款，查看余额，提现";
-"personal.ui.title.me" = "我";
 "personal.error.title.wechat" = "微信资料获取失败";
 "personal.error.message.wechat" = "请重新跳转微信";
 "personal.error.title.network" = "获取信息失败";

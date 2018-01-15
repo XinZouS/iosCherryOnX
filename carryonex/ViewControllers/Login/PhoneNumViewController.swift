@@ -74,7 +74,7 @@ class PhoneNumViewController: UIViewController {
         checkPhone()
         setupGifImage()
         setupActivityIndicator()
-        sendButton.setTitle(L("register.ui.message.resend-verify-code"), for: .normal)
+        sendButton.setTitle(L("register.ui.message.send-verify-code"), for: .normal)
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.isHidden = false
         

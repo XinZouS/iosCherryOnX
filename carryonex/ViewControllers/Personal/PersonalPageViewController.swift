@@ -44,7 +44,7 @@ class PersonalPageViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L("personal.ui.title.me")
+        title = L("maintapbar.ui.title.personal")
         setupTableView()
         setupNavigationBar()
         addObservers()
