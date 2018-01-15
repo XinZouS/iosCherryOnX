@@ -686,7 +686,7 @@ extension OrdersTripDetailViewController: OrderListCardCellProtocol {
         if let statusId = request.statusId, let status = RequestStatus(rawValue: statusId) {
             updateButtonAppearance(status: status)
             updateMapViewToShow(status == .inDelivery)
-            statusLabel.text = status.displayString()
+            statusLabel.text = status.displayString(request.isCommented(category: category))
             statusLabel.textColor = status.displayTextColor(category: category)
             statusLabel.backgroundColor = status.displayColor(category: category)
         }
