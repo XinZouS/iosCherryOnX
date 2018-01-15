@@ -37,9 +37,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHr-jU-Elz">
-                                <rect key="frame" x="110" y="90" width="90" height="40"/>
+                                <rect key="frame" x="110" y="90" width="80" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="SFX-FE-Ego"/>
                                     <constraint firstAttribute="height" constant="40" id="q8Y-w6-hHY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -225,6 +224,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="0vB-9f-L5V"/>
                     <connections>
+                        <outlet property="editPersonalInfoButton" destination="sHr-jU-Elz" id="a4t-Wn-CJ2"/>
                         <outlet property="scoreColorBarWidthConstraint" destination="wFy-ag-0j0" id="78X-jo-quQ"/>
                         <outlet property="scoreLabel" destination="H2j-mr-0g1" id="WoY-pt-HsY"/>
                         <outlet property="scoreStar5MaskWidthConstraint" destination="iwL-vJ-hqH" id="Ci9-1e-RBK"/>

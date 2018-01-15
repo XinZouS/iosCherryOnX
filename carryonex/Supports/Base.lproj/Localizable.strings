@@ -14,7 +14,7 @@
 "action.redo" = "Retry";
 
 // MARK: - MainTapBarVC
-"maintapbar.ui.title.home" = "Home"; // 2018-01-15 Xin
+"maintapbar.ui.title.home" = "CarryonEx"; // 2018-01-15 Xin
 "maintapbar.ui.title.order" = "Orders"; // 2018-01-15 Xin
 "maintapbar.ui.title.personal" = "Me"; // 2018-01-15 Xin
 "maintapbar.error.title.login" = "User Invalidated"; // 2017-12-28 Xin ---------
@@ -111,6 +111,8 @@
 
 // MARK: - Sender
 "sender.ui.title.new-request" = "New Request";
+"sender.ui.title.youxiangcode" = "Trip Code"; // 2018-01-15 Xin
+"sender.ui.title.enter-youxiang" = "Enter"; // 2018-01-15 Xin
 "sender.ui.placeholder.new-code" = "6-char trip code.";
 "sender.error.title.youxiangcode-type" = "Trip Code Error";
 "sender.error.message.youxiangcode-type" = "Trip code contains 6 characters including alphabets and numbers.";
@@ -119,12 +121,18 @@
 "sender.error.action.youxiangcode-invalidate" = "Re-enter Code";
 "sender.error.message.youxiangcode-self-deny" = "You cannot add request to your own trip.";
 "sender.error.message.youxiangcode-network" = "Please check your internet connection.";
+"sender.ui.sessiontitle.recipient-info" = "Recipient Information"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-value" = "Goods Value"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.prepay" = "Pay it here"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.note" = "Note"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-offer" = "Offer a Price"; // 2018-01-15 Xin
+"sender.ui.sessiontitle.price-final" = "Total Price"; // 2018-01-15 Xin
 "sender.ui.sessiontitle.address-destination" = "Delivery Address";
 "sender.ui.sessionhint.address-destination" = "Please enter the delivery address.";
 "sender.ui.sessiontitle.item-value" = "Item Value";
 "sender.ui.placeholder.price-value-max" = "Max Price (<￥";
 "sender.ui.sessionhint.item-value" = "Enter item value";
-"sender.ui.sessiontitle.item-photos" = "Item pictures";
+"sender.ui.sessiontitle.item-photos" = "Goods Images";
 "sender.ui.sessiontitle.item-shipfee" = "Shipping fee";
 "sender.ui.currencytype.unit" = "Dollor";
 "sender.error.title.info" = "Insufficient Information";
@@ -140,16 +148,20 @@
 "sender.error.title.youxiang-miss" = "Trip Code Error";
 "sender.error.message.youxiang-miss" = "Unable to find trip";
 "sender.error.action.youxiang-miss" = "Re-enter code";
+"sender.ui.title.submit" = "Submit Order"; // 2018-01-15 Xin
 "sender.confirm.title.post" = "Post request successful";
 "sender.confirm.message.post" = "Please note you will receive request status update.";
 "sender.ui.message.item-value-max" = "Tips: delivery item should limit to max value of";
+"sender.ui.placeholder.name" = "Name"; // 2018-01-15 Xin
+"sender.ui.placeholder.phone" = "Phone"; // 2018-01-15 Xin
 "sender.ui.placeholder.address" = "Address"; // 2018-01-12 Xin
+"sender.ui.title.collection-mask" = "No more than 6 images"; // 2018-01-12 Xin
 "sender.ui.placeholder.note" = "Note for carrier should limited to number of characters of:";
 "sender.ui.title.item-value-info" = "Item Value Info";
 "sender.ui.title.item-value" = "Item Value";
 "sender.ui.message.price-lower-than" = "lower than";
 "sender.ui.message.price-higher-than" = "higher than";
-"sender.ui.message.price-standard" = "standard price";
+"sender.ui.message.price-standard" = " standard price ";
 "sender.ui.placeholder.price-lower-than" = "price lower than";
 "sender.error.title.price-arguements" = "Price Error";
 "sender.error.message.price-arguements" = "Unable to retrieve price standard.";
@@ -163,6 +175,7 @@
 "carrier.ui.title.endAddress" = "Arrival";
 "carrier.ui.title.startDate" = "Departure Date";
 "carrier.ui.title.note" = "Note";
+"carrier.ui.title.post-trip" = "Post Trip"; // 2018-01-15 - Xin
 "carrier.error.title.date" = "Departure Date Error";
 "carrier.error.message.date" = "Departure date cannot from the past, please re-enter.";
 "carrier.error.title.post" = "❗️Uploading Error"; // 2018-01-01 -Xin
@@ -329,6 +342,7 @@
 "personal.ui.title.upload-profile" = "Upload your profile image.";
 "personal.ui.action.finishing-verify" = "Complete Verification";
 "personal.ui.title.verify-info" = "Verifying Info";
+"personal.ui.title.edit" = "Edit Profile"; // 2018-01-15 Xin
 "personal.ui.title.score" = "Score";
 "personal.ui.title.wallet" = "Wallet";
 "personal.ui.title.wallet-question" = "Questions";
@@ -356,11 +370,11 @@
 "personal.error.message.send-message" = "Unable to send WeChat message on this device.";
 "personal.ui.dateformat.comment" = "MM/dd/yyyy"; // 2018-01-09 Xin
 "personal.ui.title.my-comments" = "My Comments";
-"personal.ui.title.cash" = "Cash Available";
+"personal.ui.title.cash" = "Withdraw";
 "personal.ui.title.credit" = "Credit"; // 2018-01-04 Xin
 "personal.ui.title.detail" = "Details"; // 2018-01-04 Xin
 "personal.ui.title.currency-type" = "¥"; //"￥"; // 2018-01-04 Xin
-"personal.ui.title.faq" = "FAQs"; // 2018-01-04 Xin
+"personal.ui.title.faq" = "FAQ"; // 2018-01-04 Xin
 "personal.ui.title.cash-extractable" = "Cash Available: ";
 "personal.ui.title.alipay" = "Alipay Payout";
 "personal.ui.placeholder.alipay-account" = "AliPay account(E-mail/Phone)"; // 2018-01-11 Xin

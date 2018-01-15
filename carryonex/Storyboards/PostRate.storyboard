@@ -200,6 +200,6 @@
     </scenes>
     <resources>
         <image name="blankUserHeadImage" width="160" height="159"/>
-        <image name="stars5Mask" width="403" height="70"/>
+        <image name="stars5Mask" width="127" height="21"/>
     </resources>
 </document>
