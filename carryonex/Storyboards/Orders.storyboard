@@ -165,10 +165,9 @@
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已锁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fM4-XG-yGf">
-                                                                    <rect key="frame" x="275" y="14.5" width="30" height="21"/>
+                                                                    <rect key="frame" x="280" y="14.5" width="25" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="21" id="pv8-Fs-BzD"/>
-                                                                        <constraint firstAttribute="width" constant="30" id="vT4-KD-yW0"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" red="0.29661434888839722" green="0.34066224098205566" blue="0.37820503115653992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

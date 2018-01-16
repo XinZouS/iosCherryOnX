@@ -74,6 +74,13 @@
 "register.error.message.verify-phone" = "Unable to verify the phone number.";
 "register.ui.title.get-verify-code" = "Please input your verification code"; // 2018-01-06 - Xin
 "register.error.action.verify" = "Resend";
+"register.ui.placeholder.name" = "Your True Name"; // 2018-01-16 Xin
+     = "New Password"; // 2018-01-16 Xin
+"register.ui.placeholder.password-confirm" = "Confirm Password"; // 2018-01-16 Xin
+"register.ui.title.register" = "Register"; // 2018-01-16 Xin
+"register.ui.message.hint" = "I agree to CarryonEx's "; // 2018-01-16 Xin
+"register.error.title.relogin" = "😢Login Fail"; // 2018-01-16 Xin
+"register.error.message.relogin" = "You have success register yet login fail, please make sure you have the Internet access and try again later"; // 2018-01-16 Xin
 "register.error.title.failed" = "Registration Failed";
 "register.error.message.failed" = "Failed to register.";
 "register.ui.message.hint1" = "Verification code has been sent to";
@@ -81,7 +88,7 @@
 "register.ui.message.resend-verify-code" = "Resend Verification Code";
 "register.ui.message.send-verify-code" = "Send Verification Code"; // 2018-01-16 - Xin
 "register.error.message.input-verify-code" = "Your code is incorrect, please try again"; // 2018-01-06 - Xin
-"register.ui.message.resend-time" = "seconds wait before resending the code"; // "\(resetTime)秒后重新发送"
+"register.ui.message.resend-time" = " seconds wait before resending the code"; // "\(resetTime)秒后重新发送"
 "register.ui.title.success" = "Register Success 🎉";
 
 // MARK: - Home
