@@ -60,6 +60,7 @@
 "login.confirm.title.pasword-changed" = "🎉Success"; // 2018-01-15 Xin
 "login.confirm.message.pasword-changed" = "You already change password, please use new password to login"; // 2018-01-15 Xin
 "register.ui.title.phone" = "Phone Verification"; // 2017-12-29 - Xin
+"register.ui.placeholder.new-phone" = "Phone Number"; // 2018-01-16 Xin
 "register.error.title.miss-phone" = "Missing Information";
 "register.error.message.miss-phone" = "Please fill in your phone number.";
 "register.error.title.duplicate" = "Duplicate registration";
@@ -317,7 +318,7 @@
 "orders.ui.title.receiver-name" = "Receiver Name"; // 2018-01-16 Xin
 "orders.ui.title.receiver-phone" = "Phone Number"; // 2018-01-16 Xin
 "orders.ui.placeholder.note-empty" = "Empty note";
-"orders.ui.placeholder.note-msg" = "Your message note   ";
+"orders.ui.placeholder.note-msg" = "Note   ";
 "orders.confirm.title.payment" = "Payment Success";
 "orders.error.title.payment" = "Payment Error";
 "orders.confirm.title.wechatpay" = "WeChat Payment Success";

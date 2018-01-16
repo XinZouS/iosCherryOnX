@@ -35,7 +35,7 @@ class PhoneNumViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryCodeButton: UIButton!
-    @IBOutlet weak var phoneNumTextField: UITextField!
+    @IBOutlet weak var phoneNumTextField: ThemTextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var bottomImageView: UIImageView!
     var loadingIndicator: BPCircleActivityIndicator!
@@ -103,6 +103,7 @@ class PhoneNumViewController: UIViewController {
     private func setupTextField(){
         phoneNumTextField.delegate = self
         phoneNumTextField.addTarget(self, action: #selector(checkPhone), for: .editingChanged)
+        phoneNumTextField.setAttributedPlaceholder(L("register.ui.placeholder.new-phone"), color: nil)
     }
     
     private func setupFlagPicker(){

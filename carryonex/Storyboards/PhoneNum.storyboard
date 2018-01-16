@@ -91,7 +91,7 @@
                                     <constraint firstAttribute="width" secondItem="nzc-eN-7XS" secondAttribute="height" multiplier="14:5" id="c7k-ab-jW7"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-t6-JK6" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                 <rect key="frame" x="88" y="177" width="162" height="30"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -104,6 +104,9 @@
                                     <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="Phone"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
                                         <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHeigh">
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>

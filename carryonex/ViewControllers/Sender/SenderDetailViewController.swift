@@ -99,7 +99,7 @@ class SenderDetailViewController: UIViewController{
     
 //    let kShippInfoSegue = "ShipperInfoSegue"
     
-    var priceMaxValueLimit: Double = 10000.0 { // use var so we can change it from server;
+    var priceMaxValueLimit: Double = 9999999.0 { // use var so we can change it from server; we still need this incase of number overflow;
         didSet{
             priceMaxValueHintLabel.text = L("sender.ui.message.item-value-max") + "\(currencyType.rawValue)\(priceMaxValueLimit)"
         }
@@ -424,7 +424,7 @@ class SenderDetailViewController: UIViewController{
                 if let configData = ApiServers.shared.configData {
                     priceParamA = configData.intlPrice.a
                     priceParamB = configData.intlPrice.b
-                    updatePriceContentsFor(newPrice: 100) // default val
+                    updatePriceContentsFor(newPrice: 10) // default val
                     return
                 }
             }
@@ -438,7 +438,7 @@ class SenderDetailViewController: UIViewController{
                     if let configData = ApiServers.shared.configData {
                         priceParamA = configData.sameCityPrice.a
                         priceParamB = configData.sameCityPrice.b
-                        updatePriceContentsFor(newPrice: 100) // default val
+                        updatePriceContentsFor(newPrice: 10) // default val
                         return
                     }
                 }
@@ -448,7 +448,7 @@ class SenderDetailViewController: UIViewController{
         if let configData = ApiServers.shared.configData {
             priceParamA = configData.domesticPrice.a
             priceParamB = configData.domesticPrice.b
-            updatePriceContentsFor(newPrice: 100) // default val
+            updatePriceContentsFor(newPrice: 10) // default val
         }
     }
 
@@ -1071,10 +1071,10 @@ extension SenderDetailViewController: UITextFieldDelegate {
     
     fileprivate func updatePriceContentsFor(newPrice: Double) {
         priceValueTitleLabel.text = L("sender.ui.title.item-value") //+ currencyType.rawValue
-        let pMin: Double = priceParamB
         let pGet = calculatePrice(type: .linear)
-        let pMax: Double = (newPrice < pMin || pGet < pMin) ? pMin + 10.0 : pGet
-        priceMiddl = Double(Int(pMax * 100) + Int(pMin * 100)) / 200.0
+        let pMin: Double = max(pGet * 0.7, priceParamB)
+        let pMax: Double = pGet + (pGet - pMin)
+        priceMiddl = (pMax + pMin) / 2.0
         priceMinLabel.text = String(format: "%.1f", pMin)
         priceMaxLabel.text = String(format: "%.0f", pMax)
         priceMidLabel.text = String(format: "%.0f", priceMiddl)

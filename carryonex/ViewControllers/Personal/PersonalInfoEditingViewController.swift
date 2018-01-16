@@ -48,6 +48,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
         super.viewDidLoad()
         title = L("personal.ui.title.navigationbar")
         saveBarButton.title = L("personal.ui.title.barbutton-save")
+        nameLabel.text = L("personal.ui.title.name")
         addWechatObserver()
         saveBarButton.isEnabled = false
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)
