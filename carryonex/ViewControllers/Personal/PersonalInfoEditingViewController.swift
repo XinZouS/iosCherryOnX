@@ -29,7 +29,7 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     var emailTextField: UITextField!
     let tableCellId = "PersonalInfoTableCell"
     
-    let tableRows = ["性别","邮箱"]
+    let tableRows = [L("personal.ui.title.gender"), L("personal.ui.title.email")] // [性别, 邮箱]
     let genderPickerView = UIPickerView()
     var pickerData: [String] = []
     
@@ -46,6 +46,8 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = L("personal.ui.title.navigationbar")
+        saveBarButton.title = L("personal.ui.title.barbutton-save")
         addWechatObserver()
         saveBarButton.isEnabled = false
         imageButton.setImage(#imageLiteral(resourceName: "profilePlaceholderPng"), for: .normal)

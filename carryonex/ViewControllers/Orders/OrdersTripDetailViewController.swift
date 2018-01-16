@@ -399,7 +399,9 @@ class OrdersTripDetailViewController: UIViewController {
         itemValueTitleLabel.text = L("orders.ui.title.item-value")
         
         incomeLabel.text = currency.rawValue + request.priceString()
+        recipientNameTitleLabel.text = L("orders.ui.title.receiver-name")
         recipientNameLabel.text = request.endAddress?.recipientName
+        recipientPhoneTitleLabel.text = L("orders.ui.title.receiver-phone")
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
         itemValueLabel.text = currency.rawValue + request.itemValue()
