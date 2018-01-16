@@ -63,7 +63,7 @@
                                             <constraint firstAttribute="width" secondItem="4jm-V9-eS1" secondAttribute="height" id="Kwj-us-RRb"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0mW-tW-Iqv" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0mW-tW-Iqv" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55" width="275" height="30"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -97,7 +97,7 @@
                                             <constraint firstAttribute="width" constant="20" id="Y5y-rQ-RdI"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3VD-UV-r78" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3VD-UV-r78" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                         <rect key="frame" x="20" y="100" width="275" height="30"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
