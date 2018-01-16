@@ -138,6 +138,7 @@
 "sender.ui.sessiontitle.address-destination" = "Delivery Address";
 "sender.ui.sessionhint.address-destination" = "Please enter the delivery address.";
 "sender.ui.sessiontitle.item-value" = "Item Value";
+"sender.ui.placeholder.price-value" = "RMB"; // 2018-01-16 Xin
 "sender.ui.placeholder.price-value-max" = "Maximum value ￥";
 "sender.ui.sessionhint.item-value" = "Enter item value";
 "sender.ui.sessiontitle.item-photos" = "Goods Images";
@@ -316,7 +317,7 @@
 "orders.ui.title.receiver-name" = "Receiver Name"; // 2018-01-16 Xin
 "orders.ui.title.receiver-phone" = "Phone Number"; // 2018-01-16 Xin
 "orders.ui.placeholder.note-empty" = "Empty note";
-"orders.ui.placeholder.note-msg" = "Your message note ";
+"orders.ui.placeholder.note-msg" = "Your message note   ";
 "orders.confirm.title.payment" = "Payment Success";
 "orders.error.title.payment" = "Payment Error";
 "orders.confirm.title.wechatpay" = "WeChat Payment Success";
