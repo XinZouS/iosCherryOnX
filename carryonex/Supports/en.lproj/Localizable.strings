@@ -85,7 +85,7 @@
 
 // MARK: - Home
 "home.ui.greeting.hello" = "Hello";
-"home.ui.greeting.night" = "Good Night ";
+"home.ui.greeting.evening" = "Good Evening ";
 "home.ui.greeting.afternoon" = "Good Afternoon ";
 "home.ui.greeting.noon" = "Good Afternoon ";
 "home.ui.greeting.morning" = "Good Morning ";

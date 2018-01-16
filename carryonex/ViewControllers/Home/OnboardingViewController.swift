@@ -27,7 +27,7 @@ class OnboardingViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white // UIColor.MyTheme.nightA
+        view.backgroundColor = .white // UIColor.MyTheme.eveningA
         dataSource = self
         delegate = self
         setupPages()

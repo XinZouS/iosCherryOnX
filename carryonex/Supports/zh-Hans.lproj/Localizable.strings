@@ -85,7 +85,7 @@
 
 // MARK: - Home
 "home.ui.greeting.hello" = "你好";
-"home.ui.greeting.night" = "晚上好，";
+"home.ui.greeting.evening" = "晚上好，";
 "home.ui.greeting.afternoon" = "下午好，";
 "home.ui.greeting.noon" = "中午好，";
 "home.ui.greeting.morning" = "早上好，";

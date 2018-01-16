@@ -14,7 +14,7 @@ class NewHomePageController: UIViewController {
         case morning = 4
         case noon = 10
         case afternoon = 16
-        case night = 19
+        case evening = 19
     }
     
     var timeStatus: TimeEnum = TimeEnum.noon
@@ -122,9 +122,9 @@ class NewHomePageController: UIViewController {
         let date = Date()
         let calendar = Calendar.current
         let nowHourInt = calendar.component(.hour, from: date)
-        if nowHourInt >= TimeEnum.night.rawValue || nowHourInt < TimeEnum.morning.rawValue { // night: 6pm->6am
-            timeStatus = .night
-            setupBackGroundColor(dayTime: .night)
+        if nowHourInt >= TimeEnum.evening.rawValue || nowHourInt < TimeEnum.morning.rawValue { // evening: 6pm->6am
+            timeStatus = .evening
+            setupBackGroundColor(dayTime: .evening)
 
         } else if nowHourInt >= TimeEnum.afternoon.rawValue {
             timeStatus = .afternoon
@@ -177,8 +177,8 @@ class NewHomePageController: UIViewController {
     private func setupBackGroundColor(dayTime: TimeEnum){
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        var beginColor = UIColor.MyTheme.nightA
-        var endColor = UIColor.MyTheme.nightB
+        var beginColor = UIColor.MyTheme.eveningA
+        var endColor = UIColor.MyTheme.eveningB
         
         switch timeStatus {
         case .morning, .afternoon:
@@ -191,10 +191,10 @@ class NewHomePageController: UIViewController {
             beginColor = UIColor.MyTheme.noonA
             endColor = UIColor.MyTheme.noonB
 
-        case .night:
+        case .evening:
             helloLabel.textColor = .white
-            beginColor = UIColor.MyTheme.nightA
-            endColor = UIColor.MyTheme.nightB
+            beginColor = UIColor.MyTheme.eveningA
+            endColor = UIColor.MyTheme.eveningB
 
         }
         gradientLayer.startPoint = CGPoint(x: 0.1, y: 0.1)
@@ -261,8 +261,8 @@ class NewHomePageController: UIViewController {
             var greeting = L("home.ui.greeting.hello")
             //if let timeState = timeStatus { // AppDelegate.shared().mainTabViewController?.homeViewController?.timeStatus{
                 switch timeStatus {
-                case .night:
-                    greeting = L("home.ui.greeting.night")
+                case .evening:
+                    greeting = L("home.ui.greeting.evening")
                 case .afternoon:
                     greeting = L("home.ui.greeting.afternoon")
                 case .noon:
