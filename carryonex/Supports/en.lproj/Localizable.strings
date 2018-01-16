@@ -309,7 +309,7 @@
 "orders.error.title.gps" = "Location Error";
 "orders.error.message.gps" = "Please check your location service settings.";
 "orders.ui.title.contacts" = "Contact"; // 2018-01-06 - Xin
-"orders.ui.action.call" = "Phone call 📲"; // 2018-01-06 - Xin
+"orders.ui.action.call" = "Phone Call 📲"; // 2018-01-06 - Xin
 "orders.ui.action.sms" = "SMS 💬"; // 2018-01-06 - Xin
 
 
@@ -317,7 +317,7 @@
 "settings.ui.title.notification" = "Notification";
 "settings.ui.title.gps" = "Location";
 "settings.ui.title.account" = "Account";
-"settings.ui.title.policy" = "Privacy Polocy";
+"settings.ui.title.policy" = "Privacy Policies";
 "settings.ui.title.logout" = "Log Out";
 "settings.ui.title.settings" = "Settings";
 
