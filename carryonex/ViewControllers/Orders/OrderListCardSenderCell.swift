@@ -52,7 +52,7 @@ class OrderListCardSenderCell: OrderListCardCell {
         
         shippingCostLabel.text = request.priceString()
         itemPriceLabel.text = request.itemValue()
-        orderCodeLabel.text = "\(request.tripId)"
+        orderCodeLabel.text = "\(request.tripId ?? -1)"
         
         if let shipperAddress = request.endAddress {
             shiperNameLabel.text = shipperAddress.recipientName

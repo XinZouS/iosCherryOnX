@@ -410,15 +410,7 @@
                 <viewControllerPlaceholder storyboardName="PhoneNum" id="ZP0-kR-7bM" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqV-5d-AI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519" y="107"/>
-        </scene>
-        <!--Registration-->
-        <scene sceneID="JQH-BV-jYs">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Registration" id="RZX-r7-RTa" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aRv-gC-aCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="466" y="334"/>
+            <point key="canvasLocation" x="554" y="124"/>
         </scene>
         <!--PhoneVerifyResult-->
         <scene sceneID="849-ym-PdZ">
