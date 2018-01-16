@@ -13,6 +13,7 @@ struct ConfigData {
     let config: Config
     let intlPrice: ConfigPrice
     let domesticPrice: ConfigPrice
+    let sameCityPrice: ConfigPrice
 }
 
 extension ConfigData: Unboxable {
@@ -20,6 +21,7 @@ extension ConfigData: Unboxable {
         self.config = try unboxer.unbox(key: "config")
         self.intlPrice = try unboxer.unbox(key: "intl_price")
         self.domesticPrice = try unboxer.unbox(key: "domestic_price")
+        self.sameCityPrice = try unboxer.unbox(key: "same_city_price")
     }
 }
 

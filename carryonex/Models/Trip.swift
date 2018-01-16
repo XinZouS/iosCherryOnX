@@ -46,6 +46,7 @@ enum TripKeyInDB : String {
     case pickupTimeStart = "pickup_start_time"
     case pickupTimeEnd  = "pickup_end_time"
     case timestamp      = "timestamp"
+    case priceFactor    = "price_factor"
     
     case note   = "note"
     case tripId = "trip_id"
@@ -85,6 +86,7 @@ class Trip : NSObject, Unboxable, Identifiable {
     var pickupTimeEnd:   Double?
     var timestamp: Int = -1
     var note: String?
+    var priceFactor: Double?
     
     private var monthString: String?
     private var dayString: String?
@@ -124,6 +126,7 @@ class Trip : NSObject, Unboxable, Identifiable {
         self.pickupTimeEnd  = try? unboxer.unbox(key: TripKeyInDB.pickupTimeEnd.rawValue)
         self.timestamp = (try? unboxer.unbox(key: TripKeyInDB.timestamp.rawValue)) ?? -1
         self.note = try? unboxer.unbox(key: TripKeyInDB.note.rawValue)
+        self.priceFactor = try? unboxer.unbox(key: TripKeyInDB.priceFactor.rawValue)
         
         self.carrierId = (try? unboxer.unbox(key: TripKeyInDB.carrierId.rawValue)) ?? -1
         self.carrierUsername = (try? unboxer.unbox(key: TripKeyInDB.carrierUsername.rawValue)) ?? "no_name"
