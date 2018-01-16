@@ -251,6 +251,8 @@
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "出行订单";
+"orders.ui.title.listbuttonshiper" = "出行"; // 2018-01-16 Xin
+"orders.ui.title.listbuttonsender" = "寄件"; // 2018-01-16 Xin
 "orders.ui.placeholder.trip" = "您还没有出行记录，快发布你的行程吧";
 "orders.ui.placeholder.send" = "您还没有寄件记录，快寄送些东西吧";
 "orders.error.title.share" = "分享游箱";

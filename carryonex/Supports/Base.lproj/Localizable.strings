@@ -103,7 +103,7 @@
 "home.ui.card.placeholder" = "Let's go to see the world now"; // 2017-12-28 Xin
 "home.ui.title.trip-count" = "Trips"; // 2017-12-28 Xin
 "home.ui.title.send-count" = "Delivery"; // 2017-12-28 Xin
-"home.ui.title.comments" = "Score"; // 2017-12-28 Xin
+"home.ui.title.comments" = "Rating"; // 2017-12-28 Xin
 "home.ui.title.triper" = "Trip"; // 2017-12-28 Xin
 "home.ui.title.sender" = "Send"; // 2017-12-28 Xin
 "home.ui.location.message.unknown" = "Unable to read location"; //2017-12-29 Zian
@@ -130,7 +130,7 @@
 "sender.ui.sessiontitle.address-destination" = "Delivery Address";
 "sender.ui.sessionhint.address-destination" = "Please enter the delivery address.";
 "sender.ui.sessiontitle.item-value" = "Item Value";
-"sender.ui.placeholder.price-value-max" = "Max Price (<￥";
+"sender.ui.placeholder.price-value-max" = "Maximum value ￥";
 "sender.ui.sessionhint.item-value" = "Enter item value";
 "sender.ui.sessiontitle.item-photos" = "Goods Images";
 "sender.ui.sessiontitle.item-shipfee" = "Shipping fee";
@@ -149,7 +149,7 @@
 "sender.error.message.youxiang-miss" = "Unable to find trip";
 "sender.error.action.youxiang-miss" = "Re-enter code";
 "sender.ui.title.submit" = "Submit Order"; // 2018-01-15 Xin
-"sender.confirm.title.post" = "Post request successful";
+"sender.confirm.title.post" = "🎉Post request successful";
 "sender.confirm.message.post" = "Please note you will receive request status update.";
 "sender.ui.message.item-value-max" = "Tips: delivery item should limit to max value of";
 "sender.ui.placeholder.name" = "Name"; // 2018-01-15 Xin
@@ -158,7 +158,7 @@
 "sender.ui.title.collection-mask" = "No more than 6 images"; // 2018-01-12 Xin
 "sender.ui.placeholder.note" = "Note for carrier should limited to number of characters of:";
 "sender.ui.title.item-value-info" = "Item Value Info";
-"sender.ui.title.item-value" = "Item Value";
+"sender.ui.title.item-value" = "Goods Value";
 "sender.ui.message.price-lower-than" = "lower than";
 "sender.ui.message.price-higher-than" = "higher than";
 "sender.ui.message.price-standard" = " standard price ";
@@ -251,6 +251,8 @@
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "Request List";
+"orders.ui.title.listbuttonshiper" = "Trip"; // 2018-01-16 Xin
+"orders.ui.title.listbuttonsender" = "Request"; // 2018-01-16 Xin
 "orders.ui.placeholder.trip" = "You do not have trip record, go ahead and create one!";
 "orders.ui.placeholder.send" = "You do not have request record, go ahead and send something!";
 "orders.error.title.share" = "Share";
@@ -344,7 +346,7 @@
 "personal.ui.action.finishing-verify" = "Complete Verification";
 "personal.ui.title.verify-info" = "Verifying Info";
 "personal.ui.title.edit" = "Edit Profile"; // 2018-01-15 Xin
-"personal.ui.title.score" = "Score";
+"personal.ui.title.score" = "Rating ";
 "personal.ui.title.wallet" = "Wallet";
 "personal.ui.title.wallet-question" = "Questions";
 "personal.ui.title.help" = "Help";

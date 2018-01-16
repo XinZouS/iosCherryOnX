@@ -100,8 +100,7 @@ class OrderListViewController: UIViewController {
         
         tableViewLeftConstraint.constant = 0
         sliderBarCenterConstraint.constant = 0
-        listButtonShiper.setTitleColor(colorTextBlack, for: .normal)
-        listButtonSender.setTitleColor(colorButtonDeselectedGray, for: .normal)
+        setupListButtons()
         setupTableViews()
         setupTableViewRefreshers()
         reloadData()
@@ -158,6 +157,13 @@ class OrderListViewController: UIViewController {
         title = L("orders.ui.title.orderlist") //"出行订单"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+    }
+    
+    private func setupListButtons() {
+        listButtonShiper.setTitleColor(colorTextBlack, for: .normal)
+        listButtonSender.setTitleColor(colorButtonDeselectedGray, for: .normal)
+        listButtonShiper.setTitle(L("orders.ui.title.listbuttonshiper"), for: .normal)
+        listButtonSender.setTitle(L("orders.ui.title.listbuttonsender"), for: .normal)
     }
     
     private func setupTableViews(){
