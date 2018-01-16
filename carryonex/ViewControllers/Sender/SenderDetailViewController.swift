@@ -366,10 +366,11 @@ class SenderDetailViewController: UIViewController{
         phoneTextField.editingDidEnd()
         addressTextView.font = textFieldFont
         messageTextView.font = textFieldFont
-        let formatter = NumberFormatter()
-        let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
-        let pricePH: String = L("sender.ui.placeholder.price-value-max") + "\(limiteStr)" + ")"
+        //let formatter = NumberFormatter()  --for now we use unlimited price;
+        //let limiteStr = formatter.string(from: NSNumber(value: priceMaxValueLimit)) ?? "10000.0"
+        let pricePH: String = L("sender.ui.placeholder.price-value") //  + "\(limiteStr)" + ")"  --for now we use unlimited price;
         priceValueTextField.attributedPlaceholder = NSAttributedString(string: pricePH, attributes: [NSForegroundColorAttributeName: colorTextFieldPlaceholderBlack])
+        priceValueTextField.editingDidEnd()
         
         addressTextViewHeightConstraint.constant = addressTextViewHeight
         messageTextViewHeightConstraint.constant = messageTextViewHeight

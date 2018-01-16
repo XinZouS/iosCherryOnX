@@ -138,7 +138,8 @@
 "sender.ui.sessiontitle.address-destination" = "收货地址";
 "sender.ui.sessionhint.address-destination" = "请选择货物送达位置";
 "sender.ui.sessiontitle.item-value" = "货物价值";
-"sender.ui.placeholder.price-value-max" = "输入价值(不超过￥";
+"sender.ui.placeholder.price-value" = "人民币"; // 2018-01-16 Xin
+"sender.ui.placeholder.price-value-max" = "(不超过￥";
 "sender.ui.sessionhint.item-value" = "输入货物价格";
 "sender.ui.sessiontitle.item-photos" = "物品图片"; // 2018-01-15 Xin
 "sender.ui.sessiontitle.item-shipfee" = "运货费用";
