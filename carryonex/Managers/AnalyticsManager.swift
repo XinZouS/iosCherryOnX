@@ -37,12 +37,14 @@ enum AnalyticsCountKey: String {
     case historicCommentCheckCount = "historic-comment-check-count"
     case walletOpenCount = "wallet-open-count"
     case cashOutCount = "cash-out-count"
+    case deeplinkEnterCount = "deeplink-enter-count"
 }
 
 enum AnalyticsKey: String {
     case viewImageCount = "view-image-count" // 张
     case carrierPrePublishDay = "carrier-pre-publish-day" // 天
     case requestStatusChange = "request-status-change"   //状态
+    case shareTrip = "share-trip"
 }
 
 class AnalyticsManager: NSObject {
