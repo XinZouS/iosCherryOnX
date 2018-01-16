@@ -144,10 +144,10 @@ class OrdersRequestDetailViewController: UIViewController {
         
         //Comment this to bypass payment
         //------------------------------
-        if transaction == .shipperPay {
-            showPaymentView(true)
-            return
-        }
+//        if transaction == .shipperPay {
+//            showPaymentView(true)
+//            return
+//        }
         //------------------------------
         
         displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
@@ -596,9 +596,6 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
                     disableFinishButton()
                 }
             }
-            
-        } else {
-            enableFinishButton()
         }
         
         //To prevent grid lock because of loading issue, re-enable button again upon

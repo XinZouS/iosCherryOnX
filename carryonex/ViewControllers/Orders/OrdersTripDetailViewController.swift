@@ -161,10 +161,10 @@ class OrdersTripDetailViewController: UIViewController {
         
         //Comment this to bypass payment
         //------------------------------
-        if transaction == .shipperPay {
-           showPaymentView(true)
-           return
-        }
+//        if transaction == .shipperPay {
+//           showPaymentView(true)
+//           return
+//        }
         //------------------------------
         
         displayAlertOkCancel(title: L("orders.confirm.title.submit"), message: transaction.confirmDescString()) { [weak self] (style) in
@@ -663,9 +663,6 @@ extension OrdersTripDetailViewController: OrderListCardCellProtocol {
                     disableFinishButton()
                 }
             }
-            
-        } else {
-            enableFinishButton()
         }
         
         //To prevent grid lock because of loading issue, re-enable button again upon
@@ -674,13 +671,11 @@ extension OrdersTripDetailViewController: OrderListCardCellProtocol {
     }
     
     func enableFinishButton() {
-        finishButton.isUserInteractionEnabled = true
-        finishButton.alpha = 1
+        finishButton.isHidden = false
     }
     
     func disableFinishButton() {
-        finishButton.isUserInteractionEnabled = false
-        finishButton.alpha = 0.3
+        finishButton.isHidden = true
     }
     
     func updateRequestInfoAppearance(request: Request) {
