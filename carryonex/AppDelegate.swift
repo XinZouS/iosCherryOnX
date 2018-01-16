@@ -207,6 +207,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
         }
         
+        AnalyticsManager.shared.trackCount(.deeplinkEnterCount)
+        
         //Show alert when push notification is recieved
         if let mainViewController = self.mainTabViewController {
             if navPage == .requestDetail {

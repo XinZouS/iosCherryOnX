@@ -118,6 +118,8 @@ class ShareViewFactory: UIView {
         let msg: String = ""
         shareToWeChat(scene: WXSceneSession, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
         alert?.dismiss(animated: true, completion: nil)
+        
+        AnalyticsManager.shared.track(.shareTrip, attributes: ["to": "WeChat"])
     }
     
     @objc private func shareToMoment(){
@@ -125,6 +127,8 @@ class ShareViewFactory: UIView {
         let msg: String = L("managers.confirm.message.share") + "：https://www.carryonex.com/"
         shareToWeChat(scene: WXSceneTimeline, textMsg: "\(title)🚚😊 \(msg)", image: nil, imageFileName: nil, webUrl: self.url)
         alert?.dismiss(animated: true, completion: nil)
+        
+        AnalyticsManager.shared.track(.shareTrip, attributes: ["to": "Moment"])
     }
     
     @objc private func shareToWeibo(){
@@ -133,6 +137,8 @@ class ShareViewFactory: UIView {
                 self?.prepareSharing(title: title, msg: message, img: #imageLiteral(resourceName: "CarryonEx_OnBoarding-03-1"), url: url , type: SSDKPlatformType.typeSinaWeibo)
             }
         })
+        
+        AnalyticsManager.shared.track(.shareTrip, attributes: ["to": "Weibo"])
     }
     
     @objc private func shareToFacebook(){
@@ -150,6 +156,8 @@ class ShareViewFactory: UIView {
                 }
             }
         })
+        
+        AnalyticsManager.shared.track(.shareTrip, attributes: ["to": "Facebook"])
     }
     
     private func shareToWeChat(scene: WXScene, textMsg: String, image: UIImage?, imageFileName: String?, webUrl: String?){
