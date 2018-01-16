@@ -412,9 +412,9 @@ class SenderDetailViewController: UIViewController{
     }
     
     fileprivate func setupPriceParams() {
-        if let startCountry = trip?.startAddress?.country, // in case no country, then skip this if{}
-            let endCountry = trip?.endAddress?.country {
         
+        if let startCountry = trip?.startAddress?.country, let endCountry = trip?.endAddress?.country {
+            //International
             if startCountry != endCountry {
                 if let configData = ApiServers.shared.configData {
                     priceParamA = configData.intlPrice.a
@@ -423,7 +423,23 @@ class SenderDetailViewController: UIViewController{
                     return
                 }
             }
-        } // else start==end, OR no country data, use default:
+            
+            //Same City
+            if let startState = trip?.startAddress?.state,
+                let endState = trip?.endAddress?.state,
+                let startCity = trip?.startAddress?.city,
+                let endCity = trip?.endAddress?.city {
+                if startCountry == endCountry, startState == endState, startCity == endCity {
+                    if let configData = ApiServers.shared.configData {
+                        priceParamA = configData.sameCityPrice.a
+                        priceParamB = configData.sameCityPrice.b
+                        updatePriceContentsFor(newPrice: 100) // default val
+                        return
+                    }
+                }
+            }
+        }
+        
         if let configData = ApiServers.shared.configData {
             priceParamA = configData.domesticPrice.a
             priceParamB = configData.domesticPrice.b
@@ -432,9 +448,10 @@ class SenderDetailViewController: UIViewController{
     }
 
     fileprivate func calculatePrice(type: PriceFunctionType) -> Double {
+        let priceFactor = self.trip?.priceFactor ?? 1.0
         switch type {
         case .linear: // if a=0.15, b=36, so pGet = x * a + b, b also as the min of price;
-            return priceShipFee * priceParamA + Double(priceParamB) //(Double(priceParamB) / 100)
+            return (priceShipFee * priceParamA + Double(priceParamB)) * priceFactor //(Double(priceParamB) / 100)
         case .logarithmic:
             DLog("TODO: logarithmic func for price")
             return 10
