@@ -20,6 +20,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     @IBOutlet weak var rateStar5MaskWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var rateView: UIView!
     @IBOutlet weak var rateViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var rateTitleLabel: UILabel!
     @IBOutlet weak var commentTable: UITableView!
     @IBOutlet weak var commentLabel: UILabel!
     
@@ -124,6 +125,9 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     }
     
     private func setupView(){
+        
+        userNameLabel.text = L("personal.ui.title.username-default")
+        rateTitleLabel.text = L("personal.ui.title.rating")
         
         if let ownerRealName = commenteeRealName {
             userNameLabel.text = ownerRealName    //update to real name

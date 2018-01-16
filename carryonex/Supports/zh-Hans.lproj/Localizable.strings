@@ -56,6 +56,7 @@
 "login.ui.agreement.title" = "用户协议";
 "login.ui.license.title" = "软件使用协议";
 "login.ui.privacy.title" = "隐私政策";
+"login.ui.title.change-passwrod" = "修改密码"; // 2018-01-16 Xin
 "login.confirm.title.pasword-changed" = "🎉修改成功"; // 2018-01-15 Xin
 "login.confirm.message.pasword-changed" = "您已成功修改密码，请使用新密码登陆"; // 2018-01-15 Xin
 "register.ui.title.phone" = "手机验证"; // 2017-12-29 - Xin
@@ -251,6 +252,8 @@
 
 // MARK: - Orders
 "orders.ui.title.orderlist" = "出行订单";
+"orders.ui.title.listbuttonshiper" = "出行"; // 2018-01-16 Xin
+"orders.ui.title.listbuttonsender" = "寄件"; // 2018-01-16 Xin
 "orders.ui.placeholder.trip" = "您还没有出行记录，快发布你的行程吧";
 "orders.ui.placeholder.send" = "您还没有寄件记录，快寄送些东西吧";
 "orders.error.title.share" = "分享游箱";
@@ -293,6 +296,8 @@
 "orders.ui.title.ratio-standard" = "标准价"; // 2018-01-09 Xin
 "orders.ui.title.item-paid" = "(含物品价值)"; // 2018-01-12 Xin
 "orders.ui.title.shipping-fee" = "游费收入"; // 2018-01-09 Xin
+"orders.ui.title.receiver-name" = "收件人"; // 2018-01-16 Xin
+"orders.ui.title.receiver-phone" = "联系电话"; // 2018-01-16 Xin
 "orders.ui.placeholder.note-empty" = "TA还没有写留言";
 "orders.ui.placeholder.note-msg" = "留言：";
 "orders.confirm.title.payment" = "支付成功";
@@ -356,12 +361,18 @@
 "personal.error.message.network" = "请检查设备是否连接网络，稍后再试一次";
 "personal.error.title.upload-email" = "资料保存失败";
 "personal.error.message.upload-email" = "请输入正确的电子邮箱格式";
+"personal.ui.title.navigationbar" = "编辑资料"; // 2018-01-16 Xin
+"personal.ui.title.barbutton-save" = "保存"; // 2018-01-16 Xin
+"personal.ui.title.gender" = "性别"; // 2018-01-16 Xin
+"personal.ui.title.email" = "邮箱"; // 2018-01-16 Xin
 "personal.ui.title.gender-unknow" = "未知";
 "personal.ui.title.gender-male" = "男";
 "personal.ui.title.gender-female" = "女";
 "personal.ui.title.gender-other" = "其他";
 "personal.ui.placeholder.comment" = "暂时没有来自别人的评论";
 "personal.ui.title.shiperinfo-comments" = "用户评价";
+"personal.ui.title.username-default" = "未设置用户名"; // 2018-01-16 Xin
+"personal.ui.title.rating" = "综合评分"; // 2018-01-16 Xin
 "personal.ui.title.comments-all-p1" = "共";
 "personal.ui.title.comments-all-p2" = "条评价";
 "personal.confirm.title.send-message" = "发短信";

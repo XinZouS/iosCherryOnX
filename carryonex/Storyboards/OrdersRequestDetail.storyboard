@@ -685,8 +685,10 @@
                         <outlet property="phontobrowser" destination="iWD-qj-ukX" id="CYS-hC-CMW"/>
                         <outlet property="recipientAddressLabel" destination="GBF-fh-fGR" id="zMT-nB-hlq"/>
                         <outlet property="recipientNameLabel" destination="Gcc-77-xcQ" id="7WV-oy-ZS3"/>
+                        <outlet property="recipientNameTitleLabel" destination="xCC-Uf-ncD" id="QpO-CV-EEf"/>
                         <outlet property="recipientPhoneCallButton" destination="921-Hb-vhw" id="I6n-se-bOR"/>
                         <outlet property="recipientPhoneLabel" destination="Hqf-KG-5e0" id="AO6-2n-V52"/>
+                        <outlet property="recipientPhoneTitleLabel" destination="4yd-Ii-1Ck" id="I9g-FA-KVd"/>
                         <outlet property="scrollView" destination="u44-8x-21Q" id="ULi-GB-gh6"/>
                         <outlet property="scrollViewImageMaskWidthConstraint" destination="HcU-jH-SIy" id="FlK-nZ-nL2"/>
                         <outlet property="senderDescLabel" destination="khE-wR-Gy0" id="DfE-Wo-gje"/>

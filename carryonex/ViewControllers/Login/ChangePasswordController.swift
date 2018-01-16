@@ -14,11 +14,14 @@ class ChangePasswordController: UIViewController{
     var zoneCodeInput :String = "1"
     var phoneInput :String = ""
     
+    @IBOutlet weak var changePasswordTitleLabel: UILabel!
     @IBOutlet weak var passwordTextField: ThemTextField!
     @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var bottomImageView: UIImageView!
     
     override func viewDidLoad() {
+        changePasswordTitleLabel.text = L("login.ui.title.change-passwrod")
+        changePasswordButton.setTitle(L("login.ui.title.change-passwrod"), for: .normal)
         zoneCodeInput = registerUserInfo?["countryCode"] ?? "1"
         phoneInput = registerUserInfo?["phone"] ?? ""
         setupPasswordTextField()

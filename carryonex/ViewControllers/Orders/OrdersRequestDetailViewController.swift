@@ -45,6 +45,8 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var senderDescLabel: UILabel!
     
     // recipient info
+    @IBOutlet weak var recipientNameTitleLabel: UILabel!
+    @IBOutlet weak var recipientPhoneTitleLabel: UILabel!
     @IBOutlet weak var recipientNameLabel: UILabel!
     @IBOutlet weak var recipientPhoneLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
@@ -368,7 +370,9 @@ class OrdersRequestDetailViewController: UIViewController {
         incomePaidHintLabel.text = L("orders.ui.title.item-paid")
         incomePaidHintLabel.isHidden = !request.isPaidByShiper()
         shippingFeeTitleLabel.text = L("orders.ui.title.shipping-fee")
+        recipientNameTitleLabel.text = L("orders.ui.title.receiver-name")
         recipientNameLabel.text = request.endAddress?.recipientName
+        recipientPhoneTitleLabel.text = L("orders.ui.title.receiver-phone")
         recipientPhoneLabel.text = request.endAddress?.phoneNumber
         recipientAddressLabel.text = request.endAddress?.detailedAddress
         itemValueLabel.text = currency.rawValue + request.itemValue()
