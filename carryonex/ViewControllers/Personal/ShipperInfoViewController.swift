@@ -49,6 +49,7 @@ class ShipperInfoViewController: UIViewController,MFMessageComposeViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
         setupIndicator()
         getShipperCommentInformation()
         setupTableView()

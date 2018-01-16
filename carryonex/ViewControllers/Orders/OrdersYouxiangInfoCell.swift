@@ -10,6 +10,7 @@ import UIKit
 
 class OrdersYouxiangInfoCell: UITableViewCell {
     
+    @IBOutlet weak var incomeTitleLabel: UILabel!
     @IBOutlet weak var imageDuplicateFrameView: UIImageView!
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var itemNumberLabel: UILabel!
@@ -53,6 +54,12 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     
     var indexPath: IndexPath?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        incomeTitleLabel.text = L("orders.ui.title.youxiang-code")
+        detailButton.setTitle(L("orders.ui.title.youxianginfo-order-detail"), for: .normal)
+    }
+    
     @IBAction func itemImageButtonTapped(_ sender: Any) {
     
     }
@@ -85,9 +92,16 @@ class OrdersYouxiangInfoEmptyCell: UITableViewCell {
     var trip: Trip?
     var emptyCellDelegate: OrdersYouxiangInfoEmptyCellDelegate?
     
+    @IBOutlet weak var hintTitleLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         emptyCellDelegate?.shareButtonInPageTapped()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        hintTitleLabel.text = L("orders.ui.message.empty-trip-hint")
+        shareButton.setTitle(L("orders.ui.title.share-trip"), for: .normal)
     }
 }

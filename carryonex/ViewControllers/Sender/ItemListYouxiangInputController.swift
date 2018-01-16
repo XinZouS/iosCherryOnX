@@ -51,7 +51,6 @@ class ItemListYouxiangInputController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupNavigationBar()
         setupTextFields()
         setupActivityIndicator()

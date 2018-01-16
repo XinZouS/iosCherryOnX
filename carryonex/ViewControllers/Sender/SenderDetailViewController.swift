@@ -235,7 +235,6 @@ class SenderDetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L("sender.ui.title.new-request")
         currencyTypeSegmentControl.isHidden = true // TODO: for now, only support .CNY
         scrollView.delegate = self
         setupCollectionView()
@@ -264,6 +263,11 @@ class SenderDetailViewController: UIViewController{
         updateSubmitButtonStatus()
         setupCountryCodeTextField()
         setupNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        title = " "
     }
     
     private func setupNavigationBar(){

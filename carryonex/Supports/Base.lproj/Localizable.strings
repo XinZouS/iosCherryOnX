@@ -298,6 +298,9 @@
 "orders.ui.title.currency-type" = "¥"; //"￥"; // 2018-01-09 Xin
 "orders.ui.message.request-image-count" = "";
 "orders.confirm.title.submit" = "Confirm to Submit";
+"orders.ui.title.youxianginfo-order-detail" = "Detail"; // 2018-01-16 Xin
+"orders.ui.message.empty-trip-hint" = "No one here? Share this trip to find some orders"; // 2018-01-16 Xin
+"orders.ui.title.share-trip" = "Share Trip"; // 2018-01-16 Xin
 "orders.ui.title.order-request-detail" = "Request Detail";
 "orders.ui.message.sender-desc-sender" = "Sender's Rating";
 "orders.ui.message.sender-desc-carrier" = "Carrier's Rating";
