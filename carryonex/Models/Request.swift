@@ -100,7 +100,7 @@ class Request: Unboxable, Identifiable {
         if ratio > -1.0 && ratio < 1.0 {
             return L("orders.ui.title.ratio-standard")
         }
-        let judgeString = ratio < 0.0 ? L("orders.ui.title.ratio-lower") : L("orders.ui.title.ratio-heigher")
+        let judgeString = ratio < 0.0 ? L("orders.ui.title.ratio-lower") : L("orders.ui.title.ratio-higher")
         return judgeString + L("orders.ui.title.ratio-standard") + String(format:"%.1f", abs(ratio)) + "%"
     }
     

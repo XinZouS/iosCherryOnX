@@ -290,13 +290,13 @@
 "orders.ui.title.youxiang-code" = "Youxiang ID"; // 2018-0103 Xin
 "orders.ui.title.income" = "Shipping Fee"; // 2018-0103 Xin
 "orders.ui.title.item-value" = "Package Value"; // 2018-0103 Xin
-"orders.ui.title.ratio-heigher" = "Heigher than "; // 2018-01-09 Xin
+"orders.ui.title.ratio-higher" = "Higher than "; // 2018-01-09 Xin
 "orders.ui.title.ratio-lower" = "Lower than "; // 2018-01-09 Xin
 "orders.ui.title.ratio-standard" = "standard "; // 2018-01-09 Xin
 "orders.ui.title.item-paid" = "(Including Item Price)"; // 2018-01-12 Xin
 "orders.ui.title.shipping-fee" = "Shipping Fee"; // 2018-01-09 Xin
 "orders.ui.placeholder.note-empty" = "Empty note";
-"orders.ui.placeholder.note-msg" = "Your message note";
+"orders.ui.placeholder.note-msg" = "Note";
 "orders.confirm.title.payment" = "Payment Success";
 "orders.error.title.payment" = "Payment Error";
 "orders.confirm.title.wechatpay" = "WeChat Payment Success";
@@ -306,7 +306,7 @@
 "orders.error.title.gps" = "Location Error";
 "orders.error.message.gps" = "Please check your location service settings.";
 "orders.ui.title.contacts" = "Contact"; // 2018-01-06 - Xin
-"orders.ui.action.call" = "Phone call 📲"; // 2018-01-06 - Xin
+"orders.ui.action.call" = "Phone Call 📲"; // 2018-01-06 - Xin
 "orders.ui.action.sms" = "SMS 💬"; // 2018-01-06 - Xin
 
 
@@ -314,7 +314,7 @@
 "settings.ui.title.notification" = "Notification"; // 2018-01-15 - Xin
 "settings.ui.title.gps" = "Location";
 "settings.ui.title.account" = "Account";
-"settings.ui.title.policy" = "Privacy Polocy";
+"settings.ui.title.policy" = "Privacy Policies";
 "settings.ui.title.logout" = "Log Out";
 "settings.ui.title.settings" = "Settings";
 

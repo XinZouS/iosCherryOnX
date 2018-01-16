@@ -290,7 +290,7 @@
 "orders.ui.title.youxiang-code" = "游箱号"; // 2018-01-03 Xin
 "orders.ui.title.income" = "游费"; // 2018-0103 Xin
 "orders.ui.title.item-value" = "物品价值"; // 2018-01-03 Xin
-"orders.ui.title.ratio-heigher" = "高于"; // 2018-01-09 Xin
+"orders.ui.title.ratio-higher" = "高于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-lower" = "低于"; // 2018-01-09 Xin
 "orders.ui.title.ratio-standard" = "标准价"; // 2018-01-09 Xin
 "orders.ui.title.item-paid" = "(含物品价值)"; // 2018-01-12 Xin
