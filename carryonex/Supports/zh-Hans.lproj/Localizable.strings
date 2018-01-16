@@ -74,6 +74,13 @@
 "register.error.message.verify-phone" = "手机验证失败";
 "register.ui.title.get-verify-code" = "请输入短信验证码"; // 2018-01-06 - Xin
 "register.error.action.verify" = "重新发送验证码";
+"register.ui.placeholder.name" = "您的真实姓名"; // 2018-01-16 Xin
+"register.ui.placeholder.password" = "密码"; // 2018-01-16 Xin
+"register.ui.placeholder.password-confirm" = "确认密码"; // 2018-01-16 Xin
+"register.ui.title.register" = "注册"; // 2018-01-16 Xin
+"register.ui.message.hint" = "我已阅读并同意"; // 2018-01-16 Xin
+"register.error.title.relogin" = "😢登入失败"; // 2018-01-16 Xin
+"register.error.message.relogin" = "注册成功但登入失败，请检查你的网络，稍后再试。"; // 2018-01-16 Xin
 "register.error.title.failed" = "注册失败";
 "register.error.message.failed" = "注册出现错误";
 "register.ui.message.hint1" = "短信验证码已发送至";

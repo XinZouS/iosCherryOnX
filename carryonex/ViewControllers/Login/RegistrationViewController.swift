@@ -16,6 +16,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var confirmPasswordField: ThemTextField!
     
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var agreeHintLabel1: UILabel!
     @IBOutlet weak var agreeButton: UIButton!
     @IBOutlet weak var checkBoxView: UIView!
     @IBOutlet weak var bottomImageView: UIImageView!
@@ -55,6 +56,7 @@ class RegistrationViewController: UIViewController {
 
         setupActivityIndicator()
         setupTextFields()
+        setupLabels()
 
         let sz: CGFloat = 15
         checkBox = M13Checkbox(frame: CGRect(x: 0, y: 0, width: sz, height: sz))
@@ -103,8 +105,19 @@ class RegistrationViewController: UIViewController {
         passwordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         confirmPasswordField.addTarget(self, action: #selector(isPasswordValidate), for: .editingChanged)
         
+        nameField.setAttributedPlaceholder(L("register.ui.placeholder.name"), color: nil)
+        passwordField.setAttributedPlaceholder(L("register.ui.placeholder.password"), color: nil)
+        confirmPasswordField.setAttributedPlaceholder(L("register.ui.placeholder.password-confirm"), color: nil)
+        
         nameField.becomeFirstResponder()
     }
+    
+    private func setupLabels() {
+        registerButton.setTitle(L("register.ui.title.register"), for: .normal)
+        agreeHintLabel1.text = L("register.ui.message.hint")
+        agreeButton.setTitle(L("login.ui.agreement.title"), for: .normal)
+    }
+
 
     
     //MARK: Action Handler
@@ -170,8 +183,8 @@ class RegistrationViewController: UIViewController {
                                                 } else {
                                                     DLog("登入失败")
                                                     self.isLoading = false
-                                                    self.displayGlobalAlert(title: "登入失败",
-                                                                            message: "注册成功但登入失败，请检查你的网络。",
+                                                    self.displayGlobalAlert(title: L("register.error.title.relogin"),
+                                                                            message: L("register.error.message.relogin"),
                                                                             action: L("action.ok"), completion: nil)
                                                 }
                                             })

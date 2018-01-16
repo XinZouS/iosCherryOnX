@@ -29,7 +29,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2G-R8-Xax">
                                 <rect key="frame" x="30" y="183.5" width="315" height="140"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="您的真实姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PC-N5-ckb" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PC-N5-ckb" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
                                         <rect key="frame" x="20" y="10" width="275" height="30"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -258,6 +258,7 @@
                     </view>
                     <connections>
                         <outlet property="agreeButton" destination="w1h-va-ykd" id="La5-cb-EM2"/>
+                        <outlet property="agreeHintLabel1" destination="7nd-jr-NXv" id="fKh-O3-pNK"/>
                         <outlet property="bottomImageView" destination="fO3-pV-lya" id="4UI-VW-Wdq"/>
                         <outlet property="checkBoxView" destination="UwO-zG-Vcm" id="rdv-hD-330"/>
                         <outlet property="confirmPasswordField" destination="3VD-UV-r78" id="E3u-2X-BTd"/>
