@@ -27,6 +27,7 @@ class TripCompletedController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLabels()
         setupCardInformation()
         setupBackGroundColor()
     }
@@ -36,6 +37,13 @@ class TripCompletedController : UIViewController{
         setupNavigationBar()
     }
     
+    private func setupLabels() {
+        titleHintLabel.text = L("carrier.confirm.title.hint")
+        youxiangTitleLabel.text = L("carrier.confirm.title.youxiang-code")
+        shareButton.setTitle(L("carrier.confirm.title.share-button"), for: .normal)
+        backButton.setTitle(L("carrier.confirm.title.back-button"), for: .normal)
+    }
+
     private func setupCardInformation(){
         beginLocationLabel.text = trip?.startAddress?.fullAddressString()
         endLocationLabel.text = trip?.endAddress?.fullAddressString()
