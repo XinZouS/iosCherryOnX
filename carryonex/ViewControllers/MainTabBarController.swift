@@ -75,6 +75,11 @@ class MainTabBarController: UITabBarController {
         isItHaveLogIn(false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        title = " " // for the title of nevigation bar back barButtonItem
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)

@@ -219,7 +219,6 @@ class OrdersRequestDetailViewController: UIViewController {
     // MARK: - VC funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L("orders.ui.title.order-request-detail")
         setupScrollView()
         setupView()
         setupNavigationBar()
@@ -252,6 +251,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        title = " "
         if segue.identifier == postRateSegue, let viewController = segue.destination as? OrderCommentRateController {
             viewController.category = category
             viewController.requestId = request.id
@@ -282,6 +282,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        title = L("orders.ui.title.order-request-detail")
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]

@@ -13,6 +13,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
+    @IBOutlet weak var youxiangCodeTitleLabel: UILabel!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
@@ -71,9 +72,8 @@ class OrdersYouxiangInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L("orders.ui.title.youxiang-info")
-        
-        setupNavigationBar()
+        youxiangCodeTitleLabel.text = L("orders.ui.title.youxiang-code")
+        lockerHintLabel.text = L("orders.ui.title.locked")
         
         //Setup table view
         tableView.delegate = self
@@ -100,6 +100,7 @@ class OrdersYouxiangInfoViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
+        title = L("orders.ui.title.youxiang-info")
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         navigationController?.navigationBar.barTintColor = .white
@@ -251,6 +252,7 @@ extension OrdersYouxiangInfoViewController: UITableViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        title = " " // for the title of next page's navigation back button
         if let detailVC = segue.destination as? OrdersRequestDetailViewController, let request = sender as? Request {
             detailVC.trip = trip
             detailVC.request = request

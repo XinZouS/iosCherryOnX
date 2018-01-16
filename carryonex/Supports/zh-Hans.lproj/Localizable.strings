@@ -298,6 +298,9 @@
 "orders.ui.title.currency-type" = "¥"; //￥"; // 2018-01-09 Xin
 "orders.ui.message.request-image-count" = "张";
 "orders.confirm.title.submit" = "确认提交";
+"orders.ui.title.youxianginfo-order-detail" = "详情"; // 2018-01-16 Xin
+"orders.ui.message.empty-trip-hint" = "还没找到寄件人哦，快去分享行程吧"; // 2018-01-16 Xin
+"orders.ui.title.share-trip" = "分享行程"; // 2018-01-16 Xin
 "orders.ui.title.order-request-detail" = "订单详情";
 "orders.ui.message.sender-desc-sender" = "寄件人评分";
 "orders.ui.message.sender-desc-carrier" = "出行人评分";
