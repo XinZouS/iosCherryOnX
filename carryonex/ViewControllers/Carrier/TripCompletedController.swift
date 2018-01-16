@@ -61,8 +61,8 @@ class TripCompletedController : UIViewController{
         gradientLayer.frame = self.view.bounds
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        let beginColor :UIColor = UIColor.MyTheme.nightA
-        let endColor :UIColor = UIColor.MyTheme.nightB
+        let beginColor :UIColor = UIColor.MyTheme.eveningA
+        let endColor :UIColor = UIColor.MyTheme.eveningB
         gradientLayer.colors = [beginColor.cgColor,endColor.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
