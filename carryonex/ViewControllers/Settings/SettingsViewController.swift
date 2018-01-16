@@ -75,7 +75,7 @@ extension SettingsViewController: UITableViewDataSource {
     private func setupVersionCell(_ cell: SettingsCell) {
         cell.detailLabel.isHidden = true
         let label = UILabel()
-        label.text = "1.0"
+        label.text = "1.0.1"
         label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 18)
         cell.addSubview(label)

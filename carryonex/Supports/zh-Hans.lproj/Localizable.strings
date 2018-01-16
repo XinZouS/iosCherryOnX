@@ -188,7 +188,11 @@
 "carrier.confirm.title.share-info" = "我的游箱号:";
 "carrier.confirm.title.sender.share-info" = "游箱号:";   //Zian
 "carrier.confirm.message.share-info" = "愿意分享行李箱空间，请有需要带东西的及时提交信息到我游箱里"; // I can share my luggate space Feel Free to add reuest order by my CarryonEx code
-"carrier.confirm.message.default" = "🎉快将您的行程分享给好友吧！"; // 2018-01-10 - Xin
+"carrier.confirm.title.hint" = "🎉发布成功！这是您的出行信息"; // 2018-01-16 Xin
+"carrier.confirm.title.youxiang-code" = "游箱号"; // 2018-01-16 Xin
+"carrier.confirm.title.share-button" = "分享"; // 2018-01-16 Xin
+"carrier.confirm.title.back-button" = "返回首页"; // 2018-01-16 Xin
+"carrier.confirm.message.default" = "😊快将您的行程分享给好友吧！"; // 2018-01-10 - Xin
 
 
 // MARK: - Address
@@ -272,6 +276,9 @@
 "orders.ui.title.share" = "分享游箱"; // 2018-01-04 Xin
 "orders.ui.title.new-trip" = "发布行程"; // 2018-01-04 Xin
 "orders.ui.action.comment" = "写评价";
+"orders.ui.title.youxiang-code" = "游箱号"; // 2018-01-16 Xin
+"orders.ui.title.locked" = "已锁"; // 2018-01-16 Xin
+"orders.ui.title.youxiang-enter" = "进入游箱"; // 2018-01-16 Xin
 "orders.ui.action.category-sender" = "寄件人";
 "orders.ui.action.category-carrier" = "出行人";
 "orders.confirm.title.comment" = "评价成功";

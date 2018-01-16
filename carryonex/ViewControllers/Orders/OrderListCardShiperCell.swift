@@ -20,6 +20,7 @@ class OrderListCardShiperCell: OrderListCardCell {
     // order card
     @IBOutlet weak var dateMonthLabel: UILabel!
     @IBOutlet weak var dateDayLabel: UILabel!
+    @IBOutlet weak var youxiangCodeTitleLabel: UILabel!
     @IBOutlet weak var youxiangCodeLabel: UILabel!
     @IBOutlet weak var startAddressLabel: UILabel!
     @IBOutlet weak var endAddressLabel: UILabel!
@@ -67,10 +68,17 @@ class OrderListCardShiperCell: OrderListCardCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellCategory = .carrier
+        setupLabels()
         setupYouxiangLokcerStatus(isActive: true)
         setupButtonAppearance(isActive: true)
     }
 
+    private func setupLabels() {
+        youxiangCodeTitleLabel.text = L("orders.ui.title.youxiang-code")
+        lockLabel.text = L("orders.ui.title.locked")
+        gotoTripDetailButton.setTitle(L("orders.ui.title.youxiang-enter"), for: .normal)
+    }
+    
     private func setupYouxiangLokcerStatus(isActive: Bool){
         lockLabel.isHidden = isActive
         lockImageView.image = isActive ? #imageLiteral(resourceName: "LockOpened") : #imageLiteral(resourceName: "LockClosed")

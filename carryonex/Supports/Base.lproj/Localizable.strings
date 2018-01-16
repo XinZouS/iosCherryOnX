@@ -188,7 +188,11 @@
 "carrier.confirm.title.share-info" = "My Trip Code:";
 "carrier.confirm.title.sender.share-info" = "Trip Code:";
 "carrier.confirm.message.share-info" = "I can ship item for you. Feel free to submit order with my Trip Code on CarryonEx";
-"carrier.confirm.message.default" = "🎉Now let's share this Trip to your firends"; // 2018-01-10 - Xin
+"carrier.confirm.title.hint" = "🎉Success！Your trip information"; // 2018-01-16 Xin
+"carrier.confirm.title.youxiang-code" = "Trip Code"; // 2018-01-16 Xin
+"carrier.confirm.title.share-button" = "Share"; // 2018-01-16 Xin
+"carrier.confirm.title.back-button" = "Back to Home"; // 2018-01-16 Xin
+"carrier.confirm.message.default" = "😊Now let's share this Trip to your firends"; // 2018-01-10 - Xin
 
 
 // MARK: - Address
@@ -272,6 +276,9 @@
 "orders.ui.title.share" = "Share"; // 2018-01-04 Xin
 "orders.ui.title.new-trip" = "New Trip"; // 2018-01-04 Xin
 "orders.ui.action.comment" = "Comment";
+"orders.ui.title.youxiang-code" = "Trip Code"; // 2018-01-16 Xin
+"orders.ui.title.locked" = "Locked"; // 2018-01-16 Xin
+"orders.ui.title.youxiang-enter" = "Enter Trip"; // 2018-01-16 Xin
 "orders.ui.action.category-sender" = "Sender";
 "orders.ui.action.category-carrier" = "Carrier";
 "orders.confirm.title.comment" = "Comment Success";
