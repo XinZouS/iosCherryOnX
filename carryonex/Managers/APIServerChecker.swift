@@ -11,7 +11,7 @@ import UIKit
 class APIServerChecker: NSObject {
     
     static func testAPIServers() {
-        testDelivery()
+        //testDelivery()
         //testPostUserSos()
         //testPostUserInfo()
         //testPostTripActive(isActive: true)  //Test get also
@@ -102,7 +102,10 @@ class APIServerChecker: NSObject {
     }
     
     static func testDelivery() {
-        ApiServers.shared.checkDelivery { (kuaidiObject, error) in
+        let companyCode = "huitongkuaidi"
+        let tracking = "70118428554311"
+        
+        ApiServers.shared.checkDelivery(tracking: tracking, companyCode: companyCode) { (kuaidiObject, error) in
             if let error = error {
                 DLog("Error: \(error.localizedDescription)")
                 return
