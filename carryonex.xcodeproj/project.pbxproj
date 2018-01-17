@@ -13,6 +13,7 @@
 		4D0AA9101FC7B2BF0066775C /* OrderListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */; };
 		4D4847BA1FD0F4BF006AEA1D /* TripOrderDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */; };
 		4D6571BC1FCFF4900075305F /* Type+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6571BB1FCFF4900075305F /* Type+Extension.swift */; };
+		4D73E1EA200DCEB500195015 /* ApiServers+Venders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D73E1E9200DCEB500195015 /* ApiServers+Venders.swift */; };
 		4D79327E1FD676D90081BBE2 /* WalletManager+AliPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */; };
 		4D79327F1FD676D90081BBE2 /* WalletManager+Stripe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */; };
 		4D7932801FD676D90081BBE2 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D79327D1FD676D90081BBE2 /* WalletManager.swift */; };
@@ -199,6 +200,7 @@
 		4D0AA90F1FC7B2BF0066775C /* OrderListCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListCardCell.swift; sourceTree = "<group>"; };
 		4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripOrderDataStore.swift; sourceTree = "<group>"; };
 		4D6571BB1FCFF4900075305F /* Type+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type+Extension.swift"; sourceTree = "<group>"; };
+		4D73E1E9200DCEB500195015 /* ApiServers+Venders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiServers+Venders.swift"; sourceTree = "<group>"; };
 		4D79327B1FD676D90081BBE2 /* WalletManager+AliPay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletManager+AliPay.swift"; sourceTree = "<group>"; };
 		4D79327C1FD676D90081BBE2 /* WalletManager+Stripe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletManager+Stripe.swift"; sourceTree = "<group>"; };
 		4D79327D1FD676D90081BBE2 /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				4D4847B91FD0F4BF006AEA1D /* TripOrderDataStore.swift */,
 				4D80C3F51FE45FD9000D3B01 /* WeChatAPIManager.swift */,
 				4DA0FC231FE7A3F90062637A /* AnalyticsManager.swift */,
+				4D73E1E9200DCEB500195015 /* ApiServers+Venders.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1201,6 +1204,7 @@
 				6602526E1FC48BB300277617 /* ShipperInfoViewController.swift in Sources */,
 				E5A2A79D1FE2E57100A51BDC /* Request.swift in Sources */,
 				E5A2A7AF1FE2E5B300A51BDC /* UIImage++.swift in Sources */,
+				4D73E1EA200DCEB500195015 /* ApiServers+Venders.swift in Sources */,
 				E5A2A7B01FE2E5B300A51BDC /* UserDefaults++.swift in Sources */,
 				66C3EA8D1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift in Sources */,
 				E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */,

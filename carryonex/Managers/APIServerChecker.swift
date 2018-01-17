@@ -11,6 +11,7 @@ import UIKit
 class APIServerChecker: NSObject {
     
     static func testAPIServers() {
+        testDelivery()
         //testPostUserSos()
         //testPostUserInfo()
         //testPostTripActive(isActive: true)  //Test get also
@@ -98,5 +99,9 @@ class APIServerChecker: NSObject {
         if let url = URL(string: urlPath) {
             WalletManager.shared.aliPayHandleOrderUrl(url)
         }
+    }
+    
+    static func testDelivery() {
+        ApiServers.shared.checkDelivery()
     }
 }
