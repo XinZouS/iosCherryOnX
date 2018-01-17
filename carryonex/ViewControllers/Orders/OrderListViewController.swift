@@ -21,9 +21,9 @@ class OrderListViewController: UIViewController {
     // UI contents
     @IBOutlet weak var imageTitleView: UIImageView!
     @IBOutlet weak var imageTitleTransitionView: UIImageView!
+    @IBOutlet weak var imageTitleViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewShiper: UITableView!
     @IBOutlet weak var tableViewSender: UITableView!
-    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint! // default == 400
     @IBOutlet weak var tableViewLeftConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var listButtonShiper: UIButton!
@@ -38,6 +38,7 @@ class OrderListViewController: UIViewController {
             } else {
                 animateListMoveRight()
             }
+            animateTitleImageForCurrentTable()
             loadImageUrlsOfCurrentCity()
             TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
                 self?.reloadData()
@@ -169,6 +170,11 @@ class OrderListViewController: UIViewController {
     private func setupTableViews(){
         tableViewShiper.separatorStyle = .none
         tableViewSender.separatorStyle = .none
+        
+        let imgH = imageTitleViewHeightConstraint.constant
+        let edgeInsets = UIEdgeInsetsMake(imgH, 0, 0, 0) // t,l,b,r
+        tableViewShiper.contentInset = edgeInsets
+        tableViewSender.contentInset = edgeInsets
     }
     
     private func setupTableViewRefreshers(){
@@ -214,7 +220,7 @@ class OrderListViewController: UIViewController {
         animateListMoveRight()
     }
     
-    // Move tables to show the Right part
+    /// Move tables to show the Right part
     func animateListMoveRight(){
         guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
         if leftCst.constant == 0 {
@@ -229,7 +235,7 @@ class OrderListViewController: UIViewController {
         }
     }
     
-    // Move tables to show the Left part
+    /// Move tables to show the Left part
     func animateListMoveLeft(){
         guard let leftCst = tableViewLeftConstraint, let sliderBarCenterCst = sliderBarCenterConstraint else { return }
         if leftCst.constant < 0 {
@@ -273,6 +279,21 @@ extension OrderListViewController: UIScrollViewDelegate {
     private func currentTableView() -> UITableView {
         return (listType == .carrier) ? tableViewShiper : tableViewSender
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = (listType == .carrier) ? tableViewShiper.contentOffset.y : tableViewSender.contentOffset.y
+        imageTitleViewHeightConstraint.constant = offset <= 0 ? abs(offset) : 0
+    }
+    
+    fileprivate func animateTitleImageForCurrentTable() {
+        let currTable = currentTableView()
+        let contentOffset = currTable.contentOffset.y
+        imageTitleViewHeightConstraint.constant = (contentOffset < 0) ? abs(contentOffset) : 0
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.2, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
 }
 
 extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -396,6 +417,7 @@ extension OrderListViewController: UITableViewDelegate, UITableViewDataSource {
         
         return footView
     }
+    
     
 }
 

@@ -181,8 +181,8 @@
 
 // MARK: - Carrier
 "carrier.ui.title.trip" = "Trip";
-"carrier.ui.title.startAddress" = "Departure";
-"carrier.ui.title.endAddress" = "Arrival";
+"carrier.ui.title.startAddress" = "From";
+"carrier.ui.title.endAddress" = "To";
 "carrier.ui.title.startDate" = "Departure Date";
 "carrier.ui.title.note" = "Note";
 "carrier.ui.title.post-trip" = "Post Trip"; // 2018-01-15 - Xin
