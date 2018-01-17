@@ -693,6 +693,7 @@
 				6618F6AA1FFDD39D005DCA45 /* OrdersRequestDetail.storyboard */,
 				66C788951FFE790E0083A10F /* OrdersTripDetail.storyboard */,
 				66C3EA881FCF32D000D9F582 /* OrdersYouxiangInfo.storyboard */,
+				4D660F3B200F05E3000F0744 /* PackageTracking.storyboard */,
 				CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */,
 				66E2C98D1FBA4DEA000B250E /* PhoneNum.storyboard */,
 				66E2C9811FB66755000B250E /* PhoneVerify.storyboard */,
@@ -704,7 +705,6 @@
 				660ABC601FC35CC000B81076 /* SenderDetailInfo.storyboard */,
 				E542F26C1FB4B7B40072BB31 /* Settings.storyboard */,
 				665B0CCE1FC3953B002A40CA /* ShiperInfo.storyboard */,
-				4D660F3B200F05E3000F0744 /* PackageTracking.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";

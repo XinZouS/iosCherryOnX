@@ -230,21 +230,6 @@ class PersonalInfoEditingViewController: UIViewController, UINavigationControlle
 
 
 
-extension PersonalInfoEditingViewController: UIPickerViewDataSource {
-    
-    fileprivate func setupTextFieldToolbar() -> UIToolbar {
-        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        toolbar.barStyle = UIBarStyle.default
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(dismissKeyboard))
-        toolbar.items = [flexSpace,done]
-        toolbar.sizeToFit()
-        
-        return toolbar
-    }
-    
-}
-
 extension PersonalInfoEditingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -349,6 +334,21 @@ extension PersonalInfoEditingViewController: UIPickerViewDelegate {
         let idCV = PhotoIDController()
         self.navigationController?.pushViewController(idCV, animated: true)
         self.navigationController?.navigationBar.shadowImage = colorTableCellSeparatorLightGray.as1ptImage()
+    }
+    
+}
+
+extension PersonalInfoEditingViewController: UIPickerViewDataSource {
+    
+    fileprivate func setupTextFieldToolbar() -> UIToolbar {
+        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        toolbar.barStyle = UIBarStyle.default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: L("action.done"), style: UIBarButtonItemStyle.done, target: self, action: #selector(dismissKeyboard))
+        toolbar.items = [flexSpace,done]
+        toolbar.sizeToFit()
+        
+        return toolbar
     }
     
 }
