@@ -8,18 +8,26 @@
 
 import Foundation
 import Alamofire
+import Kingfisher
 
 extension ApiServers {
     
     func checkDelivery() {
         
+        let companyCode = "huitongkuaidi"
+        let tracking = "70118428554311"
+        let key = "DCCZOjyX846"
+        let customer = "CF58D30E34CBC0767762E17E91B27342"
         
-        let data = "{\"com\":\"huitongkuaidi\",\"num\":\"70118428554311\",\"from\":\"\",\"to\":\"\"}"
+        let data = "{\"com\":\"\(companyCode)\",\"num\":\"\(tracking)\",\"from\":\"\",\"to\":\"\"}"
+        let sign = (data + key + customer).md5().uppercased()
+        
+//        DLog("Return sign: \(sign). Correct sign: E2661ADB2D65675BFF5B2770D5D68BD2")
         
         let params:[String: Any] = [
-            "customer": "CF58D30E34CBC0767762E17E91B27342",
+            "customer": customer,
             "param" : data,
-            "sign": "E2661ADB2D65675BFF5B2770D5D68BD2"
+            "sign": sign
         ]
         
         if let url = URL(string: "https://poll.kuaidi100.com/poll/query.do") {
@@ -34,7 +42,7 @@ extension ApiServers {
                     DLog(printText)
                 }
                 
-                print("PRINT Data: \(response.value)")
+//                print("PRINT Data: \(response.value)")
             }
         }
     }
