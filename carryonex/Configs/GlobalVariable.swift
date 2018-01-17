@@ -20,6 +20,10 @@ enum CurrencyType: String {
     case USD = "$"
 }
 
+enum SystemLanguage {
+    case en, cn
+}
+
 // if changes the key in this map, MUST change also in the flagsTitle array
 // *** the order of flags in flagsTitle should NOT be change!!!
 let codeOfFlag : [String:String] = ["🇺🇸  +1":"1", "🇨🇳 +86":"86", "🇬🇧 +44":"44", "🇦🇺 +61":"61", "🇩🇪 +49":"49", "🇨🇦  +1":"1", "🇯🇵 +81":"81", "🇰🇷 +82":"8", "🇸🇬 +65":"65", "🇫🇷 +33":"33", "🇨🇭 +41":"41"]

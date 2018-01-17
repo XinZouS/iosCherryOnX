@@ -363,6 +363,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         isLoading = false
     }
     
+    // MARK: - System Config
+    public func getCurrentLanguage() -> SystemLanguage {
+//        let defs = UserDefaults.standard
+//        let languages = defs.object(forKey: "AppleLanguages")
+//        let preferredLang = (languages! as AnyObject).object(0)
+        let preferredLang = Bundle.main.preferredLocalizations.first! as NSString
+        
+        switch String(describing: preferredLang) {
+        case "en", "EN", "en-US", "en-CN":
+            return SystemLanguage.en //英文
+            
+        case "cn", "zh-Hans-US","zh-Hans-CN","zh-Hant-CN","zh-TW","zh-HK","zh-Hans":
+            return SystemLanguage.cn //中文
+            
+        default:
+            return SystemLanguage.cn
+        }
+    }
+    
 }
 
 class GlobalLoadingView: UIView {

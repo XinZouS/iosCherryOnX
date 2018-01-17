@@ -131,7 +131,9 @@ class TripController: UIViewController{
     }
     
     private func setUpAddressPicker(){
-        let path = Bundle.main.path(forResource: "address", ofType:"plist")
+        let currLanguage = AppDelegate.shared().getCurrentLanguage()
+        let addRes = (currLanguage == .cn) ? "address" : "addressEN"
+        let path = Bundle.main.path(forResource: addRes, ofType: "plist")
         self.addressArray = NSArray(contentsOfFile: path!) as! Array
     }
 
