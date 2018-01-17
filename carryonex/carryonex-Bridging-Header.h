@@ -3,6 +3,7 @@
 //
 
 #import <SMS_SDK/SMSSDK.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 // MOB sharing SDK
 #import <ShareSDK/ShareSDK.h>

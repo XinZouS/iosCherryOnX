@@ -202,6 +202,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dED-nD-fud">
+                                <rect key="frame" x="293" y="99" width="62" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="62" id="OwD-vg-LDl"/>
+                                    <constraint firstAttribute="height" constant="30" id="wax-4t-f8f"/>
+                                </constraints>
+                                <state key="normal" title="测试"/>
+                                <connections>
+                                    <segue destination="SlC-sF-31e" kind="show" id="9Xy-tN-T1S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -214,6 +225,8 @@
                             <constraint firstItem="gXv-6y-Que" firstAttribute="trailing" secondItem="W84-E3-MmT" secondAttribute="trailing" constant="20" id="KGC-y2-nWc"/>
                             <constraint firstItem="W84-E3-MmT" firstAttribute="leading" secondItem="Muc-lW-r8p" secondAttribute="leading" id="Vdl-gi-8Be"/>
                             <constraint firstItem="sHr-jU-Elz" firstAttribute="leading" secondItem="ueD-kw-dQa" secondAttribute="leading" id="Wwr-CY-EY7"/>
+                            <constraint firstItem="dED-nD-fud" firstAttribute="top" secondItem="ueD-kw-dQa" secondAttribute="bottom" constant="9" id="Z7W-tz-HRT"/>
+                            <constraint firstItem="dED-nD-fud" firstAttribute="trailing" secondItem="ueD-kw-dQa" secondAttribute="trailing" id="abj-Fw-KtO"/>
                             <constraint firstItem="Muc-lW-r8p" firstAttribute="top" secondItem="gXv-6y-Que" secondAttribute="top" constant="30" id="glW-cC-Ohw"/>
                             <constraint firstItem="ueD-kw-dQa" firstAttribute="leading" secondItem="Muc-lW-r8p" secondAttribute="trailing" constant="10" id="i14-95-agA"/>
                             <constraint firstItem="gXv-6y-Que" firstAttribute="trailing" secondItem="2Vk-7A-shz" secondAttribute="trailing" constant="20" id="nJ8-8z-BMY"/>
@@ -245,6 +258,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gvb-5M-ZHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="780" y="67"/>
+        </scene>
+        <!--PackageTracking-->
+        <scene sceneID="goq-Qy-Fst">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PackageTracking" id="SlC-sF-31e" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EVU-lN-1Ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719" y="191"/>
         </scene>
     </scenes>
     <resources>
