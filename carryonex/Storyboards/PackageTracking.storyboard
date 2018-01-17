@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-Hc-Wgi">
-                                <rect key="frame" x="-1" y="215" width="376" height="452"/>
+                                <rect key="frame" x="-1" y="220" width="376" height="447"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PackageItemCell" rowHeight="83" id="MRN-D4-9iz" customClass="PackageItemCell" customModule="carryonex" customModuleProvider="target">
@@ -92,13 +92,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zqH-jP-Ruc">
+                                <rect key="frame" x="177" y="200" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MAZ-H4-A29" firstAttribute="trailing" secondItem="d0q-Hc-Wgi" secondAttribute="trailing" id="2zS-zv-WdP"/>
+                            <constraint firstItem="zqH-jP-Ruc" firstAttribute="centerX" secondItem="8Tv-Yh-hLz" secondAttribute="centerX" id="4nq-JM-gOK"/>
                             <constraint firstItem="MAZ-H4-A29" firstAttribute="trailing" secondItem="apa-rS-9Mc" secondAttribute="trailing" constant="15" id="7op-Gu-3Pl"/>
                             <constraint firstItem="7BR-Ra-wyq" firstAttribute="centerY" secondItem="RmZ-hK-UFl" secondAttribute="centerY" id="9GU-Pa-oSm"/>
-                            <constraint firstItem="d0q-Hc-Wgi" firstAttribute="top" secondItem="8Tv-Yh-hLz" secondAttribute="bottom" constant="15" id="9zN-gp-pmX"/>
                             <constraint firstItem="8Tv-Yh-hLz" firstAttribute="trailing" secondItem="apa-rS-9Mc" secondAttribute="trailing" id="Bf0-Mh-WQZ"/>
                             <constraint firstItem="8Tv-Yh-hLz" firstAttribute="leading" secondItem="EeA-0a-ZzP" secondAttribute="leading" id="JJg-AH-qn6"/>
                             <constraint firstItem="7BR-Ra-wyq" firstAttribute="leading" secondItem="EeA-0a-ZzP" secondAttribute="trailing" constant="20" id="NP8-Ox-dYY"/>
@@ -109,15 +112,18 @@
                             <constraint firstItem="EeA-0a-ZzP" firstAttribute="top" secondItem="RmZ-hK-UFl" secondAttribute="bottom" constant="20" id="db7-cs-Nxi"/>
                             <constraint firstItem="EeA-0a-ZzP" firstAttribute="leading" secondItem="MAZ-H4-A29" secondAttribute="leading" constant="15" id="eFm-Gk-Mf9"/>
                             <constraint firstItem="7BR-Ra-wyq" firstAttribute="trailing" secondItem="apa-rS-9Mc" secondAttribute="trailing" id="fZ9-gC-fcy"/>
+                            <constraint firstItem="d0q-Hc-Wgi" firstAttribute="top" secondItem="zqH-jP-Ruc" secondAttribute="bottom" id="fwI-uM-OZU"/>
                             <constraint firstItem="MAZ-H4-A29" firstAttribute="leading" secondItem="d0q-Hc-Wgi" secondAttribute="leading" constant="1" id="hkL-fH-wiy"/>
                             <constraint firstItem="MAZ-H4-A29" firstAttribute="bottom" secondItem="d0q-Hc-Wgi" secondAttribute="bottom" id="k1b-e6-YKd"/>
                             <constraint firstItem="RmZ-hK-UFl" firstAttribute="top" secondItem="MAZ-H4-A29" secondAttribute="top" constant="14" id="siX-Mc-27K"/>
+                            <constraint firstItem="zqH-jP-Ruc" firstAttribute="top" secondItem="8Tv-Yh-hLz" secondAttribute="bottom" id="woe-57-Ehy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MAZ-H4-A29"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="carrierCodeTextField" destination="apa-rS-9Mc" id="Q3Z-cb-Z5a"/>
+                        <outlet property="loadingIndicator" destination="zqH-jP-Ruc" id="2rn-1j-BhF"/>
                         <outlet property="trackingIdTextField" destination="7BR-Ra-wyq" id="Xec-Z5-dhA"/>
                         <outlet property="trackingTableView" destination="d0q-Hc-Wgi" id="UUS-Nr-ahP"/>
                     </connections>

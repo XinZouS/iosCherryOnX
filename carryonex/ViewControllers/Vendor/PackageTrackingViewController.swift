@@ -13,10 +13,21 @@ class PackageTrackingViewController: UIViewController {
     @IBOutlet weak var trackingIdTextField: UITextField!
     @IBOutlet weak var carrierCodeTextField: UITextField!
     @IBOutlet weak var trackingTableView: UITableView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var items: [KuaidiProcessItem]? {
         didSet {
             trackingTableView.reloadData()
+        }
+    }
+    
+    var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                loadingIndicator.startAnimating()
+            } else {
+                loadingIndicator.stopAnimating()
+            }
         }
     }
     
@@ -48,7 +59,15 @@ class PackageTrackingViewController: UIViewController {
             return
         }
         
+        trackingIdTextField.resignFirstResponder()
+        carrierCodeTextField.resignFirstResponder()
+        
+        isLoading = true
+        
         ApiServers.shared.checkDelivery(tracking: trackingNumber, companyCode: carrierCode) { (object, error) in
+            
+            self.isLoading = false
+            
             if let error = error {
                 DLog("Tracking Error: \(error.localizedDescription)")
                 
@@ -56,6 +75,7 @@ class PackageTrackingViewController: UIViewController {
                 let errorMessage = serverError.userInfo["message"] ?? serverError.localizedDescription
                 let errorCode = serverError.code
                 self.displayAlert(title: "搜寻单号错误", message: "错误代码: \(errorCode)。错误讯息: \(errorMessage)", action: L("action.ok"))
+                self.items?.removeAll()
                 return
             }
             
