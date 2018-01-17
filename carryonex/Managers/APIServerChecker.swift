@@ -102,6 +102,17 @@ class APIServerChecker: NSObject {
     }
     
     static func testDelivery() {
-        ApiServers.shared.checkDelivery()
+        ApiServers.shared.checkDelivery { (kuaidiObject, error) in
+            if let error = error {
+                DLog("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let processObjects = kuaidiObject?.data {
+                for object in processObjects {
+                    print("\(object.context)\n")
+                }
+            }
+        }
     }
 }

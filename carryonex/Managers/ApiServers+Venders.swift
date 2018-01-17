@@ -8,11 +8,11 @@
 
 import Foundation
 import Alamofire
-import Kingfisher
+import Unbox
 
 extension ApiServers {
     
-    func checkDelivery() {
+    func checkDelivery(completion: ((KuaidiObject?, Error?) -> Void)?) {
         
         let companyCode = "huitongkuaidi"
         let tracking = "70118428554311"
@@ -42,6 +42,16 @@ extension ApiServers {
                     DLog(printText)
                 }
                 
+                if let responseValue = response.value as? [String: Any] {
+                    do {
+                        let object: KuaidiObject = try unbox(dictionary: responseValue)
+                        completion?(object, nil)
+                        
+                    } catch let error {
+                        DLog("Get error when checkDelivery. Error = \(error.localizedDescription)")
+                        completion?(nil, error)
+                    }
+                }
 //                print("PRINT Data: \(response.value)")
             }
         }
