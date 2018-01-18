@@ -84,14 +84,16 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var deliveryCompanyTextField: ThemTextField!
     @IBOutlet weak var deliveryCompanyButton: UIButton!
     @IBOutlet weak var deliveryInfoOKButton: UIButton!
+    let textFieldFont = UIFont.systemFont(ofSize: 16)
     let deliveryCompanyPickerView = UIPickerView()
     var deliveryCompanyPickerData: [String] = []
-    let deliveryCompanyNameIDs = ["shunfeng", "shentong", "yuantong", "zhongtong", "huitongkuaidi",
+    var deliveryCompanyId: String = ""
+    let deliveryCompanyIDs = ["shunfeng", "shentong", "yuantong", "zhongtong", "huitongkuaidi",
                                   "yunda", "zhaijisong", "EMS", "upsen", "usps",
                                   "tnten", "fedexus", "canpost", "auspost", "hkpost"]
     let deliveryCompanyStringOf = ["shunfeng":"顺丰快递", "shentong":"申通快递", "yuantong":"圆通快递", "zhongtong":"中通快递", "huitongkuaidi":"百世汇通",
                                    "yunda":"韵达快递", "zhaijisong":"宅急送", "EMS":"EMS", "upsen":"UPS", "usps":"USPS",
-                                   "tnten":"TNT", "fedexus":"FedEx", "canpost":"Canada Post", "[auspost":"澳大利亚邮政", "hkpost":"香港邮政"]
+                                   "tnten":"TNT", "fedexus":"FedEx", "canpost":"Canada Post", "auspost":"澳大利亚邮政", "hkpost":"香港邮政"]
     
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
@@ -193,15 +195,17 @@ class OrdersRequestDetailViewController: UIViewController {
     
     
     @IBAction func deliveryCompanyButtonTapped(_ sender: Any) {
-        
+        deliveryCompanyTextField.becomeFirstResponder()
     }
     
     @IBAction func deliveryInfoOKButtonTapped(_ sender: Any) {
-        deliveryInfoViewBottomConstraint.constant = 0
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.6, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
+        deliveryInfoViewBottomConstraint.constant = -50
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
         backgroundViewHide()
+        
+        //TODO: send info to server, use deliveryCompanyId and trackingNumTextField.text;
     }
     
     // MARK: - Data models
@@ -347,10 +351,19 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func setupDeliveryInfoView() {
+        deliveryInfoView.layer.masksToBounds = true
+        deliveryInfoView.layer.cornerRadius = 6
+        deliveryInfoView.layer.masksToBounds = false
+        deliveryInfoView.layer.shadowOpacity = 5
+        deliveryInfoView.layer.shadowRadius = 6
+        deliveryInfoView.layer.shadowColor = UIColor.lightGray.cgColor
+        
         deliveryInfoTitleLabel.text = "Delivery Information"
         trackingNumTitleLabel.text = "Tracking Num"
-        deliveryCompanyTitleLabel.text = "Delivery Comapny Name"
+        deliveryCompanyTitleLabel.text = "Delivery Company"
         
+        trackingNumTextField.delegate = self
+        deliveryCompanyTextField.delegate = self
         trackingNumTextField.setAttributedPlaceholder("your num", color: colorTextFieldPlaceholderBlack)
         deliveryCompanyTextField.setAttributedPlaceholder("the company", color: colorTextFieldPlaceholderBlack)
         
@@ -363,11 +376,14 @@ class OrdersRequestDetailViewController: UIViewController {
     private func setupDeliveryPicker() {
         deliveryCompanyPickerView.delegate = self
         deliveryCompanyPickerView.dataSource = self
-        var nameStr: [String] = []
-        for name in deliveryCompanyNameIDs
-        deliveryCompanyPickerData = []
+        var nameStrs: [String] = []
+        for id in deliveryCompanyIDs {
+            if let str = deliveryCompanyStringOf[id], !str.isEmpty {
+                nameStrs.append(str)
+            }
+        }
+        deliveryCompanyPickerData = nameStrs
     }
-
     
     private func setupCollectionView(){
         phontobrowser.register(PhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: PhotoBrowserCollectionViewCell.defalutId)
@@ -837,7 +853,8 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
     
 }
 
-extension OrdersRequestDetailViewController: UIPickerViewDelegate {
+
+extension OrdersRequestDetailViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -847,35 +864,58 @@ extension OrdersRequestDetailViewController: UIPickerViewDelegate {
         return deliveryCompanyPickerData.count
     }
     
+}
+
+extension OrdersRequestDetailViewController: UIPickerViewDelegate {
+    
     // The data to return for the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return deliveryCompanyPickerData[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        deliveryCompanyTextField.text = deliveryCompanyPickerData[deliveryCompanyPickerView.selectedRow(inComponent: 0)]
-        
-        switch row {
-        case 0:
-            settedGender = .male
-        case 1:
-            settedGender = .female
-        case 2:
-            settedGender = .other
-        case 3:
-            settedGender = .undefined
-        default:
-            settedGender = .undefined
-        }
-        saveBarButton.isEnabled = true
+        deliveryCompanyId = deliveryCompanyIDs[deliveryCompanyPickerView.selectedRow(inComponent: 0)]
+        deliveryCompanyTextField.text = deliveryCompanyStringOf[deliveryCompanyId]
     }
-
+    
     
 }
 
-extension OrdersRequestDetailViewController: UIPickerViewDataSource {
+extension OrdersRequestDetailViewController: UITextFieldDelegate {
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == deliveryCompanyTextField {
+            deliveryCompanyTextField.inputView = deliveryCompanyPickerView
+        }
+    }
     
+    fileprivate func textFieldAddToolBar(_ textField: UITextField) {
+        let bar = UIToolbar()
+        bar.barStyle = .default
+        bar.isTranslucent = true
+        bar.tintColor = .black
+        
+        let doneBtn = UIBarButtonItem(title: L("action.done"), style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
+        bar.isUserInteractionEnabled = true
+        bar.sizeToFit()
+        
+        textField.font = textFieldFont
+        textField.delegate = self
+        textField.inputAccessoryView = bar
+    }
+    func textFieldDoneButtonTapped(){
+        dismissKeyboard()
+    }
+    func textFieldCancelButtonTapped() {
+        dismissKeyboard()
+    }
+    private func dismissKeyboard() {
+        deliveryCompanyTextField.resignFirstResponder()
+        trackingNumTextField.resignFirstResponder()
+    }
 }
 
 
