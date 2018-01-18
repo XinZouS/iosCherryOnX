@@ -276,7 +276,7 @@ extension OrderListViewController: UIScrollViewDelegate {
         }
     }
     
-    private func currentTableView() -> UITableView { // BUG: TODO: app run 1st time, uset tap [Delivery] in Home, will crash for nil here
+    private func currentTableView() -> UITableView? {
         return (listType == .carrier) ? tableViewShiper : tableViewSender
     }
     
@@ -286,7 +286,7 @@ extension OrderListViewController: UIScrollViewDelegate {
     }
     
     fileprivate func animateTitleImageForCurrentTable() {
-        let currTable = currentTableView()
+        guard let currTable = currentTableView() else { return }
         let contentOffset = currTable.contentOffset.y
         imageTitleViewHeightConstraint.constant = (contentOffset < 0) ? abs(contentOffset) : 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.2, options: .curveEaseInOut, animations: {

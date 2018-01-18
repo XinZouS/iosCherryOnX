@@ -204,8 +204,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func deliveryInfoOKButtonTapped(_ sender: Any) {
-        showDeliveryInfoView(false)
-        //TODO: send info to server, use deliveryCompanyId and trackingNumTextField.text;
+        deliveryInfoSend()
     }
     
     // MARK: - Data models
@@ -354,14 +353,17 @@ class OrdersRequestDetailViewController: UIViewController {
         deliveryInfoView.layer.masksToBounds = true
         deliveryInfoView.layer.cornerRadius = 6
         
-        deliveryInfoTitleLabel.text = "Delivery Information"
-        trackingNumTitleLabel.text = "Tracking Num"
-        deliveryCompanyTitleLabel.text = "Delivery Company"
+        deliveryInfoTitleLabel.textColor = colorTextBlack
+        trackingNumTitleLabel.textColor = colorTextBlack
+        deliveryCompanyTitleLabel.textColor = colorTextBlack
+        deliveryInfoTitleLabel.text = L("orders.ui.title.delivery-info")
+        trackingNumTitleLabel.text = L("orders.ui.title.delivery-tracking")
+        deliveryCompanyTitleLabel.text = L("orders.ui.title.delivery-company")
         
         trackingNumTextField.delegate = self
         deliveryCompanyTextField.delegate = self
-        trackingNumTextField.setAttributedPlaceholder("your num", color: colorTextFieldPlaceholderBlack)
-        deliveryCompanyTextField.setAttributedPlaceholder("the company", color: colorTextFieldPlaceholderBlack)
+        trackingNumTextField.setAttributedPlaceholder(" ", color: colorTextFieldPlaceholderBlack)
+        deliveryCompanyTextField.setAttributedPlaceholder(" ", color: colorTextFieldPlaceholderBlack)
         
         deliveryCompanyButton.setTitle(" ", for: .normal)
         deliveryInfoOKButton.setTitle(L("action.done"), for: .normal)
@@ -608,6 +610,36 @@ class OrdersRequestDetailViewController: UIViewController {
             backgroundViewHide()
         }
     }
+    
+    private func deliveryInfoSend() {
+        showDeliveryInfoView(false)
+        guard let trackingNum = trackingNumTextField.text, !trackingNum.isEmpty else {
+            displayGlobalAlert(title: L("orders.error.title.delivery-info"),
+                               message: L("orders.error.message.delivery-info"),
+                               action: L("action.ok"), completion: {
+                self.trackingNumTextField.becomeFirstResponder()
+            })
+            return
+        }
+        guard !deliveryCompanyId.isEmpty else {
+            displayGlobalAlert(title: L("orders.error.title.delivery-info"),
+                               message: L("orders.error.message.delivery-info"),
+                               action: L("action.ok"), completion: {
+                self.deliveryCompanyTextField.becomeFirstResponder()
+            })
+            return
+        }
+        ApiServers.shared.postExpress(requestId: request.id, companyCode: deliveryCompanyId, expressNumber: trackingNum) { (success, error) in
+            if let error = error {
+                self.displayGlobalAlert(title: L("orders.error.title.express-post"),
+                                   message: L("orders.error.message.express-post") + ", " + error.localizedDescription,
+                                   action: L("action.ok"), completion: nil)
+                return
+            }
+            DLog("[RESULT] upload express isSuccess=\(success)")
+        }
+    }
+
 }
 
 
