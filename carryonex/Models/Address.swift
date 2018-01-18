@@ -10,20 +10,6 @@ import UIKit
 import Unbox
 import MapKit
 
-enum Country: String, UnboxableEnum {
-    case China = "中国"
-    case UnitedStates = "美国"
-    case Britain = "英国"
-    case Canada = "加拿大"
-    case Australia = "澳大利亚"
-    case Japan = "日本"
-    case Singapore = "新加坡"
-    case Germany = "德国"
-    case France = "法国"
-    case Switzerland = "瑞士"
-    case Korea = "韩国"
-}
-
 enum AddressKeyInDB : String {
     case country = "country"
     case state = "state"
@@ -34,7 +20,7 @@ enum AddressKeyInDB : String {
 }
 
 class Address: NSObject, Unboxable {
-    var country: Country?
+    var country: String?
     var state: String?
     var city: String?
     var street: String?
@@ -64,7 +50,7 @@ class Address: NSObject, Unboxable {
     
     func packAllPropertiesAsData() -> Data? {
         var json:[String: Any] =  [:]
-        json[AddressKeyInDB.country.rawValue]  = self.country!.rawValue
+        json[AddressKeyInDB.country.rawValue]  = country
         json[AddressKeyInDB.state.rawValue] = state
         json[AddressKeyInDB.city.rawValue] = city
         json[AddressKeyInDB.recipientName.rawValue] = recipientName
@@ -82,7 +68,7 @@ class Address: NSObject, Unboxable {
     }
     
     func setupByDictionaryFromDB(_ json: [String:Any]){
-        country = (json[AddressKeyInDB.country.rawValue] as? String ?? "") == Country.China.rawValue ? Country.China : Country.UnitedStates
+        country = (json[AddressKeyInDB.country.rawValue] as? String ?? "")
         state = json[AddressKeyInDB.state.rawValue] as? String ?? ""
         city = json[AddressKeyInDB.city.rawValue] as? String ?? ""
         recipientName = json[AddressKeyInDB.recipientName.rawValue] as? String ?? ""
@@ -92,7 +78,7 @@ class Address: NSObject, Unboxable {
     
     func packAsDictionaryForDB() -> [String: Any] {
         var json = [String: Any]()
-        json[AddressKeyInDB.country.rawValue] = country?.rawValue
+        json[AddressKeyInDB.country.rawValue] = country
         json[AddressKeyInDB.state.rawValue] = state
         json[AddressKeyInDB.city.rawValue] = city
         json[AddressKeyInDB.recipientName.rawValue] = recipientName
@@ -111,7 +97,7 @@ class Address: NSObject, Unboxable {
         }
         
         if let country = country {
-            return country.rawValue
+            return country
         }
         return ""
     }
@@ -119,7 +105,7 @@ class Address: NSObject, Unboxable {
     func fullAddressString() -> String {
         var address = [String]()
         if let country = country {
-            address.append(country.rawValue)
+            address.append(country)
         }
         
         if let state = state, !state.isEmpty {

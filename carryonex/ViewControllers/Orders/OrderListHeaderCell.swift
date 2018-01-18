@@ -17,9 +17,9 @@ class OrderListHeaderCell: UITableViewCell {
     var trip: Trip? {
         didSet {
             if let fromCity = trip?.startAddress?.city,
-                let fromCountry = trip?.startAddress?.country?.rawValue,
+                let fromCountry = trip?.startAddress?.country,
                 let toCity = trip?.endAddress?.city,
-                let toCountry = trip?.endAddress?.country?.rawValue {
+                let toCountry = trip?.endAddress?.country {
                 self.locationLabel.text = "\(fromCity), \(fromCountry) - \(toCity), \(toCountry)"
             }
             

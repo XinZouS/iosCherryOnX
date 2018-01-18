@@ -180,10 +180,10 @@ class TripController: UIViewController{
         let trip = Trip()
         trip.endAddress?.state = endState
         trip.endAddress?.city = endCity
-        trip.endAddress?.country = Country(rawValue: endCountry)
+        trip.endAddress?.country = endCountry
         trip.startAddress?.state = startState
         trip.startAddress?.city = startCity
-        trip.startAddress?.country = Country(rawValue: startCountry)
+        trip.startAddress?.country = startCountry
         trip.pickupDate = pickUpDate
         trip.note = isNoteFilled ? noteTextView.text : ""
     

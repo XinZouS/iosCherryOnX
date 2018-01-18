@@ -296,10 +296,10 @@ class SenderDetailViewController: UIViewController{
     //MARK: View Setup
     
     private func setupCardView(){
-        if let endCountry = trip?.endAddress?.country?.rawValue,
+        if let endCountry = trip?.endAddress?.country,
             let endState = trip?.endAddress?.state,
             let endCity = trip?.endAddress?.city,
-            let startCountry = trip?.startAddress?.country?.rawValue,
+            let startCountry = trip?.startAddress?.country,
             let startState = trip?.startAddress?.state,
             let startCity = trip?.startAddress?.city {
             if let imageUrl = trip?.carrierImageUrl, let url = URL(string:imageUrl) {
