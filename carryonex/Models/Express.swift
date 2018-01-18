@@ -9,6 +9,30 @@
 import Foundation
 import Unbox
 
+/*
+ //后台现支援的 company code:
+ 
+ EXPRESS_CODE_TO_NAME = {
+ 'shunfeng':'顺丰快递',
+ 'shentong': '申通快递',
+ 'yuantong': '圆通快递',
+ 'zhongtong': '中通快递',
+ 'huitongkuaidi':'百世汇通',
+ 'yunda': '韵达快递',
+ 'zhaijisong': '宅急送',
+ 'EMS': 'EMS',
+ 'upsen': 'UPS',
+ 'usps': 'USPS',
+ 'tnten': 'TNT',
+ 'fedexus': 'FedEx',
+ 'canpost': 'Canada Post',
+ 'auspost': '澳大利亚邮政',
+ 'hkpost': '香港邮政'
+ }
+ 
+ */
+
+
 enum ExpressKey: String {
     case id = "id"
     case requestId = "request_id"
