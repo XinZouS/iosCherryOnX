@@ -82,12 +82,12 @@ extension WalletManager {
                 let resultStatus = result["resultStatus"] as? String
                 let resultData = result["result"] as? String
                 
-                DLog("Result status: \(resultStatus)")
-                DLog("Result data: \(resultData)")
+//                DLog("Result status: \(resultStatus)")
+//                DLog("Result data: \(resultData)")
                 
                 if resultStatus == AliPayResultStatus.success.rawValue {
                     isSuccess = true
-                    DLog("Status code: \(resultStatus)")
+//                    DLog("Status code: \(resultStatus)")
                 }
                 
                 self.aliPayProcessOrderCallbackHandler(result: result)
@@ -105,8 +105,10 @@ extension WalletManager {
                                                                     }
                                                                     DLog("Validation success")
                     })
+                    
                 } else {
-                    DLog("aliPayHandleOrderUrl not success, status code: \(resultStatus)")
+                    DLog("aliPayHandleOrderUrl not success")
+//                    DLog("status code: \(resultStatus)")
                 }
                 
             } else {

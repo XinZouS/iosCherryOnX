@@ -60,6 +60,7 @@
 "login.confirm.title.pasword-changed" = "🎉修改成功"; // 2018-01-15 Xin
 "login.confirm.message.pasword-changed" = "您已成功修改密码，请使用新密码登陆"; // 2018-01-15 Xin
 "register.ui.title.phone" = "手机验证"; // 2017-12-29 - Xin
+"register.ui.placeholder.new-phone" = "请输入手机号码"; // 2018-01-16 Xin
 "register.error.title.miss-phone" = "信息不足";
 "register.error.message.miss-phone" = "手机号码未填写";
 "register.error.title.duplicate" = "无法重复注册";
@@ -138,7 +139,8 @@
 "sender.ui.sessiontitle.address-destination" = "收货地址";
 "sender.ui.sessionhint.address-destination" = "请选择货物送达位置";
 "sender.ui.sessiontitle.item-value" = "货物价值";
-"sender.ui.placeholder.price-value-max" = "输入价值(不超过￥";
+"sender.ui.placeholder.price-value" = "人民币"; // 2018-01-16 Xin
+"sender.ui.placeholder.price-value-max" = "(不超过￥";
 "sender.ui.sessionhint.item-value" = "输入货物价格";
 "sender.ui.sessiontitle.item-photos" = "物品图片"; // 2018-01-15 Xin
 "sender.ui.sessiontitle.item-shipfee" = "运货费用";
