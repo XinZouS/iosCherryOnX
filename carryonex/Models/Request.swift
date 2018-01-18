@@ -26,6 +26,7 @@ class Request: Unboxable, Identifiable {
     var endAddress: Address?
     var statusId: Int?
     var commentStatus: Int
+    var express: Express?
     
     var name: String?
     var timestamp: Int
@@ -67,6 +68,7 @@ class Request: Unboxable, Identifiable {
         self.ownerRealName = try? unboxer.unbox(key: RequestKeyInDB.ownerRealName.rawValue)
         
         self.timestamp = try unboxer.unbox(key: RequestKeyInDB.timestamp.rawValue)
+        self.express = try? unboxer.unbox(key: RequestKeyInDB.express.rawValue)
     }
     
     func printAllData() {
@@ -174,6 +176,7 @@ enum RequestKeyInDB : String {
     case action = "action"
     case userType = "user_type"
     case note = "note"
+    case express = "express"
     
     //update call
     case requestId = "request_id"
