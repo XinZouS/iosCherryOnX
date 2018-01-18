@@ -40,12 +40,16 @@ class OrderListViewController: UIViewController {
             }
             animateTitleImageForCurrentTable()
             loadImageUrlsOfCurrentCity()
-            TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
-                self?.reloadData()
+            let currTime = Date().timeIntervalSince1970
+            if currTime - lastReloadTime > 60 { // 60s
+                TripOrderDataStore.shared.pullNextPage(category: listType) { [weak self] _ in
+                    self?.reloadData()
+                }
             }
         }
     }
     
+    var lastReloadTime = Date().timeIntervalSince1970
     var refresherShiper: UIRefreshControl!
     var refresherSender: UIRefreshControl!
     
@@ -136,6 +140,7 @@ class OrderListViewController: UIViewController {
     
     
     func reloadData() {
+        lastReloadTime = Date().timeIntervalSince1970 // currTime
         carrierTrips = TripOrderDataStore.shared.getCarrierTrips()
         senderRequests = TripOrderDataStore.shared.getSenderRequests()
         refresherShiper.endRefreshing()
@@ -283,6 +288,17 @@ extension OrderListViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = (listType == .carrier) ? tableViewShiper.contentOffset.y : tableViewSender.contentOffset.y
         imageTitleViewHeightConstraint.constant = offset <= 0 ? abs(offset) : 0
+        
+        if listType == .carrier {
+            if tableViewSender.contentOffset.y <= 0 {
+                tableViewSender.setContentOffset(CGPoint(x: 0, y: min(0, offset)), animated: false)
+            }
+        } else {
+            if tableViewShiper.contentOffset.y <= 0 {
+                tableViewShiper.setContentOffset(CGPoint(x: 0, y: min(0, offset)), animated: false)
+            }
+        }
+        
     }
     
     fileprivate func animateTitleImageForCurrentTable() {

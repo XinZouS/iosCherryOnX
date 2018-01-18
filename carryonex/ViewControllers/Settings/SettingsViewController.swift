@@ -96,7 +96,8 @@ extension SettingsViewController: UITableViewDelegate {
             openSystemGpsSetting()
             
         case 2:
-            let url = "\(ApiServers.shared.host)/doc_license"
+            let version = (AppDelegate.shared().getCurrentLanguage() == .cn) ? "" : "?v=en"
+            let url = "\(ApiServers.shared.host)/doc_license" + version
             let webCtl = WebController()
             webCtl.url = URL(string: url) ?? URL(string: "https://www.carryonex.com/")
             navigationController?.pushViewController(webCtl, animated: true)

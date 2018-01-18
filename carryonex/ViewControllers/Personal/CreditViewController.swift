@@ -23,7 +23,9 @@ class CreditViewController: UIViewController {
         let webVC = WebController()
         self.navigationController?.pushViewController(webVC, animated: true)
         webVC.title = L("personal.ui.title.wallet-question")
-        if let url = URL(string: "\(ApiServers.shared.host)/doc_wallet_info") {
+        
+        let version = (AppDelegate.shared().getCurrentLanguage() == .cn) ? "" : "?v=en"
+        if let url = URL(string: "\(ApiServers.shared.host)/doc_wallet_info" + version) {
             webVC.url = url
         }
     }
