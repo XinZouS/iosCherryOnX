@@ -62,18 +62,7 @@ class OrdersRequestDetailViewController: UIViewController {
     
     var isLoadingStatus = false {
         didSet {
-            if isLoadingStatus {
-                AppDelegate.shared().startLoading()
-            
-                finishButton.isEnabled = false
-                finishButton2.isEnabled = false
-            
-            } else {
-                AppDelegate.shared().stopLoading()
-                
-                finishButton.isEnabled = true
-                finishButton2.isEnabled = true
-            }
+            handleLoadingStatus()
         }
     }
     
@@ -84,6 +73,27 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var checkboxAlipay: UIView!
     @IBOutlet weak var checkboxWechatPay: UIView!
     @IBOutlet weak var gotoPaymentButton: UIButton! //goToPaymentHandler() for touchupinside
+    
+    // delivery info view
+    @IBOutlet weak var deliveryInfoView: UIView!
+    @IBOutlet weak var deliveryInfoViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var deliveryInfoTitleLabel: UILabel!
+    @IBOutlet weak var trackingNumTitleLabel: UILabel!
+    @IBOutlet weak var trackingNumTextField: ThemTextField!
+    @IBOutlet weak var deliveryCompanyTitleLabel: UILabel!
+    @IBOutlet weak var deliveryCompanyTextField: ThemTextField!
+    @IBOutlet weak var deliveryCompanyButton: UIButton!
+    @IBOutlet weak var deliveryInfoOKButton: UIButton!
+    let textFieldFont = UIFont.systemFont(ofSize: 16)
+    let deliveryCompanyPickerView = UIPickerView()
+    var deliveryCompanyPickerData: [String] = []
+    var deliveryCompanyId: String = ""
+    let deliveryCompanyIDs = ["shunfeng", "shentong", "yuantong", "zhongtong", "huitongkuaidi",
+                                  "yunda", "zhaijisong", "EMS", "upsen", "usps",
+                                  "tnten", "fedexus", "canpost", "auspost", "hkpost"]
+    let deliveryCompanyStringOf = ["shunfeng":"顺丰快递", "shentong":"申通快递", "yuantong":"圆通快递", "zhongtong":"中通快递", "huitongkuaidi":"百世汇通",
+                                   "yunda":"韵达快递", "zhaijisong":"宅急送", "EMS":"EMS", "upsen":"UPS", "usps":"USPS",
+                                   "tnten":"TNT", "fedexus":"FedEx", "canpost":"Canada Post", "auspost":"澳大利亚邮政", "hkpost":"香港邮政"]
     
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
@@ -183,6 +193,21 @@ class OrdersRequestDetailViewController: UIViewController {
         })
     }
     
+    
+    @IBAction func deliveryCompanyButtonTapped(_ sender: Any) {
+        deliveryCompanyTextField.becomeFirstResponder()
+    }
+    
+    @IBAction func deliveryInfoOKButtonTapped(_ sender: Any) {
+        deliveryInfoViewBottomConstraint.constant = -50
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        backgroundViewHide()
+        
+        //TODO: send info to server, use deliveryCompanyId and trackingNumTextField.text;
+    }
+    
     // MARK: - Data models
     var trip: Trip = Trip()
     
@@ -224,6 +249,7 @@ class OrdersRequestDetailViewController: UIViewController {
         setupNavigationBar()
         setupCollectionView()
         setupPaymentMenuView()
+        setupDeliveryInfoView()
         addObservers()
         
         //Load Phone
@@ -322,6 +348,41 @@ class OrdersRequestDetailViewController: UIViewController {
         b.tintColor = colorCheckmarkGreen // selected
         b.secondaryTintColor = UIColor.lightGray // unselected
         //b.borderColor = UIColor.lightGray //TODO: FIX THIS
+    }
+    
+    private func setupDeliveryInfoView() {
+        deliveryInfoView.layer.masksToBounds = true
+        deliveryInfoView.layer.cornerRadius = 6
+        deliveryInfoView.layer.masksToBounds = false
+        deliveryInfoView.layer.shadowOpacity = 5
+        deliveryInfoView.layer.shadowRadius = 6
+        deliveryInfoView.layer.shadowColor = UIColor.lightGray.cgColor
+        
+        deliveryInfoTitleLabel.text = "Delivery Information"
+        trackingNumTitleLabel.text = "Tracking Num"
+        deliveryCompanyTitleLabel.text = "Delivery Company"
+        
+        trackingNumTextField.delegate = self
+        deliveryCompanyTextField.delegate = self
+        trackingNumTextField.setAttributedPlaceholder("your num", color: colorTextFieldPlaceholderBlack)
+        deliveryCompanyTextField.setAttributedPlaceholder("the company", color: colorTextFieldPlaceholderBlack)
+        
+        deliveryCompanyButton.setTitle(" ", for: .normal)
+        deliveryInfoOKButton.setTitle(L("action.done"), for: .normal)
+        
+        setupDeliveryPicker()
+    }
+    
+    private func setupDeliveryPicker() {
+        deliveryCompanyPickerView.delegate = self
+        deliveryCompanyPickerView.dataSource = self
+        var nameStrs: [String] = []
+        for id in deliveryCompanyIDs {
+            if let str = deliveryCompanyStringOf[id], !str.isEmpty {
+                nameStrs.append(str)
+            }
+        }
+        deliveryCompanyPickerData = nameStrs
     }
     
     private func setupCollectionView(){
@@ -459,6 +520,21 @@ class OrdersRequestDetailViewController: UIViewController {
         if let updatedRequest = TripOrderDataStore.shared.getRequest(category: category, requestId: self.request.id) {
             request = updatedRequest
             setupView()
+        }
+    }
+    
+    private func handleLoadingStatus() {
+        if isLoadingStatus {
+            AppDelegate.shared().startLoading()
+            
+            finishButton.isEnabled = false
+            finishButton2.isEnabled = false
+            
+        } else {
+            AppDelegate.shared().stopLoading()
+            
+            finishButton.isEnabled = true
+            finishButton2.isEnabled = true
         }
     }
     
@@ -625,7 +701,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
     
     fileprivate func updateMapViewToShow(_ showMap: Bool){
         finishButtonStackViewHeighConstraint.constant = showMap ? 0 : 44
-        mapViewHeighConstraint.constant = showMap ? mapView.bounds.width * 0.56 : 0 // 9:16 = 0.56
+        mapViewHeighConstraint.constant = showMap ? mapView.bounds.width : 0
         DLog("done, now button heigh = \(finishButtonStackViewHeighConstraint.constant), mapHeight = \(mapViewHeighConstraint.constant)")
         DispatchQueue.main.async {
             self.view.layoutIfNeeded()
@@ -775,6 +851,71 @@ extension OrdersRequestDetailViewController: UIScrollViewDelegate {
         }
     }
     
+}
+
+
+extension OrdersRequestDetailViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return deliveryCompanyPickerData.count
+    }
+    
+}
+
+extension OrdersRequestDetailViewController: UIPickerViewDelegate {
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return deliveryCompanyPickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        deliveryCompanyId = deliveryCompanyIDs[deliveryCompanyPickerView.selectedRow(inComponent: 0)]
+        deliveryCompanyTextField.text = deliveryCompanyStringOf[deliveryCompanyId]
+    }
+    
+    
+}
+
+extension OrdersRequestDetailViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == deliveryCompanyTextField {
+            deliveryCompanyTextField.inputView = deliveryCompanyPickerView
+        }
+    }
+    
+    fileprivate func textFieldAddToolBar(_ textField: UITextField) {
+        let bar = UIToolbar()
+        bar.barStyle = .default
+        bar.isTranslucent = true
+        bar.tintColor = .black
+        
+        let doneBtn = UIBarButtonItem(title: L("action.done"), style: .done, target: self, action: #selector(textFieldDoneButtonTapped))
+        let cancelBtn = UIBarButtonItem(title: L("action.cancel"), style: .plain, target: self, action: #selector(textFieldCancelButtonTapped))
+        let spaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.setItems([cancelBtn, spaceBtn, doneBtn], animated: false)
+        bar.isUserInteractionEnabled = true
+        bar.sizeToFit()
+        
+        textField.font = textFieldFont
+        textField.delegate = self
+        textField.inputAccessoryView = bar
+    }
+    func textFieldDoneButtonTapped(){
+        dismissKeyboard()
+    }
+    func textFieldCancelButtonTapped() {
+        dismissKeyboard()
+    }
+    private func dismissKeyboard() {
+        deliveryCompanyTextField.resignFirstResponder()
+        trackingNumTextField.resignFirstResponder()
+    }
 }
 
 

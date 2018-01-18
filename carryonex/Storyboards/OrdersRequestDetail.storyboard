@@ -640,10 +640,100 @@
                                     <constraint firstAttribute="trailing" secondItem="dJL-5V-uvg" secondAttribute="trailing" constant="30" id="nvz-tw-z1l"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVV-5G-jt7">
+                                <rect key="frame" x="20" y="63" width="335" height="237"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运单信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-qp-kkJ">
+                                        <rect key="frame" x="133" y="20" width="69.5" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="r1r-R1-4Il"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRR-1r-So2">
+                                        <rect key="frame" x="21" y="71" width="35" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="Cmr-5E-8fJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ufC-JD-p2p" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                        <rect key="frame" x="100" y="72.5" width="213.5" height="17"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="快递公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0G-k3-g59">
+                                        <rect key="frame" x="21" y="122" width="69.5" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="lsO-21-tVM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Y8-CE-Wqt" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                        <rect key="frame" x="100.5" y="117" width="213.5" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9S-Vi-aRw">
+                                        <rect key="frame" x="100" y="117" width="214" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="deliveryCompanyButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="tra-nS-fTE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Db-1K-keh">
+                                        <rect key="frame" x="36" y="173" width="263" height="44"/>
+                                        <color key="backgroundColor" red="1" green="0.41885420680000002" blue="0.4228916466" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="cAG-A2-dgc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deliveryInfoOKButtonTapped:" destination="Z1x-0S-3lW" eventType="touchUpInside" id="wmN-SX-6hc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2Db-1K-keh" firstAttribute="bottom" secondItem="KVV-5G-jt7" secondAttribute="bottom" constant="-20" id="8xm-Aa-guI"/>
+                                    <constraint firstItem="F9S-Vi-aRw" firstAttribute="trailing" secondItem="9Y8-CE-Wqt" secondAttribute="trailing" id="Cv3-Oe-0zq"/>
+                                    <constraint firstItem="gRR-1r-So2" firstAttribute="top" secondItem="IWN-qp-kkJ" secondAttribute="bottom" constant="30" id="DJ7-4J-zZF"/>
+                                    <constraint firstItem="D0G-k3-g59" firstAttribute="top" secondItem="gRR-1r-So2" secondAttribute="bottom" constant="30" id="FUi-gO-DZb"/>
+                                    <constraint firstItem="ufC-JD-p2p" firstAttribute="centerY" secondItem="gRR-1r-So2" secondAttribute="centerY" id="JRA-1J-wvh"/>
+                                    <constraint firstItem="IWN-qp-kkJ" firstAttribute="centerX" secondItem="2Db-1K-keh" secondAttribute="centerX" id="Jng-Uy-8Rp"/>
+                                    <constraint firstItem="D0G-k3-g59" firstAttribute="leading" secondItem="2Db-1K-keh" secondAttribute="leading" constant="-15" id="K2L-Kc-xMO"/>
+                                    <constraint firstItem="ufC-JD-p2p" firstAttribute="leading" secondItem="9Y8-CE-Wqt" secondAttribute="leading" id="Lxb-q3-mpG"/>
+                                    <constraint firstItem="D0G-k3-g59" firstAttribute="bottom" secondItem="2Db-1K-keh" secondAttribute="top" constant="-30" id="MFa-l3-6BV"/>
+                                    <constraint firstItem="2Db-1K-keh" firstAttribute="trailing" secondItem="KVV-5G-jt7" secondAttribute="trailing" constant="-36" id="Qsz-cO-zPT"/>
+                                    <constraint firstItem="F9S-Vi-aRw" firstAttribute="leading" secondItem="9Y8-CE-Wqt" secondAttribute="leading" id="Wgd-Un-EMs"/>
+                                    <constraint firstItem="IWN-qp-kkJ" firstAttribute="top" secondItem="KVV-5G-jt7" secondAttribute="top" constant="20" id="XVc-rd-Zaa"/>
+                                    <constraint firstItem="9Y8-CE-Wqt" firstAttribute="bottom" secondItem="F9S-Vi-aRw" secondAttribute="bottom" id="XiO-Pl-xwK"/>
+                                    <constraint firstItem="9Y8-CE-Wqt" firstAttribute="centerY" secondItem="D0G-k3-g59" secondAttribute="centerY" id="YEx-yJ-kMg"/>
+                                    <constraint firstItem="ufC-JD-p2p" firstAttribute="trailing" secondItem="9Y8-CE-Wqt" secondAttribute="trailing" id="Yf1-8b-dJL"/>
+                                    <constraint firstItem="F9S-Vi-aRw" firstAttribute="top" secondItem="9Y8-CE-Wqt" secondAttribute="top" id="f8u-wl-2Bo"/>
+                                    <constraint firstItem="2Db-1K-keh" firstAttribute="leading" secondItem="KVV-5G-jt7" secondAttribute="leading" constant="36" id="l3p-rr-dwN"/>
+                                    <constraint firstItem="9Y8-CE-Wqt" firstAttribute="trailing" secondItem="2Db-1K-keh" secondAttribute="trailing" constant="15" id="lHR-EN-Oqw"/>
+                                    <constraint firstItem="gRR-1r-So2" firstAttribute="leading" secondItem="D0G-k3-g59" secondAttribute="leading" id="mRL-RN-5Ju"/>
+                                    <constraint firstItem="9Y8-CE-Wqt" firstAttribute="leading" secondItem="D0G-k3-g59" secondAttribute="trailing" constant="10" id="ofC-is-tjd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="trailing" secondItem="hY8-kc-Wge" secondAttribute="trailing" id="5I6-Te-JqT"/>
+                            <constraint firstItem="KVV-5G-jt7" firstAttribute="bottom" secondItem="bwT-SN-31r" secondAttribute="top" constant="280" id="Bb7-48-4DZ"/>
+                            <constraint firstItem="KVV-5G-jt7" firstAttribute="trailing" secondItem="bwT-SN-31r" secondAttribute="trailing" constant="-20" id="D4a-sP-7gg"/>
                             <constraint firstItem="u44-8x-21Q" firstAttribute="top" secondItem="bwT-SN-31r" secondAttribute="top" id="JkB-1k-CBi"/>
                             <constraint firstItem="u44-8x-21Q" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" id="SUL-SW-xP1"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="bottom" secondItem="hY8-kc-Wge" secondAttribute="top" constant="-50" id="TQd-PQ-w41"/>
@@ -651,6 +741,7 @@
                             <constraint firstItem="hY8-kc-Wge" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" id="YtS-19-9QB"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="trailing" secondItem="Qw7-wQ-9pO" secondAttribute="trailing" id="cyU-nY-e0Q"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="bottom" secondItem="Qw7-wQ-9pO" secondAttribute="bottom" id="htK-pu-iRn"/>
+                            <constraint firstItem="KVV-5G-jt7" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" constant="20" id="qLI-yr-j1g"/>
                             <constraint firstItem="Qw7-wQ-9pO" firstAttribute="leading" secondItem="bwT-SN-31r" secondAttribute="leading" id="tkX-BG-2zr"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="trailing" secondItem="u44-8x-21Q" secondAttribute="trailing" id="w2H-o3-1Fd"/>
                             <constraint firstItem="bwT-SN-31r" firstAttribute="top" secondItem="Qw7-wQ-9pO" secondAttribute="top" id="wac-Qj-SlV"/>
@@ -664,6 +755,13 @@
                         <outlet property="checkboxWechatPay" destination="grN-7J-gbX" id="QMz-C9-lJC"/>
                         <outlet property="dateDayLabel" destination="xVp-rH-O0T" id="Rbg-BP-xNg"/>
                         <outlet property="dateMonthLabel" destination="efo-75-gDw" id="pgf-FO-rOi"/>
+                        <outlet property="deliveryCompanyButton" destination="F9S-Vi-aRw" id="s11-dX-v1l"/>
+                        <outlet property="deliveryCompanyTextField" destination="9Y8-CE-Wqt" id="Yxu-Dl-g1W"/>
+                        <outlet property="deliveryCompanyTitleLabel" destination="D0G-k3-g59" id="UTu-ZQ-dUz"/>
+                        <outlet property="deliveryInfoOKButton" destination="2Db-1K-keh" id="Tzx-hf-130"/>
+                        <outlet property="deliveryInfoTitleLabel" destination="IWN-qp-kkJ" id="hfA-TY-P4x"/>
+                        <outlet property="deliveryInfoView" destination="KVV-5G-jt7" id="Igq-pb-HYu"/>
+                        <outlet property="deliveryInfoViewBottomConstraint" destination="Bb7-48-4DZ" id="8nM-J3-Kea"/>
                         <outlet property="endAddressLabel" destination="hO5-6m-U41" id="Fp0-e1-Wkf"/>
                         <outlet property="finishButton" destination="0Gq-pn-kvc" id="sYh-sX-fHj"/>
                         <outlet property="finishButton2" destination="n0b-OL-TH7" id="sL8-xh-6kf"/>
@@ -698,6 +796,8 @@
                         <outlet property="shippingFeeTitleLabel" destination="rB6-f1-cwu" id="PvL-Eo-wLI"/>
                         <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="dEb-S2-1P0"/>
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="683-ry-IDQ"/>
+                        <outlet property="trackingNumTextField" destination="ufC-JD-p2p" id="9G8-n2-QmU"/>
+                        <outlet property="trackingNumTitleLabel" destination="gRR-1r-So2" id="z1l-Ie-SP0"/>
                         <segue destination="ZrK-lf-uQu" kind="show" identifier="toOtherShipperView" id="TNl-AZ-Tt0"/>
                         <segue destination="qfU-8x-8ak" kind="show" identifier="PostRateSegue" id="vkC-Eo-on5"/>
                     </connections>
