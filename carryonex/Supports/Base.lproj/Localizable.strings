@@ -306,6 +306,13 @@
 "orders.ui.title.order-request-detail" = "Request Detail";
 "orders.ui.message.sender-desc-sender" = "Sender's Rating";
 "orders.ui.message.sender-desc-carrier" = "Carrier's Rating";
+"orders.ui.title.delivery-info" = "Delivery Information"; // 2018-01-18 Xin
+"orders.ui.title.delivery-tracking" = "Tracking No."; // 2018-01-18 Xin
+"orders.ui.title.delivery-company" = "Shipping By "; // 2018-01-18 Xin
+"orders.error.title.delivery-info" = "⚠️Incomplete Information"; // 2018-01-18 Xin
+"orders.error.message.delivery-info" = "Please provide the name of shipping company and tracking number"; // 2018-01-18 Xin
+"orders.error.title.express-post" = "😲Post Fail"; // 2018-01-18 Xin
+"orders.error.message.express-post" = "Unable to update your information, please make sure you have the Internet access and try again later"; // 2018-01-18 Xin
 "orders.ui.title.request-id" = "Order ID"; // 2018-0103 Xin
 "orders.ui.title.youxiang-code" = "Youxiang ID"; // 2018-0103 Xin
 "orders.ui.title.income" = "Order Fee"; // 2018-0103 Xin

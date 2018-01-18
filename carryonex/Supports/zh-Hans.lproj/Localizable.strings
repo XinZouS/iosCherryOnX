@@ -306,6 +306,13 @@
 "orders.ui.title.order-request-detail" = "订单详情";
 "orders.ui.message.sender-desc-sender" = "寄件人评分";
 "orders.ui.message.sender-desc-carrier" = "出行人评分";
+"orders.ui.title.delivery-info" = "填写运单信息"; // 2018-01-18 Xin
+"orders.ui.title.delivery-tracking" = "运单号"; // 2018-01-18 Xin
+"orders.ui.title.delivery-company" = "快递公司"; // 2018-01-18 Xin
+"orders.error.title.delivery-info" = "⚠️信息不完整"; // 2018-01-18 Xin
+"orders.error.message.delivery-info" = "请填写您使用的快递公司名称和运单号"; // 2018-01-18 Xin
+"orders.error.title.express-post" = "😲上传失败"; // 2018-01-18 Xin
+"orders.error.message.express-post" = "暂时无法更新您的信息，请确保网络连接，稍后再试"; // 2018-01-18 Xin
 "orders.ui.title.request-id" = "订单号"; // 2018-01-03 Xin
 "orders.ui.title.youxiang-code" = "游箱号"; // 2018-01-03 Xin
 "orders.ui.title.income" = "游费"; // 2018-0103 Xin
