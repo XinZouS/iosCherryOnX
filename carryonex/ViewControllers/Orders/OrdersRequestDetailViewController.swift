@@ -152,6 +152,11 @@ class OrdersRequestDetailViewController: UIViewController {
             return
         }
         
+        if transaction == .carrierShip {
+            showDeliveryInfoView(true)
+            return
+        }
+        
         //Comment this to bypass payment
         //------------------------------
 //        if transaction == .shipperPay {
@@ -199,12 +204,7 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     @IBAction func deliveryInfoOKButtonTapped(_ sender: Any) {
-        deliveryInfoViewBottomConstraint.constant = -50
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.6, options: .curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        backgroundViewHide()
-        
+        showDeliveryInfoView(false)
         //TODO: send info to server, use deliveryCompanyId and trackingNumTextField.text;
     }
     
@@ -353,10 +353,6 @@ class OrdersRequestDetailViewController: UIViewController {
     private func setupDeliveryInfoView() {
         deliveryInfoView.layer.masksToBounds = true
         deliveryInfoView.layer.cornerRadius = 6
-        deliveryInfoView.layer.masksToBounds = false
-        deliveryInfoView.layer.shadowOpacity = 5
-        deliveryInfoView.layer.shadowRadius = 6
-        deliveryInfoView.layer.shadowColor = UIColor.lightGray.cgColor
         
         deliveryInfoTitleLabel.text = "Delivery Information"
         trackingNumTitleLabel.text = "Tracking Num"
@@ -369,7 +365,9 @@ class OrdersRequestDetailViewController: UIViewController {
         
         deliveryCompanyButton.setTitle(" ", for: .normal)
         deliveryInfoOKButton.setTitle(L("action.done"), for: .normal)
-        
+        deliveryInfoOKButton.layer.cornerRadius = 5
+        deliveryInfoOKButton.layer.masksToBounds = true
+
         setupDeliveryPicker()
     }
     
@@ -548,15 +546,18 @@ class OrdersRequestDetailViewController: UIViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
         
-        backgroundView.isHidden = offset <= 0
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.backgroundView.alpha = (offset <= 0) ? 0 : 1
-        }, completion: nil)
+        if offset <= 0 {
+            backgroundViewHide()
+        }else{
+            backgroundViewShow()
+        }
         AnalyticsManager.shared.startTimeTrackingKey(.requestPayTime)
     }
     
     public func backgroundViewHide(){
         showPaymentView(false)
+        showDeliveryInfoView(false)
+        backgroundView.isHidden = true
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.backgroundView.alpha = 0
         }) { (complete) in
@@ -564,6 +565,12 @@ class OrdersRequestDetailViewController: UIViewController {
                 self.backgroundView.isHidden = true
             }
         }
+    }
+    public func backgroundViewShow() {
+        backgroundView.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.backgroundView.alpha = 1
+        }, completion: nil)
     }
     
     public func checkBoxDidChanged(_ checkBox: M13Checkbox){
@@ -586,6 +593,21 @@ class OrdersRequestDetailViewController: UIViewController {
         checkWechat?.setCheckState(wechatState, animated: true)
     }
     
+    public func showDeliveryInfoView(_ isShow: Bool) {
+        guard (isShow && deliveryInfoViewBottomConstraint.constant < 0) || (!isShow && deliveryInfoViewBottomConstraint.constant >= 0) else {
+            return
+        }
+        deliveryInfoViewBottomConstraint.constant = isShow ? 300 : -50
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.6, initialSpringVelocity: 0.6, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        if isShow {
+            backgroundViewShow()
+        } else {
+            backgroundViewHide()
+        }
+    }
 }
 
 
@@ -887,6 +909,7 @@ extension OrdersRequestDetailViewController: UITextFieldDelegate {
         if textField == deliveryCompanyTextField {
             deliveryCompanyTextField.inputView = deliveryCompanyPickerView
         }
+        textFieldAddToolBar(textField)
     }
     
     fileprivate func textFieldAddToolBar(_ textField: UITextField) {
