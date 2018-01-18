@@ -1139,6 +1139,53 @@ class ApiServers : NSObject {
 
     }
     
+    //MARK: - Express
+    func postExpress(requestId: Int,
+                     companyCode: String,
+                     expressNumber: String,
+                     completion: @escaping (Bool, Error?) -> Void) {
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            DLog("postExpress: Unable to find profile user")
+            completion(false, nil)
+            return
+        }
+        
+        let route = hostVersion + "/express/create"
+        let data: [String: Any] = [
+            ExpressKey.requestId.rawValue: requestId,
+            ExpressKey.companyCode.rawValue: companyCode,
+            ExpressKey.expressNumber.rawValue: expressNumber
+        ]
+        
+        let parameters: [String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.username.rawValue: profileUser.username ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            ServerKey.data.rawValue: data
+        ]
+        
+        postDataWithUrlRoute(route, parameters: parameters) { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    DLog("postExpress update response error: \(error.localizedDescription)")
+                }
+                completion(false, error)
+                return
+            }
+            
+            if let status = response[ServerKey.statusCode.rawValue] as? Int, status == 200 {
+                DLog("postExpress: Post Express Success")
+                completion(true, nil)
+                
+            } else {
+                DLog("postExpress: Unable to get data")
+                completion(false, nil)
+            }
+        }
+    }
+    
     
     //MARK: - Comments
     func postComment(comment: String,

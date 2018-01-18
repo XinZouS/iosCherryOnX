@@ -171,6 +171,7 @@
 		E5A2A7D51FE2E81F00A51BDC /* PhotoIDController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C01FE2E68200A51BDC /* PhotoIDController++.swift */; };
 		E5A2A7D61FE2E81F00A51BDC /* PhotoIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2A7C11FE2E68200A51BDC /* PhotoIDController.swift */; };
 		E5D020031FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */; };
+		E5DA09F7201108CC00644796 /* Express.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA09F6201108CC00644796 /* Express.swift */; };
 		E5F303561FCF5785008AF2E8 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F303551FCF5785008AF2E8 /* UIColor+App.swift */; };
 		FF105BE71FC5E655007FDBC2 /* TripCompletedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */; };
 		FF13DE1C1FCF283F0012C4BC /* HistoryComment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF13DE1B1FCF283F0012C4BC /* HistoryComment.storyboard */; };
@@ -380,6 +381,7 @@
 		E5A2A7C31FE2E68200A51BDC /* ShipperAvailableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipperAvailableController.swift; sourceTree = "<group>"; };
 		E5A2A7C41FE2E68200A51BDC /* SilenceCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SilenceCarouselView.swift; sourceTree = "<group>"; };
 		E5D020021FE3289C00B39B7A /* PhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5DA09F6201108CC00644796 /* Express.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Express.swift; sourceTree = "<group>"; };
 		E5F303551FCF5785008AF2E8 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		F7E0D7DF88CFCE43B44D3A8A /* Pods-carryonex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carryonex.release.xcconfig"; path = "Pods/Target Support Files/Pods-carryonex/Pods-carryonex.release.xcconfig"; sourceTree = "<group>"; };
 		FF105BE61FC5E655007FDBC2 /* TripCompletedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletedController.swift; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 				E5A2A7821FE2E56F00A51BDC /* Wallet.swift */,
 				E567BB001FCC6B3500B87608 /* Stripe */,
 				4D660F39200EF883000F0744 /* KuaidiObject.swift */,
+				E5DA09F6201108CC00644796 /* Express.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1242,6 +1245,7 @@
 				E5A2A7AF1FE2E5B300A51BDC /* UIImage++.swift in Sources */,
 				4D73E1EA200DCEB500195015 /* ApiServers+Venders.swift in Sources */,
 				E5A2A7B01FE2E5B300A51BDC /* UserDefaults++.swift in Sources */,
+				E5DA09F7201108CC00644796 /* Express.swift in Sources */,
 				66C3EA8D1FCF3CF200D9F582 /* OrdersYouxiangInfoViewController.swift in Sources */,
 				E567BB021FCC6B5A00B87608 /* STBalance.swift in Sources */,
 				E5A2A76F1FE2E3D200A51BDC /* ProfileManager.swift in Sources */,
