@@ -114,6 +114,8 @@
 		CFA277BC1FC1411D0008FC63 /* Request.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA277BB1FC1411D0008FC63 /* Request.storyboard */; };
 		CFEE3F7E1FBAB33F00C74BF6 /* PersonalPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */; };
 		CFFB9E3E200D615400E49982 /* addressEN.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFFB9E3D200D615300E49982 /* addressEN.plist */; };
+		E50EC77A200EAA6700EE034A /* CarryonEx.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E50EC778200EAA6700EE034A /* CarryonEx.xcdatamodeld */; };
+		E50EC77C200EAAB900EE034A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50EC77B200EAAB800EE034A /* CoreDataManager.swift */; };
 		E5267D151FB63524003ADF14 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5267D141FB63524003ADF14 /* Registration.storyboard */; };
 		E53791E81FABC07A009647CD /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */; };
 		E542F25C1FB4B49E0072BB31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E542F25B1FB4B49E0072BB31 /* Main.storyboard */; };
@@ -310,6 +312,8 @@
 		CFA277BB1FC1411D0008FC63 /* Request.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Request.storyboard; sourceTree = "<group>"; };
 		CFEE3F7D1FBAB33F00C74BF6 /* PersonalPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonalPage.storyboard; sourceTree = "<group>"; };
 		CFFB9E3D200D615300E49982 /* addressEN.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressEN.plist; sourceTree = "<group>"; };
+		E50EC779200EAA6700EE034A /* CarryonEx.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CarryonEx.xcdatamodel; sourceTree = "<group>"; };
+		E50EC77B200EAAB800EE034A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E5267D141FB63524003ADF14 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
 		E53791E71FABC07A009647CD /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		E542F25B1FB4B49E0072BB31 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -588,6 +592,7 @@
 		665DE4EB1F3A0B70004DDB88 /* carryonex */ = {
 			isa = PBXGroup;
 			children = (
+				E50EC777200EAA3300EE034A /* CoreData */,
 				665DE4EC1F3A0B70004DDB88 /* AppDelegate.swift */,
 				E5A2A7B51FE2E68200A51BDC /* Archives */,
 				E5F303541FCF572E008AF2E8 /* Configs */,
@@ -664,6 +669,15 @@
 				8B01604DC36E1F272CCEFB10 /* Pods_carryonex.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E50EC777200EAA3300EE034A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E50EC778200EAA6700EE034A /* CarryonEx.xcdatamodeld */,
+				E50EC77B200EAAB800EE034A /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		E53791E61FABC047009647CD /* Vendor */ = {
@@ -1198,10 +1212,12 @@
 				FFAA73161FD0A34200516161 /* STCustomers.swift in Sources */,
 				4DC043B51FB7457D00F6C3F0 /* RegistrationViewController.swift in Sources */,
 				66CE22581FBE602200DCC274 /* FlickrImageManager.swift in Sources */,
+				E50EC77C200EAAB900EE034A /* CoreDataManager.swift in Sources */,
 				4DA0FC241FE7A3F90062637A /* AnalyticsManager.swift in Sources */,
 				E567BB0E1FCC6D4E00B87608 /* STCharge.swift in Sources */,
 				E5A2A77E1FE2E4F300A51BDC /* WebController.swift in Sources */,
 				4DC043B71FB7459000F6C3F0 /* PhoneValidationViewController.swift in Sources */,
+				E50EC77A200EAA6700EE034A /* CarryonEx.xcdatamodeld in Sources */,
 				E5A2A7D61FE2E81F00A51BDC /* PhotoIDController.swift in Sources */,
 				665B0CCD1FC37D90002A40CA /* PersonalPageTableCell.swift in Sources */,
 				E5A2A7B41FE2E5B300A51BDC /* UIView++.swift in Sources */,
@@ -1658,6 +1674,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E50EC778200EAA6700EE034A /* CarryonEx.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E50EC779200EAA6700EE034A /* CarryonEx.xcdatamodel */,
+			);
+			currentVersion = E50EC779200EAA6700EE034A /* CarryonEx.xcdatamodel */;
+			path = CarryonEx.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 665DE4E11F3A0B70004DDB88 /* Project object */;
 }
