@@ -248,7 +248,8 @@ class RegistrationViewController: UIViewController {
     
     
     @IBAction func agreepped(_ sender: Any) {
-        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement")
+        let version = (AppDelegate.shared().getCurrentLanguage() == .cn) ? "" : "?v=en"
+        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement" + version)
     }
     
     private func gotoWebview(title: String, url: String) {

@@ -307,11 +307,13 @@ extension LoginViewController {
     }
     
     @IBAction func handleUserAgreementButton(_ sender: Any) {
-        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement")
+        let version = (AppDelegate.shared().getCurrentLanguage() == .cn) ? "" : "?v=en"
+        gotoWebview(title: L("login.ui.agreement.title"), url: "\(ApiServers.shared.host)/doc_agreement" + version)
     }
     
     @IBAction func handleAppAgreementButton(_ sender: Any) {
-        gotoWebview(title: L("login.ui.license.title"), url: "\(ApiServers.shared.host)/doc_license")
+        let version = (AppDelegate.shared().getCurrentLanguage() == .cn) ? "" : "?v=en"
+        gotoWebview(title: L("login.ui.license.title"), url: "\(ApiServers.shared.host)/doc_license" + version)
     }
     
     @IBAction func handlePrivacyPolicyButton(_ sender: Any) {
