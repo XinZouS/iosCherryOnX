@@ -41,7 +41,10 @@ class OrderListCardCell: UITableViewCell, OrderListCardCellProtocol {
     internal var status: RequestStatus = .invalid {
         didSet {
             updateButtonAppearance(status: status)
-            statusLabel.text = status.displayString()
+            if let request = request {
+                let title = status.displayString(isCommented: request.isCommented(cellCategory), isByExpress: request.isInExpress())
+                statusLabel.text = title
+            }
             statusLabel.textColor = status.displayTextColor(category: cellCategory)
             statusLabel.backgroundColor = status.displayColor(category: cellCategory)
         }

@@ -26,8 +26,7 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     
     fileprivate var status: RequestStatus = .invalid {
         didSet {
-            updateButtonAppearance(status: status)
-            statusLabel.text = status.displayString(isCommented)
+            statusLabel.text = status.displayString(isCommented: isCommented, isByExpress: request?.isInExpress() ?? false)
             statusLabel.textColor = status.displayTextColor(category: cellCategory)
             statusLabel.backgroundColor = status.displayColor(category: cellCategory)
         }
@@ -36,7 +35,7 @@ class OrdersYouxiangInfoCell: UITableViewCell {
     var request: Request? {
         didSet {
             if let request = request {
-                isCommented = request.isCommented(category: cellCategory)
+                isCommented = request.isCommented(cellCategory)
                 updateRequestInfoAppearance(request: request)
                 incomeLabel.text = L("orders.ui.title.currency-type") + request.priceString()
                 itemNumberLabel.text = "\(request.getImages().count) " + L("orders.ui.message.request-image-count") // "张"

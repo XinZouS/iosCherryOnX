@@ -612,7 +612,9 @@ class OrdersRequestDetailViewController: UIViewController {
     }
     
     private func deliveryInfoSend() {
+        
         showDeliveryInfoView(false)
+        
         guard let trackingNum = trackingNumTextField.text, !trackingNum.isEmpty else {
             displayGlobalAlert(title: L("orders.error.title.delivery-info"),
                                message: L("orders.error.message.delivery-info"),
@@ -621,6 +623,7 @@ class OrdersRequestDetailViewController: UIViewController {
             })
             return
         }
+        
         guard !deliveryCompanyId.isEmpty else {
             displayGlobalAlert(title: L("orders.error.title.delivery-info"),
                                message: L("orders.error.message.delivery-info"),
@@ -629,6 +632,7 @@ class OrdersRequestDetailViewController: UIViewController {
             })
             return
         }
+        
         ApiServers.shared.postExpress(requestId: request.id, companyCode: deliveryCompanyId, expressNumber: trackingNum) { (success, error) in
             if let error = error {
                 self.displayGlobalAlert(title: L("orders.error.title.express-post"),
@@ -637,6 +641,25 @@ class OrdersRequestDetailViewController: UIViewController {
                 return
             }
             DLog("[RESULT] upload express isSuccess=\(success)")
+            
+            if success {
+                self.processTransaction(.carrierShip)
+                
+                if let companyString = self.deliveryCompanyStringOf[self.deliveryCompanyId] {
+                    let express = Express.init(id: -999,
+                                               expressNumber: trackingNum,
+                                               companyCode: self.deliveryCompanyId,
+                                               company: companyString,
+                                               timestamp: Date.getTimestampNow())
+                    
+                    TripOrderDataStore.shared.updateRequestWithExpress(express: express,
+                                                                       category: self.category,
+                                                                       requestId: self.request.id)
+                }
+                
+            } else {
+                //TODO Display error.
+            }
         }
     }
 
@@ -747,7 +770,7 @@ extension OrdersRequestDetailViewController: OrderListCardCellProtocol {
         if let statusId = request.statusId, let status = RequestStatus(rawValue: statusId) {
             updateButtonAppearance(status: status)
             updateMapViewToShow(status == .inDelivery)
-            statusLabel.text = status.displayString(request.isCommented(category: category))
+            statusLabel.text = status.displayString(isCommented: request.isCommented(category), isByExpress: request.isInExpress())
             statusLabel.textColor = status.displayTextColor(category: category)
             statusLabel.backgroundColor = status.displayColor(category: category)
         }
