@@ -61,6 +61,7 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var expressCompanyNameLabel: UILabel!
     @IBOutlet weak var trackingTitleLabel: UILabel!
     @IBOutlet weak var trackingNumberLabel: UILabel!
+    @IBOutlet weak var trackingButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     var selectedPin : MKPlacemark? = nil
@@ -100,6 +101,7 @@ class OrdersTripDetailViewController: UIViewController {
     
     let toShipperViewSegue = "ShiperInfoSegue"
     let postRateSegue = "PostRateSegue"
+    let packageTrackingSegue = "packageTrackingSegue"
     
     var targetUserPhone: String?
     
@@ -287,6 +289,10 @@ class OrdersTripDetailViewController: UIViewController {
                 viewController.phoneNumber = trip.carrierPhone
             }
         }
+        if segue.identifier == packageTrackingSegue, let vc = segue.destination as? PackageTrackingViewController {
+            vc.companyCode = request.express?.companyCode ?? ""
+            vc.tracking = request.express?.expressNumber ?? ""
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -356,19 +362,7 @@ class OrdersTripDetailViewController: UIViewController {
         
         var profileImageString: String?
         
-        if category == .carrier {
-            // looks we not using this part here any more because this page is NOT reuse, delete these code if you reading here
-//            profileImageString = request.ownerImageUrl
-//            senderNameLabel.text = request.ownerRealName
-//            senderScoreLabel.text = L("orders.ui.message.sender-desc-sender")
-//            recipientPhoneCallButton.isHidden = false
-//            if let rating = request.ownerRating {
-//                let fullLength = senderStar5MaskWidthConstraint.constant
-//                senderScoreWidthConstraint.constant = fullLength * CGFloat(rating / 5.0)
-//            }
-//            updateMapViewToShow(false)
-            
-        } else {
+        if category == .sender {
             profileImageString = trip.carrierImageUrl
             requestIdLabel.text = "\(request.id)"
             youxiangCodeLabel.text = "\(trip.tripCode)"
@@ -502,7 +496,7 @@ class OrdersTripDetailViewController: UIViewController {
             expressInfoView.isHidden = true
             return
         }
-        expressInfoViewHeightConstraint.constant = 130
+        expressInfoViewHeightConstraint.constant = 150
         expressInfoView.isHidden = false
         expressInfoView.backgroundColor = .white
         expressCompanyTitleLabel.textColor = colorTextBlack
@@ -513,6 +507,7 @@ class OrdersTripDetailViewController: UIViewController {
         expressCompanyNameLabel.text = exp.company
         trackingTitleLabel.text = L("orders.ui.title.delivery-tracking")
         trackingNumberLabel.text = exp.expressNumber
+        trackingButton.setTitle(L("orders.ui.title.delivery-details"), for: .normal)
     }
     
     

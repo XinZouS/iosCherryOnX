@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-Hc-Wgi">
-                                <rect key="frame" x="-1" y="220" width="376" height="447"/>
+                                <rect key="frame" x="-1" y="215" width="376" height="452"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PackageItemCell" rowHeight="83" id="MRN-D4-9iz" customClass="PackageItemCell" customModule="carryonex" customModuleProvider="target">
@@ -30,25 +30,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z53-A9-7Wp">
-                                                    <rect key="frame" x="15" y="10" width="28" height="14.5"/>
+                                                    <rect key="frame" x="15" y="15" width="28" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYo-nh-tSk">
-                                                    <rect key="frame" x="15" y="39.5" width="346" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="15" y="39.5" width="346" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="iYo-nh-tSk" secondAttribute="trailing" constant="15" id="TfB-Cg-2kS"/>
-                                                <constraint firstItem="z53-A9-7Wp" firstAttribute="top" secondItem="acv-OV-cye" secondAttribute="top" constant="10" id="UFs-JN-bh4"/>
+                                                <constraint firstItem="z53-A9-7Wp" firstAttribute="top" secondItem="acv-OV-cye" secondAttribute="top" constant="15" id="UFs-JN-bh4"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iYo-nh-tSk" secondAttribute="bottom" constant="10" id="Umt-pl-HI8"/>
                                                 <constraint firstItem="iYo-nh-tSk" firstAttribute="leading" secondItem="acv-OV-cye" secondAttribute="leading" constant="15" id="fpK-37-jAp"/>
                                                 <constraint firstItem="z53-A9-7Wp" firstAttribute="leading" secondItem="acv-OV-cye" secondAttribute="leading" constant="15" id="sD0-R3-8su"/>
-                                                <constraint firstItem="iYo-nh-tSk" firstAttribute="top" secondItem="z53-A9-7Wp" secondAttribute="bottom" constant="15" id="z1O-2P-Kc3"/>
+                                                <constraint firstItem="iYo-nh-tSk" firstAttribute="top" secondItem="z53-A9-7Wp" secondAttribute="bottom" constant="10" id="z1O-2P-Kc3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -58,16 +58,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="apa-rS-9Mc">
-                                <rect key="frame" x="105" y="115" width="255" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="apa-rS-9Mc" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                <rect key="frame" x="105" y="120" width="255" height="20"/>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7BR-Ra-wyq">
-                                <rect key="frame" x="105" y="73.5" width="255" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7BR-Ra-wyq" customClass="ThemTextField" customModule="carryonex" customModuleProvider="target">
+                                <rect key="frame" x="105" y="78.5" width="255" height="20"/>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="快递公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeA-0a-ZzP">
@@ -77,7 +77,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tv-Yh-hLz">
-                                <rect key="frame" x="15" y="160" width="345" height="40"/>
+                                <rect key="frame" x="15" y="155" width="345" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="SsB-H2-bs7"/>
                                 </constraints>
@@ -93,7 +93,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zqH-jP-Ruc">
-                                <rect key="frame" x="177" y="200" width="20" height="20"/>
+                                <rect key="frame" x="177" y="195" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
