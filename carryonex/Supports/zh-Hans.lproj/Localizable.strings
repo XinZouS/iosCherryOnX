@@ -340,6 +340,12 @@
 "orders.ui.action.call" = "打电话 📲"; // 2018-01-06 - Xin
 "orders.ui.action.sms" = "发短信 💬"; // 2018-01-06 - Xin
 
+// MARK: - Tracking
+"tracking.error.title.info" = "快递资料错误"; // 2018-01-19 Xin
+"tracking.error.message.info" = "请输入正确的快递资料"; // 2018-01-19 Xin
+"tracking.error.title.company-code" = "搜寻单号错误"; // 2018-01-19 Xin 错误代码:
+"tracking.error.message.company-code1" = "错误代码: "; // 2018-01-19 Xin
+"tracking.error.message.company-code2" = "错误讯息: "; // 2018-01-19 Xin
 
 // MARK: - Settings
 "settings.ui.title.notification" = "消息设置";

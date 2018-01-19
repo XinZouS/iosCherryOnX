@@ -64,7 +64,7 @@ class PackageTrackingViewController: UIViewController {
     public func getTrackingInfo() {
         
         guard let trackingNumber = trackingIdTextField.text, let carrierCode = carrierCodeTextField.text else {
-            displayAlert(title: "快递资料错误", message: "请输入正确的快递资料", action: L("action.ok"))
+            displayAlert(title: L("tracking.error.title.info"), message: L("tracking.error.message.info"), action: L("action.ok"))
             return
         }
         
@@ -83,7 +83,8 @@ class PackageTrackingViewController: UIViewController {
                 let serverError = error as NSError
                 let errorMessage = serverError.userInfo["message"] ?? serverError.localizedDescription
                 let errorCode = serverError.code
-                self.displayAlert(title: "搜寻单号错误", message: "错误代码: \(errorCode)。错误讯息: \(errorMessage)", action: L("action.ok"))
+                self.displayAlert(title: L("tracking.error.title.company-code"),
+                                  message: L("tracking.error.message.company-code1") + "\(errorCode)。" + L("tracking.error.message.company-code2") + "\(errorMessage)", action: L("action.ok"))
                 self.items?.removeAll()
                 return
             }
