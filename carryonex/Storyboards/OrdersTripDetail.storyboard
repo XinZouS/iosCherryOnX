@@ -398,14 +398,27 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bc-yu-C2d">
+                                                        <rect key="frame" x="100" y="54.5" width="80" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="80" id="TME-pz-W4k"/>
+                                                            <constraint firstAttribute="height" constant="44" id="ZHo-eQ-dUz"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Details"/>
+                                                        <connections>
+                                                            <segue destination="nYw-w6-lsO" kind="show" identifier="packageTrackingSegue" id="tDg-m5-fCX"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="9m4-Fo-8QT" firstAttribute="leading" secondItem="2Yq-Zo-diS" secondAttribute="leading" id="2Hm-iQ-8us"/>
                                                     <constraint firstItem="9m4-Fo-8QT" firstAttribute="height" secondItem="YuD-f8-kn3" secondAttribute="height" id="3va-BC-dWb"/>
                                                     <constraint firstItem="9m4-Fo-8QT" firstAttribute="top" secondItem="4mY-DB-d18" secondAttribute="bottom" constant="5" id="5Kh-Ol-Afs"/>
+                                                    <constraint firstItem="5bc-yu-C2d" firstAttribute="leading" secondItem="4mY-DB-d18" secondAttribute="trailing" id="7Op-d1-nxq"/>
                                                     <constraint firstItem="M72-7B-aUZ" firstAttribute="top" secondItem="2Yq-Zo-diS" secondAttribute="top" id="Jdp-Ef-Uyf"/>
                                                     <constraint firstItem="4mY-DB-d18" firstAttribute="leading" secondItem="2Yq-Zo-diS" secondAttribute="leading" id="R1O-QE-zlP"/>
+                                                    <constraint firstItem="5bc-yu-C2d" firstAttribute="centerY" secondItem="4mY-DB-d18" secondAttribute="centerY" id="faf-39-J9z"/>
                                                     <constraint firstItem="YuD-f8-kn3" firstAttribute="top" secondItem="M72-7B-aUZ" secondAttribute="bottom" constant="5" id="pe8-sH-RgS"/>
                                                     <constraint firstAttribute="height" constant="130" id="rje-bq-vdb"/>
                                                     <constraint firstItem="4mY-DB-d18" firstAttribute="top" secondItem="YuD-f8-kn3" secondAttribute="bottom" constant="15" id="rsQ-0k-wsR"/>
@@ -755,6 +768,7 @@
                         <outlet property="shareButton" destination="KW0-cL-CBh" id="KaA-2F-6Ee"/>
                         <outlet property="startAddressLabel" destination="qVA-Bh-Wfs" id="6fD-cs-ib3"/>
                         <outlet property="statusLabel" destination="bjX-jD-MVV" id="Lo6-tT-i3T"/>
+                        <outlet property="trackingButton" destination="5bc-yu-C2d" id="q1e-Mo-xfL"/>
                         <outlet property="trackingNumberLabel" destination="9m4-Fo-8QT" id="jLt-Zh-lbo"/>
                         <outlet property="trackingTitleLabel" destination="4mY-DB-d18" id="siH-2W-GFB"/>
                         <outlet property="youxiangCodeLabel" destination="uRf-eA-r68" id="Cia-bj-fva"/>
@@ -773,7 +787,7 @@
                 <viewControllerPlaceholder storyboardName="ShiperInfo" id="ZrK-lf-uQu" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1M-Q0-NNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="558" y="109"/>
+            <point key="canvasLocation" x="554" y="-89"/>
         </scene>
         <!--PostRate-->
         <scene sceneID="aiP-Dd-WRn">
@@ -781,7 +795,15 @@
                 <viewControllerPlaceholder storyboardName="PostRate" id="qfU-8x-8ak" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LV8-OO-C1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="220"/>
+            <point key="canvasLocation" x="559" y="51"/>
+        </scene>
+        <!--PackageTracking-->
+        <scene sceneID="Zhg-zG-eVB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PackageTracking" id="nYw-w6-lsO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Eu-Wa-wT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="585" y="317"/>
         </scene>
     </scenes>
     <resources>

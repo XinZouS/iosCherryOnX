@@ -10,8 +10,8 @@ import UIKit
 
 class PackageTrackingViewController: UIViewController {
 
-    @IBOutlet weak var trackingIdTextField: UITextField!
-    @IBOutlet weak var carrierCodeTextField: UITextField!
+    @IBOutlet weak var trackingIdTextField: ThemTextField!
+    @IBOutlet weak var carrierCodeTextField: ThemTextField!
     @IBOutlet weak var trackingTableView: UITableView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     

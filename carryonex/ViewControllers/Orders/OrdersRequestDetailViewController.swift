@@ -476,7 +476,7 @@ class OrdersRequestDetailViewController: UIViewController {
             expressInfoView.isHidden = true
             return
         }
-        expressInfoViewHeightConstraint.constant = 130
+        expressInfoViewHeightConstraint.constant = 150
         expressInfoView.isHidden = false
         expressInfoView.backgroundColor = .white
         expressCompanyTitleLabel.textColor = colorTextBlack
