@@ -89,23 +89,23 @@ class DeeplinkNavigator: NSObject {
     
     static private func navigateToRequest(_ requestId: Int) {
         
-        if UIViewController.topViewController() as? OrdersRequestDetailViewController != nil {
+        if UIViewController.topViewController() as? OrdersRequestDetailViewController != nil ||
+            UIViewController.topViewController() as? OrdersTripDetailViewController != nil {
             return
         }
         
         let tabViewController = AppDelegate.shared().mainTabViewController!
         tabViewController.selectTabIndex(index: TabViewIndex.order)
         
-        if let request = TripOrderDataStore.shared.getRequest(category: .carrier, requestId: requestId) {
-            AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+        if let request = TripOrderDataStore.shared.getRequest(requestId: requestId), let category = request.category() {
+            if category == .carrier {
+                AppDelegate.shared().handleMainNavigation(navigationSegue: .requestDetail, sender: request)
+            } else {
+                AppDelegate.shared().handleMainNavigation(navigationSegue: .tripDetail, sender: request)
+            }
             
-        } else if let request = TripOrderDataStore.shared.getRequest(category: .sender, requestId: requestId) {
-            AppDelegate.shared().handleMainNavigation(navigationSegue: .tripDetail, sender: request)
-        
         } else {
-            TripOrderDataStore.shared.pullAll(completion: {
-                self.navigateToRequest(requestId)
-            })
+            DLog("Unable to obtain request / category from request: \(requestId)")
         }
     }
     

@@ -222,20 +222,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let requestIdString = URL.getQueryStringParameter(url: url, param: "request_id"),
                             let requestId = Int(requestIdString) {
                             
-                            if statusId == RequestStatus.waiting.rawValue {    //New item
-                                TripOrderDataStore.shared.pull(category: category, completion: {
-                                    if let deeplinkUrl = URL(string: url) {
-                                        DeeplinkNavigator.handleDeeplink(deeplinkUrl)
-                                    }
-                                    TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
-                                })
-                                
-                            } else {
+                            TripOrderDataStore.shared.updateRequestFromRemote(requestId: requestId) { (request) in
                                 if let deeplinkUrl = URL(string: url) {
                                     DeeplinkNavigator.handleDeeplink(deeplinkUrl)
                                 }
-                                TripOrderDataStore.shared.updateRequestToStatus(category: category, requestId: Int(requestId), status: statusId)
                             }
+                            
                         }
                     })
                 }
