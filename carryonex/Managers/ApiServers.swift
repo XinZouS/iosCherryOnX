@@ -1135,9 +1135,53 @@ class ApiServers : NSObject {
             }
             completion(true, "", data)
         }
-
-
     }
+    
+    func getRequestInfo(id: Int, completion: @escaping (Request?, Error?) -> Void){
+        
+        guard let profileUser = ProfileManager.shared.getCurrentUser() else {
+            DLog("getRequestInfo: Unable to find profile user")
+            completion(nil, nil)
+            return
+        }
+        
+        let sessionStr = hostVersion + "/requests/info"
+        
+        let headers:[String: Any] = [
+            ServerKey.appToken.rawValue : appToken,
+            ServerKey.username.rawValue : profileUser.username ?? "",
+            ServerKey.userToken.rawValue: profileUser.token ?? "",
+            ServerKey.timestamp.rawValue: Date.getTimestampNow(),
+            RequestKeyInDB.id.rawValue: id
+        ]
+        
+        getDataWithUrlRoute(sessionStr, parameters: headers) { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    DLog("getRequestInfo response error: \(error.localizedDescription)")
+                }
+                completion(nil, error)
+                return
+            }
+            
+            if let data = response[ServerKey.data.rawValue] as? [String: Any] {
+                do {
+                    let request: Request = try unbox(dictionary: data, atKey: "request")
+                    completion(request, nil)
+                    
+                } catch let error {
+                    completion(nil, error)
+                    DLog("Error when getRequestInfo. Error = \(error.localizedDescription)")
+                }
+                
+            } else {
+                DLog("getRequestInfo empty data")
+                completion(nil, nil)
+            }
+        }
+    }
+    
     
     //MARK: - Express
     func postExpress(requestId: Int,

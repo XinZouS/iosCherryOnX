@@ -49,9 +49,36 @@ class TripOrderDataStore: NSObject {
         })
     }
     
+    func getRequest(requestId: Int) -> Request? {
+        if let request = carrierRequests[requestId] {
+            return request
+        }
+        return senderRequests[requestId]
+    }
+    
     func getRequest(category: TripCategory, requestId: Int) -> Request? {
         let targetRequests = (category == .carrier) ? carrierRequests : senderRequests
         return targetRequests[requestId]
+    }
+    
+    func updateRequestFromRemote(requestId: Int, completion:((Request?) -> Void)?) {
+        ApiServers.shared.getRequestInfo(id: requestId) { (request, error) in
+            if let error = error {
+                DLog("updateRequestFromRemote error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let request = request, let category = request.category() {
+                if category == .carrier {
+                    self.carrierRequests[request.id] = request
+                } else {
+                    self.senderRequests[request.id] = request
+                }
+            }
+            
+            completion?(request)
+            NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+        }
     }
     
     func getCardItems() -> [(Request, TripCategory)]? {
