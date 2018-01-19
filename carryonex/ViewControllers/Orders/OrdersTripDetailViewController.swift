@@ -55,6 +55,12 @@ class OrdersTripDetailViewController: UIViewController {
     @IBOutlet weak var recipientMessageButton: PhoneMsgButton!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
     @IBOutlet weak var recipientAddressLabel: UILabel!
+    @IBOutlet weak var expressInfoView: UIView!
+    @IBOutlet weak var expressInfoViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var expressCompanyTitleLabel: UILabel!
+    @IBOutlet weak var expressCompanyNameLabel: UILabel!
+    @IBOutlet weak var trackingTitleLabel: UILabel!
+    @IBOutlet weak var trackingNumberLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     var selectedPin : MKPlacemark? = nil
@@ -250,20 +256,7 @@ class OrdersTripDetailViewController: UIViewController {
         } else {
             targetUserId = trip.carrierId
         }
-        
-        ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
-            if let error = error {
-                DLog("Get phone error: \(error.localizedDescription)")
-                self.senderPhoneButton.isHidden = true
-                return
-            }
-            if let phone = phone as? String, phone.count > 1 {
-                self.senderPhoneButton.isHidden = false
-                self.targetUserPhone = phone
-            }else{
-                self.senderPhoneButton.isHidden = true
-            }
-        }
+        loadPhone(targetUserId)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -364,15 +357,16 @@ class OrdersTripDetailViewController: UIViewController {
         var profileImageString: String?
         
         if category == .carrier {
-            profileImageString = request.ownerImageUrl
-            senderNameLabel.text = request.ownerRealName
-            senderScoreLabel.text = L("orders.ui.message.sender-desc-sender")
-            recipientPhoneCallButton.isHidden = false
-            if let rating = request.ownerRating {
-                let fullLength = senderStar5MaskWidthConstraint.constant
-                senderScoreWidthConstraint.constant = fullLength * CGFloat(rating / 5.0)
-            }
-            updateMapViewToShow(false)
+            // looks we not using this part here any more because this page is NOT reuse, delete these code if you reading here
+//            profileImageString = request.ownerImageUrl
+//            senderNameLabel.text = request.ownerRealName
+//            senderScoreLabel.text = L("orders.ui.message.sender-desc-sender")
+//            recipientPhoneCallButton.isHidden = false
+//            if let rating = request.ownerRating {
+//                let fullLength = senderStar5MaskWidthConstraint.constant
+//                senderScoreWidthConstraint.constant = fullLength * CGFloat(rating / 5.0)
+//            }
+//            updateMapViewToShow(false)
             
         } else {
             profileImageString = trip.carrierImageUrl
@@ -413,6 +407,8 @@ class OrdersTripDetailViewController: UIViewController {
         startAddressLabel.text = trip.startAddress?.fullAddressString()
         endAddressLabel.text = trip.endAddress?.fullAddressString()
         imageCountButton.setTitle("\(request.getImages().count)" + L("orders.ui.message.request-image-count"), for: .normal)
+        
+        setupExpressInfo(request.express)
     }
     
     private func messageAttributeText(msg: String?) -> NSAttributedString {
@@ -483,6 +479,42 @@ class OrdersTripDetailViewController: UIViewController {
             setupView()
         }
     }
+    
+    private func loadPhone(_ targetUserId: Int) {
+        ApiServers.shared.getUserInfo(.phone, userId: targetUserId) { (phone, error) in
+            if let error = error {
+                DLog("Get phone error: \(error.localizedDescription)")
+                self.senderPhoneButton.isHidden = true
+                return
+            }
+            if let phone = phone as? String, phone.count > 1 {
+                self.senderPhoneButton.isHidden = false
+                self.targetUserPhone = phone
+            }else{
+                self.senderPhoneButton.isHidden = true
+            }
+        }
+    }
+    
+    private func setupExpressInfo(_ express: Express?) {
+        guard request.isInExpress(), let exp = express else {
+            expressInfoViewHeightConstraint.constant = 0
+            expressInfoView.isHidden = true
+            return
+        }
+        expressInfoViewHeightConstraint.constant = 130
+        expressInfoView.isHidden = false
+        expressInfoView.backgroundColor = .white
+        expressCompanyTitleLabel.textColor = colorTextBlack
+        expressCompanyNameLabel.textColor = colorTextBlack
+        trackingTitleLabel.textColor = colorTextBlack
+        trackingNumberLabel.textColor = colorTextBlack
+        expressCompanyTitleLabel.text = L("orders.ui.title.delivery-company")
+        expressCompanyNameLabel.text = exp.company
+        trackingTitleLabel.text = L("orders.ui.title.delivery-tracking")
+        trackingNumberLabel.text = exp.expressNumber
+    }
+    
     
     private func showPaymentView(_ isShown: Bool) {
         guard (paymentMenuTopConstraint.constant < 0 && isShown) || (paymentMenuTopConstraint.constant >= 0 && !isShown) else {
