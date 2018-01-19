@@ -310,6 +310,7 @@
 "orders.ui.title.delivery-info" = "Delivery Information"; // 2018-01-18 Xin
 "orders.ui.title.delivery-tracking" = "Tracking No."; // 2018-01-18 Xin
 "orders.ui.title.delivery-company" = "Shipping By "; // 2018-01-18 Xin
+"orders.ui.title.delivery-details" = "Details"; // 2018-01-19 Xin
 "orders.error.title.delivery-info" = "⚠️Incomplete Information"; // 2018-01-18 Xin
 "orders.error.message.delivery-info" = "Please provide the name of shipping company and tracking number"; // 2018-01-18 Xin
 "orders.error.title.express-post" = "😲Post Fail"; // 2018-01-18 Xin

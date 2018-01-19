@@ -15,6 +15,9 @@ class PackageTrackingViewController: UIViewController {
     @IBOutlet weak var trackingTableView: UITableView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
+    var companyCode = "huitongkuaidi"
+    var tracking = "70118428554311"
+    
     var items: [KuaidiProcessItem]? {
         didSet {
             trackingTableView.reloadData()
@@ -37,11 +40,13 @@ class PackageTrackingViewController: UIViewController {
         trackingTableView.delegate = self
         trackingTableView.dataSource = self
         
-        let companyCode = "huitongkuaidi"
-        let tracking = "70118428554311"
-        
         trackingIdTextField.text = tracking
         carrierCodeTextField.text = companyCode
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getTrackingInfo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +58,10 @@ class PackageTrackingViewController: UIViewController {
     //MARK: - Tracking Helper
     
     @IBAction func handleTrackingButton(sender: UIButton) {
+        getTrackingInfo()
+    }
+    
+    public func getTrackingInfo() {
         
         guard let trackingNumber = trackingIdTextField.text, let carrierCode = carrierCodeTextField.text else {
             displayAlert(title: "快递资料错误", message: "请输入正确的快递资料", action: L("action.ok"))

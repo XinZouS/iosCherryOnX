@@ -310,6 +310,7 @@
 "orders.ui.title.delivery-info" = "填写运单信息"; // 2018-01-18 Xin
 "orders.ui.title.delivery-tracking" = "运单号"; // 2018-01-18 Xin
 "orders.ui.title.delivery-company" = "快递公司"; // 2018-01-18 Xin
+"orders.ui.title.delivery-details" = "物流追踪"; // 2018-01-19 Xin
 "orders.error.title.delivery-info" = "⚠️信息不完整"; // 2018-01-18 Xin
 "orders.error.message.delivery-info" = "请填写您使用的快递公司名称和运单号"; // 2018-01-18 Xin
 "orders.error.title.express-post" = "😲上传失败"; // 2018-01-18 Xin

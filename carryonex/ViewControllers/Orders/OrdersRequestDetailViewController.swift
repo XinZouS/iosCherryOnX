@@ -51,6 +51,13 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var recipientPhoneLabel: UILabel!
     @IBOutlet weak var recipientAddressLabel: UILabel!
     @IBOutlet weak var recipientPhoneCallButton: PhoneMsgButton!
+    @IBOutlet weak var expressInfoView: UIView!
+    @IBOutlet weak var expressInfoViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var expressCompanyTitleLabel: UILabel!
+    @IBOutlet weak var expressCompanyNameLabel: UILabel!
+    @IBOutlet weak var expressTrackingNumTitleLabel: UILabel!
+    @IBOutlet weak var expressTrackingNumberLabel: UILabel!    
+    @IBOutlet weak var expressTrackingButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapViewHeighConstraint: NSLayoutConstraint!
     var selectedPin : MKPlacemark? = nil
@@ -59,12 +66,6 @@ class OrdersRequestDetailViewController: UIViewController {
     @IBOutlet weak var finishButton: RequestTransactionButton!
     @IBOutlet weak var finishButton2: RequestTransactionButton!
     @IBOutlet weak var finishButtonStackViewHeighConstraint: NSLayoutConstraint!
-    
-    var isLoadingStatus = false {
-        didSet {
-            handleLoadingStatus()
-        }
-    }
     
     // payment menu at bottom of view
     @IBOutlet weak var backgroundView: UIView!
@@ -95,11 +96,18 @@ class OrdersRequestDetailViewController: UIViewController {
                                    "yunda":"韵达快递", "zhaijisong":"宅急送", "EMS":"EMS", "upsen":"UPS", "usps":"USPS",
                                    "tnten":"TNT", "fedexus":"FedEx", "canpost":"Canada Post", "auspost":"澳大利亚邮政", "hkpost":"香港邮政"]
     
+    var isLoadingStatus = false {
+        didSet {
+            handleLoadingStatus()
+        }
+    }
+    
     var checkAlipay: M13Checkbox?
     var checkWechat: M13Checkbox?
     
     let toShipperViewSegue = "toOtherShipperView"
     let postRateSegue = "PostRateSegue"
+    let expressTrackingSegue = "expressTrackingSegue"
     
     var targetUserPhone: String?
     
@@ -207,6 +215,10 @@ class OrdersRequestDetailViewController: UIViewController {
         deliveryInfoSend()
     }
     
+    @IBAction func expressTrackingButtonHandler(_ sender: Any) {
+        // push PackageTracking by expressTrackingSegue
+    }
+    
     // MARK: - Data models
     var trip: Trip = Trip()
     
@@ -289,6 +301,7 @@ class OrdersRequestDetailViewController: UIViewController {
                 viewController.commenteeRealName = trip.carrierRealName ?? trip.carrierUsername
                 viewController.commenteeImage = trip.carrierImageUrl
             }
+            
         }
         if segue.identifier == toShipperViewSegue, let viewController = segue.destination as? ShipperInfoViewController {
             if category == .carrier {
@@ -302,6 +315,11 @@ class OrdersRequestDetailViewController: UIViewController {
                 viewController.commenteeImage = trip.carrierImageUrl
                 viewController.phoneNumber = trip.carrierPhone
             }
+            
+        }
+        if segue.identifier == expressTrackingSegue, let vc = segue.destination as? PackageTrackingViewController {
+            vc.companyCode = request.express?.companyCode ?? ""
+            vc.tracking = request.express?.expressNumber ?? ""
         }
     }
     
@@ -449,7 +467,29 @@ class OrdersRequestDetailViewController: UIViewController {
         }else{
             imageCountButton.setTitle("", for: .normal)
         }
+        setupExpressInfo(request.express)
     }
+    
+    private func setupExpressInfo(_ express: Express?) {
+        guard request.isInExpress(), let exp = express else {
+            expressInfoViewHeightConstraint.constant = 0
+            expressInfoView.isHidden = true
+            return
+        }
+        expressInfoViewHeightConstraint.constant = 130
+        expressInfoView.isHidden = false
+        expressInfoView.backgroundColor = .white
+        expressCompanyTitleLabel.textColor = colorTextBlack
+        expressCompanyNameLabel.textColor = colorTextBlack
+        expressTrackingNumTitleLabel.textColor = colorTextBlack
+        expressTrackingNumberLabel.textColor = colorTextBlack
+        expressCompanyTitleLabel.text = L("orders.ui.title.delivery-company")
+        expressCompanyNameLabel.text = exp.company
+        expressTrackingNumTitleLabel.text = L("orders.ui.title.delivery-tracking")
+        expressTrackingNumberLabel.text = exp.expressNumber
+        expressTrackingButton.setTitle(L("orders.ui.title.delivery-details"), for: .normal)
+    }
+
     
     private func messageAttributeText(msg: String?) -> NSAttributedString {
         var m = L("orders.ui.placeholder.note-empty")
@@ -656,6 +696,7 @@ class OrdersRequestDetailViewController: UIViewController {
                                                                        category: self.category,
                                                                        requestId: self.request.id)
                 }
+                self.reloadData()
                 
             } else {
                 //TODO Display error.
