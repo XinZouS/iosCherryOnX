@@ -114,9 +114,9 @@ class Request: Unboxable, Identifiable {
         return String(format:"%.2f", Double(totalValue) / 100)
     }
     
-    func statusString() -> String {
+    func statusString(_ category: TripCategory) -> String {
         if let statusId = statusId, let status = RequestStatus(rawValue: statusId) {
-            return status.displayString()
+            return status.displayString(isCommented: isCommented(category), isByExpress: isInExpress())
         } else {
             return "错误状态"
         }
@@ -143,7 +143,7 @@ class Request: Unboxable, Identifiable {
         return [RequestImage]()
     }
     
-    func isCommented(category: TripCategory) -> Bool {
+    func isCommented(_ category: TripCategory) -> Bool {
         if let commentStatus = CommentStatus(rawValue: self.commentStatus) {
             switch commentStatus {
                 case .NoComment:
@@ -157,6 +157,10 @@ class Request: Unboxable, Identifiable {
             }
         }
         return false
+    }
+    
+    func isInExpress() -> Bool {
+        return self.express != nil
     }
 }
 
@@ -302,7 +306,7 @@ enum RequestStatus: Int {
         }
     }
     
-    func displayString(_ isCommented: Bool = false) -> String {
+    func displayString(isCommented: Bool = false, isByExpress: Bool) -> String {
         switch self {
         case .waiting:
             return L("request.ui.status.waiting") // "等待接受"
@@ -317,7 +321,11 @@ enum RequestStatus: Int {
         case .inDelivery:
             return L("request.ui.status.indelivery") // "正在派送"
         case .delivered:
-            return L("request.ui.status.delivered") // "已交付"
+            if isByExpress {
+                return L("request.ui.status.expressed") // "已交付"
+            } else {
+                return L("request.ui.status.delivered") // "已交付"
+            }
         case .deliveryConfirmed:
             if isCommented {
                 return L("request.ui.status.complete") // "已完成"

@@ -125,6 +125,23 @@ class TripOrderDataStore: NSObject {
         }
     }
     
+    public func updateRequestWithExpress(express: Express, category: TripCategory, requestId: Int) {
+        
+        if let request = getRequest(category: category, requestId: requestId) {
+            
+            if category == .carrier {
+                request.express = express
+                carrierRequests[request.id] = request
+                
+            } else {
+                request.express = express
+                senderRequests[request.id] = request
+            }
+            
+            NotificationCenter.default.post(name: NSNotification.Name.TripOrderStore.StoreUpdated, object: nil)
+        }
+    }
+    
     private func prioritySortedRequests(category: TripCategory) -> [(Request, TripCategory)]? {
         
         let requests = (category == .carrier) ? carrierRequests : senderRequests

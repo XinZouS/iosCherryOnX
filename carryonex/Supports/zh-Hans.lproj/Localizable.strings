@@ -215,6 +215,7 @@
 "request.ui.status.paid" = "已付款";
 "request.ui.status.indelivery" = "正在派送";
 "request.ui.status.delivered" = "已交付";
+"request.ui.status.expressed" = "快递中";
 "request.ui.status.delivery-confirmed" = "已确认送达";
 "request.ui.status.complete" = "已完成";
 "request.ui.status.invalid" = "状态无效";
