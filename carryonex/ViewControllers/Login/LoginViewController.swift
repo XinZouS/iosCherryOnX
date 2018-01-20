@@ -10,6 +10,7 @@ import UIKit
 import M13Checkbox
 import FBSDKLoginKit
 
+
 class LoginViewController: UIViewController {
 
     fileprivate let constant: CGFloat = 32
@@ -143,12 +144,38 @@ class LoginViewController: UIViewController {
     }
     
     private func setupFBLoginButton() {
-        let b = FBSDKLoginButton()
-        b.delegate = self
-        b.readPermissions = ["email", "public_profile"]
+        // Plan A: use default Facebook button:
+//        let b = FBSDKLoginButton()
+//        b.delegate = self
+//        b.readPermissions = ["email", "public_profile"]
+//        view.addSubview(b)
+//        b.bounds = wechatLoginButton.bounds
+//        b.addConstraints(left: wechatLoginButton.leftAnchor, top: wechatLoginButton.bottomAnchor, right: wechatLoginButton.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 0, width: 0, height: 44)
+        
+        // Plan B: use customized login button:
+        let b = UIButton(type: .custom)
+        b.layer.masksToBounds = false
+        b.layer.cornerRadius = 6
+        b.layer.borderColor = colorTheamRed.cgColor
+        b.layer.borderWidth = 2
+        b.backgroundColor = .white
+        b.setTitle("Facebook Login", for: .normal)
+        b.setTitleColor(colorTheamRed, for: .normal)
+        b.addTarget(self, action: #selector(fbLoginButtonHandler), for: .touchUpInside)
         view.addSubview(b)
-        b.bounds = wechatLoginButton.bounds
-        b.addConstraints(left: wechatLoginButton.leftAnchor, top: wechatLoginButton.bottomAnchor, right: wechatLoginButton.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 0, width: 0, height: 44)
+        b.addConstraints(left: wechatLoginButton.leftAnchor, top: wechatLoginButton.bottomAnchor, right: wechatLoginButton.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 0, width: 0, height: 40)
+    }
+    
+    @objc private func fbLoginButtonHandler() {
+        FBSDKLoginManager().logIn(withReadPermissions: ["email", "public_profile"], from: self) { (loginResult, error) in
+            if loginResult?.isCancelled ?? false {
+                DLog("[ERROR] Facebook login failed, error = \(error.debugDescription)")
+                return
+            }
+            // WTH is in loginResult and how to see if it success???
+            DLog("[RESULT] Facebook login result = \(loginResult.debugDescription)")
+            self.loadUserProfileFromFacebook()
+        }
     }
     
     private func loadUserProfileFromFacebook() {
@@ -423,25 +450,25 @@ extension LoginViewController {
     
 }
 
-// MARK: - Facebook loginButton delegate
-extension LoginViewController: FBSDKLoginButtonDelegate {
-    
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            displayGlobalAlert(title: "Facebook login fail", message: "try again", action: L("action.ok"), completion: nil)
-            return
-        }
-        if let token = result.token {
-            DLog("[SUCCESS] login by facebook, token = \(token.debugDescription)")
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        ProfileManager.shared.logoutUser()
-    }
-    
-}
+// MARK: - Default button use only: Facebook loginButton delegate
+//extension LoginViewController: FBSDKLoginButtonDelegate {
+//
+//    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+//        if error != nil {
+//            displayGlobalAlert(title: "Facebook login fail", message: "try again", action: L("action.ok"), completion: nil)
+//            return
+//        }
+//        if let token = result.token {
+//            DLog("[SUCCESS] login by facebook, token = \(token.debugDescription)")
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
+//
+//    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+//        ProfileManager.shared.logoutUser()
+//    }
+//
+//}
 
 
 extension LoginViewController: UITextFieldDelegate {
