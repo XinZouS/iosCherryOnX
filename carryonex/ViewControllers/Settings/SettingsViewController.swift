@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FBSDKLoginKit
 
 class SettingsViewController: UIViewController {
     
@@ -67,6 +68,17 @@ extension SettingsViewController: UITableViewDataSource {
                 setupVersionCell(cell)
             }
             cell.selectionStyle = .none
+            
+            if indexPath.row == 4 { // logout
+                if let fbToken = FBSDKAccessToken.current() {
+                    DLog("[CONFIG] login by Facebook, token = \(fbToken.debugDescription)")
+                    let b = FBSDKLoginButton()
+                    b.delegate = self
+                    cell.addSubview(b)
+                    let org = cell.frame.origin
+                    b.frame = CGRect(x: org.x + 20, y: org.y, width: cell.frame.width - 40, height: 44)
+                }
+            }
             return cell
         }
         return UITableViewCell()
@@ -80,6 +92,21 @@ extension SettingsViewController: UITableViewDataSource {
         label.font = UIFont.systemFont(ofSize: 18)
         cell.addSubview(label)
         label.addConstraints(left: nil, top: cell.topAnchor, right: cell.rightAnchor, bottom: cell.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 30, bottomConstent: 0, width: 0, height: 0)
+    }
+}
+
+extension SettingsViewController: FBSDKLoginButtonDelegate {
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil {
+            DLog("[ERROR] Facebook loginButton didCompleteWith result failed, error = \(error)")
+        }
+        DLog("[SUCCESS] Facebook loginButton didCompleteWith result = \(result)")
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        ProfileManager.shared.logoutUser()
+        navigationController?.popToRootViewController(animated: false)
     }
 }
 
@@ -133,6 +160,11 @@ extension SettingsViewController: UITableViewDelegate {
             openSystemSetting()
         }
     }
+    
+    // if use this delegate, the facebook logout button will disappear  - Xin
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 44
+//    }
 
     
 }

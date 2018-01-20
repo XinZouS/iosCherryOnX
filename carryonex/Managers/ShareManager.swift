@@ -143,9 +143,11 @@ class ShareViewFactory: UIView {
     
     @objc private func shareToFacebook(){
         alert?.dismiss(animated: true, completion: { [weak self] in
+            //if let message = self?.message, let urlString = self?.url { // 1/2: if fb share doesn't work, try this line instead
             if let message = self?.message, let urlString = self?.url, let url = URL(string: urlString) {
                 if let sourceViewController = self?.sourceViewController {
                     let fbContent = FBSDKShareLinkContent()
+                    //fbContent.contentURL = URL(string: urlString) // 2/2: if fb share doesn't work, try this line instead
                     fbContent.contentURL = url
                     fbContent.quote = message
                     let shareDialog = FBSDKShareDialog()

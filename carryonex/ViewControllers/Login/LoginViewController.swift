@@ -8,6 +8,7 @@
 
 import UIKit
 import M13Checkbox
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
 
@@ -54,6 +55,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addWeChatObservers()
+        setupFBLoginButton()
         setupTextFields()
         setupFlagPicker()
         setupContentsText()
@@ -66,6 +68,14 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let fbtoken = FBSDKAccessToken.current() {
+            DLog("[Facebook login Success] token = \(fbtoken.debugDescription)")
+            loadUserProfileFromFacebook()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -132,6 +142,90 @@ class LoginViewController: UIViewController {
         flagPicker.addConstraints(left: bottomImageView.leftAnchor, top: bottomImageView.topAnchor, right: bottomImageView.rightAnchor, bottom: bottomImageView.bottomAnchor, leftConstent: 0, topConstent: 0, rightConstent: 0, bottomConstent: 0, width: 0, height: 0)
     }
     
+    private func setupFBLoginButton() {
+        let b = FBSDKLoginButton()
+        b.delegate = self
+        b.readPermissions = ["email", "public_profile"]
+        view.addSubview(b)
+        b.bounds = wechatLoginButton.bounds
+        b.addConstraints(left: wechatLoginButton.leftAnchor, top: wechatLoginButton.bottomAnchor, right: wechatLoginButton.rightAnchor, bottom: nil, leftConstent: 0, topConstent: 60, rightConstent: 0, bottomConstent: 0, width: 0, height: 44)
+    }
+    
+    private func loadUserProfileFromFacebook() {
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start(completionHandler: { (requestConnection, result, error) in
+            if error != nil {
+                DLog("[ERROR] loadUserProfileFromFacebook fail, err = \(error.debugDescription)")
+                return
+            }
+            if let dict = result as? [String: AnyObject], let myFbId = dict["id"] as? String, !myFbId.isEmpty {
+                let imgUrlStr = "https://graph.facebook.com/\(myFbId)/picture?height=200&width=200"
+                let realName = dict["name"] as? String ?? "Facebook User"
+                let email = dict["email"] as? String ?? ""
+                
+                ApiServers.shared.getIsUserExisted(phoneInput: myFbId, completion: { (success, err) in
+                    
+                    if success {
+                        ProfileManager.shared.login(username: myFbId, password: myFbId.quickTossPassword(), completion: { (success) in
+                            AppDelegate.shared().stopLoading()
+                            
+                            if success {
+                                self.dismiss(animated: true, completion: nil)
+                                AnalyticsManager.shared.trackCount(.loginByFacebookCount)
+                                AnalyticsManager.shared.finishTimeTrackingKey(.loginProcessTime)
+                                
+                            } else {
+                                DLog("[ERROR] User exists login failed")
+                            }
+                        })
+                        
+                    } else { // user NOT exist, go registeration
+                        let password = myFbId.quickTossPassword()
+                        ProfileManager.shared.register(username: myFbId, password: password, name: realName, completion: { (success, err, errType) in
+                            
+                            if success {
+                                ProfileManager.shared.login(username: myFbId, password: password, completion: { (success) in
+                                    AppDelegate.shared().stopLoading()
+                                    var allSuccess = false
+                                    ProfileManager.shared.updateUserInfo(.imageUrl, value: imgUrlStr, completion: { (updateSuccess) in
+                                        if updateSuccess {
+                                            if allSuccess {
+                                                self.dismiss(animated: true, completion: nil)
+                                                AnalyticsManager.shared.trackCount(.registerByFacebookCount)
+                                                AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
+                                            }
+                                            allSuccess = true // mark one of two is success
+                                        } else {
+                                            DLog("[ERROR] Facebook registration update user imageURL failed at new registration")
+                                        }
+                                    })
+                                    ProfileManager.shared.updateUserInfo(.email, value: email, completion: { (sucess) in
+                                        if success {
+                                            if allSuccess {
+                                                self.dismiss(animated: true, completion: nil)
+                                                AnalyticsManager.shared.trackCount(.registerByFacebookCount)
+                                                AnalyticsManager.shared.clearTimeTrackingKey(.loginProcessTime)
+                                            }
+                                            allSuccess = true // mark one of two is success
+                                        } else {
+                                            DLog("[ERROR] Facebook registration update user Email failed at new registration")
+                                        }
+                                    })
+                                })
+                            } else {
+                                AppDelegate.shared().stopLoading()
+                                if let error = err {
+                                    DLog("[ERROR] Facebook registration error: \(error.localizedDescription). Error Type: \(errType)")
+                                } else {
+                                    DLog("[ERROR] Facebook registration error...")
+                                }
+                            } // ProfileManager.shared.register( --> if(success){} else {}
+                        }) // ProfileManager.shared.register(
+                    } // ApiServers.shared.getIsUserExisted( --> if(success){} else {}
+                }) // ApiServers.shared.getIsUserExisted(
+            }
+        }) // FBSDKGraphRequest(graphPath
+    }
+
     
     private func setupTextFields() {
         phoneField.delegate = self
@@ -329,6 +423,25 @@ extension LoginViewController {
     
 }
 
+// MARK: - Facebook loginButton delegate
+extension LoginViewController: FBSDKLoginButtonDelegate {
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil {
+            displayGlobalAlert(title: "Facebook login fail", message: "try again", action: L("action.ok"), completion: nil)
+            return
+        }
+        if let token = result.token {
+            DLog("[SUCCESS] login by facebook, token = \(token.debugDescription)")
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        ProfileManager.shared.logoutUser()
+    }
+    
+}
 
 
 extension LoginViewController: UITextFieldDelegate {

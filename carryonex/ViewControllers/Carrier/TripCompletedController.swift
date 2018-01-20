@@ -77,6 +77,7 @@ class TripCompletedController : UIViewController{
     
     private func setupNavigationBar(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem()
+        navigationController?.isNavigationBarHidden = true
     }
     
     

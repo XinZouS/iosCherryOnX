@@ -26,8 +26,12 @@ enum AnalyticsTimeKey: String {
 
 enum AnalyticsCountKey: String {
     case registerByWeChatCount = "register-by-wechat-count"
+    case registerByFacebookCount = "register-by-facebook-count"
+    case registerByGoogleCount = "register-by-google-count"
     case registerByEmailCount = "register-by-email-count"
     case loginByWeChatCount = "login-by-wechat-count"
+    case loginByFacebookCount = "login-by-facebook-count"
+    case loginByGoogleCount = "login-by-google-count"
     case loginByEmailCount = "login-by-email-count"
     case senderPlacePriceCount = "sender-place-price-count"
     case requestAcceptCount = "request-accept-count"
